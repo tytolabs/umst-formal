@@ -6,28 +6,42 @@ license:         MIT
 author:          Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy
 build-type:      Simple
 
+-- Flag: enable Rust FFI bindings.
+-- Default False so that `cabal build` and `cabal test` work without
+-- first compiling the Rust ffi-bridge.
+-- Enable with:  cabal build -f with-ffi
+flag with-ffi
+  description: Link against libumst_ffi (requires `cargo build --release` in ffi-bridge/)
+  default:     False
+  manual:      True
+
 library
   exposed-modules:
     UMST
     KleisliDIB
-    FFI
+
+  -- FFI module exposed only when Rust library is available.
+  if flag(with-ffi)
+    exposed-modules:
+      FFI
+    extra-lib-dirs:    ../ffi-bridge/target/release
+    extra-libraries:   umst_ffi
+
   hs-source-dirs:   .
   build-depends:
-    base       >= 4.18 && < 5,
-    mtl        >= 2.3  && < 3.0,
-    transformers >= 0.6 && < 0.7
-  extra-lib-dirs:    ../ffi-bridge/target/release
-  extra-libraries:   umst_ffi
-  ghc-options:       -Wall -Wno-unused-imports
-  default-language:  Haskell2010
+    base         >= 4.18 && < 5,
+    mtl          >= 2.3  && < 3.0,
+    transformers >= 0.6  && < 0.7
+  ghc-options:      -Wall -Wno-unused-imports
+  default-language: Haskell2010
 
 test-suite umst-properties
-  type:              exitcode-stdio-1.0
-  main-is:           Test.hs
-  hs-source-dirs:    test
+  type:             exitcode-stdio-1.0
+  main-is:          Test.hs
+  hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,
     QuickCheck >= 2.14 && < 2.16,
     umst-formal
-  ghc-options:       -Wall -threaded -rtsopts -with-rtsopts=-N
-  default-language:  Haskell2010
+  ghc-options:      -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language: Haskell2010

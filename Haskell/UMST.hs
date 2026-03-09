@@ -28,7 +28,20 @@
 -- the admissible subcategory.  See "KleisliDIB" for the monad that
 -- threads state through the Discover–Invent–Build cycle.
 
-module UMST where
+module UMST
+  ( -- * Types
+    ThermodynamicState (..)
+  , AdmissibilityResult (..)
+    -- * Constants
+  , qHydration
+  , tolerance
+  , massTolerance
+  , intrinsicStrength
+    -- * Gate
+  , gateCheck
+    -- * Constructors
+  , fromMix
+  ) where
 
 ------------------------------------------------------------------------
 -- Constants

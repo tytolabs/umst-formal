@@ -65,7 +65,24 @@
 --     that the proposed state transition satisfies all invariants
 --     before committing it to the material record.
 
-module KleisliDIB where
+module KleisliDIB
+  ( -- * State and monad type
+    UMSTState (..)
+  , LogEntry (..)
+  , Phase (..)
+  , DIB
+    -- * DIB data types
+  , Observation (..)
+  , Insight (..)
+  , Design (..)
+  , Artifact (..)
+    -- * DIB phases (Kleisli arrows)
+  , discover
+  , invent
+  , build
+    -- * Full cycle (Kleisli composition)
+  , dibCycle
+  ) where
 
 import Control.Monad.State  (StateT, get, modify', runStateT)
 

@@ -49,7 +49,16 @@
 --   we import a pointer-based shim (@umst_thermo_state_from_mix_ptr@)
 --   that writes the result into caller-allocated memory.
 
-module FFI where
+module FFI
+  ( -- * High-level wrappers
+    withFilter
+  , rustGateCheck
+    -- * Property tests
+  , prop_gateCorrespondence
+  , runCorrespondenceTests
+    -- * C struct (re-exported for advanced use)
+  , CThermodynamicState (..)
+  ) where
 
 import Foreign
 import Foreign.C.Types

@@ -493,6 +493,6 @@ Qed.
 (*    • psi_antitone (Helmholtz model: ψ antitone in α)                *)
 (*    • fc_monotone  (Powers model: fc monotone in α)                  *)
 (*                                                                      *)
-(*  Admitted:                                                           *)
-(*    • helmholtz_antitone (concrete arithmetic for −Q·α₂ ≤ −Q·α₁)    *)
+(*  All lemmas fully proved (no Admitted obligations remain):           *)
+(*    • helmholtz_antitone: proved via unfold Qle / destruct / nia     *)
 (* ================================================================== *)

@@ -3,7 +3,7 @@ AGDA       := agda
 # --library : uses umst-formal.agda-lib for the stdlib path.
 AGDA_FLAGS := --safe --library=umst-formal
 
-SOURCES := Gate.agda Naturality.agda DIB-Kleisli.agda Activation.agda
+SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda
 
 .PHONY: all check html clean
 

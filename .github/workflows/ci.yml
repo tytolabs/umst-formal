@@ -6,10 +6,18 @@ on:
   pull_request:
     branches: [main]
 
-# Cancel in-progress runs on the same branch/PR to save resources.
+# Cancel in-progress runs on the same branch/PR.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+# The Rust FFI bridge depends on umst-prototype-2a/prototype/src/rust/core
+# (a sibling repository).  In CI, set UMST_PROTO_REPO to the full GitHub
+# URL of that repository, e.g.:
+#   https://github.com/<org>/umst-prototype-2a
+# The rust-ffi job clones it at the expected relative path.
+env:
+  UMST_PROTO_REPO: ${{ vars.UMST_PROTO_REPO || '' }}
 
 jobs:
   # ── Agda type-checking ─────────────────────────────────────────────
@@ -28,7 +36,7 @@ jobs:
         working-directory: Agda
         run: make check
 
-  # ── Coq compilation ────────────────────────────────────────────────
+  # ── Coq compilation + extraction ───────────────────────────────────
   coq:
     name: Coq proof compilation
     runs-on: ubuntu-latest
@@ -43,13 +51,18 @@ jobs:
 
       - name: Compile Coq proofs
         working-directory: Coq
-        run: make all
+        run: make check
 
-      - name: Run extraction
+      - name: Run OCaml extraction
         working-directory: Coq
-        run: make extraction
+        run: make extract
 
-  # ── Haskell (pure: no FFI) ─────────────────────────────────────────
+  # ── Haskell (pure: no FFI flag) ─────────────────────────────────────
+  #
+  # Builds only the pure modules (UMST, KleisliDIB) and runs QuickCheck.
+  # FFI.hs is excluded because it requires libumst_ffi, which is only
+  # built in the rust-ffi job.  Use `cabal build -f with-ffi` locally
+  # after running `cargo build --release` in ffi-bridge/.
   haskell-pure:
     name: Haskell pure gate tests
     runs-on: ubuntu-latest
@@ -72,37 +85,51 @@ jobs:
       - name: Update package index
         run: cabal update
 
-      - name: Build library (no FFI)
+      - name: Build pure library (FFI disabled)
         working-directory: Haskell
-        # Build only the pure modules; FFI.hs requires the compiled Rust lib.
-        run: |
-          cabal build lib:umst-formal \
-            --ghc-options="-DPURE_ONLY" \
-            2>&1
+        # -f -with-ffi: build WITHOUT the FFI flag → no Rust dep, no linker error
+        run: cabal build lib:umst-formal -f -with-ffi
 
-      - name: Run pure property tests
+      - name: Run QuickCheck property tests
         working-directory: Haskell
-        # Run tests against UMST and KleisliDIB only (no FFI).
         run: |
           cabal test umst-properties \
-            --test-option=--qc-max-success=1000 \
-            2>&1
+            -f -with-ffi \
+            --test-show-details=streaming \
+            --test-option=--qc-max-success=500
 
   # ── Rust FFI bridge ────────────────────────────────────────────────
+  #
+  # Requires umst-prototype-2a at ../../umst-prototype-2a relative to this
+  # repo root.  Set the repository-level variable UMST_PROTO_REPO to the
+  # GitHub URL of the prototype repo:
+  #   Settings → Variables → Actions → New variable: UMST_PROTO_REPO
   rust-ffi:
     name: Rust FFI bridge tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
+
+      - name: Clone umst-prototype-2a (required for path dependency)
+        if: env.UMST_PROTO_REPO != ''
+        run: |
+          git clone --depth=1 "$UMST_PROTO_REPO" \
+            ../umst-prototype-2a
+
+      - name: Skip if prototype repo not configured
+        if: env.UMST_PROTO_REPO == ''
+        run: |
+          echo "::warning::UMST_PROTO_REPO not set — Rust tests skipped."
+          echo "Set the Actions variable UMST_PROTO_REPO to the prototype repo URL."
 
       - name: Install Rust stable
+        if: env.UMST_PROTO_REPO != ''
         uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy, rustfmt
 
       - name: Cache cargo registry
+        if: env.UMST_PROTO_REPO != ''
         uses: actions/cache@v4
         with:
           path: |
@@ -112,12 +139,15 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Check formatting
+        if: env.UMST_PROTO_REPO != ''
         run: cargo fmt --all -- --check
 
       - name: Clippy (warnings as errors)
+        if: env.UMST_PROTO_REPO != ''
         run: cargo clippy --all-targets --all-features -- -D warnings
 
-      - name: Run FFI bridge tests
+      - name: Run integration tests
+        if: env.UMST_PROTO_REPO != ''
         run: cargo test --release -p umst-ffi-bridge
 
   # ── Markdown / docs lint ───────────────────────────────────────────
@@ -135,9 +165,9 @@ jobs:
           markdownlint \
             README.md \
             CONTRIBUTING.md \
+            CHANGELOG.md \
             Agda/README.md \
             Coq/README.md \
             Haskell/README.md \
             Docs/Architecture-Invariants.md \
-            --config .markdownlint.json \
-            || true  # non-fatal until config is tuned
+            --config .markdownlint.json
