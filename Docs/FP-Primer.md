@@ -51,6 +51,23 @@ Category Theory
 **Sections §1–§18** cover concepts used directly in this repository.
 **Sections §19–§41** extend to the full mathematical foundations that the code
 builds on and the literature references.
+**Sections §42–§52** apply the complete framework to geometric computation via SDF
+and FRep, showing the same categorical laws operating on continuous geometry.
+
+```
+SDF / FRep (Application Domain — §42–§52)
+  ├── Implicit Function (FRep)         ← pure function (§1), exponential (§23)
+  │     └── SDF                        ← stronger contract (Eikonal)
+  │           ├── R-Function           ← monoid (§9) on SDF
+  │           ├── Functional CSG       ← semigroup / monoid composition
+  │           ├── Blending Operator    ← applicative (§13) combination
+  │           ├── Offset Surface       ← endofunctor action (§8), natural trans. (§11)
+  │           ├── Gradient / Normal    ← natural transformation (§11)
+  │           └── Ray Marching         ← Kleisli composition (§12), fixed point (§39)
+  ├── Recursive Shape                  ← catamorphism (§26), Fix (§26)
+  ├── Geometry DSL                     ← free monad (§18), initial algebra (§26)
+  └── HFRep                            ← monad transformer stack (§14)
+```
 
 ---
 
@@ -1320,6 +1337,17 @@ The table below maps each formal concept to its concrete role in this codebase.
 | Y combinator / `fix` | Implicit in all structural recursion and monad-law proofs | `Agda/DIB-Kleisli.agda` |
 | Church encoding | Ancestor of Agda inductive types; `Admissible` as proof object | `Agda/Gate.agda` |
 | Combinatory logic | Point-free style throughout; proof irrelevance in Agda | `Haskell/Props.hs`, `Agda/Gate.agda` |
+| Implicit function (FRep) | Gate as implicit surface in state-product space | Conceptual (all layers) |
+| SDF | Clausius-Duhem as signed distance to equilibrium surface | `Haskell/UMST.hs` (`psiDot`) |
+| R-Function | Gate as R-intersection of four invariant surfaces | `Agda/Gate.agda`, `Haskell/UMST.hs` |
+| Functional CSG | Four-invariant conjunction = CSG intersection in state space | All gate layers |
+| Blending operator | Tolerance bands (`massTolerance`, `tolerance`) as soft offsets | `Haskell/UMST.hs` |
+| Offset surface | Each gate tolerance = offset of a hard invariant surface | `Haskell/UMST.hs` |
+| Recursive shape / Catamorphism | Kleisli monad-law proof by structural recursion | `Agda/DIB-Kleisli.agda` |
+| Ray marching | Gate checks as Kleisli composition in `Maybe`; fixed-point search | `Haskell/UMST.hs` |
+| Gradient / Normal | `psiDot` = analytic gradient of Helmholtz SDF; `helmholtz_antitone` | `Haskell/UMST.hs`, `Coq/Gate.v` |
+| Geometry DSL (Free/Initial) | Same pattern as `GateF` free monad; `foldFree` = interpreter | `CONTRIBUTING.md` |
+| HFRep | Three formal layers = hybrid representations of same gate semantics | All layers + `ffi-bridge` |
 
 ### The central result in one sentence
 
@@ -1354,6 +1382,398 @@ For a practitioner reading the codebase for the first time:
 
 6. **`Agda/DIB-Kleisli.agda`** and **`Haskell/KleisliDIB.hs`** — the methodology
    layer: the DIB cycle as a Kleisli monad, with proof of the monad laws.
+
+---
+
+### Geometric Computation via Function Representation
+
+The following sections extend the framework to Signed Distance Functions (SDF) and
+Function Representation (FRep). Every concept maps directly onto one already
+introduced: implicit functions are pure functions, CSG is functional composition,
+blending is applicative combination, recursive shapes are catamorphisms, and
+the embedded geometry DSL is an instance of the free monad (§18). The UMST gate
+function is itself an implicit surface in the product space of material states:
+the admissible region is where the gate evaluates to "inside."
+
+---
+
+## 42. Implicit Function (FRep Core)
+
+**Definition.** A Function Representation (FRep) object is a continuous real-valued
+function \(f: \mathbb{R}^n \to \mathbb{R}\) such that the geometric surface is the
+zero level set \(\{x \mid f(x) = 0\}\), the interior is where \(f(x) \leq 0\), and
+the exterior is where \(f(x) > 0\). The object is defined entirely by the function;
+no mesh, boundary representation, or sampling is needed.
+
+**Precisely.** An FRep is a pure, referentially transparent function (§36). The
+surface has no explicit representation — it is implicit in the function's zero set.
+All geometric operations (union, intersection, offset, transformation) reduce to
+function composition and arithmetic.
+
+```haskell
+type FRep = V3 Double -> Double   -- point in ℝ³ → signed value
+```
+
+The type `FRep` is an exponential object (§23) in **Hask**: a first-class value
+that can be stored, passed, returned, and composed exactly like any other function.
+
+**In this repository.** The UMST gate function viewed over state space defines an
+implicit surface: the boundary of the admissible region in
+\(\mathrm{ThermodynamicState} \times \mathrm{ThermodynamicState}\) is the zero set
+of the gate's indicator. Points "inside" (all four invariants satisfied) correspond
+to \(f \leq 0\); points "outside" (any invariant violated) to \(f > 0\). This
+geometric reading of the gate is not just analogy — it is the precise reason the gate
+is a decidable predicate (`Dec Admissible` in Agda): the zero set is a computable
+level surface.
+
+---
+
+## 43. Signed Distance Function (SDF)
+
+**Definition.** A Signed Distance Function (SDF) is an implicit function (§42) with
+the additional property that \(|f(x)|\) equals the exact Euclidean distance from
+\(x\) to the nearest surface point. The sign encodes interior (negative) or exterior
+(positive).
+
+**Precisely.** An SDF satisfies the Eikonal equation almost everywhere:
+\(\|\nabla f(x)\| = 1\). This constraint — that the gradient has unit magnitude — is
+the formal statement that \(f\) is a distance function, not merely an implicit one.
+Many operations (e.g., offset by \(d\)) work correctly only when this condition holds.
+
+```haskell
+type SDF = V3 Double -> Double   -- same type as FRep; stronger contract
+
+sphere :: Double -> SDF
+sphere r p = norm p - r          -- distance from origin minus radius
+```
+
+**In this repository.** The Clausius-Duhem dissipation
+\(D_\mathrm{int} = -\rho \cdot \dot{\psi} \geq 0\) in the UMST gate can be read as
+a signed distance to the thermodynamic equilibrium surface: \(D_\mathrm{int} = 0\)
+is the boundary, \(D_\mathrm{int} > 0\) is the admissible interior (energy
+dissipating), and \(D_\mathrm{int} < 0\) would be the inadmissible exterior (energy
+increasing). The tolerance \(\delta\) in mass conservation \(|\rho_\mathrm{new} -
+\rho_\mathrm{old}| \leq \delta\) is an offset of this implicit surface (§47).
+
+---
+
+## 44. R-Function
+
+**Definition.** An R-function is a real-valued continuous function that exactly
+realises a Boolean set operation (union, intersection, difference) on the zero level
+sets of two FRep/SDF functions while remaining \(C^\infty\)-smooth everywhere. It
+generalises the `min`/`max` operations (which are \(C^0\) only) to smooth geometry.
+
+**Precisely.** The R-union \(f \lor g\) satisfies: its zero set is exactly the
+set-theoretic union of the zero sets of \(f\) and \(g\). One standard form:
+
+\[f \lor g = \frac{f + g - \sqrt{f^2 + g^2}}{1 + \sqrt{2}}\]
+
+```haskell
+rUnion :: SDF -> SDF -> SDF
+rUnion a b p =
+  let f = a p; g = b p
+  in (f + g - sqrt (f*f + g*g)) / (1 + sqrt 2)
+```
+
+The set of all SDF/FRep values under `rUnion` forms a commutative monoid with
+identity the constant \(+\infty\) function (the "empty" shape with no interior).
+This is the same monoid structure (§9) that appears in `All`, `&&`, and the test
+suite — applied to continuous geometry rather than discrete booleans.
+
+**In this repository.** The UMST gate combines four invariant sub-conditions using
+logical conjunction (R-intersection, not union), but the structure is identical: each
+sub-condition is an implicit function on state space, and the gate is their
+R-intersection. The monoid identity is the vacuously satisfied condition (the
+universal set). The `Admissible` record in `Agda/Gate.agda` is the dependent-type
+realisation of R-intersection: all four fields must be inhabited simultaneously.
+
+---
+
+## 45. Functional Constructive Solid Geometry (CSG)
+
+**Definition.** Functional CSG builds composite geometry by applying higher-order
+combinators (union, intersection, subtraction, blending) directly to implicit or
+signed-distance functions, producing a new function that represents the combined
+object. The result is a tree of function compositions, not an explicit boundary.
+
+**Precisely.** The set of FRep/SDF values with union (`min`) and intersection
+(`max`) forms a semiring; with R-functions (§44) it forms a smooth semiring. Both
+union and intersection are associative with identities, satisfying the monoid laws
+(§9) in both dimensions:
+
+```haskell
+instance Semigroup SDF where
+  (<>) = rUnion              -- smooth union; or `min` for exact SDF union
+
+instance Monoid SDF where
+  mempty = const 1e100       -- the "empty" shape: every point is outside
+```
+
+**In this repository.** The gate's conjunction of four invariants is a functional
+CSG intersection in state space:
+
+\[\mathrm{gate}(s_1, s_2) = \mathrm{massCond}(s_1, s_2) \;\cap\; \mathrm{clausiusCond}(s_1, s_2) \;\cap\; \mathrm{hydrationCond}(s_1, s_2) \;\cap\; \mathrm{strengthCond}(s_1, s_2)\]
+
+The Haskell `gateCheck` function evaluates this CSG intersection explicitly; the
+Agda `Admissible` record encodes it dependently; the Coq `admissible` proposition
+encodes it as a logical conjunction. All three are the same CSG intersection, in
+three different formal languages.
+
+---
+
+## 46. Blending Operator
+
+**Definition.** A blending operator is a higher-order function that takes two
+implicit/SDF values and returns a smooth transition surface between them, controlled
+by a parameter that determines the blend radius or smoothness. It extends CSG union
+by allowing the surfaces to interpenetrate and merge gradually rather than sharply.
+
+**Precisely.** One standard polynomial smooth-union (Quilez 2015):
+
+```haskell
+smoothUnion :: Double -> SDF -> SDF -> SDF
+smoothUnion k a b p =
+  let av = a p
+      bv = b p
+      h  = max (k - abs (av - bv)) 0 / k
+  in min av bv - h * h * h * k * (1/6)
+```
+
+The parameter `k` controls the blend radius: as \(k \to 0\) the operator converges
+to `min` (exact union); as \(k \to \infty\) the blend region expands to encompass
+all space.
+
+**In this repository.** The tolerance parameter \(\delta\) in the mass-conservation
+check \(|\rho_\mathrm{new} - \rho_\mathrm{old}| \leq \delta\) is a blending operator
+applied to the hard step at \(\delta = 0\): it replaces the binary pass/fail with a
+soft band of width \(\delta\) around the exact conservation surface. The
+`massTolerance` constant in `Haskell/UMST.hs` is this blend parameter. This is
+precisely the Applicative (§13) pattern: independent effects (density change and
+tolerance) are combined before any sequential dependency is introduced.
+
+---
+
+## 47. Offset Surface (Minkowski Sum with a Ball)
+
+**Definition.** Offsetting an SDF by distance \(d\) moves its zero level set outward
+by \(d\) (positive offset) or inward (negative). For a true SDF, this operation is
+exact and requires only point-wise subtraction.
+
+**Precisely.** Given SDF \(f\), the offset surface at distance \(d\) is:
+\[f_d(x) = f(x) - d\]
+
+This is a natural transformation (§11) on SDF values: it commutes with all CSG
+operations, lifts uniformly across any shape, and preserves the Eikonal condition
+\(\|\nabla f_d\| = 1\) identically (since \(\nabla f_d = \nabla f\)).
+
+```haskell
+offset :: Double -> SDF -> SDF
+offset d f p = f p - d           -- functorial: works for any shape
+```
+
+The offset operation is an endofunctor action on SDF space: applying `offset d`
+to any shape gives another shape of the same type, and the naturality condition
+\(\mathrm{offset}\, d \circ \mathrm{op} = \mathrm{op} \circ \mathrm{offset}\, d\)
+holds for any CSG operation `op`.
+
+**In this repository.** Every tolerance-band in the UMST gate is an offset:
+\(|\rho_\mathrm{new} - \rho_\mathrm{old}| \leq \delta\) is the zero-set condition of
+the SDF \(f(s_1, s_2) = |\rho_\mathrm{new} - \rho_\mathrm{old}| - \delta\), i.e.,
+the surface \(|\rho_\mathrm{new} - \rho_\mathrm{old}| = 0\) offset outward by
+\(\delta\). The four gate tolerances (`massTolerance`, `tolerance` in `Haskell/UMST.hs`)
+are four independent offset parameters, one per invariant surface.
+
+---
+
+## 48. Procedural and Recursive Shape Definition
+
+**Definition.** Procedural geometry in FRep/SDF defines complex shapes through
+recursive function calls on transformed coordinates — fractals, self-similar tilings,
+subdivision surfaces — where a primitive base-case terminates the recursion. Each
+recursive level refines the shape without an explicit limit mesh.
+
+**Precisely.** This is catamorphism (§26) applied to geometry. A recursive shape
+type is the initial F-algebra for a shape functor:
+
+```haskell
+data ShapeF a
+  = Sphere  Double
+  | Union   a a
+  | Scale   (V3 Double) a
+  deriving Functor
+
+type Shape = Fix ShapeF
+
+toSDF :: Shape -> SDF
+toSDF = cata alg
+  where
+    alg (Sphere r)   = sphere r
+    alg (Union a b)  = rUnion a b
+    alg (Scale s f)  = \p -> f (p / s) * norm s
+```
+
+`cata alg` folds the shape tree into a single SDF function, exactly as a list fold
+reduces a list to a single value. The `Functor` instance on `ShapeF` is what enables
+the catamorphism — `fmap` lifts the recursive interpretation one level at a time.
+
+**In this repository.** The Agda proof of the Kleisli monad laws in
+`Agda/DIB-Kleisli.agda` uses structural recursion on the `M A` record — the same
+pattern as `cata`: fold over the monadic computation tree, applying the algebra at
+each node. The `ShapeF` functor is structurally identical to the DIB phase functor:
+leaf nodes are base computations, internal nodes are compositions.
+
+---
+
+## 49. Ray Marching (Sphere Tracing)
+
+**Definition.** Ray marching (sphere tracing) is a rendering algorithm that finds
+the intersection of a ray with an SDF surface by iteratively stepping along the ray
+by the exact SDF value at the current position. Each step is guaranteed safe —
+the sphere of that radius contains no surface — and the iteration terminates when
+the SDF value drops below an epsilon threshold.
+
+**Precisely.** Let \(\mathrm{ro}\) be the ray origin, \(\mathrm{rd}\) the unit
+direction, and \(f\) the SDF. Define the iterated map:
+
+\[d_{n+1} = d_n + f(\mathrm{ro} + d_n \cdot \mathrm{rd})\]
+
+This converges to the surface intersection when \(|f(\mathrm{ro} + d_n \cdot \mathrm{rd})| < \varepsilon\).
+
+```haskell
+rayMarch :: SDF -> V3 Double -> V3 Double -> Double -> Maybe (V3 Double)
+rayMarch sdf ro rd maxDist = go 0
+  where
+    go d
+      | d > maxDist                         = Nothing
+      | abs (sdf (ro + d *^ rd)) < 1e-4    = Just (ro + d *^ rd)
+      | otherwise                           = go (d + sdf (ro + d *^ rd))
+```
+
+**In this repository.** Ray marching is a fixed-point search — the categorical
+fixed-point (§39, Y combinator) applied to the step function
+\(d \mapsto d + f(\mathrm{ro} + d \cdot \mathrm{rd})\). The `go` function is
+exactly `fix step` where `step` returns `Nothing` at termination and recurses
+otherwise. This is Kleisli composition (§12) in the `Maybe` monad: each step is a
+Kleisli arrow `Double -> Maybe Double`, and `rayMarch` is their Kleisli composition
+under `>=>`. The UMST gate check is analogous: iterating through each invariant
+check in sequence, short-circuiting to `Nothing` (inadmissible) as soon as any
+condition fails — sphere tracing through the space of physical constraints.
+
+---
+
+## 50. Gradient and Normal Computation
+
+**Definition.** The gradient \(\nabla f(x)\) of an SDF at a surface point gives the
+outward unit normal vector. For a true SDF, \(\|\nabla f\| = 1\) everywhere, so
+the gradient is already normalised. Gradients can be computed analytically,
+symbolically, or via finite differences.
+
+**Precisely.** The gradient is the categorical derivative of the SDF functor: it is
+a natural transformation from the functor `SDF` to the functor `SDF -> V3` that
+commutes with all CSG operations. For an SDF built from R-functions and offsets, the
+gradient satisfies the chain rule automatically, which is the FRep analogue of
+functor composition preserving structure.
+
+Numeric approximation via finite differences:
+
+```haskell
+normal :: SDF -> V3 Double -> V3 Double
+normal f p = normalize
+  (V3 (f (p + e3 (1e-4, 0, 0)) - f p)
+      (f (p + e3 (0, 1e-4, 0)) - f p)
+      (f (p + e3 (0, 0, 1e-4)) - f p))
+```
+
+Automatic differentiation (dual numbers) computes the exact gradient at the cost
+of evaluating `f` once with dual-number inputs instead of `Double`.
+
+**In this repository.** The Helmholtz free-energy gradient
+\(\dot{\psi} = \partial \psi / \partial \alpha \cdot \dot{\alpha} = -Q_\mathrm{hyd} \cdot \dot{\alpha}\)
+in `Haskell/UMST.hs` (`psiDot`) is the gradient of the Helmholtz SDF in the
+one-dimensional hydration state space. It is computed analytically
+(not numerically), which is why `psiDot` is an exact formula rather than a finite
+difference. The `helmholtz_antitone` theorem proved in `Coq/Gate.v` is the formal
+statement that this gradient is negative (the SDF is antitone in \(\alpha\)):
+the surface moves in the admissible direction as hydration advances.
+
+---
+
+## 51. Embedded DSL for Geometry (Free and Initial Algebra)
+
+**Definition.** An embedded geometry DSL defines a set of primitive shape
+constructors and combinators as an algebraic data type, then uses a free monad or
+initial algebra to represent any composite geometry as a pure syntax tree. An
+interpreter — a natural transformation from the DSL functor to any target monad
+— evaluates the tree into a concrete SDF, a mesh, or a simulation result.
+
+**Precisely.** Using the free monad (§18) over `ShapeF`:
+
+```haskell
+type ShapeDSL a = Free ShapeF a
+
+-- a DSL program is a syntax tree
+example :: ShapeDSL ()
+example = do
+  s1 <- liftF (Sphere 1.0)
+  s2 <- liftF (Sphere 0.5)
+  liftF (Union s1 s2)
+
+-- the interpreter is the catamorphism toSDF
+interpret :: ShapeDSL () -> SDF
+interpret = foldFree (\case
+  Sphere r   -> sphere r
+  Union a b  -> rUnion a b
+  Scale s f  -> \p -> f (p / s) * norm s)
+```
+
+The `foldFree` function is the free monad's universal property: it is the unique
+monad homomorphism from `Free ShapeF` to any other monad, determined by a natural
+transformation `ShapeF ~> m`.
+
+**In this repository.** The Free Monad section (§18) described a `GateF` functor
+for the gate effect algebra. The geometry DSL here is the exact same pattern applied
+to shapes instead of gate operations. Both use `Free` to separate description from
+interpretation; both use `cata`/`foldFree` as the interpreter combinator; both
+produce a function (SDF or `AdmissibilityResult`) as output. The `toSDF` interpreter
+is the geometry analogue of the DIB pipeline interpreter in `Haskell/KleisliDIB.hs`.
+
+---
+
+## 52. Hybrid Function Representation (HFRep)
+
+**Definition.** Hybrid Function Representation (HFRep) combines FRep (continuous
+implicit functions) with discrete or distance-based representations (SDF, ADF, IDF)
+inside a single unified function, using higher-order wrappers to select between
+representations contextually or by scale.
+
+**Precisely.** An HFRep is a monad transformer stack (§14) applied to geometry:
+different "effect layers" (continuous, discrete, sampled) are combined while each
+preserving its own laws. The outer layer selects the representation; the inner layer
+evaluates within it.
+
+```haskell
+-- Conceptual structure: hybrid of continuous FRep and discrete SDF
+data HFRepF a
+  = Continuous (V3 Double -> Double)   -- FRep layer
+  | Discrete   (V3 Double -> Double)   -- SDF layer (with Eikonal contract)
+  | Blend Double (HFRepF a) (HFRepF a) -- weighted combination
+
+type HFRep = Fix HFRepF
+```
+
+The composition laws of the transformer stack (§14) guarantee that crossing layer
+boundaries does not violate either representation's invariants, exactly as `lift`
+promotes `IO` actions into `StateT IO` without losing the state-threading invariant.
+
+**In this repository.** The UMST multi-layer system (Agda + Coq + Haskell) is an
+HFRep of formal representations: each layer uses a different formalism (dependent
+types, propositions, pure functions) but encodes the same underlying gate semantics.
+The `ffi-bridge` crate is the layer-crossing mechanism — analogous to `lift` — that
+promotes Rust SDF evaluations (concrete, discrete, machine-level) into the Haskell
+layer (abstract, continuous, type-checked). The synthesis table in
+`Docs/Architecture-Invariants.md` is the HFRep's type correspondence: the same
+"shape" (gate semantics) expressed in three different representation layers.
 
 ---
 
