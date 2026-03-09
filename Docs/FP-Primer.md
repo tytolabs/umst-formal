@@ -14,25 +14,53 @@ before it. The final section shows how they compose to form the UMST-Formal syst
 ## Concept Dependency Map
 
 ```
-Function
-  └── Higher-Order Function
-        └── Type
-              └── Higher-Order Type (Kind)
-                    └── Recursion
-                          └── Category
-                                ├── Functor
-                                │     └── Endofunctor
-                                │           ├── Monad
-                                │           │     ├── Kleisli Category
-                                │           │     ├── Monad Transformer
-                                │           │     ├── Free Monad
-                                │           │     └── (uses) Monoid
-                                │           └── Comonad
-                                ├── Natural Transformation
-                                │     ├── Applicative Functor
-                                │     └── Adjunction
-                                └── 2-Category (enriches the whole map)
+Lambda Calculus
+  ├── Lambda Abstraction → Beta/Alpha/Eta · Y Combinator · Church Encoding · Combinatory Logic
+  ├── Currying (→ CCC, Exponential Object)
+  └── Referential Transparency (→ Monad / IO boundary)
+
+Type Theory
+  ├── Algebraic Data Type (Sum + Product)
+  ├── Parametric Polymorphism (→ Natural Transformation)
+  ├── Dependent Type (→ Curry-Howard)
+  └── Curry-Howard Isomorphism (propositions ↔ types, proofs ↔ programs)
+
+Category Theory
+  └── Category
+        ├── Product · Coproduct · Initial · Terminal · Isomorphism
+        ├── Monoidal Category → String Diagram
+        ├── Cartesian Closed Category → Exponential Object → Currying
+        ├── Functor
+        │     └── Endofunctor
+        │           ├── Monad
+        │           │     ├── Kleisli Category → Free Category on a Graph
+        │           │     ├── Monad Transformer
+        │           │     ├── Free Monad
+        │           │     └── (uses) Monoid
+        │           └── Comonad
+        ├── Natural Transformation
+        │     ├── Applicative Functor
+        │     ├── Adjunction → (induces) Monad
+        │     └── Yoneda Lemma
+        ├── F-Algebra · Catamorphism
+        ├── Limit · Colimit
+        ├── Profunctor
+        └── 2-Category (enriches the whole map)
 ```
+
+**Sections §1–§18** cover concepts used directly in this repository.
+**Sections §19–§41** extend to the full mathematical foundations that the code
+builds on and the literature references.
+
+---
+
+### Direct Repository Concepts (§1–§18)
+
+`Function` → `Higher-Order Function` → `Type` → `Higher-Order Type` →
+`Recursion` → `Category` → `Functor` → `Endofunctor` → `Monoid` →
+`Monad` → `Natural Transformation` → `Kleisli Category` →
+`Applicative Functor` → `Monad Transformer` → `2-Category` →
+`Adjunction` → `Comonad` → `Free Monad`
 
 ---
 
@@ -610,6 +638,641 @@ would simplify the addition of new gate backends.
 
 ---
 
+## Extended Foundations
+
+The sections above (§1–§18) cover every concept used directly in this repository.
+The following sections complete the mathematical background: they are concepts that
+the code's comments reference, that the proofs build on implicitly, or that any
+reader pursuing the literature will encounter immediately. They are grouped by domain
+but follow the same format.
+
+---
+
+### Category Theory: Structures and Constructions
+
+---
+
+## 19. Product and Coproduct
+
+**Definition.** A product combines two objects into a single object that projects
+uniquely back onto each original. A coproduct (sum) is the dual: either original
+object injects uniquely into the combined object and can later be distinguished.
+
+**Precisely.** The product \(A \times B\) has projection morphisms
+\(\pi_1: A \times B \to A\) and \(\pi_2: A \times B \to B\) satisfying the universal
+property: for any \(C\) with morphisms \(f: C \to A\), \(g: C \to B\), there is a
+unique \(\langle f, g \rangle: C \to A \times B\) such that
+\(\pi_1 \circ \langle f, g \rangle = f\) and \(\pi_2 \circ \langle f, g \rangle = g\).
+
+The coproduct \(A + B\) has injection morphisms \(\iota_1: A \to A + B\),
+\(\iota_2: B \to A + B\) satisfying the dual universal property for case analysis.
+
+In Haskell: product is `(a, b)`; coproduct is `Either a b`.
+
+```haskell
+data Either a b = Left a | Right b
+
+either :: (a -> c) -> (b -> c) -> Either a b -> c
+either f _ (Left x)  = f x
+either _ g (Right y) = g y
+```
+
+**In this repository.** `ThermodynamicState` is a product type: four fields composed
+by pairing (density × freeEnergy × hydration × strength). `AdmissibilityResult` is
+also a product. `MaterialClass` in `Agda/Naturality.agda` and `Haskell/UMST.hs` is a
+coproduct — `OPC | Lime | Earth | Geopolymer | RAC` — a sum of five distinct
+constructors. The gate's rejection of inadmissible transitions returns an `Either`-like
+result in the Haskell implementation.
+
+---
+
+## 20. Initial and Terminal Object
+
+**Definition.** An initial object has exactly one morphism to every other object in
+the category. A terminal object receives exactly one morphism from every other object.
+
+**Precisely.** An object \(0\) is initial if for every object \(A\) there is a unique
+\(!_A: 0 \to A\). An object \(1\) is terminal if for every object \(A\) there is a
+unique \(!_A: A \to 1\). In **Hask**:
+
+```haskell
+data Void                      -- initial: uninhabited, no constructors
+
+absurd :: Void -> a
+absurd x = case x of {}        -- unique morphism; vacuously defined
+
+unit :: a -> ()
+unit _ = ()                    -- unique morphism to terminal
+```
+
+**In this repository.** In `Agda/Gate.agda`, the Agda type `⊥` (bottom) is the
+initial object: it is used in `⊥-elim` to discharge contradictory branches in the
+`gate` decision procedure (e.g., when an invariant fails and we need to derive
+`⊥`). The terminal type `⊤` appears as the trivially satisfied proof obligation
+in the admissibility record's trivially-true fields.
+
+---
+
+## 21. Isomorphism
+
+**Definition.** An isomorphism between two objects is a pair of morphisms that are
+mutual inverses: composing them in either order yields the identity. Two isomorphic
+objects are structurally indistinguishable within the category.
+
+**Precisely.** Morphisms \(f: A \to B\) and \(g: B \to A\) form an isomorphism
+\(A \cong B\) if \(g \circ f = \mathrm{id}_A\) and \(f \circ g = \mathrm{id}_B\).
+Every property preserved by the category's structure transfers across an isomorphism.
+
+```haskell
+type Iso a b = (a -> b, b -> a)
+
+-- Example: newtype isomorphism
+newtype Density = Density Double
+isoDensity :: Iso Density Double
+isoDensity = (\(Density x) -> x, Density)
+```
+
+**In this repository.** The type correspondence table in `Docs/Architecture-Invariants.md`
+presents a family of isomorphisms: `ThermodynamicState` (Agda) \(\cong\)
+`thermo_state` (Coq) \(\cong\) `ThermodynamicState` (Haskell). These are not
+equalities — the languages are different — but isomorphisms in an appropriate
+2-category (§15). The Curry-Howard isomorphism (§34) is a further instance: the
+Agda `Admissible` proof type is isomorphic to the Coq `admissible` proposition.
+
+---
+
+## 22. Cartesian Closed Category
+
+**Definition.** A Cartesian closed category (CCC) is one that has all finite
+products, a terminal object, and an internal function space (exponential object,
+§23) for every pair of objects. This structure is exactly equivalent to the
+simply-typed lambda calculus.
+
+**Precisely.** A category \(\mathcal{C}\) is Cartesian closed if:
+1. It has a terminal object \(1\)
+2. Every pair of objects \(A, B\) has a product \(A \times B\)
+3. Every pair \(A, B\) has an exponential \(B^A\) with evaluation
+   \(\mathrm{ev}: B^A \times A \to B\) satisfying the universal currying property
+
+The category **Hask** (ignoring non-termination) is Cartesian closed. This is the
+formal reason why Haskell's type system corresponds to the simply-typed lambda
+calculus.
+
+**In this repository.** The CCC structure of **Hask** guarantees that every function
+type in `Haskell/UMST.hs` and `Haskell/KleisliDIB.hs` composes lawfully. More
+directly: the Agda type-theory underlying `Agda/Gate.agda` is the internal language
+of a locally Cartesian closed category (LCCC), which is what enables dependent types
+(§33) — the generalisation of CCC where the exponential object may depend on its
+base.
+
+---
+
+## 23. Exponential Object
+
+**Definition.** The exponential object \(B^A\) within a category represents the
+collection of all morphisms from \(A\) to \(B\) as a first-class object in the
+category. It is equipped with an evaluation morphism \(\mathrm{ev}: B^A \times A \to B\).
+
+**Precisely.** For any morphism \(f: C \times A \to B\) there exists a unique
+"curried" morphism \(\lambda f: C \to B^A\) such that
+\(\mathrm{ev} \circ (\lambda f \times \mathrm{id}_A) = f\). This is the universal
+property of the exponential.
+
+In Haskell the exponential \(B^A\) is simply the function type `a -> b`; evaluation
+is function application `($)`.
+
+**In this repository.** The gate type `gate :: ThermodynamicState -> ThermodynamicState -> Bool`
+is an exponential in **Hask**: it is an object of the category (a first-class value
+that can be passed to higher-order functions, stored, composed). The QuickCheck
+property `forAll arbitrary (\s -> ...)` takes the gate function as an exponential
+object and applies it to generated inputs — precisely the evaluation morphism.
+
+---
+
+## 24. Monoidal Category
+
+**Definition.** A monoidal category equips an ordinary category with a tensor product
+that combines objects and morphisms in an associative way (up to natural isomorphism)
+together with a unit object that acts neutrally under the tensor.
+
+**Precisely.** A monoidal category \((\mathcal{C}, \otimes, I, \alpha, \lambda, \rho)\)
+consists of:
+- A bifunctor \(\otimes: \mathcal{C} \times \mathcal{C} \to \mathcal{C}\)
+- A unit object \(I\)
+- Natural isomorphisms: associator \(\alpha_{A,B,C}: (A \otimes B) \otimes C \cong A \otimes (B \otimes C)\),
+  left unitor \(\lambda_A: I \otimes A \cong A\), right unitor \(\rho_A: A \otimes I \cong A\)
+
+satisfying the pentagon and triangle coherence diagrams.
+
+**In this repository.** The `Agda/Naturality.agda` monoidal section records that the
+category of material states carries a monoidal structure under mass (density): tensoring
+two specimens combines their densities additively, and the unit is the zero-mass specimen.
+Mass conservation is the gate's constraint that this monoidal structure is respected:
+\(|\rho_{\mathrm{new}} - \rho_{\mathrm{old}}| \leq \delta\) is a monoidal coherence
+condition. String diagrams (§41) provide a natural notation for monoidal-category
+reasoning about material batch composition.
+
+---
+
+## 25. Yoneda Lemma
+
+**Definition.** The Yoneda lemma states that any object in a category is completely
+and uniquely determined by the collection of all morphisms going into or out of it,
+expressed as a natural isomorphism between the hom-functor at that object and any
+other functor evaluated at that object.
+
+**Precisely.** For any functor \(F: \mathcal{C} \to \mathbf{Set}\) and object
+\(A \in \mathcal{C}\):
+\[\mathrm{Nat}(\mathcal{C}(A, -), F) \cong F\,A\]
+naturally in \(A\) and \(F\). The isomorphism sends a natural transformation
+\(\phi\) to \(\phi_A(\mathrm{id}_A)\), and sends \(x \in F\,A\) to the natural
+transformation \(\phi_B(f) = F(f)(x)\).
+
+```haskell
+newtype Yoneda f a = Yoneda { runYoneda :: forall x. (a -> x) -> f x }
+
+toYoneda :: Functor f => f a -> Yoneda f a
+toYoneda fa = Yoneda (\k -> fmap k fa)
+
+fromYoneda :: Yoneda f a -> f a
+fromYoneda (Yoneda y) = y id
+```
+
+**In this repository.** The Yoneda lemma underlies the parametric polymorphism
+guarantees in `Haskell/Props.hs`: a QuickCheck property `forAll arbitrary p` that
+holds for a universally quantified type variable is a natural transformation statement
+— the property commutes with any type-level mapping. More concretely, the Yoneda
+embedding is implicit in the Agda proof that the gate is natural: the naturality
+square for `gate-natural` in `Agda/Naturality.agda` is a Yoneda-derived consequence
+of the gate's parametric definition.
+
+---
+
+## 26. F-Algebra and Catamorphism
+
+**Definition.** An F-algebra for an endofunctor \(F\) is a pair of an object \(X\)
+and a morphism \(\alpha: F\,X \to X\) that folds one layer of \(F\)-structure into
+\(X\). The initial F-algebra is the universal such pair, from which every other
+F-algebra receives a unique morphism — the catamorphism — that recursively folds
+any \(F\)-structured data into a single value.
+
+**Precisely.** For endofunctor \(F\), an F-algebra is \((X, \alpha: F\,X \to X)\).
+The initial F-algebra \((\mu F, \mathrm{in}: F(\mu F) \to \mu F)\) satisfies: for
+any \((X, \alpha)\) there is a unique catamorphism \(\llbracket\alpha\rrbracket: \mu F \to X\)
+with \(\llbracket\alpha\rrbracket \circ \mathrm{in} = \alpha \circ F\llbracket\alpha\rrbracket\).
+
+```haskell
+newtype Fix f = Fix { unFix :: f (Fix f) }   -- μF
+
+cata :: Functor f => (f a -> a) -> Fix f -> a
+cata alg = alg . fmap (cata alg) . unFix
+```
+
+**In this repository.** The Agda monad-law proof in `Agda/DIB-Kleisli.agda` uses
+structural recursion on the `M A` record, which is a catamorphism over the recursive
+structure of monadic computations. The `DIBState → (A × DIBState)` representation
+is the initial algebra of the state-monad functor. More directly: the `cata` pattern
+is the mathematical justification for why the monad laws (`left-unit`, `right-unit`,
+`assoc` in the Agda proof) can be established by structural induction rather than
+requiring additional axioms.
+
+---
+
+## 27. Limit and Colimit
+
+**Definition.** A limit is the universal object that maps into every object in a
+diagram compatibly with all the diagram's morphisms. A colimit is the dual: a
+universal object that every object in the diagram maps into.
+
+**Precisely.** Given a diagram \(D: \mathcal{J} \to \mathcal{C}\), a limit
+\((L, \{\pi_j: L \to D(j)\}_{j \in \mathcal{J}})\) is a cone such that every other
+cone factors through it uniquely. Products, equalisers, and pullbacks are special
+cases. Colimits are the dual construction; coproducts, coequalisers, and pushouts
+are special cases.
+
+**In this repository.** The multi-layer correspondence (Agda, Coq, Haskell all
+formalising the same gate) is a limit in a suitable 2-category: the UMST-Formal
+system is the universal object that maps into each formal layer compatibly. The
+`make all` target in `GNUmakefile` computes this limit computationally, ensuring all
+layers agree before accepting a build.
+
+---
+
+## 28. Profunctor
+
+**Definition.** A profunctor is a functor that is contravariant in one argument and
+covariant in another. It generalises the notion of a relation between two categories
+and is the foundational abstraction for optics (lenses, prisms) and bidirectional
+transformations.
+
+**Precisely.** A profunctor \(P: \mathcal{C}^{\mathrm{op}} \times \mathcal{D} \to \mathbf{Set}\)
+assigns to each pair \((A, B)\) a set \(P(A, B)\) and lifts morphisms
+\(f: A' \to A\) in \(\mathcal{C}\) and \(g: B \to B'\) in \(\mathcal{D}\)
+to a function \(P(f, g): P(A, B) \to P(A', B')\). The dinaturality law must hold.
+
+```haskell
+class Profunctor p where
+  dimap :: (s -> a) -> (b -> t) -> p a b -> p s t
+```
+
+**In this repository.** Profunctors are not used directly in the current codebase,
+but they are the natural abstraction for the FFI bridge in `Haskell/FFI.hs`:
+a C-to-Haskell binding is a heterogeneous mapping (contravariant in input type,
+covariant in output type) between two different type systems. A future version of
+the FFI layer expressed as a `Profunctor` instance would make the bidirectionality
+of the Rust ↔ Haskell correspondence compositional and verifiable.
+
+---
+
+## 29. Free Category on a Graph
+
+**Definition.** Every category has an underlying directed graph whose vertices are
+objects and directed edges are morphisms. The free category on a directed graph is
+the smallest category generated by that graph: objects are the graph's vertices,
+morphisms are all finite paths (sequences of composable edges), identity is the
+empty path, and composition is path concatenation.
+
+**Precisely.** Given graph \(G = (V, E)\), the free category \(\mathbf{F}(G)\) has
+objects \(V\) and morphisms all finite paths \(v_0 \to v_1 \to \cdots \to v_n\).
+This construction is the left adjoint to the forgetful functor from **Cat** to
+directed graphs.
+
+**In this repository.** The DIB pipeline is a path in a free category: Discovery,
+Invention, Build are three edges (morphisms) on the graph of knowledge states.
+Kleisli composition in `Agda/DIB-Kleisli.agda` and `Haskell/KleisliDIB.hs` is
+exactly path concatenation — the free category's composition — lifted to a monadic
+context. The Agda associativity proof (`assoc`) is the proof that path concatenation
+is associative in this free category.
+
+---
+
+## 30. String Diagram
+
+**Definition.** A string diagram is a two-dimensional graphical notation for
+morphisms in a monoidal category: wires represent objects, boxes represent morphisms,
+vertical stacking corresponds to composition, and horizontal juxtaposition corresponds
+to the tensor product \(\otimes\). Interchange law and naturality become topological
+deformations of the diagram.
+
+**Precisely.** In a monoidal category, a morphism \(f: A \otimes B \to C \otimes D\)
+is drawn as a box with two input wires (labelled \(A\), \(B\)) and two output wires
+(\(C\), \(D\)). The naturality square for a natural transformation \(\eta\) becomes
+the statement that the \(\eta\)-box can slide past any other box along a wire.
+
+**In this repository.** The naturality proof `gate-natural` in `Agda/Naturality.agda`
+can be rendered as a string diagram: the gate box sits between two material-class
+wires, and the naturality condition is the topological statement that the gate box
+slides freely past the material-class morphism boxes. This is visually equivalent to
+the algebraic proof but provides immediate intuition: the gate is material-agnostic
+because it can be placed anywhere along the wire without changing the result.
+
+---
+
+### Type Theory
+
+---
+
+## 31. Algebraic Data Type
+
+**Definition.** An algebraic data type is a composite type formed from sums
+(coproducts) and products of simpler types, with constructors that precisely and
+uniquely identify how a value was built. Every value of such a type can be
+deconstructed exhaustively and unambiguously by pattern matching.
+
+**Precisely.** An ADT is the initial algebra of a polynomial endofunctor
+\(F = c_1 \times (-) + c_2 \times (-) + \cdots\) built from constant factors
+(field types) and the identity (recursive occurrences). Constructors are the
+injections of the coproduct; destructors are projections of the product.
+
+```haskell
+data MaterialClass
+  = OPC
+  | Lime
+  | Earth
+  | Geopolymer
+  | RAC
+  deriving (Eq, Ord, Show, Bounded, Enum)
+```
+
+**In this repository.** Every named type in the codebase is an ADT:
+`ThermodynamicState` (a product of four `Double` fields), `MaterialClass` (a sum of
+five nullary constructors), `AdmissibilityResult` (a product of four `Bool` fields
+plus a summary). In Agda, the same structures appear as `record` (product) and `data`
+(sum) declarations in `Gate.agda` and `Naturality.agda`.
+
+---
+
+## 32. Parametric Polymorphism
+
+**Definition.** Parametric polymorphism allows a single definition to operate
+uniformly over any type without inspecting it. The compiler guarantees that the
+definition cannot behave differently depending on the concrete type chosen, producing
+a "free theorem" about its behaviour.
+
+**Precisely.** A parametrically polymorphic function \(f: \forall a.\ F\,a \to G\,a\)
+is a natural transformation: for every function \(h: a \to b\),
+\(G\,h \circ f_a = f_b \circ F\,h\). This naturality is enforced by the type system
+(Theorems for Free, Wadler 1989) — no runtime inspection of the type variable is
+possible.
+
+**In this repository.** The monad-law proofs in `Agda/DIB-Kleisli.agda` are
+parametrically polymorphic over the value type `A`. The QuickCheck properties in
+`Haskell/Props.hs` use polymorphic combinators (`forAll`, `property`) that hold for
+any generated input type. The gate function is not polymorphic (it is specific to
+`ThermodynamicState`), but the naturality proof `gate-natural` in `Agda/Naturality.agda`
+treats the material-class parameter polymorphically.
+
+---
+
+## 33. Dependent Type
+
+**Definition.** A dependent type is a type whose definition or structure may depend
+on the value of a term. This blurs the distinction between types and values: a type
+can encode a proposition about a specific value, and a term of that type is a proof
+of that proposition.
+
+**Precisely.** The dependent product \(\Pi_{x:A} B(x)\) is the type of functions
+that map each \(x: A\) to a term of type \(B(x)\), where \(B\) may mention \(x\).
+Its introduction rule is lambda abstraction; its elimination rule is application.
+Agda and Coq implement full dependent types; Haskell approximates them with GADTs
+and type families.
+
+```agda
+-- From Agda/Gate.agda
+-- Admissible depends on both `old` and `new` state values:
+Admissible : ThermodynamicState → ThermodynamicState → Set
+```
+
+**In this repository.** Dependent types are the central mechanism of `Agda/Gate.agda`.
+The `Admissible` type is dependent: it takes two specific state values and produces
+a type that is inhabited only when those states satisfy all four invariants. A
+function returning `Admissible old new` is not just a boolean gate — it is a proof
+that the specific transition `old → new` is physically consistent. This is why the
+Agda layer provides strictly stronger guarantees than the Haskell layer: the gate's
+correctness is encoded in the type, not deferred to runtime.
+
+---
+
+## 34. Curry-Howard Isomorphism
+
+**Definition.** The Curry-Howard isomorphism establishes a direct correspondence
+between propositions in logic and types in programming, and between proofs and
+programs. A proposition is provable if and only if its corresponding type is
+inhabited by a term.
+
+**Precisely.** The correspondence maps:
+
+| Logic | Type theory |
+|---|---|
+| Proposition \(P\) | Type \(P\) |
+| Proof of \(P\) | Term of type \(P\) |
+| Implication \(A \Rightarrow B\) | Function type \(A \to B\) |
+| Conjunction \(A \land B\) | Product type \(A \times B\) |
+| Disjunction \(A \lor B\) | Sum type \(A + B\) |
+| False \(\bot\) | Empty type `Void` |
+| True \(\top\) | Unit type `()` |
+| Universal quantification \(\forall x.\ P(x)\) | Dependent product \(\Pi_{x:A} B(x)\) |
+
+Under this correspondence, type checking is proof checking.
+
+**In this repository.** The Curry-Howard isomorphism is the reason `Agda/Gate.agda`
+and `Coq/Gate.v` are proofs, not just programs. When `gate old new` returns
+`yes admissible-proof`, the `admissible-proof` term *is* a proof of the proposition
+"this transition satisfies all four invariants." The Haskell `Bool` gate returns
+evidence only at runtime; the Agda gate returns a proof object that can be inspected,
+composed, and verified at compile time. The theorem `gate-natural` in
+`Agda/Naturality.agda` is simultaneously a program (a function) and a proof
+(a derivation that the naturality square commutes).
+
+---
+
+### Lambda Calculus
+
+---
+
+## 35. Currying
+
+**Definition.** Currying is the transformation of a function that accepts multiple
+arguments simultaneously into a chain of single-argument functions, each returning
+the next until all arguments are supplied.
+
+**Precisely.** Currying corresponds to the natural isomorphism in a Cartesian closed
+category (§22):
+\[\mathrm{Hom}(A \times B, C) \cong \mathrm{Hom}(A, B \Rightarrow C)\]
+where \(B \Rightarrow C\) is the exponential object \(C^B\). In Haskell:
+
+```haskell
+curry :: ((a, b) -> c) -> a -> b -> c
+curry f x y = f (x, y)
+
+uncurry :: (a -> b -> c) -> (a, b) -> c
+uncurry f (x, y) = f x y
+```
+
+The right-associativity of `->` means `a -> b -> c` is `a -> (b -> c)`: every
+multi-argument Haskell function is already curried by default.
+
+**In this repository.** Every multi-argument function in the codebase is curried.
+`gateCheck :: ThermodynamicState -> ThermodynamicState -> AdmissibilityResult`
+is a function that takes a state and returns a function that takes another state
+and returns a result. This is not just notation — it means `gateCheck old` is a
+valid partial application that can be stored, mapped over a list of new states, or
+passed to a higher-order function. The adjunction \((- \times S) \dashv (S \to -)\)
+described in §16 is the categorical statement that this currying isomorphism exists.
+
+---
+
+## 36. Referential Transparency
+
+**Definition.** Referential transparency is the property that any expression can be
+replaced by its evaluated result anywhere in the program without altering the
+program's overall meaning or behaviour.
+
+**Precisely.** An expression \(e\) is referentially transparent if for any context
+\(C[-]\), substituting \(e\) with its denotation \(\llbracket e \rrbracket\) leaves
+the meaning of \(C[e]\) unchanged:
+\[e_1 \equiv e_2 \implies C[e_1] \equiv C[e_2]\]
+This holds for all pure Haskell expressions. It fails in the presence of mutable
+state, I/O, or non-determinism — which is why those effects are quarantined in the
+`IO` monad.
+
+**In this repository.** All functions in `Haskell/UMST.hs` (`gateCheck`, `psiDot`,
+`massConserved`, `fromMix`) are referentially transparent: calling them with the same
+arguments twice gives the same result. This property is what makes the QuickCheck
+property tests in `Haskell/Props.hs` valid — if `gateCheck` had hidden mutable
+state, the same test input could produce different results on different runs.
+The `IO` boundary in `Haskell/KleisliDIB.hs` is precisely the line at which
+referential transparency ends and managed effects begin.
+
+---
+
+## 37. Lambda Abstraction
+
+**Definition.** Lambda abstraction is the mechanism for forming anonymous functions
+by binding a variable name to an expression body. The resulting term, written
+\(\lambda x.\ e\), denotes a function that maps any value \(v\) to \(e\) with \(x\)
+replaced by \(v\).
+
+**Precisely.** The typing rule for lambda abstraction in the simply-typed lambda
+calculus:
+\[\frac{\Gamma, x: A \vdash M: B}{\Gamma \vdash \lambda x^A.\ M : A \to B}\]
+This is the introduction rule for the function type (the exponential object).
+In Haskell: `\x -> e`.
+
+**In this repository.** The `discover`, `invent`, and `build` Kleisli arrows in
+`Haskell/KleisliDIB.hs` are defined using lambda abstraction:
+`discover = \obs -> StateT (\s -> ...)`. The Agda proofs use lambda abstraction
+to construct proof terms: `\s → (a , s)` in the definition of `returnM` in
+`Agda/DIB-Kleisli.agda`. In Coq, `fun x => e` is the equivalent notation.
+
+---
+
+## 38. Beta Reduction, Alpha Conversion, and Eta Conversion
+
+**Definition.** Beta reduction applies a lambda abstraction to an argument by
+substituting the argument for the bound variable. Alpha conversion renames a bound
+variable without changing the function's meaning. Eta conversion removes a redundant
+lambda that does nothing but pass its argument to another function.
+
+**Precisely.**
+
+- **Beta**: \((\lambda x.\ M)\ N \to_\beta M[N/x]\) (substitute \(N\) for \(x\) in \(M\))
+- **Alpha**: \(\lambda x.\ M \equiv_\alpha \lambda y.\ M[y/x]\) (rename bound variable)
+- **Eta**: \(\lambda x.\ (M\ x) \equiv_\eta M\) when \(x\) does not appear free in \(M\)
+
+These three conversion rules define observational equality in the lambda calculus.
+
+**In this repository.** Agda's proof checker applies all three conversions during
+type checking: it beta-reduces function applications when checking that a proof term
+has the claimed type, alpha-converts internally to avoid variable capture, and uses
+eta-expansion to compare functions. The Coq tactic `simpl` in `Coq/Gate.v` applies
+beta and eta reductions when simplifying proof goals. Referential transparency (§36)
+in Haskell is the semantic statement that beta reduction preserves meaning.
+
+---
+
+## 39. Y Combinator
+
+**Definition.** The Y combinator is a fixed-point operator expressible in pure lambda
+calculus that enables recursive definitions without named self-reference. It
+satisfies \(Y\, f = f\,(Y\, f)\) for any function \(f\).
+
+**Precisely.**
+\[Y \equiv \lambda f.\ (\lambda x.\ f\,(x\,x))\ (\lambda x.\ f\,(x\,x))\]
+
+In Haskell, where the type system prevents the untyped self-application \(x\,x\),
+recursion is expressed via the built-in `fix`:
+
+```haskell
+fix :: (a -> a) -> a
+fix f = let x = f x in x
+```
+
+**In this repository.** The Y combinator is implicit in every recursive Agda proof.
+The structural recursion used in `Agda/DIB-Kleisli.agda` to prove the monad laws
+is a typed fixed-point computation: Agda's termination checker verifies that the
+self-reference decreases on a well-founded ordering, which is the disciplined version
+of the Y combinator. The `cata` function in §26 is the categorical generalisation
+of Y: both compute fixed points, but `cata` does so over a functor-shaped recursive
+type rather than an untyped term.
+
+---
+
+## 40. Church Encoding
+
+**Definition.** Church encoding represents data values — natural numbers, booleans,
+pairs, lists — as higher-order functions that encode their own elimination rules.
+A Church-encoded value *is* its own case-analysis function.
+
+**Precisely.** A Church natural number \(n\) is \(\lambda f.\ \lambda x.\ f^n\,x\)
+(apply \(f\) exactly \(n\) times to \(x\)). In Haskell:
+
+```haskell
+type ChurchNat = forall a. (a -> a) -> a -> a
+
+zero :: ChurchNat
+zero f x = x
+
+succ :: ChurchNat -> ChurchNat
+succ n f x = f (n f x)
+
+toInt :: ChurchNat -> Int
+toInt n = n (+1) 0
+```
+
+**In this repository.** Church encoding is the conceptual ancestor of Agda's
+inductive types. The `Admissible` record in `Agda/Gate.agda` is a dependent Church
+encoding: instead of returning `Bool`, the gate returns a proof object that encodes
+its own elimination rule — you can only extract the invariant witnesses from
+`Admissible` by providing case handlers for each field. The Coq `Inductive` types
+in `Coq/Gate.v` are the proof-assistant realisation of the same idea.
+
+---
+
+## 41. Combinatory Logic
+
+**Definition.** Combinatory logic is a variable-free reformulation of the lambda
+calculus using a small set of primitive combinators that rewrite expressions through
+pure application. The SKI system is the canonical minimal base.
+
+**Precisely.** The three combinators and their reduction rules:
+\[\mathbf{I}\,x = x, \qquad \mathbf{K}\,x\,y = x, \qquad \mathbf{S}\,x\,y\,z = x\,z\,(y\,z)\]
+
+Any lambda term can be translated into an equivalent SKI term (bracket abstraction),
+eliminating all variable binding. In Haskell, `id`, `const`, and `(<*>)` for
+functions correspond to \(\mathbf{I}\), \(\mathbf{K}\), and \(\mathbf{S}\).
+
+**In this repository.** Combinatory logic is not used directly, but it is the
+theoretical foundation for point-free style — writing functions without naming
+their arguments — which appears throughout `Haskell/Props.hs` and `Haskell/UMST.hs`.
+For example, `cata alg = alg . fmap (cata alg) . unFix` is a point-free definition;
+its combinator translation would use \(\mathbf{S}\) to handle the shared `cata alg`
+argument. The proof irrelevance properties used in `Agda/Gate.agda` (where two proofs
+of the same proposition are considered equal) correspond to the \(\mathbf{K}\)
+combinator: the proof term is present but its specific value is discarded.
+
+---
+
 ## How These Concepts Combine in UMST-Formal
 
 The table below maps each formal concept to its concrete role in this codebase.
@@ -634,6 +1297,29 @@ The table below maps each formal concept to its concrete role in this codebase.
 | Adjunction | Mathematical origin of the State monad and its `runStateT` isomorphism | `Haskell/KleisliDIB.hs` (structural) |
 | Comonad | Future direction: spatial / historical context for gate evaluation | `CONTRIBUTING.md` |
 | Free monad | Future direction: gate effect algebra separating description from interpretation | `CONTRIBUTING.md` |
+| Product / Coproduct | `ThermodynamicState` (product); `MaterialClass` (sum of 5 constructors) | `Haskell/UMST.hs`, `Agda/Gate.agda` |
+| Initial / Terminal | `⊥` in Agda contradiction branches; `⊤` for trivial obligations | `Agda/Gate.agda` |
+| Isomorphism | Layer correspondences (Agda ≅ Coq ≅ Haskell types) | `Docs/Architecture-Invariants.md` |
+| Cartesian closed category | Ambient structure of **Hask**; locally CCC for Agda dependent types | Conceptual foundation |
+| Exponential object | Every function type; `gate` as first-class value | All layers |
+| Monoidal category | Material batch composition; mass conservation as monoidal constraint | `Agda/Naturality.agda` |
+| Yoneda lemma | Parametricity; gate-natural proof | `Agda/Naturality.agda`, `Haskell/Props.hs` |
+| F-algebra / Catamorphism | Monad-law proof by structural induction | `Agda/DIB-Kleisli.agda` |
+| Limit / Colimit | Multi-layer agreement as limit; `make all` as computational realisation | `GNUmakefile` |
+| Profunctor | Future direction: typed FFI bridge | `Haskell/FFI.hs` |
+| Free category | DIB pipeline as path; associativity proof as path associativity | `Agda/DIB-Kleisli.agda` |
+| String diagram | Graphical naturality proof for gate material-agnosticism | `Agda/Naturality.agda` |
+| Algebraic data type | Every named type in the codebase | All layers |
+| Parametric polymorphism | Monad-law proofs; QuickCheck universals | `Agda/DIB-Kleisli.agda`, `Haskell/Props.hs` |
+| Dependent type | `Admissible old new` — correctness encoded in the type | `Agda/Gate.agda` |
+| Curry-Howard | Agda proof terms are programs; type checking = proof checking | `Agda/Gate.agda`, `Coq/Gate.v` |
+| Currying | All multi-argument functions; `gateCheck old` as partial application | All Haskell files |
+| Referential transparency | Foundation of all pure functions; QuickCheck validity | `Haskell/UMST.hs` |
+| Lambda abstraction | Kleisli arrows; proof term construction | `Haskell/KleisliDIB.hs`, `Agda/DIB-Kleisli.agda` |
+| Beta/Alpha/Eta | Agda type checking; Coq `simpl` tactic; equational reasoning | `Agda/Gate.agda`, `Coq/Gate.v` |
+| Y combinator / `fix` | Implicit in all structural recursion and monad-law proofs | `Agda/DIB-Kleisli.agda` |
+| Church encoding | Ancestor of Agda inductive types; `Admissible` as proof object | `Agda/Gate.agda` |
+| Combinatory logic | Point-free style throughout; proof irrelevance in Agda | `Haskell/Props.hs`, `Agda/Gate.agda` |
 
 ### The central result in one sentence
 
