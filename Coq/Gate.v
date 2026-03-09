@@ -280,6 +280,57 @@ Proof.
 Qed.
 
 (* ================================================================== *)
+(*  SECTION 8b: Helmholtz Gradient — SDF Interpretation                *)
+(* ================================================================== *)
+
+(** Lemma (Helmholtz Gradient):
+    The discrete gradient of the Helmholtz function is constant:
+
+        ψ(α + ε) − ψ(α) = −Q_hyd · ε
+
+    This is the formal counterpart of the SDF "Eikonal" condition:
+    the gradient of ψ has constant magnitude Q_hyd = 450 J/kg
+    everywhere on [0, 1].  Specifically:
+
+        ψ(α) = −Q_hyd · α
+        ψ(α + ε) = −Q_hyd · (α + ε) = −Q_hyd · α − Q_hyd · ε
+        ψ(α + ε) − ψ(α) = −Q_hyd · ε
+
+    This, together with helmholtz_antitone, gives the complete SDF
+    characterisation of ψ:
+      • Gradient direction: −Q_hyd < 0 (antitone in α, §8)
+      • Gradient magnitude: Q_hyd = 450 (constant, Eikonal, §8b)
+      • Admissible side: ψ_new ≤ ψ_old, i.e., moving along −∇ψ
+
+    In the gate's Clausius-Duhem check, the condition D_int ≥ 0 is
+    exactly the condition that the state transition moves along the
+    negative-gradient direction of ψ.
+
+    Proof: immediate by ring — the goal reduces to linear arithmetic
+    over Q after unfolding the definitions. *)
+
+Lemma helmholtz_gradient : forall alpha eps : Q,
+  helmholtz (alpha + eps) - helmholtz alpha == - (Q_hyd * eps).
+Proof.
+  intros alpha eps.
+  unfold helmholtz, Q_hyd.
+  ring.
+Qed.
+
+(** Corollary: ψ is additive (linear).
+    ψ(α₁ + α₂) = ψ(α₁) + ψ(α₂).
+    This is the formal statement that ψ is a group homomorphism from
+    (Q, +) to (Q, +), i.e., a linear SDF. *)
+
+Lemma helmholtz_additive : forall a1 a2 : Q,
+  helmholtz (a1 + a2) == helmholtz a1 + helmholtz a2.
+Proof.
+  intros a1 a2.
+  unfold helmholtz, Q_hyd.
+  ring.
+Qed.
+
+(* ================================================================== *)
 (*  SECTION 9: Theorem — Clausius-Duhem Forward                         *)
 (* ================================================================== *)
 
@@ -492,5 +543,7 @@ Qed.
 (*    • fc_monotone  (Powers model: fc monotone in α)                  *)
 (*                                                                      *)
 (*  All lemmas fully proved (no Admitted obligations remain):           *)
-(*    • helmholtz_antitone: proved via unfold Qle / destruct / nia     *)
+(*    • helmholtz_antitone:  proved via unfold Qle / destruct / nia    *)
+(*    • helmholtz_gradient:  proved via ring                           *)
+(*    • helmholtz_additive:  proved via ring                           *)
 (* ================================================================== *)

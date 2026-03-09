@@ -19,6 +19,7 @@ library
   exposed-modules:
     UMST
     KleisliDIB
+    SDFGate
 
   -- FFI module exposed only when Rust library is available.
   if flag(with-ffi)

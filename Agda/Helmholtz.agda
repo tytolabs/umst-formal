@@ -140,7 +140,50 @@ HelmholtzState s = free-energy s ≡ helmholtz (hydration s)
     (ℚ-Props.≤-reflexive (sym h₁))
 
 ------------------------------------------------------------------------
--- 6. Commentary: Why Gate.agda Keeps Its Postulates
+-- 6. Linearity and Gradient Theorem (SDF Interpretation)
+------------------------------------------------------------------------
+
+-- ψ is linear (additive): ψ(α₁ + α₂) = ψ(α₁) + ψ(α₂).
+--
+-- Proof sketch (follows from ring axioms on ℚ):
+--   ψ(α₁ + α₂) = -(Q · (α₁ + α₂))
+--              = -(Q · α₁ + Q · α₂)      by ℚ-Props.*-distribˡ-+
+--              = -(Q · α₁) + -(Q · α₂)   by ℚ-Props.neg-distrib-+
+--              = ψ(α₁) + ψ(α₂)
+-- Marked postulate pending exact stdlib lemma names; proved in Coq
+-- via `ring` (helmholtz_additive in Coq/Gate.v, Section 8b).
+
+postulate
+  helmholtz-linear : ∀ (α₁ α₂ : ℚ) →
+    helmholtz (α₁ + α₂) ≡ helmholtz α₁ + helmholtz α₂
+
+-- Discrete gradient of ψ at any point is the constant −Q_hyd · ε:
+--
+--   ψ(α + ε) − ψ(α) = −Q_hyd · ε
+--
+-- SDF interpretation:
+--   ψ is a one-dimensional signed distance function in hydration state
+--   space with constant gradient magnitude Q_hyd = 450 J/kg.  The
+--   Eikonal condition |∂ψ/∂α| = Q_hyd holds everywhere on [0, 1].
+--   The admissible transition direction (ψ_new ≤ ψ_old) is exactly
+--   the negative-gradient direction of ψ.
+--
+-- Together with helmholtz-antitone this gives:
+--   • ∂ψ/∂α < 0  (gradient is negative — antitone)
+--   • |∂ψ/∂α| = Q_hyd  (gradient magnitude is constant — Eikonal)
+--
+-- Proof: follows immediately from helmholtz-linear:
+--   ψ(α + ε) − ψ(α) = (ψ(α) + ψ(ε)) − ψ(α)   (by linearity)
+--                    = ψ(ε)                        (cancel)
+--                    = −(Q_hyd · ε)               (by definition)
+-- Proved in Coq via `ring` (helmholtz_gradient in Coq/Gate.v, Section 8b).
+
+postulate
+  helmholtz-gradient-const : ∀ (α ε : ℚ) →
+    helmholtz (α + ε) - helmholtz α ≡ -(Q-hyd * ε)
+
+------------------------------------------------------------------------
+-- 7. Commentary: Why Gate.agda Keeps Its Postulates
 ------------------------------------------------------------------------
 
 -- Gate.agda's `ψ-antitone` and `fc-monotone` are PHYSICAL MODEL AXIOMS,

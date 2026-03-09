@@ -246,3 +246,52 @@ gate-accepts-forward old new α-adv mc₁ mc₂
 ... | _      | _      | no ¬p  | _      | _      = ⊥-elim (¬p (ψ-antitone old new α-adv))
 ... | _      | _      | _      | no ¬p  | _      = ⊥-elim (¬p α-adv)
 ... | _      | _      | _      | _      | no ¬p  = ⊥-elim (¬p (fc-monotone old new α-adv))
+
+------------------------------------------------------------------------
+-- 7. CSG Decomposition (SDF / FRep Interpretation)
+------------------------------------------------------------------------
+
+-- The four gate conditions as named sub-predicates.
+-- In SDF/FRep terms, each defines one implicit half-space in the
+-- product space ThermodynamicState × ThermodynamicState.  The
+-- admissible region is the CSG intersection of all four.
+
+MassCond : ThermodynamicState → ThermodynamicState → Set
+MassCond old new = (density new - density old ≤ δ-mass)
+                 × (density old - density new ≤ δ-mass)
+
+DissipCond : ThermodynamicState → ThermodynamicState → Set
+DissipCond old new = free-energy new ≤ free-energy old
+
+HydrationCond : ThermodynamicState → ThermodynamicState → Set
+HydrationCond old new = hydration old ≤ hydration new
+
+StrengthCond : ThermodynamicState → ThermodynamicState → Set
+StrengthCond old new = strength old ≤ strength new
+
+-- Theorem (CSG Decomposition):
+--   Admissible old new decomposes into exactly the four named sub-conditions.
+--   This is the formal statement that the gate is a CSG intersection:
+--
+--     admissible(old, new)
+--       ⟺ massCond(old,new) ∩ dissipCond(old,new)
+--            ∩ hydrationCond(old,new) ∩ strengthCond(old,new)
+--
+-- Forward direction: extract each field from the Admissible record.
+admissible-to-csg
+  : ∀ (old new : ThermodynamicState)
+  → Admissible old new
+  → MassCond old new × DissipCond old new
+  × HydrationCond old new × StrengthCond old new
+admissible-to-csg old new adm =
+  mass-conserved adm , dissipation-nonneg adm ,
+  hydration-monotone adm , strength-monotone adm
+
+-- Backward direction: construct an Admissible record from the four conditions.
+csg-to-admissible
+  : ∀ (old new : ThermodynamicState)
+  → MassCond old new × DissipCond old new
+  × HydrationCond old new × StrengthCond old new
+  → Admissible old new
+csg-to-admissible old new (mc , diss , hyd , str) =
+  mkAdmissible mc diss hyd str
