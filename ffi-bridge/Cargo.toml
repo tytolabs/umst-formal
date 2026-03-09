@@ -1,0 +1,14 @@
+[package]
+name = "umst-ffi-bridge"
+version = "0.1.0"
+edition = "2021"
+authors = ["Santhosh Shyamsundar", "Santosh Prabhu Shenbagamoorthy"]
+description = "C-ABI bridge exposing umst-core thermodynamic gate to Haskell/OCaml."
+license = "MIT"
+
+[dependencies]
+umst-core = { path = "../../umst-prototype-2a/prototype/src/rust/core", default-features = false, features = ["ndarray"] }
+
+[lib]
+name = "umst_ffi"
+crate-type = ["cdylib", "staticlib"]

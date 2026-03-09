@@ -1,0 +1,32 @@
+cabal-version:   3.0
+name:            umst-formal
+version:         0.1.0.0
+synopsis:        Categorical semantics bridge and Rust FFI for UMST thermodynamic gate
+license:         MIT
+author:          Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy
+build-type:      Simple
+
+library
+  exposed-modules:
+    UMST
+    KleisliDIB
+    FFI
+  hs-source-dirs:   .
+  build-depends:
+    base       >= 4.18 && < 5,
+    mtl        >= 2.3  && < 2.4
+  extra-lib-dirs:    ../ffi-bridge/target/release
+  extra-libraries:   umst_ffi
+  ghc-options:       -Wall
+  default-language:  Haskell2010
+
+test-suite umst-properties
+  type:              exitcode-stdio-1.0
+  main-is:           Test.hs
+  hs-source-dirs:    test
+  build-depends:
+    base       >= 4.18 && < 5,
+    QuickCheck >= 2.14 && < 2.16,
+    umst-formal
+  ghc-options:       -Wall -threaded
+  default-language:  Haskell2010

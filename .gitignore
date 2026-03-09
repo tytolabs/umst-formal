@@ -1,0 +1,50 @@
+# Rust build artifacts
+target/
+Cargo.lock
+
+# Haskell build artifacts
+dist/
+dist-newstyle/
+*.o
+*.hi
+*.dyn_hi
+*.dyn_o
+cabal.project.local
+
+# Agda build artifacts
+*.agdai
+*.agda-lib
+_Makefile
+
+# Coq build artifacts
+*.vo
+*.vos
+*.vok
+*.glob
+*.aux
+*.cache
+*~
+
+# OCaml build artifacts
+*.cmi
+*.cmo
+*.cmx
+*.cma
+*.cmxa
+*.o
+*.a
+
+# IDE artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
