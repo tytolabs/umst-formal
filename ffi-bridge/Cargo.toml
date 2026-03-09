@@ -11,4 +11,10 @@ umst-core = { path = "../../umst-prototype-2a/prototype/src/rust/core", default-
 
 [lib]
 name = "umst_ffi"
-crate-type = ["cdylib", "staticlib"]
+# rlib is required for integration tests (tests/ directory).
+# cdylib/staticlib are for Haskell and OCaml consumers respectively.
+crate-type = ["rlib", "cdylib", "staticlib"]
+
+[[test]]
+name = "integration"
+path = "tests/integration.rs"

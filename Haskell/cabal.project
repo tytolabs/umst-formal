@@ -1,0 +1,18 @@
+-- Cabal project file for umst-formal.
+-- This file locks cabal behaviour: no auto-upgrade of bounds, explicit
+-- package sets, and strict flag handling.
+
+packages: .
+
+-- Pin the index timestamp so builds are reproducible.
+-- Update this when you intentionally add new dependencies.
+-- index-state: 2026-03-09T00:00:00Z
+
+-- Keep warnings as errors in CI (overridden locally by cabal.project.local).
+program-options
+  ghc-options: -Wall -Wno-unused-top-binds
+
+tests: True
+
+-- When building against the FFI bridge, the library must be compiled first.
+-- Run:  (cd ../ffi-bridge && cargo build --release) before cabal build

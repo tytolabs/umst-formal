@@ -265,12 +265,21 @@ Lemma helmholtz_antitone : forall a1 a2 : Q,
   a1 <= a2 -> helmholtz a2 <= helmholtz a1.
 Proof.
   intros a1 a2 H.
-  unfold helmholtz.
-  (* The proof requires: −450 · a₂ ≤ −450 · a₁ given a₁ ≤ a₂.
-     This follows from: if c < 0 and a ≤ b then c·b ≤ c·a.
-     In QArith this needs Qmult_le_compat_neg or manual
-     reduction to Z-level arithmetic. *)
-  Admitted.
+  unfold helmholtz, Q_hyd.
+  (* Strategy: unfold Qle to its Z-level definition, destruct the Q numerator/
+     denominator pairs, simplify the Qmult, then let nia close the goal.
+     The key arithmetic fact is:
+       H  :  n₁ · d₂ ≤ n₂ · d₁        (Qle a1 a2, as Z integers)
+       goal: (−450·n₂)·d₁ ≤ (−450·n₁)·d₂
+     Equivalently (multiply H by 450, flip sign):
+       450·n₁·d₂ ≤ 450·n₂·d₁          ✓ from H × 450
+     This is linear arithmetic over Z (nia handles the sign flip). *)
+  unfold Qle in *.
+  simpl in *.
+  destruct a1 as [n1 d1], a2 as [n2 d2].
+  simpl in *.
+  nia.
+Qed.
 
 (* ================================================================== *)
 (*  SECTION 9: Theorem — Clausius-Duhem Forward                         *)

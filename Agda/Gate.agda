@@ -34,6 +34,7 @@ open import Data.Rational as ℚ using (ℚ; 0ℚ; 1ℚ; _+_; _*_; _-_; _≤_; _
 open import Data.Rational.Properties as ℚ-Props
 open import Data.Bool using (Bool; true; false; if_then_else_)
 open import Data.Product using (_×_; _,_; proj₁; proj₂)
+open import Data.Empty using (⊥-elim)
 open import Relation.Binary.PropositionalEquality using (_≡_; refl; cong; sym; trans)
 open import Relation.Nullary using (Dec; yes; no; ¬_)
 open import Data.Sum using (_⊎_; inj₁; inj₂)
@@ -208,7 +209,20 @@ gate-accepts-forward :
   ∃[ prf ] (gate old new ≡ yes prf)
   where
   open import Data.Product using (∃-syntax)
-gate-accepts-forward old new α-adv mc₁ mc₂ = _ , {!!}
-  -- The proof term requires case analysis on the ≤? decisions;
-  -- all branches resolve to `yes` given the hypotheses.
-  -- Left as a hole for interactive development.
+-- Pattern-match on the five ≤? decisions that `gate` itself scrutinises.
+-- After the match, `gate old new` reduces definitionally in each branch,
+-- allowing direct witnesses (refl) or contradictions (⊥-elim).
+gate-accepts-forward old new α-adv mc₁ mc₂
+  with (density new - density old) ℚ.≤? δ-mass
+     | (density old - density new) ℚ.≤? δ-mass
+     | free-energy new ℚ.≤? free-energy old
+     | hydration old ℚ.≤? hydration new
+     | strength old ℚ.≤? strength new
+-- All five decisions are yes: gate reduces to yes(mkAdmissible …), refl closes.
+... | yes _  | yes _  | yes _  | yes _  | yes _  = _ , refl
+-- No branches: each contradicts the corresponding supplied hypothesis.
+... | no ¬p  | _      | _      | _      | _      = ⊥-elim (¬p mc₁)
+... | _      | no ¬p  | _      | _      | _      = ⊥-elim (¬p mc₂)
+... | _      | _      | no ¬p  | _      | _      = ⊥-elim (¬p (ψ-antitone old new α-adv))
+... | _      | _      | _      | no ¬p  | _      = ⊥-elim (¬p α-adv)
+... | _      | _      | _      | _      | no ¬p  = ⊥-elim (¬p (fc-monotone old new α-adv))
