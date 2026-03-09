@@ -18,22 +18,23 @@
 -- associativity) guarantee that the phases compose coherently — no
 -- information is lost or duplicated in transit.
 --
--- Physical / methodological meaning of each phase:
+-- Each phase has a concrete referent in the UMST system:
 --
---   Discovery = Field observation of tacit invariants.
---     Seven years at Studio Tyto watching variable earth, lime, and
---     RAC mixes.  The outputs are *insights*: patterns like "hydration
---     never reverses", "strength never drops in undamaged specimens",
---     "mass is always conserved to within measurement noise".
+--   Discovery = Systematic field observation of material behaviour,
+--     yielding invariant candidates (e.g., "hydration degree is
+--     monotonically non-decreasing", "density is conserved to within
+--     measurement noise", "strength does not decrease in undamaged
+--     specimens").  Outputs are informal constraints.
 --
---   Invention = Formalise insights as UMST tensors + gate.
---     The tensor field, the four invariants, the Admissible predicate,
---     the Powers model — these are all inventions that package tacit
---     field knowledge into transmissible mathematics.
+--   Invention = Formalisation of those constraints as UMST types:
+--     the ThermodynamicState record, the four gate predicates, the
+--     Admissible dependent type, the Powers gel-space ratio model.
+--     Outputs are mathematical specifications.
 --
---   Build = Implement in the Rust kernel (umst-prototype-2a).
---     ThermodynamicFilter::check_transition, the physics engines, the
---     FFI bridge — these are the built artefacts.
+--   Build = Implementation of the specification in the Rust kernel
+--     (umst-prototype-2a): ThermodynamicFilter::check_transition,
+--     the physics engines, the FFI bridge.  Outputs are executable
+--     artefacts.
 --
 -- Correspondence to Rust:
 --   The Rust kernel itself is the output of `build`.
@@ -163,11 +164,10 @@ _>=>_ : ∀ {A B C : Set} → (A → M B) → (B → M C) → (A → M C)
 -- kind of knowledge artefact.
 
 postulate
-  -- Observation: raw field data.
+  -- Observation: raw field data collected during material testing.
   -- Examples: slump test readings, carbonation depth measurements,
   -- moisture content profiles, compressive strength at 7/28/90 days.
-  -- These are the empirical inputs from Studio Tyto's seven years
-  -- of practice with variable earth, lime, and RAC.
+  -- These are the empirical inputs to the Discovery phase.
   Observation : Set
 
   -- Insight: a recognised pattern or invariant.

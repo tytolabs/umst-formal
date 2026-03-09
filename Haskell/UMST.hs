@@ -16,12 +16,10 @@
 --   3. __Hydration irreversibility__: \(\alpha_{new} \geq \alpha_{old}\)
 --   4. __Strength monotonicity__:     \(f_{c,new} \geq f_{c,old}\)
 --
--- These are not paper axioms.  They were discovered empirically over
--- seven years of hands-on practice at Studio Tyto — working with
--- variable earth, lime, masonry, and recycled-aggregate concrete
--- systems where workability windows snap shut, carbonation fronts
--- accelerate nonlinearly, and interfacial crystal interlock either
--- forms or never does.
+-- Each invariant was identified inductively from field observation
+-- of failure modes in variable earth, lime, masonry, and recycled-
+-- aggregate concrete (RAC) systems.  See Docs/Architecture-Invariants.md
+-- for the derivation of each constraint.
 --
 -- Categorical role: 'ThermodynamicState' is an object in the category
 -- of material states; the gate is a morphism predicate that selects

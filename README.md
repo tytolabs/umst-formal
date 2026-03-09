@@ -2,23 +2,22 @@
 
 **Formal verification and categorical semantics for the Unified Material-State Tensor thermodynamic gate kernel.**
 
-## Empirical Foundation
+## Background
 
-The invariants proved in this repository were not discovered at a desk. They emerged
-from seven years of hands-on architectural practice at Studio Tyto — mixing variable
-earth, lime, masonry, and recycled-aggregate concrete (RAC) systems on sites across
-southern India. Workability windows that close without warning, carbonation fronts
-that advance at rates no linear model predicts, interfacial crystal interlock that
-either locks or never forms, path-dependent rheology that makes every batch unique —
-these phenomena revealed a set of tacit physical invariants that no existing material
-model captured.
+The UMST thermodynamic gate is a decision procedure: given a proposed material state
+transition (old → new), it accepts or rejects the transition based on four physical
+constraints — mass conservation, Clausius-Duhem dissipation, hydration irreversibility,
+and strength monotonicity. The Rust kernel (`umst-prototype-2a`) implements that gate.
 
-The UMST (Unified Material-State Tensor) formalises those invariants as a
-thermodynamic gate: a hard constraint surface that accepts or rejects proposed
-material state transitions based on the Clausius-Duhem inequality, mass conservation,
-hydration irreversibility, and strength monotonicity. The Rust kernel
-(`umst-prototype-2a`) implements this gate. This companion repository proves that
-the gate is correct, natural, and categorically well-founded.
+This repository proves, across three independent formal layers (Agda, Coq, Haskell),
+that the implementation is sound with respect to those constraints. The proofs are
+machine-checked; the correspondence to the Rust code is validated by property-based
+testing.
+
+The constraints themselves are empirically grounded — each one was identified through
+field observation of specific material failure modes before it was formalised.
+[Docs/Architecture-Invariants.md](Docs/Architecture-Invariants.md) documents that
+derivation in detail.
 
 ## What This Repository Proves
 

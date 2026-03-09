@@ -45,25 +45,23 @@
 -- invariant (\(\alpha_{new} \geq \alpha_{old}\)) is the categorical
 -- shadow of this linear constraint.
 --
--- = Empirical Grounding
+-- = Empirical Basis
 --
--- These three phases are not an armchair taxonomy.  They map directly
--- to seven years of practice at Studio Tyto:
+-- Each DIB phase has a concrete referent:
 --
---   * __Discover__: field observation of carbonation fronts, moisture
---     migration, and workability loss in variable-earth and lime
---     systems.  Tacit knowledge — the "feel" of a mortar that is
---     about to flash-set — becomes an @Observation@ value.
+--   * __Discover__: systematic field measurement of material behaviour
+--     (carbonation depth, workability at successive intervals, moisture
+--     content profiles).  Outputs are @Observation@ values — structured
+--     records of what was measured and when.
 --
---   * __Invent__: formalising those observations into invariants.  The
---     four gate conditions emerged from watching masonry fail: mass
---     that vanishes means a leak, energy that increases means a
---     measurement error, hydration that reverses means the model is
---     wrong.
+--   * __Invent__: inductive generalisation from observations to invariant
+--     candidates.  The four gate conditions (mass conservation,
+--     Clausius-Duhem, hydration irreversibility, strength monotonicity)
+--     were each identified by observing that specific failure modes
+--     violated them and that no undamaged specimen ever did.
 --
---   * __Build__: applying the formalised gate to a real mix, checking
---     that the proposed state transition satisfies all invariants
---     before committing it to the material record.
+--   * __Build__: implementation of the formalised gate in the Rust kernel
+--     (umst-prototype-2a) and validation against new batches.
 
 module KleisliDIB
   ( -- * State and monad type

@@ -15,9 +15,9 @@
 -- hydration, and you cannot accidentally enable alkali-activation
 -- for lime.
 --
--- Empirical grounding:
---   These activation patterns were discovered through seven years of
---   practice at Studio Tyto.  For example:
+-- Physical basis:
+--   The activation profiles are determined by the dominant transport and
+--   reaction mechanisms of each material class.  For example:
 --     - RAC requires an extra transport engine because recycled
 --       aggregates have 2-3× the porosity of virgin aggregates,
 --       causing moisture and chloride transport to dominate durability.
@@ -141,9 +141,9 @@ e ∈ₑ es = T (es e)
 ------------------------------------------------------------------------
 
 -- For each material class, we define the specific set of engines
--- that must be activated.  These profiles encode the *physics that
--- actually matters* for each material, as determined by field
--- practice at Studio Tyto.
+-- that must be activated.  These profiles encode the dominant physical
+-- mechanisms for each material, as determined by materials science
+-- literature and field observation.
 
 -- Helper: construct an EngineSet from explicit per-engine booleans.
 -- This avoids repetitive pattern-matching in each profile definition.
@@ -179,8 +179,8 @@ racEngines = mkEngineSet true false false false true true true true
   -- All OPC engines plus:
   -- Transport:  recycled aggregates have 2-3× porosity of virgin stone;
   --             moisture and chloride transport dominate durability.
-  --             This was a key discovery at Studio Tyto: RAC durability
-  --             predictions fail without an explicit transport model.
+  --             RAC durability predictions are systematically under-
+  --             estimated without an explicit transport model.
 
 -- Geopolymer activation profile:
 --   AlkaliActivation + Strength + Rheology
@@ -550,11 +550,12 @@ postulate
 --      sheaf restriction maps and gluing conditions.
 --
 -- Why this matters:
---   The activation profiles are not arbitrary choices.  They are the
---   formalisation of seven years of field practice: which physics
---   actually matters for which material.  The dependent typing
---   ensures that these choices are enforced at compile time — you
---   cannot misconfigure the engine set for a given material without
+--   The activation profiles are not arbitrary choices.  They reflect
+--   which physical mechanisms dominate for each material class, as
+--   established by materials science and corroborated by field
+--   observation.  The dependent typing ensures that the profiles are
+--   enforced at compile time — you cannot misconfigure the engine set
+--   for a given material without
 --   a type error.  This is safety-by-construction, not safety-by-
 --   testing.
 ------------------------------------------------------------------------

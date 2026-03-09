@@ -17,15 +17,13 @@
 (*    3. Hydration irreversibility    α_new ≥ α_old                    *)
 (*    4. Strength monotonicity    fc_new ≥ fc_old                      *)
 (*                                                                      *)
-(*  Empirical grounding:                                                *)
-(*    These invariants were not invented abstractly.  They emerged      *)
-(*    from seven years of hands-on architectural practice at Studio     *)
-(*    Tyto — mixing variable earth, lime, masonry, and recycled-        *)
-(*    aggregate concrete (RAC) on sites across southern India.          *)
-(*    Workability windows that snap shut, carbonation fronts that       *)
-(*    accelerate beyond any linear prediction, interfacial crystal      *)
-(*    interlock that either forms or never does — these field           *)
-(*    observations are the empirical basis of every axiom below.        *)
+(*  Empirical basis:                                                    *)
+(*    Each invariant was identified inductively from field observation   *)
+(*    of material failure modes across variable earth, lime, masonry,   *)
+(*    and recycled-aggregate concrete (RAC) systems.  The constraints   *)
+(*    are consistent with the cement science literature and are         *)
+(*    documented with their derivation in                               *)
+(*    Docs/Architecture-Invariants.md.                                  *)
 (*                                                                      *)
 (*  Correspondence to Rust kernel:                                      *)
 (*    ThermodynamicState  ↔  ThermodynamicState in                      *)
@@ -88,8 +86,8 @@ Definition delta_mass : Q := 100 # 1.
     Since Q_hyd > 0, advancing hydration (α ↑) decreases ψ (ψ ↓),
     encoding the irreversible exothermic nature of the reaction.
 
-    This value comes directly from isothermal calorimetry data
-    collected across multiple mix designs at Studio Tyto. *)
+    This value is consistent with standard Portland cement calorimetry
+    data (Mindess, Young & Darwin, 2003) and the UMST Rust kernel. *)
 
 Definition Q_hyd : Q := 450 # 1.
 
@@ -217,9 +215,9 @@ Qed.
     embedding the arithmetic of each specific constitutive law.
 
     These axioms are consistent — they do not introduce logical
-    paradoxes.  They merely assert physical properties that have
-    been validated experimentally across decades of cement science
-    and confirmed through Studio Tyto's hands-on practice. *)
+    paradoxes.  They assert physical properties that are well-
+    established in the cement science literature and corroborated
+    by field observation (see Docs/Architecture-Invariants.md). *)
 
 (** Axiom (Helmholtz Model):  Free energy is antitone in hydration.
     If α₁ ≤ α₂ then ψ(α₂) ≤ ψ(α₁).
@@ -328,11 +326,11 @@ Qed.
     hydration → more gel → higher gel-space ratio).  Since x³ is
     monotone increasing for x ≥ 0, fc is monotone in α.
 
-    Field validation: at Studio Tyto, cube tests on lime-stabilised
-    earth and RAC mixes consistently showed monotone strength gain
-    during curing — strength reversals only occurred under damage
-    (freeze-thaw, sulfate attack), which the UMST gate handles
-    separately through material-class-specific activation checks. *)
+    Field corroboration: cube tests on lime-stabilised earth and RAC
+    mixes consistently showed monotone strength gain during curing.
+    Strength reversals were observed only under damage conditions
+    (freeze-thaw cycling, sulfate attack), which the UMST gate handles
+    separately via material-class-specific activation checks. *)
 
 Theorem strength_monotone_powers :
   forall s1 s2 : ThermodynamicState,

@@ -1,8 +1,16 @@
-# Architecture Invariants — Empirical Grounding
+# Architecture Invariants
 
-## 1. Empirical Sources
+This document describes the empirical basis for the four gate invariants and their
+derivation from field observation. Each invariant was identified inductively — observed
+to hold consistently across multiple material systems before being formalised as a
+constraint. The formal proofs in this repository verify that the Rust implementation
+is consistent with those constraints.
 
-Field observations from seven years of practice at Studio Tyto (variable earth, lime, masonry, recycled-aggregate concrete) mapped to formal invariants:
+## 1. Field Origins
+
+The table below maps observed material behaviour to the corresponding formal invariant.
+Materials tested include variable earth, lime mortar, masonry, and recycled-aggregate
+concrete (RAC).
 
 | Observation | Material System | Invariant | Formal Statement |
 |-------------|----------------|-----------|-----------------|
@@ -10,16 +18,25 @@ Field observations from seven years of practice at Studio Tyto (variable earth, 
 | Carbonation front advances at super-linear rates; strength gain never reverses in undamaged specimens | Lime mortar, RAC | Strength monotonicity | `fc_new ≥ fc_old` |
 | Batch density remains stable within a band across curing; gross jumps indicate measurement error or material substitution | All systems | Mass conservation | `\|ρ_new − ρ_old\| < δ` |
 | Exothermic heat release during hydration; free energy decreases monotonically | Cement paste | Clausius-Duhem dissipation | `D_int = −ρ · ψ̇ ≥ 0` |
-| Interfacial crystal interlock either forms or never does; partial interlock is mechanically unstable | Masonry, earth-lime | Gate decidability | `gate : State² → Dec Admissible` |
+| Interfacial crystal interlock is binary — it forms irreversibly or it does not; partial interlock is mechanically unstable | Masonry, earth-lime | Gate decidability | `gate : State² → Dec Admissible` |
 | Path-dependent rheology: identical mix proportions yield different workability depending on mixing history | Earth, RAC | State-dependence of transitions | Kleisli composition in `StateT UMST IO` |
 
-## 2. From Tacit Knowledge to Formal Model
+## 2. Derivation Methodology
 
-The invariants were not designed top-down from continuum mechanics textbooks.  They emerged bottom-up from repeated encounters with failure modes that existing material models could not predict.  The workability window that closes without warning in a recycled-aggregate mix, the carbonation front that invalidates a linear service-life model — these phenomena forced the identification of a minimal set of constraints that any physically valid state transition must satisfy.
+Each constraint was identified inductively from observed failure modes that existing
+linear and semi-empirical models failed to predict: abrupt workability closure at
+hydration thresholds, super-linear carbonation front advance, density anomalies
+caused by aggregate substitution, and irreversible exothermic free-energy release.
+In each case the constraint was observed to hold consistently across chemically
+dissimilar material systems before being encoded as a gate condition.
 
-The Discovery-Invention-Build (DIB) methodology provided the epistemological frame: field observations (Discovery) yielded candidate invariants; encoding them as a thermodynamic gate (Invention) produced a testable computational model; deploying the gate inside a Rust kernel (Build) allowed iterative validation against new batches and sites.  The formal verification layer (this repository) closes the loop by proving that the gate is mathematically consistent and categorically well-founded.
+The Discovery-Invention-Build (DIB) cycle describes this trajectory formally: field
+observation identifies the constraint; formalisation encodes it as a gate predicate;
+implementation tests it against new batches. The formal verification layer closes
+that loop by proving mathematical consistency.
 
-This trajectory — tacit empirical knowledge → computational invariant → formal proof — is itself modelled as a Kleisli category in the Agda layer (`DIB-Kleisli.agda`), making the methodology a first-class mathematical object within the system it validates.
+The DIB cycle is itself modelled as a Kleisli category in `Agda/DIB-Kleisli.agda`,
+making the derivation methodology a first-class object within the formal system.
 
 ## 3. Correspondence Table
 

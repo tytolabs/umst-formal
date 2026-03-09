@@ -14,15 +14,14 @@
 -- between two functors on the discrete category MaterialClass,
 -- and the naturality square commutes for every material morphism.
 --
--- Empirical grounding:
---   This property was discovered, not postulated.  Over seven years
---   of practice at Studio Tyto — mixing variable earth, lime,
---   masonry, and recycled-aggregate concrete (RAC) — the same four
---   invariants kept emerging regardless of binder chemistry.
---   Lime carbonation and OPC hydration look nothing alike under a
---   microscope, yet both must satisfy Clausius-Duhem and mass
---   conservation.  The naturality theorem is the formal expression
---   of this field observation.
+-- Physical meaning:
+--   The four gate invariants (mass conservation, Clausius-Duhem,
+--   hydration irreversibility, strength monotonicity) are thermodynamic
+--   identities that hold regardless of binder chemistry.  Lime mortar
+--   and OPC concrete differ substantially in reaction kinetics and
+--   microstructure, but both must satisfy the same thermodynamic
+--   constraints.  This module proves that the gate enforces those
+--   constraints uniformly, without inspecting material class.
 --
 -- Monoidal-category perspective:
 --   ThermodynamicState carries additive monoidal structure under
@@ -66,9 +65,9 @@ open import Relation.Nullary using (Dec; yes; no; ¬_)
 -- 1. MaterialClass — the objects of a discrete category
 ------------------------------------------------------------------------
 
--- MaterialClass enumerates the five binder families encountered in
--- Studio Tyto's practice.  Each has radically different chemistry but
--- must pass the same thermodynamic gate.
+-- MaterialClass enumerates the five binder families in the UMST system.
+-- Each has radically different chemistry but must pass the same
+-- thermodynamic gate.
 --
 -- In category theory a discrete category has only identity morphisms.
 -- We model material morphisms as propositional equality (M₁ ≡ M₂),
@@ -301,9 +300,8 @@ naturality-square refl = refl
 --
 --   |Σ ρᵢ · Vᵢ  −  Σ ρ'ᵢ · Vᵢ| < δ · Σ Vᵢ
 --
--- This is the formal version of the Law of Mass Conservation that
--- was observed in every material system at Studio Tyto: you can't
--- create or destroy matter by running a simulation step.
+-- This is the formal version of the Law of Mass Conservation:
+-- you cannot create or destroy matter by running a simulation step.
 --
 -- We do not formalise the monoidal structure here (it requires volume
 -- fractions as additional fields), but we note that the framework is
@@ -348,6 +346,7 @@ example-opc-naturality = refl
 --   thermodynamically isomorphic: both must conserve mass, dissipate
 --   free energy, and exhibit irreversible reaction progress.
 --
---   The seven years of field observation at Studio Tyto confirmed
---   this universality empirically.  This module confirms it formally.
+--   Field observation confirmed this universality empirically across
+--   materials with nothing in common but their thermodynamics.
+--   This module confirms it formally.
 ------------------------------------------------------------------------

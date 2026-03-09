@@ -13,14 +13,14 @@
 --   3. Hydration irreversibility   α_new ≥ α_old
 --   4. Strength monotonicity   fc_new ≥ fc_old
 --
--- Empirical grounding:
---   These invariants were not invented abstractly.  They were discovered
---   through seven years of hands-on practice with variable earth, lime,
---   masonry, and recycled-aggregate concrete at Studio Tyto.  Workability
---   windows that snap shut, carbonation fronts that accelerate beyond
---   any linear prediction, interfacial crystal interlock that either
---   forms or never does — these field observations are the empirical
---   basis of every axiom below.
+-- Physical meaning:
+--   A material state records the thermodynamic condition of a specimen at
+--   a single instant (density, free energy, hydration degree, compressive
+--   strength).  A proposed transition (old → new) is admissible if and
+--   only if all four invariants hold simultaneously.  The gate implements
+--   that check as a decidable predicate.
+--   See Docs/Architecture-Invariants.md for the empirical basis of each
+--   invariant.
 --
 -- Correspondence to Rust:
 --   ThermodynamicState  ↔  ThermodynamicState in thermodynamic_filter.rs
@@ -179,7 +179,7 @@ gate old new with (density new - density old) ℚ.≤? δ-mass
 --   fc-monotone ←→  Powers gel-space ratio model: fc = S · x³ where
 --                   x = 0.68·α / (0.32·α + w/c) is monotone increasing in α.
 --                   This is empirically validated over decades of cement science
---                   and through Studio Tyto's field data.  A formal proof requires
+--                   and corroborated by field observation.  A formal proof requires
 --                   the full Powers formula, reserved for Helmholtz.agda extensions.
 --
 -- Both axioms are consistent with all known physical models for Portland cement,
