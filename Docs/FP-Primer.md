@@ -22,11 +22,16 @@ Function
                           └── Category
                                 ├── Functor
                                 │     └── Endofunctor
-                                │           └── Monad
-                                │                 ├── Kleisli Category
-                                │                 └── (uses) Monoid
-                                └── Natural Transformation
-                                      └── Applicative Functor
+                                │           ├── Monad
+                                │           │     ├── Kleisli Category
+                                │           │     ├── Monad Transformer
+                                │           │     ├── Free Monad
+                                │           │     └── (uses) Monoid
+                                │           └── Comonad
+                                ├── Natural Transformation
+                                │     ├── Applicative Functor
+                                │     └── Adjunction
+                                └── 2-Category (enriches the whole map)
 ```
 
 ---
@@ -336,14 +341,20 @@ category whose morphisms are *monadic functions* of the form \(a \to M\, b\) —
 functions that produce a monadic context rather than a plain value. The composition
 rule for these morphisms is provided by bind (`>>=`).
 
-**Precisely.** In \(\mathcal{K}(M)\):
+**Precisely.** For a monad \(T\) on \(\mathcal{C}\), the Kleisli category
+\(\mathcal{C}_T\) has:
 
-- Objects are the same as in the base category
-- A morphism \(A \to B\) is a function \(a \to M\, b\) in the base category
-- Composition is Kleisli composition: \((f \mathbin{>=>} g)\, a = f\, a \mathbin{>>=} g\)
-- Identity is `return`
+- The same objects as \(\mathcal{C}\)
+- A morphism \(A \to B\) in \(\mathcal{C}_T\) is a morphism \(A \to T\,B\) in
+  \(\mathcal{C}\)
+- Kleisli composition: given \(f: A \to T\,B\) and \(g: B \to T\,C\),
+  \[g \circ_T f = \mu \circ T g \circ f\]
+  where \(\mu: T \circ T \Rightarrow T\) is the monad multiplication. In Haskell:
+  `(f >=> g) a = f a >>= g`
+- Identity is the unit \(\eta\) (`return`)
 
-The monad laws guarantee that this forms a valid category.
+The three monad laws (left unit, right unit, associativity) are precisely the proofs
+that this composition is a valid category — no more, no less.
 
 **In this repository.** `Agda/DIB-Kleisli.agda` proves the Kleisli category laws
 directly: `left-unit`, `right-unit`, and `assoc` are theorem statements that
@@ -387,6 +398,218 @@ is insufficient.
 
 ---
 
+## 14. Monad Transformer
+
+**Definition.** A monad transformer is a modular way to combine multiple monads into
+one. It takes an existing monad and adds one layer of effect on top — mutable state,
+error handling, logging, and so on — producing a new monad that inherits the
+capabilities of both while satisfying all monad laws.
+
+**Precisely.** A monad transformer is a functor \(t\) from monads to monads: given
+any monad \(m\), the result \(t\,m\) is again a monad. It comes with a natural
+operation
+
+\[\mathrm{lift}: m\,a \to t\,m\,a\]
+
+that injects computations from the inner monad into the combined monad without losing
+their effects. In Haskell:
+
+```haskell
+class MonadTrans t where
+  lift :: Monad m => m a -> t m a
+```
+
+Transformers stack: `StateT s (ExceptT e m)` is a monad that combines mutable state
+(type `s`), error handling (error type `e`), and whatever effects `m` provides.
+
+**In this repository.** The DIB pipeline in `Haskell/KleisliDIB.hs` uses
+`StateT UMSTState IO` — the State transformer applied to the `IO` monad. This gives
+the pipeline access to mutable material state (`UMSTState`) and I/O (sensor reads,
+FFI calls, logging) simultaneously. The `lift` operation promotes plain `IO` actions
+(e.g., calling the Rust kernel via FFI) into the combined monad without rewriting
+them.
+
+```haskell
+-- From Haskell/KleisliDIB.hs
+type DIBM a = StateT UMSTState IO a
+
+-- FFI call promoted into the combined monad
+callRustGate :: ThermodynamicState -> ThermodynamicState -> DIBM Bool
+callRustGate old new = lift $ ffiGateCheck old new
+```
+
+---
+
+## 15. 2-Category
+
+**Definition.** A 2-category extends an ordinary category by adding a second layer of
+morphisms: arrows between arrows. It has objects (0-cells), morphisms between objects
+(1-cells), and morphisms between parallel 1-cells (2-cells), with two independent
+composition rules for 2-cells — vertical and horizontal — satisfying an interchange
+law.
+
+**Precisely.** A 2-category \(\mathcal{K}\) consists of:
+
+- **0-cells**: objects \(A, B, C, \ldots\)
+- **1-cells**: morphisms \(f: A \to B\)
+- **2-cells**: morphisms \(\alpha: f \Rightarrow g\) between parallel 1-cells
+  \(f, g: A \to B\)
+- **Vertical composition** \(\circ_1\): stacking 2-cells sharing a 1-cell boundary
+- **Horizontal composition** \(\bullet\): composing 2-cells side by side
+
+The interchange law must hold:
+
+\[(\beta \circ_1 \alpha) \bullet (\delta \circ_1 \gamma) = (\beta \bullet \delta) \circ_1 (\alpha \bullet \gamma)\]
+
+The canonical example is **Cat**: 0-cells are (small) categories, 1-cells are
+functors, 2-cells are natural transformations. Vertical composition is natural
+transformation composition; horizontal composition is Godement product (whiskering).
+
+**In this repository.** The UMST-Formal system is itself a 2-categorical structure.
+The three formal layers (Agda, Coq, Haskell) are 0-cells. The type correspondences
+between layers (e.g., `ThermodynamicState` in Agda ↔ `thermo_state` in Coq) are
+1-cells. The proofs that those correspondences commute with the gate (e.g., that the
+Haskell `gateCheck` agrees with the Agda `gate` on all inputs) are 2-cells. The
+synthesis table in `Docs/Architecture-Invariants.md` is a presentation of this
+2-categorical structure in tabular form. The 2-categorical perspective also makes
+precise why the three layers are redundant by design: they are three different
+presentations of the same 2-categorical object, and agreement between them is a
+2-cell — a natural transformation — not merely an informal claim.
+
+---
+
+## 16. Adjunction
+
+**Definition.** An adjunction is a relationship between two functors going in
+opposite directions — one a left adjoint, one a right adjoint — that are not
+inverses of each other but are connected by a unit and counit satisfying
+triangle identities. Adjunctions generate many standard constructions in
+functional programming, including currying and the State monad.
+
+**Precisely.** An adjunction \(F \dashv G\) between \(F: \mathcal{C} \to \mathcal{D}\)
+(left adjoint) and \(G: \mathcal{D} \to \mathcal{C}\) (right adjoint) consists of
+natural transformations
+
+\[\eta: \mathrm{Id}_{\mathcal{C}} \Rightarrow G \circ F \qquad (\text{unit})\]
+\[\varepsilon: F \circ G \Rightarrow \mathrm{Id}_{\mathcal{D}} \qquad (\text{counit})\]
+
+satisfying the triangle identities:
+
+\[\varepsilon F \circ F\eta = \mathrm{id}_F, \qquad G\varepsilon \circ \eta G = \mathrm{id}_G\]
+
+Equivalently: \(\mathrm{Hom}_{\mathcal{D}}(F\,A, B) \cong \mathrm{Hom}_{\mathcal{C}}(A, G\,B)\)
+naturally in \(A\) and \(B\).
+
+The standard example is the **currying adjunction**: the product functor
+\((- \times S)\) is left adjoint to the function-space functor \((S \to -)\),
+giving the natural bijection
+
+\[\mathrm{Hom}(A \times S, B) \cong \mathrm{Hom}(A, S \to B)\]
+
+This is precisely what Haskell's `curry` and `uncurry` implement. The **State monad**
+\(T\,A = S \to (A \times S)\) is the monad induced by this adjunction: composing
+\((- \times S)\) with \((S \to -)\) gives \(T = G \circ F\), and the monad's unit
+and multiplication are the adjunction's unit and the counit composed with the functor.
+
+**In this repository.** `StateT UMSTState IO` in `Haskell/KleisliDIB.hs` is the
+practical realisation of the adjunction-induced State monad. Understanding the
+adjunction makes clear why the transformer has the structure it does — and in
+particular why `runStateT :: StateT s m a -> s -> m (a, s)` is the natural unwrapping:
+it is precisely the adjunction's hom-set isomorphism evaluated at the monad type.
+
+---
+
+## 17. Comonad
+
+**Definition.** A comonad is the categorical dual of a monad. Where a monad wraps
+values into a context and flattens nested contexts, a comonad extracts values from
+a context and extends a context with new computations. Comonads are the natural
+abstraction for computations that depend on surrounding or historical data rather
+than producing new context.
+
+**Precisely.** A comonad is a triple \((W, \varepsilon, \delta)\) where:
+
+- \(W: \mathcal{C} \to \mathcal{C}\) is an endofunctor
+- \(\varepsilon: W \Rightarrow \mathrm{Id}\) is the *extract* (the counit)
+- \(\delta: W \Rightarrow W \circ W\) is the *duplicate* (the comultiplication)
+
+satisfying the co-associativity and counit laws — the exact duals of the monad laws:
+
+\[W\delta \circ \delta = \delta W \circ \delta \qquad (\text{co-associativity})\]
+\[W\varepsilon \circ \delta = \varepsilon W \circ \delta = \mathrm{id}_W \qquad (\text{counit laws})\]
+
+In Haskell:
+
+```haskell
+class Functor w => Comonad w where
+  extract   :: w a -> a           -- ε: extract the focused value
+  duplicate :: w a -> w (w a)     -- δ: extend the context one level
+  extend    :: (w a -> b) -> w a -> w b  -- derived from duplicate + fmap
+```
+
+A standard example is the **product (environment) comonad** `(e, a)`:
+
+```haskell
+extract   (e, a) = a
+duplicate (e, a) = (e, (e, a))   -- environment persists into duplicate
+```
+
+Another is the **zipper comonad** on lists, where the "focused" element is the
+current position and the surrounding list is the context.
+
+**In this repository.** Comonads do not appear in the current codebase, but they are
+the natural extension for spatial and temporal material analysis. A specimen is never
+isolated: its thermodynamic state depends on adjacent specimens (heat flux,
+moisture gradients), prior history (loading path, wetting/drying cycles), and
+environmental conditions. A `W ThermodynamicState` where `W` is a spatial-context
+comonad would let the gate evaluate transitions using surrounding state without
+restructuring the gate's pure interface. This is a documented direction for future
+work (see `CONTRIBUTING.md`).
+
+---
+
+## 18. Free Monad
+
+**Definition.** A free monad is the most general monad that can be constructed from
+any functor. It represents all possible sequences of operations as an explicit tree
+structure — a syntax tree — without prescribing any particular interpretation.
+The tree is then evaluated by supplying a separate interpreter. This separates the
+description of what operations to perform from the decision of how to perform them.
+
+**Precisely.** Given any endofunctor \(F\), the free monad \(F^*\) is the initial
+monad generated by \(F\), defined as the least fixed point:
+
+\[F^*\,a = a + F(F^*\,a)\]
+
+The left summand (`Pure`) injects a plain value; the right (`Free`) wraps one layer
+of \(F\) around a recursive tree. In Haskell:
+
+```haskell
+data Free f a = Pure a | Free (f (Free f a))
+```
+
+`Functor`, `Applicative`, and `Monad` instances follow mechanically. An interpreter
+is a natural transformation \(f \Rightarrow m\) into any target monad \(m\), lifted
+to \(F^* \Rightarrow m\) by the initiality of \(F^*\).
+
+**In this repository.** The current codebase uses `StateT UMSTState IO` directly
+(a concrete monad stack). The free monad alternative would define a functor
+
+```haskell
+data GateF a
+  = CheckTransition ThermodynamicState ThermodynamicState (Bool -> a)
+  | LogResult String a
+  | Done a
+```
+
+and build `type GateM a = Free GateF a`. The DIB pipeline would then be a
+`GateM` value — a pure description of operations — and interpreters would handle
+Rust FFI calls, simulation, or testing differently, without changing the pipeline
+code. This architecture is noted in `CONTRIBUTING.md` as a possible refactor that
+would simplify the addition of new gate backends.
+
+---
+
 ## How These Concepts Combine in UMST-Formal
 
 The table below maps each formal concept to its concrete role in this codebase.
@@ -406,6 +629,11 @@ The table below maps each formal concept to its concrete role in this codebase.
 | Natural transformation | Gate as `η: F ⟹ G`; material-agnosticism proof | `Agda/Naturality.agda` |
 | Kleisli category | DIB phase composition; law verification | `Agda/DIB-Kleisli.agda`, `Haskell/KleisliDIB.hs` |
 | Applicative functor | Independent field generation in tests | `Haskell/Props.hs` |
+| Monad transformer | `StateT UMSTState IO`; combining state + IO effects | `Haskell/KleisliDIB.hs` |
+| 2-Category | Three formal layers as 0-cells; correspondences as 1-cells; agreement proofs as 2-cells | `Docs/Architecture-Invariants.md` (synthesis table) |
+| Adjunction | Mathematical origin of the State monad and its `runStateT` isomorphism | `Haskell/KleisliDIB.hs` (structural) |
+| Comonad | Future direction: spatial / historical context for gate evaluation | `CONTRIBUTING.md` |
+| Free monad | Future direction: gate effect algebra separating description from interpretation | `CONTRIBUTING.md` |
 
 ### The central result in one sentence
 
@@ -447,4 +675,8 @@ For a practitioner reading the codebase for the first time:
 \(\in\) means "is an element of"; \(\to\) denotes a function or morphism;
 \(\circ\) denotes composition; \(\Rightarrow\) denotes a natural transformation;
 \(\mathcal{C}\), \(\mathcal{D}\) denote categories;
-\(\eta\), \(\mu\) are the standard names for the monad unit and multiplication.*
+\(\eta\), \(\mu\) are the standard names for the monad unit and multiplication;
+\(\varepsilon\), \(\delta\) are the comonad counit and comultiplication;
+\(F \dashv G\) denotes the adjunction "F is left adjoint to G";
+\(\mathrm{Hom}_{\mathcal{C}}(A, B)\) denotes the set of morphisms from \(A\) to
+\(B\) in category \(\mathcal{C}\).*
