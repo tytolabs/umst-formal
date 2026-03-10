@@ -1,5 +1,7 @@
 # UMST-Formal
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18940933.svg)](https://doi.org/10.5281/zenodo.18940933)
+
 **Formal verification and categorical semantics for the Unified Material-State Tensor (UMST).**
 
 ## Background
