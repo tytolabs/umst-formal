@@ -101,7 +101,7 @@ valid — you can call them thousands of times and trust that the results are co
 
 ```haskell
 -- From Haskell/UMST.hs
-gateCheck :: ThermodynamicState -> ThermodynamicState -> AdmissibilityResult
+gateCheck :: ThermodynamicState -> ThermodynamicState -> Double -> AdmissibilityResult
 ```
 
 ---
@@ -117,7 +117,7 @@ result, or do both.
 \((A \to B) \to (C \to D)\), for example, takes a function and returns a different
 function.
 
-**In this repository.** The QuickCheck property tests in `Haskell/Props.hs` pass
+**In this repository.** The QuickCheck property tests in `Haskell/test/Test.hs` pass
 functions as arguments to `forAll` and `property` — both higher-order functions.
 The Kleisli composition operator `>=>` in `Haskell/KleisliDIB.hs` takes two
 functions and returns a third: `(a -> m b) -> (b -> m c) -> (a -> m c)`. The entire
@@ -154,12 +154,13 @@ data ThermodynamicState = ThermodynamicState
   , freeEnergy  :: Double   -- J/kg   (Helmholtz ψ)
   , hydration   :: Double   -- [0,1]  (degree α)
   , strength    :: Double   -- MPa    (compressive fc)
+  , maxStrength :: Double   -- MPa    (theoretical maximum at α = 1)
   }
 ```
 
-The same type is defined, with identical fields, in Agda (`Agda/Gate.agda`) and Coq
-(`Coq/Gate.v`), giving three independent formal representations of the same physical
-object.
+The same type is defined, with identical fields, in Agda (`Agda/Gate.agda`), Coq
+(`Coq/Gate.v`), Lean 4 (`Lean/Gate.lean`), and Haskell (`Haskell/UMST.hs`), giving
+four independent formal representations of the same physical object.
 
 ---
 
@@ -202,7 +203,7 @@ shape of a data type — which Agda and Coq can verify terminates automatically.
 
 **In this repository.** The Agda monad-law proofs in `Agda/DIB-Kleisli.agda` use
 structural recursion on the `DIBState`. The QuickCheck arbitrary generators in
-`Haskell/Props.hs` use recursion to generate lists of test states. The Coq extraction
+`Haskell/test/Test.hs` use recursion to generate lists of test states. The Coq extraction
 of `gate_check` (`Coq/Gate.v`) uses a boolean conjunction pattern that compiles
 to a recursive match over the invariant fields.
 
@@ -434,7 +435,7 @@ class Functor f => Applicative f where
 
 Laws: identity, composition, homomorphism, interchange — all weaker than monad laws.
 
-**In this repository.** The QuickCheck generators in `Haskell/Props.hs` use
+**In this repository.** The QuickCheck generators in `Haskell/test/Test.hs` use
 `Applicative` to construct random `ThermodynamicState` values from independent
 random field values (`density`, `freeEnergy`, `hydration`, `strength`), since the
 four fields are independent. This is the appropriate abstraction: the fields do not
@@ -511,13 +512,13 @@ functors, 2-cells are natural transformations. Vertical composition is natural
 transformation composition; horizontal composition is Godement product (whiskering).
 
 **In this repository.** The UMST-Formal system is itself a 2-categorical structure.
-The three formal layers (Agda, Coq, Haskell) are 0-cells. The type correspondences
+The four formal layers (Agda, Coq, Lean 4, Haskell) are 0-cells. The type correspondences
 between layers (e.g., `ThermodynamicState` in Agda ↔ `thermo_state` in Coq) are
 1-cells. The proofs that those correspondences commute with the gate (e.g., that the
 Haskell `gateCheck` agrees with the Agda `gate` on all inputs) are 2-cells. The
 synthesis table in `Docs/Architecture-Invariants.md` is a presentation of this
 2-categorical structure in tabular form. The 2-categorical perspective also makes
-precise why the three layers are redundant by design: they are three different
+precise why the four layers are redundant by design: they are four different
 presentations of the same 2-categorical object, and agreement between them is a
 2-cell — a natural transformation — not merely an informal claim.
 
@@ -694,12 +695,12 @@ either f _ (Left x)  = f x
 either _ g (Right y) = g y
 ```
 
-**In this repository.** `ThermodynamicState` is a product type: four fields composed
-by pairing (density × freeEnergy × hydration × strength). `AdmissibilityResult` is
-also a product. `MaterialClass` in `Agda/Naturality.agda` and `Haskell/UMST.hs` is a
-coproduct — `OPC | Lime | Earth | Geopolymer | RAC` — a sum of five distinct
-constructors. The gate's rejection of inadmissible transitions returns an `Either`-like
-result in the Haskell implementation.
+**In this repository.** `ThermodynamicState` is a product type: five fields composed
+by pairing (density × freeEnergy × hydration × strength × maxStrength). `AdmissibilityResult` is
+also a product (accepted, dissipation, and four invariant-check fields). `MaterialClass`
+in `Agda/Naturality.agda` is a coproduct — `OPC | Lime | Earth | Geopolymer | RAC` —
+a sum of five distinct constructors. (The Haskell `MaterialType` in `UMST.hs` is a
+finer-grained coproduct with 17 constructors covering individual concrete constituents.)
 
 ---
 
@@ -798,7 +799,8 @@ property of the exponential.
 In Haskell the exponential \(B^A\) is simply the function type `a -> b`; evaluation
 is function application `($)`.
 
-**In this repository.** The gate type `gate :: ThermodynamicState -> ThermodynamicState -> Bool`
+**In this repository.** The gate type
+`gateCheck :: ThermodynamicState -> ThermodynamicState -> Double -> AdmissibilityResult`
 is an exponential in **Hask**: it is an object of the category (a first-class value
 that can be passed to higher-order functions, stored, composed). The QuickCheck
 property `forAll arbitrary (\s -> ...)` takes the gate function as an exponential
@@ -856,7 +858,7 @@ fromYoneda (Yoneda y) = y id
 ```
 
 **In this repository.** The Yoneda lemma underlies the parametric polymorphism
-guarantees in `Haskell/Props.hs`: a QuickCheck property `forAll arbitrary p` that
+guarantees in `Haskell/test/Test.hs`: a QuickCheck property `forAll arbitrary p` that
 holds for a universally quantified type variable is a natural transformation statement
 — the property commutes with any type-level mapping. More concretely, the Yoneda
 embedding is implicit in the Agda proof that the gate is natural: the naturality
@@ -907,7 +909,7 @@ cone factors through it uniquely. Products, equalisers, and pullbacks are specia
 cases. Colimits are the dual construction; coproducts, coequalisers, and pushouts
 are special cases.
 
-**In this repository.** The multi-layer correspondence (Agda, Coq, Haskell all
+**In this repository.** The multi-layer correspondence (Agda, Coq, Lean 4, Haskell all
 formalising the same gate) is a limit in a suitable 2-category: the UMST-Formal
 system is the universal object that maps into each formal layer compatibly. The
 `make all` target in `GNUmakefile` computes this limit computationally, ensuring all
@@ -1012,9 +1014,10 @@ data MaterialClass
 ```
 
 **In this repository.** Every named type in the codebase is an ADT:
-`ThermodynamicState` (a product of four `Double` fields), `MaterialClass` (a sum of
-five nullary constructors), `AdmissibilityResult` (a product of four `Bool` fields
-plus a summary). In Agda, the same structures appear as `record` (product) and `data`
+`ThermodynamicState` (a product of five `Double` fields), `MaterialClass` (a sum of
+five nullary constructors in Agda; 17 in Haskell's `MaterialType`),
+`AdmissibilityResult` (a product of one `Double` and five `Bool` fields).
+In Agda, the same structures appear as `record` (product) and `data`
 (sum) declarations in `Gate.agda` and `Naturality.agda`.
 
 ---
@@ -1034,7 +1037,7 @@ possible.
 
 **In this repository.** The monad-law proofs in `Agda/DIB-Kleisli.agda` are
 parametrically polymorphic over the value type `A`. The QuickCheck properties in
-`Haskell/Props.hs` use polymorphic combinators (`forAll`, `property`) that hold for
+`Haskell/test/Test.hs` use polymorphic combinators (`forAll`, `property`) that hold for
 any generated input type. The gate function is not polymorphic (it is specific to
 `ThermodynamicState`), but the naturality proof `gate-natural` in `Agda/Naturality.agda`
 treats the material-class parameter polymorphically.
@@ -1130,9 +1133,9 @@ The right-associativity of `->` means `a -> b -> c` is `a -> (b -> c)`: every
 multi-argument Haskell function is already curried by default.
 
 **In this repository.** Every multi-argument function in the codebase is curried.
-`gateCheck :: ThermodynamicState -> ThermodynamicState -> AdmissibilityResult`
-is a function that takes a state and returns a function that takes another state
-and returns a result. This is not just notation — it means `gateCheck old` is a
+`gateCheck :: ThermodynamicState -> ThermodynamicState -> Double -> AdmissibilityResult`
+is a function that takes a state, returns a function that takes another state,
+returns a function that takes a time step, and returns a result. This means `gateCheck old` is a
 valid partial application that can be stored, mapped over a list of new states, or
 passed to a higher-order function. The adjunction \((- \times S) \dashv (S \to -)\)
 described in §16 is the categorical statement that this currying isomorphism exists.
@@ -1153,10 +1156,10 @@ This holds for all pure Haskell expressions. It fails in the presence of mutable
 state, I/O, or non-determinism — which is why those effects are quarantined in the
 `IO` monad.
 
-**In this repository.** All functions in `Haskell/UMST.hs` (`gateCheck`, `psiDot`,
-`massConserved`, `fromMix`) are referentially transparent: calling them with the same
+**In this repository.** All functions in `Haskell/UMST.hs` (`gateCheck`, `fromMix`)
+and their internal computations are referentially transparent: calling them with the same
 arguments twice gives the same result. This property is what makes the QuickCheck
-property tests in `Haskell/Props.hs` valid — if `gateCheck` had hidden mutable
+property tests in `Haskell/test/Test.hs` valid — if `gateCheck` had hidden mutable
 state, the same test input could produce different results on different runs.
 The `IO` boundary in `Haskell/KleisliDIB.hs` is precisely the line at which
 referential transparency ends and managed effects begin.
@@ -1281,7 +1284,7 @@ functions correspond to \(\mathbf{I}\), \(\mathbf{K}\), and \(\mathbf{S}\).
 
 **In this repository.** Combinatory logic is not used directly, but it is the
 theoretical foundation for point-free style — writing functions without naming
-their arguments — which appears throughout `Haskell/Props.hs` and `Haskell/UMST.hs`.
+their arguments — which appears throughout `Haskell/test/Test.hs` and `Haskell/UMST.hs`.
 For example, `cata alg = alg . fmap (cata alg) . unFix` is a point-free definition;
 its combinator translation would use \(\mathbf{S}\) to handle the shared `cata alg`
 argument. The proof irrelevance properties used in `Agda/Gate.agda` (where two proofs
@@ -1297,20 +1300,20 @@ The table below maps each formal concept to its concrete role in this codebase.
 | Concept | Role in UMST-Formal | Primary file |
 |---|---|---|
 | Function | Pure gate predicate; each invariant check | `Haskell/UMST.hs` |
-| Higher-order function | Kleisli composition; QuickCheck property API | `Haskell/KleisliDIB.hs`, `Props.hs` |
+| Higher-order function | Kleisli composition; QuickCheck property API | `Haskell/KleisliDIB.hs`, `Haskell/test/Test.hs` |
 | Type | `ThermodynamicState`, `MaterialClass`, `Admissible` | All layers |
 | Higher-order type | `StateT`, `Maybe`, monad transformer stack | `Haskell/KleisliDIB.hs` |
 | Recursion | Agda monad-law proofs; QuickCheck generators | `Agda/DIB-Kleisli.agda` |
 | Category | **Hask** as ambient category; admissible subcategory | Conceptual foundation |
 | Functor | `F`, `G` on `MaterialClass` | `Agda/Naturality.agda` |
 | Endofunctor | All `Functor` instances; `StateT UMSTState IO` | `Haskell/KleisliDIB.hs` |
-| Monoid | Monoid structure on `All`; DIB state accumulation | `Haskell/Props.hs` |
+| Monoid | Monoid structure on `All`; DIB state accumulation | `Haskell/test/Test.hs` |
 | Monad | State monad for DIB pipeline; law proofs | `Agda/DIB-Kleisli.agda`, `Haskell/KleisliDIB.hs` |
 | Natural transformation | Gate as `η: F ⟹ G`; material-agnosticism proof | `Agda/Naturality.agda` |
 | Kleisli category | DIB phase composition; law verification | `Agda/DIB-Kleisli.agda`, `Haskell/KleisliDIB.hs` |
-| Applicative functor | Independent field generation in tests | `Haskell/Props.hs` |
+| Applicative functor | Independent field generation in tests | `Haskell/test/Test.hs` |
 | Monad transformer | `StateT UMSTState IO`; combining state + IO effects | `Haskell/KleisliDIB.hs` |
-| 2-Category | Three formal layers as 0-cells; correspondences as 1-cells; agreement proofs as 2-cells | `Docs/Architecture-Invariants.md` (synthesis table) |
+| 2-Category | Four formal layers as 0-cells; correspondences as 1-cells; agreement proofs as 2-cells | `Docs/Architecture-Invariants.md` (synthesis table) |
 | Adjunction | Mathematical origin of the State monad and its `runStateT` isomorphism | `Haskell/KleisliDIB.hs` (structural) |
 | Comonad | Future direction: spatial / historical context for gate evaluation | `CONTRIBUTING.md` |
 | Free monad | Future direction: gate effect algebra separating description from interpretation | `CONTRIBUTING.md` |
@@ -1320,14 +1323,14 @@ The table below maps each formal concept to its concrete role in this codebase.
 | Cartesian closed category | Ambient structure of **Hask**; locally CCC for Agda dependent types | Conceptual foundation |
 | Exponential object | Every function type; `gate` as first-class value | All layers |
 | Monoidal category | Material batch composition; mass conservation as monoidal constraint | `Agda/Naturality.agda` |
-| Yoneda lemma | Parametricity; gate-natural proof | `Agda/Naturality.agda`, `Haskell/Props.hs` |
+| Yoneda lemma | Parametricity; gate-natural proof | `Agda/Naturality.agda`, `Haskell/test/Test.hs` |
 | F-algebra / Catamorphism | Monad-law proof by structural induction | `Agda/DIB-Kleisli.agda` |
 | Limit / Colimit | Multi-layer agreement as limit; `make all` as computational realisation | `GNUmakefile` |
 | Profunctor | Future direction: typed FFI bridge | `Haskell/FFI.hs` |
 | Free category | DIB pipeline as path; associativity proof as path associativity | `Agda/DIB-Kleisli.agda` |
 | String diagram | Graphical naturality proof for gate material-agnosticism | `Agda/Naturality.agda` |
 | Algebraic data type | Every named type in the codebase | All layers |
-| Parametric polymorphism | Monad-law proofs; QuickCheck universals | `Agda/DIB-Kleisli.agda`, `Haskell/Props.hs` |
+| Parametric polymorphism | Monad-law proofs; QuickCheck universals | `Agda/DIB-Kleisli.agda`, `Haskell/test/Test.hs` |
 | Dependent type | `Admissible old new` — correctness encoded in the type | `Agda/Gate.agda` |
 | Curry-Howard | Agda proof terms are programs; type checking = proof checking | `Agda/Gate.agda`, `Coq/Gate.v` |
 | Currying | All multi-argument functions; `gateCheck old` as partial application | All Haskell files |
@@ -1336,18 +1339,18 @@ The table below maps each formal concept to its concrete role in this codebase.
 | Beta/Alpha/Eta | Agda type checking; Coq `simpl` tactic; equational reasoning | `Agda/Gate.agda`, `Coq/Gate.v` |
 | Y combinator / `fix` | Implicit in all structural recursion and monad-law proofs | `Agda/DIB-Kleisli.agda` |
 | Church encoding | Ancestor of Agda inductive types; `Admissible` as proof object | `Agda/Gate.agda` |
-| Combinatory logic | Point-free style throughout; proof irrelevance in Agda | `Haskell/Props.hs`, `Agda/Gate.agda` |
+| Combinatory logic | Point-free style throughout; proof irrelevance in Agda | `Haskell/test/Test.hs`, `Agda/Gate.agda` |
 | Implicit function (FRep) | Gate as implicit surface in state-product space | Conceptual (all layers) |
-| SDF | Clausius-Duhem as signed distance to equilibrium surface | `Haskell/UMST.hs` (`psiDot`) |
-| R-Function | Gate as R-intersection of four invariant surfaces | `Agda/Gate.agda`, `Haskell/UMST.hs` |
+| SDF | Clausius-Duhem as signed distance to equilibrium surface | `Haskell/SDFGate.hs` (`clausiusDuhemSDF`) |
+| R-Function | Gate as R-intersection of four invariant surfaces | `Agda/Gate.agda`, `Haskell/SDFGate.hs` |
 | Functional CSG | Four-invariant conjunction = CSG intersection in state space | All gate layers |
 | Blending operator | Tolerance bands (`massTolerance`, `tolerance`) as soft offsets | `Haskell/UMST.hs` |
-| Offset surface | Each gate tolerance = offset of a hard invariant surface | `Haskell/UMST.hs` |
+| Offset surface | Each gate tolerance = offset of a hard invariant surface | `Haskell/SDFGate.hs` |
 | Recursive shape / Catamorphism | Kleisli monad-law proof by structural recursion | `Agda/DIB-Kleisli.agda` |
-| Ray marching | Gate checks as Kleisli composition in `Maybe`; fixed-point search | `Haskell/UMST.hs` |
-| Gradient / Normal | `psiDot` = analytic gradient of Helmholtz SDF; `helmholtz_antitone` | `Haskell/UMST.hs`, `Coq/Gate.v` |
+| Ray marching | Gate checks as Kleisli composition in `Maybe`; fixed-point search | `Haskell/KleisliDIB.hs` |
+| Gradient / Normal | Helmholtz gradient = −Q_hyd; `helmholtzAntitone` | `Haskell/SDFGate.hs`, `Coq/Gate.v` |
 | Geometry DSL (Free/Initial) | Same pattern as `GateF` free monad; `foldFree` = interpreter | `CONTRIBUTING.md` |
-| HFRep | Three formal layers = hybrid representations of same gate semantics | All layers + `ffi-bridge` |
+| HFRep | Four formal layers = hybrid representations of same gate semantics | All layers + `ffi-bridge` |
 
 ### The central result in one sentence
 
@@ -1517,8 +1520,8 @@ CSG intersection in state space:
 
 The Haskell `gateCheck` function evaluates this CSG intersection explicitly; the
 Agda `Admissible` record encodes it dependently; the Coq `admissible` proposition
-encodes it as a logical conjunction. All three are the same CSG intersection, in
-three different formal languages.
+encodes it as a logical conjunction; Lean 4 `Admissible` mirrors the Agda structure.
+All four are the same CSG intersection, in four different formal languages.
 
 ---
 
@@ -1581,8 +1584,8 @@ holds for any CSG operation `op`.
 \(|\rho_\mathrm{new} - \rho_\mathrm{old}| \leq \delta\) is the zero-set condition of
 the SDF \(f(s_1, s_2) = |\rho_\mathrm{new} - \rho_\mathrm{old}| - \delta\), i.e.,
 the surface \(|\rho_\mathrm{new} - \rho_\mathrm{old}| = 0\) offset outward by
-\(\delta\). The four gate tolerances (`massTolerance`, `tolerance` in `Haskell/UMST.hs`)
-are four independent offset parameters, one per invariant surface.
+\(\delta\). The gate tolerances (`massTolerance` for density, `tolerance` for floating-point
+comparisons, both in `Haskell/UMST.hs`) are offset parameters for the invariant surfaces.
 
 ---
 
@@ -1690,9 +1693,9 @@ of evaluating `f` once with dual-number inputs instead of `Double`.
 
 **In this repository.** The Helmholtz free-energy gradient
 \(\dot{\psi} = \partial \psi / \partial \alpha \cdot \dot{\alpha} = -Q_\mathrm{hyd} \cdot \dot{\alpha}\)
-in `Haskell/UMST.hs` (`psiDot`) is the gradient of the Helmholtz SDF in the
-one-dimensional hydration state space. It is computed analytically
-(not numerically), which is why `psiDot` is an exact formula rather than a finite
+computed inside `gateCheck` in `Haskell/UMST.hs` is the gradient of the Helmholtz SDF in the
+one-dimensional hydration state space.  The Helmholtz SDF itself (`helmholtzSDF`) is
+defined in `Haskell/SDFGate.hs` as an exact analytic formula rather than a finite
 difference. The `helmholtz_antitone` theorem proved in `Coq/Gate.v` is the formal
 statement that this gradient is negative (the SDF is antitone in \(\alpha\)):
 the surface moves in the admissible direction as hydration advances.
@@ -1766,14 +1769,14 @@ The composition laws of the transformer stack (§14) guarantee that crossing lay
 boundaries does not violate either representation's invariants, exactly as `lift`
 promotes `IO` actions into `StateT IO` without losing the state-threading invariant.
 
-**In this repository.** The UMST multi-layer system (Agda + Coq + Haskell) is an
+**In this repository.** The UMST multi-layer system (Agda + Coq + Lean 4 + Haskell) is an
 HFRep of formal representations: each layer uses a different formalism (dependent
-types, propositions, pure functions) but encodes the same underlying gate semantics.
+types, propositions, tactics, pure functions) but encodes the same underlying gate semantics.
 The `ffi-bridge` crate is the layer-crossing mechanism — analogous to `lift` — that
 promotes Rust SDF evaluations (concrete, discrete, machine-level) into the Haskell
 layer (abstract, continuous, type-checked). The synthesis table in
 `Docs/Architecture-Invariants.md` is the HFRep's type correspondence: the same
-"shape" (gate semantics) expressed in three different representation layers.
+"shape" (gate semantics) expressed in four different representation layers.
 
 ---
 

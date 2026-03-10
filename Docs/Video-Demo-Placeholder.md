@@ -26,7 +26,7 @@ Show each `.agda` file type-checking successfully. Emphasise: **type-checking IS
 
 ```bash
 cd ../Coq
-make extraction
+make extract
 ```
 
 Show `Gate.v` compiling, then `Extraction.v` producing OCaml code. Briefly open the generated `.ml` to show extracted decision procedure.

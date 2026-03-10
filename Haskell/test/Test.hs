@@ -2,9 +2,9 @@
 -- Test suite for UMST-Formal Haskell layer.
 --
 -- Covers:
---   1. Gate invariants (pure reference implementation vs SDF)
---   2. SDF/FRep properties (CSG, offset, gradient)
---   3. Kleisli monad laws (operational check)
+--   1. Gate invariants (pure reference implementation)
+--   2. SDF/FRep properties (CSG, offset, gradient, Helmholtz)
+--   3. Constructor consistency (fromMix / Helmholtz model)
 --
 -- Run with:  cabal test
 
@@ -27,11 +27,12 @@ import SDFGate
 --   strength ∈ [0, 100]      MPa
 genState :: Gen ThermodynamicState
 genState = do
-  rho <- choose (1000.0, 3000.0)
-  psi <- choose (-450.0, 0.0)
-  al  <- choose (0.0, 1.0)
-  fc  <- choose (0.0, 100.0)
-  pure (ThermodynamicState rho psi al fc)
+  rho   <- choose (1000.0, 3000.0)
+  psi   <- choose (-450.0, 0.0)
+  al    <- choose (0.0, 1.0)
+  fc    <- choose (0.0, 100.0)
+  fcMax <- choose (fc, 230.0)
+  pure (ThermodynamicState rho psi al fc fcMax)
 
 instance Arbitrary ThermodynamicState where
   arbitrary = genState
@@ -43,30 +44,30 @@ instance Arbitrary ThermodynamicState where
 -- | Gate decisions are deterministic: same inputs always give same result.
 prop_gate_deterministic :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_gate_deterministic s1 s2 =
-  gateCheck s1 s2 == gateCheck s1 s2
+  gateCheck s1 s2 1.0 == gateCheck s1 s2 1.0
 
 -- | Mass conservation: admissible iff |Δρ| ≤ massTolerance.
 prop_mass_conservation_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_mass_conservation_spec old new =
-  massConserved (gateCheck old new)
-  == (abs (density new - density old) <= massTolerance)
+  massConserved (gateCheck old new 1.0)
+  == (abs (density new - density old) < massTolerance + tolerance)
 
 -- | Clausius-Duhem: admissible iff ψ_new ≤ ψ_old.
 prop_clausius_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_clausius_spec old new =
-  dissipationNonneg (gateCheck old new)
+  energyPositive (gateCheck old new 1.0)
   == (freeEnergy new <= freeEnergy old)
 
 -- | Hydration irreversibility: admissible iff α_new ≥ α_old.
 prop_hydration_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_hydration_spec old new =
-  hydrationOk (gateCheck old new)
+  hydrationOk (gateCheck old new 1.0)
   == (hydration new >= hydration old)
 
 -- | Strength monotonicity: admissible iff fc_new ≥ fc_old.
 prop_strength_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_strength_spec old new =
-  strengthOk (gateCheck old new)
+  strengthOk (gateCheck old new 1.0)
   == (strength new >= strength old)
 
 ------------------------------------------------------------------------
@@ -80,9 +81,9 @@ prop_strength_spec old new =
 -- SDF/FRep interpretation.
 prop_gateSDF_matches_gateCheck :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_gateSDF_matches_gateCheck old new =
-  let result   = gateCheck old new
+  let result   = gateCheck old new 1.0
       admitted = massConserved result
-              && dissipationNonneg result
+              && energyPositive result
               && hydrationOk result
               && strengthOk result
       sdfVal   = gateSDF old new
@@ -138,15 +139,15 @@ prop_offset_distributive old new =
   in abs (lhs - rhs) < 1e-9
 
 ------------------------------------------------------------------------
--- Section 3: Fromix constructor
+-- Section 3: fromMix constructor
 ------------------------------------------------------------------------
 
 -- | fromMix produces a state consistent with the Helmholtz model:
 -- freeEnergy = -Q_hyd * hydration (within floating-point tolerance).
 prop_fromMix_helmholtz_model :: Double -> Double -> Property
-prop_fromMix_helmholtz_model wc density0 =
-  wc > 0 && density0 > 500 ==>
-    let s = fromMix wc density0
+prop_fromMix_helmholtz_model wc alpha =
+  wc > 0.1 && wc < 0.8 && alpha >= 0 && alpha <= 1 ==>
+    let s = fromMix wc alpha 20.0
         expected = helmholtzSDF (hydration s)
     in abs (freeEnergy s - expected) < 1e-6
 

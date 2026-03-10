@@ -29,6 +29,15 @@ Coq/html/
 Coq/ocaml/
 Coq/.coq-native/
 
+# ── Lean 4 build artifacts ───────────────────────────────────────────────────
+# Lake build cache (.lake/build/, .lake/packages/)
+.lake/
+# Compiled Lean objects
+*.olean
+*.ilean
+# Lake manifest is generated; lake-manifest.json is intentionally committed
+# for reproducible builds, so do NOT add it here.
+
 # ── OCaml build artifacts ────────────────────────────────────────────────────
 *.cmi
 *.cmo

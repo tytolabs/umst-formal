@@ -35,6 +35,9 @@ pkgs.mkShell {
     pkgs.ghc             # GHC ≥ 9.6 (required for CApiFFI)
     pkgs.cabal-install   # cabal ≥ 3.10
 
+    # ── Lean 4 ────────────────────────────────────────────────────────
+    pkgs.elan             # Lean version manager (reads Lean/lean-toolchain)
+
     # ── OCaml (for Coq extraction output) ────────────────────────────
     pkgs.ocaml
     pkgs.ocamlPackages.ocamlfind
@@ -56,8 +59,9 @@ pkgs.mkShell {
     echo "  Coq    : $(coqc --version 2>/dev/null | head -1 || echo 'not found')"
     echo "  GHC    : $(ghc --version 2>/dev/null || echo 'not found')"
     echo "  Cargo  : $(cargo --version 2>/dev/null || echo 'not found')"
+    echo "  Lean   : $(lean --version 2>/dev/null | head -1 || echo 'not found (run: cd Lean && lake build)')"
     echo ""
-    echo "Targets:  make agda | coq | haskell | rust | full | status"
+    echo "Targets:  make agda | coq | haskell | rust | lean | full | status"
     echo ""
   '';
 }

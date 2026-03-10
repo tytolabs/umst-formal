@@ -399,24 +399,7 @@ geopolymer-no-hydration ()
 -- 10. Engine Count: How Many Engines Each Material Activates
 ------------------------------------------------------------------------
 
--- We define a count function and verify the expected engine counts.
--- This serves as a "type-level unit test" ensuring the activation
--- profiles are defined correctly.
-
--- Count active engines by summing the boolean values.
--- We enumerate all eight engines explicitly.
-countEngines : EngineSet → Data.Bool.Bool → Data.Bool.Bool →
-               Data.Bool.Bool → Data.Bool.Bool → Data.Bool.Bool →
-               Data.Bool.Bool → Data.Bool.Bool → Data.Bool.Bool → Set
-countEngines es = λ _ _ _ _ _ _ _ _ → ⊤
-
--- A simpler approach: state the count as a proposition.
--- We use Σ-types to express "the number of active engines is N".
-
--- For the purpose of this formal development, we state counts as
--- comments rather than formalising natural-number counting (which
--- would require importing Data.Nat and boolean-to-nat conversion):
---
+-- Expected engine counts per material class:
 --   OPC:        4 engines (Hyd, Str, Rheo, Therm)
 --   RAC:        5 engines (Hyd, Str, Rheo, Therm, Trans)
 --   Geopolymer: 3 engines (Alk, Str, Rheo)

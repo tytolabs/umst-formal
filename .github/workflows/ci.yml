@@ -150,6 +150,27 @@ jobs:
         if: env.UMST_PROTO_REPO != ''
         run: cargo test --release -p umst-ffi-bridge
 
+  # ── Lean 4 type-checking ───────────────────────────────────────────
+  #
+  # Checks all six UMST Lean 4 modules with lake build.
+  # Uses the Lean version pinned in Lean/lean-toolchain.
+  # Mathlib4 is cached by leanprover/lean4-action.
+  lean:
+    name: Lean 4 proof check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Lean 4 + Mathlib cache
+        uses: leanprover/lean4-action@v1
+        with:
+          build-args: "--wfail"
+          working-directory: Lean
+
+      - name: Build all Lean 4 modules
+        working-directory: Lean
+        run: lake build UMST
+
   # ── Markdown / docs lint ───────────────────────────────────────────
   docs:
     name: Docs lint

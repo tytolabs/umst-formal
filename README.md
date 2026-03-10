@@ -1,27 +1,39 @@
 # UMST-Formal
 
-**Formal verification and categorical semantics for the Unified Material-State Tensor thermodynamic gate kernel.**
+**Formal verification and categorical semantics for the Unified Material-State Tensor (UMST).**
 
 ## Background
 
-The UMST thermodynamic gate is a decision procedure: given a proposed material state
-transition (old → new), it accepts or rejects the transition based on four physical
-constraints — mass conservation, Clausius-Duhem dissipation, hydration irreversibility,
-and strength monotonicity. The Rust kernel (`umst-prototype-2a`) implements that gate.
+The Unified Material-State Tensor (UMST) is a mathematical framework for reasoning
+about material state transitions in physical systems.  Its core components are:
 
-This repository proves, across three independent formal layers (Agda, Coq, Haskell),
-that the implementation is sound with respect to those constraints. The proofs are
-machine-checked; the correspondence to the Rust code is validated by property-based
-testing.
+- **Thermodynamic gate** — a decision procedure that accepts or rejects a proposed
+  state transition based on four physical constraints (mass conservation,
+  Clausius-Duhem dissipation, hydration irreversibility, strength monotonicity).
+- **Naturality** — a categorical proof that the gate is material-agnostic: it
+  applies uniformly across material classes (OPC, RAC, geopolymer, lime, earth, ...).
+- **Constitutional sequences** — Kleisli-monadic composition of N gate-checked
+  transitions, with Subject Reduction guaranteeing safety at every step.
+- **Geometric interpretation** — the admissible region as an SDF / FRep implicit
+  surface (CSG intersection of four half-spaces), with Helmholtz free energy
+  providing the gradient field.
+- **DIB cycle** — the Discovery-Invention-Build loop modelled as a state monad
+  with verified associativity.
 
-The constraints themselves are empirically grounded — each one was identified through
-field observation of specific material failure modes before it was formalised.
+The Rust kernel (`umst-prototype-2a`) implements the gate.  This repository proves,
+across four independent formal layers (Agda, Coq, Lean 4, Haskell QuickCheck), that
+the UMST framework is internally consistent and the implementation is sound.
+The proofs are machine-checked; the correspondence to the Rust code is validated
+by property-based testing.
+
+The constraints are empirically grounded — each was identified through field
+observation of specific material failure modes before it was formalised.
 [Docs/Architecture-Invariants.md](Docs/Architecture-Invariants.md) documents that
-derivation in detail.
+derivation.
 
 ## What This Repository Proves
 
-Four invariants, verified across three formal layers (Agda, Coq, Haskell):
+Four invariants, verified across four formal layers (Agda, Coq, Lean 4, Haskell QuickCheck):
 
 | # | Invariant | Physical meaning | Formal statement |
 |---|-----------|-----------------|------------------|
@@ -35,27 +47,55 @@ Four invariants, verified across three formal layers (Agda, Coq, Haskell):
 ```
 umst-formal/
 ├── Agda/                   Dependent types + categorical proofs
-│   ├── Gate.agda           Core admissible state, Theorem 1
+│   ├── Gate.agda           Core admissible state, Theorem 1; CSG decomposition
 │   ├── Naturality.agda     Natural transformation for the gate
 │   ├── DIB-Kleisli.agda    Discovery-Invention-Build as Kleisli monad
-│   └── Activation.agda     Material activations as dependent types
+│   ├── Activation.agda     Material activations as dependent types
+│   └── Helmholtz.agda      Helmholtz free-energy model; gradient / Eikonal theorem
 ├── Coq/                    Verified extraction to OCaml
-│   ├── Gate.v              Theorem proving over rationals
+│   ├── Gate.v              Theorem proving over rationals; Helmholtz gradient (§8b)
+│   ├── Constitutional.v    Subject Reduction Lemma; Kleisli Admissibility Theorem
 │   └── Extraction.v        OCaml code generation
+├── Lean/                   Lean 4 layer (full parity, 59 theorems, zero sorry)
+│   ├── Gate.lean           Core admissibility + gate soundness/completeness
+│   ├── Helmholtz.lean      Concrete Helmholtz model + SDF / Eikonal
+│   ├── Constitutional.lean Kleisli Admissibility + Subject Reduction
+│   ├── Naturality.lean     Natural transformation + material-agnosticism
+│   ├── Activation.lean     Engine activation profiles (sheaf section)
+│   ├── DIBKleisli.lean     DIB monad + 3 monad laws + Kleisli assoc
+│   ├── lakefile.lean       Lake build configuration
+│   └── lean-toolchain      Lean 4 version pin (v4.14.0)
 ├── Haskell/                Kleisli monad + Rust FFI bridge
 │   ├── UMST.hs             Tensor types + pure reference gate
 │   ├── KleisliDIB.hs       Categorical DIB monad
-│   └── FFI.hs              Foreign function interface to Rust
+│   ├── SDFGate.hs          SDF / FRep interpretation of the gate
+│   ├── FFI.hs              Foreign function interface to Rust
+│   └── test/Test.hs        QuickCheck property tests (gate + SDF)
 ├── ffi-bridge/             Thin C-ABI wrapper over umst-core
 │   ├── src/lib.rs          extern "C" exports
 │   └── include/umst_ffi.h  C header
 ├── Docs/                   Extended documentation
 │   ├── Architecture-Invariants.md
+│   ├── FP-Primer.md        52-concept FP / Category Theory / SDF glossary
 │   ├── OnePager-Categorical.tex
 │   └── Video-Demo-Placeholder.md
+├── PROOF-STATUS.md         Per-theorem cross-layer verification index
 ├── Cargo.toml              Workspace linking to Rust kernel
+├── shell.nix               Reproducible build environment (Nix)
 └── README.md               This file
 ```
+
+## What Is Verified
+
+| Claim | Mechanized in |
+|-------|--------------|
+| Four gate invariants (mass, Clausius-Duhem, hydration, strength) | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Gate.lean`, `Haskell/UMST.hs` |
+| Gate is material-agnostic (naturality) | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Activation.lean` |
+| Subject Reduction; Kleisli Admissibility (N-step safety) | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
+| SDF / FRep interpretation; CSG decomposition; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
+| Full Lean 4 mechanization | `Lean/` (6 modules, 59 theorems, zero sorry) |
+
+Four independent proof layers (Agda, Coq, Lean 4, Haskell QuickCheck) verify the same invariants. See `PROOF-STATUS.md` for the complete per-theorem index across all layers.
 
 ### Layer Relationships
 
@@ -92,9 +132,9 @@ umst-formal/
 └──────────────┬──────────────────────────────────────────────────┘
                │ path dependency (no modifications)
 ┌──────────────▼──────────────────────────────────────────────────┐
-│  umst-prototype-2a/prototype/src/rust/core  (UNTOUCHED)         │
+│  umst-prototype-2a/prototype/src/rust/core                      │
 │  ──────────────────────────────────────────                     │
-│  ThermodynamicFilter, PhysicsKernel, MixTensor, MaterialType    │
+│  PhysicsKernel, MixTensor, KleisliArrow<A,B>, gate_server      │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -123,6 +163,7 @@ See `Docs/OnePager-Categorical.tex` for the full commuting diagram.
 | Agda | 2.6.4+ | Dependent-type proofs |
 | agda-stdlib | 2.0+ | Standard library |
 | Coq | 8.18+ | Theorem proving + extraction |
+| Lean 4 | 4.14.0 | Independent proof layer (Mathlib4) |
 | GHC | 9.6+ | Haskell bridge + property tests |
 | cabal | 3.10+ | Haskell build system |
 
@@ -138,7 +179,10 @@ cd Agda && make check && cd ..
 # 3. Compile Coq proofs and extract OCaml
 cd Coq && make && cd ..
 
-# 4. Build Haskell bridge and run property tests
+# 4. Build Lean 4 proofs
+cd Lean && lake build UMST && cd ..
+
+# 5. Build Haskell bridge and run property tests
 cd Haskell && cabal build && cabal test && cd ..
 ```
 
@@ -155,13 +199,17 @@ To add a new material class (e.g., geopolymer):
 
 ## Correspondence to Rust Kernel
 
-This repository does **not** modify the Rust kernel. The formal proofs establish
-properties of an abstract mathematical model. Correspondence is validated by:
+The formal proofs establish properties of an abstract mathematical model.
+The Rust kernel now includes `KleisliArrow<A,B>` (`tensors/kleisli.rs`)
+implementing the admissibility monad with bind, join, and composition —
+the runtime backing for the categorical proofs here. Correspondence is validated by:
 
 - Property-based tests (Haskell QuickCheck) that generate random states,
   run both the pure Haskell gate and the Rust gate via FFI, and assert
   identical accept/reject decisions
 - The Coq-extracted OCaml serves as an independent reference implementation
+- The Rust `KleisliArrow` tests verify monad left/right identity and
+  short-circuit behavior, mirroring the formal monad law proofs
 
 ## License
 

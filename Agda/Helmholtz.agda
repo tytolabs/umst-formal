@@ -26,7 +26,7 @@
 --   function is the Helmholtz model ψ(α) = -Q_hyd · α.
 --
 -- Postulate status:
---   `helmholtz-antitone-lemma` is marked as a postulate pending the
+--   `helmholtz-antitone` is marked as a postulate pending the
 --   specific Agda stdlib version's rational arithmetic API (the proof
 --   follows from ℚ-Props.*-monoˡ-≤-nonNeg and ℚ-Props.neg-antimono-≤).
 --   The identical fact is FULLY PROVED in Coq/Gate.v via `nia`.

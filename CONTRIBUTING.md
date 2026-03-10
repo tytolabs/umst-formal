@@ -12,9 +12,10 @@ invariants.
    repository's perspective. The FFI bridge (`ffi-bridge/`) is the only
    translation layer you may change.
 
-2. **Every new proof obligation must be discharged.** Agda holes (`{!!}`)
-   and Coq `Admitted` lemmas are technical debt, not acceptable
-   contributions. Open a discussion issue first if a proof is genuinely hard.
+2. **Every new proof obligation must be discharged.** Agda holes (`{!!}`),
+   Coq `Admitted` lemmas, and Lean `sorry` are technical debt, not
+   acceptable contributions. Open a discussion issue first if a proof is
+   genuinely hard.
 
 3. **Tests must pass.** Run `cabal test` (Haskell) and `cargo test`
    (Rust) before opening a PR. CI will enforce this automatically.
@@ -33,7 +34,7 @@ main ← (merge only via PR)
 ```
 
 Branch from `main`, open a Pull Request, request review from at least one
-person familiar with the relevant layer (Agda, Coq, Haskell, or Rust).
+person familiar with the relevant layer (Agda, Coq, Lean 4, Haskell, or Rust).
 
 ## Commit Messages
 
@@ -54,10 +55,11 @@ Types: `feat`, `fix`, `proof`, `docs`, `test`, `refactor`, `chore`.
 1. Update `Docs/Architecture-Invariants.md` with the empirical motivation.
 2. Add the invariant to `Agda/Gate.agda` and prove it.
 3. Mirror the proof in `Coq/Gate.v`.
-4. Add the check to `Haskell/UMST.hs::gateCheck` and `AdmissibilityResult`.
-5. Expose a C function in `ffi-bridge/src/lib.rs` if the Rust kernel
+4. Port the proof to `Lean/Gate.lean`.
+5. Add the check to `Haskell/UMST.hs::gateCheck` and `AdmissibilityResult`.
+6. Expose a C function in `ffi-bridge/src/lib.rs` if the Rust kernel
    needs to be queried.
-6. Add a QuickCheck property in `Haskell/test/Test.hs`.
+7. Add a QuickCheck property in `Haskell/test/Test.hs`.
 
 ## Layer-Specific Notes
 
@@ -83,6 +85,18 @@ Types: `feat`, `fix`, `proof`, `docs`, `test`, `refactor`, `chore`.
   `-fno-ffi` or a stub during pure Haskell CI).
 - Test: `cd Haskell && cabal test`.
 
+### Lean 4
+
+- All theorems must be `sorry`-free. The `--wfail` flag in CI treats
+  warnings (including sorry) as errors.
+- Each Lean module mirrors one Agda module 1:1. Maintain this
+  correspondence when adding new definitions.
+- `axiom` is acceptable only for physical model assumptions (matching
+  Coq `Axiom` and Agda `postulate`). Document the physical basis.
+- `opaque` is acceptable for abstract types in the DIB monad (matching
+  Agda `postulate` for phase types).
+- Test: `cd Lean && lake build UMST`.
+
 ### Rust (ffi-bridge only)
 
 - All `extern "C"` functions must be `#[no_mangle]` with `/// Safety`
@@ -93,6 +107,6 @@ Types: `feat`, `fix`, `proof`, `docs`, `test`, `refactor`, `chore`.
 ## Reporting Issues
 
 Open a GitHub issue with:
-- Which layer (Agda / Coq / Haskell / Rust) is affected.
+- Which layer (Agda / Coq / Lean 4 / Haskell / Rust) is affected.
 - The minimal reproducer.
 - Which invariant is (potentially) violated.

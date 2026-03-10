@@ -40,17 +40,17 @@ making the derivation methodology a first-class object within the formal system.
 
 ## 3. Correspondence Table
 
-Type correspondence across the four layers:
+Type correspondence across the five layers (four formal + one implementation):
 
-| Concept | Rust (`umst-core`) | Agda | Coq | Haskell |
-|---------|-------------------|------|-----|---------|
-| Material state | `ThermodynamicState` | `ThermodynamicState` (record) | `thermo_state` (Record) | `ThermodynamicState` (data) |
-| Gate decision | `ThermodynamicFilter::check_transition` | `gate : State → State → Dec Admissible` | `gate_check : state → state → bool` | `gate :: State -> State -> Bool` |
-| Admissibility proof | `accepted: bool` (runtime) | `Admissible` (dependent record) | `admissible` (Prop) | `Admissible` (phantom) |
-| Mass conservation | `density_check()` | `mass-conserved` field | `mass_conserved` hypothesis | `massConserved` property |
-| Clausius-Duhem | `dissipation_check()` | `dissipation-nonneg` field | `dissipation_nonneg` hypothesis | `dissipationNonneg` property |
-| Hydration irreversibility | `hydration_check()` | `hydration-monotone` field | `hydration_monotone` hypothesis | `hydrationMonotone` property |
-| Strength monotonicity | `strength_check()` | `strength-monotone` field | `strength_monotone` hypothesis | `strengthMonotone` property |
-| Material class | `MaterialType` enum | `MaterialClass` data | `material_class` Inductive | `MaterialType` ADT |
-| DIB loop | `Engine::step()` | Kleisli morphism in `Kl(StateT)` | — | `dib :: Kleisli (StateT UMST IO)` |
-| FFI surface | `extern "C"` in `lib.rs` | — | — | `foreign import ccall` in `FFI.hs` |
+| Concept | Rust (`umst-core`) | Agda | Coq | Lean 4 | Haskell |
+|---------|-------------------|------|-----|--------|---------|
+| Material state | `ThermodynamicState` | `ThermodynamicState` (record) | `thermo_state` (Record) | `ThermodynamicState` (structure) | `ThermodynamicState` (data) |
+| Gate decision | `ThermodynamicFilter::check_transition` | `gate : State → State → Dec Admissible` | `gate_check : state → state → bool` | `gateCheck : State → State → Bool` | `gateCheck :: State -> State -> Double -> AdmissibilityResult` |
+| Admissibility proof | `accepted: bool` (runtime) | `Admissible` (dependent record) | `admissible` (Prop) | `Admissible` (structure) | `accepted` field of `AdmissibilityResult` |
+| Mass conservation | `density_check()` | `mass-conserved` field | `mass_conserved` hypothesis | `massConserved` field | `massConserved` field |
+| Clausius-Duhem | `dissipation_check()` | `dissipation-nonneg` field | `dissipation_nonneg` hypothesis | `dissipNonneg` field | `energyPositive` field |
+| Hydration irreversibility | `hydration_check()` | `hydration-monotone` field | `hydration_monotone` hypothesis | `hydrationMono` field | `hydrationOk` field |
+| Strength monotonicity | `strength_check()` | `strength-monotone` field | `strength_monotone` hypothesis | `strengthMono` field | `strengthOk` field |
+| Material class | `MaterialType` enum | `MaterialClass` data | `material_class` Inductive | `MaterialClass` inductive | `MaterialType` ADT |
+| DIB loop | `Engine::step()` | Kleisli morphism in `Kl(StateT)` | — | `DIBMonad` Kleisli in `DIBKleisli.lean` | `dib :: Kleisli (StateT UMST IO)` |
+| FFI surface | `extern "C"` in `lib.rs` | — | — | — | `foreign import ccall` in `FFI.hs` |

@@ -16,7 +16,7 @@
 
 COQC         := coqc
 COQ_MAKEFILE := coq_makefile
-SOURCES      := Gate.v Extraction.v
+SOURCES      := Gate.v Constitutional.v Extraction.v
 COQMAKEFILE  := CoqMakefile
 
 .PHONY: all generate extract html clean check
@@ -36,9 +36,8 @@ $(COQMAKEFILE): $(SOURCES)
 # Extraction step: compile then run Extraction.v to produce OCaml.
 extract: all
 	@echo "── Extracting Gate to OCaml ──"
-	mkdir -p ocaml
 	$(COQC) Extraction.v
-	@echo "── OCaml files written to ocaml/ ──"
+	@echo "── OCaml files: gate_extracted.ml, gate_extracted.mli ──"
 
 # Fallback: direct coqc invocation (no dep tracking; use for quick checks).
 check:

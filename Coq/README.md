@@ -97,9 +97,12 @@ extracted OCaml provides a *third* independent implementation.
 
 ```
 Coq/
-├── Gate.v              Theorems: admissible predicate, gate_check,
-│                       clausius_duhem_forward, strength_monotone_powers,
-│                       forward_hydration_admissible, gate_check_correct
+├── Gate.v              Core gate: admissible predicate, gate_check,
+│                       clausius_duhem_forward, helmholtz_antitone,
+│                       helmholtz_gradient, helmholtz_additive,
+│                       gate_check_correct (sound + complete)
+├── Constitutional.v    Subject Reduction Lemma, Kleisli Admissibility
+│                       Theorem, Kleisli arrows, N-step fold
 ├── Extraction.v        Extraction configuration + commands
 ├── gate_extracted.ml   (generated) OCaml implementation
 ├── gate_extracted.mli  (generated) OCaml interface
@@ -108,20 +111,30 @@ Coq/
 
 ## Theorems Proved
 
-| Theorem                          | Statement                                         |
-|----------------------------------|----------------------------------------------------|
-| `clausius_duhem_forward`         | α advances ⟹ dissipation ≥ 0                     |
-| `strength_monotone_powers`       | α advances ⟹ strength non-decreasing             |
-| `forward_hydration_admissible`   | Forward hydration always passes the gate           |
-| `gate_check_correct`            | `gate_check = true ↔ admissible` (sound+complete) |
-| `gate_accepts_forward_hydration` | Physical transitions ⟹ `gate_check = true`       |
+| Theorem                          | File               | Statement                                         |
+|----------------------------------|--------------------|----------------------------------------------------|
+| `helmholtz_antitone`             | Gate.v §8          | ψ(α₂) ≤ ψ(α₁) when α₁ ≤ α₂ (proved by `nia`)   |
+| `helmholtz_gradient`             | Gate.v §8b         | ψ(α+ε) − ψ(α) = −Q_hyd·ε (proved by `ring`)      |
+| `helmholtz_additive`             | Gate.v §8b         | ψ(α₁+α₂) = ψ(α₁) + ψ(α₂) (proved by `ring`)     |
+| `clausius_duhem_forward`         | Gate.v §9          | α advances ⟹ dissipation ≥ 0                     |
+| `strength_monotone_powers`       | Gate.v §10         | α advances ⟹ strength non-decreasing             |
+| `forward_hydration_admissible`   | Gate.v §11         | Forward hydration always passes the gate           |
+| `gate_check_correct`             | Gate.v §12         | `gate_check = true ↔ admissible` (sound+complete) |
+| `gate_accepts_forward_hydration` | Gate.v §12         | Forward hydration satisfies `gate_check = true`    |
+| `subject_reduction`              | Constitutional.v §2| [s1,s2,rest] well-typed ⟹ [s2,rest] well-typed  |
+| `kleisli_admissibility`          | Constitutional.v §3| Every consecutive pair in seq is admissible        |
+| `sequential_composition_safe`    | Constitutional.v §4| Composing two safe transitions yields a safe one   |
+| `admissible_refl`                | Constitutional.v §5| Every state is admissible with itself               |
+| `gate_check_refl`                | Constitutional.v §5| `gate_check s s = true` for all states             |
+| `gate_arrow_well_typed`          | Constitutional.v §6| `make_gate_arrow` produces a well-typed arrow      |
+| `kleisli_compose_well_typed`     | Constitutional.v §6| Composing well-typed arrows preserves well-typedness|
+| `kleisli_fold_well_typed`        | Constitutional.v §6| N well-typed arrows fold to a well-typed arrow     |
 
 **Axioms** (physical model assumptions, not proved):
 - `psi_antitone` — Helmholtz free energy is antitone in hydration
 - `fc_monotone` — Powers model strength is monotone in hydration
 
-**Admitted** (provable but deferred):
-- `helmholtz_antitone` — concrete arithmetic for −Q·α₂ ≤ −Q·α₁
+**Proof status: zero Admitted.** All theorems are fully proved.
 
 ## Best Practices for Verified Extraction
 
