@@ -38,9 +38,11 @@
 (*    function (gate_check) and prove their equivalence.                *)
 (* ================================================================== *)
 
-Require Import QArith.
-Require Import Bool.
-Require Import Lia.
+From Stdlib Require Import QArith.
+From Stdlib Require Import Qfield.
+From Stdlib Require Import Qring.
+From Stdlib Require Import Bool.
+From Stdlib Require Import Lia.
 
 Open Scope Q_scope.
 
@@ -264,19 +266,17 @@ Lemma helmholtz_antitone : forall a1 a2 : Q,
 Proof.
   intros a1 a2 H.
   unfold helmholtz, Q_hyd.
-  (* Strategy: unfold Qle to its Z-level definition, destruct the Q numerator/
-     denominator pairs, simplify the Qmult, then let nia close the goal.
-     The key arithmetic fact is:
-       H  :  n₁ · d₂ ≤ n₂ · d₁        (Qle a1 a2, as Z integers)
-       goal: (−450·n₂)·d₁ ≤ (−450·n₁)·d₂
-     Equivalently (multiply H by 450, flip sign):
-       450·n₁·d₂ ≤ 450·n₂·d₁          ✓ from H × 450
-     This is linear arithmetic over Z (nia handles the sign flip). *)
-  unfold Qle in *.
-  simpl in *.
-  destruct a1 as [n1 d1], a2 as [n2 d2].
-  simpl in *.
-  nia.
+  assert (e2 : (- (450 # 1)) * a2 == - ((450 # 1) * a2)) by field.
+  assert (e1 : (- (450 # 1)) * a1 == - ((450 # 1) * a1)) by field.
+  assert (Hmul : (450 # 1) * a1 <= (450 # 1) * a2).
+  { rewrite (Qmult_comm (450 # 1) a1), (Qmult_comm (450 # 1) a2).
+    apply Qmult_le_compat_r with (z := (450 # 1)).
+    - exact H.
+    - unfold Qle. simpl. lia. }
+  assert (Hopp : - ((450 # 1) * a2) <= - ((450 # 1) * a1)).
+  { now apply Qopp_le_compat. }
+  rewrite e2, e1.
+  exact Hopp.
 Qed.
 
 (* ================================================================== *)
@@ -523,6 +523,63 @@ Proof.
   intros old new_ Hhyd Hmc1 Hmc2.
   apply gate_check_complete.
   exact (forward_hydration_admissible old new_ Hhyd Hmc1 Hmc2).
+Qed.
+
+(* ================================================================== *)
+(*  SECTION 13: Graded Admissibility (N-Step Accumulated Tolerance)    *)
+(*                                                                      *)
+(*  Mirrors Gate.lean §10.  The single-step admissible predicate is    *)
+(*  NOT transitive for the mass condition (see Constitutional.v for    *)
+(*  the counterexample and admissible_N_compose).                      *)
+(*                                                                      *)
+(*  admissible_N n old new_ holds iff:                                  *)
+(*    1. |ρ_new - ρ_old| ≤ n * delta_mass  (accumulated mass bound)   *)
+(*    2-4. same as admissible (order conditions)                        *)
+(* ================================================================== *)
+
+Definition admissible_N (n : nat) (old new_ : ThermodynamicState) : Prop :=
+  (density new_ - density old <= inject_Z (Z.of_nat n) * delta_mass) /\
+  (density old - density new_ <= inject_Z (Z.of_nat n) * delta_mass) /\
+  (free_energy new_ <= free_energy old) /\
+  (hydration old <= hydration new_) /\
+  (strength old <= strength new_).
+
+Lemma admissible_N_refl : forall (n : nat) (s : ThermodynamicState),
+  admissible_N n s s.
+Proof.
+  intros n s.
+  unfold admissible_N.
+  repeat split.
+  - ring_simplify (density s - density s).
+    apply Qmult_le_0_compat.
+    + destruct n; simpl; unfold inject_Z; simpl; try apply Qle_refl.
+      unfold Qle. simpl. lia.
+    + unfold delta_mass. unfold Qle. simpl. lia.
+  - ring_simplify (density s - density s).
+    apply Qmult_le_0_compat.
+    + destruct n; simpl; unfold inject_Z; simpl; try apply Qle_refl.
+      unfold Qle. simpl. lia.
+    + unfold delta_mass. unfold Qle. simpl. lia.
+  - apply Qle_refl.
+  - apply Qle_refl.
+  - apply Qle_refl.
+Qed.
+
+Lemma admissible_implies_admissible_N1 : forall old new_ : ThermodynamicState,
+  admissible old new_ -> admissible_N 1 old new_.
+Proof.
+  intros old new_ (Hmc1 & Hmc2 & Hdiss & Hhyd & Hstr).
+  unfold admissible_N.
+  refine (conj _ (conj _ (conj _ (conj _ _)))).
+  - assert (Hq : inject_Z (Z.of_nat 1) * delta_mass == delta_mass) by (simpl; ring).
+    rewrite <- Hq.
+    exact Hmc1.
+  - assert (Hq : inject_Z (Z.of_nat 1) * delta_mass == delta_mass) by (simpl; ring).
+    rewrite <- Hq.
+    exact Hmc2.
+  - exact Hdiss.
+  - exact Hhyd.
+  - exact Hstr.
 Qed.
 
 (* ================================================================== *)

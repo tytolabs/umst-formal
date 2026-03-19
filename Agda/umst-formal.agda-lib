@@ -1,6 +1,4 @@
 name: umst-formal
-version: 0.1.0
-file-type: .agda
 include: .
 depend:
   standard-library

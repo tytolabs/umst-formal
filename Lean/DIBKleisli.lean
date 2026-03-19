@@ -24,7 +24,7 @@
     Build:     gate implementation in the Rust kernel (umst-prototype-2a)
 -/
 
-import UMST.Gate
+import Gate
 
 namespace UMST
 
@@ -74,7 +74,9 @@ def kleisliArrowCompose {A B C : Type}
     (f : A → M B) (g : B → M C) : A → M C :=
   fun a => bindM (f a) g
 
-infixr:55 " >=> " => kleisliArrowCompose
+-- Local notation only: Mathlib (via `import Gate`) also defines `>=>`, which
+-- would make `discover >=> invent >=> build` ambiguous.
+local infixr:55 " >=>ᴹ " => kleisliArrowCompose
 
 -- ================================================================
 -- SECTION 3: Monad Laws
@@ -89,18 +91,12 @@ theorem leftUnit {A B : Type} (a : A) (f : A → M B) :
 /-- Right unit: m >>= pure = m. -/
 theorem rightUnit {A : Type} (m : M A) :
     bindM m pureM = m := by
-  simp [bindM, pureM]
-  cases m; rfl
+  cases m with | mk r => rfl
 
 /-- Associativity: (m >>= f) >>= g = m >>= (fun a => f a >>= g). -/
 theorem assocM {A B C : Type} (m : M A) (f : A → M B) (g : B → M C) :
     bindM (bindM m f) g = bindM m (fun a => bindM (f a) g) := by
-  simp [bindM]
-  cases m
-  ext s
-  simp
-  cases (runM { runM := ‹_› } s)
-  rfl
+  cases m with | mk r => rfl
 
 -- ================================================================
 -- SECTION 4: Kleisli Associativity
@@ -109,28 +105,23 @@ theorem assocM {A B C : Type} (m : M A) (f : A → M B) (g : B → M C) :
 /-- Kleisli arrow composition is associative. -/
 theorem kleisliAssoc {A B C D : Type}
     (f : A → M B) (g : B → M C) (h : C → M D) :
-    (f >=> g) >=> h = f >=> (g >=> h) := by
-  ext a
-  simp [kleisliArrowCompose, bindM]
-  cases (f a)
-  ext s
-  simp
-  cases (runM { runM := ‹_› } s)
-  rfl
+    (f >=>ᴹ g) >=>ᴹ h = f >=>ᴹ (g >=>ᴹ h) := by
+  funext a
+  cases (f a) with | mk r => rfl
 
 /-- Left unit for Kleisli: pure >=> f = f. -/
 theorem kleisliLeftUnit {A B : Type} (f : A → M B) :
-    (pureM >=> f) = f := by
-  ext a
+    (pureM >=>ᴹ f) = f := by
+  funext a
   simp [kleisliArrowCompose, bindM, pureM]
 
 /-- Right unit for Kleisli: f >=> pure = f. -/
 theorem kleisliRightUnit {A B : Type} (f : A → M B) :
-    (f >=> pureM) = f := by
-  ext a
-  simp [kleisliArrowCompose, bindM, pureM]
-  cases (f a)
-  rfl
+    (f >=>ᴹ pureM) = f := by
+  funext a
+  simp only [kleisliArrowCompose, pureM]
+  cases (f a) with | mk r =>
+  simp [bindM]; rfl
 
 -- ================================================================
 -- SECTION 5: DIB Phase Types and Arrows
@@ -139,25 +130,33 @@ theorem kleisliRightUnit {A B : Type} (f : A → M B) :
 -- Extending them with concrete types is future work.
 
 /-- Output of the Discovery phase: a structured field observation. -/
-opaque Observation : Type
-
+axiom Observation : Type
 /-- Output of the Invention phase: a formal invariant candidate. -/
-opaque Insight : Type
-
+axiom Insight : Type
 /-- Output of the Invention phase: a UMST mathematical specification. -/
-opaque Design : Type
-
+axiom Design : Type
 /-- Output of the Build phase: an executable artefact (Rust kernel). -/
-opaque Artifact : Type
+axiom Artifact : Type
+
+axiom Observation.inhabited : Inhabited Observation
+axiom Insight.inhabited : Inhabited Insight
+axiom Design.inhabited : Inhabited Design
+axiom Artifact.inhabited : Inhabited Artifact
+noncomputable instance : Inhabited Observation := Observation.inhabited
+noncomputable instance : Inhabited Insight := Insight.inhabited
+noncomputable instance : Inhabited Design := Design.inhabited
+noncomputable instance : Inhabited Artifact := Artifact.inhabited
+
+instance [Inhabited A] : Inhabited (M A) := ⟨⟨fun s => (default, s)⟩⟩
 
 /-- Discovery phase: field observation → formal observation record. -/
-opaque discover : Observation → M Insight
+noncomputable opaque discover : Observation → M Insight
 
 /-- Invention phase: field insight → formal gate design. -/
-opaque invent : Insight → M Design
+noncomputable opaque invent : Insight → M Design
 
 /-- Build phase: formal design → executable Rust kernel artefact. -/
-opaque build : Design → M Artifact
+noncomputable opaque build : Design → M Artifact
 
 -- ================================================================
 -- SECTION 6: The DIB Pipeline
@@ -167,14 +166,14 @@ opaque build : Design → M Artifact
     Starting from a field observation, it produces a compiled artefact.
     The monad laws ensure the pipeline is a coherent sequential
     composition with no information loss between phases. -/
-def dib : Observation → M Artifact :=
-  discover >=> invent >=> build
+noncomputable def dib : Observation → M Artifact :=
+  (discover >=>ᴹ invent) >=>ᴹ build
 
 /-- Pipeline associativity:
-    (discover >=> invent) >=> build = discover >=> (invent >=> build).
+    (discover >=>ᴹ invent) >=>ᴹ build = discover >=>ᴹ (invent >=>ᴹ build).
     Follows from kleisliAssoc — order of bracketing doesn't matter. -/
 theorem dibAssoc :
-    (discover >=> invent) >=> build = discover >=> (invent >=> build) :=
+    (discover >=>ᴹ invent) >=>ᴹ build = discover >=>ᴹ (invent >=>ᴹ build) :=
   kleisliAssoc discover invent build
 
 -- ================================================================

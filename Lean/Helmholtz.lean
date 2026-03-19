@@ -15,7 +15,7 @@
     helmholtzGradientConst │ Agda: helmholtz-gradient-const (postulate, proved here)
 -/
 
-import UMST.Gate
+import Gate
 
 namespace UMST
 

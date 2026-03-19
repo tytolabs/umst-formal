@@ -21,7 +21,7 @@
     constraints uniformly.
 -/
 
-import UMST.Gate
+import Gate
 
 namespace UMST
 
@@ -77,7 +77,7 @@ def stateFor : MaterialClass → ThermodynamicState
     appear in the quantifier but not in the body.  This theorem makes
     that observation explicit. -/
 theorem gateMaterialAgnostic
-    (M₁ M₂ : MaterialClass)
+    (_M₁ _M₂ : MaterialClass)
     (old new : ThermodynamicState) :
     gateCheck old new = gateCheck old new := rfl
 

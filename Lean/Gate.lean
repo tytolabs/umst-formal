@@ -46,9 +46,7 @@
   Zero sorry.
 -/
 
-import Mathlib.Data.Rat.Basic
-import Mathlib.Order.Basic
-import Mathlib.Algebra.Order.Ring.Lemmas
+import Mathlib.Algebra.Order.Field.Rat
 import Mathlib.Tactic
 
 open Rat
@@ -282,17 +280,82 @@ theorem kleisliAdmissibility :
     seq.get? (i + 1) = some s2 →
     Admissible s1 s2 := by
   intro seq hseq i s1 s2 h1 h2
-  induction hseq with
+  induction hseq generalizing i s1 s2 with
   | nil  => simp at h1
   | one s => cases i <;> simp_all
   | cons s1' s2' rest hadm _htail ih =>
     cases i with
     | zero =>
-      simp at h1 h2
-      rw [← h1, ← h2]
+      simp [List.get?] at h1 h2
+      rcases h1 with ⟨rfl⟩
+      rcases h2 with ⟨rfl⟩
       exact hadm
     | succ n =>
-      simp at h1 h2
+      rw [List.get?_cons_succ] at h1
+      rw [List.get?_cons_succ] at h2
       exact ih n s1 s2 h1 h2
+
+-- ================================================================
+-- SECTION 10: Graded Admissibility (N-Step Accumulated Tolerance)
+-- ================================================================
+-- Motivation: the single-step `admissible_trans` axiom in Constitutional.lean
+-- is REFUTABLE. Two consecutive 99 kg/m³ jumps give |198 - 0| = 198 > δMass.
+-- Solution: index admissibility by step count n; mass tolerance accumulates as
+-- n * δMass. Proved via the triangle inequality — no axiom needed.
+-- See GraphProperties.lean for the formal counterexample.
+
+/-- Admissibility with n-step accumulated mass tolerance.
+    Mass may drift by at most `n * δMass` over n consecutive admissible steps.
+    `AdmissibleN 1 old new` is equivalent to the single-step `Admissible old new`. -/
+structure AdmissibleN (n : ℕ) (old new : ThermodynamicState) : Prop where
+  massDensity   : |new.density   - old.density|   ≤ (n : ℚ) * δMass
+  clausiusDuhem : new.freeEnergy ≤ old.freeEnergy
+  hydrationMono : old.hydration  ≤ new.hydration
+  strengthMono  : old.strength   ≤ new.strength
+
+/-- Single-step `Admissible` is equivalent to `AdmissibleN 1`. -/
+theorem admissible_iff_admissibleN1 (old new : ThermodynamicState) :
+    Admissible old new ↔ AdmissibleN 1 old new := by
+  constructor
+  · intro h
+    refine ⟨?_, h.clausiusDuhem, h.hydrationMono, h.strengthMono⟩
+    simpa [one_mul] using h.massDensity
+  · intro h
+    refine ⟨?_, h.clausiusDuhem, h.hydrationMono, h.strengthMono⟩
+    simpa [one_mul] using h.massDensity
+
+/-- Every state is `AdmissibleN n` with itself (reflexivity for any step count). -/
+theorem admissibleNRefl (n : ℕ) (s : ThermodynamicState) : AdmissibleN n s s :=
+  ⟨by simp only [sub_self, abs_zero]; exact mul_nonneg (Nat.cast_nonneg _) (by norm_num [δMass]),
+   le_refl _, le_refl _, le_refl _⟩
+
+/-- **Graded composition** (replaces the refutable `admissibleTrans` axiom):
+    An m-step admissible path followed by an n-step admissible path is (m+n)-step
+    admissible.  The mass bound accumulates via the triangle inequality.
+    The three order conditions (Clausius-Duhem, hydration, strength) are each
+    transitively inherited. -/
+theorem admissibleN_compose {m n : ℕ} {s s' s'' : ThermodynamicState}
+    (h1 : AdmissibleN m s s') (h2 : AdmissibleN n s' s'') :
+    AdmissibleN (m + n) s s'' where
+  massDensity := by
+    have tri : |s''.density - s.density| ≤
+        |s''.density - s'.density| + |s'.density - s.density| := by
+      have heq : s''.density - s.density =
+          (s''.density - s'.density) + (s'.density - s.density) := by ring
+      calc |s''.density - s.density|
+          = |(s''.density - s'.density) + (s'.density - s.density)| := by rw [heq]
+        _ ≤ |s''.density - s'.density| + |s'.density - s.density|   := abs_add _ _
+    have cast_eq : ((m + n : ℕ) : ℚ) * δMass = (m : ℚ) * δMass + (n : ℚ) * δMass := by
+      push_cast; ring
+    rw [cast_eq]
+    -- Reorder |s''−s'| + |s'−s| ≤ m·δ + n·δ from `add_le_add` on the swapped sum.
+    have hsum :
+        |s''.density - s'.density| + |s'.density - s.density| ≤
+          (m : ℚ) * δMass + (n : ℚ) * δMass := by
+      simpa [add_comm] using add_le_add h1.massDensity h2.massDensity
+    exact le_trans tri hsum
+  clausiusDuhem := le_trans h2.clausiusDuhem h1.clausiusDuhem
+  hydrationMono := le_trans h1.hydrationMono h2.hydrationMono
+  strengthMono  := le_trans h1.strengthMono  h2.strengthMono
 
 end UMST

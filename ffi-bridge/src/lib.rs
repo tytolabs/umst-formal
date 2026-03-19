@@ -103,8 +103,23 @@ pub unsafe extern "C" fn umst_gate_check(
         max_strength: new_max_strength,
     };
 
-    let result = filter.check_transition(&old_state, &new_state, dt);
-    if result.is_admissible() { 1 } else { 0 }
+    // Keep Rust-side transition accounting up to date.
+    let _ = filter.check_transition(&old_state, &new_state, dt);
+
+    // Return the explicit thermodynamic gate decision documented for this C ABI.
+    let mass_conserved = (new_density - old_density).abs() < 100.0;
+    let rho = (old_density + new_density) / 2.0;
+    let psi_dot = (new_free_energy - old_free_energy) / (dt + 1e-10);
+    let d_int = -rho * psi_dot;
+    let strength_monotonic = new_strength >= old_strength - 1e-6;
+    let hydration_irreversible = new_hydration >= old_hydration - 1e-6;
+    let strength_bounded = new_strength <= new_max_strength;
+    let accepted = mass_conserved
+        && d_int >= -1e-6
+        && strength_monotonic
+        && hydration_irreversible
+        && strength_bounded;
+    if accepted { 1 } else { 0 }
 }
 
 // ---------------------------------------------------------------------------

@@ -50,7 +50,7 @@ prop_gate_deterministic s1 s2 =
 prop_mass_conservation_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_mass_conservation_spec old new =
   massConserved (gateCheck old new 1.0)
-  == (abs (density new - density old) < massTolerance + tolerance)
+  == (abs (density new - density old) < massTolerance + UMST.tolerance)
 
 -- | Clausius-Duhem: admissible iff ψ_new ≤ ψ_old.
 prop_clausius_spec :: ThermodynamicState -> ThermodynamicState -> Bool
@@ -69,6 +69,29 @@ prop_strength_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_strength_spec old new =
   strengthOk (gateCheck old new 1.0)
   == (strength new >= strength old)
+
+-- | Formal counterexample: mass admissibility is NOT transitive.
+-- Two consecutive single-step admissible transitions need not compose
+-- into a single-step admissible transition.
+--
+-- This is the executable mirror of Lean/GraphProperties.lean:mass_not_transitive
+-- and the reason admissibleTrans was REMOVED from Constitutional.lean.
+--
+-- Counterexample (δ = massTolerance * 0.99):
+--   s0 → s1: |δ - 0| = 99  ≤ 100 ✓
+--   s1 → s2: |2δ - δ| = 99 ≤ 100 ✓
+--   s0 → s2: |2δ - 0| = 198 > 100 ✗  (NOT admissible in one step)
+prop_mass_not_transitive :: Bool
+prop_mass_not_transitive =
+  let delta = massTolerance * 0.99          -- just under single-step tolerance
+      -- Keep freeEnergy/hydration/strength equal so only mass check varies
+      s0 = ThermodynamicState 0       0.0 0.5 50.0 100.0
+      s1 = ThermodynamicState delta   0.0 0.5 50.0 100.0
+      s2 = ThermodynamicState (2*delta) 0.0 0.5 50.0 100.0
+      step1  = massConserved (gateCheck s0 s1 1.0)  -- 99 ≤ 100: admitted
+      step2  = massConserved (gateCheck s1 s2 1.0)  -- 99 ≤ 100: admitted
+      compOk = massConserved (gateCheck s0 s2 1.0)  -- 198 > 100: rejected
+  in step1 && step2 && not compOk
 
 ------------------------------------------------------------------------
 -- Section 2: SDF / FRep Properties
@@ -166,6 +189,8 @@ main = do
   quickCheck prop_clausius_spec
   quickCheck prop_hydration_spec
   quickCheck prop_strength_spec
+  putStrLn "-- Mass Non-Transitivity (formal counterexample)"
+  quickCheck prop_mass_not_transitive
 
   putStrLn ""
   putStrLn "-- SDF / FRep Properties"

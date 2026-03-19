@@ -30,10 +30,12 @@
 
 module Gate where
 
-open import Data.Rational as ℚ using (ℚ; 0ℚ; 1ℚ; _+_; _*_; _-_; _≤_; _<_)
+open import Data.Integer.Base as ℤ using (ℤ; +_; ∣_∣)
+open import Data.Nat.Coprimality as ℕ using (sym; 1-coprimeTo)
+open import Data.Rational as ℚ using (ℚ; 0ℚ; 1ℚ; mkℚ; _+_; _*_; _-_; _≤_; _<_)
 open import Data.Rational.Properties as ℚ-Props
 open import Data.Bool using (Bool; true; false; if_then_else_)
-open import Data.Product using (_×_; _,_; proj₁; proj₂)
+open import Data.Product using (_×_; _,_; proj₁; proj₂; ∃-syntax)
 open import Data.Empty using (⊥-elim)
 open import Relation.Binary.PropositionalEquality using (_≡_; refl; cong; sym; trans)
 open import Relation.Nullary using (Dec; yes; no; ¬_)
@@ -71,7 +73,7 @@ open ThermodynamicState
 -- In the Rust kernel this is 100.0 kg/m³ (a generous bound that catches
 -- gross density jumps while allowing normal hydration-induced changes).
 δ-mass : ℚ
-δ-mass = ℚ.mkℚ 100 0 _    -- 100/1
+δ-mass = mkℚ (+ 100) 0 (ℕ.sym (ℕ.1-coprimeTo ∣ + 100 ∣))
 
 -- Tolerance for dissipation and strength checks.
 -- In the Rust kernel this is 1e-6.  For rational proofs we use 0
@@ -227,8 +229,6 @@ gate-accepts-forward :
   (density new - density old ≤ δ-mass) →
   (density old - density new ≤ δ-mass) →
   ∃[ prf ] (gate old new ≡ yes prf)
-  where
-  open import Data.Product using (∃-syntax)
 -- Pattern-match on the five ≤? decisions that `gate` itself scrutinises.
 -- After the match, `gate old new` reduces definitionally in each branch,
 -- allowing direct witnesses (refl) or contradictions (⊥-elim).

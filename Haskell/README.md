@@ -31,8 +31,7 @@ cabal test
 
 ## Property-Based Correspondence
 
-The test suite (`test/Test.hs`) validates that the formal model matches the Rust kernel:
+- **`cabal test umst-properties`** (default / CI): QuickCheck over the **pure** Haskell gate in `UMST.hs` and SDF lemmas in `SDFGate.hs`. It does **not** link `libumst_ffi` or call Rust.
+- **`cabal test umst-ffi-correspondence -f with-ffi`**: after `cargo build --release` in `../ffi-bridge/`, runs `FFI.runCorrespondenceTests` — fixed scenarios comparing the pure gate to the Rust C-ABI gate. For exhaustive random testing, wrap `FFI.prop_gateCorrespondence` in QuickCheck as sketched in `FFI.hs`.
 
-1. **Gate correspondence** — QuickCheck generates random `ThermodynamicState` pairs, runs both the pure Haskell gate and the Rust gate via FFI, and asserts identical accept/reject decisions.
-2. **Invariant preservation** — Properties verify that each of the four invariants (mass conservation, Clausius-Duhem, hydration irreversibility, strength monotonicity) is individually respected by the Rust implementation.
-3. **Kleisli composition** — Tests that sequential DIB phases compose correctly and preserve admissibility across the full loop.
+Rust-side black-box tests live in `../ffi-bridge/tests/integration.rs` (`cargo test -p umst-ffi-bridge`).

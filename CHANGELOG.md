@@ -8,6 +8,20 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- **`cabal test landauer-einstein-sanity`** — exact `Rational` regression vs Lean
+  tight 300 K mass bracket numerators (`Haskell/test/LandauerEinsteinSanity.hs`);
+  engineering check only (CI: `haskell-pure` job).
+- **`Lean/LandauerEinsteinBridge.lean`** — SI-exact Boltzmann constant and \(c\),
+  `Real.log 2`, Landauer–Einstein mass equivalent, linearity, **coarse and tight**
+  numeric brackets at 300 K (`log_two_near_10`; see `PROOF-STATUS.md`).
+- **`Coq/LandauerEinsteinBridge.v`** — algebraic fragment (parameters + positivity).
+- **`Agda/LandauerEinsteinTrace.agda`** — empty `--safe` traceability module (proofs
+  in Lean/Coq).
+- **`Docs/FORMAL-PHYSICS-ROADMAP.md`** — optional extension phases; scoped to this
+  formal artifact only.
+- **`Docs/FORMAL-PHYSICS-DERIVATION-PLAN.md`** — mathematical statement shapes,
+  required extensions (\(\Delta L\)), axiom bundles, and logical status vs core **L₀**
+  (Landauer law, gravity, Jacobson, Bekenstein, Friedmann).
 - **Lean 4 layer** — six modules (`Gate.lean`, `Helmholtz.lean`,
   `Constitutional.lean`, `Naturality.lean`, `Activation.lean`,
   `DIBKleisli.lean`) with 59 sorry-free theorems at full parity with
@@ -26,8 +40,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
   (proved by `ring`).
 - `Docs/FP-Primer.md` — 52-concept FP / Category Theory / SDF glossary
   anchored to the codebase.
-- `PROOF-STATUS.md` — per-theorem cross-layer verification index for
-  PhD evaluators.
+- `PROOF-STATUS.md` — per-theorem cross-layer verification index.
 - `Agda/umst-formal.agda-lib` — library project descriptor.
 - `Coq/_CoqProject` — standard Coq project descriptor.
 - `ffi-bridge/tests/integration.rs` — black-box Rust integration tests.

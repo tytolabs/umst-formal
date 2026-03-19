@@ -65,7 +65,9 @@ Types: `feat`, `fix`, `proof`, `docs`, `test`, `refactor`, `chore`.
 
 ### Agda
 
-- Use `--safe` flag (enforced by Makefile). No `unsafe` pragmas.
+- Default `make check` does **not** pass `--safe` because `Gate.agda`
+  contains physical-model postulates. A `--safe`-only slice would need a
+  separate Makefile target restricted to postulate-free modules.
 - Every `postulate` must be accompanied by a comment explaining what
   physical assumption it encodes and a reference to the experimental
   literature.

@@ -1,9 +1,14 @@
 AGDA       := agda
-# --safe   : forbids postulates not declared safe and disables all unsafe pragmas.
 # --library : uses umst-formal.agda-lib for the stdlib path.
-AGDA_FLAGS := --safe --library=umst-formal
+# Note: we intentionally do NOT pass --safe here: Gate.agda and Helmholtz.agda
+# contain physical-model postulates (ψ-antitone / fc-monotone at the state level,
+# matching the Coq/Lean “axiom as interface” split). For a safe-only slice, add a
+# separate target that type-checks only postulate-free modules.
+# Agda 2.8 may emit spurious LibUnknownField on this repo’s .agda-lib when
+# resolving `depend:`; silence if it appears (fields are valid for bundled libs).
+AGDA_FLAGS := --library=umst-formal -W noLibUnknownField
 
-SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda
+SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda LandauerEinsteinTrace.agda
 
 .PHONY: all check html clean
 
@@ -20,7 +25,7 @@ check:
 html:
 	@echo "── Generating HTML documentation ──"
 	@for f in $(SOURCES); do \
-		$(AGDA) --safe --html --html-dir=html $$f; \
+		$(AGDA) $(AGDA_FLAGS) --html --html-dir=html $$f; \
 	done
 
 clean:

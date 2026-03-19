@@ -30,6 +30,7 @@ module UMST
   ( -- * Types
     ThermodynamicState (..)
   , AdmissibilityResult (..)
+  , MaterialType (..)
     -- * Constants
   , qHydration
   , tolerance

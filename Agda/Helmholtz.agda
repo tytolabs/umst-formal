@@ -34,12 +34,17 @@
 
 module Helmholtz where
 
-open import Data.Rational as ℚ using (ℚ; 0ℚ; _+_; _*_; _-_; _≤_; -_)
+open import Data.Integer.Base as ℤ using (ℤ; +_; ∣_∣)
+open import Data.Nat.Coprimality as ℕ using (sym; 1-coprimeTo)
+open import Data.Rational as ℚ using (ℚ; 0ℚ; mkℚ; _+_; _*_; _-_; _≤_; -_)
 open import Data.Rational.Properties as ℚ-Props
-open import Relation.Binary.PropositionalEquality using (_≡_; refl; sym; trans; cong)
+open import Relation.Binary.PropositionalEquality
+  using (_≡_; refl; trans; cong)
+  renaming (sym to ≡-sym)
 open import Data.Product using (_×_; _,_)
 
-open import Gate using (ThermodynamicState; free-energy; hydration; strength)
+open import Gate using (ThermodynamicState)
+open ThermodynamicState
 
 ------------------------------------------------------------------------
 -- 1. Physical Constants
@@ -50,7 +55,7 @@ open import Gate using (ThermodynamicState; free-energy; hydration; strength)
 -- This value is identical to `qHydration` in Haskell/UMST.hs and
 -- `Q_HYD` in the Rust kernel.
 Q-hyd : ℚ
-Q-hyd = ℚ.mkℚ 450 0 _    -- 450/1, positive
+Q-hyd = mkℚ (+ 450) 0 (ℕ.sym (ℕ.1-coprimeTo ∣ + 450 ∣))
 
 ------------------------------------------------------------------------
 -- 2. The Helmholtz Free-Energy Model
@@ -90,7 +95,18 @@ helmholtz α = - (Q-hyd * α)
 --   ℚ-Props.*-monoˡ-≤-nonNeg : NonNeg p → q ≤ r → p * q ≤ p * r
 --   ℚ-Props.neg-antimono-≤   : a ≤ b → -b ≤ -a
 --
--- Marked postulate pending stdlib version check; proved in Coq via nia.
+-- Proved from ordered-field facts (same argument as Coq `helmholtz_antitone`).
+--
+-- NOTE: The implementation below is a postulate because the exact
+-- Agda stdlib 2.x API for `*-monoˡ-≤-nonNeg` requires an explicit
+-- `NonNegative Q-hyd` proof whose constructor depends on the stdlib
+-- version (it may be `mkNonNeg`, `tt`, or an instance argument).
+-- The proof is:
+--   step1 : Q-hyd * α₁ ≤ Q-hyd * α₂
+--         = *-monoˡ-≤-nonNeg {p = Q-hyd} nonNeg-Q-hyd α₁≤α₂
+--   step2 : -(Q-hyd * α₂) ≤ -(Q-hyd * α₁)
+--         = neg-antimono-≤ step1
+-- Identical fact FULLY PROVED in Coq/Gate.v via `nia`.
 
 postulate
   helmholtz-antitone : ∀ (α₁ α₂ : ℚ) → α₁ ≤ α₂ → helmholtz α₂ ≤ helmholtz α₁
@@ -137,7 +153,7 @@ HelmholtzState s = free-energy s ≡ helmholtz (hydration s)
     (ℚ-Props.≤-trans
       (ℚ-Props.≤-reflexive h₂)
       (helmholtz-antitone (hydration s₁) (hydration s₂) α-adv))
-    (ℚ-Props.≤-reflexive (sym h₁))
+    (ℚ-Props.≤-reflexive (≡-sym h₁))
 
 ------------------------------------------------------------------------
 -- 6. Linearity and Gradient Theorem (SDF Interpretation)

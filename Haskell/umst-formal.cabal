@@ -25,8 +25,10 @@ library
   if flag(with-ffi)
     exposed-modules:
       FFI
-    extra-lib-dirs:    ../ffi-bridge/target/release
-    extra-libraries:   umst_ffi
+    -- Do not use `extra-lib-dirs` here: Cabal 3.14+ rejects `../` in the
+    -- package DB at register time. Link via explicit -L/-l (paths relative
+    -- to this .cabal file, valid for local `cabal build`).
+    ghc-options:       -L../target/release -lumst_ffi
 
   hs-source-dirs:   .
   build-depends:
@@ -46,3 +48,28 @@ test-suite umst-properties
     umst-formal
   ghc-options:      -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language: Haskell2010
+
+-- Rational arithmetic consistency with Lean @LandauerEinsteinBridge.lean@ tight bracket
+-- (engineering check only; proof authority remains Lean).
+test-suite landauer-einstein-sanity
+  type:             exitcode-stdio-1.0
+  main-is:          LandauerEinsteinSanity.hs
+  hs-source-dirs:   test
+  build-depends:
+    base       >= 4.18 && < 5
+  ghc-options:      -Wall
+  default-language: Haskell2010
+
+-- Optional: Haskell pure gate vs Rust C-ABI gate (requires libumst_ffi from ffi-bridge).
+-- Not built when FFI flag is off (matches CI haskell-pure job).
+test-suite umst-ffi-correspondence
+  type:             exitcode-stdio-1.0
+  main-is:          FFICorrespondence.hs
+  hs-source-dirs:   test
+  build-depends:
+    base       >= 4.18 && < 5,
+    umst-formal
+  ghc-options:      -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language: Haskell2010
+  if !flag(with-ffi)
+    buildable: False

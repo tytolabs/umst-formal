@@ -151,6 +151,8 @@ m >>= f = mkM (λ s →
 -- each phase is a Kleisli arrow, and the full loop is their
 -- Kleisli composition.
 
+infixr 20 _>=>_
+
 _>=>_ : ∀ {A B C : Set} → (A → M B) → (B → M C) → (A → M C)
 (f >=> g) a = f a >>= g
   -- Apply f to get M B, then bind with g to get M C.
@@ -243,7 +245,7 @@ postulate
 -- threading the evolving knowledge state through every phase.
 
 dib : Observation → M Artifact
-dib = discover >=> invent >=> build
+dib = (discover >=> invent) >=> build
   -- This single line captures the entire UMST methodology:
   --   1. Discover patterns in field data
   --   2. Invent formal models from those patterns

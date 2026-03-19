@@ -28,6 +28,21 @@ the UMST framework is internally consistent and the implementation is sound.
 The proofs are machine-checked; the correspondence to the Rust code is validated
 by property-based testing.
 
+## What this repository does not claim (scope guardrail)
+
+This tree is a **standalone formal artifact**. Its claims are exactly those with
+entries in `PROOF-STATUS.md` and passing builds.
+
+- **Mechanized here:** gate invariants, naturality, constitutional / Kleisli
+  structure, SDF-related lemmas in scope, and the Landauer–Einstein mass-equivalent
+  fragment (Coq/Lean; see `PROOF-STATUS.md`).
+- **Not mechanized here** unless explicitly added: large cultural/ethical state
+  spaces, informal “dignity” or “humour” predicates, or any property not listed
+  in `PROOF-STATUS.md`.
+- External systems (e.g. Rust gate, MaOS tooling) may **implement** or **test**
+  overlap with this math; they do not extend the proof unless wired to a checked
+  correspondence suite.
+
 The constraints are empirically grounded — each was identified through field
 observation of specific material failure modes before it was formalised.
 [Docs/Architecture-Invariants.md](Docs/Architecture-Invariants.md) documents that
@@ -57,14 +72,16 @@ umst-formal/
 ├── Coq/                    Verified extraction to OCaml
 │   ├── Gate.v              Theorem proving over rationals; Helmholtz gradient (§8b)
 │   ├── Constitutional.v    Subject Reduction Lemma; Kleisli Admissibility Theorem
+│   ├── LandauerEinsteinBridge.v  SI-parameter Landauer scale + SR mass equivalent
 │   └── Extraction.v        OCaml code generation
-├── Lean/                   Lean 4 layer (full parity, 59 theorems, zero sorry)
+├── Lean/                   Lean 4 layer (full parity + SI bridge, 73 theorems/lemmas, zero sorry)
 │   ├── Gate.lean           Core admissibility + gate soundness/completeness
 │   ├── Helmholtz.lean      Concrete Helmholtz model + SDF / Eikonal
 │   ├── Constitutional.lean Kleisli Admissibility + Subject Reduction
 │   ├── Naturality.lean     Natural transformation + material-agnosticism
 │   ├── Activation.lean     Engine activation profiles (sheaf section)
 │   ├── DIBKleisli.lean     DIB monad + 3 monad laws + Kleisli assoc
+│   ├── LandauerEinsteinBridge.lean  Exact SI + Mathlib ln 2; 300 K mass brackets
 │   ├── lakefile.lean       Lake build configuration
 │   └── lean-toolchain      Lean 4 version pin (v4.14.0)
 ├── Haskell/                Kleisli monad + Rust FFI bridge
@@ -78,6 +95,8 @@ umst-formal/
 │   └── include/umst_ffi.h  C header
 ├── Docs/                   Extended documentation
 │   ├── Architecture-Invariants.md
+│   ├── FORMAL-PHYSICS-ROADMAP.md      Optional extension phases for this artifact
+│   ├── FORMAL-PHYSICS-DERIVATION-PLAN.md  Proof obligations / \(\Delta L\) / L₀ scope
 │   ├── FP-Primer.md        52-concept FP / Category Theory / SDF glossary
 │   ├── OnePager-Categorical.tex
 │   └── Video-Demo-Placeholder.md
@@ -94,10 +113,13 @@ umst-formal/
 | Four gate invariants (mass, Clausius-Duhem, hydration, strength) | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Gate.lean`, `Haskell/UMST.hs` |
 | Gate is material-agnostic (naturality) | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Activation.lean` |
 | Subject Reduction; Kleisli Admissibility (N-step safety) | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
+| Landauer–Einstein mass equivalent (definitions + SR; SI + brackets in Lean) | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
 | SDF / FRep interpretation; CSG decomposition; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean 4 mechanization | `Lean/` (6 modules, 59 theorems, zero sorry) |
+| Full Lean 4 mechanization | `Lean/` (7 roots: gate stack + `LandauerEinsteinBridge`, 73 theorems/lemmas, zero sorry) |
 
 Four independent proof layers (Agda, Coq, Lean 4, Haskell QuickCheck) verify the same invariants. See `PROOF-STATUS.md` for the complete per-theorem index across all layers.
+
+Scope note: this table enumerates mechanized claims **in this repository** only.
 
 ### Layer Relationships
 
@@ -171,8 +193,13 @@ See `Docs/OnePager-Categorical.tex` for the full commuting diagram.
 
 ### Step-by-step
 
+See **[Docs/PROOF-REPLAY.md](Docs/PROOF-REPLAY.md)** for a full replay checklist, macOS/Homebrew notes, and CI parity (pure vs FFI Haskell tests).
+
 ```bash
-# 1. Build the Rust FFI bridge
+# 0. Optional: verify toolchain presence
+./scripts/check-formal-environment.sh
+
+# 1. Build the Rust FFI bridge (requires sibling umst-prototype-2a; see PROOF-REPLAY.md)
 cd ffi-bridge && cargo build --release && cd ..
 
 # 2. Type-check Agda proofs (type-checking IS the proof)
@@ -184,8 +211,11 @@ cd Coq && make && cd ..
 # 4. Build Lean 4 proofs
 cd Lean && lake build UMST && cd ..
 
-# 5. Build Haskell bridge and run property tests
-cd Haskell && cabal build && cabal test && cd ..
+# 5. Haskell: pure QuickCheck (same shape as CI; no Rust link)
+cd Haskell && cabal build lib:umst-formal -f -with-ffi && cabal test umst-properties -f -with-ffi && cd ..
+
+# 6. Optional: Rust ↔ Haskell gate correspondence (after step 1)
+cd Haskell && cabal test umst-ffi-correspondence -f with-ffi && cd ..
 ```
 
 ## Extending

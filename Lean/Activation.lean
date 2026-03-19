@@ -21,8 +21,8 @@
     the extended sheaf commentary.
 -/
 
-import UMST.Gate
-import UMST.Naturality
+import Gate
+import Naturality
 
 namespace UMST
 
@@ -169,10 +169,9 @@ theorem geo_no_hydration       : Hydration    ∉ₑ activation Geopolymer := by
 -- SECTION 9: Decidability
 -- ================================================================
 
-/-- Engine membership is decidable for all materials and engines.
-    Follows from Bool decidability; no proof search needed. -/
-theorem activationDecidable (M : MaterialClass) (e : Engine) :
+/-- Engine membership is decidable for all materials and engines. -/
+instance activationDecidable (M : MaterialClass) (e : Engine) :
     Decidable (e ∈ₑ activation M) :=
-  inferInstance
+  decEq (activation M e) true
 
 end UMST

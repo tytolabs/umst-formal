@@ -30,7 +30,7 @@
 (*    4. Compare output with Rust kernel on identical inputs            *)
 (* ================================================================== *)
 
-Require Import Gate.
+Require Import UMSTFormal.Gate.
 
 (** Extraction configuration.
 

@@ -61,7 +61,8 @@ pkgs.mkShell {
     echo "  Cargo  : $(cargo --version 2>/dev/null || echo 'not found')"
     echo "  Lean   : $(lean --version 2>/dev/null | head -1 || echo 'not found (run: cd Lean && lake build)')"
     echo ""
-    echo "Targets:  make agda | coq | haskell | rust | lean | full | status"
+    echo "Replay:   see Docs/PROOF-REPLAY.md"
+    echo "Probe:    ./scripts/check-formal-environment.sh"
     echo ""
   '';
 }

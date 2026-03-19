@@ -46,17 +46,15 @@ module Naturality where
 -- We import the Gate module for ThermodynamicState, Admissible, and
 -- the gate decision procedure.
 open import Gate
-  using ( ThermodynamicState; mkState
-        ; Admissible; mkAdmissible
-        ; gate
-        ; density; free-energy; hydration; strength
-        ; δ-mass )
+  using (ThermodynamicState; mkState; Admissible; mkAdmissible; gate; δ-mass)
+open ThermodynamicState
 
 -- Standard library: rationals for state values, propositional equality
 -- for the naturality proof, products for bundling evidence.
-open import Data.Rational as ℚ using (ℚ; 0ℚ; 1ℚ; _+_; _*_; _-_; _≤_)
+open import Data.Rational as ℚ using (ℚ; 0ℚ; 1ℚ; _+_; _*_; _-_; _≤_; normalize)
 open import Relation.Binary.PropositionalEquality
-  using (_≡_; refl; cong; sym; trans)
+  using (_≡_; refl; sym; trans; cong₂)
+open import Relation.Nullary.Decidable using (⌊_⌋)
 open import Data.Product using (_×_; _,_; proj₁; proj₂)
 open import Data.Sum using (_⊎_; inj₁; inj₂)
 open import Relation.Nullary using (Dec; yes; no; ¬_)
@@ -112,15 +110,15 @@ data MaterialClass : Set where
 -- discrete, the functor laws hold trivially: F(id_M) = id_{F(M)}.
 
 stateFor : MaterialClass → ThermodynamicState
-stateFor OPC        = mkState (ℚ.mkℚ 2300 0 _) 0ℚ 0ℚ 0ℚ
+stateFor OPC        = mkState (ℚ.normalize 2300 1) 0ℚ 0ℚ 0ℚ
   -- OPC paste has bulk density ≈ 2300 kg/m³; all reactions at zero
-stateFor RAC        = mkState (ℚ.mkℚ 2100 0 _) 0ℚ 0ℚ 0ℚ
+stateFor RAC        = mkState (ℚ.normalize 2100 1) 0ℚ 0ℚ 0ℚ
   -- RAC has lower density (≈ 2100) due to porous recycled aggregates
-stateFor Geopolymer = mkState (ℚ.mkℚ 1900 0 _) 0ℚ 0ℚ 0ℚ
+stateFor Geopolymer = mkState (ℚ.normalize 1900 1) 0ℚ 0ℚ 0ℚ
   -- Geopolymer pastes are lighter (≈ 1900); no Portland clinker
-stateFor Lime       = mkState (ℚ.mkℚ 1700 0 _) 0ℚ 0ℚ 0ℚ
+stateFor Lime       = mkState (ℚ.normalize 1700 1) 0ℚ 0ℚ 0ℚ
   -- Lime mortars are lighter still (≈ 1700); high porosity
-stateFor Earth      = mkState (ℚ.mkℚ 1500 0 _) 0ℚ 0ℚ 0ℚ
+stateFor Earth      = mkState (ℚ.normalize 1500 1) 0ℚ 0ℚ 0ℚ
   -- Raw earth is the lightest (≈ 1500); variable moisture content
 
 ------------------------------------------------------------------------
@@ -188,6 +186,9 @@ open GateDecision
 -- 5. Material-Agnosticism Theorem (Naturality)
 ------------------------------------------------------------------------
 
+-- See [gate-material-agnostic] below: we relate Boolean shadows `⌊ gate … ⌋`
+-- because `Dec (Admissible old new)` is indexed by states.
+
 -- Theorem (Naturality / Material-Agnosticism):
 --
 -- For any two ThermodynamicState values s₁ and s₂, the gate's
@@ -197,20 +198,14 @@ open GateDecision
 --
 -- Formally: if stateFor M₁ ≡ stateFor M₂ and stateAfter M₁ ≡ stateAfter M₂,
 -- then verdict (η M₁) and verdict (η M₂) agree (up to transport).
---
--- This is trivially true because `gate` is a pure function of its
--- two ThermodynamicState arguments.  The proof is by congruence.
 
 gate-material-agnostic :
   ∀ (M₁ M₂ : MaterialClass) →
   stateFor M₁ ≡ stateFor M₂ →
   stateAfter M₁ ≡ stateAfter M₂ →
-  gate (stateFor M₁) (stateAfter M₁) ≡ gate (stateFor M₂) (stateAfter M₂)
-gate-material-agnostic M₁ M₂ refl refl = refl
-  -- Proof: when both state values are propositionally equal, congruence
-  -- of `gate` gives us definitional equality of the verdicts.
-  -- This is the formal statement of "the gate never pattern-matches
-  -- on the material class".
+  ⌊ gate (stateFor M₁) (stateAfter M₁) ⌋ ≡ ⌊ gate (stateFor M₂) (stateAfter M₂) ⌋
+gate-material-agnostic M₁ M₂ p q =
+  cong₂ (λ o n → ⌊ gate o n ⌋) p q
 
 ------------------------------------------------------------------------
 -- 6. State-Level Naturality (Stronger Form)
@@ -224,11 +219,9 @@ gate-state-determined :
   ∀ (s₁ s₂ s₁' s₂' : ThermodynamicState) →
   s₁ ≡ s₁' →
   s₂ ≡ s₂' →
-  gate s₁ s₂ ≡ gate s₁' s₂'
-gate-state-determined s₁ s₂ .s₁ .s₂ refl refl = refl
-  -- The gate is a function of state, period.  No hidden parameters,
-  -- no material tags, no context.  This is the formal version of
-  -- "physics doesn't care about your labels".
+  ⌊ gate s₁ s₂ ⌋ ≡ ⌊ gate s₁' s₂' ⌋
+gate-state-determined s₁ s₂ s₁' s₂' p q =
+  cong₂ (λ o n → ⌊ gate o n ⌋) p q
 
 ------------------------------------------------------------------------
 -- 7. Naturality Square (Discrete Category)
@@ -272,10 +265,11 @@ G-map refl = refl
 naturality-square :
   ∀ {M₁ M₂ : MaterialClass} →
   (f : MaterialMorphism M₁ M₂) →
-  gate (stateFor M₁) (stateAfter M₁) ≡ gate (stateFor M₂) (stateAfter M₂)
-naturality-square refl = refl
-  -- This says: transporting along f = id in both F and G components
-  -- yields the same gate decision.  The proof is definitional equality.
+  ⌊ gate (stateFor M₁) (stateAfter M₁) ⌋ ≡ ⌊ gate (stateFor M₂) (stateAfter M₂) ⌋
+naturality-square {M₁} {M₂} f =
+  gate-material-agnostic M₁ M₂ (F-map f) (G-map f)
+  -- Do not use `refl = refl` here: `Dec (Admissible …)` is indexed by `M₁`/`M₂`
+  -- until `f` is decomposed; reuse the Boolean-shadow congruence proof above.
 
 ------------------------------------------------------------------------
 -- 8. Monoidal Structure Commentary

@@ -28,6 +28,12 @@ Coq/CoqMakefile.conf
 Coq/html/
 Coq/ocaml/
 Coq/.coq-native/
+# Coq dependency and tactic-cache files (generated at build time)
+Coq/.CoqMakefile.d
+Coq/.nia.cache
+# OCaml modules produced by `coqc Extraction.v` (regenerate locally)
+Coq/gate_extracted.ml
+Coq/gate_extracted.mli
 
 # ── Lean 4 build artifacts ───────────────────────────────────────────────────
 # Lake build cache (.lake/build/, .lake/packages/)

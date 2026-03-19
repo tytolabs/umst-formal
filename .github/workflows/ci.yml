@@ -98,6 +98,10 @@ jobs:
             --test-show-details=streaming \
             --test-option=--qc-max-success=500
 
+      - name: Landauer–Einstein rational sanity (vs Lean tight bracket)
+        working-directory: Haskell
+        run: cabal test landauer-einstein-sanity
+
   # ── Rust FFI bridge ────────────────────────────────────────────────
   #
   # Requires umst-prototype-2a at ../../umst-prototype-2a relative to this

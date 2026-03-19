@@ -26,12 +26,16 @@
 (*  Subject Reduction     ≡ subject_reduction                         *)
 (* ================================================================== *)
 
-Require Import QArith.
-Require Import Bool.
-Require Import List.
+From Stdlib Require Import QArith.
+From Stdlib Require Import Qfield.
+From Stdlib Require Import Setoid.
+From Stdlib Require Import ZArith.
+From Stdlib Require Import Bool.
+From Stdlib Require Import List.
+From Stdlib Require Import Lia.
 Import ListNotations.
 
-Require Import Gate.
+Require Import UMSTFormal.Gate.
 
 (* ================================================================== *)
 (*  SECTION 1: Constitutional Sequences                                 *)
@@ -178,6 +182,75 @@ Proof.
   exact (gate_check_complete s s (admissible_refl s)).
 Qed.
 
+(* NOTE: admissible_trans has been REMOVED.
+   It was refutable: |ρ₃ - ρ₁| ≤ |ρ₃ - ρ₂| + |ρ₂ - ρ₁| ≤ 2·δ, NOT ≤ δ.
+   Counterexample: ρ₁=0, ρ₂=99, ρ₃=198 — each step ≤ 100 but |198-0|=198 > 100.
+   Replacement: admissible_N_compose in this file (proved via Q triangle inequality).
+   See: Lean/GraphProperties.lean mass_not_transitive. *)
+
+(** Graded admissibility [admissible_N] is defined in [UMSTFormal.Gate]
+    (two-sided rational bounds, matching [admissible]). *)
+
+(** Single-step admissible is admissible_N 1. *)
+Lemma admissible_iff_admissible_N1 : forall old new_ : ThermodynamicState,
+  admissible old new_ <-> admissible_N 1 old new_.
+Proof.
+  intros old new_.
+  split.
+  - apply admissible_implies_admissible_N1.
+  - intros (H1 & H2 & Hdiss & Hhyd & Hstr).
+    unfold admissible.
+    refine (conj _ (conj _ (conj Hdiss (conj Hhyd Hstr)))).
+    + assert (Hq : inject_Z (Z.of_nat 1) * delta_mass == delta_mass) by (simpl; ring).
+      rewrite Hq in H1. exact H1.
+    + assert (Hq : inject_Z (Z.of_nat 1) * delta_mass == delta_mass) by (simpl; ring).
+      rewrite Hq in H2. exact H2.
+Qed.
+
+Lemma inject_mass_triangle_rhs (m n : nat) :
+  inject_Z (Z.of_nat m) * delta_mass + inject_Z (Z.of_nat n) * delta_mass <=
+  inject_Z (Z.of_nat (m + n)) * delta_mass.
+Proof.
+  assert (Hcast : inject_Z (Z.of_nat (m + n)) * delta_mass ==
+                  inject_Z (Z.of_nat m) * delta_mass + inject_Z (Z.of_nat n) * delta_mass).
+  { rewrite Nat2Z.inj_add. rewrite inject_Z_plus. ring. }
+  rewrite <- Hcast.
+  apply Qle_refl.
+Qed.
+
+(** Graded composition via telescoping density differences (no [Qabs]). *)
+Lemma admissible_N_compose : forall (m n : nat) (s s' s'' : ThermodynamicState),
+  admissible_N m s s' ->
+  admissible_N n s' s'' ->
+  admissible_N (m + n) s s''.
+Proof.
+  intros m n s s' s''
+         (Hm1 & Hm2 & Hm_diss & Hm_hyd & Hm_str)
+         (Hn1 & Hn2 & Hn_diss & Hn_hyd & Hn_str).
+  refine (conj _ (conj _ (conj _ (conj _ _)))).
+  - assert (Hd : density s'' - density s ==
+              (density s'' - density s') + (density s' - density s)) by field.
+    assert (Hperm : (density s'' - density s') + (density s' - density s) ==
+                    (density s' - density s) + (density s'' - density s')) by ring.
+    apply Qle_trans with (y := inject_Z (Z.of_nat m) * delta_mass + inject_Z (Z.of_nat n) * delta_mass).
+    + apply Qle_trans with (y := (density s' - density s) + (density s'' - density s')).
+      * apply Qle_trans with (y := (density s'' - density s') + (density s' - density s)).
+        -- rewrite Hd. apply Qle_refl.
+        -- setoid_rewrite Hperm. apply Qle_refl.
+      * apply Qplus_le_compat; [exact Hm1 | exact Hn1].
+    + exact (inject_mass_triangle_rhs m n).
+  - assert (Hd : density s - density s'' ==
+              (density s - density s') + (density s' - density s'')) by field.
+    apply Qle_trans with (y := (density s - density s') + (density s' - density s'')).
+    + rewrite Hd. apply Qle_refl.
+    + apply Qle_trans with (y := inject_Z (Z.of_nat m) * delta_mass + inject_Z (Z.of_nat n) * delta_mass).
+      * apply Qplus_le_compat; [exact Hm2 | exact Hn2].
+      * exact (inject_mass_triangle_rhs m n).
+  - apply Qle_trans with (y := free_energy s'); assumption.
+  - apply Qle_trans with (y := hydration s'); assumption.
+  - apply Qle_trans with (y := strength s'); assumption.
+Qed.
+
 (* ================================================================== *)
 (*  SECTION 6: Kleisli Arrow Type                                       *)
 (*                                                                      *)
@@ -214,8 +287,9 @@ Proof.
   intros propose s s' H.
   unfold make_gate_arrow in H.
   destruct (gate_check s (propose s)) eqn:Hcheck.
-  - injection H; intros; subst.
-    exact (gate_check_sound s s' Hcheck).
+  - assert (Es : s' = propose s) by (injection H; easy).
+    rewrite Es.
+    exact (gate_check_sound s (propose s) Hcheck).
   - discriminate.
 Qed.
 
@@ -228,19 +302,45 @@ Definition kleisli_compose (f g : KleisliArrow) : KleisliArrow :=
     | Some s' => g s'
     end.
 
-(** Composing two well-typed arrows gives a well-typed arrow.
-    This is the Kleisli-arrow form of Subject Reduction: the type of
-    a sequential composition is preserved step by step. *)
+(** N-step well-typedness. *)
+Definition well_typed_N (n : nat) (f : KleisliArrow) : Prop :=
+  forall (s s' : ThermodynamicState), f s = Some s' -> admissible_N n s s'.
+
+(** Composing two well-typed arrows gives a 2-step graded well-typed arrow.
+    NOTE: proves [well_typed_N 2], not [WellTyped], because the single-step
+    mass condition is NOT transitive (see comment before [admissible_N] above).
+    Two admissible steps accumulate up to 2·delta_mass, handled by
+    [admissible_N_compose] with m=1, n=1. *)
 Theorem kleisli_compose_well_typed :
   forall (f g : KleisliArrow),
   WellTyped f ->
   WellTyped g ->
-  WellTyped (kleisli_compose f g).
+  well_typed_N 2 (kleisli_compose f g).
 Proof.
   intros f g Hf Hg s s'' Hcomp.
   unfold kleisli_compose in Hcomp.
   destruct (f s) as [s' |] eqn:Hfs.
-  - exact (Hg s' s'' Hcomp).
+  - apply (admissible_N_compose 1 1 s s' s'').
+    + apply (proj1 (admissible_iff_admissible_N1 s s')).
+      apply Hf; exact Hfs.
+    + apply (proj1 (admissible_iff_admissible_N1 s' s'')).
+      apply Hg; exact Hcomp.
+  - discriminate.
+Qed.
+
+(** General graded composition: m-step ∘ n-step = (m+n)-step.
+    Proved from [admissible_N_compose]; no axioms. *)
+Theorem kleisli_compose_well_typed_N (m n : nat) (f g : KleisliArrow) :
+  well_typed_N m f ->
+  well_typed_N n g ->
+  well_typed_N (m + n) (kleisli_compose f g).
+Proof.
+  intros Hf Hg s s'' Hcomp.
+  unfold kleisli_compose in Hcomp.
+  destruct (f s) as [s' |] eqn:Hfs.
+  - apply (admissible_N_compose m n s s' s'').
+    + apply Hf; exact Hfs.
+    + apply Hg; exact Hcomp.
   - discriminate.
 Qed.
 
@@ -256,42 +356,65 @@ Fixpoint kleisli_fold (arrows : list KleisliArrow) : KleisliArrow :=
 Definition AllWellTyped (arrows : list KleisliArrow) : Prop :=
   Forall WellTyped arrows.
 
-(** Theorem (Kleisli Admissibility, N-step):
-    Folding N well-typed arrows gives a well-typed arrow.
-    Proved by structural induction on the arrow list.
-    The identity-arrow base case uses admissible_refl (Section 5). *)
-Theorem kleisli_fold_well_typed :
+(** Theorem (Kleisli Admissibility, N-step, graded):
+    Folding N well-typed arrows gives a [well_typed_N N] arrow.
+    Mass tolerance accumulates as N * delta_mass (triangle inequality).
+    The three order conditions (Clausius-Duhem, hydration, strength)
+    hold end-to-end by transitivity.
+    Proved by structural induction without axioms. *)
+Theorem kleisli_fold_well_typed_N :
   forall (arrows : list KleisliArrow),
   AllWellTyped arrows ->
-  WellTyped (kleisli_fold arrows).
+  well_typed_N (length arrows) (kleisli_fold arrows).
 Proof.
   intros arrows Hall.
   induction arrows as [| f rest IH].
-  - (* Empty list: identity arrow. *)
-    unfold WellTyped, kleisli_fold.
+  - (* Empty list: identity arrow is well_typed_N 0. *)
     intros s s' H.
-    injection H; intros; subst.
-    exact (admissible_refl s).
+    simpl in H.
+    injection H as <-.
+    exact (admissible_N_refl 0 s).
   - destruct rest as [| g rest'].
-    + simpl. inversion Hall; assumption.
-    + simpl.
-      apply kleisli_compose_well_typed.
-      * inversion Hall; assumption.
-      * apply IH. inversion Hall; assumption.
+    + (* Single arrow: well_typed_N 1. *)
+      simpl.
+      intros s s' Hfs.
+      apply (proj1 (admissible_iff_admissible_N1 s s')).
+      exact (Forall_inv Hall s s' Hfs).
+    + (* Cons case: length = 1 + length (g :: rest'). *)
+      simpl.
+      apply (kleisli_compose_well_typed_N 1 (length (g :: rest'))).
+      * intros s s' Hfs.
+        apply (proj1 (admissible_iff_admissible_N1 s s')).
+        exact (Forall_inv Hall s s' Hfs).
+      * apply IH.
+        exact (Forall_inv_tail Hall).
 Qed.
+
+(** Backward-compatible alias. *)
+Theorem kleisli_fold_well_typed :
+  forall (arrows : list KleisliArrow),
+  AllWellTyped arrows ->
+  well_typed_N (length arrows) (kleisli_fold arrows).
+Proof. intros; apply kleisli_fold_well_typed_N; assumption. Qed.
 
 (* ================================================================== *)
 (*  SECTION 7: Summary                                                  *)
 (*                                                                      *)
-(*  Claim                       │ This File                            *)
-(*  ────────────────────────────┼─────────────────────────────────────*)
-(*  "Kleisli Admissibility      │ kleisli_admissibility (Section 3)   *)
-(*   Theorem" (N-step safe)     │ kleisli_fold_well_typed (Section 6) *)
-(*  "Subject Reduction Lemma"   │ subject_reduction (Section 2)       *)
-(*                              │ kleisli_compose_well_typed (Sec 6)  *)
-(*  ⊥-absorbing monad           │ kleisli_compose / kleisli_fold      *)
-(*  ConstitutionalSeq type      │ ConstitutionalSeq (Section 1)       *)
-(*  Identity arrow reflexivity  │ admissible_refl (Section 5)         *)
-(*                                                                      *)
-(*  Proof status: ALL theorems fully proved.  Zero admits.             *)
+(*  Claim                           │ This File                            *)
+(*  ────────────────────────────────┼────────────────────────────────────  *)
+(*  Kleisli Admissibility (seq)     │ kleisli_admissibility (Section 3)    *)
+(*  Kleisli Admissibility (N-step)  │ kleisli_fold_well_typed_N (Sec 6)    *)
+(*  Subject Reduction Lemma         │ subject_reduction (Section 2)        *)
+(*  2-step composition              │ kleisli_compose_well_typed (Sec 6)   *)
+(*  General graded composition      │ kleisli_compose_well_typed_N (Sec 6) *)
+(*  Graded N-fold                   │ kleisli_fold_well_typed_N (Sec 6)    *)
+(*  ⊥-absorbing monad               │ kleisli_compose / kleisli_fold       *)
+(*  ConstitutionalSeq type          │ ConstitutionalSeq (Section 1)        *)
+(*  Identity reflexivity (1-step)   │ admissible_refl (Section 5)          *)
+(*  Identity reflexivity (0-step)   │ admissible_N_refl (Section 5)        *)
+(*                                                                          *)
+(*  Proof status: ZERO admits.  [admissible_trans] REMOVED (refutable);    *)
+(*  replaced by [admissible_N] / [admissible_N_compose] (triangle ineq).   *)
+(*  [kleisli_compose_well_typed]   → [well_typed_N 2]                      *)
+(*  [kleisli_fold_well_typed_N]    → [well_typed_N (length arrows)]         *)
 (* ================================================================== *)
