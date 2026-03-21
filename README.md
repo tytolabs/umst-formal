@@ -97,9 +97,10 @@ umst-formal/
 │   ├── Architecture-Invariants.md
 │   ├── FORMAL-PHYSICS-ROADMAP.md      Optional extension phases for this artifact
 │   ├── FORMAL-PHYSICS-DERIVATION-PLAN.md  Proof obligations / \(\Delta L\) / L₀ scope
+│   ├── PROOF-REPLAY.md       Independent replay checklist and environment notes
 │   ├── FP-Primer.md        52-concept FP / Category Theory / SDF glossary
 │   ├── OnePager-Categorical.tex
-│   └── Video-Demo-Placeholder.md
+│   └── COMPREHENSIVE-FORMAL-PLAN.md   Deep audit / roadmap snapshot
 ├── PROOF-STATUS.md         Per-theorem cross-layer verification index
 ├── Cargo.toml              Workspace linking to Rust kernel
 ├── shell.nix               Reproducible build environment (Nix)

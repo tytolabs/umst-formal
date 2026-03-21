@@ -16,7 +16,7 @@
 
 COQC         := coqc
 COQ_MAKEFILE := coq_makefile
-SOURCES      := Gate.v Constitutional.v LandauerEinsteinBridge.v Extraction.v
+SOURCES      := Gate.v Constitutional.v LandauerEinsteinBridge.v InfoTheory.v Extraction.v
 COQMAKEFILE  := CoqMakefile
 
 .PHONY: all generate extract html clean check

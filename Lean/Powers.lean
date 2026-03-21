@@ -144,10 +144,11 @@ theorem powersStateAdmissible
     (hα₀ : 0 ≤ old.hydration)
     (hα  : old.hydration ≤ new.hydration)
     (hm  : |new.density - old.density| ≤ δMass)
-    (hwc : 0 < wc) :
+    (hwc : 0 < wc)
+    (h_psi : old.hydration ≤ new.hydration → new.freeEnergy ≤ old.freeEnergy) :
     Admissible old new :=
   ⟨hm,
-   psiAntitone old new hα,
+   h_psi hα,
    hα,
    powersStateFcMonotone old new wc ho hn hα₀ hα hwc⟩
 

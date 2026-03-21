@@ -49,6 +49,13 @@ structure ProbDist (n : ℕ) where
   nonneg : ∀ i, 0 ≤ mass i
   sumOne : ∑ i, mass i = 1
 
+/-- Equality of distributions from equality of mass functions. -/
+theorem ProbDist.ext_mass {n : ℕ} {p q : ProbDist n} (h : p.mass = q.mass) : p = q := by
+  rcases p with ⟨pm, pn, ps⟩
+  rcases q with ⟨qm, qn, qs⟩
+  subst h
+  rfl
+
 /-- The uniform distribution over `Fin n` (for n ≥ 1). -/
 noncomputable def uniformDist (n : ℕ) (hn : 0 < n) : ProbDist n where
   mass   := fun _ => (1 : ℝ) / n

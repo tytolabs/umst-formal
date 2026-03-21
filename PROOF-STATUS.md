@@ -34,10 +34,10 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 
 | Layer | Tool | Build command | Status |
 |-------|------|---------------|--------|
-| Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | Physical postulates in `Gate.agda` (see key); default `make check` is not `--safe` |
-| Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose` |
+| Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | Physical postulates in `Gate.agda` (see key); `InfoTheory.agda` (definitions + 3 postulates mirroring Lean/Coq product laws; small length lemmas proved); default `make check` is not `--safe` |
+| Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
 | Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build UMST` | No `sorry`; `admissibleTrans` REMOVED; replaced by graded `admissibleN_compose` in 12 modules |
-| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | 13 properties, 100 tests each (pure gate; CI parity); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
+| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | 17 properties (incl. 3× `InfoTheory`: product joint sums to 1, marginals match `Lean/InfoTheory` product laws); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
 | Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (optional suite) |
 
 **Legend:**
@@ -104,6 +104,7 @@ violates it.  Formal counterexample: `GraphProperties.lean` (`mass_not_transitiv
 | `discover`, `invent`, `build` | DIB-Kleisli.agda | Abstract Kleisli arrows (pipeline phases) |
 | `funext` | DIB-Kleisli.agda | Function extensionality (standard meta-axiom) |
 | `engine-produces-state` | Activation.agda | Abstract engine-to-state-transformer interface |
+| `jointMassProduct`, `marginalFirstProduct`, `marginalSecondProduct` | InfoTheory.agda | **Algebraic laws** for product joint / marginals: proved in Lean (`InfoTheory.lean`) and Coq (`InfoTheory.v`); Agda keeps definitions + postulates for cross-language parity |
 
 ### Lean opaque / axiom declarations (matching Agda postulates)
 
@@ -299,8 +300,11 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.Convergence` | 5 | `Lean/Convergence.lean` (Lyapunov, Monotone Convergence) |
 | `UMST.GaloisGate` | 4 | `Lean/GaloisGate.lean` (Galois connection, condition lattice) |
 | `UMST.EnrichedAdmissibility` | 6 | `Lean/EnrichedAdmissibility.lean` (Lawvere metric, triangle) |
-| `UMST.LandauerLaw` | 8+ | `Lean/LandauerLaw.lean` (T_LandauerLaw; 1 axiom: `physicalSecondLaw`; `physicalSecondLawUniformBinary` + `physicalSecondLaw_uniform_binary`) |
-| **Total** | **116+** | |
+| `UMST.LandauerLaw` | 8+ | `Lean/LandauerLaw.lean` (T_LandauerLaw; 1 axiom: `physicalSecondLaw`; `physicalSecondLawUniformBinary` + `physicalSecondLaw_uniform_binary`; `ProbDist.ext_mass` for extensionality from `mass`) |
+| `UMST.InfoTheory` | 4+ | `Lean/InfoTheory.lean` — finite joint law `JointDist`, marginals, `jointEntropy` / `mutualInformation`, product joint; **proved:** `marginalX_product`, `marginalY_product`, `jointEntropy_product`, `mutualInformation_product_zero` |
+| **Total** | **121+** | |
+
+**InfoTheory follow-up (not in artifact):** general non-negativity `0 ≤ mutualInformation J` (equivalently subadditivity of Shannon entropy / KL divergence ≥ 0) is stated as a future extension in `InfoTheory.lean`; the product case above already forces `MI = 0` for independent factors.
 
 All Lean 4 theorems/lemmas in these roots are sorry-free (1 axiom: `physicalSecondLaw` in `LandauerLaw.lean`).  CI badge: see `.github/workflows/ci.yml`
 job `lean`.
@@ -328,5 +332,8 @@ validates the formal proofs against randomly generated states.
 | `prop_offset_distributive` | Offset distributes over intersection |
 | `prop_fromMix_helmholtz_model` | `fromMix` constructor satisfies ψ = −Q_hyd · α |
 | `prop_mass_not_transitive` | Executable counterexample: two admissible steps need not compose (mirrors `mass_not_transitive`) |
+| `prop_info_product_joint_sum_one` | Normalized `p`,`q` ⇒ `jointMassesSum (productJoint p q) ≈ 1` (engineering mirror of `sumOne` for `productJoint`) |
+| `prop_info_marginal_first_product` | `marginalFirst (productJoint p q) ≈ p` (mirror of Lean `marginalX_product`) |
+| `prop_info_marginal_second_product` | `marginalSecond (productJoint p q) ≈ q` (mirror of Lean `marginalY_product`) |
 
 Run with: `cd Haskell && cabal test --test-option=--qc-max-success=1000`

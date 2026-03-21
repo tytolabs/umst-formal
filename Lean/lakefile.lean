@@ -24,9 +24,11 @@ require mathlib from git
     lake build UMST.GaloisGate                  -- Galois connection for gate conditions
     lake build UMST.EnrichedAdmissibility       -- Lawvere metric + order decomposition
     lake build UMST.LandauerLaw                 -- T_LandauerLaw: Landauer bound (axiom: physicalSecondLaw)
+    lake build UMST.InfoTheory                  -- joint Shannon entropy + mutual information (finite)
 -/
 lean_lib «UMST» where
   roots := #[`Gate, `Helmholtz, `Constitutional, `Naturality, `Activation, `DIBKleisli,
     `LandauerEinsteinBridge, `GraphProperties, `Powers, `Convergence,
-    `GaloisGate, `EnrichedAdmissibility, `LandauerLaw]
+    `GaloisGate, `EnrichedAdmissibility, `LandauerLaw, `InfoTheory,
+    `EndConditions, `MeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState]
   srcDir := "."

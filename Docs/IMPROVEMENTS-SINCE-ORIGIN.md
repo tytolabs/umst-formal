@@ -47,6 +47,14 @@ git diff --stat origin/master
   instantiates the axiom; main theorems take **`physicalSecondLawUniformBinary proc`**
   so binders parse correctly.
 - **`le_div_iff₀`** for Mathlib deprecation hygiene.
+- **`ProbDist.ext_mass`**: equality of distributions from `mass` function equality (used by `InfoTheory` marginals).
+
+### Information theory (`InfoTheory.lean`)
+
+- New root **`UMST.InfoTheory`**: `JointDist`, marginals, `jointEntropy`, `mutualInformation`, `productJoint`.
+- **Product laws:** `marginalX_product`, `marginalY_product`, `jointEntropy_product`, `mutualInformation_product_zero`.
+- **Parsing note:** nested `∑` + `+` requires explicit parentheses so binders stay in scope across line breaks (see `jointEntropy_product` proof).
+- **Not yet:** general `0 ≤ mutualInformation` (subadditivity / KL); module header documents as extension target.
 
 ### Misc
 
@@ -62,6 +70,11 @@ git diff --stat origin/master
 
 ## Coq (`Coq/`)
 
+- **`InfoTheory.v`**: `product_joint`, `marginal_first`, `marginal_second`, `sum_flat`;
+  **proved** with [Qeq]/`Forall2`: `joint_mass_product`, `joint_mass_one`,
+  `marginal_first_product`, `marginal_first_product_normalized`,
+  `marginal_second_product`, `marginal_second_product_nonempty`,
+  `marginal_second_product_normalized` (column sums = right marginal; mirrors Lean/Haskell).
 - **`Gate.v`**: `admissible_N` uses the same **two-sided** mass bounds as `admissible`
   (`density new - old` and `density old - new`), avoiding `Qabs` (not available / awkward
   under Rocq 9 `Stdlib` in this setup). Proofs use `Qring`, `field`, and `inject_Z`/`ring`
@@ -70,6 +83,16 @@ git diff --stat origin/master
   `UMSTFormal.Gate.admissible_N`. **`admissible_N_compose`** is reproved via telescoping
   sums + **`inject_mass_triangle_rhs`**. Imports: `Qfield`, `Setoid`, `ZArith`.
 - **`kleisli_fold_well_typed`**: invalid `Theorem ... :=` syntax replaced with `Proof … Qed`.
+
+## Haskell (`Haskell/`)
+
+- **`InfoTheory.hs`**: `productJoint`, `marginalFirst` / `marginalSecond`, `jointMassesSum`.
+- **`test/Test.hs`**: QuickCheck `prop_info_*` mirrors Lean `marginalX_product` / `marginalY_product` (floating-point, ε = 1e-9).
+
+## Agda (`Agda/`)
+
+- **`InfoTheory.agda`**: `sumList`, `mapMulRow`, `productJoint`, `marginalFirst`, `pointwiseAdd`, `marginalSecond`, `sumFlat`; proved lemmas `mapMulRow-length`, `productJoint-first-row-length`; **postulates** `jointMassProduct`, `marginalFirstProduct`, `marginalSecondProduct` (authority: Lean + Coq).
+- **`Makefile`**: `SOURCES` includes `InfoTheory.agda` so `make check` type-checks it.
 
 ## Verification (pre-commit)
 

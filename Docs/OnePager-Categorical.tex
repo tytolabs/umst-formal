@@ -1,36 +1,53 @@
-\documentclass[11pt]{article}
-\usepackage[margin=1.8cm]{geometry}
+\documentclass[10pt, a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage[margin=1.65cm, top=1.45cm, bottom=1.45cm]{geometry}
+\usepackage{microtype}
 \usepackage{tikz-cd}
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{parskip}
 \usepackage{enumitem}
-\setlist{nosep}
-\pagestyle{empty}
 
-\newcommand{\Adm}{\mathrm{Adm}}
+\pagestyle{empty}
+\setlength{\parskip}{0.28em}
+\setlist[itemize]{leftmargin=1.1em, itemsep=0.05em, topsep=0.05em}
+
+\definecolor{Black}{HTML}{111111}
+\definecolor{DimGray}{HTML}{444444}
+\definecolor{MidGray}{HTML}{666666}
+
+\titleformat{\section}
+  {\fontsize{10.5}{12.5}\selectfont\bfseries\color{Black}}
+  {\thesection}{0.35em}{}
+\titlespacing*{\section}{0pt}{0.45em}{0.2em}
+
 \newcommand{\Bool}{\mathbf{2}}
-\newcommand{\Set}{\mathbf{Set}}
 \newcommand{\Kl}{\mathrm{Kl}}
 \newcommand{\StateT}{\mathrm{StateT}}
 \newcommand{\MC}{\mathrm{MaterialClass}}
 \newcommand{\TS}{\mathrm{ThermoState}}
 \newcommand{\DIB}{\mathcal{D}\!\mathcal{I}\!\mathcal{B}}
+\newcommand{\headline}[1]{\noindent{\fontsize{9.8}{11}\selectfont\bfseries #1}\par}
 
 \begin{document}
+\small
 
-\begin{center}
-{\Large\bfseries UMST Categorical Structure}\\[4pt]
-{\small Commuting diagrams for the thermodynamic gate kernel}
-\end{center}
+{\fontsize{17}{20}\selectfont\bfseries UMST Categorical Structure}\\[-0.05em]
+{\small\color{DimGray}One-page formal map of naturality, compositional safety, and mass coherence}
 
-\medskip
+\vspace{0.2em}
+{\color{Black}\rule{\textwidth}{1.6pt}}
 
-\noindent\textbf{1.\enspace Gate as Natural Transformation.}\enspace
-The gate $G$ is natural in the material class: for every functor
-$F_m : \MC \to \TS$ constructing a thermodynamic state from mix parameters,
-the gate verdict is independent of the material path.
+\section*{1\quad Gate as Natural Transformation}
+\headline{Interpretation}
+The gate $G:\TS \times \TS \to \Bool$ is material-agnostic: changing material labels
+via $f:\MC \to \MC'$ commutes with state construction before gate evaluation.
 
 \[
-\begin{tikzcd}[column sep=3.5em, row sep=3em]
+\begin{tikzcd}[column sep=3.2em, row sep=2.5em]
 \MC \times \MC
   \arrow[r, "F_m \times F_m"]
   \arrow[d, "f \times f"']
@@ -48,51 +65,32 @@ the gate verdict is independent of the material path.
 \end{tikzcd}
 \]
 
-\noindent The square on the left commutes by functoriality of state construction;
-the square on the right expresses naturality of $G$:
-$G \circ (F(f) \times F(f)) = G$.
-The gate checks only thermodynamic quantities, not material identity.
-
-\medskip
-
-\noindent\textbf{2.\enspace DIB Kleisli Triangle.}\enspace
-Discovery ($D$), Invention ($I$), and Build ($B$) are morphisms in the
-Kleisli category $\Kl(\StateT\;\TS\;\mathrm{IO})$.
-Their composition yields an admissibility-preserving loop:
+\section*{2\quad DIB as Kleisli Composition}
+\headline{Interpretation}
+Discovery, Invention, and Build are composed in $\Kl(\StateT\;\TS\;\mathrm{IO})$.
+The structure provides sequential composition guarantees for gate-checked transitions.
 
 \[
-\begin{tikzcd}[column sep=3em, row sep=2.8em]
-& \TS
-  \arrow[dr, "I"]
+\begin{tikzcd}[column sep=2.5em, row sep=2.3em]
+& \TS \arrow[dr, "I"]
 \\
-\TS
-  \arrow[ur, "D"]
-  \arrow[rr, "B \circ I \circ D"', bend right=15]
-& & \TS
-  \arrow[ll, "B", bend right=15]
+\TS \arrow[ur, "D"] \arrow[rr, "B \circ I \circ D"', bend right=15]
+& & \TS \arrow[ll, "B", bend right=15]
 \end{tikzcd}
 \qquad
 \begin{aligned}
-D &: \TS \to \Kl(\TS) \\
-I &: \TS \to \Kl(\TS) \\
-B &: \TS \to \Kl(\TS) \\
-\DIB &= B \circ_{\Kl} I \circ_{\Kl} D
+D,I,B &: \TS \to \Kl(\TS), \\
+\DIB &:= B \circ_{\Kl} I \circ_{\Kl} D.
 \end{aligned}
 \]
 
-\noindent Kleisli composition guarantees that if each phase individually
-preserves admissibility (i.e., the gate accepts each transition), then
-the full $\DIB$ loop preserves it.
-
-\medskip
-
-\noindent\textbf{3.\enspace Monoidal Mass Conservation.}\enspace
-The state space $\TS$ carries a monoidal structure $(\TS, \oplus, \mathbf{0})$
-where $\oplus$ is the tensor product of independent subsystems (e.g., paste
-+ aggregate). Mass conservation is a monoidal constraint:
+\section*{3\quad Mass as Monoidal Coherence}
+\headline{Interpretation}
+For independent subsystem composition $\oplus$, density behaves as an additive map up
+to tolerance $\delta$, used as the gate's conservation band.
 
 \[
-\begin{tikzcd}[column sep=4em, row sep=2.8em]
+\begin{tikzcd}[column sep=3.2em, row sep=2.3em]
 \TS \otimes \TS
   \arrow[r, "\rho \otimes \rho"]
   \arrow[d, "\oplus"']
@@ -104,22 +102,16 @@ where $\oplus$ is the tensor product of independent subsystems (e.g., paste
 & \mathbb{Q}
 \end{tikzcd}
 \qquad
-|\rho(s_1 \oplus s_2) - (\rho(s_1) + \rho(s_2))| < \delta
+\left|\rho(s_1 \oplus s_2)-(\rho(s_1)+\rho(s_2))\right| < \delta
 \]
 
-\noindent The density functional $\rho$ is a monoidal morphism up to
-tolerance $\delta$, ensuring that composing subsystems cannot create or
-destroy mass beyond measurement precision.
+\vspace{0.1em}
+{\color{Black}\rule{\textwidth}{0.8pt}}
+\vspace{0.2em}
 
-\medskip
-
-\noindent\textbf{Summary.}\enspace
-Three structures proved in the Agda layer:
-\emph{(i)}~naturality of the gate,
-\emph{(ii)}~Kleisli composability of DIB,
-\emph{(iii)}~monoidal mass conservation.
-Together they establish that the thermodynamic gate is a
-\emph{categorically well-founded} decision procedure over physically
-grounded invariants.
+\noindent\textbf{Status note.}
+This page summarizes the repository's categorical framing. Mechanized claim status is
+authoritative in \texttt{PROOF\allowbreak-STATUS.md}. This sheet is presentation-level and should
+be read as a visual abstraction over those checked modules.
 
 \end{document}

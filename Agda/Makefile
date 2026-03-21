@@ -8,7 +8,7 @@ AGDA       := agda
 # resolving `depend:`; silence if it appears (fields are valid for bundled libs).
 AGDA_FLAGS := --library=umst-formal -W noLibUnknownField
 
-SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda LandauerEinsteinTrace.agda
+SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda LandauerEinsteinTrace.agda InfoTheory.agda MeasurementCost.agda
 
 .PHONY: all check html clean
 

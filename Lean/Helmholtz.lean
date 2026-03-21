@@ -65,9 +65,10 @@ theorem helmholtzStateAdmissible
     (ho  : HelmholtzState old)
     (hn  : HelmholtzState new)
     (hα  : old.hydration ≤ new.hydration)
-    (hm  : |new.density - old.density| ≤ δMass) :
+    (hm  : |new.density - old.density| ≤ δMass)
+    (h_fc : old.hydration ≤ new.hydration → old.strength ≤ new.strength) :
     Admissible old new :=
-  ⟨hm, ψAntitoneHelmholtz old new ho hn hα, hα, fcMonotone old new hα⟩
+  ⟨hm, ψAntitoneHelmholtz old new ho hn hα, hα, h_fc hα⟩
 
 -- ================================================================
 -- SECTION 4: Linearity and Gradient (SDF / Eikonal Properties)

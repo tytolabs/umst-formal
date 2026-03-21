@@ -15,6 +15,11 @@ import Data.List (foldl')
 
 import UMST
 import SDFGate
+import InfoTheory
+import LandauerExtension
+import qualified MonoidalState
+import MeasurementCost (kBoltzmannSI, entropyBits,
+  mutualInformationBits, measurementEnergyLowerBound)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -36,6 +41,18 @@ genState = do
 
 instance Arbitrary ThermodynamicState where
   arbitrary = genState
+
+-- | Strictly positive weights, normalized to sum @1@ (length @n@).
+genProbDist :: Int -> Gen [Double]
+genProbDist n =
+  do
+    xs <- vectorOf n (choose (1.0e-3, 1.0))
+    let s = foldl' (+) 0 xs
+    pure (map (/ s) xs)
+
+nearList :: Double -> [Double] -> [Double] -> Bool
+nearList eps a b =
+  length a == length b && and (zipWith (\x y -> abs (x - y) <= eps) a b)
 
 ------------------------------------------------------------------------
 -- Section 1: Pure Gate Invariants
@@ -175,6 +192,128 @@ prop_fromMix_helmholtz_model wc alpha =
     in abs (freeEnergy s - expected) < 1e-6
 
 ------------------------------------------------------------------------
+-- Section 4: Info theory (mirror of @Lean/InfoTheory.lean@ product laws)
+------------------------------------------------------------------------
+
+-- | Product joint masses sum to @1@ when both marginals do.
+prop_info_product_joint_sum_one :: Property
+prop_info_product_joint_sum_one =
+  forAll (choose (1, 6)) $ \na ->
+    forAll (choose (1, 6)) $ \nb ->
+      forAll (genProbDist na) $ \p ->
+        forAll (genProbDist nb) $ \q ->
+          let j = productJoint p q
+              eps = 1.0e-9
+           in abs (jointMassesSum j - 1.0) <= eps
+
+-- | @marginalFirst (productJoint p q) ≈ p@ (Lean @marginalX_product@).
+prop_info_marginal_first_product :: Property
+prop_info_marginal_first_product =
+  forAll (choose (1, 6)) $ \na ->
+    forAll (choose (1, 6)) $ \nb ->
+      forAll (genProbDist na) $ \p ->
+        forAll (genProbDist nb) $ \q ->
+          let j = productJoint p q
+              eps = 1.0e-9
+           in nearList eps (marginalFirst j) p
+
+-- | @marginalSecond (productJoint p q) ≈ q@ (Lean @marginalY_product@).
+prop_info_marginal_second_product :: Property
+prop_info_marginal_second_product =
+  forAll (choose (1, 6)) $ \na ->
+    forAll (choose (1, 6)) $ \nb ->
+      forAll (genProbDist na) $ \p ->
+        forAll (genProbDist nb) $ \q ->
+          let j = productJoint p q
+              eps = 1.0e-9
+           in nearList eps (marginalSecond j) q
+
+------------------------------------------------------------------------
+-- Section 5: LandauerExtension
+------------------------------------------------------------------------
+
+-- | Energy mono: T1 <= T2 => E(T1) <= E(T2)
+prop_landauer_energy_mono :: Property
+prop_landauer_energy_mono =
+  forAll (choose (0.0, 1000.0)) $ \t1 ->
+    forAll (choose (t1, 2000.0)) $ \t2 ->
+      landauerEnergyMono t1 t2
+
+-- | N-bit bound scales linearly
+prop_landauer_nBit_scales :: Property
+prop_landauer_nBit_scales =
+  forAll (choose (1, 20 :: Int)) $ \n ->
+    forAll (choose (1.0, 1000.0)) $ \t ->
+      let nBit = landauerBound_nBit n t
+          oneBit = LandauerExtension.landauerBitEnergy t
+      in abs (nBit - fromIntegral n * oneBit) < 1e-30
+
+-- | 300K positivity
+prop_landauer_300K_pos :: Bool
+prop_landauer_300K_pos = landauerEnergy_300K_pos
+
+------------------------------------------------------------------------
+-- Section 6: MonoidalState
+------------------------------------------------------------------------
+
+genMonoidalState :: Gen MonoidalState.ThermodynamicState
+genMonoidalState = do
+  rho <- choose (1000.0, 3000.0)
+  psi <- choose (-450.0, 0.0)
+  al  <- choose (0.0, 1.0)
+  fc  <- choose (0.0, 100.0)
+  pure (MonoidalState.TS rho psi al fc)
+
+-- | combine 1 s1 s2 ≈ s1
+prop_combine_one :: Property
+prop_combine_one =
+  forAll genMonoidalState $ \s1 ->
+    forAll genMonoidalState $ \s2 ->
+      MonoidalState.combine_one_check s1 s2
+
+-- | combine 0 s1 s2 ≈ s2
+prop_combine_zero :: Property
+prop_combine_zero =
+  forAll genMonoidalState $ \s1 ->
+    forAll genMonoidalState $ \s2 ->
+      MonoidalState.combine_zero_check s1 s2
+
+-- | Combined density is between the two inputs
+prop_combine_density_interp :: Property
+prop_combine_density_interp =
+  forAll (choose (0.0, 1.0)) $ \w ->
+    forAll genMonoidalState $ \s1 ->
+      forAll genMonoidalState $ \s2 ->
+        MonoidalState.combine_density_between w s1 s2
+
+-- | Free energy of combination does not exceed max of inputs
+prop_combine_freeEnergy_convex :: Property
+prop_combine_freeEnergy_convex =
+  forAll (choose (0.0, 1.0)) $ \w ->
+    forAll genMonoidalState $ \s1 ->
+      forAll genMonoidalState $ \s2 ->
+        MonoidalState.combine_freeEnergy_le w s1 s2
+
+------------------------------------------------------------------------
+-- Section 7: MeasurementCost
+------------------------------------------------------------------------
+
+-- | MI of a uniform 2x2 joint is zero (independent uniform)
+prop_mc_uniform_joint_zero_mi :: Bool
+prop_mc_uniform_joint_zero_mi =
+  let joint = [[0.25, 0.25], [0.25, 0.25]]
+  in abs (mutualInformationBits joint) < 1e-9
+
+-- | Energy lower bound is nonneg for T > 0
+prop_mc_energy_nonneg :: Property
+prop_mc_energy_nonneg =
+  forAll (choose (1.0, 1000.0)) $ \t ->
+    forAll (genProbDist 2) $ \p ->
+      forAll (genProbDist 2) $ \q ->
+        let joint = productJoint p q
+        in measurementEnergyLowerBound t joint >= 0 - 1e-15
+
+------------------------------------------------------------------------
 -- Runner
 ------------------------------------------------------------------------
 
@@ -205,6 +344,30 @@ main = do
   putStrLn ""
   putStrLn "-- Constructor Properties"
   quickCheck prop_fromMix_helmholtz_model
+
+  putStrLn ""
+  putStrLn "-- InfoTheory (product joint / marginals)"
+  quickCheck prop_info_product_joint_sum_one
+  quickCheck prop_info_marginal_first_product
+  quickCheck prop_info_marginal_second_product
+
+  putStrLn ""
+  putStrLn "-- LandauerExtension"
+  quickCheck prop_landauer_energy_mono
+  quickCheck prop_landauer_nBit_scales
+  quickCheck prop_landauer_300K_pos
+
+  putStrLn ""
+  putStrLn "-- MonoidalState"
+  quickCheck prop_combine_one
+  quickCheck prop_combine_zero
+  quickCheck prop_combine_density_interp
+  quickCheck prop_combine_freeEnergy_convex
+
+  putStrLn ""
+  putStrLn "-- MeasurementCost"
+  quickCheck prop_mc_uniform_joint_zero_mi
+  quickCheck prop_mc_energy_nonneg
 
   putStrLn ""
   putStrLn "All tests passed."

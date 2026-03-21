@@ -2,4 +2,6 @@
 Gate.v
 Constitutional.v
 LandauerEinsteinBridge.v
+InfoTheory.v
 Extraction.v
+MeasurementCost.v

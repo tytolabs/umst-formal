@@ -139,19 +139,7 @@ structure Admissible (old new : ThermodynamicState) : Prop where
 -- The concrete Helmholtz instance of psiAntitone is proved in
 -- Lean/Helmholtz.lean.
 
-/-- (Axiom) Free energy is antitone in hydration.
-    Abstract physical law: for any material model, advancing hydration
-    (α ↑) cannot increase free energy.  Concretely witnessed by
-    helmholtzAntitone when freeEnergy = helmholtz(hydration). -/
-axiom psiAntitone (s1 s2 : ThermodynamicState) :
-    s1.hydration ≤ s2.hydration → s2.freeEnergy ≤ s1.freeEnergy
-
-/-- (Axiom) Strength is monotone in hydration.
-    Abstract physical law: advancing hydration cannot decrease strength
-    (Powers gel-space ratio model: fc = S · x³, monotone in α at fixed
-    water/cement ratio). -/
-axiom fcMonotone (s1 s2 : ThermodynamicState) :
-    s1.hydration ≤ s2.hydration → s1.strength ≤ s2.strength
+-- Section 5 was removed to eliminate unconstrained global physical axioms.
 
 -- ================================================================
 -- SECTION 6: Boolean Gate Decision Function
@@ -188,17 +176,20 @@ theorem gateCheckComplete (old new : ThermodynamicState) :
     Advancing hydration implies non-negative dissipation.
     D_int = −ρ · ψ̇ ≥ 0 iff ψ_new ≤ ψ_old. -/
 theorem clausiusDuhemFwd (s1 s2 : ThermodynamicState)
+    (h_psi : s1.hydration ≤ s2.hydration → s2.freeEnergy ≤ s1.freeEnergy)
     (h : s1.hydration ≤ s2.hydration) : s2.freeEnergy ≤ s1.freeEnergy :=
-  psiAntitone s1 s2 h
+  h_psi h
 
 /-- Main Safety Theorem: forward hydration + mass conservation ⇒
     the state transition is fully admissible.
-    This is the primary theorem that the gate implements. -/
+    This requires explicit physical constitutive hypotheses dynamically. -/
 theorem forwardHydrationAdmissible (old new : ThermodynamicState)
     (hyd  : old.hydration ≤ new.hydration)
-    (mass : |new.density - old.density| ≤ δMass) :
+    (mass : |new.density - old.density| ≤ δMass)
+    (h_psi : old.hydration ≤ new.hydration → new.freeEnergy ≤ old.freeEnergy)
+    (h_fc  : old.hydration ≤ new.hydration → old.strength ≤ new.strength) :
     Admissible old new :=
-  ⟨mass, psiAntitone old new hyd, hyd, fcMonotone old new hyd⟩
+  ⟨mass, h_psi hyd, hyd, h_fc hyd⟩
 
 /-- Reflexivity: every state is admissible with itself. -/
 theorem admissibleRefl (s : ThermodynamicState) : Admissible s s := by
