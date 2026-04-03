@@ -74,14 +74,21 @@ umst-formal/
 │   ├── Constitutional.v    Subject Reduction Lemma; Kleisli Admissibility Theorem
 │   ├── LandauerEinsteinBridge.v  SI-parameter Landauer scale + SR mass equivalent
 │   └── Extraction.v        OCaml code generation
-├── Lean/                   Lean 4 layer (full parity + SI bridge, 73 theorems/lemmas, zero sorry)
-│   ├── Gate.lean           Core admissibility + gate soundness/completeness
+├── Lean/                   Lean 4 — 14 lakefile roots, 121+ theorems/lemmas (see PROOF-STATUS.md); sorry-free with one physical axiom (`physicalSecondLaw` in LandauerLaw)
+│   ├── Gate.lean           Admissibility + soundness/completeness; §10 `AdmissibleN` / graded composition (replaces refuted transitivity axiom)
 │   ├── Helmholtz.lean      Concrete Helmholtz model + SDF / Eikonal
-│   ├── Constitutional.lean Kleisli Admissibility + Subject Reduction
+│   ├── Constitutional.lean Subject Reduction; N-step Kleisli (`WellTypedN`, graded fold/compose)
 │   ├── Naturality.lean     Natural transformation + material-agnosticism
 │   ├── Activation.lean     Engine activation profiles (sheaf section)
-│   ├── DIBKleisli.lean     DIB monad + 3 monad laws + Kleisli assoc
+│   ├── DIBKleisli.lean     DIB monad + monad laws + Kleisli assoc
 │   ├── LandauerEinsteinBridge.lean  Exact SI + Mathlib ln 2; 300 K mass brackets
+│   ├── GraphProperties.lean Mass non-transitivity counterexample; transitive order legs
+│   ├── Powers.lean         Powers gel-space model + admissibility witness
+│   ├── Convergence.lean    Lyapunov-style bounds; monotone convergence lemmas
+│   ├── GaloisGate.lean     Galois connection on gate conditions
+│   ├── EnrichedAdmissibility.lean Lawvere metric; triangle inequality vs `AdmissibleN`
+│   ├── LandauerLaw.lean    Thermodynamic erasure layer (`T_LandauerLaw`; physical axiom documented in PROOF-STATUS)
+│   ├── InfoTheory.lean     Joint/marginal entropy; product joint laws
 │   ├── lakefile.lean       Lake build configuration
 │   └── lean-toolchain      Lean 4 version pin (v4.14.0)
 ├── Haskell/                Kleisli monad + Rust FFI bridge
@@ -116,7 +123,7 @@ umst-formal/
 | Subject Reduction; Kleisli Admissibility (N-step safety) | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
 | Landauer–Einstein mass equivalent (definitions + SR; SI + brackets in Lean) | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
 | SDF / FRep interpretation; CSG decomposition; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean 4 mechanization | `Lean/` (7 roots: gate stack + `LandauerEinsteinBridge`, 73 theorems/lemmas, zero sorry) |
+| Full Lean 4 mechanization | `Lean/` (14 lakefile roots, 121+ theorems/lemmas; sorry-free modulo one documented physical axiom — `PROOF-STATUS.md`) |
 
 Four independent proof layers (Agda, Coq, Lean 4, Haskell QuickCheck) verify the same invariants. See `PROOF-STATUS.md` for the complete per-theorem index across all layers.
 
@@ -185,7 +192,7 @@ See `Docs/OnePager-Categorical.tex` for the full commuting diagram.
 | Tool | Version | Purpose |
 |------|---------|---------|
 | Rust | 1.75+ | FFI bridge compilation |
-| Agda | 2.6.4+ | Dependent-type proofs |
+| Agda | 2.6.4+ (stdlib 2.0+); Homebrew often 2.8 | Dependent-type proofs |
 | agda-stdlib | 2.0+ | Standard library |
 | Coq | 8.18+ | Theorem proving + extraction |
 | Lean 4 | 4.14.0 | Independent proof layer (Mathlib4) |

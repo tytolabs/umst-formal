@@ -92,6 +92,7 @@ violates it.  Formal counterexample: `GraphProperties.lean` (`mass_not_transitiv
 | General Kleisli composition | `kleisliComposeWellTypedN` (Constitutional.lean) | `kleisli_compose_well_typed_N` (Constitutional.v) | -- | m+n-step graded |
 | N-step Kleisli | `kleisliFoldWellTypedN` (Constitutional.lean) | `kleisli_fold_well_typed_N` (Constitutional.v) | -- | WellTypedN n; no axiom |
 | Mass non-transitivity | `mass_not_transitive` (GraphProperties.lean) | -- | `prop_mass_not_transitive` | Formal counterexample |
+| Accuracy–safety separation (per-sample $L^1$ / MAE core) | `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` (SeparationBound.lean) | -- | -- | Triangle inequality on ℝ |
 
 ### Agda postulates (pending mechanization / abstract interfaces)
 
@@ -286,23 +287,31 @@ The Lean 4 layer matches Agda and Coq on the gate / Kleisli core, **plus** an ex
 root `UMST.LandauerEinsteinBridge` (exact SI + `Real.log 2` + 300 K brackets). Coq
 has the algebraic fragment with parameters.  Summary:
 
-| Module | Theorems proved | Source |
+| Module | `theorem` count | Source |
 |--------|-----------------|--------|
-| `UMST.Gate` | 21 | `Lean/Gate.lean` (adds §10: AdmissibleN, compose, refl, iff) |
+| `UMST.Gate` | 14 | `Lean/Gate.lean` — AdmissibleN, `admissibleN_compose`, gate soundness/complete |
 | `UMST.Helmholtz` | 5 | `Lean/Helmholtz.lean` |
-| `UMST.Constitutional` | 14 | `Lean/Constitutional.lean` (adds WellTypedN, graded compose/fold) |
-| `UMST.Naturality` | 7 | `Lean/Naturality.lean` |
-| `UMST.Activation` | 14 | `Lean/Activation.lean` |
-| `UMST.DIBKleisli` | 7 | `Lean/DIBKleisli.lean` |
-| `UMST.LandauerEinsteinBridge` | 14 | `Lean/LandauerEinsteinBridge.lean` |
-| `UMST.GraphProperties` | 7 | `Lean/GraphProperties.lean` (counterexample + order props) |
-| `UMST.Powers` | 4 | `Lean/Powers.lean` (Powers model, monotone witness) |
-| `UMST.Convergence` | 5 | `Lean/Convergence.lean` (Lyapunov, Monotone Convergence) |
-| `UMST.GaloisGate` | 4 | `Lean/GaloisGate.lean` (Galois connection, condition lattice) |
-| `UMST.EnrichedAdmissibility` | 6 | `Lean/EnrichedAdmissibility.lean` (Lawvere metric, triangle) |
-| `UMST.LandauerLaw` | 8+ | `Lean/LandauerLaw.lean` (T_LandauerLaw; 1 axiom: `physicalSecondLaw`; `physicalSecondLawUniformBinary` + `physicalSecondLaw_uniform_binary`; `ProbDist.ext_mass` for extensionality from `mass`) |
-| `UMST.InfoTheory` | 4+ | `Lean/InfoTheory.lean` — finite joint law `JointDist`, marginals, `jointEntropy` / `mutualInformation`, product joint; **proved:** `marginalX_product`, `marginalY_product`, `jointEntropy_product`, `mutualInformation_product_zero` |
-| **Total** | **121+** | |
+| `UMST.Constitutional` | 11 | `Lean/Constitutional.lean` — Kleisli graded fold/compose (`kleisliComposeAssoc`, …) |
+| `UMST.Naturality` | 6 | `Lean/Naturality.lean` |
+| `UMST.Activation` | 11 | `Lean/Activation.lean` |
+| `UMST.DIBKleisli` | 8 | `Lean/DIBKleisli.lean` |
+| `UMST.LandauerEinsteinBridge` | 7 | `Lean/LandauerEinsteinBridge.lean` |
+| `UMST.GraphProperties` | 10 | `Lean/GraphProperties.lean` |
+| `UMST.Powers` | 3 | `Lean/Powers.lean` |
+| `UMST.Convergence` | 8 | `Lean/Convergence.lean` |
+| `UMST.GaloisGate` | 6 | `Lean/GaloisGate.lean` |
+| `UMST.EnrichedAdmissibility` | 12 | `Lean/EnrichedAdmissibility.lean` |
+| `UMST.LandauerLaw` | 9 | `Lean/LandauerLaw.lean` (1 axiom: `physicalSecondLaw`) |
+| `UMST.InfoTheory` | 4 | `Lean/InfoTheory.lean` |
+| `UMST.EndConditions` | 3 | `Lean/EndConditions.lean` |
+| `UMST.MeasurementCost` | 1 | `Lean/MeasurementCost.lean` |
+| `UMST.LandauerExtension` | 6 | `Lean/LandauerExtension.lean` |
+| `UMST.FiberedActivation` | 8 | `Lean/FiberedActivation.lean` |
+| `UMST.MonoidalState` | 6 | `Lean/MonoidalState.lean` |
+| `UMST.SeparationBound` | 2 | `Lean/SeparationBound.lean` — **Theorem 2 (real-line core):** `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` |
+| **Total** | **140** | Count = `^theorem ` at line start in `Lean/*.lean` (excludes `lemma`; add lemmas separately if needed). |
+
+**Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Gate.lean` / `Constitutional.lean` (not the removed ungraded transitivity axiom).
 
 **InfoTheory follow-up (not in artifact):** general non-negativity `0 ≤ mutualInformation J` (equivalently subadditivity of Shannon entropy / KL divergence ≥ 0) is stated as a future extension in `InfoTheory.lean`; the product case above already forces `MI = 0` for independent factors.
 

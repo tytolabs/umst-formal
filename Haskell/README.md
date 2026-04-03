@@ -27,6 +27,7 @@ cabal test
 |--------|---------|
 | `UMST.hs` | Tensor types and pure reference implementation of the thermodynamic gate |
 | `KleisliDIB.hs` | Discovery-Invention-Build loop as a Kleisli monad over `StateT UMST IO` |
+| `SDFGate.hs` | SDF / FRep view of the gate (CSG intersection, Helmholtz SDF, R-functions) |
 | `FFI.hs` | Foreign function interface binding to `libumst_ffi` (Rust via C ABI) |
 
 ## Property-Based Correspondence

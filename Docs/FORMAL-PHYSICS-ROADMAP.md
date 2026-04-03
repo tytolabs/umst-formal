@@ -43,7 +43,7 @@ a `PROOF-STATUS.md` row.
 | **Gate** | Mass tolerance, **Clausius–Duhem** (`D_int ≥ 0`), hydration monotonicity, strength monotonicity — mechanized in Agda/Coq/Lean/Haskell. |
 | **Helmholtz / SDF** | Concrete free-energy model and gradient lemmas where in scope. |
 | **Landauer–Einstein fragment** | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean`: \(m_{\mathrm{eq}}(T) = (k_B T\ln 2)/c^2\) from definitions + SR; Lean adds SI-exact constants and 300 K numeric brackets. |
-| **Kleisli / constitutional** | Subject reduction and composition, with explicit `admissible_trans` axiom where needed. |
+| **Kleisli / constitutional** | Subject reduction; **graded** N-step composition (`admissibleN_compose` / `admissible_N_compose`, `WellTypedN`, `kleisliFoldWellTypedN`). The old `admissible_trans` / `admissibleTrans` axiom was **removed** (refutable); see `PROOF-STATUS.md`. |
 
 **MaOS / implementation link:** the Rust gate and Haskell `UMST.hs` are **reference
 implementations** checked against the formal predicate where the FFI/test suites

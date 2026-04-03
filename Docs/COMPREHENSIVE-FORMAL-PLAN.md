@@ -4,6 +4,8 @@
 **Scope:** Complete gap analysis, error identification, logical fallacy audit, end-condition proof plan, and phased theory extensions for `umst-formal`.
 **Perspective:** Functional programming, lambda calculus, category theory, type theory, graph theory.
 
+**Status note (post-snapshot):** The refutable `admissibleTrans` / `admissible_trans` axiom has been **removed** from Lean and Coq and replaced by **graded** admissibility (`AdmissibleN`, `admissibleN_compose`) and N-step Kleisli theorems. **Authoritative counts, module list, and axiom inventory:** `PROOF-STATUS.md`. This file remains a **dated audit** for reasoning about remaining gaps (e.g. `fcMonotone` witness, ℚ↔f64); treat the `admissibleTrans` “CRITICAL open” narrative below as **historical context**, not the current proof state.
+
 ---
 
 ## Table of Contents
@@ -29,9 +31,9 @@
 
 | # | Finding | Severity | Status |
 |---|---------|----------|--------|
-| 1 | `admissibleTrans` is **refutable** from existing definitions | **CRITICAL** | Inconsistency in axiomatic foundation |
+| 1 | `admissibleTrans` is **refutable** from existing definitions | **CRITICAL** | **Resolved in repo:** axiom removed; graded `AdmissibleN` + `admissibleN_compose` (see `PROOF-STATUS.md`) |
 | 2 | `fcMonotone` is over-quantified (no w/c ratio) and has **no concrete witness** | HIGH | Logical overcommitment |
-| 3 | No convergence/termination proofs for constitutional sequences | HIGH | Missing end-conditions |
+| 3 | No convergence/termination proofs for constitutional sequences | HIGH | **Partial:** `Lean/Convergence.lean` (hydration/free-energy limits, Lyapunov); broader “all protocols” termination still not claimed |
 | 4 | `psiAntitone` is over-quantified (applies beyond Helmholtz states) | MEDIUM | Stronger than witness |
 | 5 | Naturality proofs are trivially true on discrete category | MEDIUM | Not a strong claim |
 | 6 | DIB monad proves only State-monad tautologies (no physical content) | MEDIUM | Informationally vacuous |
@@ -40,14 +42,14 @@
 | 9 | Sheaf structure trivial on discrete topology | LOW | Vacuously true |
 | 10 | Target claims (Landauer law, Jacobson, etc.) not well-formed in L₀ | KNOWN | Documented in DERIVATION-PLAN |
 
-### Contamination Scope of admissibleTrans
+### Contamination Scope of admissibleTrans *(historical — pre-fix)*
 
-Every theorem downstream of `admissibleTrans` is **formally vacuous** (provable from False):
+Before the axiom was removed, every theorem downstream of `admissibleTrans` was **formally vacuous** (provable from False), including:
 - `kleisliComposeWellTyped` (Lean, Coq)
 - `kleisliFoldWellTyped` (Lean, Coq)
 - `sequentialCompositionSafe` (Lean, Coq)
 
-**Uncontaminated** (safe): All 73 Lean theorems except those 3. The `ConstitutionalSeq` / `kleisliAdmissibility` / `subjectReduction` chain does NOT depend on `admissibleTrans` and is sound.
+**Current repo:** those results are superseded or reframed by **graded** theorems (`kleisliComposeWellTypedN`, `kleisliFoldWellTypedN`, etc.); see `PROOF-STATUS.md`. The `ConstitutionalSeq` / `kleisliAdmissibility` / `subjectReduction` chain did not depend on `admissibleTrans` and was always sound.
 
 ---
 
@@ -87,7 +89,7 @@ Every theorem downstream of `admissibleTrans` is **formally vacuous** (provable 
 |-------|------|----------------|----------|
 | `psiAntitone` | `∀ s₁ s₂, s₁.hydration ≤ s₂.hydration → s₂.freeEnergy ≤ s₁.freeEnergy` | Physical (over-quantified) | Partial: `ψAntitoneHelmholtz` (conditioned on `HelmholtzState`) |
 | `fcMonotone` | `∀ s₁ s₂, s₁.hydration ≤ s₂.hydration → s₁.strength ≤ s₂.strength` | Physical (over-quantified) | **NONE** |
-| `admissibleTrans` | `Admissible s s' → Admissible s' s'' → Admissible s s''` | Composition | **REFUTABLE** (see §3) |
+| `admissibleTrans` | *(removed)* was `Admissible s s' → Admissible s' s'' → Admissible s s''` | Composition | **Was REFUTABLE** — **removed**; use graded `admissibleN_compose` (see §3, `PROOF-STATUS.md`) |
 | `funext` | Function extensionality | Standard meta-axiom | Theorem in Lean 4 |
 | `kB_SI_pos`, `c_SI_pos`, `ln2_pos` | Positivity of parameters | Coq only | N/A (parameter axioms) |
 
@@ -95,9 +97,11 @@ Every theorem downstream of `admissibleTrans` is **formally vacuous** (provable 
 
 ## 3. CRITICAL: Identified Inconsistency (admissibleTrans)
 
+*Live codebase:* the axiom is **removed** and Kleisli composition uses graded theorems (`PROOF-STATUS.md`). This section records **why** it had to go (the counterexample), for audit traceability.
+
 ### 3.1 The Refutation
 
-`admissibleTrans` is **provably false** under the current definition of `Admissible` with `δMass = 100`.
+The former `admissibleTrans` axiom was **provably false** under the definition of `Admissible` with `δMass = 100`.
 
 **Counterexample construction:**
 

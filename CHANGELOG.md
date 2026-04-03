@@ -22,10 +22,14 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **`Docs/FORMAL-PHYSICS-DERIVATION-PLAN.md`** — mathematical statement shapes,
   required extensions (\(\Delta L\)), axiom bundles, and logical status vs core **L₀**
   (Landauer law, gravity, Jacobson, Bekenstein, Friedmann).
-- **Lean 4 layer** — six modules (`Gate.lean`, `Helmholtz.lean`,
-  `Constitutional.lean`, `Naturality.lean`, `Activation.lean`,
-  `DIBKleisli.lean`) with 59 sorry-free theorems at full parity with
-  Agda and Coq.  Includes `lean-toolchain` (v4.14.0) and `lakefile.lean`.
+- **Lean 4 layer** — parity stack plus extensions: `Gate`, `Helmholtz`,
+  `Constitutional`, `Naturality`, `Activation`, `DIBKleisli`,
+  `LandauerEinsteinBridge`, `GraphProperties`, `Powers`, `Convergence`,
+  `GaloisGate`, `EnrichedAdmissibility`, `LandauerLaw`, `InfoTheory`
+  (**121+** theorems/lemmas in those roots per `PROOF-STATUS.md`; sorry-free
+  with one physical axiom `physicalSecondLaw` in `LandauerLaw.lean`).
+  Graded `AdmissibleN` / `admissibleN_compose` replaces the refuted
+  `admissibleTrans` axiom.  Includes `lean-toolchain` (v4.14.0) and `lakefile.lean`.
 - `Coq/Constitutional.v` — Subject Reduction Lemma and Kleisli
   Admissibility Theorem.  Full mechanisation, zero `Admitted`.
 - `Haskell/SDFGate.hs` — SDF / FRep interpretation of the thermodynamic

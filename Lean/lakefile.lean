@@ -29,6 +29,7 @@ require mathlib from git
 lean_lib «UMST» where
   roots := #[`Gate, `Helmholtz, `Constitutional, `Naturality, `Activation, `DIBKleisli,
     `LandauerEinsteinBridge, `GraphProperties, `Powers, `Convergence,
-    `GaloisGate, `EnrichedAdmissibility, `LandauerLaw, `InfoTheory,
-    `EndConditions, `MeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState]
+    `GaloisGate, `EnrichedAdmissibility,     `LandauerLaw, `InfoTheory,
+    `EndConditions, `MeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState,
+    `SeparationBound]
   srcDir := "."

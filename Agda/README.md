@@ -4,8 +4,7 @@ Dependent-type proofs of the four thermodynamic gate invariants and the categori
 
 ## Prerequisites
 
-- Agda 2.6.4+
-- agda-stdlib 2.0+
+- Agda **2.6.4+** with **agda-stdlib 2.0+** (packaging varies; Homebrew may ship **2.8** with a bundled stdlib — see `PROOF-STATUS.md` proof-layers table)
 
 ## Build
 
