@@ -74,7 +74,7 @@ umst-formal/
 │   ├── Constitutional.v    Subject Reduction Lemma; Kleisli Admissibility Theorem
 │   ├── LandauerEinsteinBridge.v  SI-parameter Landauer scale + SR mass equivalent
 │   └── Extraction.v        OCaml code generation
-├── Lean/                   Lean 4 — 14 lakefile roots, 121+ theorems/lemmas (see PROOF-STATUS.md); sorry-free with one physical axiom (`physicalSecondLaw` in LandauerLaw)
+├── Lean/                   Lean 4 — 20 lakefile roots, 140 theorems + 21 lemmas (line-start heuristic — PROOF-STATUS.md); sorry-free with one physical axiom (`physicalSecondLaw` in LandauerLaw)
 │   ├── Gate.lean           Admissibility + soundness/completeness; §10 `AdmissibleN` / graded composition (replaces refuted transitivity axiom)
 │   ├── Helmholtz.lean      Concrete Helmholtz model + SDF / Eikonal
 │   ├── Constitutional.lean Subject Reduction; N-step Kleisli (`WellTypedN`, graded fold/compose)
@@ -123,7 +123,7 @@ umst-formal/
 | Subject Reduction; Kleisli Admissibility (N-step safety) | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
 | Landauer–Einstein mass equivalent (definitions + SR; SI + brackets in Lean) | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
 | SDF / FRep interpretation; CSG decomposition; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean 4 mechanization | `Lean/` (14 lakefile roots, 121+ theorems/lemmas; sorry-free modulo one documented physical axiom — `PROOF-STATUS.md`) |
+| Full Lean 4 mechanization | `Lean/` (20 lakefile roots, 140 theorems + 21 lemmas; sorry-free modulo one documented physical axiom — `PROOF-STATUS.md`) |
 
 Four independent proof layers (Agda, Coq, Lean 4, Haskell QuickCheck) verify the same invariants. See `PROOF-STATUS.md` for the complete per-theorem index across all layers.
 
