@@ -314,6 +314,34 @@ prop_mc_energy_nonneg =
         in measurementEnergyLowerBound t joint >= 0 - 1e-15
 
 ------------------------------------------------------------------------
+-- Burden / exploration (Lean @BurdenRecursionIsAdmissible@ / @StochasticBurdenExpectation@)
+------------------------------------------------------------------------
+
+burdenState :: Double -> ThermodynamicState
+burdenState b = ThermodynamicState b 0 0 0 intrinsicStrength
+
+-- | Symmetric two-point noise: expectation factor is @1 + μ@ (Lean @burden_expectation_symmetric_two_point@).
+prop_burden_symmetric_expectation :: Double -> Double -> Double -> Bool
+prop_burden_symmetric_expectation b mu sig =
+  let lhs = 0.5 * (b * (1 + mu + sig)) + 0.5 * (b * (1 + mu - sig))
+      rhs = b * (1 + mu)
+  in abs (lhs - rhs) <= 1e-12
+
+-- | Schematic burden step admissible when @|g - ε| ≤ massTolerance@ (density channel only).
+prop_burden_recursion_admissible :: Double -> Double -> Double -> Property
+prop_burden_recursion_admissible b g e =
+  abs (g - e) <= massTolerance ==>
+    accepted (gateCheck (burdenState b) (burdenState (b + g - e)) 1.0)
+
+-- | Geometric factor @(1+μ)^n@ shrinks when @0 ≤ 1+μ < 1@ (fixed @μ = -0.4@, @n = 60@).
+prop_burden_geom_decay :: Bool
+prop_burden_geom_decay =
+  let mu = -0.4
+      r = 1 + mu
+      v = r ^ (60 :: Int)
+  in v >= 0 && v < 1e-3
+
+------------------------------------------------------------------------
 -- Runner
 ------------------------------------------------------------------------
 
@@ -368,6 +396,12 @@ main = do
   putStrLn "-- MeasurementCost"
   quickCheck prop_mc_uniform_joint_zero_mi
   quickCheck prop_mc_energy_nonneg
+
+  putStrLn ""
+  putStrLn "-- Burden / stochastic exploration"
+  quickCheck prop_burden_symmetric_expectation
+  quickCheck prop_burden_recursion_admissible
+  quickCheck prop_burden_geom_decay
 
   putStrLn ""
   putStrLn "All tests passed."

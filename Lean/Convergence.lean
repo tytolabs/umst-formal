@@ -16,9 +16,9 @@
   - Gate.lean: ThermodynamicState, Admissible, helmholtz, Q_hyd, admissibleNRefl
   - Helmholtz.lean: HelmholtzState, ψAntitoneHelmholtz
 
-  Physical axioms added here (documented):
-  - hydration_bounded: α ∈ [0,1] (from cement chemistry / physical domain)
-  - strength_upper_bounded: fc ≤ S_intrinsic (from Powers model / material limit)
+  Domain constraints (no axioms):
+  - Hydration in `[0,1]` is assumed **per theorem** via `HydrationInUnitInterval` or bundled into
+    `ConstitutionalStream` (physically meaningful streams).  Not a global postulate on all states.
 -/
 
 import Mathlib.Topology.Order.MonotoneConvergence
@@ -32,23 +32,19 @@ open scoped Topology BigOperators
 namespace UMST
 
 -- ================================================================
--- SECTION 1: Physical Boundedness Axioms
+-- SECTION 1: Hydration domain (hypothesis-driven, zero axioms)
 -- ================================================================
--- These are physical domain axioms: hydration degree is bounded in [0,1]
--- and strength is bounded above by the intrinsic C-S-H gel strength.
 
-/-- Hydration degree is physically bounded: α ∈ [0, 1].
-    Axiom: follows from stoichiometry (cannot hydrate more than available cement). -/
-axiom hydration_bounded (s : ThermodynamicState) :
-    (0 : ℚ) ≤ s.hydration ∧ s.hydration ≤ 1
+/-- Stoichiometric / modelling assumption: hydration degree lies in the unit interval. -/
+def HydrationInUnitInterval (s : ThermodynamicState) : Prop :=
+  (0 : ℚ) ≤ s.hydration ∧ s.hydration ≤ 1
 
-/-- Free energy lower bound: ψ ≥ -Q_hyd for Helmholtz-consistent states.
-    Follows from hydration_bounded and the Helmholtz model ψ = -Q·α. -/
+/-- Free energy lower bound: ψ ≥ -Q_hyd for Helmholtz-consistent states with α ∈ [0,1]. -/
 theorem freeEnergy_lower_bound (s : ThermodynamicState)
-    (h : HelmholtzState s) : -(Q_hyd) ≤ s.freeEnergy := by
+    (h : HelmholtzState s) (hb : HydrationInUnitInterval s) : -(Q_hyd) ≤ s.freeEnergy := by
   rw [h]
   unfold helmholtz Q_hyd
-  have := (hydration_bounded s).2
+  have := hb.2
   nlinarith
 
 -- ================================================================
@@ -70,11 +66,11 @@ theorem lyapunov_nondecreasing {s s' : ThermodynamicState}
 
 /-- The Lyapunov function is bounded above for Helmholtz states (≤ Q_hyd). -/
 theorem lyapunov_upper_bound (s : ThermodynamicState)
-    (h : HelmholtzState s) : lyapunov s ≤ Q_hyd := by
+    (h : HelmholtzState s) (hb : HydrationInUnitInterval s) : lyapunov s ≤ Q_hyd := by
   unfold lyapunov
   rw [h]
   unfold helmholtz Q_hyd
-  have := (hydration_bounded s).2
+  have := hb.2
   nlinarith
 
 -- ================================================================
@@ -82,9 +78,10 @@ theorem lyapunov_upper_bound (s : ThermodynamicState)
 -- ================================================================
 -- We work in ℝ for the Monotone Convergence Theorem.
 
-/-- A constitutional sequence (indexed by ℕ) as a stream of states. -/
+/-- A constitutional sequence: admissible steps and hydration in `[0,1]` at every index. -/
 def ConstitutionalStream := {seq : ℕ → ThermodynamicState //
-  ∀ n, Admissible (seq n) (seq (n + 1))}
+  (∀ n, Admissible (seq n) (seq (n + 1))) ∧
+    ∀ n, HydrationInUnitInterval (seq n)}
 
 /-- The hydration sequence of a constitutional stream is monotone in ℝ. -/
 theorem hydrationSeq_monotone (cs : ConstitutionalStream) :
@@ -93,7 +90,7 @@ theorem hydrationSeq_monotone (cs : ConstitutionalStream) :
   induction hmn with
   | refl => exact le_refl _
   | @step k _ ih =>
-    have hstep := cs.property k
+    have hstep := cs.property.1 k
     have := hstep.hydrationMono
     have cast_le : ((cs.val k).hydration : ℝ) ≤ ((cs.val (k + 1)).hydration : ℝ) := by
       exact_mod_cast this
@@ -105,7 +102,7 @@ theorem hydrationSeq_bddAbove (cs : ConstitutionalStream) :
   use 1
   intro x hx
   rcases mem_range.mp hx with ⟨n, rfl⟩
-  exact_mod_cast (hydration_bounded (cs.val n)).2
+  exact_mod_cast (cs.property.2 n).2
 
 /-- **Theorem (Hydration Convergence):**
     Every constitutional stream's hydration sequence converges to some α* ∈ [0,1]. -/
@@ -125,14 +122,14 @@ theorem hydrationConverges (cs : ConstitutionalStream) :
   · simpa [f] using hconv
   · have h0 : (0 : ℝ) ≤ f 0 := by
       change (0 : ℝ) ≤ ((cs.val 0).hydration : ℝ)
-      exact_mod_cast (hydration_bounded (cs.val 0)).1
+      exact_mod_cast (cs.property.2 0).1
     have hf0 : f 0 ≤ α_star := by rw [ha_def]; exact le_ciSup hbdd 0
     exact le_trans h0 hf0
   · rw [ha_def]
     refine ciSup_le ?_
     intro n
     simpa [f] using (show ((cs.val n).hydration : ℝ) ≤ (1 : ℝ) by
-      exact_mod_cast (hydration_bounded (cs.val n)).2)
+      exact_mod_cast (cs.property.2 n).2)
 
 /-- **Theorem (Free Energy Convergence):**
     For Helmholtz-consistent constitutional streams, the free energy converges. -/
@@ -148,7 +145,7 @@ theorem freeEnergyConverges (cs : ConstitutionalStream)
     induction hmn with
     | refl => exact le_refl _
     | @step k _ ih =>
-      have := (cs.property k).clausiusDuhem
+      have := (cs.property.1 k).clausiusDuhem
       have cast_le : ((cs.val (k + 1)).freeEnergy : ℝ) ≤ ((cs.val k).freeEnergy : ℝ) := by
         exact_mod_cast this
       exact le_trans cast_le ih
@@ -157,7 +154,7 @@ theorem freeEnergyConverges (cs : ConstitutionalStream)
     intro x hx
     rcases mem_range.mp hx with ⟨n, rfl⟩
     simpa [g] using (show (-(Q_hyd : ℝ)) ≤ ((cs.val n).freeEnergy : ℝ) by
-      exact_mod_cast freeEnergy_lower_bound (cs.val n) (hH n))
+      exact_mod_cast freeEnergy_lower_bound (cs.val n) (hH n) (cs.property.2 n))
   let ψ_star : ℝ := ⨅ n, g n
   have hψ_def : ψ_star = ⨅ n, g n := rfl
   have hconv : Tendsto g atTop (nhds ψ_star) := by
@@ -167,7 +164,7 @@ theorem freeEnergyConverges (cs : ConstitutionalStream)
   · rw [hψ_def]
     refine le_ciInf fun n => ?_
     simpa [g] using (show (-(Q_hyd : ℝ)) ≤ ((cs.val n).freeEnergy : ℝ) by
-      exact_mod_cast freeEnergy_lower_bound (cs.val n) (hH n))
+      exact_mod_cast freeEnergy_lower_bound (cs.val n) (hH n) (cs.property.2 n))
 
 -- ================================================================
 -- SECTION 4: Lyapunov Convergence Bound
@@ -182,7 +179,7 @@ theorem lyapunov_bounded_range (cs : ConstitutionalStream)
   · induction n with
     | zero => exact le_refl _
     | succ k ih =>
-      exact le_trans ih (lyapunov_nondecreasing (cs.property k))
-  · exact lyapunov_upper_bound (cs.val n) (hH n)
+      exact le_trans ih (lyapunov_nondecreasing (cs.property.1 k))
+  · exact lyapunov_upper_bound (cs.val n) (hH n) (cs.property.2 n)
 
 end UMST

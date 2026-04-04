@@ -231,7 +231,9 @@ def SafeExecution (init final : ThermodynamicState) (path : List ThermodynamicSt
 
 ### 4.3 Opaque DIB Types — Informationally Vacuous (MEDIUM)
 
-**Problem:** `DIBState`, `Observation`, `Insight`, `Design`, `Artifact` are all opaque. The monad laws (`leftUnit`, `rightUnit`, `assocM`, `dibAssoc`) hold for **any** State monad over **any** type — they carry zero domain-specific content. The `gateIsTotal` theorem (DIBKleisli.lean:193) is literally `rfl`.
+**Historical note (pre–Wave 6.5):** This paragraph referred to an early DIB layer where phase carriers were fully opaque and a removed `gateIsTotal` stub. **Current tree:** `Observation` … `Artifact` are `structure`s; `DIBState` / `discover` / `invent` / `build` remain opaque; artifact semantics use `artifactSemanticStep` + `dibArtifactGateCheck_eq_true` (see `FORMAL_FOUNDATIONS.md`). The monad laws still abstract over `DIBState`.
+
+**Problem (audit framing):** Kleisli laws carry no domain-specific thermo content until linked to `gateCheck`; the remaining gap is a full Field/Core functor from `M Artifact` to traced thermo states.
 
 **Assessment:** The DIB module is a **methodology model**, not a physical model. Its monad laws prove compositional coherence of the pipeline, which is the correct property for a one-pass pipeline. This is not an error, but it should be honestly documented as carrying no physical content beyond the structural guarantee.
 

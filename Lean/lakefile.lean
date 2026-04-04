@@ -26,10 +26,17 @@ require mathlib from git
     lake build UMST.LandauerLaw                 -- T_LandauerLaw: Landauer bound (axiom: physicalSecondLaw)
     lake build UMST.InfoTheory                  -- joint Shannon entropy + mutual information (finite)
 -/
+/-
+  **Default `roots`** = core formal layer checked by `lake build` (constitutional gate,
+  Landauer, DIB, convergence, …).  **Not listed here:** scratch / debug modules such as
+  `_check_ext.lean` (local `#print` / `#check` only).  Add a module to `roots` when it
+  should participate in CI; optional experiments stay out of the default closure.
+-/
 lean_lib «UMST» where
-  roots := #[`Gate, `Helmholtz, `Constitutional, `Naturality, `Activation, `DIBKleisli,
+  roots := #[`Gate, `Helmholtz, `Constitutional, `Naturality, `Activation, `DIBKleisli, `FormalFoundations,
     `LandauerEinsteinBridge, `GraphProperties, `Powers, `Convergence,
     `GaloisGate, `EnrichedAdmissibility,     `LandauerLaw, `InfoTheory,
     `EndConditions, `MeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState,
-    `SeparationBound]
+    `SeparationBound,
+    `EconomicTemperature, `BurdenRecursionIsAdmissible, `StochasticBurdenExpectation]
   srcDir := "."

@@ -5,6 +5,14 @@ verification and categorical-semantics layer over a production Rust kernel.
 Correctness is the primary goal; every change must preserve the four core
 invariants.
 
+## Lean declaration counts
+
+After large edits under `Lean/`, refresh documented totals:
+
+`python3 scripts/lean_declaration_stats.py`
+
+See `FORMAL_FOUNDATIONS.md` and `Docs/COUNT-METHODOLOGY.md`.
+
 ## Ground Rules
 
 1. **Do not modify the upstream kernel.** The Rust crate at

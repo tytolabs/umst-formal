@@ -36,7 +36,7 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 |-------|------|---------------|--------|
 | Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | Physical postulates in `Gate.agda` (see key); `InfoTheory.agda` (definitions + 3 postulates mirroring Lean/Coq product laws; small length lemmas proved); default `make check` is not `--safe` |
 | Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
-| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build UMST` | No `sorry`; `admissibleTrans` REMOVED; replaced by graded `admissibleN_compose` in 12 modules |
+| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **24** `UMST` library roots (`Lean/lakefile.lean`). Counts: **154** `theorem` + **13** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py`. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
 | Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | 17 properties (incl. 3× `InfoTheory`: product joint sums to 1, marginals match `Lean/InfoTheory` product laws); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
 | Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (optional suite) |
 
@@ -70,8 +70,8 @@ this table.**
 
 | Declaration | Coq | Agda | Lean | Classification |
 |---|---|---|---|---|
-| Free-energy antitone under hydration | `psi_antitone` (Gate.v) | `ψ-antitone` (Gate.agda) | `psiAntitone` (Gate.lean) | Clausius-Duhem / Helmholtz model |
-| Strength monotone under hydration | `fc_monotone` (Gate.v) | `fc-monotone` (Gate.agda) | `fcMonotone` (Gate.lean) | Powers gel-space ratio model |
+| Free-energy antitone under hydration | `psi_antitone` (Gate.v) | `ψ-antitone` (Gate.agda) | `helmholtzAntitone` (Gate.lean); state witness `ψAntitoneHelmholtz` (Helmholtz.lean) — **not** a Lean `axiom` | Clausius-Duhem / Helmholtz model |
+| Strength monotone under hydration | `fc_monotone` (Gate.v) | `fc-monotone` (Gate.agda) | `powersStateFcMonotone` (Powers.lean) — **not** a Lean `axiom` | Powers gel-space ratio model |
 | Second Law of Thermodynamics (erasure) | -- | -- | `physicalSecondLaw` + `physicalSecondLawUniformBinary` (LandauerLaw.lean) | T_LandauerLaw only; Clausius entropy form; uniform-binary binders use `physicalSecondLawUniformBinary proc` (Lean parse) |
 
 ### Composition / transitivity (RESOLVED — axiom removed)
@@ -107,13 +107,12 @@ violates it.  Formal counterexample: `GraphProperties.lean` (`mass_not_transitiv
 | `engine-produces-state` | Activation.agda | Abstract engine-to-state-transformer interface |
 | `jointMassProduct`, `marginalFirstProduct`, `marginalSecondProduct` | InfoTheory.agda | **Algebraic laws** for product joint / marginals: proved in Lean (`InfoTheory.lean`) and Coq (`InfoTheory.v`); Agda keeps definitions + postulates for cross-language parity |
 
-### Lean opaque / axiom declarations (matching Agda postulates)
+### Lean opaque / synthetic carriers (DIB; matching Agda postulates)
 
 | Declaration | File | Classification |
 |---|---|---|
 | `DIBState` (opaque) | DIBKleisli.lean | Abstract state type |
-| `Observation`, `Insight`, `Design`, `Artifact` (axiom) | DIBKleisli.lean | Abstract phase types |
-| `*.inhabited` (axiom) | DIBKleisli.lean | Inhabitedness witnesses for opaque types |
+| `Observation`, `Insight`, `Design`, `Artifact` (`structure`, `Inhabited`) | DIBKleisli.lean | Synthetic phase types (not Lean `axiom`) |
 | `discover`, `invent`, `build` (noncomputable opaque) | DIBKleisli.lean | Abstract Kleisli arrows |
 
 ### Not formalized in this repository
@@ -287,35 +286,39 @@ The Lean 4 layer matches Agda and Coq on the gate / Kleisli core, **plus** an ex
 root `UMST.LandauerEinsteinBridge` (exact SI + `Real.log 2` + 300 K brackets). Coq
 has the algebraic fragment with parameters.  Summary:
 
-| Module | `theorem` count | Source |
-|--------|-----------------|--------|
-| `UMST.Gate` | 14 | `Lean/Gate.lean` — AdmissibleN, `admissibleN_compose`, gate soundness/complete |
-| `UMST.Helmholtz` | 5 | `Lean/Helmholtz.lean` |
-| `UMST.Constitutional` | 11 | `Lean/Constitutional.lean` — Kleisli graded fold/compose (`kleisliComposeAssoc`, …) |
-| `UMST.Naturality` | 6 | `Lean/Naturality.lean` |
-| `UMST.Activation` | 11 | `Lean/Activation.lean` |
-| `UMST.DIBKleisli` | 8 | `Lean/DIBKleisli.lean` |
-| `UMST.LandauerEinsteinBridge` | 7 | `Lean/LandauerEinsteinBridge.lean` |
-| `UMST.GraphProperties` | 10 | `Lean/GraphProperties.lean` |
-| `UMST.Powers` | 3 | `Lean/Powers.lean` |
-| `UMST.Convergence` | 8 | `Lean/Convergence.lean` |
-| `UMST.GaloisGate` | 6 | `Lean/GaloisGate.lean` |
-| `UMST.EnrichedAdmissibility` | 12 | `Lean/EnrichedAdmissibility.lean` |
-| `UMST.LandauerLaw` | 9 | `Lean/LandauerLaw.lean` (1 axiom: `physicalSecondLaw`) |
-| `UMST.InfoTheory` | 4 | `Lean/InfoTheory.lean` |
-| `UMST.EndConditions` | 3 | `Lean/EndConditions.lean` |
-| `UMST.MeasurementCost` | 1 | `Lean/MeasurementCost.lean` |
-| `UMST.LandauerExtension` | 6 | `Lean/LandauerExtension.lean` |
-| `UMST.FiberedActivation` | 8 | `Lean/FiberedActivation.lean` |
-| `UMST.MonoidalState` | 6 | `Lean/MonoidalState.lean` |
-| `UMST.SeparationBound` | 2 | `Lean/SeparationBound.lean` — **Theorem 2 (real-line core):** `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` |
-| **Total** | **140** | Count = `^theorem ` at line start in `Lean/*.lean` (excludes `lemma`; add lemmas separately if needed). |
+| Module | `theorem` | `lemma` | Source |
+|--------|-----------|---------|--------|
+| `UMST.Gate` | 14 | 0 | `Lean/Gate.lean` — AdmissibleN, `admissibleN_compose`, gate soundness/complete |
+| `UMST.Helmholtz` | 5 | 0 | `Lean/Helmholtz.lean` |
+| `UMST.Constitutional` | 11 | 0 | `Lean/Constitutional.lean` — Kleisli graded fold/compose (`kleisliComposeAssoc`, …) |
+| `UMST.Naturality` | 6 | 0 | `Lean/Naturality.lean` |
+| `UMST.Activation` | 11 | 0 | `Lean/Activation.lean` |
+| `UMST.DIBKleisli` | 9 | 0 | `Lean/DIBKleisli.lean` — monad laws; `dibArtifactGateCheck_eq_true` |
+| `UMST.FormalFoundations` | 1 | 0 | `Lean/FormalFoundations.lean` — corpus witness |
+| `UMST.LandauerEinsteinBridge` | 7 | 5 | `Lean/LandauerEinsteinBridge.lean` |
+| `UMST.GraphProperties` | 10 | 0 | `Lean/GraphProperties.lean` |
+| `UMST.Powers` | 3 | 5 | `Lean/Powers.lean` |
+| `UMST.Convergence` | 8 | 0 | `Lean/Convergence.lean` |
+| `UMST.GaloisGate` | 6 | 0 | `Lean/GaloisGate.lean` |
+| `UMST.EnrichedAdmissibility` | 12 | 0 | `Lean/EnrichedAdmissibility.lean` |
+| `UMST.LandauerLaw` | 9 | 3 | `Lean/LandauerLaw.lean` (1 Lean `axiom`: `physicalSecondLaw`) |
+| `UMST.InfoTheory` | 4 | 0 | `Lean/InfoTheory.lean` |
+| `UMST.EndConditions` | 3 | 0 | `Lean/EndConditions.lean` |
+| `UMST.MeasurementCost` | 1 | 0 | `Lean/MeasurementCost.lean` |
+| `UMST.LandauerExtension` | 6 | 0 | `Lean/LandauerExtension.lean` |
+| `UMST.FiberedActivation` | 8 | 0 | `Lean/FiberedActivation.lean` |
+| `UMST.MonoidalState` | 6 | 0 | `Lean/MonoidalState.lean` |
+| `UMST.SeparationBound` | 2 | 0 | `Lean/SeparationBound.lean` — **Theorem 2 (real-line core):** `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` |
+| `UMST.EconomicTemperature` | 3 | 0 | `Lean/EconomicTemperature.lean` |
+| `UMST.BurdenRecursionIsAdmissible` | 5 | 0 | `Lean/BurdenRecursionIsAdmissible.lean` |
+| `UMST.StochasticBurdenExpectation` | 4 | 0 | `Lean/StochasticBurdenExpectation.lean` |
+| **Total (24 roots)** | **154** | **13** | Regenerate: `python3 scripts/lean_declaration_stats.py`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
 
 **Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Gate.lean` / `Constitutional.lean` (not the removed ungraded transitivity axiom).
 
 **InfoTheory follow-up (not in artifact):** general non-negativity `0 ≤ mutualInformation J` (equivalently subadditivity of Shannon entropy / KL divergence ≥ 0) is stated as a future extension in `InfoTheory.lean`; the product case above already forces `MI = 0` for independent factors.
 
-All Lean 4 theorems/lemmas in these roots are sorry-free (1 axiom: `physicalSecondLaw` in `LandauerLaw.lean`).  CI badge: see `.github/workflows/ci.yml`
+All Lean 4 theorems/lemmas in these roots are tactic-`sorry`-free (1 Lean `axiom`: `physicalSecondLaw` in `LandauerLaw.lean`).  CI badge: see `.github/workflows/ci.yml`
 job `lean`.
 
 ---

@@ -15,8 +15,9 @@
   Mirrors Agda/DIB-Kleisli.agda.
 
   Proof status: monad laws and associativity fully proved by funext
-  and computation.  DIB phase types and arrows are opaque constants
-  (matching the postulates in the Agda layer).  Zero sorry.
+  and computation.  Phase types are empty structures (no axioms); `discover`,
+  `invent`, and `build` stay opaque Kleisli arrows — an execution model would
+  refine them.  Zero sorry.
 
   Each phase has a concrete referent:
     Discovery: field measurement → Observation values (informal constraints)
@@ -126,26 +127,17 @@ theorem kleisliRightUnit {A B : Type} (f : A → M B) :
 -- ================================================================
 -- SECTION 5: DIB Phase Types and Arrows
 -- ================================================================
--- These are opaque constants matching the postulates in Agda.
--- Extending them with concrete types is future work.
+-- Empty carriers: document the phase discipline without axioms.  Field/Core
+-- code can extend these with real payloads; the monad structure is unchanged.
 
-/-- Output of the Discovery phase: a structured field observation. -/
-axiom Observation : Type
-/-- Output of the Invention phase: a formal invariant candidate. -/
-axiom Insight : Type
-/-- Output of the Invention phase: a UMST mathematical specification. -/
-axiom Design : Type
-/-- Output of the Build phase: an executable artefact (Rust kernel). -/
-axiom Artifact : Type
-
-axiom Observation.inhabited : Inhabited Observation
-axiom Insight.inhabited : Inhabited Insight
-axiom Design.inhabited : Inhabited Design
-axiom Artifact.inhabited : Inhabited Artifact
-noncomputable instance : Inhabited Observation := Observation.inhabited
-noncomputable instance : Inhabited Insight := Insight.inhabited
-noncomputable instance : Inhabited Design := Design.inhabited
-noncomputable instance : Inhabited Artifact := Artifact.inhabited
+/-- Output of the Discovery phase: structured field observation (synthetic root). -/
+structure Observation deriving Inhabited
+/-- Output of the Invention phase: formal invariant candidate (synthetic root). -/
+structure Insight deriving Inhabited
+/-- UMST mathematical specification produced in Invention (synthetic root). -/
+structure Design deriving Inhabited
+/-- Executable artefact from Build, e.g. kernel bundle (synthetic root). -/
+structure Artifact deriving Inhabited
 
 instance [Inhabited A] : Inhabited (M A) := ⟨⟨fun s => (default, s)⟩⟩
 
@@ -177,20 +169,57 @@ theorem dibAssoc :
   kleisliAssoc discover invent build
 
 -- ================================================================
--- SECTION 7: Connection to the Gate
+-- SECTION 7: Semantics tier — artifacts and the thermodynamic gate
 -- ================================================================
--- The Build phase produces the gate implementation.  We express this
--- connection as a theorem: the gate is the artifact of the DIB
--- pipeline.  This is a specification theorem, not executable code.
+-- Abstract `discover` / `invent` / `build` stay opaque.  This section fixes a
+-- **minimal** interpretation of build outputs into state space and proves
+-- admissibility + agreement with the executable `gateCheck`.
+--
+-- Full Field/Core functor story is future work; current witness is minimal but
+-- non-vacuous: `Artifact` induces a **non-identity** dissipative step on ψ at
+-- fixed (ρ, α, fc), then we show `gateCheck` returns true (lawful interpreter).
 
-/-- Definitional: the gate is a total function on state pairs.
-    The connection between the Build phase and `gateCheck` is semantic,
-    not formalisable without an execution model for the DIB pipeline.
-    This theorem records the type-level fact that `gateCheck` is
-    well-defined for all inputs. -/
-theorem gateIsTotal :
-    ∀ (old new : ThermodynamicState),
-    (gateCheck old new = true) = (gateCheck old new = true) := by
-  intros; rfl
+/-- Interpret a build artifact as a one-step thermodynamic evolution. -/
+class DIBArtifactSemantics (α : Type) where
+  nextState : α → ThermodynamicState → ThermodynamicState
+
+/-- Apply semantic `nextState` for an artifact-like value. -/
+@[simp]
+def interpretArtifact {α : Type} [DIBArtifactSemantics α] (a : α) (s : ThermodynamicState) :
+    ThermodynamicState :=
+  DIBArtifactSemantics.nextState a s
+
+/-- One-step post-Build thermo snapshot: decrease ψ by a fixed rational amount at
+    unchanged (ρ, α, fc).  Models a documented irreversible relaxation carried
+    through the artefact bundle (not the identity map on `ThermodynamicState`). -/
+def artifactSemanticStep (s : ThermodynamicState) : ThermodynamicState :=
+  ⟨s.density, s.freeEnergy - 1, s.hydration, s.strength⟩
+
+/-- Canonical `Artifact` semantics: every build output triggers the same lawful
+    dissipative micro-step (artifact tag ignored — payload lives in opaque DIB). -/
+instance dibArtifactSemanticsArtifact : DIBArtifactSemantics Artifact where
+  nextState := fun _ s => artifactSemanticStep s
+
+theorem dib_semantic_step_admissible (a : Artifact) (s : ThermodynamicState) :
+    Admissible s (interpretArtifact a s) := by
+  simp only [interpretArtifact, DIBArtifactSemantics.nextState]
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · -- mass: Δρ = 0
+    simp [artifactSemanticStep, δMass, sub_self, abs_zero]
+    rw [δMass]
+    norm_num
+  · simp [artifactSemanticStep]; linarith
+  · simp [artifactSemanticStep]; exact le_refl _
+  · simp [artifactSemanticStep]; exact le_refl _
+
+/-- Boolean gate for “initial thermo state → state after artefact interpretation”. -/
+def dibArtifactGateCheck (a : Artifact) (s : ThermodynamicState) : Bool :=
+  gateCheck s (interpretArtifact a s)
+
+/-- Lawful interpreter: semantic post-state always passes `gateCheck`
+    (`gateCheckComplete` ∘ `dib_semantic_step_admissible`). -/
+theorem dibArtifactGateCheck_eq_true (a : Artifact) (s : ThermodynamicState) :
+    dibArtifactGateCheck a s = true :=
+  gateCheckComplete _ _ (dib_semantic_step_admissible a s)
 
 end UMST

@@ -7,6 +7,11 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Documentation / counts** — Lean roots **24**, **154** `theorem` + **13** `lemma` (roots-only); `scripts/lean_declaration_stats.py`, `Docs/COUNT-METHODOLOGY.md`, and `README.md` / `PROOF-STATUS.md` aligned with `FORMAL_FOUNDATIONS.md`. (Older changelog bullets below may cite superseded numbers — see current `FORMAL_FOUNDATIONS.md`.)
+- **`PROOF-STATUS.md`** — Lean layer row previously listed **20** roots; corrected to **24** (historical note: was once “12 modules”).
+
 ### Added
 - **`cabal test landauer-einstein-sanity`** — exact `Rational` regression vs Lean
   tight 300 K mass bracket numerators (`Haskell/test/LandauerEinsteinSanity.hs`);
@@ -26,8 +31,8 @@ Versions follow [Semantic Versioning](https://semver.org/).
   `Constitutional`, `Naturality`, `Activation`, `DIBKleisli`,
   `LandauerEinsteinBridge`, `GraphProperties`, `Powers`, `Convergence`,
   `GaloisGate`, `EnrichedAdmissibility`, `LandauerLaw`, `InfoTheory`
-  (**140** `theorem` + **21** `lemma` line-start counts in those roots per
-  `PROOF-STATUS.md` / `scripts/lean_decl_stats.py`; sorry-free with one physical
+  (**154** `theorem` + **13** `lemma` line-start counts in those roots per
+  `PROOF-STATUS.md` / `scripts/lean_declaration_stats.py`; sorry-free with one physical
   axiom `physicalSecondLaw` in `LandauerLaw.lean`).
   Graded `AdmissibleN` / `admissibleN_compose` replaces the refuted
   `admissibleTrans` axiom.  Includes `lean-toolchain` (v4.14.0) and `lakefile.lean`.
