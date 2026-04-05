@@ -1,6 +1,7 @@
 /-
-  UMST-Formal: FormalFoundations.lean
-  Witness module for documented axioms and grounded DIB carriers.
+  UMST-Formal: FormalFoundations.lean — witness import of gate, DIB, convergence, Landauer.
+
+  Index: `PROOF-STATUS.md` § Lean 4 Layer Summary; axiom inventory `FORMAL_FOUNDATIONS.md`.
 -/
 
 import Gate

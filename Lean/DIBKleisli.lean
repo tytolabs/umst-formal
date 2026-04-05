@@ -201,16 +201,17 @@ instance dibArtifactSemanticsArtifact : DIBArtifactSemantics Artifact where
   nextState := fun _ s => artifactSemanticStep s
 
 theorem dib_semantic_step_admissible (a : Artifact) (s : ThermodynamicState) :
-    Admissible s (interpretArtifact a s) := by
-  simp only [interpretArtifact, DIBArtifactSemantics.nextState]
-  refine ⟨?_, ?_, ?_, ?_⟩
-  · -- mass: Δρ = 0
-    simp [artifactSemanticStep, δMass, sub_self, abs_zero]
-    rw [δMass]
-    norm_num
-  · simp [artifactSemanticStep]; linarith
-  · simp [artifactSemanticStep]; exact le_refl _
-  · simp [artifactSemanticStep]; exact le_refl _
+    Admissible s (interpretArtifact a s) :=
+  {
+    massDensity := by
+      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep, sub_self, abs_zero, δMass]
+    clausiusDuhem := by
+      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep]
+    hydrationMono := by
+      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep]
+    strengthMono := by
+      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep]
+  }
 
 /-- Boolean gate for “initial thermo state → state after artefact interpretation”. -/
 def dibArtifactGateCheck (a : Artifact) (s : ThermodynamicState) : Bool :=

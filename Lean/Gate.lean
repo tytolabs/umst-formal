@@ -1,9 +1,9 @@
 /-
   UMST-Formal: Gate.lean
-  Lean 4 — Core Definitions and Gate Theorems (sorry-free)
+  Lean 4 — Core definitions and gate theorems (sorry-free).
 
-  This file is the Lean 4 primary layer, mirroring Agda/Gate.agda and
-  Coq/Gate.v.  All theorems are fully proved.
+  Primary layer; mirrors `Agda/Gate.agda` and `Coq/Gate.v`. Index of roots and counts:
+  `PROOF-STATUS.md` § Lean 4 Layer Summary.
 
   Correspondence table:
     Lean 4 (this file)              │ Coq (Gate.v)

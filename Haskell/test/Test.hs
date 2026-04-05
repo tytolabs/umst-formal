@@ -342,6 +342,40 @@ prop_burden_geom_decay =
   in v >= 0 && v < 1e-3
 
 ------------------------------------------------------------------------
+-- Economic layer (Lean @Economic.HorizonAwareGrounding@ / @NPVIsSpecialCaseOfThermodynamicBurden@)
+------------------------------------------------------------------------
+
+-- | Horizon convex combo lies between endpoints when @α ∈ [0,1]@.
+prop_econ_horizon_in_min_max :: Double -> Double -> Double -> Property
+prop_econ_horizon_in_min_max alpha cL cG =
+  alpha >= 0 && alpha <= 1 ==>
+    let hc = alpha * cL + (1 - alpha) * cG
+        lo = min cL cG
+        hi = max cL cG
+    in hc >= lo - 1e-12 && hc <= hi + 1e-12
+
+-- | @B + n g@ iteration without entropy tax (Lean @npv_as_burden_iterate_no_entropy@), small @n@.
+prop_econ_npv_iterate :: Double -> Double -> Int -> Property
+prop_econ_npv_iterate b g n =
+  n >= 0 && n <= 50 ==>
+    let go k x
+          | k <= 0 = x
+          | otherwise = go (k - 1) (x + g)
+    in abs (go n b - (b + fromIntegral n * g)) <= 1e-9
+
+-- | Creativity slack monotone in @Δ@ (Lean @creativityBudget_monotoneΔ@).
+prop_econ_creativity_monotone :: Double -> Double -> Double -> Double -> Property
+prop_econ_creativity_monotone q qa d1 d2 =
+  d1 <= d2 && q <= qa + d1 ==>
+    q <= qa + d2 + 1e-12
+
+-- | Sum of nonnegative parts is nonnegative (Lean @cost_split_nonneg_of_nonneg@).
+prop_econ_cost_split_nonneg :: Double -> Double -> Property
+prop_econ_cost_split_nonneg qp qw =
+  qp >= 0 && qw >= 0 ==>
+    qp + qw >= 0 - 1e-15
+
+------------------------------------------------------------------------
 -- Runner
 ------------------------------------------------------------------------
 
@@ -402,6 +436,13 @@ main = do
   quickCheck prop_burden_symmetric_expectation
   quickCheck prop_burden_recursion_admissible
   quickCheck prop_burden_geom_decay
+
+  putStrLn ""
+  putStrLn "-- Economic layer (Wave 6.5.2)"
+  quickCheck prop_econ_horizon_in_min_max
+  quickCheck prop_econ_npv_iterate
+  quickCheck prop_econ_creativity_monotone
+  quickCheck prop_econ_cost_split_nonneg
 
   putStrLn ""
   putStrLn "All tests passed."

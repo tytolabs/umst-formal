@@ -1,5 +1,6 @@
 /-
   UMST-Formal: LandauerLaw.lean
+  Sole project `axiom`: `physicalSecondLaw` (see `FORMAL_FOUNDATIONS.md`, `PROOF-STATUS.md`).
 
   T_LandauerLaw: The Landauer Principle in the signature extension
   T = L₀ ∪ ΔL, where ΔL adds:

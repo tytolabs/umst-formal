@@ -1,0 +1,16 @@
+{
+  "timeout": "20s",
+  "retryOn429": true,
+  "retryCount": 2,
+  "aliveStatusCodes": [200, 206, 403],
+  "ignorePatterns": [
+    {
+      "pattern": "^\\.\\./\\.\\./MaOS-Core",
+      "comment": "Sibling repo; not present in umst-formal-only CI checkout"
+    },
+    {
+      "pattern": "^#",
+      "comment": "In-file anchors are not HTTP URLs; tool otherwise false-positives 404"
+    }
+  ]
+}

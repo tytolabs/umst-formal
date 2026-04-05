@@ -1,9 +1,7 @@
 /-
-  UMST-Formal: EconomicTemperature.lean
+  UMST-Formal: Economic/EconomicTemperature.lean
 
-  Macroscopic "information temperature" layer: Shannon uncertainty of an adoption marginal,
-  mapped to SI joules via the same Boltzmann factor as the Landauer–Einstein bridge
-  (`k_B · T` per nat of entropy).
+  Macroscopic "information temperature": adoption marginal entropy × Landauer–Einstein scale.
 -/
 
 import InfoTheory
@@ -19,8 +17,7 @@ open UMST.InfoTheory UMST.LandauerLaw
 noncomputable def adoptionInformation {n m : ℕ} (J : JointDist n m) : ℝ :=
   shannonEntropy (JointDist.marginalY J)
 
-/-- **Economic thermal energy scale:** `k_B · T · S` with `S` the adoption marginal entropy (nats).
-    This is the standard identification of Shannon entropy with thermodynamic entropy at bath `T`. -/
+/-- **Economic thermal energy scale:** `k_B · T · S` with `S` the adoption marginal entropy (nats). -/
 noncomputable def Tecon_joules {n m : ℕ} (T : ℝ) (J : JointDist n m) : ℝ :=
   kBoltzmannSI * T * adoptionInformation J
 
@@ -39,8 +36,7 @@ theorem adoptionInformation_product {n m : ℕ} (p : ProbDist n) (q : ProbDist m
 noncomputable def Tecon_landauerBitEquivalent {n m : ℕ} (T : ℝ) (J : JointDist n m) : ℝ :=
   landauerBitEnergy T * adoptionInformation J / log 2
 
-/-- `Tecon_landauerBitEquivalent` collapses to `k_B T S` — same as `Tecon_joules` — since
-`landauerBitEnergy T · (S / ln 2) = (k_B T ln 2) · (S / ln 2)`. -/
+/-- `Tecon_landauerBitEquivalent` equals `Tecon_joules`. -/
 theorem Tecon_landauerBitEquivalent_eq_Tecon_joules {n m : ℕ} (T : ℝ) (J : JointDist n m) :
     Tecon_landauerBitEquivalent T J = Tecon_joules T J := by
   unfold Tecon_landauerBitEquivalent Tecon_joules landauerBitEnergy adoptionInformation

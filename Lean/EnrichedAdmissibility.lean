@@ -1,6 +1,8 @@
 /-
   UMST-Formal: EnrichedAdmissibility.lean
-  Lean 4 — Enriched category structure of the admissibility relation.
+  Lean 4 — Lawvere-metric enrichment behind `AdmissibleN` composition.
+
+  Index: `PROOF-STATUS.md` § Lean 4 Layer Summary.
 
   The admissibility relation has both:
   - A METRIC component (mass conservation: |ρ' - ρ| ≤ δMass)

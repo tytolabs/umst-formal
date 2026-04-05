@@ -1,6 +1,6 @@
 # Formal foundations — `umst-formal`
 
-**Version:** Wave 6.5.1 — **2026-04-04**
+**Version:** Wave 6.5.2 — **2026-04-04**
 
 ## Single physical axiom (Lean `axiom`)
 
@@ -36,7 +36,7 @@ cd Lean && lake build
 
 ## Build scope
 
-Default `lake build` covers the **core formal layer** only (modules listed in `lakefile.lean` `roots`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
+Default `lake build` covers **all** registered `lakefile.lean` `roots` (**39** modules, including `Lean/Economic/*`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
 
 ## Paper Claims ↔ Formal Lemmas
 
@@ -49,6 +49,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 | **III. Graded compositional safety** | Multi-step mass budget composes (triangle inequality); Kleisli lifting | `Gate.admissibleN_compose`; `Constitutional` lemmas citing it |
 | **IV. Landauer / observation / erasure** | Erasure obeys second-law input → Landauer-style bound | `LandauerLaw.physicalSecondLaw` (only project `axiom`); `LandauerExtension`, `MeasurementCost` |
 | **V. Double-slit, TMI, epistemic layer** | Complementarity, fringe visibility bound, dephasing, trajectory MI | Package **`umst-formal-double-slit`**: `GeneralVisibility.fringeVisibility_n_le_one`, `LindbladDynamics.dephasingSolution_tendsto_diagonal`, `EpistemicMI` / `EpistemicTrajectoryMI` |
+| **VI. Classical economic / burden layer (meso)** | Shannon–Landauer “economic temperature”, burden steps vs `Admissible`, stochastic drift, classical surrogates for exploration cost | **`Lean/Economic/`** (17 named modules + `EconomicDomain`); **no** new physics axioms; surrogates and shells classified in [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) and [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) |
 
 ## Wave 6.5 verification audit (closure pass)
 
@@ -57,7 +58,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 | `lake build` (all `lakefile` roots) | **Succeeded** (verified in workspace) |
 | `^axiom ` in `Lean/*.lean` (excluding `.lake`) | **1** — `LandauerLaw.physicalSecondLaw` only |
 | Tactic `sorry` / `admit` / `Admitted` in `Lean/*.lean` | **None** (the word “sorry” appears only in **comments** in: `Gate.lean`, `Helmholtz.lean`, `Naturality.lean`, `Activation.lean`, `DIBKleisli.lean`, `FormalFoundations.lean`) |
-| `theorem` / `lemma` in **`lakefile` roots only** (24 modules; excludes `_check_ext.lean`) | **154** `theorem`, **13** `lemma` (total **167**) — lines starting with `theorem ` / `lemma `; excludes `example` / `def` / proof `instance` |
+| `theorem` / `lemma` in **`lakefile` roots only** (39 modules; excludes `_check_ext.lean`) | **176** `theorem`, **13** `lemma` (total **189**) — lines starting with `theorem ` / `lemma `; excludes `example` / `def` / proof `instance` |
 | Modules **not** in `lakefile` roots | `_check_ext.lean` — **not** part of `lake build` |
 
 ### Cold rebuild (audit)
@@ -76,8 +77,34 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 
 **Papers:** the five publications are **not** in-repo; alignment with prose claims is **manual** (this table maps code to themes only). **Mathlib** contributes its **own** axioms under every import (`#print axioms` on a theorem lists them).
 
+## Planned (engineering): AutoExperimenter — invariants and scope
+
+**Status:** design note only — **no** Lean module or automation ships here yet. When a Rust/TS experiment harness exists (`MaOS-Core` probes, governor metrics), this section records **what formal review must not allow** to change without an explicit law pass.
+
+| Boundary | Requirement |
+|:---------|:------------|
+| **Non-bypass** | Any automated “experiment” that mutates slot wiring, env defaults, or gate thresholds must **not** introduce a path where the thermodynamic gate is skipped or UI shows ACCEPT when the kernel would REJECT (see `MaOS-Config/docs/AGENTS.md` functor language). |
+| **Oracle** | Proposed config deltas should be **gated** by the same executables humans trust today (`cargo test`, `npm run continuum:registry:static`, smoke probes) before merge; no silent self-apply to production env. Phase **3** ordering is in `MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md` §16. Automatable subset: `npm run continuum:ci:oracle` in MaOS-Core (tests + static probe); full harness needs a running `vla_server` (Σ weights). Optional `lake build`: `umst-formal/.github/workflows/ci.yml`. |
+| **Human gate (Phase 2)** | Advisory JSON + unified diffs only; **no** auto-commit, auto-merge, or secret writes — see §16 Phase 2 schema sketch in the same doc. |
+| **Scope** | AutoExperimenter concerns **cartridge / env / harness** evidence — **not** new constitutive physics inside universal Layer 1 without a separate proof obligation. |
+| **Lean linkage** | Non-root placeholder: [`Lean/experiments/AutoExperimenterPlaceholder.lean`](Lean/experiments/AutoExperimenterPlaceholder.lean) (excluded from `lakefile.lean`). A real **gated experiment monad** root belongs only after the **Rust harness + policy** are frozen; until then, this file’s **Green-flag** Lean closure is unchanged. |
+
+**Related (repo prose):** `MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md` §§16–17 (truth probes + **typed morphism** breakdown of Θ / Σ / splat / CI backlog), `MaOS-Core/docs/ARCHITECTURE_CONTINUUM.md` (presentation vs kernel).
+
 ## Green-flag status
 
-**GREEN FLAG – Fully Complete** for: default `lake` roots, **zero** tactic `sorry` / `admit` / `Admitted`, **one** project-authored `axiom` (`physicalSecondLaw`), and **cold** `lake build` success **without** `warning:`/`error:` in captured output.
+**GREEN FLAG – closure criteria (Wave 6.5.2)**
 
-Wave **6.5.1** closed documentation residuals (gate header, lakefile scope comments, `FORMAL_FOUNDATIONS` build scope + paper map, non-identity DIB witness). Opaque DIB phases remain future functor work.
+| Gate | Mechanism |
+|:-----|:----------|
+| Lean default roots | `lake build UMST` — 39 modules in `lakefile.lean` |
+| Tactic gaps | **Zero** `sorry` / `admit` in `Lean/**/*.lean` (excl. `.lake`); CI: `scripts/check_lean_sorry.sh` |
+| Project axiom | Exactly **`LandauerLaw.physicalSecondLaw`**; CI: `scripts/check_lean_axioms.py` |
+| Declaration drift | Totals match `scripts/expected_lean_declaration_snapshot.json`; CI: `lean_declaration_stats.py --verify-snapshot` |
+| Coq / Agda / Haskell | CI jobs per `.github/workflows/ci.yml` (see `Docs/PROOF-REPLAY.md`) |
+| Docs style | `markdownlint` on curated paths (CI **Docs lint** job) |
+| Doc link integrity | `scripts/check-markdown-links.sh` (curated Markdown; sibling `MaOS-Core` path ignored in CI; in-file `#` anchors ignored) |
+
+**Cold `lake build` audit:** `rm -rf Lean/.lake && lake build` under `Lean/` completed successfully with no `error:` lines in the captured log (Mathlib may emit `warning:` from upstream; team policy is to treat new project-local warnings as regressions).
+
+Wave **6.5.2** ships the full `Lean/Economic/` meso-layer, doc-stack alignment (`PROOF-STATUS`, `Docs/FALSIFIABILITY_DASHBOARD.md`, `SAFETY-LIMITS.md`), the non-identity DIB witness, and CI gates above. Opaque DIB phases remain future functor work.

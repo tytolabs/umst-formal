@@ -1,23 +1,17 @@
 /-
-  UMST-Formal: Constitutional.lean
-  Lean 4 — Kleisli Admissibility and Subject Reduction.
+  UMST-Formal: Constitutional.lean — N-step Kleisli admissibility and subject reduction.
 
-  Ports Coq/Constitutional.v to Lean 4.  Provides the full N-step
-  Kleisli machinery for constitutional mediation as machine-checked proof.
+  Lean port of `Coq/Constitutional.v`. Composition uses **graded** `AdmissibleN` and
+  `Gate.admissibleN_compose` (triangle inequality). The legacy one-step axiom
+  `admissibleTrans` / `admissible_trans` was **removed** from Lean and Coq as refutable;
+  see `GraphProperties.admissibleTrans_refuted` and `PROOF-STATUS.md`.
 
-  Proof status: theorems proved modulo `admissibleTrans` (Kleisli chaining;
-  matches Coq `admissible_trans`; not derivable from one-step mass bound alone).
+  Index: `PROOF-STATUS.md` § Lean 4 Layer Summary (counts, paths).
 
-  Correspondence:
-    KleisliArrow             │ Coq: KleisliArrow (Definition)
-    WellTyped                │ Coq: WellTyped (Definition)
-    makeGateArrow            │ Coq: make_gate_arrow
-    gateArrowWellTyped       │ Coq: gate_arrow_well_typed
-    kleisliCompose           │ Coq: kleisli_compose
-    kleisliComposeWellTyped  │ Coq: kleisli_compose_well_typed
-    kleisliFold              │ Coq: kleisli_fold (Fixpoint)
-    AllWellTyped             │ Coq: AllWellTyped
-    kleisliFoldWellTyped     │ Coq: kleisli_fold_well_typed (Theorem)
+  Correspondence (selected):
+    KleisliArrow             │ Coq: KleisliArrow
+    kleisliComposeWellTypedN │ Coq: kleisli-compose well-typed lemmas
+    kleisliFoldWellTypedN    │ Coq: kleisli_fold well-typed
 -/
 
 import Gate

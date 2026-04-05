@@ -4,6 +4,8 @@ This document maps every formal claim about the Unified Material-State
 Tensor (UMST) mechanized **in this repository** to its machine-checked proof
 artefact. It is the primary index for the `umst-formal` artifact.
 
+**Maintainer QA (optional):** Layer 0–5 documentation closure, execution log, and Rust/Continuum honesty boundary — [`Docs/DOCUMENTATION-COVERAGE-PLAN.md`](Docs/DOCUMENTATION-COVERAGE-PLAN.md). Per product choice, that file is **not** linked from [`README.md`](README.md); open it from `Docs/` when auditing coverage.
+
 ## Scope boundary (mechanized vs not in this artifact)
 
 This repository is a **standalone mathematical artifact**: it mechanizes **gate
@@ -36,8 +38,8 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 |-------|------|---------------|--------|
 | Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | Physical postulates in `Gate.agda` (see key); `InfoTheory.agda` (definitions + 3 postulates mirroring Lean/Coq product laws; small length lemmas proved); default `make check` is not `--safe` |
 | Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
-| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **24** `UMST` library roots (`Lean/lakefile.lean`). Counts: **154** `theorem` + **13** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py`. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
-| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | 17 properties (incl. 3× `InfoTheory`: product joint sums to 1, marginals match `Lean/InfoTheory` product laws); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
+| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **39** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`). Counts: **176** `theorem` + **13** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py`. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
+| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **33** properties (gate, SDF, InfoTheory, Landauer, monoidal state, burden/stochastic drift, Economic-layer mirrors); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
 | Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (optional suite) |
 
 **Legend:**
@@ -289,30 +291,45 @@ has the algebraic fragment with parameters.  Summary:
 | Module | `theorem` | `lemma` | Source |
 |--------|-----------|---------|--------|
 | `UMST.Gate` | 14 | 0 | `Lean/Gate.lean` — AdmissibleN, `admissibleN_compose`, gate soundness/complete |
-| `UMST.Helmholtz` | 5 | 0 | `Lean/Helmholtz.lean` |
+| `UMST.Helmholtz` | 5 | 0 | `Lean/Helmholtz.lean` — `helmholtzGradient`, `helmholtzStateAdmissible`, SDF/Eikonal |
 | `UMST.Constitutional` | 11 | 0 | `Lean/Constitutional.lean` — Kleisli graded fold/compose (`kleisliComposeAssoc`, …) |
-| `UMST.Naturality` | 6 | 0 | `Lean/Naturality.lean` |
-| `UMST.Activation` | 11 | 0 | `Lean/Activation.lean` |
+| `UMST.Naturality` | 6 | 0 | `Lean/Naturality.lean` — `gateMaterialAgnostic`, `naturalitySquare` |
+| `UMST.Activation` | 11 | 0 | `Lean/Activation.lean` — engine profiles; `ActivatedUMST` |
 | `UMST.DIBKleisli` | 9 | 0 | `Lean/DIBKleisli.lean` — monad laws; `dibArtifactGateCheck_eq_true` |
 | `UMST.FormalFoundations` | 1 | 0 | `Lean/FormalFoundations.lean` — corpus witness |
 | `UMST.LandauerEinsteinBridge` | 7 | 5 | `Lean/LandauerEinsteinBridge.lean` |
 | `UMST.GraphProperties` | 10 | 0 | `Lean/GraphProperties.lean` |
 | `UMST.Powers` | 3 | 5 | `Lean/Powers.lean` |
 | `UMST.Convergence` | 8 | 0 | `Lean/Convergence.lean` |
-| `UMST.GaloisGate` | 6 | 0 | `Lean/GaloisGate.lean` |
+| `UMST.GaloisGate` | 6 | 0 | `Lean/GaloisGate.lean` — Galois connection on gate conditions |
 | `UMST.EnrichedAdmissibility` | 12 | 0 | `Lean/EnrichedAdmissibility.lean` |
 | `UMST.LandauerLaw` | 9 | 3 | `Lean/LandauerLaw.lean` (1 Lean `axiom`: `physicalSecondLaw`) |
 | `UMST.InfoTheory` | 4 | 0 | `Lean/InfoTheory.lean` |
-| `UMST.EndConditions` | 3 | 0 | `Lean/EndConditions.lean` |
-| `UMST.MeasurementCost` | 1 | 0 | `Lean/MeasurementCost.lean` |
-| `UMST.LandauerExtension` | 6 | 0 | `Lean/LandauerExtension.lean` |
-| `UMST.FiberedActivation` | 8 | 0 | `Lean/FiberedActivation.lean` |
+| `UMST.EndConditions` | 3 | 0 | `Lean/EndConditions.lean` — stream end-state constraints |
+| `UMST.MeasurementCost` | 1 | 0 | `Lean/MeasurementCost.lean` — observation cost vs Landauer |
+| `UMST.LandauerExtension` | 6 | 0 | `Lean/LandauerExtension.lean` — n-bit / temperature scaling |
+| `UMST.FiberedActivation` | 8 | 0 | `Lean/FiberedActivation.lean` — `engineFiber`, covering lemmas |
 | `UMST.MonoidalState` | 6 | 0 | `Lean/MonoidalState.lean` |
 | `UMST.SeparationBound` | 2 | 0 | `Lean/SeparationBound.lean` — **Theorem 2 (real-line core):** `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` |
-| `UMST.EconomicTemperature` | 3 | 0 | `Lean/EconomicTemperature.lean` |
-| `UMST.BurdenRecursionIsAdmissible` | 5 | 0 | `Lean/BurdenRecursionIsAdmissible.lean` |
-| `UMST.StochasticBurdenExpectation` | 4 | 0 | `Lean/StochasticBurdenExpectation.lean` |
-| **Total (24 roots)** | **154** | **13** | Regenerate: `python3 scripts/lean_declaration_stats.py`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
+| `UMST.Economic.EconomicDomain` | 0 | 0 | `Lean/Economic/EconomicDomain.lean` — shared parameters / classical surrogate scaffolding (definitions) |
+| `UMST.Economic.EconomicTemperature` | 3 | 0 | `Lean/Economic/EconomicTemperature.lean` |
+| `UMST.Economic.BurdenRecursionIsAdmissible` | 7 | 0 | `Lean/Economic/BurdenRecursionIsAdmissible.lean` |
+| `UMST.Economic.StochasticBurdenExpectation` | 4 | 0 | `Lean/Economic/StochasticBurdenExpectation.lean` |
+| `UMST.Economic.DynamicEpsilonCalibration` | 2 | 0 | `Lean/Economic/DynamicEpsilonCalibration.lean` |
+| `UMST.Economic.SelfReferentialEconomicTensor` | 2 | 0 | `Lean/Economic/SelfReferentialEconomicTensor.lean` |
+| `UMST.Economic.NPVIsSpecialCaseOfThermodynamicBurden` | 2 | 0 | `Lean/Economic/NPVIsSpecialCaseOfThermodynamicBurden.lean` |
+| `UMST.Economic.HallucinationDetector` | 1 | 0 | `Lean/Economic/HallucinationDetector.lean` (classical surrogate; `SAFETY-LIMITS.md`) |
+| `UMST.Economic.LowEntropyLieDetector` | 1 | 0 | `Lean/Economic/LowEntropyLieDetector.lean` (classical surrogate) |
+| `UMST.Economic.CreativityBudget` | 2 | 0 | `Lean/Economic/CreativityBudget.lean` |
+| `UMST.Economic.ThermodynamicUncertaintyCertificate` | 1 | 0 | `Lean/Economic/ThermodynamicUncertaintyCertificate.lean` |
+| `UMST.Economic.PhysicsConstrainedAI` | 1 | 0 | `Lean/Economic/PhysicsConstrainedAI.lean` |
+| `UMST.Economic.EpistemicSensingModule` | 1 | 0 | `Lean/Economic/EpistemicSensingModule.lean` |
+| `UMST.Economic.KleisliAdmissibilityComposition` | 2 | 0 | `Lean/Economic/KleisliAdmissibilityComposition.lean` |
+| `UMST.Economic.NuanceIsolator` | 2 | 0 | `Lean/Economic/NuanceIsolator.lean` |
+| `UMST.Economic.HorizonAwareGrounding` | 1 | 0 | `Lean/Economic/HorizonAwareGrounding.lean` |
+| `UMST.Economic.CollectiveCoherenceCost` | 1 | 0 | `Lean/Economic/CollectiveCoherenceCost.lean` |
+| `UMST.Economic.CreativeExplorationTolerance` | 1 | 0 | `Lean/Economic/CreativeExplorationTolerance.lean` |
+| **Total (39 roots)** | **176** | **13** | Regenerate: `python3 scripts/lean_declaration_stats.py`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
 
 **Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Gate.lean` / `Constitutional.lean` (not the removed ungraded transitivity axiom).
 
@@ -347,5 +364,10 @@ validates the formal proofs against randomly generated states.
 | `prop_info_product_joint_sum_one` | Normalized `p`,`q` ⇒ `jointMassesSum (productJoint p q) ≈ 1` (engineering mirror of `sumOne` for `productJoint`) |
 | `prop_info_marginal_first_product` | `marginalFirst (productJoint p q) ≈ p` (mirror of Lean `marginalX_product`) |
 | `prop_info_marginal_second_product` | `marginalSecond (productJoint p q) ≈ q` (mirror of Lean `marginalY_product`) |
+| `prop_landauer_energy_mono`, `prop_landauer_nBit_scales`, `prop_landauer_300K_pos` | Landauer energy monotonicity, n-bit scaling, 300 K positivity |
+| `prop_combine_one`, `prop_combine_zero`, `prop_combine_density_interp`, `prop_combine_freeEnergy_convex` | Monoidal `combine` on ℚ states (mirrors `MonoidalState`) |
+| `prop_mc_uniform_joint_zero_mi`, `prop_mc_energy_nonneg` | Measurement-cost helpers |
+| `prop_burden_symmetric_expectation`, `prop_burden_recursion_admissible`, `prop_burden_geom_decay` | Stochastic burden / recursion / geometric decay (engineering mirrors of `Economic/*`) |
+| `prop_econ_horizon_in_min_max`, `prop_econ_npv_iterate`, `prop_econ_creativity_monotone`, `prop_econ_cost_split_nonneg` | Horizon grounding, NPV iterate, creativity budget, nuance split (mirrors `Lean/Economic/`) |
 
 Run with: `cd Haskell && cabal test --test-option=--qc-max-success=1000`

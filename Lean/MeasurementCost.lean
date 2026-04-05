@@ -8,7 +8,7 @@
 import InfoTheory
 import LandauerLaw
 
-open Real UMST LandauerLaw UMST.InfoTheory
+open Real UMST LandauerLaw UMST.InfoTheory UMST.InfoTheory.JointDist
 
 namespace UMST.MeasurementCost
 
@@ -29,7 +29,7 @@ noncomputable def measurementEnergyLowerBound {n m : ℕ} (T : ℝ) (J : JointDi
 theorem zero_info_zero_energy {n m : ℕ} (T : ℝ) (p : ProbDist n) (q : ProbDist m) :
     measurementEnergyLowerBound T (JointDist.productJoint p q) = 0 := by
   unfold measurementEnergyLowerBound
-  rw [JointDist.mutualInformation_product_zero p q]
+  rw [mutualInformation_product_zero p q]
   ring
 
 end UMST.MeasurementCost

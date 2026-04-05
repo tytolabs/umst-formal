@@ -7,11 +7,13 @@ invariants.
 
 ## Lean declaration counts
 
-After large edits under `Lean/`, refresh documented totals:
+After edits under `Lean/` that add/remove roots or change `theorem`/`lemma` totals:
 
-`python3 scripts/lean_declaration_stats.py`
+1. `python3 scripts/lean_declaration_stats.py`
+2. Align `PROOF-STATUS.md` and `FORMAL_FOUNDATIONS.md` with the output.
+3. Update `scripts/expected_lean_declaration_snapshot.json` in the **same** PR if totals or root count change (CI compares against it).
 
-See `FORMAL_FOUNDATIONS.md` and `Docs/COUNT-METHODOLOGY.md`.
+See `Docs/COUNT-METHODOLOGY.md`. Axiom invariant: `python3 scripts/check_lean_axioms.py`. After editing linked Markdown in the curated corpus, run `bash scripts/check-markdown-links.sh` (same as CI).
 
 ## Ground Rules
 

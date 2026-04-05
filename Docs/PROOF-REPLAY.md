@@ -27,8 +27,13 @@ prerequisites and the sense in which advanced claims are **not in L₀** are in
 | 6. Haskell (pure QC) | `cd Haskell && cabal build lib:umst-formal -f -with-ffi && cabal test umst-properties -f -with-ffi` | Rust (matches CI) |
 | 6b. Haskell Landauer sanity | `cd Haskell && cabal test landauer-einstein-sanity` | Lean tight bracket (engineering check) |
 | 7. Haskell ↔ Rust FFI | Build bridge, then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Optional test suite (see below) |
+| 8. Lean declaration stats | `make lean-stats` (repo root) or `python3 scripts/lean_declaration_stats.py` | Regenerates counts; CI compares to `scripts/expected_lean_declaration_snapshot.json` |
+| 8b. Axiom invariant | `python3 scripts/check_lean_axioms.py` | Exactly `LandauerLaw.physicalSecondLaw` |
+| 8c. Snapshot drift | `python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json` | Same gate as CI Lean job |
+| 8d. Markdown links | `bash scripts/check-markdown-links.sh` | Curated corpus; same as CI docs job |
+| 9. Visual fixtures | `make visuals` (repo root) | Runs `scripts/generate_visuals.py` (optional figures; see root `Makefile`) |
 
-Stages 3–5 are **logically independent** proof layers; stage 6 is **computational** consistency of the Haskell reference model; stages 1–2 and 7 relate to the **Rust** implementation path.
+Stages 3–5 are **logically independent** proof layers; stage 6 is **computational** consistency of the Haskell reference model; stages 1–2 and 7 relate to the **Rust** implementation path. Stages 8–9 are **documentation / artifact** checks, not proof obligations.
 
 ## Repository / CI structural blockers
 
@@ -61,6 +66,11 @@ Use this table for independent audits; **do not** mark PASS without running the 
 | Haskell pure | `cd Haskell && cabal test umst-properties -f -with-ffi` | | `ghc --version` |
 | Haskell Landauer sanity | `cd Haskell && cabal test landauer-einstein-sanity` | | `ghc --version` |
 | Haskell FFI | `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | | (after `cargo build --release` in `ffi-bridge/`) |
+| Lean stats | `make lean-stats` (repo root) | | `python3 --version` |
+| Lean axiom gate | `python3 scripts/check_lean_axioms.py` | | |
+| Lean count snapshot | `python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json` | | |
+| Markdown links | `bash scripts/check-markdown-links.sh` | | `node` / `npx` |
+| Visuals | `make visuals` (repo root) | | `python3 --version` |
 
 ## Quick probe (no builds)
 

@@ -1,12 +1,7 @@
 /-
-  UMST-Formal: BurdenRecursionIsAdmissible.lean
+  UMST-Formal: Economic/BurdenRecursionIsAdmissible.lean
 
-  Bookkeeping for a nonnegative **burden / budget** scalar embedded in `ThermodynamicState.density`
-  (schematic macroscopic coordinate).  One step `B ↦ B + g - ε` is **gate-admissible** whenever
-  the increment is within the same `δMass` tolerance band as other UMST transitions.
-
-  The update `B ↦ B + g - ε` is the **endomorphism** of the one-dimensional burden axis; iterating
-  it is an **endofunctor** on the macroscopic slice embedded in `ThermodynamicState`.
+  Burden axis embedded in `ThermodynamicState`; one-step and iterated updates.
 -/
 
 import Gate
@@ -54,5 +49,15 @@ theorem burdenIterate_zero (g ε B : ℚ) : burdenIterate 0 g ε B = B := by
 theorem burdenIterate_succ (n : ℕ) (g ε B : ℚ) :
     burdenIterate (n + 1) g ε B = burdenStep (burdenIterate n g ε B) g ε := by
   simp [burdenIterate, Function.iterate_succ_apply']
+
+/-- Strict single-step decrease along the burden axis when `g < ε`. -/
+theorem burdenStep_strict_lt (B g ε : ℚ) (h : g < ε) : burdenStep B g ε < B :=
+  burden_decreases_when_entropy_dominates B g ε h
+
+/-- Iterated burden strictly decreases at each positive step when entropy dominates growth. -/
+theorem burdenIterate_succ_lt (B g ε : ℚ) (h : g < ε) (n : ℕ) :
+    burdenIterate (n + 1) g ε B < burdenIterate n g ε B := by
+  simp only [burdenIterate, Function.iterate_succ_apply']
+  exact burden_decreases_when_entropy_dominates _ g ε h
 
 end UMST.Economics

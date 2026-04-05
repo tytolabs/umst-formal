@@ -7,9 +7,24 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added (Wave 6.5.2 — 2026-04-04)
+
+- **`Lean/Economic/`** — 17 named modules + `EconomicDomain.lean`: classical Shannon/Landauer + gate burden story; **0** tactic `sorry`; **no** new physics axioms (still only `physicalSecondLaw` project-wide).
+- **`SAFETY-LIMITS.md`**, **`Docs/FALSIFIABILITY_DASHBOARD.md`** — scope and honesty rails for Economic-layer names.
+- **`visuals/`**, **`scripts/generate_visuals.py`**, **`requirements-visuals.txt`**, **`Makefile`** targets (`lean-build`, `lean-stats`, `visuals`, `haskell-test`).
+- **Haskell** — QuickCheck mirrors for burden/stochastic drift and Economic lemmas (**33** properties total in `Haskell/test/Test.hs`).
+- **`scripts/lean_declaration_stats.py`** — dotted Lake roots (`Economic.Foo`); exclude **`.lake`** from “all Lean” / axiom scans (avoids Mathlib noise).
+
+### Added (CI + doc rigor — 2026-04-05)
+
+- **CI** — `scripts/check_lean_axioms.py`; `lean_declaration_stats.py --verify-snapshot` + `scripts/expected_lean_declaration_snapshot.json`; `scripts/check_lean_sorry.sh` (Lean job). **Docs** job: Node 20, `scripts/check-markdown-links.sh` + `scripts/markdown-link-check.json`.
+- **`Docs/DOCUMENTATION-COVERAGE-PLAN.md`** — maintainer checklist (not linked from `README` by design).
+- **`lean_declaration_stats.py --theorem-names`** — JSON export of line-start `theorem` / `lemma` names per lake root.
+
 ### Fixed
 
-- **Documentation / counts** — Lean roots **24**, **154** `theorem` + **13** `lemma` (roots-only); `scripts/lean_declaration_stats.py`, `Docs/COUNT-METHODOLOGY.md`, and `README.md` / `PROOF-STATUS.md` aligned with `FORMAL_FOUNDATIONS.md`. (Older changelog bullets below may cite superseded numbers — see current `FORMAL_FOUNDATIONS.md`.)
+- **Lean build** — `Constitutional.lean` module doc (graded Kleisli; legacy `admissibleTrans` refuted); `DIBKleisli.dib_semantic_step_admissible` structure proof; Economic / `MeasurementCost` / `InfoTheory` scoping (`ProbDist`, `JointDist`, `mutualInformation`); tactic imports (`Linarith`, `Ring`); `HorizonAwareGrounding` convex-combination proof without `gcongr`.
+- **Documentation / counts** — Lean roots **39**, **176** `theorem` + **13** `lemma` (roots-only); `README.md` / `PROOF-STATUS.md` / `FORMAL_FOUNDATIONS.md` aligned with `python3 scripts/lean_declaration_stats.py`. (Older bullets below may cite superseded numbers.)
 - **`PROOF-STATUS.md`** — Lean layer row previously listed **20** roots; corrected to **24** (historical note: was once “12 modules”).
 
 ### Added

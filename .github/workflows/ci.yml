@@ -154,9 +154,27 @@ jobs:
         if: env.UMST_PROTO_REPO != ''
         run: cargo test --release -p umst-ffi-bridge
 
+  # ── Visuals script (optional matplotlib; stub OK if deps missing) ─
+  visuals:
+    name: Generate visuals (fixtures)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install visuals dependencies
+        run: pip install -r requirements-visuals.txt
+
+      - name: Run generate_visuals.py
+        run: python3 scripts/generate_visuals.py
+
   # ── Lean 4 type-checking ───────────────────────────────────────────
   #
-  # Checks all six UMST Lean 4 modules with lake build.
+  # Checks all `lakefile.lean` UMST roots with lake build.
   # Uses the Lean version pinned in Lean/lean-toolchain.
   # Mathlib4 is cached by leanprover/lean4-action.
   lean:
@@ -175,12 +193,26 @@ jobs:
         working-directory: Lean
         run: lake build UMST
 
+      - name: No tactic sorry/admit in Lean sources
+        run: bash scripts/check_lean_sorry.sh
+
+      - name: Single project axiom (physicalSecondLaw only)
+        run: python3 scripts/check_lean_axioms.py
+
+      - name: Lean declaration counts match committed snapshot
+        run: python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json
+
   # ── Markdown / docs lint ───────────────────────────────────────────
   docs:
-    name: Docs lint
+    name: Docs lint + Markdown links
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - name: Install markdownlint
         run: npm install -g markdownlint-cli
@@ -196,3 +228,6 @@ jobs:
             Haskell/README.md \
             Docs/Architecture-Invariants.md \
             --config .markdownlint.json
+
+      - name: Check Markdown links (curated corpus)
+        run: bash scripts/check-markdown-links.sh

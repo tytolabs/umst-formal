@@ -4,7 +4,7 @@
 **Scope:** Complete gap analysis, error identification, logical fallacy audit, end-condition proof plan, and phased theory extensions for `umst-formal`.
 **Perspective:** Functional programming, lambda calculus, category theory, type theory, graph theory.
 
-**Status note (post-snapshot):** The refutable `admissibleTrans` / `admissible_trans` axiom has been **removed** from Lean and Coq and replaced by **graded** admissibility (`AdmissibleN`, `admissibleN_compose`) and N-step Kleisli theorems. **Authoritative counts, module list, and axiom inventory:** `PROOF-STATUS.md`. This file remains a **dated audit** for reasoning about remaining gaps (e.g. `fcMonotone` witness, ℚ↔f64); treat the `admissibleTrans` “CRITICAL open” narrative below as **historical context**, not the current proof state.
+**Status note (post-snapshot):** The refutable `admissibleTrans` / `admissible_trans` axiom has been **removed** from Lean and Coq and replaced by **graded** admissibility (`AdmissibleN`, `admissibleN_compose`) and N-step Kleisli theorems. **Authoritative counts, module list, and axiom inventory:** `PROOF-STATUS.md`. **Current wave / axiom / audit narrative:** `FORMAL_FOUNDATIONS.md`. This file remains a **dated audit** for reasoning about remaining gaps (e.g. `fcMonotone` witness, ℚ↔f64); treat the `admissibleTrans` “CRITICAL open” narrative below as **historical context**, not the current proof state.
 
 ---
 

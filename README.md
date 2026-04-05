@@ -1,189 +1,228 @@
-# UMST-Formal
+<!--
+SPDX-License-Identifier: MIT
+-->
+
+<div align="center">
+
+# The Thermodynamic Cost of Acting
+
+### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
+
+This repository is the **classical meso-layer**: rational state changes, Shannon and Landauer bookkeeping, and lemmas that bind “growth stories” to explicit hypotheses. It extends [**The Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) (observation and collapse in **`umst-formal-double-slit`**) toward **acts and commitments** without pretending that optimism is an axiom.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18940933.svg)](https://doi.org/10.5281/zenodo.18940933)
 
-**Formal verification and categorical semantics for the Unified Material-State Tensor (UMST).**
+**Machine-checked UMST formal core** — Agda · Coq · Lean 4 · Haskell QuickCheck · optional Rust FFI.
+
+**Lean 4 (default roots):** **39** modules · **176** `theorem` + **13** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)).
+
+The Economic filenames that sound like oracles are **parameterised predicates**. They do not see the world. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before you cite them off-repo.
+
+<br>
+
+</div>
+
+---
+
+## From the cost of knowing to the cost of acting
+
+[**The Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) (**`umst-formal-double-slit`**) mechanises observation and collapse: path information has a Landauer-scale price. **This** tree holds the meso-scale follow-on — rational transitions, Shannon/Landauer lines in the ledger, and questions posed as **admissibility** and **burden** under stated assumptions. Quantum RCC does not load unless you attach the other artifact.
+
+## Economic intuition (plain language)
+
+Growth can outrun friction in the stories people tell. The formal layer does not endorse those stories. It **binds** them: **`Lean/Economic/`** (Wave 6.5.2) writes burden and information as **classical** quantities and keeps surrogate alarms explicit — thresholds and margins, not black-box “detectors” ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md)).
+
+## Seventeen Economic modules — one sentence each
+
+Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/EconomicDomain.lean). Each file below is a **lake** root; proofs **compose** existing gate, Landauer, and information theory lemmas (**no** new physics axioms).
+
+| # | Module | Plain-English purpose |
+|---|--------|------------------------|
+| 1 | [`EconomicTemperature.lean`](Lean/Economic/EconomicTemperature.lean) | Relates a Shannon-style information rate to a Landauer-scale “economic temperature” bracket. |
+| 2 | [`BurdenRecursionIsAdmissible.lean`](Lean/Economic/BurdenRecursionIsAdmissible.lean) | Shows a discrete burden update stays compatible with the thermodynamic gate when hypotheses hold. |
+| 3 | [`StochasticBurdenExpectation.lean`](Lean/Economic/StochasticBurdenExpectation.lean) | Studies mean burden under symmetric noise and geometric decay of the deterministic part. |
+| 4 | [`DynamicEpsilonCalibration.lean`](Lean/Economic/DynamicEpsilonCalibration.lean) | Maps observables into an entropy-margin parameter using the Landauer bridge under stated assumptions. |
+| 5 | [`SelfReferentialEconomicTensor.lean`](Lean/Economic/SelfReferentialEconomicTensor.lean) | Packages contractive / iterated burden-style updates without paradoxical fixed-point logic. |
+| 6 | [`NPVIsSpecialCaseOfThermodynamicBurden.lean`](Lean/Economic/NPVIsSpecialCaseOfThermodynamicBurden.lean) | Recovers ordinary discounted-sum behaviour when entropy cost is turned off. |
+| 7 | [`HallucinationDetector.lean`](Lean/Economic/HallucinationDetector.lean) | Classical surrogate flag when adoption entropy crosses a user-set threshold (not semantic truth). |
+| 8 | [`LowEntropyLieDetector.lean`](Lean/Economic/LowEntropyLieDetector.lean) | Classical surrogate relating dissipation margin to entropy slack — not deception detection in the wild. |
+| 9 | [`CreativityBudget.lean`](Lean/Economic/CreativityBudget.lean) | Separates declared output cost from an explicit creative slack so benign exploration is not conflated with gate violation. |
+| 10 | [`ThermodynamicUncertaintyCertificate.lean`](Lean/Economic/ThermodynamicUncertaintyCertificate.lean) | Bundles proved quantities into a certificate-style tuple for documentation, not a legal seal. |
+| 11 | [`PhysicsConstrainedAI.lean`](Lean/Economic/PhysicsConstrainedAI.lean) | Stages “propose then gate-check” so imagination is not equated with admissible action. |
+| 12 | [`EpistemicSensingModule.lean`](Lean/Economic/EpistemicSensingModule.lean) | Uses marginal / mutual-information bounds from `InfoTheory` under explicit distributions. |
+| 13 | [`KleisliAdmissibilityComposition.lean`](Lean/Economic/KleisliAdmissibilityComposition.lean) | Re-exports or composes constitutional Kleisli lemmas for multi-step admissibility. |
+| 14 | [`NuanceIsolator.lean`](Lean/Economic/NuanceIsolator.lean) | Splits classical “productive” vs “waste” cost lines for bookkeeping, not aesthetic judgment. |
+| 15 | [`HorizonAwareGrounding.lean`](Lean/Economic/HorizonAwareGrounding.lean) | Compares short- vs long-horizon weights under hypotheses (no free lookahead oracle). |
+| 16 | [`CollectiveCoherenceCost.lean`](Lean/Economic/CollectiveCoherenceCost.lean) | Adds a classical penalty term for multi-agent spread / disagreement, user-parameterised. |
+| 17 | [`CreativeExplorationTolerance.lean`](Lean/Economic/CreativeExplorationTolerance.lean) | Allows a temporary high-dissipation window for exploration when hypotheses explicitly permit it. |
+
+**Index of claims:** full cross-layer map in [`PROOF-STATUS.md`](PROOF-STATUS.md).
+
+## Meso-scale features (high level)
+
+- **Physics-constrained AI with an imagination sandbox** — propose freely in the model, then **gate-check** before treating output as admissible ([`PhysicsConstrainedAI.lean`](Lean/Economic/PhysicsConstrainedAI.lean)).
+- **Classical surrogate flags** — “hallucination” and “low-entropy lie” names mean **explicit predicates** in [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md), not deployed AI safety products.
+- **Nuance and creativity** — productive vs waste split ([`NuanceIsolator.lean`](Lean/Economic/NuanceIsolator.lean)); creative slack ([`CreativityBudget.lean`](Lean/Economic/CreativityBudget.lean)); exploration windows ([`CreativeExplorationTolerance.lean`](Lean/Economic/CreativeExplorationTolerance.lean)).
+- **Horizon and collectives** — time-weighted tradeoffs ([`HorizonAwareGrounding.lean`](Lean/Economic/HorizonAwareGrounding.lean)); collective penalty ([`CollectiveCoherenceCost.lean`](Lean/Economic/CollectiveCoherenceCost.lean)).
+- **Automatic visuals (GIF/PNG)** — `make visuals` or `python3 scripts/generate_visuals.py` ([`requirements-visuals.txt`](requirements-visuals.txt)); CI job **`visuals`**. Checked-in fixtures can illustrate **exponential decay** of burden-style series (pedagogical plots — not a claim about real markets or ML loss curves without separate data).
+
+## Honest safety limits (read this before citing externally)
+
+- This framework **measures dissipation-style costs** and **biases reasoning toward lower-dissipation paths** under the model — it does **not** define **moral truth**, **legal compliance**, or **factual correctness** of natural-language claims.
+- **Truth and values** remain human, cultural, and goal-dependent. The Lean code says what follows **from explicit axioms and hypotheses**, not what society ought to do.
+- Economic and “AI safety” **names are not certifications**. For quantum RCC, double-slit bridges, or deployment claims, follow [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) and sibling [`umst-formal-double-slit`](https://doi.org/10.5281/zenodo.19159660).
+
+## Layered architecture
+
+| Layer | Repository | Role |
+|--------|------------|------|
+| **Quantum foundation** | **`umst-formal-double-slit`** | **59** lake roots, **537** `theorem` + **34** `lemma` (line-start, roots-only), **0** `sorry`, **1** axiom (`physicalSecondLaw`); complementarity, dephasing + stream-D limits, epistemic MI. Zenodo: [10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660). Counts: sibling `README.md` / `PROOF-STATUS.md`. |
+| **Meso-scale classical** | **`umst-formal` (this repo)** | Rational gate, Kleisli constitution, Shannon/Landauer bridge, and **`Lean/Economic/`** lemmas — **no** dependency on the double-slit package unless you add one. |
+
+Both share the **single** project Lean **`axiom`** pattern documented in [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) (`physicalSecondLaw`).
+
+---
 
 ## Background
 
-The Unified Material-State Tensor (UMST) is a mathematical framework for reasoning
-about material state transitions in physical systems.  Its core components are:
+The **Unified Material-State Tensor (UMST)** is a framework for material state transitions. Core ideas:
 
-- **Thermodynamic gate** — a decision procedure that accepts or rejects a proposed
-  state transition based on four physical constraints (mass conservation,
-  Clausius-Duhem dissipation, hydration irreversibility, strength monotonicity).
-- **Naturality** — a categorical proof that the gate is material-agnostic: it
-  applies uniformly across material classes (OPC, RAC, geopolymer, lime, earth, ...).
-- **Constitutional sequences** — Kleisli-monadic composition of N gate-checked
-  transitions, with Subject Reduction guaranteeing safety at every step.
-- **Geometric interpretation** — the admissible region as an SDF / FRep implicit
-  surface (CSG intersection of four half-spaces), with Helmholtz free energy
-  providing the gradient field.
-- **DIB cycle** — the Discovery-Invention-Build loop modelled as a state monad
-  with verified associativity.
+- **Thermodynamic gate** — accepts or rejects a proposed transition using four constraints (mass, Clausius–Duhem, hydration, strength).
+- **Naturality** — the gate is material-agnostic across material classes.
+- **Constitutional sequences** — Kleisli-style composition of gate-checked steps with subject reduction.
+- **Geometry** — admissible region as SDF / CSG; Helmholtz free energy as gradient field.
+- **DIB cycle** — Discovery–Invention–Build as a monad with proved laws.
 
-The Rust kernel (`umst-prototype-2a`) implements the gate.  This repository proves,
-across four independent formal layers (Agda, Coq, Lean 4, Haskell QuickCheck), that
-the UMST framework is internally consistent and the implementation is sound.
-The proofs are machine-checked; the correspondence to the Rust code is validated
-by property-based testing.
+The Rust kernel (`umst-prototype-2a`) implements the gate. This repository proves consistency across **Agda, Coq, Lean 4, and Haskell QuickCheck**; Rust correspondence uses optional FFI tests.
 
 ## What this repository does not claim (scope guardrail)
 
-This tree is a **standalone formal artifact**. Its claims are exactly those with
-entries in `PROOF-STATUS.md` and passing builds.
+This tree is a **standalone formal artifact**. Claims are exactly those in [`PROOF-STATUS.md`](PROOF-STATUS.md) with passing builds.
 
-- **Mechanized here:** gate invariants, naturality, constitutional / Kleisli
-  structure, SDF-related lemmas in scope, and the Landauer–Einstein mass-equivalent
-  fragment (Coq/Lean; see `PROOF-STATUS.md`).
-- **Not mechanized here** unless explicitly added: large cultural/ethical state
-  spaces, informal “dignity” or “humour” predicates, or any property not listed
-  in `PROOF-STATUS.md`.
-- External systems (e.g. Rust gate, MaOS tooling) may **implement** or **test**
-  overlap with this math; they do not extend the proof unless wired to a checked
-  correspondence suite.
+- **Mechanized:** gate invariants, naturality, Kleisli structure, SDF lemmas in scope, Landauer–Einstein fragment, and **`Lean/Economic/`** (classical meso-layer).
+- **Not mechanized** unless listed: large ethical state spaces, informal “dignity” predicates, or any property absent from `PROOF-STATUS.md`.
 
-The constraints are empirically grounded — each was identified through field
-observation of specific material failure modes before it was formalised.
-[Docs/Architecture-Invariants.md](Docs/Architecture-Invariants.md) documents that
-derivation.
+[Docs/Architecture-Invariants.md](Docs/Architecture-Invariants.md) records how field observations informed constraints.
 
-## What This Repository Proves
+## What this repository proves (core invariants)
 
-Four invariants, verified across four formal layers (Agda, Coq, Lean 4, Haskell QuickCheck):
+Four invariants, across all formal layers:
 
 | # | Invariant | Physical meaning | Formal statement |
-|---|-----------|-----------------|------------------|
-| 1 | Mass conservation | Density cannot jump discontinuously | `|rho_new - rho_old| < delta` |
-| 2 | Clausius-Duhem dissipation | Free energy must not increase (2nd law) | `D_int = -rho * psi_dot >= 0` |
-| 3 | Hydration irreversibility | Cement hydration cannot reverse | `alpha_new >= alpha_old` |
-| 4 | Strength monotonicity | Undamaged concrete cannot lose strength | `fc_new >= fc_old` |
+|---|-----------|------------------|------------------|
+| 1 | Mass conservation | Density cannot jump discontinuously | Single-step mass gap bounded by `delta` (see `Gate.lean`) |
+| 2 | Clausius–Duhem | Free energy must not increase (2nd law model) | `D_int = -rho * psi_dot >= 0` |
+| 3 | Hydration irreversibility | Hydration cannot reverse | `alpha_new >= alpha_old` |
+| 4 | Strength monotonicity | Undamaged concrete does not lose strength | `fc_new >= fc_old` |
+
+## What is verified (index)
+
+| Claim | Mechanized in |
+|-------|----------------|
+| Four gate invariants | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Gate.lean`, `Haskell/UMST.hs` |
+| Naturality | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Activation.lean` |
+| Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
+| Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
+| SDF / FRep; CSG; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
+| Full Lean layer + Economic meso-scale | `Lean/` — **39** roots, **176** theorems + **13** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
+| Haskell QuickCheck + sanity | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs); `cabal test landauer-einstein-sanity` — details in [`Haskell/README.md`](Haskell/README.md) and [`PROOF-STATUS.md`](PROOF-STATUS.md) § Cross-Layer Consistency |
+
+See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index (§ **Lean 4 Layer Summary** lists every lake root with theorem counts and flagship lemmas).
+
+## Lean core (non-Economic) — module roles
+
+The **22** Lean roots outside `Lean/Economic/` are summarized below; full counts and paths are in [`PROOF-STATUS.md`](PROOF-STATUS.md). All are **0** tactic `sorry` in the default closure.
+
+| Module | Role (indicative) | Flagship identifiers |
+|--------|-------------------|----------------------|
+| `Gate` | `Admissible`, graded `AdmissibleN`, gate soundness / completeness | `admissibleN_compose`, `gateCheckSound` |
+| `Helmholtz` | Concrete ψ model, SDF / Eikonal | `helmholtzGradient`, `helmholtzStateAdmissible` |
+| `Constitutional` | N-step Kleisli, subject reduction | `kleisliFoldWellTypedN`, `kleisliComposeWellTypedN` |
+| `Naturality` | Material-agnostic gate | `gateMaterialAgnostic`, `naturalitySquare` |
+| `Activation` | Engine activations, sheaf-style sections | (see module) |
+| `DIBKleisli` | DIB monad laws, semantic step vs `gateCheck` | `dibArtifactGateCheck_eq_true` |
+| `FormalFoundations` | Corpus witness importing core stack | `umst_formal_complete` |
+| `LandauerEinsteinBridge` | SI Landauer scale, `E=mc²` mass brackets | numeric bracket lemmas at 300 K |
+| `GraphProperties` | Mass non-transitivity, DAG lemmas | `mass_not_transitive`, `admissibleTrans_refuted` |
+| `Powers` | Powers gel-space ratio witness | `powersStateFcMonotone` |
+| `Convergence` | Streams, Lyapunov-style bounds | `HydrationInUnitInterval`, `ConstitutionalStream` |
+| `GaloisGate` | Galois connection on gate conditions | (see module) |
+| `EnrichedAdmissibility` | Lawvere metric vs `AdmissibleN` | triangle-inequality lemmas |
+| `LandauerLaw` | `T_LandauerLaw`; **only** project `axiom` `physicalSecondLaw` | `landauerBound` family |
+| `InfoTheory` | Joint Shannon entropy, product joint laws | `marginalX_product`, `sumOne` |
+| `EndConditions` | Terminal / end-state style constraints | (see module) |
+| `MeasurementCost` | Observation cost layer | (see module) |
+| `LandauerExtension` | n-bit scaling, temperature scaling | (see module) |
+| `FiberedActivation` | `engineFiber`, universality | (see module) |
+| `MonoidalState` | `combine` on ℚ states, convexity lemmas | `combine_one`, `combine_zero` |
+| `SeparationBound` | Accuracy–safety separation (real line) | `accuracy_safety_separation_real` |
+
+**Axiom / surrogate honesty:** [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md), [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
+
+### Documentation hub
+
+| Document | Role |
+|:---------|:-----|
+| [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) | Axioms, DIB audit, paper-claim map, AutoExperimenter boundary |
+| [`PROOF-STATUS.md`](PROOF-STATUS.md) | Master cross-layer index; Lean roots table |
+| [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md) | How theorem/lemma counts are computed |
+| [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) | Surrogate predicates vs deployment claims |
+| [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) | Economic “detector” naming scope |
+| [`Docs/PROOF-REPLAY.md`](Docs/PROOF-REPLAY.md) | Reproducible build / replay commands |
 
 ## Architecture
 
 ```
 umst-formal/
-├── Agda/                   Dependent types + categorical proofs
-│   ├── Gate.agda           Core admissible state, Theorem 1; CSG decomposition
-│   ├── Naturality.agda     Natural transformation for the gate
-│   ├── DIB-Kleisli.agda    Discovery-Invention-Build as Kleisli monad
-│   ├── Activation.agda     Material activations as dependent types
-│   └── Helmholtz.agda      Helmholtz free-energy model; gradient / Eikonal theorem
-├── Coq/                    Verified extraction to OCaml
-│   ├── Gate.v              Theorem proving over rationals; Helmholtz gradient (§8b)
-│   ├── Constitutional.v    Subject Reduction Lemma; Kleisli Admissibility Theorem
-│   ├── LandauerEinsteinBridge.v  SI-parameter Landauer scale + SR mass equivalent
-│   └── Extraction.v        OCaml code generation
-├── Lean/                   Lean 4 — 24 lakefile roots, 154 theorems + 13 lemmas (roots-only, line-start — `python3 scripts/lean_declaration_stats.py` / FORMAL_FOUNDATIONS.md); tactic-sorry-free with one Lean axiom (`physicalSecondLaw` in LandauerLaw)
-│   ├── Gate.lean           Admissibility + soundness/completeness; §10 `AdmissibleN` / graded composition (replaces refuted transitivity axiom)
-│   ├── Helmholtz.lean      Concrete Helmholtz model + SDF / Eikonal
-│   ├── Constitutional.lean Subject Reduction; N-step Kleisli (`WellTypedN`, graded fold/compose)
-│   ├── Naturality.lean     Natural transformation + material-agnosticism
-│   ├── Activation.lean     Engine activation profiles (sheaf section)
-│   ├── DIBKleisli.lean     DIB monad + monad laws + Kleisli assoc
-│   ├── LandauerEinsteinBridge.lean  Exact SI + Mathlib ln 2; 300 K mass brackets
-│   ├── GraphProperties.lean Mass non-transitivity counterexample; transitive order legs
-│   ├── Powers.lean         Powers gel-space model + admissibility witness
-│   ├── Convergence.lean    Lyapunov-style bounds; monotone convergence lemmas
-│   ├── GaloisGate.lean     Galois connection on gate conditions
-│   ├── EnrichedAdmissibility.lean Lawvere metric; triangle inequality vs `AdmissibleN`
-│   ├── LandauerLaw.lean    Thermodynamic erasure layer (`T_LandauerLaw`; physical axiom documented in PROOF-STATUS)
-│   ├── InfoTheory.lean     Joint/marginal entropy; product joint laws
-│   ├── lakefile.lean       Lake build configuration
-│   └── lean-toolchain      Lean 4 version pin (v4.14.0)
-├── Haskell/                Kleisli monad + Rust FFI bridge
-│   ├── UMST.hs             Tensor types + pure reference gate
-│   ├── KleisliDIB.hs       Categorical DIB monad
-│   ├── SDFGate.hs          SDF / FRep interpretation of the gate
-│   ├── FFI.hs              Foreign function interface to Rust
-│   └── test/Test.hs        QuickCheck property tests (gate + SDF)
-├── ffi-bridge/             Thin C-ABI wrapper over umst-core
-│   ├── src/lib.rs          extern "C" exports
-│   └── include/umst_ffi.h  C header
-├── Docs/                   Extended documentation
-│   ├── Architecture-Invariants.md
-│   ├── FORMAL-PHYSICS-ROADMAP.md      Optional extension phases for this artifact
-│   ├── FORMAL-PHYSICS-DERIVATION-PLAN.md  Proof obligations / \(\Delta L\) / L₀ scope
-│   ├── PROOF-REPLAY.md       Independent replay checklist and environment notes
-│   ├── FP-Primer.md        52-concept FP / Category Theory / SDF glossary
-│   ├── OnePager-Categorical.tex
-│   └── COMPREHENSIVE-FORMAL-PLAN.md   Deep audit / roadmap snapshot
-├── PROOF-STATUS.md         Per-theorem cross-layer verification index
-├── Cargo.toml              Workspace linking to Rust kernel
-├── shell.nix               Reproducible build environment (Nix)
-└── README.md               This file
+├── Agda/                   Default `make check` (see Agda/Makefile)
+│   ├── Gate.agda … Helmholtz.agda  (core + CSG / Eikonal)
+│   ├── Naturality.agda, Activation.agda, DIB-Kleisli.agda
+│   ├── InfoTheory.agda, MeasurementCost.agda
+│   └── LandauerEinsteinTrace.agda  (traceability shell; proofs in Lean/Coq)
+├── Coq/                    `make` → `.vo` + OCaml extraction
+│   ├── Gate.v, Constitutional.v, LandauerEinsteinBridge.v
+│   ├── InfoTheory.v, MeasurementCost.v
+│   └── Extraction.v
+├── Lean/                   Mathlib 4.14 — **39** `lakefile` roots (authoritative list: `lakefile.lean`)
+│   ├── Gate … SeparationBound.lean   (22 non-Economic roots; see § Lean core above)
+│   ├── Economic/*.lean               (18 files; 17 theorem roots + EconomicDomain)
+│   ├── lakefile.lean, lean-toolchain
+│   └── _check_ext.lean               (scratch — not a root)
+├── Haskell/                See Haskell/README.md — 33 QuickCheck props + optional FFI
+├── ffi-bridge/             C ABI to umst-core (no README; see PROOF-REPLAY.md)
+├── scripts/                lean_declaration_stats.py, generate_visuals.py, …
+├── visuals/, Makefile      `make lean-stats`, `make visuals`
+├── Docs/                   PROOF-REPLAY, COUNT-METHODOLOGY, FALSIFIABILITY_DASHBOARD, roadmaps, …
+├── PROOF-STATUS.md         Master cross-layer index
+├── FORMAL_FOUNDATIONS.md   Axioms, audit, paper-claim map
+└── SAFETY-LIMITS.md        Economic surrogate scope
 ```
 
-## What Is Verified
-
-| Claim | Mechanized in |
-|-------|--------------|
-| Four gate invariants (mass, Clausius-Duhem, hydration, strength) | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Gate.lean`, `Haskell/UMST.hs` |
-| Gate is material-agnostic (naturality) | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Activation.lean` |
-| Subject Reduction; Kleisli Admissibility (N-step safety) | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
-| Landauer–Einstein mass equivalent (definitions + SR; SI + brackets in Lean) | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
-| SDF / FRep interpretation; CSG decomposition; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean 4 mechanization | `Lean/` (24 lakefile roots, 154 theorems + 13 lemmas; tactic-sorry-free; one documented physical Lean axiom — `FORMAL_FOUNDATIONS.md` / `PROOF-STATUS.md`) |
-
-Four independent proof layers (Agda, Coq, Lean 4, Haskell QuickCheck) verify the same invariants. See `PROOF-STATUS.md` for the complete per-theorem index across all layers.
-
-Scope note: this table enumerates mechanized claims **in this repository** only.
-
-### Layer Relationships
+### Layer relationships (specification → bridge → Rust)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  Agda (specification)                                           │
-│  ────────────────────                                           │
-│  Admissible : State → State → Set                               │
-│  Gate : (s₁ s₂ : State) → Dec (Admissible s₁ s₂)              │
-│  Naturality : gate ∘ F(f) ≡ F(f) ∘ gate                       │
-│  ActivatedUMST : MaterialClass → Type                          │
+│  Agda — specification                                           │
 └──────────────┬──────────────────────────────────────────────────┘
-               │ specifies
-┌──────────────▼──────────────────────────────────────────────────┐
-│  Coq (extraction)                                               │
-│  ────────────────                                               │
-│  Same theorems proved with QArith                               │
-│  Extraction to OCaml reference implementation                   │
+               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Coq — QArith proofs + OCaml extraction                         │
 └──────────────┬──────────────────────────────────────────────────┘
-               │ validates against
-┌──────────────▼──────────────────────────────────────────────────┐
-│  Haskell (bridge)                                               │
-│  ────────────────                                               │
-│  Pure reference gate + property tests                           │
-│  FFI calls to Rust kernel                                       │
-│  DIB loop as Kleisli monad over StateT UMST IO                  │
+               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Haskell — QuickCheck + optional FFI to Rust                    │
 └──────────────┬──────────────────────────────────────────────────┘
-               │ calls via C ABI
-┌──────────────▼──────────────────────────────────────────────────┐
-│  ffi-bridge (Rust, new code)                                    │
-│  ───────────────────────────                                    │
-│  extern "C" wrappers around umst-core functions                 │
-│  Produces libumst_ffi.dylib / .so                               │
-└──────────────┬──────────────────────────────────────────────────┘
-               │ path dependency (no modifications)
-┌──────────────▼──────────────────────────────────────────────────┐
-│  umst-prototype-2a/prototype/src/rust/core                      │
-│  ──────────────────────────────────────────                     │
-│  PhysicsKernel, MixTensor, KleisliArrow<A,B>, gate_server      │
+               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  ffi-bridge / umst-prototype-2a — executable gate               │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Categorical Structure
+### Categorical backbone (sketch)
 
-The mathematical backbone is a diagram in **Cat** (the category of small categories):
+Objects include `MaterialClass`, `ThermodynamicState`, `Bool`; the gate is a natural transformation on materialised state pairs; mass conservation is monoidal; DIB lives in a Kleisli category over state. See [Docs/OnePager-Categorical.tex](Docs/OnePager-Categorical.tex).
 
-- **Objects**: `MaterialClass`, `ThermodynamicState`, `Bool`
-- **Functors**: `F : MaterialClass → ThermodynamicState` (state construction),
-  `G : ThermodynamicState² → Bool` (the gate)
-- **Natural transformation**: `η : G ∘ (F × F) ⇒ G` (gate is material-agnostic)
-- **Monoidal structure**: mass conservation as a monoidal constraint on
-  the tensor product of state spaces
-- **Kleisli category**: the DIB loop lives in `Kl(StateT UMST IO)`,
-  composing discovery, invention, and build phases
-
-See `Docs/OnePager-Categorical.tex` for the full commuting diagram.
+---
 
 ## Building
 
@@ -191,65 +230,53 @@ See `Docs/OnePager-Categorical.tex` for the full commuting diagram.
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| Rust | 1.75+ | FFI bridge compilation |
-| Agda | 2.6.4+ (stdlib 2.0+); Homebrew often 2.8 | Dependent-type proofs |
-| agda-stdlib | 2.0+ | Standard library |
-| Coq | 8.18+ | Theorem proving + extraction |
-| Lean 4 | 4.14.0 | Independent proof layer (Mathlib4) |
-| GHC | 9.6+ | Haskell bridge + property tests |
-| cabal | 3.10+ | Haskell build system |
+| Rust | 1.75+ | FFI bridge |
+| Agda | 2.6.4+ | Proofs |
+| Coq | 8.18+ | Proofs + extraction |
+| Lean | 4.14.0 | Mathlib proofs |
+| GHC / cabal | 9.6+ / 3.10+ | Haskell |
 
-### Step-by-step
-
-See **[Docs/PROOF-REPLAY.md](Docs/PROOF-REPLAY.md)** for a full replay checklist, macOS/Homebrew notes, and CI parity (pure vs FFI Haskell tests).
+Full environment notes: **[Docs/PROOF-REPLAY.md](Docs/PROOF-REPLAY.md)**.
 
 ```bash
-# 0. Optional: verify toolchain presence
-./scripts/check-formal-environment.sh
+./scripts/check-formal-environment.sh   # optional
 
-# 1. Build the Rust FFI bridge (requires sibling umst-prototype-2a; see PROOF-REPLAY.md)
 cd ffi-bridge && cargo build --release && cd ..
-
-# 2. Type-check Agda proofs (type-checking IS the proof)
 cd Agda && make check && cd ..
-
-# 3. Compile Coq proofs and extract OCaml
 cd Coq && make && cd ..
-
-# 4. Build Lean 4 proofs
-cd Lean && lake build UMST && cd ..
-
-# 5. Haskell: pure QuickCheck (same shape as CI; no Rust link)
+cd Lean && lake build && cd ..
 cd Haskell && cabal build lib:umst-formal -f -with-ffi && cabal test umst-properties -f -with-ffi && cd ..
 
-# 6. Optional: Rust ↔ Haskell gate correspondence (after step 1)
+# Optional: Rust ↔ Haskell (after ffi build)
 cd Haskell && cabal test umst-ffi-correspondence -f with-ffi && cd ..
+
+# Optional: Lean stats + visuals (from repository root)
+make lean-stats
+make visuals
 ```
 
-## Extending
+## Contributing
 
-To add a new material class (e.g., geopolymer):
+We welcome corrections, proof refactors that **preserve** the layer graph, and documentation that tightens the line between **machine-checked** claims and **analogy**. Please:
 
-1. **Agda**: Add constructor to `MaterialClass` in `Activation.agda`,
-   define its engine set via `ActivatedUMST`
-2. **Coq**: Mirror the Agda addition in `Gate.v`
-3. **Haskell**: Add variant to `MaterialType` in `UMST.hs`,
-   implement activation in `KleisliDIB.hs`
-4. **FFI**: No changes needed (gate is material-agnostic by naturality)
+- Run `cd Lean && lake build` before opening a PR that touches Lean.
+- Run `python3 scripts/lean_declaration_stats.py` if you add roots; update [`PROOF-STATUS.md`](PROOF-STATUS.md), [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), and [`scripts/expected_lean_declaration_snapshot.json`](scripts/expected_lean_declaration_snapshot.json) in the **same** commit when totals change (CI enforces the snapshot).
+- Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before renaming or exporting “detector” modules.
 
-## Correspondence to Rust Kernel
+**Zenodo:** this artifact is archived at [doi.org/10.5281/zenodo.18940933](https://doi.org/10.5281/zenodo.18940933); browse [zenodo.org](https://zenodo.org/) for versioned uploads and community collections. An **upcoming preprint** will align prose with the Economic layer — check the record’s **related identifiers** and the **Citation** block below for the latest bib entry.
 
-The formal proofs establish properties of an abstract mathematical model.
-The Rust kernel now includes `KleisliArrow<A,B>` (`tensors/kleisli.rs`)
-implementing the admissibility monad with bind, join, and composition —
-the runtime backing for the categorical proofs here. Correspondence is validated by:
+## Extending (new material class)
 
-- Property-based tests (Haskell QuickCheck) that generate random states,
-  run both the pure Haskell gate and the Rust gate via FFI, and assert
-  identical accept/reject decisions
-- The Coq-extracted OCaml serves as an independent reference implementation
-- The Rust `KleisliArrow` tests verify monad left/right identity and
-  short-circuit behavior, mirroring the formal monad law proofs
+1. **Agda:** extend `MaterialClass` / `ActivatedUMST` in `Activation.agda`.
+2. **Coq:** mirror in `Gate.v`.
+3. **Haskell:** `MaterialType` in `UMST.hs` and activation in `KleisliDIB.hs`.
+4. **FFI:** unchanged if naturality still holds.
+
+## Correspondence to the Rust kernel
+
+Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction supplies a second reference; Rust `KleisliArrow` tests mirror monad laws. See [`Haskell/test/Test.hs`](Haskell/test/Test.hs).
+
+**Continuum engineering backlog (Θ / Σ / splat / CI)** is decomposed as **typed morphisms** (first-principles steps + a light λ-shaped planning vocabulary) in **`MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md`** §17 — same discipline as proofs: small total steps, explicit composition, effects at the rim.
 
 ## License
 
@@ -257,10 +284,10 @@ MIT. See [LICENSE](LICENSE).
 
 ## Citation
 
-If you use this work, please cite both the formal verification layer and the
-underlying Rust kernel:
-
 ```
 Shyamsundar, S., Shenbagamoorthy, S. P. (2026).
 UMST-Formal: Categorical Verification of Physics-Gated Material State Transitions.
+Zenodo. https://doi.org/10.5281/zenodo.18940933
 ```
+
+Also cite the [**Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) artifact when you rely on the quantum track.

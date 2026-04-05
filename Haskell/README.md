@@ -36,3 +36,8 @@ cabal test
 - **`cabal test umst-ffi-correspondence -f with-ffi`**: after `cargo build --release` in `../ffi-bridge/`, runs `FFI.runCorrespondenceTests` — fixed scenarios comparing the pure gate to the Rust C-ABI gate. For exhaustive random testing, wrap `FFI.prop_gateCorrespondence` in QuickCheck as sketched in `FFI.hs`.
 
 Rust-side black-box tests live in `../ffi-bridge/tests/integration.rs` (`cargo test -p umst-ffi-bridge`).
+
+## QuickCheck inventory
+
+- **`Haskell/test/Test.hs`** defines **33** `prop_*` properties (gate, SDF, InfoTheory, Landauer, monoidal state, burden/stochastic drift, Economic-layer mirrors). Count and grouping match [`../PROOF-STATUS.md`](../PROOF-STATUS.md) § Haskell / cross-layer tables.
+- **`landauer-einstein-sanity`** (`cabal test landauer-einstein-sanity`): Rational regression check against the Lean `LandauerEinsteinBridge` tight bracket (engineering consistency, not a proof checker).
