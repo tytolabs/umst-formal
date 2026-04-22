@@ -36,10 +36,13 @@ jobs:
         run: |
           mkdir -p ~/.agda
           echo "${GITHUB_WORKSPACE}/Agda/umst-formal.agda-lib" >> ~/.agda/libraries
-          stdlib_lib="$(find /usr/share/agda -name 'standard-library.agda-lib' 2>/dev/null | head -1)"
+          stdlib_lib="$( (dpkg -L agda-stdlib 2>/dev/null || true) | grep -F 'standard-library.agda-lib' | head -1 )"
+          if [[ -z "${stdlib_lib}" ]]; then
+            stdlib_lib="$(find /usr /opt -name 'standard-library.agda-lib' 2>/dev/null | head -1)"
+          fi
           if [[ -z "${stdlib_lib}" ]]; then
             echo "::error::Could not find standard-library.agda-lib (is agda-stdlib installed?)"
-            find /usr/share/agda -type f 2>/dev/null | head -40 || true
+            dpkg -L agda-stdlib 2>/dev/null | head -30 || true
             exit 1
           fi
           echo "${stdlib_lib}" >> ~/.agda/libraries
@@ -61,11 +64,16 @@ jobs:
 
       - name: Compile Coq proofs + extraction (Coq 8.20 in Docker)
         run: |
-          docker run --rm \
+          set -euo pipefail
+          uid="$(id -u)"
+          gid="$(id -g)"
+          # Default image user cannot write bind-mounted workspace; run build as root
+          # then restore ownership so the runner cache/checkout stay consistent.
+          docker run --rm --user root \
             -v "${GITHUB_WORKSPACE}:/workspace" \
             -w /workspace/Coq \
             coqorg/coq:8.20 \
-            bash -euo pipefail -c "make check && make extract"
+            bash -euo pipefail -c "make check && make extract && chown -R ${uid}:${gid} /workspace/Coq"
 
   # ── Haskell (pure: no FFI flag) ─────────────────────────────────────
   #

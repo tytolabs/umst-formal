@@ -9,7 +9,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### Fixed (2026-04-22)
 
-- **Formal CI (`agda` / `coq` / `lean` jobs)** — register **`Agda/umst-formal.agda-lib`** and **`standard-library.agda-lib`** (from `agda-stdlib`) in `~/.agda/libraries`; run **`coq`** via `docker run coqorg/coq:8.20` on the runner (bind-mounted workspace) so checkout stays on the host (job-level `container:` broke `actions/checkout`); **`leanprover/lean-action@v1`** with `lake build UMST` (no `--wfail` on CI to avoid Mathlib replay flaking on upstream linter noise).
+- **Formal CI (`agda` / `coq` / `lean` jobs)** — register **`Agda/umst-formal.agda-lib`** and resolve **`standard-library.agda-lib`** via `dpkg -L agda-stdlib` / `find /usr /opt`; run **`coq`** via `docker run --user root` + **`chown`** back to the runner UID (bind-mount write perms); **`leanprover/lean-action@v1`** with `lake build UMST` (no `--wfail` on CI to avoid Mathlib replay flaking on upstream linter noise).
 - **Lean sources** — `Powers.lean`: `div_le_div_iff₀`, `pow_le_pow_left₀` (Mathlib deprecations); `LandauerExtension.lean`: underscore binders for unused hypotheses (warning-clean under `lake build`).
 - **Docs CI (`markdownlint`)** — relax `MD060` (compact GitHub-style tables), widen default `MD013` line budget for narrative docs, add `README.md` `markdownlint-disable-file` for hero-only rules (`MD001`/`MD026`), fix `CHANGELOG.md` / `Coq/README.md` spacing and fenced-code languages, `CONTRIBUTING.md` fenced language; restore green **`docs`** job.
 - **README** — add single [**CI**](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml) workflow badge (pass/fail visible on GitHub like sibling double-slit repo).
