@@ -32,6 +32,11 @@ jobs:
           sudo apt-get update -q
           sudo apt-get install -y agda agda-stdlib
 
+      - name: Register local Agda library
+        run: |
+          mkdir -p ~/.agda
+          echo "$(pwd)/Agda/umst-formal.agda-lib" >> ~/.agda/libraries
+
       - name: Type-check all proofs
         working-directory: Agda
         run: make check
@@ -40,14 +45,13 @@ jobs:
   coq:
     name: Coq proof compilation
     runs-on: ubuntu-latest
+    # Run the whole job inside the official image so `coqc` is on PATH.
+    # docker-coq-action only provisions Coq inside Docker; later steps still
+    # ran on the GitHub runner host, which led to `coqc: not found`.
+    container:
+      image: coqorg/coq:8.20
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install Coq 8.20
-        uses: coq-community/docker-coq-action@v1
-        with:
-          coq_version: "8.20"
-          ocaml_version: "default"
 
       - name: Compile Coq proofs
         working-directory: Coq
@@ -176,22 +180,23 @@ jobs:
   #
   # Checks all `lakefile.lean` UMST roots with lake build.
   # Uses the Lean version pinned in Lean/lean-toolchain.
-  # Mathlib4 is cached by leanprover/lean4-action.
+  # Mathlib cache via leanprover/lean-action (lean4-action repo was removed).
   lean:
     name: Lean 4 proof check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Lean 4 + Mathlib cache
-        uses: leanprover/lean4-action@v1
+      - name: Set up Lean 4 + Mathlib cache + build UMST
+        uses: leanprover/lean-action@v1
         with:
-          build-args: "--wfail"
-          working-directory: Lean
-
-      - name: Build all Lean 4 modules
-        working-directory: Lean
-        run: lake build UMST
+          lake-package-directory: Lean
+          auto-config: "false"
+          build: "true"
+          build-args: "UMST --wfail"
+          test: "false"
+          lint: "false"
+          use-mathlib-cache: auto
 
       - name: No tactic sorry/admit in Lean sources
         run: bash scripts/check_lean_sorry.sh

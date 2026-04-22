@@ -9,6 +9,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### Fixed (2026-04-22)
 
+- **Formal CI (`agda` / `coq` / `lean` jobs)** — register `Agda/umst-formal.agda-lib` in `~/.agda/libraries`; run **`coq`** job in `coqorg/coq:8.20` container so `coqc` is available (previous `docker-coq-action` left later steps on the host); replace removed **`leanprover/lean4-action`** with **`leanprover/lean-action@v1`** (`lake-package-directory: Lean`, `lake build UMST --wfail`, Mathlib cache).
 - **Docs CI (`markdownlint`)** — relax `MD060` (compact GitHub-style tables), widen default `MD013` line budget for narrative docs, add `README.md` `markdownlint-disable-file` for hero-only rules (`MD001`/`MD026`), fix `CHANGELOG.md` / `Coq/README.md` spacing and fenced-code languages, `CONTRIBUTING.md` fenced language; restore green **`docs`** job.
 - **README** — add single [**CI**](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml) workflow badge (pass/fail visible on GitHub like sibling double-slit repo).
 
