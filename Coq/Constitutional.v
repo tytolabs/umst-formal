@@ -26,13 +26,13 @@
 (*  Subject Reduction     ≡ subject_reduction                         *)
 (* ================================================================== *)
 
-From Stdlib Require Import QArith.
-From Stdlib Require Import Qfield.
-From Stdlib Require Import Setoid.
-From Stdlib Require Import ZArith.
-From Stdlib Require Import Bool.
-From Stdlib Require Import List.
-From Stdlib Require Import Lia.
+From Coq Require Import QArith.
+From Coq Require Import Qfield.
+From Coq Require Import Setoid.
+From Coq Require Import ZArith.
+From Coq Require Import Bool.
+From Coq Require Import List.
+From Coq Require Import Lia.
 Import ListNotations.
 
 Require Import UMSTFormal.Gate.

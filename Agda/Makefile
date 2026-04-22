@@ -6,7 +6,8 @@ AGDA       := agda
 # separate target that type-checks only postulate-free modules.
 # Agda 2.8 may emit spurious LibUnknownField on this repo’s .agda-lib when
 # resolving `depend:`; silence if it appears (fields are valid for bundled libs).
-AGDA_FLAGS := --library=umst-formal -W noLibUnknownField
+# -W ignore: suppress benign stdlib noise; -W noLibUnknownField: .agda-lib depend field on Agda 2.6
+AGDA_FLAGS := --library=umst-formal -W noLibUnknownField -W ignore
 
 SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda LandauerEinsteinTrace.agda InfoTheory.agda MeasurementCost.agda
 

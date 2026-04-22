@@ -38,11 +38,11 @@
 (*    function (gate_check) and prove their equivalence.                *)
 (* ================================================================== *)
 
-From Stdlib Require Import QArith.
-From Stdlib Require Import Qfield.
-From Stdlib Require Import Qring.
-From Stdlib Require Import Bool.
-From Stdlib Require Import Lia.
+From Coq Require Import QArith.
+From Coq Require Import Qfield.
+From Coq Require Import Qring.
+From Coq Require Import Bool.
+From Coq Require Import Lia.
 
 Open Scope Q_scope.
 

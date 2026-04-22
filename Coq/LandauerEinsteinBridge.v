@@ -29,7 +29,7 @@
 (*  positive parameter intended to denote ln(2).                        *)
 (* ================================================================== *)
 
-From Stdlib Require Import Reals Lra Field.
+From Coq Require Import Reals Lra Field.
 
 Open Scope R_scope.
 
