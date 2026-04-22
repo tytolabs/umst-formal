@@ -36,14 +36,11 @@ jobs:
         run: |
           mkdir -p ~/.agda/local-libs
           echo "${GITHUB_WORKSPACE}/Agda/umst-formal.agda-lib" >> ~/.agda/libraries
-          # Ubuntu `agda-stdlib` ships sources under /usr/share/agda-stdlib but often
-          # omits a `standard-library.agda-lib` entry; depend: standard-library still
-          # requires that library *name*, so register a one-line stub pointing at FHS.
-          if [[ ! -d /usr/share/agda-stdlib ]]; then
-            echo "::error::Missing /usr/share/agda-stdlib (install agda-stdlib)"
-            exit 1
-          fi
-          printf '%s\n' 'name: standard-library' 'include: /usr/share/agda-stdlib' \
+          # System package lives under /usr (read-only); Agda may refresh `.agdai`
+          # files, so use a writable copy for CI.
+          rm -rf /tmp/agda-stdlib-ci
+          cp -a /usr/share/agda-stdlib /tmp/agda-stdlib-ci
+          printf '%s\n' 'name: standard-library' 'include: /tmp/agda-stdlib-ci' \
             > ~/.agda/local-libs/standard-library.agda-lib
           echo "${HOME}/.agda/local-libs/standard-library.agda-lib" >> ~/.agda/libraries
           echo "Registered:" && cat ~/.agda/libraries
@@ -68,11 +65,13 @@ jobs:
           # Image default user `coq` must write through the bind mount; avoid
           # `--user root` (breaks the image opam bootstrap with exit 50).
           chmod -R a+rwX "${GITHUB_WORKSPACE}/Coq"
+          # `make check` invokes bare `coqc` per file and drops `-Q . UMSTFormal`
+          # from `_CoqProject`; `make extract` runs the full `CoqMakefile` graph first.
           docker run --rm \
             -v "${GITHUB_WORKSPACE}:/workspace" \
             -w /workspace/Coq \
             coqorg/coq:8.20 \
-            bash -euo pipefail -c "make check && make extract"
+            bash -euo pipefail -c "make extract"
           uid="$(id -u)"; gid="$(id -g)"
           sudo chown -R "${uid}:${gid}" "${GITHUB_WORKSPACE}/Coq" || chown -R "${uid}:${gid}" "${GITHUB_WORKSPACE}/Coq" || true
 
