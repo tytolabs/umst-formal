@@ -90,7 +90,7 @@ lemma gelSpaceRatio_mono {α₁ α₂ wc : ℚ}
   have hα₂ : 0 ≤ α₂ := le_trans hα₁ hα₁₂
   have hd₁ : 0 < 100 * (32 * α₁ + 100 * wc) := by positivity
   have hd₂ : 0 < 100 * (32 * α₂ + 100 * wc) := by positivity
-  rw [div_le_div_iff hd₁ hd₂]
+  rw [div_le_div_iff₀ hd₁ hd₂]
   -- Goal: 68 * α₁ * (100 * (32 * α₂ + 100 * wc)) ≤ 68 * α₂ * (100 * (32 * α₁ + 100 * wc))
   -- Expand: 68 * 100 * (α₁ * 32 * α₂ + α₁ * 100 * wc) ≤ 68 * 100 * (α₂ * 32 * α₁ + α₂ * 100 * wc)
   -- Simplify: α₁ * 100 * wc ≤ α₂ * 100 * wc (since α₁ ≤ α₂ and wc > 0)
@@ -108,7 +108,7 @@ theorem powers_monotone {α₁ α₂ wc : ℚ}
     powersStrength α₁ wc ≤ powersStrength α₂ wc := by
   unfold powersStrength
   apply mul_le_mul_of_nonneg_left _ (le_of_lt S_intrinsic_pos)
-  apply pow_le_pow_left (gelSpaceRatio_nonneg hα₁ hwc)
+  apply pow_le_pow_left₀ (gelSpaceRatio_nonneg hα₁ hwc)
   exact gelSpaceRatio_mono hα₁ hα₁₂ hwc
 
 -- ================================================================

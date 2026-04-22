@@ -32,10 +32,18 @@ jobs:
           sudo apt-get update -q
           sudo apt-get install -y agda agda-stdlib
 
-      - name: Register local Agda library
+      - name: Register Agda libraries (project + standard-library)
         run: |
           mkdir -p ~/.agda
-          echo "$(pwd)/Agda/umst-formal.agda-lib" >> ~/.agda/libraries
+          echo "${GITHUB_WORKSPACE}/Agda/umst-formal.agda-lib" >> ~/.agda/libraries
+          stdlib_lib="$(find /usr/share/agda -name 'standard-library.agda-lib' 2>/dev/null | head -1)"
+          if [[ -z "${stdlib_lib}" ]]; then
+            echo "::error::Could not find standard-library.agda-lib (is agda-stdlib installed?)"
+            find /usr/share/agda -type f 2>/dev/null | head -40 || true
+            exit 1
+          fi
+          echo "${stdlib_lib}" >> ~/.agda/libraries
+          echo "Registered:" && cat ~/.agda/libraries
 
       - name: Type-check all proofs
         working-directory: Agda
@@ -45,21 +53,19 @@ jobs:
   coq:
     name: Coq proof compilation
     runs-on: ubuntu-latest
-    # Run the whole job inside the official image so `coqc` is on PATH.
-    # docker-coq-action only provisions Coq inside Docker; later steps still
-    # ran on the GitHub runner host, which led to `coqc: not found`.
-    container:
-      image: coqorg/coq:8.20
+    # Checkout must run on the GitHub runner (job-level `container:` breaks
+    # actions/checkout with EACCES on runner file commands).  Run Coq inside
+    # the official image via bind mount instead.
     steps:
       - uses: actions/checkout@v4
 
-      - name: Compile Coq proofs
-        working-directory: Coq
-        run: make check
-
-      - name: Run OCaml extraction
-        working-directory: Coq
-        run: make extract
+      - name: Compile Coq proofs + extraction (Coq 8.20 in Docker)
+        run: |
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/workspace" \
+            -w /workspace/Coq \
+            coqorg/coq:8.20 \
+            bash -euo pipefail -c "make check && make extract"
 
   # ── Haskell (pure: no FFI flag) ─────────────────────────────────────
   #
@@ -193,7 +199,10 @@ jobs:
           lake-package-directory: Lean
           auto-config: "false"
           build: "true"
-          build-args: "UMST --wfail"
+          # Omit `--wfail` here: a Mathlib cache miss can force a long replay where
+          # upstream doc/linter noise is treated as failure. Project sources stay
+          # warning-clean under normal `lake build UMST` in development.
+          build-args: "UMST"
           test: "false"
           lint: "false"
           use-mathlib-cache: auto
