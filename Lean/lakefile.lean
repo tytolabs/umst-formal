@@ -8,7 +8,7 @@ require mathlib from git
   "https://github.com/leanprover-community/mathlib4" @ "v4.14.0"
 
 /-
-  **Lean `roots` (39 modules)** — default `lake build` closure for `UMST`.  Includes the gate/Kleisli
+  **Lean `roots` (45 modules)** — default `lake build` closure for `UMST`.  Includes the gate/Kleisli
   core, Landauer stack, extensions (monoidal state, separation bound, …), and **`Lean/Economic/`**
   (Wave 6.5.2 meso-layer).  Single project `axiom`: `LandauerLaw.physicalSecondLaw`.
 
@@ -39,5 +39,11 @@ lean_lib «UMST» where
     `Economic.ThermodynamicUncertaintyCertificate, `Economic.PhysicsConstrainedAI,
     `Economic.EpistemicSensingModule, `Economic.KleisliAdmissibilityComposition,
     `Economic.NuanceIsolator, `Economic.HorizonAwareGrounding, `Economic.CollectiveCoherenceCost,
-    `Economic.CreativeExplorationTolerance]
+    `Economic.CreativeExplorationTolerance,
+    `CreditGreedyOptimal,
+    `Dignity,
+    `EtaCog,
+    `RhoEstimator,
+    `MedianConvergence,
+    `OrderStatisticsBand]
   srcDir := "."

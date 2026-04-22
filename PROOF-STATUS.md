@@ -26,7 +26,7 @@ The following are **not** represented as theorems in this repository (unless and
 dedicated modules and `PROOF-STATUS` rows are added):
 
 - Axiological veto semantics over large ethical/cultural state spaces.
-- “Dignity floor” / “humour modulus” as formal predicates.
+- Axiological **“dignity floor”** framing and **humour modulus** as formal predicates (distinct from the mechanized thermodynamic–epistemic dignity scalar in `Lean/Dignity.lean`; see Phase N3-FPD-a in `PROOF-STATUS.md`).
 - Full autopoietic / cultural-closure semantics beyond the DIB abstract interface.
 - End-to-end certification of arbitrary external runtime or narrative claims.
 
@@ -38,9 +38,9 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 |-------|------|---------------|--------|
 | Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | Physical postulates in `Gate.agda` (see key); `InfoTheory.agda` (definitions + 3 postulates mirroring Lean/Coq product laws; small length lemmas proved); default `make check` is not `--safe` |
 | Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
-| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **39** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`). Counts: **176** `theorem` + **13** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py`. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
-| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **33** properties (gate, SDF, InfoTheory, Landauer, monoidal state, burden/stochastic drift, Economic-layer mirrors); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
-| Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (optional suite) |
+| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **45** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`). Counts: **221** `theorem` + **17** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
+| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **62** properties (gate, SDF, InfoTheory, Landauer, monoidal state, burden/stochastic drift, Economic-layer mirrors, **CreditGreedy**, **Dignity**, **EtaCog**, **RhoEstimator**, **MedianConvergence**, **OrderStatisticsBand**); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
+| Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (gate + credit + **Dignity** + **η_cog** + **ρ-MI bits** + **`umst_n_warmup`** + **`umst_n_quantile`** correspondence; optional suite). **No `LD_LIBRARY_PATH` required** when the `umst-ffi-correspondence` test stanza embeds `rpath` to `umst-formal/target/release` (GHC 9.10.3 verified). **Fragility:** `$ORIGIN`-relative depth is layout-sensitive; canonical portable fix = `build-tool-depends` pre-test `.so` copy (**Phase N-hygiene-ffi**, scheduled). |
 
 **Legend:**
 
@@ -135,6 +135,30 @@ derivable in a named extension **T_ext** — see `Docs/FORMAL-PHYSICS-DERIVATION
 (`Gate.v` / `Gate.lean` / `Gate.agda`). That is the **material-state** formalization
 in this artifact; it does **not** subsume the continuum items above unless explicitly
 linked in a future module.
+
+### Phase M4 — credit aggregate (Case A), 2026-04-20
+
+| Theorem (primary) | Module path | proof-status | Dependencies | Date | Informal statement |
+|---|---|---|---|---|---|
+| `credit_greedy_optimal` | `UMST.Formal.CreditGreedy` (`Lean/CreditGreedyOptimal.lean`) | **FORMAL** | `Mathlib.Data.Real.Basic`, `Mathlib.Algebra.BigOperators.Group.List`, `Mathlib.Algebra.Order.BigOperators.Group.List` | 2026-04-20 | Greedy admissible-mass scan equals exhaustive sum over the same per-candidate admissibility predicate (no matching constraint). |
+
+### Phase N3-FPD-a — thermodynamic–epistemic dignity, 2026-04-20
+
+| Theorem (primary) | Module path | proof-status | Dependencies | Date | Informal statement |
+|---|---|---|---|---|---|
+| `dignity_monotone_under_mi_gain` | `UMST.Formal.Dignity` (`Lean/Dignity.lean`) | **FORMAL** | `LandauerEinsteinBridge` (`landauerBitEnergy`), `Mathlib` order/tactics, list sums where used | 2026-04-20 | Dignity in `[0, d_max]` with Landauer-gated `dignity_step`: honest spend (energy ≥ `landauerBitEnergy T` per claimed MI bit) preserves or increases value; sub-Landauer claims do not increase it; convex combination and list sums stay nonnegative; RCC-style link (`dignity_scalar_matches_rcc_one_minus_epistemic_gap`) ties the scalar to residual-coherence bookkeeping. |
+
+### Phase N3-FPD-b — MI-per-Joule η_cog (cockpit metric), 2026-04-21
+
+| Theorem (primary) | Module path | proof-status | Dependencies | Date | Informal statement |
+|---|---|---|---|---|---|
+| `eta_cog_nonneg` | `UMST.Formal.EtaCog` (`Lean/EtaCog.lean`) | **FORMAL** | `UMST.Formal.Dignity` (`Dignity.lean`, `landauer_joules_per_bit`), `Mathlib` ordered-field lemmas; ecosystem narrative cross-ref: `umst-formal-double-slit/Lean/LandauerBound.lean`, `InformationCostIdentity.lean` (same SI Landauer scale, not imported in this lake closure) | 2026-04-21 | `η_cog d c = d.value · ΔMI / (ΔE + k_B T ln 2)` — denominator **(i)** (single-bit floor per COCKPIT_DESIGN_BRIEF §5 / §14bis.b N3). Nonnegativity, monotonicity in dignity and MI, antitone in dissipated energy, saturation at `ΔE = 0`, list aggregation, and equality of η under dishonest `dignity_step` (dignity freeze) so deception cannot inflate the dignity-weighted channel. |
+
+### Phase FPD-RhoEstimator — Gaussian ρ-MI (Tier 2), 2026-04-21
+
+| Theorem (primary) | Module path | proof-status | Dependencies | Date | Informal statement |
+|---|---|---|---|---|---|
+| `rho_based_mi_formula` | `UMST.Formal.RhoEstimator` (`Lean/RhoEstimator.lean`) | **FORMAL** | `Mathlib.Analysis.SpecialFunctions.Log.Base`, `Mathlib.Data.Real.Basic` | 2026-04-21 | Bivariate Gaussian MI in bits: `−½ log₂(1−ρ²)` on `ρ² < 1`; nonnegativity, monotonicity in \|ρ\|, value at `ρ = 0`, boundedness below a fixed `\|ρ_max\| < 1`, and a classical nonnegative plug-in variance envelope `(1−ρ²)²/n`. |
 
 ### New theorems (Phase 0-2, 2026-03-19)
 
@@ -329,7 +353,13 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.Economic.HorizonAwareGrounding` | 1 | 0 | `Lean/Economic/HorizonAwareGrounding.lean` |
 | `UMST.Economic.CollectiveCoherenceCost` | 1 | 0 | `Lean/Economic/CollectiveCoherenceCost.lean` |
 | `UMST.Economic.CreativeExplorationTolerance` | 1 | 0 | `Lean/Economic/CreativeExplorationTolerance.lean` |
-| **Total (39 roots)** | **176** | **13** | Regenerate: `python3 scripts/lean_declaration_stats.py`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
+| `UMST.CreditGreedyOptimal` | 7 | 0 | `Lean/CreditGreedyOptimal.lean` — `credit_greedy_optimal`, `greedy_nonneg`, append/singleton lemmas (Case A) |
+| `UMST.Formal.Dignity` | 12 | 1 | `Lean/Dignity.lean` — `dignity_step`, monotonicity, sub-Landauer flag, list `sum_nonneg`, RCC identity link |
+| `UMST.Formal.EtaCog` | 8 | 1 | `Lean/EtaCog.lean` — `eta_cog`, denom positivity, monotonicity / antitone / freeze / list aggregation |
+| `UMST.Formal.RhoEstimator` | 8 | 0 | `Lean/RhoEstimator.lean` — Gaussian ρ-MI in bits, nonnegativity, monotonicity in \|ρ\|, clamp envelope, plug-in variance bound |
+| `UMST.Formal.MedianConvergence` | 5 | 1 | `Lean/MedianConvergence.lean` — `N_warmup` ceiling cover, positivity, monotonicity in ε/δ, sqrt-window admissibility, empirical-CDF tail slot |
+| `UMST.Formal.OrderStatisticsBand` | 5 | 1 | `Lean/OrderStatisticsBand.lean` — `nQuantile` envelope (ties `N_warmup`), split-sample inequality, classification / flip-rate surrogates, `p25_p75_admissibility`, empirical-CDF tail re-export |
+| **Total (45 roots)** | **221** | **17** | Regenerate: `cd umst-formal && python3 scripts/lean_declaration_stats.py`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
 
 **Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Gate.lean` / `Constitutional.lean` (not the removed ungraded transitivity axiom).
 
@@ -369,5 +399,9 @@ validates the formal proofs against randomly generated states.
 | `prop_mc_uniform_joint_zero_mi`, `prop_mc_energy_nonneg` | Measurement-cost helpers |
 | `prop_burden_symmetric_expectation`, `prop_burden_recursion_admissible`, `prop_burden_geom_decay` | Stochastic burden / recursion / geometric decay (engineering mirrors of `Economic/*`) |
 | `prop_econ_horizon_in_min_max`, `prop_econ_npv_iterate`, `prop_econ_creativity_monotone`, `prop_econ_cost_split_nonneg` | Horizon grounding, NPV iterate, creativity budget, nuance split (mirrors `Lean/Economic/`) |
+| `prop_credit_greedy_optimal`, `prop_credit_mass_nonneg`, `prop_credit_mass_append` | Case A credit mass (mirrors `Lean/CreditGreedyOptimal.lean`) |
+| `prop_dignity_try_range`, `prop_dignity_step_honest_non_decreasing`, `prop_dignity_step_sub_landauer_fixed`, `prop_dignity_step_monotone_mi`, `prop_dignity_list_sum_nonneg` | Thermodynamic–epistemic dignity step (mirrors `Lean/Dignity.lean`) |
+| `prop_eta_cog_nonneg`, `prop_eta_cog_monotone_dignity`, `prop_eta_cog_monotone_mi`, `prop_eta_cog_antitone_energy`, `prop_eta_cog_energy_zero_shape`, `prop_eta_cog_frozen_dignity_path` | MI-per-Joule η_cog (mirrors `Lean/EtaCog.lean`; denominator case **(i)**) |
+| `prop_rho_mi_formula_matches_log2`, `prop_rho_mi_nonneg_interior`, `prop_rho_mi_monotone_abs_rho`, `prop_rho_mi_zero_at_zero`, `prop_rho_mi_bounded_by_rho_max` | Gaussian ρ-MI in bits (mirrors `Lean/RhoEstimator.lean`) |
 
 Run with: `cd Haskell && cabal test --test-option=--qc-max-success=1000`

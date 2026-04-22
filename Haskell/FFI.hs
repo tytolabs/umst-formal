@@ -53,15 +53,26 @@ module FFI
   ( -- * High-level wrappers
     withFilter
   , rustGateCheck
+    -- * ABI gate (call before any other FFI from this process)
+  , assertAbiCompatible
+  , getAbiVersionPair
     -- * Property tests
   , prop_gateCorrespondence
   , runCorrespondenceTests
+  , runDignityCorrespondence
+  , runEtaCogCorrespondence
+  , runMedianConvergenceCorrespondence
+  , runOrderStatisticsCorrespondence
+  , runRhoMiCorrespondence
     -- * C struct (re-exported for advanced use)
   , CThermodynamicState (..)
   ) where
 
+import Control.Monad (when)
+import Data.Word (Word32, Word64)
 import Foreign
 import Foreign.C.Types
+import Foreign.Marshal.Array (withArray)
 import Control.Exception (bracket)
 import System.IO         (hPutStrLn, stderr)
 
@@ -193,6 +204,70 @@ foreign import ccall safe "umst_thermo_state_from_mix_ptr"
     -> CDouble              -- temperature
     -> Ptr CThermodynamicState  -- out pointer
     -> IO ()
+
+-- | Rust C-ABI aggregate for Phase M4 (`umst_credit_greedy_sum`).
+foreign import ccall unsafe "umst_credit_greedy_sum"
+  c_credit_greedy_sum
+    :: CSize
+    -> Ptr CDouble
+    -> Ptr CUChar
+    -> IO CDouble
+
+-- | Rust C-ABI dignity step (Phase N3-FPD-a, `umst_dignity_step`).
+foreign import ccall unsafe "umst_dignity_step"
+  c_dignity_step
+    :: CDouble -> CDouble -> CDouble -> CDouble -> IO CDouble
+
+-- | Rust C-ABI η_cog (Phase N3-FPD-b, `umst_eta_cog`).
+foreign import ccall unsafe "umst_eta_cog"
+  c_eta_cog
+    :: CDouble -> CDouble -> CDouble -> CDouble -> IO CDouble
+
+-- | Rust C-ABI ρ-MI bits (`umst_rho_mi_bits`, Phase FPD-RhoEstimator).
+foreign import ccall unsafe "umst_rho_mi_bits"
+  c_rho_mi_bits :: CDouble -> IO CDouble
+
+-- | Theorem-derived median warmup count (`uint64_t` / `Word64`).
+foreign import ccall unsafe "umst_n_warmup"
+  c_n_warmup :: CDouble -> CDouble -> CDouble -> IO Word64
+
+-- | Theorem-derived order-statistics quantile budget (`uint64_t` / `Word64`).
+foreign import ccall unsafe "umst_n_quantile"
+  c_n_quantile :: CDouble -> CDouble -> CDouble -> CDouble -> IO Word64
+
+-- | Current ABI tag from the loaded @libumst_ffi@ (must be @>=@ `umst_ffi_abi_version_expected()`).
+foreign import ccall unsafe "umst_ffi_abi_version"
+  c_umst_ffi_abi_version :: IO CUInt
+
+-- | Minimum ABI level this @libumst_ffi@ build supports (see @UMST_FFI_ABI_VERSION_MIN_COMPATIBLE@ in @umst_ffi.h@).
+foreign import ccall unsafe "umst_ffi_abi_version_expected"
+  c_umst_ffi_abi_version_expected :: IO CUInt
+
+-- | Read @(actual, min_compatible)@ from the loaded shared library (for diagnostics / smoke tests).
+getAbiVersionPair :: IO (Word32, Word32)
+getAbiVersionPair = do
+  a <- c_umst_ffi_abi_version
+  e <- c_umst_ffi_abi_version_expected
+  pure (fromIntegral a, fromIntegral e)
+
+-- | Fail fast if @libumst_ffi@ is too old (stale @LD_LIBRARY_PATH@ / forgotten rebuild).
+--
+-- External callers must run this before any other FFI entry point. Semantics: require
+-- @umst_ffi_abi_version() >= umst_ffi_abi_version_expected()@ from the same @.so@.
+assertAbiCompatible :: IO ()
+assertAbiCompatible = do
+  actualW <- c_umst_ffi_abi_version
+  expectedW <- c_umst_ffi_abi_version_expected
+  let actual = fromIntegral actualW :: Word32
+      expected = fromIntegral expectedW :: Word32
+  when (actual < expected) $
+    ioError $
+      userError $
+        "UMST FFI ABI mismatch: loaded .so reports version "
+          ++ show actual
+          ++ ", Haskell bindings require version >= "
+          ++ show expected
+          ++ ". Rebuild libumst_ffi.so with `cargo build --release -p umst-ffi --features lean-ffi` and ensure LD_LIBRARY_PATH points to the current build."
 
 -- | Convert a C-side state to a Haskell 'ThermodynamicState'.
 fromCState :: CThermodynamicState -> ThermodynamicState
@@ -389,9 +464,263 @@ runCorrespondenceTests = do
     , prop_gateCorrespondence base badPsi dt
     ]
 
-  let allPassed = and results
+  creditOk <- runCreditGreedyCorrespondence
+  dignityOk <- runDignityCorrespondence
+  etaOk <- runEtaCogCorrespondence
+  rhoOk <- runRhoMiCorrespondence
+  medianOk <- runMedianConvergenceCorrespondence
+  orderStatsOk <- runOrderStatisticsCorrespondence
+
+  let gateOk = and results
+      allPassed =
+        gateOk
+          && creditOk
+          && dignityOk
+          && etaOk
+          && rhoOk
+          && medianOk
+          && orderStatsOk
   if allPassed
     then putStrLn "All correspondence tests passed."
-    else putStrLn $ "FAILED: " ++ show (length (filter not results)) ++ " test(s) diverged."
+    else
+      putStrLn $
+        "FAILED: "
+          ++ show (length (filter not results))
+          ++ " gate divergence(s); credit greedy "
+          ++ if creditOk then "ok; " else "FAILED; "
+          ++ "dignity step "
+          ++ if dignityOk then "ok; " else "FAILED; "
+          ++ "eta_cog "
+          ++ if etaOk then "ok; " else "FAILED; "
+          ++ "rho_mi_bits "
+          ++ if rhoOk then "ok; " else "FAILED; "
+          ++ "n_warmup "
+          ++ if medianOk then "ok; " else "FAILED; "
+          ++ "n_quantile "
+          ++ if orderStatsOk then "ok." else "FAILED."
   pure allPassed
+
+-- | Deterministic 100 seeds: Haskell filter-sum vs `umst_credit_greedy_sum`.
+runCreditGreedyCorrespondence :: IO Bool
+runCreditGreedyCorrespondence = go 0
+ where
+  go :: Int -> IO Bool
+  go seed
+    | seed >= 100 = pure True
+    | otherwise = do
+        let n = (seed * 17) `mod` 24
+            idxs = [0 .. n - 1]
+            ws =
+              [ fromIntegral ((seed * 1103515245 + i * 12345) `mod` 100000) / 1317.0
+              | i <- idxs
+              ]
+            bs = [ (seed + i) `mod` 3 /= 0 | i <- idxs ]
+            hs = sum [ w | (w, b) <- zip ws bs, b ]
+        ok <- rustCreditSum ws bs
+        if abs (ok - hs) <= 1e-9 then go (seed + 1) else report seed hs ok >> pure False
+
+  report :: Int -> Double -> Double -> IO ()
+  report seed hs rv =
+    hPutStrLn stderr $
+      unlines
+        [ "CREDIT_GREEDY_CORRESPONDENCE_FAILURE"
+        , "  seed:    " ++ show seed
+        , "  haskell: " ++ show hs
+        , "  rust:    " ++ show rv
+        ]
+
+rustCreditSum :: [Double] -> [Bool] -> IO Double
+rustCreditSum ws bs
+  | length ws /= length bs =
+      hPutStrLn stderr "rustCreditSum: length mismatch" >> pure (0 / 0)
+  | null ws =
+      pure 0.0
+  | otherwise =
+      let n = length ws
+          flags = map (\b -> if b then 1 else 0 :: CUChar) bs
+       in withArray (map realToFrac ws :: [CDouble]) $ \pw ->
+            withArray flags $ \pf -> do
+              r <- c_credit_greedy_sum (fromIntegral n) pw pf
+              pure (realToFrac r)
+
+-- | Pure Haskell reference for `umst_dignity_step` (must match `test/Dignity.hs`).
+haskellDignityStep :: Double -> Double -> Double -> Double -> Double
+haskellDignityStep tK cur mi e =
+  let kb = 1.380649e-23
+      lb = kb * max tK 0 * log 2
+      honest = lb * mi <= e
+   in if honest then min 10 (cur + mi) else cur
+
+rustDignityStep :: Double -> Double -> Double -> Double -> IO Double
+rustDignityStep tK cur mi e = do
+  r <-
+    c_dignity_step
+      (realToFrac tK)
+      (realToFrac cur)
+      (realToFrac mi)
+      (realToFrac e)
+  pure (realToFrac r)
+
+-- | Deterministic 120 seeds: Haskell dignity step vs `umst_dignity_step`.
+runDignityCorrespondence :: IO Bool
+runDignityCorrespondence = go 0
+ where
+  go :: Int -> IO Bool
+  go seed
+    | seed >= 120 = pure True
+    | otherwise = do
+        let tK = 200 + fromIntegral (seed `mod` 400)
+            cur = fromIntegral (seed `mod` 1000) / 137.0
+            mi = fromIntegral ((seed * 7) `mod` 50) / 10.0
+            e = fromIntegral ((seed * 11) `mod` 8000) / 3.0
+            hs = haskellDignityStep tK cur mi e
+        rv <- rustDignityStep tK cur mi e
+        if abs (rv - hs) <= 1e-9
+          then go (seed + 1)
+          else
+            hPutStrLn stderr (unlines ["DIGNITY_CORRESPONDENCE_FAILURE", "  seed: " ++ show seed, "  hs: " ++ show hs, "  rust: " ++ show rv])
+              >> pure False
+
+-- | Pure Haskell reference for `umst_eta_cog` (must match `test/EtaCog.hs` `etaCog`).
+haskellEtaCog :: Double -> Double -> Double -> Double -> Double
+haskellEtaCog tK d mi e =
+  let kb = 1.380649e-23
+      lb = kb * max tK 0 * log 2
+      denom = e + lb
+   in if tK > 0 && d >= 0 && mi >= 0 && e >= 0 && denom > 0 then d * mi / denom else 0
+
+rustEtaCog :: Double -> Double -> Double -> Double -> IO Double
+rustEtaCog tK d mi e = do
+  r <-
+    c_eta_cog
+      (realToFrac tK)
+      (realToFrac d)
+      (realToFrac mi)
+      (realToFrac e)
+  pure (realToFrac r)
+
+-- | Deterministic 120 seeds: Haskell η_cog vs `umst_eta_cog`.
+runEtaCogCorrespondence :: IO Bool
+runEtaCogCorrespondence = go 0
+ where
+  go :: Int -> IO Bool
+  go seed
+    | seed >= 120 = pure True
+    | otherwise = do
+        let tK = 210 + fromIntegral (seed `mod` 390)
+            d = fromIntegral (seed `mod` 900) / 120.0
+            mi = fromIntegral ((seed * 5) `mod` 40) / 11.0
+            e = fromIntegral ((seed * 13) `mod` 7000) / 4.0
+            hs = haskellEtaCog tK d mi e
+        rv <- rustEtaCog tK d mi e
+        if abs (rv - hs) <= 1e-9
+          then go (seed + 1)
+          else
+            hPutStrLn stderr (unlines ["ETA_COG_CORRESPONDENCE_FAILURE", "  seed: " ++ show seed, "  hs: " ++ show hs, "  rust: " ++ show rv])
+              >> pure False
+
+-- | Pure Haskell reference for `umst_rho_mi_bits` (must match `test/RhoEstimator.hs` `rhoMiBits`).
+haskellRhoMiBits :: Double -> Double
+haskellRhoMiBits rho =
+  let r = max (-0.9999) (min 0.9999 rho)
+      z = 1 - r * r
+   in if z <= 0 then 0 else -0.5 * log z / log 2
+
+rustRhoMiBits :: Double -> IO Double
+rustRhoMiBits rho = do
+  r <- c_rho_mi_bits (realToFrac rho)
+  pure (realToFrac r)
+
+-- | Deterministic 120 seeds: Haskell ρ-MI vs `umst_rho_mi_bits` (ρ ∈ [0, 0.99]).
+runRhoMiCorrespondence :: IO Bool
+runRhoMiCorrespondence = go 0
+ where
+  go :: Int -> IO Bool
+  go seed
+    | seed >= 120 = pure True
+    | otherwise = do
+        let rho =
+              fromIntegral ((seed * 7919) `mod` 1000) / 1000 * 0.99
+            hs = haskellRhoMiBits rho
+        rv <- rustRhoMiBits rho
+        if abs (rv - hs) <= 1e-9
+          then go (seed + 1)
+          else
+            hPutStrLn stderr (unlines ["RHO_MI_CORRESPONDENCE_FAILURE", "  seed: " ++ show seed, "  rho: " ++ show rho, "  hs: " ++ show hs, "  rust: " ++ show rv])
+              >> pure False
+
+-- | Pure Haskell reference for `umst_n_warmup` (must match `test/MedianConvergence.hs`).
+haskellNWarmup :: Double -> Double -> Double -> Word64
+haskellNWarmup eps del rhoMn
+  | eps > 0 && del > 0 && del < 1 && rhoMn > 0 =
+      let b = (2 / (eps * eps * rhoMn * rhoMn)) * log (2 / del)
+          n = ceiling b :: Integer
+          n' = max 1 n
+       in fromIntegral n'
+  | otherwise = error "haskellNWarmup: invalid arguments"
+
+rustNWarmup :: Double -> Double -> Double -> IO Word64
+rustNWarmup eps del rho = do
+  r <-
+    c_n_warmup
+      (realToFrac eps)
+      (realToFrac del)
+      (realToFrac rho)
+  pure r
+
+-- | Deterministic 120 seeds: Haskell `n_warmup` vs `umst_n_warmup` (exact `Word64` equality).
+runMedianConvergenceCorrespondence :: IO Bool
+runMedianConvergenceCorrespondence = go 0
+ where
+  go :: Int -> IO Bool
+  go seed
+    | seed >= 120 = pure True
+    | otherwise = do
+        let eps = 0.05 + fromIntegral (seed `mod` 50) / 100.0
+            del = 0.02 + fromIntegral ((seed * 7) `mod` 70) / 100.0
+            rho = 0.08 + fromIntegral ((seed * 13) `mod` 90) / 100.0
+            hs = haskellNWarmup eps del rho
+        rv <- rustNWarmup eps del rho
+        if hs == rv
+          then go (seed + 1)
+          else
+            hPutStrLn stderr (unlines ["N_WARMUP_CORRESPONDENCE_FAILURE", "  seed: " ++ show seed, "  eps: " ++ show eps, "  del: " ++ show del, "  rho: " ++ show rho, "  hs: " ++ show hs, "  rust: " ++ show rv])
+              >> pure False
+
+-- | Pure Haskell reference for `umst_n_quantile` (must match `test/MedianConvergence.hs` `nWarmup` when inputs are valid).
+haskellNQuantile :: Double -> Double -> Double -> Double -> Word64
+haskellNQuantile eps del rhoMn q
+  | eps > 0 && del > 0 && del < 1 && rhoMn > 0 && q > 0 && q < 1 =
+      haskellNWarmup eps del rhoMn
+  | otherwise = error "haskellNQuantile: invalid arguments"
+
+rustNQuantile :: Double -> Double -> Double -> Double -> IO Word64
+rustNQuantile eps del rho q = do
+  r <-
+    c_n_quantile
+      (realToFrac eps)
+      (realToFrac del)
+      (realToFrac rho)
+      (realToFrac q)
+  pure r
+
+-- | Deterministic 120 seeds: Haskell `nQuantile` vs `umst_n_quantile` (exact `Word64` equality).
+runOrderStatisticsCorrespondence :: IO Bool
+runOrderStatisticsCorrespondence = go 0
+ where
+  go :: Int -> IO Bool
+  go seed
+    | seed >= 120 = pure True
+    | otherwise = do
+        let eps = 0.05 + fromIntegral (seed `mod` 50) / 100.0
+            del = 0.02 + fromIntegral ((seed * 7) `mod` 70) / 100.0
+            rho = 0.08 + fromIntegral ((seed * 13) `mod` 90) / 100.0
+            q = 0.05 + fromIntegral ((seed * 17) `mod` 90) / 100.0
+            hs = haskellNQuantile eps del rho q
+        rv <- rustNQuantile eps del rho q
+        if hs == rv
+          then go (seed + 1)
+          else
+            hPutStrLn stderr (unlines ["N_QUANTILE_CORRESPONDENCE_FAILURE", "  seed: " ++ show seed, "  eps: " ++ show eps, "  del: " ++ show del, "  rho: " ++ show rho, "  q: " ++ show q, "  hs: " ++ show hs, "  rust: " ++ show rv])
+              >> pure False
 

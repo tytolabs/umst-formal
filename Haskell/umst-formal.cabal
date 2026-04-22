@@ -45,6 +45,7 @@ library
 test-suite umst-properties
   type:             exitcode-stdio-1.0
   main-is:          Test.hs
+  other-modules:    CreditGreedy, Dignity, EtaCog, MedianConvergence, OrderStatisticsBand, RhoEstimator
   hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,
@@ -73,7 +74,48 @@ test-suite umst-ffi-correspondence
   build-depends:
     base       >= 4.18 && < 5,
     umst-formal
-  ghc-options:      -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language: Haskell2010
+  if flag(with-ffi)
+    extra-lib-dirs: ../target/release
+    extra-libraries: umst_ffi
+    -- Pass `$ORIGIN` via GHC's linker driver (`-optl`) so Cabal does not strip a lone `$`.
+    -- From the test exe dir up to `umst-formal/`, then `target/release` (no `LD_LIBRARY_PATH`).
+    ghc-options:
+      -Wall -threaded -rtsopts -with-rtsopts=-N
+      -optl-Wl,-rpath,$ORIGIN
+  if !flag(with-ffi)
+    buildable: False
+
+-- Smoke: ABI gate + QuickCheck once (requires libumst_ffi).
+test-suite umst-ffi-abi-smoke
+  type:             exitcode-stdio-1.0
+  main-is:          test/AbiSmoke.hs
+  hs-source-dirs:   test .
+  build-depends:
+    base       >= 4.18 && < 5,
+    QuickCheck >= 2.14 && < 2.16,
+    umst-formal
+  default-language: Haskell2010
+  if flag(with-ffi)
+    extra-lib-dirs: ../target/release
+    extra-libraries: umst_ffi
+    ghc-options:
+      -Wall -threaded -rtsopts -with-rtsopts=-N
+      -optl-Wl,-rpath,$ORIGIN
+  if !flag(with-ffi)
+    buildable: False
+
+-- Minimal `assertAbiCompatible` only — used by `scripts/verify-ffi-abi-mismatch.sh`.
+executable umst-ffi-abi-check
+  main-is:          tools/AbiCheck.hs
+  hs-source-dirs:   .
+  build-depends:
+    base       >= 4.18 && < 5,
+    umst-formal
+  default-language: Haskell2010
+  if flag(with-ffi)
+    extra-lib-dirs: ../target/release
+    extra-libraries: umst_ffi
+    ghc-options:      -Wall -optl-Wl,-rpath,$ORIGIN
   if !flag(with-ffi)
     buildable: False

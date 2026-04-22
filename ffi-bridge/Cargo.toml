@@ -7,7 +7,9 @@ description = "C-ABI bridge exposing umst-core thermodynamic gate to Haskell/OCa
 license = "MIT"
 
 [dependencies]
-umst-core = { path = "../../umst-prototype-2a/prototype/src/rust/core", default-features = false, features = ["ndarray"] }
+# MaOS-Workspace layout: prototype lives at workspace root `umst-prototype/`.
+umst-core = { path = "../../umst-prototype/src/rust/core" }
+umst-math = { path = "../../umst-math" }
 
 [lib]
 name = "umst_ffi"

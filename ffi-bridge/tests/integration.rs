@@ -261,6 +261,17 @@ fn test_hydration_degree_monotone_with_age() {
 }
 
 #[test]
+fn test_umst_n_warmup_reference_triple() {
+    assert_eq!(umst_n_warmup(1.0, 0.5, 1.0), 3);
+}
+
+#[test]
+fn test_umst_n_quantile_reference_triple() {
+    assert_eq!(umst_n_quantile(1.0, 0.5, 1.0, 0.25), 3);
+    assert_eq!(umst_n_quantile(1.0, 0.5, 1.0, 0.75), 3);
+}
+
+#[test]
 fn test_strength_powers_monotone_with_hydration() {
     // Higher hydration → higher strength (Powers model).
     let fc_low  = umst_strength_powers(0.45, 0.40, 0.02, 234.0);

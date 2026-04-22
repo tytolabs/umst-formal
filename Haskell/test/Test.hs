@@ -18,6 +18,12 @@ import SDFGate
 import InfoTheory
 import LandauerExtension
 import qualified MonoidalState
+import CreditGreedy
+import Dignity
+import EtaCog
+import RhoEstimator
+import MedianConvergence
+import OrderStatisticsBand
 import MeasurementCost (kBoltzmannSI, entropyBits,
   mutualInformationBits, measurementEnergyLowerBound)
 
@@ -443,6 +449,53 @@ main = do
   quickCheck prop_econ_npv_iterate
   quickCheck prop_econ_creativity_monotone
   quickCheck prop_econ_cost_split_nonneg
+
+  putStrLn ""
+  putStrLn "-- CreditGreedyOptimal (Phase M4)"
+  quickCheck prop_credit_greedy_optimal
+  quickCheck prop_credit_mass_nonneg
+  quickCheck prop_credit_mass_append
+
+  putStrLn ""
+  putStrLn "-- Dignity (Phase N3-FPD-a)"
+  quickCheck prop_dignity_try_range
+  quickCheck prop_dignity_step_honest_non_decreasing
+  quickCheck prop_dignity_step_sub_landauer_fixed
+  quickCheck prop_dignity_step_monotone_mi
+  quickCheck prop_dignity_list_sum_nonneg
+
+  putStrLn ""
+  putStrLn "-- EtaCog (Phase N3-FPD-b)"
+  quickCheck prop_eta_cog_nonneg
+  quickCheck prop_eta_cog_monotone_dignity
+  quickCheck prop_eta_cog_monotone_mi
+  quickCheck prop_eta_cog_antitone_energy
+  quickCheck prop_eta_cog_energy_zero_shape
+  quickCheck prop_eta_cog_frozen_dignity_path
+
+  putStrLn ""
+  putStrLn "-- RhoEstimator (Phase FPD-RhoEstimator)"
+  quickCheck prop_rho_mi_formula_matches_log2
+  quickCheck prop_rho_mi_nonneg_interior
+  quickCheck prop_rho_mi_monotone_abs_rho
+  quickCheck prop_rho_mi_zero_at_zero
+  quickCheck prop_rho_mi_bounded_by_rho_max
+
+  putStrLn ""
+  putStrLn "-- MedianConvergence (Phase FPD-MedianConvergence)"
+  quickCheck prop_n_warmup_monotone_in_epsilon
+  quickCheck prop_n_warmup_monotone_in_delta
+  quickCheck prop_sqrt_window_matches_engine
+  quickCheck prop_n_warmup_positive
+  quickCheck prop_bound_inverse_square_epsilon
+
+  putStrLn ""
+  putStrLn "-- OrderStatisticsBand (Phase FPD-OrderStatisticsBand)"
+  quickCheck prop_quantile_separation_split_sample
+  quickCheck prop_band_classification_surrogate_nonneg
+  quickCheck prop_flip_rate_surrogate_nonneg
+  quickCheck prop_n_quantile_monotone_in_epsilon
+  quickCheck prop_n_quantile_monotone_in_delta
 
   putStrLn ""
   putStrLn "All tests passed."
