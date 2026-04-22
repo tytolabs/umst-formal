@@ -50,7 +50,7 @@ person familiar with the relevant layer (Agda, Coq, Lean 4, Haskell, or Rust).
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
-```
+```text
 feat(agda): add monoidal structure proof for Activation layer
 fix(ffi):   guard dt against zero in umst_dissipation
 proof(coq): discharge helmholtz_antitone via nia
@@ -119,6 +119,7 @@ Types: `feat`, `fix`, `proof`, `docs`, `test`, `refactor`, `chore`.
 ## Reporting Issues
 
 Open a GitHub issue with:
+
 - Which layer (Agda / Coq / Lean 4 / Haskell / Rust) is affected.
 - The minimal reproducer.
 - Which invariant is (potentially) violated.

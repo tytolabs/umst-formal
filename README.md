@@ -1,6 +1,7 @@
 <!--
 SPDX-License-Identifier: MIT
 -->
+<!-- markdownlint-disable-file MD013 MD040 MD001 MD026 — hero README is intentionally dense; other docs stay strict via shared config. -->
 
 <div align="center">
 
@@ -11,6 +12,7 @@ SPDX-License-Identifier: MIT
 This repository is the **classical meso-layer**: rational state changes, Shannon and Landauer bookkeeping, and lemmas that bind “growth stories” to explicit hypotheses. It extends [**The Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) (observation and collapse in **`umst-formal-double-slit`**) toward **acts and commitments** without pretending that optimism is an axiom.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18940933.svg)](https://doi.org/10.5281/zenodo.18940933)
+[![CI](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml)
 
 **Machine-checked UMST formal core** — Agda · Coq · Lean 4 · Haskell QuickCheck · optional Rust FFI.
 

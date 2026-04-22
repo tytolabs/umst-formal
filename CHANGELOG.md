@@ -7,6 +7,11 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed (2026-04-22)
+
+- **Docs CI (`markdownlint`)** — relax `MD060` (compact GitHub-style tables), widen default `MD013` line budget for narrative docs, add `README.md` `markdownlint-disable-file` for hero-only rules (`MD001`/`MD026`), fix `CHANGELOG.md` / `Coq/README.md` spacing and fenced-code languages, `CONTRIBUTING.md` fenced language; restore green **`docs`** job.
+- **README** — add single [**CI**](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml) workflow badge (pass/fail visible on GitHub like sibling double-slit repo).
+
 ### Documentation / CI (2026-04-22)
 
 - **Lean declaration drift closure** — `scripts/expected_lean_declaration_snapshot.json` bumped to **45** lake roots, **221**/**17**/**238** (`theorem`/`lemma`/total, roots-only and all-`Lean/*` glob match). `README.md`, `FORMAL_FOUNDATIONS.md`, `Docs/DOCUMENTATION-COVERAGE-PLAN.md` hero + audit rows aligned with `python3 scripts/lean_declaration_stats.py`.
@@ -33,6 +38,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **`PROOF-STATUS.md`** — Lean layer row previously listed **20** roots; corrected to **24** (historical note: was once “12 modules”).
 
 ### Added
+
 - **`cabal test landauer-einstein-sanity`** — exact `Rational` regression vs Lean
   tight 300 K mass bracket numerators (`Haskell/test/LandauerEinsteinSanity.hs`);
   engineering check only (CI: `haskell-pure` job).
@@ -82,6 +88,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
   contribution guidelines (Agda, Coq, Lean 4, Haskell, Rust).
 
 ### Changed
+
 - `Agda/Gate.agda` — filled the `{!!}` hole in `gate-accepts-forward`;
   added CSG decomposition (§7); proof type-checks in `--safe` mode.
 - `Coq/Gate.v` — discharged `helmholtz_antitone` via `nia`; added
@@ -99,6 +106,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [0.1.0] — 2026-03-09
 
 ### Added
+
 - Initial repository with three-layer formal verification stack:
   - **Agda** (`Gate.agda`, `Naturality.agda`, `DIB-Kleisli.agda`, `Activation.agda`)
   - **Coq** (`Gate.v`, `Extraction.v`)

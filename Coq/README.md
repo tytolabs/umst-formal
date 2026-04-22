@@ -95,7 +95,7 @@ extracted OCaml provides a *third* independent implementation.
 
 ## File Structure
 
-```
+```text
 Coq/
 ├── Gate.v              Core gate: admissible predicate, gate_check,
 │                       clausius_duhem_forward, helmholtz_antitone,
@@ -131,6 +131,7 @@ Coq/
 | `kleisli_fold_well_typed`        | Constitutional.v §6| N well-typed arrows fold to a well-typed arrow     |
 
 **Axioms** (physical model assumptions, not proved):
+
 - `psi_antitone` — Helmholtz free energy is antitone in hydration
 - `fc_monotone` — Powers model strength is monotone in hydration
 
