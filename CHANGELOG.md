@@ -7,6 +7,11 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Documentation / CI (2026-04-22)
+
+- **Lean declaration drift closure** — `scripts/expected_lean_declaration_snapshot.json` bumped to **45** lake roots, **221**/**17**/**238** (`theorem`/`lemma`/total, roots-only and all-`Lean/*` glob match). `README.md`, `FORMAL_FOUNDATIONS.md`, `Docs/DOCUMENTATION-COVERAGE-PLAN.md` hero + audit rows aligned with `python3 scripts/lean_declaration_stats.py`.
+- **Haskell QuickCheck inventory** — `Haskell/README.md` now states **62** `quickCheck` calls in `test/Test.hs` `main` (not the obsolete “33 props in Test.hs” line count); matches `PROOF-STATUS.md` narrative for `cabal test umst-properties`.
+
 ### Added (Wave 6.5.2 — 2026-04-04)
 
 - **`Lean/Economic/`** — 17 named modules + `EconomicDomain.lean`: classical Shannon/Landauer + gate burden story; **0** tactic `sorry`; **no** new physics axioms (still only `physicalSecondLaw` project-wide).

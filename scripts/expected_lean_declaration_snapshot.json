@@ -1,7 +1,7 @@
 {
   "_comment": "Drift gate for CI. Bump when lake roots or declaration totals change intentionally; align PROOF-STATUS.md and FORMAL_FOUNDATIONS.md the same commit.",
-  "lake_roots_count": 39,
-  "roots_only": { "theorem": 176, "lemma": 13, "total": 189 },
-  "all_lean_glob": { "theorem": 176, "lemma": 13, "total": 189 },
+  "lake_roots_count": 45,
+  "roots_only": { "theorem": 221, "lemma": 17, "total": 238 },
+  "all_lean_glob": { "theorem": 221, "lemma": 17, "total": 238 },
   "axioms": [{ "file": "LandauerLaw.lean", "name": "physicalSecondLaw" }]
 }

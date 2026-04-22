@@ -1,6 +1,6 @@
 # Formal foundations — `umst-formal`
 
-**Version:** Wave 6.5.2 — **2026-04-04**
+**Version:** Wave 6.5.2 — **2026-04-04** (Lean declaration totals refreshed **2026-04-22** — FPD roots + snapshot; see audit table)
 
 ## Single physical axiom (Lean `axiom`)
 
@@ -36,7 +36,7 @@ cd Lean && lake build
 
 ## Build scope
 
-Default `lake build` covers **all** registered `lakefile.lean` `roots` (**39** modules, including `Lean/Economic/*`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
+Default `lake build` covers **all** registered `lakefile.lean` `roots` (**45** modules, including `Lean/Economic/*` and **Formal-First** cockpit mirrors: `CreditGreedyOptimal`, `Dignity`, `EtaCog`, `RhoEstimator`, `MedianConvergence`, `OrderStatisticsBand`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
 
 ## Paper Claims ↔ Formal Lemmas
 
@@ -58,7 +58,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 | `lake build` (all `lakefile` roots) | **Succeeded** (verified in workspace) |
 | `^axiom ` in `Lean/*.lean` (excluding `.lake`) | **1** — `LandauerLaw.physicalSecondLaw` only |
 | Tactic `sorry` / `admit` / `Admitted` in `Lean/*.lean` | **None** (the word “sorry” appears only in **comments** in: `Gate.lean`, `Helmholtz.lean`, `Naturality.lean`, `Activation.lean`, `DIBKleisli.lean`, `FormalFoundations.lean`) |
-| `theorem` / `lemma` in **`lakefile` roots only** (39 modules; excludes `_check_ext.lean`) | **176** `theorem`, **13** `lemma` (total **189**) — lines starting with `theorem ` / `lemma `; excludes `example` / `def` / proof `instance` |
+| `theorem` / `lemma` in **`lakefile` roots only** (45 modules; excludes `_check_ext.lean`) | **221** `theorem`, **17** `lemma` (total **238**) — lines starting with `theorem ` / `lemma `; excludes `example` / `def` / proof `instance` |
 | Modules **not** in `lakefile` roots | `_check_ext.lean` — **not** part of `lake build` |
 
 ### Cold rebuild (audit)
@@ -97,7 +97,7 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 
 | Gate | Mechanism |
 |:-----|:----------|
-| Lean default roots | `lake build UMST` — 39 modules in `lakefile.lean` |
+| Lean default roots | `lake build UMST` — 45 modules in `lakefile.lean` |
 | Tactic gaps | **Zero** `sorry` / `admit` in `Lean/**/*.lean` (excl. `.lake`); CI: `scripts/check_lean_sorry.sh` |
 | Project axiom | Exactly **`LandauerLaw.physicalSecondLaw`**; CI: `scripts/check_lean_axioms.py` |
 | Declaration drift | Totals match `scripts/expected_lean_declaration_snapshot.json`; CI: `lean_declaration_stats.py --verify-snapshot` |
