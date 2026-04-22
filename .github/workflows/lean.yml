@@ -1,0 +1,48 @@
+# CI: Lake + Mathlib (cache when available). See Lean/VERIFY.md.
+name: Lean
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - "Lean/**"
+      - "scripts/**"
+      - "Makefile"
+      - ".github/workflows/lean.yml"
+  pull_request:
+    paths:
+      - "Lean/**"
+      - "scripts/**"
+      - "Makefile"
+      - ".github/workflows/lean.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Lean 4 proof check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Lean 4 + Mathlib cache + build UMST
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: Lean
+          auto-config: "false"
+          build: "true"
+          build-args: "UMST"
+          test: "false"
+          lint: "false"
+          use-mathlib-cache: auto
+
+      - name: No tactic sorry/admit in Lean sources
+        run: bash scripts/check_lean_sorry.sh
+
+      - name: Single project axiom (physicalSecondLaw only)
+        run: python3 scripts/check_lean_axioms.py
+
+      - name: Lean declaration counts match committed snapshot
+        run: python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json

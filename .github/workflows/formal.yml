@@ -1,0 +1,69 @@
+# Coq/Rocq + Agda formal verification CI.
+#
+# Coq: uses Docker image for reproducibility.
+# Agda: Ubuntu system packages with stdlib registration.
+name: Formal (Agda+Coq)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - "Coq/**"
+      - "Agda/**"
+      - "Makefile"
+      - ".github/workflows/formal.yml"
+  pull_request:
+    paths:
+      - "Coq/**"
+      - "Agda/**"
+      - "Makefile"
+      - ".github/workflows/formal.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  agda:
+    name: Agda proof check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Agda + stdlib
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y agda agda-stdlib
+
+      - name: Register Agda libraries (project + standard-library)
+        run: |
+          mkdir -p ~/.agda/local-libs
+          echo "${GITHUB_WORKSPACE}/Agda/umst-formal.agda-lib" >> ~/.agda/libraries
+          rm -rf /tmp/agda-stdlib-ci
+          cp -a /usr/share/agda-stdlib /tmp/agda-stdlib-ci
+          printf '%s\n' 'name: standard-library' 'include: /tmp/agda-stdlib-ci' \
+            > ~/.agda/local-libs/standard-library.agda-lib
+          echo "${HOME}/.agda/local-libs/standard-library.agda-lib" >> ~/.agda/libraries
+          echo "Registered:" && cat ~/.agda/libraries
+
+      - name: Type-check all proofs
+        working-directory: Agda
+        run: make check
+
+  coq:
+    name: Coq proof compilation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile Coq proofs + extraction (Coq 8.20 in Docker)
+        run: |
+          set -euo pipefail
+          chmod -R a+rwX "${GITHUB_WORKSPACE}/Coq"
+          docker run --rm \
+            -v "${GITHUB_WORKSPACE}:/workspace" \
+            -w /workspace/Coq \
+            coqorg/coq:8.20 \
+            bash -euo pipefail -c "make extract"
+          uid="$(id -u)"; gid="$(id -g)"
+          sudo chown -R "${uid}:${gid}" "${GITHUB_WORKSPACE}/Coq" || chown -R "${uid}:${gid}" "${GITHUB_WORKSPACE}/Coq" || true

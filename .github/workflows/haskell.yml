@@ -1,0 +1,55 @@
+# Haskell QuickCheck mirror — see Haskell/README.md
+name: Haskell
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - "Haskell/**"
+      - ".github/workflows/haskell.yml"
+  pull_request:
+    paths:
+      - "Haskell/**"
+      - ".github/workflows/haskell.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cabal-test:
+    name: Haskell pure gate tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: haskell-actions/setup@v2
+        with:
+          ghc-version: "9.6"
+          cabal-version: "3.10"
+
+      - name: Cache cabal store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cabal/store
+          key: ${{ runner.os }}-cabal-${{ hashFiles('Haskell/umst-formal.cabal') }}
+          restore-keys: ${{ runner.os }}-cabal-
+
+      - name: Update package index
+        run: cabal update
+
+      - name: Build pure library (FFI disabled)
+        working-directory: Haskell
+        run: cabal build lib:umst-formal -f -with-ffi
+
+      - name: Run QuickCheck property tests
+        working-directory: Haskell
+        run: |
+          cabal test umst-properties \
+            -f -with-ffi \
+            --test-show-details=streaming \
+            --test-option=--qc-max-success=500
+
+      - name: Landauer–Einstein rational sanity (vs Lean tight bracket)
+        working-directory: Haskell
+        run: cabal test landauer-einstein-sanity
