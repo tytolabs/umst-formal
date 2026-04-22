@@ -16,7 +16,7 @@
 
 COQC         := coqc
 COQ_MAKEFILE := coq_makefile
-SOURCES      := Gate.v Constitutional.v LandauerEinsteinBridge.v InfoTheory.v Extraction.v
+SOURCES      := Gate.v Constitutional.v LandauerEinsteinBridge.v InfoTheory.v MeasurementCost.v Extraction.v
 COQMAKEFILE  := CoqMakefile
 
 .PHONY: all generate extract html clean check
@@ -33,10 +33,13 @@ $(COQMAKEFILE): $(SOURCES)
 	$(COQ_MAKEFILE) -f _CoqProject -o $(COQMAKEFILE) 2>/dev/null \
 	  || $(COQ_MAKEFILE) $(SOURCES) -o $(COQMAKEFILE)
 
-# Extraction step: compile then run Extraction.v to produce OCaml.
+# Extraction: `make all` already compiles `Extraction.v` under `CoqMakefile`, which
+# applies `_CoqProject` (`-Q . UMSTFormal`). A bare `$(COQC) Extraction.v` here
+# would omit those flags and fail with “Cannot find … UMSTFormal.Gate”.
 extract: all
-	@echo "── Extracting Gate to OCaml ──"
-	$(COQC) Extraction.v
+	@echo "── OCaml extraction (artifacts from CoqMakefile build of Extraction.v) ──"
+	@test -f gate_extracted.ml && test -f gate_extracted.mli || \
+	  (echo "missing gate_extracted.ml/.mli after build" >&2; exit 1)
 	@echo "── OCaml files: gate_extracted.ml, gate_extracted.mli ──"
 
 # Fallback: direct coqc invocation (no dep tracking; use for quick checks).
