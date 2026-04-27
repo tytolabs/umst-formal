@@ -46,5 +46,6 @@ lean_lib «UMST» where
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,
-    `Memory.TierDisjoint]
+    `Memory.TierDisjoint,
+    `Memory.MergeSafe]
   srcDir := "."
