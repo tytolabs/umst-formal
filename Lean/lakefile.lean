@@ -45,5 +45,6 @@ lean_lib «UMST» where
     `EtaCog,
     `RhoEstimator,
     `MedianConvergence,
-    `OrderStatisticsBand]
+    `OrderStatisticsBand,
+    `Memory.TierDisjoint]
   srcDir := "."
