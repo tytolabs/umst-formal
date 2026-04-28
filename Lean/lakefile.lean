@@ -57,3 +57,30 @@ lean_lib «UMST» where
 lean_lib «Behavior.SDFCanonical» where
   roots := #[`Behavior.SDFCanonical]
   srcDir := "."
+
+/-!
+  §14bis.f-S-0 — L-S0..L-S5 Crypto stubs (`lake build Crypto.LWE` … `Crypto.SanitizePatternCoverage`).
+-/
+lean_lib «Crypto.LWE» where
+  roots := #[`Crypto.LWE]
+  srcDir := "."
+
+lean_lib «Crypto.EUF_CMA» where
+  roots := #[`Crypto.EUF_CMA]
+  srcDir := "."
+
+lean_lib «Crypto.Collision» where
+  roots := #[`Crypto.Collision]
+  srcDir := "."
+
+lean_lib «Crypto.SideChannel» where
+  roots := #[`Crypto.SideChannel]
+  srcDir := "."
+
+lean_lib «Crypto.Composability» where
+  roots := #[`Crypto.Composability]
+  srcDir := "."
+
+lean_lib «Crypto.SanitizePatternCoverage» where
+  roots := #[`Crypto.SanitizePatternCoverage]
+  srcDir := "."
