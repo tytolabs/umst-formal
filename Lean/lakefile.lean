@@ -46,6 +46,14 @@ lean_lib «UMST» where
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,
-    `Memory.TierDisjoint,
-    `Memory.MergeSafe]
+    `Memory.MergeSafe,
+    `Memory.TierDisjoint]
+  srcDir := "."
+
+/-!
+  §14bis.f-M-4 — `Behavior.SDFCanonical` (L-M2 stub). Built standalone; optional target
+  `lake build Behavior.SDFCanonical` alongside `Memory.MergeSafe` / `Memory.TierDisjoint`.
+-/
+lean_lib «Behavior.SDFCanonical» where
+  roots := #[`Behavior.SDFCanonical]
   srcDir := "."
