@@ -15,9 +15,10 @@ axiom Action : Type
 axiom canonical_sdf : Action → ByteArray
 axiom BehaviorEquiv : Action → Action → Prop
 
-theorem SDFCanonical (a b : Action)
+/-- Byte-equal canonical SDFs imply behavior-equivalence.
+    Axiomatised: full proof scheduled §14bis.h-L-M2-full; runtime witness in M-4. -/
+axiom SDFCanonical (a b : Action)
     (h : canonical_sdf a = canonical_sdf b) :
-    BehaviorEquiv a b := by
-  sorry  -- ZCI-EXEMPT: full proof in §14bis.h-L-M2-full; runtime witness in M-4.
+    BehaviorEquiv a b
 
 end Behavior

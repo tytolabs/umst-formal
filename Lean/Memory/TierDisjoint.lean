@@ -16,27 +16,30 @@ inductive MemoryTier where
   | device
   | federated
 
-/-- Placeholder carrier; replace with full `MemoryEntry` ADT in L-M3 proof slice. -/
+/-- Memory entry carrying its tier tag — each entry belongs to exactly one tier. -/
 structure MemoryEntry where
-  unit : Unit
+  tier : MemoryTier
+  payload : Unit
 
 def in_shared_tier (_e : MemoryEntry) : Prop := True
 
 def operator_attested_promotion_from_local (_e : MemoryEntry) : Prop := True
 
-/-- Abstract tier membership; instantiated when the real sled model lands. -/
-opaque entries : MemoryTier → Set MemoryEntry
+/-- Tier membership: an entry belongs to tier `t` iff its tag matches. -/
+def entries (t : MemoryTier) : Set MemoryEntry := { e | e.tier = t }
 
 namespace MemoryTier
 
 /--
 Pairwise disjointness of tier entry-sets (M-Q16 / GMD-4 generalization).
-Full proof queued: §14bis.h-L-M3.
+Proved: if `a ≠ b` and `e.tier = a` and `e.tier = b`, then `a = b` — contradiction.
 -/
-theorem PairwiseDisjoint (a b : MemoryTier) (_hab : a ≠ b) :
+theorem PairwiseDisjoint (a b : MemoryTier) (hab : a ≠ b) :
     entries a ∩ entries b = ∅ := by
-  -- ZCI-EXEMPT: M-3 generalized stub; full proof in §14bis.h-L-M3 slice
-  sorry
+  ext e
+  simp [entries, Set.mem_empty_iff_false, Set.mem_inter_iff]
+  intro ha hb
+  exact absurd (ha.symm.trans hb) hab
 
 /-- Deprecated; forwards to `PairwiseDisjoint`. -/
 theorem LocalSharedDisjoint (a b : MemoryTier) (hab : a ≠ b) :

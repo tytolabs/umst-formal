@@ -11,6 +11,10 @@
     {
       "pattern": "^#",
       "comment": "In-file anchors are not HTTP URLs; tool otherwise false-positives 404"
+    },
+    {
+      "pattern": "badge\\.svg",
+      "comment": "GitHub Actions badge URLs return 502 when workflow has no runs yet"
     }
   ]
 }

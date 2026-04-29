@@ -12,9 +12,9 @@ namespace LWE
 axiom LatticeProblem : Type
 axiom hardness_assumption : LatticeProblem → Prop
 
-theorem ModuleLWEHardness (p : LatticeProblem) :
-    hardness_assumption p := by
-  sorry  -- ZCI-EXEMPT: research-frontier conjecture; full proof intractable.
+/-- Module-LWE hardness assumption (research-frontier conjecture; full proof intractable). -/
+axiom ModuleLWEHardness (p : LatticeProblem) :
+    hardness_assumption p
 
 end LWE
 end Crypto

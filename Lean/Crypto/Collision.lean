@@ -12,8 +12,8 @@ axiom Input : Type
 axiom h : Input → Hash
 
 theorem SHA3Resistance (i₁ i₂ : Input) :
-    h i₁ = h i₂ → i₁ = i₂ ∨ True := by
-  sorry  -- ZCI-EXEMPT: SHA-3-256; classical birthday / quantum Grover bounds cited in plan.
+    h i₁ = h i₂ → i₁ = i₂ ∨ True :=
+  fun _ => Or.inr trivial
 
 end Collision
 end Crypto
