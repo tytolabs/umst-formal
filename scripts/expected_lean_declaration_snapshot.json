@@ -1,7 +1,261 @@
 {
-  "_comment": "Drift gate for CI. Bump when lake roots or declaration totals change intentionally; align PROOF-STATUS.md and FORMAL_FOUNDATIONS.md the same commit.",
-  "lake_roots_count": 45,
-  "roots_only": { "theorem": 221, "lemma": 17, "total": 238 },
-  "all_lean_glob": { "theorem": 221, "lemma": 17, "total": 238 },
-  "axioms": [{ "file": "LandauerLaw.lean", "name": "physicalSecondLaw" }]
+  "repo": "umst-formal",
+  "lake_roots_count": 47,
+  "lake_roots": [
+    "Gate",
+    "Helmholtz",
+    "Constitutional",
+    "Naturality",
+    "Activation",
+    "DIBKleisli",
+    "FormalFoundations",
+    "LandauerEinsteinBridge",
+    "GraphProperties",
+    "Powers",
+    "Convergence",
+    "GaloisGate",
+    "EnrichedAdmissibility",
+    "LandauerLaw",
+    "InfoTheory",
+    "EndConditions",
+    "MeasurementCost",
+    "LandauerExtension",
+    "FiberedActivation",
+    "MonoidalState",
+    "SeparationBound",
+    "Economic.EconomicDomain",
+    "Economic.EconomicTemperature",
+    "Economic.BurdenRecursionIsAdmissible",
+    "Economic.StochasticBurdenExpectation",
+    "Economic.DynamicEpsilonCalibration",
+    "Economic.SelfReferentialEconomicTensor",
+    "Economic.NPVIsSpecialCaseOfThermodynamicBurden",
+    "Economic.HallucinationDetector",
+    "Economic.LowEntropyLieDetector",
+    "Economic.CreativityBudget",
+    "Economic.ThermodynamicUncertaintyCertificate",
+    "Economic.PhysicsConstrainedAI",
+    "Economic.EpistemicSensingModule",
+    "Economic.KleisliAdmissibilityComposition",
+    "Economic.NuanceIsolator",
+    "Economic.HorizonAwareGrounding",
+    "Economic.CollectiveCoherenceCost",
+    "Economic.CreativeExplorationTolerance",
+    "CreditGreedyOptimal",
+    "Dignity",
+    "EtaCog",
+    "RhoEstimator",
+    "MedianConvergence",
+    "OrderStatisticsBand",
+    "Memory.MergeSafe",
+    "Memory.TierDisjoint"
+  ],
+  "roots_only": {
+    "theorem": 226,
+    "lemma": 17,
+    "total": 243
+  },
+  "all_lean_glob": {
+    "theorem": 233,
+    "lemma": 17,
+    "total": 250
+  },
+  "per_root": {
+    "Gate": {
+      "theorem": 14,
+      "lemma": 0
+    },
+    "Helmholtz": {
+      "theorem": 5,
+      "lemma": 0
+    },
+    "Constitutional": {
+      "theorem": 11,
+      "lemma": 0
+    },
+    "Naturality": {
+      "theorem": 6,
+      "lemma": 0
+    },
+    "Activation": {
+      "theorem": 11,
+      "lemma": 0
+    },
+    "DIBKleisli": {
+      "theorem": 9,
+      "lemma": 0
+    },
+    "FormalFoundations": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "LandauerEinsteinBridge": {
+      "theorem": 7,
+      "lemma": 5
+    },
+    "GraphProperties": {
+      "theorem": 10,
+      "lemma": 0
+    },
+    "Powers": {
+      "theorem": 3,
+      "lemma": 5
+    },
+    "Convergence": {
+      "theorem": 8,
+      "lemma": 0
+    },
+    "GaloisGate": {
+      "theorem": 6,
+      "lemma": 0
+    },
+    "EnrichedAdmissibility": {
+      "theorem": 12,
+      "lemma": 0
+    },
+    "LandauerLaw": {
+      "theorem": 9,
+      "lemma": 3
+    },
+    "InfoTheory": {
+      "theorem": 4,
+      "lemma": 0
+    },
+    "EndConditions": {
+      "theorem": 3,
+      "lemma": 0
+    },
+    "MeasurementCost": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "LandauerExtension": {
+      "theorem": 6,
+      "lemma": 0
+    },
+    "FiberedActivation": {
+      "theorem": 8,
+      "lemma": 0
+    },
+    "MonoidalState": {
+      "theorem": 6,
+      "lemma": 0
+    },
+    "SeparationBound": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Economic.EconomicDomain": {
+      "theorem": 0,
+      "lemma": 0
+    },
+    "Economic.EconomicTemperature": {
+      "theorem": 3,
+      "lemma": 0
+    },
+    "Economic.BurdenRecursionIsAdmissible": {
+      "theorem": 7,
+      "lemma": 0
+    },
+    "Economic.StochasticBurdenExpectation": {
+      "theorem": 4,
+      "lemma": 0
+    },
+    "Economic.DynamicEpsilonCalibration": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Economic.SelfReferentialEconomicTensor": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Economic.NPVIsSpecialCaseOfThermodynamicBurden": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Economic.HallucinationDetector": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "Economic.LowEntropyLieDetector": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "Economic.CreativityBudget": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Economic.ThermodynamicUncertaintyCertificate": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "Economic.PhysicsConstrainedAI": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "Economic.EpistemicSensingModule": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "Economic.KleisliAdmissibilityComposition": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Economic.NuanceIsolator": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Economic.HorizonAwareGrounding": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "Economic.CollectiveCoherenceCost": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "Economic.CreativeExplorationTolerance": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "CreditGreedyOptimal": {
+      "theorem": 7,
+      "lemma": 0
+    },
+    "Dignity": {
+      "theorem": 12,
+      "lemma": 1
+    },
+    "EtaCog": {
+      "theorem": 8,
+      "lemma": 1
+    },
+    "RhoEstimator": {
+      "theorem": 8,
+      "lemma": 0
+    },
+    "MedianConvergence": {
+      "theorem": 5,
+      "lemma": 1
+    },
+    "OrderStatisticsBand": {
+      "theorem": 5,
+      "lemma": 1
+    },
+    "Memory.MergeSafe": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "Memory.TierDisjoint": {
+      "theorem": 3,
+      "lemma": 0
+    }
+  },
+  "missing_root_files": [],
+  "axioms": [
+    {
+      "file": "LandauerLaw.lean",
+      "line": 155,
+      "name": "physicalSecondLaw"
+    }
+  ]
 }
