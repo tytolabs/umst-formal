@@ -19,7 +19,7 @@ This repository is the **classical meso-layer**: rational state changes, Shannon
 
 **Machine-checked UMST formal core** — Agda · Coq · Lean 4 · Haskell QuickCheck · optional Rust FFI.
 
-**Lean 4 (default roots):** **45** modules · **221** `theorem` + **17** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)).
+**Lean 4 (default roots):** **47** modules · **226** `theorem` + **17** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)).
 
 The Economic filenames that sound like oracles are **parameterised predicates**. They do not see the world. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before you cite them off-repo.
 
@@ -129,14 +129,14 @@ Four invariants, across all formal layers:
 | Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
 | Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
 | SDF / FRep; CSG; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **45** roots, **221** theorems + **17** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
+| Full Lean layer + Economic meso-scale | `Lean/` — **47** roots, **226** theorems + **17** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
 | Haskell QuickCheck + sanity | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs); `cabal test landauer-einstein-sanity` — details in [`Haskell/README.md`](Haskell/README.md) and [`PROOF-STATUS.md`](PROOF-STATUS.md) § Cross-Layer Consistency |
 
 See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index (§ **Lean 4 Layer Summary** lists every lake root with theorem counts and flagship lemmas).
 
 ## Lean core (non-Economic) — module roles
 
-The **22** Lean roots outside `Lean/Economic/` are summarized below; full counts and paths are in [`PROOF-STATUS.md`](PROOF-STATUS.md). All are **0** tactic `sorry` in the default closure.
+The **29** Lean roots outside `Lean/Economic/` are summarized below; full counts and paths are in [`PROOF-STATUS.md`](PROOF-STATUS.md). All are **0** tactic `sorry` in the default closure.
 
 | Module | Role (indicative) | Flagship identifiers |
 |--------|-------------------|----------------------|
