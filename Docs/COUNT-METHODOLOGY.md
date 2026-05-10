@@ -1,6 +1,6 @@
 # Lean declaration counts — methodology
 
-**Authoritative summary:** [FORMAL_FOUNDATIONS.md](../FORMAL_FOUNDATIONS.md) (Wave 6.5.2).
+**Authoritative summary:** [FORMAL_FOUNDATIONS.md](../FORMAL_FOUNDATIONS.md) (Wave 6.5.2; declaration totals current as of **2026-05-10** — see that file’s version banner).
 
 ## Rules
 
@@ -44,6 +44,16 @@ python3 scripts/check_lean_axioms.py
 ```
 
 Expect exactly one `axiom`: `LandauerLaw.physicalSecondLaw`.
+
+## Cartridge-anchor Mathlib axiom baseline
+
+After `cd Lean && lake build`, headline theorems in the cartridge-anchor modules (`DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`) are regression-checked for axiom dependency closure:
+
+```bash
+bash scripts/check_print_axioms.sh
+```
+
+Same script runs in CI after `lake build UMST` (see `.github/workflows/lean.yml`).
 
 ## Markdown link check (CI)
 

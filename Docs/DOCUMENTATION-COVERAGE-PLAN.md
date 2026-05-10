@@ -5,7 +5,7 @@
 **Definition of “exhaustive” (pragmatic):**
 
 1. **Mechanical closure:** Every default `lake` root and every Agda/Coq/Haskell artifact that carries proofs/tests is listed in at least one **authoritative index** (`PROOF-STATUS.md` or language-specific section).
-2. **Semantic closure:** Every **module** (Lean root or top-level Agda/Coq file) has a **one-line role** plus **1–3 flagship identifiers** (theorem / QC property names) somewhere in the doc stack—not necessarily every one of 221 theorems spelled out in the README.
+2. **Semantic closure:** Every **module** (Lean root or top-level Agda/Coq file) has a **one-line role** plus **1–3 flagship identifiers** (theorem / QC property names) somewhere in the doc stack—not necessarily every one of 237 theorems spelled out in the README.
 3. **Honesty closure:** Every **axiom**, **postulate**, **opaque**, and **surrogate predicate** is classified in `FORMAL_FOUNDATIONS.md`, `PROOF-STATUS.md`, `SAFETY-LIMITS.md`, or `FALSIFIABILITY_DASHBOARD.md` as appropriate.
 4. **Navigation closure:** `README.md` points readers to the correct **next click** for depth (never a dead end that implies “nothing else exists”).
 
@@ -37,7 +37,7 @@ Repeat before marking any documentation wave “closed.”
 - [x] **Coq:** `cd Coq && make` — success; `rg 'Admitted' Coq --glob '*.v'` — empty (re-run before release).
 - [x] **Agda:** `cd Agda && make check` — success (re-run before release); `--safe` policy in `PROOF-STATUS`.
 - [x] **Haskell:** `cd Haskell && cabal test umst-properties -f -with-ffi` — pass (re-run before release); optional FFI suite for Rust parity.
-- [x] **Stats:** `python3 scripts/lean_declaration_stats.py` — 45 roots, 221 thm / 17 lemma / 238 total; aligned with `PROOF-STATUS` / `FORMAL_FOUNDATIONS` (verified 2026-04-22).
+- [x] **Stats:** `python3 scripts/lean_declaration_stats.py` — **51** roots, **237** thm / **24** lemma / **261** total (roots-only); **244** / **24** / **268** (all `Lean/*`); aligned with `PROOF-STATUS` / `FORMAL_FOUNDATIONS` (verified **2026-05-10**).
 
 ---
 
@@ -56,7 +56,7 @@ Goal: one script or documented command sequence that lists **all** accountable a
 
 This file should be the **only** place that attempts **per-layer theorem tables** at full width.
 
-### 2.1 Lean — all 45 roots
+### 2.1 Lean — all 51 roots
 
 For **each** `UMST.*` root in `lakefile.lean`:
 
@@ -65,9 +65,9 @@ For **each** `UMST.*` root in `lakefile.lean`:
 - [x] At least **one flagship name** or parenthetical hint for non-obvious modules (`PROOF-STATUS.md`).
 - [x] **Economic surrogate** modules cross-reference `SAFETY-LIMITS.md` / `FALSIFIABILITY_DASHBOARD.md`.
 
-**Checklist by root (45 modules — verified 2026-04-22):**
+**Checklist by root (51 modules — verified 2026-05-10):**
 
-- [x] `Gate` … `Economic.CreativeExplorationTolerance` (all roots listed in `lakefile.lean` ↔ `PROOF-STATUS` table)
+- [x] `Gate` … `JenningsGelSpace` (all roots listed in `lakefile.lean` ↔ `PROOF-STATUS` table)
 
 ### 2.2 Haskell QuickCheck
 
@@ -87,7 +87,7 @@ For **each** `UMST.*` root in `lakefile.lean`:
 - [x] **Version / wave** — 6.5.2.
 - [x] **Single axiom** — `physicalSecondLaw` only.
 - [x] **Paper Claims ↔ Formal Lemmas** — row **VI** + double-slit external package.
-- [x] **Wave verification audit** — 45 roots, 221/17/238, matches script.
+- [x] **Wave verification audit** — **51** roots, **237**/**24**/**261** (roots-only) and **244**/**24**/**268** (all `Lean/*`), matches script.
 - [x] **DIB** — matches `DIBKleisli.lean`.
 - [x] Cross-links to `Docs/FALSIFIABILITY_DASHBOARD.md` and `SAFETY-LIMITS.md`.
 
@@ -127,7 +127,7 @@ For **each** `UMST.*` root in `lakefile.lean`:
 
 - [x] **Hero / stats** line matches `lean_declaration_stats.py` (via `PROOF-STATUS` / `FORMAL_FOUNDATIONS`).
 - [x] **Economic** table + **Lean core (non-Economic)** roles + flagship hints (re-verify on each Economic edit).
-- [x] **Architecture tree:** 45 roots, `lakefile.lean`, full Agda/Coq/Haskell/Docs listing.
+- [x] **Architecture tree:** **51** roots, `lakefile.lean`, full Agda/Coq/Haskell/Docs listing.
 - [x] **Agda / Coq** trees include InfoTheory / MeasurementCost / LandauerEinsteinTrace as applicable.
 - [x] **Haskell:** **62** QuickCheck obligations + `landauer-einstein-sanity` + `Haskell/README.md`.
 - [x] **Docs hub:** `FORMAL_FOUNDATIONS`, `PROOF-STATUS`, `COUNT-METHODOLOGY`, `FALSIFIABILITY`, `SAFETY-LIMITS`, `PROOF-REPLAY` — **no** link to this file.
@@ -148,6 +148,7 @@ For maintainers who open source first:
 - [x] **Declaration snapshot:** CI runs `lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json` (update JSON in the same commit as intentional root/count changes).
 - [x] **Single-axiom gate:** CI runs [`scripts/check_lean_axioms.py`](../scripts/check_lean_axioms.py).
 - [x] **Sorry/admit gate:** [`scripts/check_lean_sorry.sh`](../scripts/check_lean_sorry.sh) after `lake build`.
+- [x] **Cartridge-anchor axiom baseline:** CI runs [`scripts/check_print_axioms.sh`](../scripts/check_print_axioms.sh) after `lake build` (uses `Lean/scripts/print_axioms.lean`).
 - [x] **Markdown link check:** [`scripts/check-markdown-links.sh`](../scripts/check-markdown-links.sh) + [`scripts/markdown-link-check.json`](../scripts/markdown-link-check.json) in the **Docs lint + Markdown links** CI job (`../../MaOS-Core` ignored in isolated checkout; in-file `#` anchors ignored).
 
 ---
@@ -190,7 +191,7 @@ This repository’s **default Lean/Agda/Coq/Haskell** artifacts do **not** machi
 ## Completion criteria (sign-off)
 
 - [x] Layer 0 green on verified checkout (2026-04-03); re-run before each release.
-- [x] `PROOF-STATUS.md` Lean table: **45** roots, script-aligned counts.
+- [x] `PROOF-STATUS.md` Lean table: **51** roots, script-aligned counts.
 - [x] `README.md` reflects full root set + Economic layer.
 - [x] Economic surrogates / shells in `FALSIFIABILITY_DASHBOARD.md` + `SAFETY-LIMITS.md`.
 - [x] **No** README link to this plan (by product choice).
@@ -206,3 +207,4 @@ This repository’s **default Lean/Agda/Coq/Haskell** artifacts do **not** machi
 | 2026-04-03 | Layer 0: `lake build` OK; `Agda/make check`, `Coq/make`, `cabal test umst-properties` OK; `rg sorry` empty in `Lean/`; `lean_declaration_stats.py` → 39 roots, 189 decls, 1 axiom. Expanded `FALSIFIABILITY_DASHBOARD.md`, `COUNT-METHODOLOGY` (`.lake`), `SAFETY-LIMITS` ↔ dashboard, `Haskell/README.md`, `PROOF-REPLAY` stages 8–9, `FORMAL_FOUNDATIONS` wave 6.5.2 green-flag text, `lakefile.lean` header, `PROOF-STATUS` flagship hints, README `Naturality` identifiers. README **does not** link this plan. |
 | 2026-04-05 | `PROOF-STATUS` maintainer pointer; Rust/Continuum §. CI: `check_lean_sorry.sh`, `check_lean_axioms.py`, `--verify-snapshot`, **`check-markdown-links.sh`**. `Constitutional.lean` header corrected. `--theorem-names`. README tone pass; module index lines. `FORMAL_FOUNDATIONS` green-flag table + link-check Layer 7 closed. |
 | 2026-04-22 | **Lean / Haskell doc parity pass:** regenerated `expected_lean_declaration_snapshot.json` (**45** roots · **221**/**17**/**238**); `README.md`, `FORMAL_FOUNDATIONS.md`, this plan, `Haskell/README.md` aligned with `python3 scripts/lean_declaration_stats.py` + `rg quickCheck test/Test.hs` (**62** obligations). FPD roots (`CreditGreedyOptimal`, `Dignity`, `EtaCog`, `RhoEstimator`, `MedianConvergence`, `OrderStatisticsBand`) reflected in README build-scope sentence. |
+| 2026-05-10 | **Cartridge anchors + doc parity:** four new Lean roots (`DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`), `Lean/scripts/print_axioms.lean`, `scripts/check_print_axioms.sh` (CI), regenerated `expected_lean_declaration_snapshot.json` (**51** roots · **237**/**24**/**261** roots-only; **244**/**24**/**268** all-`Lean/*`); `README.md`, `FORMAL_FOUNDATIONS.md`, `Docs/DOCUMENTATION-COVERAGE-PLAN.md`, `Docs/COUNT-METHODOLOGY.md`, `Docs/PROOF-REPLAY.md`, `CONTRIBUTING.md`, `CHANGELOG.md` aligned. |

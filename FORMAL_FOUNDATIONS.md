@@ -1,6 +1,6 @@
 # Formal foundations — `umst-formal`
 
-**Version:** Wave 6.5.2 — **2026-04-04** (Lean declaration totals refreshed **2026-04-22** — FPD roots + snapshot; see audit table)
+**Version:** Wave 6.5.2 — **2026-04-04** (Lean declaration totals refreshed **2026-05-10** — **51** lake roots, cartridge anchors `DEC` / `Adjoint` / `RegimeSoundness` / `JenningsGelSpace`, `scripts/check_print_axioms.sh` in CI; see audit table)
 
 ## Single physical axiom (Lean `axiom`)
 
@@ -36,7 +36,7 @@ cd Lean && lake build
 
 ## Build scope
 
-Default `lake build` covers **all** registered `lakefile.lean` `roots` (**45** modules, including `Lean/Economic/*` and **Formal-First** cockpit mirrors: `CreditGreedyOptimal`, `Dignity`, `EtaCog`, `RhoEstimator`, `MedianConvergence`, `OrderStatisticsBand`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
+Default `lake build` covers **all** registered `lakefile.lean` `roots` (**51** modules, including `Lean/Economic/*`, **Formal-First** cockpit mirrors (`CreditGreedyOptimal`, `Dignity`, `EtaCog`, `RhoEstimator`, `MedianConvergence`, `OrderStatisticsBand`), **`Memory.*`**, and **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
 
 ## Paper Claims ↔ Formal Lemmas
 
@@ -58,7 +58,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 | `lake build` (all `lakefile` roots) | **Succeeded** (verified in workspace) |
 | `^axiom ` in `Lean/*.lean` (excluding `.lake`) | **1** — `LandauerLaw.physicalSecondLaw` only |
 | Tactic `sorry` / `admit` / `Admitted` in `Lean/*.lean` | **None** (the word “sorry” appears only in **comments** in: `Gate.lean`, `Helmholtz.lean`, `Naturality.lean`, `Activation.lean`, `DIBKleisli.lean`, `FormalFoundations.lean`) |
-| `theorem` / `lemma` in **`lakefile` roots only** (47 modules; excludes `_check_ext.lean`) | **226** `theorem`, **17** `lemma` (total **243**) — lines starting with `theorem ` / `lemma `; excludes `example` / `def` / proof `instance` |
+| `theorem` / `lemma` in **`lakefile` roots only** (51 modules; excludes `_check_ext.lean`) | **237** `theorem`, **24** `lemma` (total **261**) — lines starting with `theorem ` / `lemma `; excludes `example` / `def` / proof `instance` |
 | Modules **not** in `lakefile` roots | `_check_ext.lean` — **not** part of `lake build` |
 
 ### Cold rebuild (audit)
@@ -97,14 +97,15 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 
 | Gate | Mechanism |
 |:-----|:----------|
-| Lean default roots | `lake build UMST` — 47 modules in `lakefile.lean` |
+| Lean default roots | `lake build UMST` — **51** modules in `lakefile.lean` |
 | Tactic gaps | **Zero** `sorry` / `admit` in `Lean/**/*.lean` (excl. `.lake`); CI: `scripts/check_lean_sorry.sh` |
 | Project axiom | Exactly **`LandauerLaw.physicalSecondLaw`**; CI: `scripts/check_lean_axioms.py` |
 | Declaration drift | Totals match `scripts/expected_lean_declaration_snapshot.json`; CI: `lean_declaration_stats.py --verify-snapshot` |
+| Mathlib axiom baseline (cartridge anchors) | CI: `scripts/check_print_axioms.sh` after `lake build` (headline theorems only; see `Lean/scripts/print_axioms.lean`) |
 | Coq / Agda / Haskell | CI jobs per `.github/workflows/ci.yml` (see `Docs/PROOF-REPLAY.md`) |
 | Docs style | `markdownlint` on curated paths (CI **Docs lint** job) |
 | Doc link integrity | `scripts/check-markdown-links.sh` (curated Markdown; sibling `MaOS-Core` path ignored in CI; in-file `#` anchors ignored) |
 
 **Cold `lake build` audit:** `rm -rf Lean/.lake && lake build` under `Lean/` completed successfully with no `error:` lines in the captured log (Mathlib may emit `warning:` from upstream; team policy is to treat new project-local warnings as regressions).
 
-Wave **6.5.2** ships the full `Lean/Economic/` meso-layer, doc-stack alignment (`PROOF-STATUS`, `Docs/FALSIFIABILITY_DASHBOARD.md`, `SAFETY-LIMITS.md`), the non-identity DIB witness, and CI gates above. Opaque DIB phases remain future functor work.
+Wave **6.5.2** ships the full `Lean/Economic/` meso-layer, doc-stack alignment (`PROOF-STATUS`, `Docs/FALSIFIABILITY_DASHBOARD.md`, `SAFETY-LIMITS.md`), the non-identity DIB witness, **cartridge-anchor** modules (`DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`) with CI-checked Mathlib axiom baselines on headline theorems, and CI gates above. Opaque DIB phases remain future functor work.

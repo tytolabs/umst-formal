@@ -10,10 +10,11 @@ invariants.
 After edits under `Lean/` that add/remove roots or change `theorem`/`lemma` totals:
 
 1. `python3 scripts/lean_declaration_stats.py`
-2. Align `PROOF-STATUS.md` and `FORMAL_FOUNDATIONS.md` with the output.
+2. Align `PROOF-STATUS.md` and `FORMAL_FOUNDATIONS.md` with the output (and `README.md` hero line when counts change materially).
 3. Update `scripts/expected_lean_declaration_snapshot.json` in the **same** PR if totals or root count change (CI compares against it).
+4. If you add headline theorems to **cartridge-anchor** modules (`DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`), extend **`scripts/check_print_axioms.sh`** so CI keeps checking their axiom closures.
 
-See `Docs/COUNT-METHODOLOGY.md`. Axiom invariant: `python3 scripts/check_lean_axioms.py`. After editing linked Markdown in the curated corpus, run `bash scripts/check-markdown-links.sh` (same as CI).
+See `Docs/COUNT-METHODOLOGY.md`. Axiom invariant: `python3 scripts/check_lean_axioms.py`. After `lake build`, optional local regression: `bash scripts/check_print_axioms.sh` (same as CI). After editing linked Markdown in the curated corpus, run `bash scripts/check-markdown-links.sh` (same as CI).
 
 ## Ground Rules
 

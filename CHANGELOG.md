@@ -7,6 +7,15 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added (Phase Cartridge-Anchors — 2026-05-10)
+
+- **Lean** — four new default roots: `DEC.lean` (triangle DEC / discrete Stokes), `Adjoint.lean` (linear matrix-exponential adjoint vs gradient), `RegimeSoundness.lean` (rational hyperbox warnings vs regime), `JenningsGelSpace.lean` (Jennings–Brownyard gel-space witness). **0** new `axiom` declarations; **0** tactic `sorry`.
+- **`Lean/scripts/print_axioms.lean`** — CLI helper (`lake env lean --run … <shortTheoremName>`) printing axiom dependency closure for `UMST.<name>` after importing the four modules (Lean core imports only; `compile_time_search_path%` from `Lean.Util.SearchPath`).
+- **`scripts/check_print_axioms.sh`** — regression gate on headline theorems (allowlist: `propext`, `Quot.sound`, `Classical.choice`, optional `LandauerLaw.physicalSecondLaw`). Runs in **`.github/workflows/lean.yml`** and the **`ci.yml`** Lean job after `lake build`.
+- **`Makefile`** — `make lean-print-axioms` target (runs `check_print_axioms.sh` after you have built locally).
+- **Declaration snapshot** — `scripts/expected_lean_declaration_snapshot.json` regenerated for **51** lake roots (**237**/**24** / **261** roots-only; **244**/**24** / **268** all-`Lean/*`).
+- **Documentation** — `README.md`, `FORMAL_FOUNDATIONS.md`, `PROOF-STATUS.md`, `Docs/DOCUMENTATION-COVERAGE-PLAN.md`, `Docs/COUNT-METHODOLOGY.md`, `Docs/PROOF-REPLAY.md`, `CONTRIBUTING.md` aligned with `lean_declaration_stats.py` and the new CI gate.
+
 ### Fixed (2026-04-22)
 
 - **Formal CI (`agda` / `coq` / `lean` jobs)** — register **`Agda/umst-formal.agda-lib`** plus a **`standard-library`** stub over a **writable** `cp -a` of **`/usr/share/agda-stdlib`**; run **`coq`** via `docker run coqorg/coq:8.20` with **`chmod a+rwX Coq`** and **`make extract`** (preserves `_CoqProject` `-Q . UMSTFormal`; bare `make check` does not); post **`chown`**; **`leanprover/lean-action@v1`** with `lake build UMST` (no `--wfail` on CI to avoid Mathlib replay flaking on upstream linter noise).

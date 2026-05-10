@@ -19,7 +19,7 @@ This repository is the **classical meso-layer**: rational state changes, Shannon
 
 **Machine-checked UMST formal core** — Agda · Coq · Lean 4 · Haskell QuickCheck · optional Rust FFI.
 
-**Lean 4 (default roots):** **47** modules · **226** `theorem` + **17** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)).
+**Lean 4 (default roots):** **51** modules · **237** `theorem` + **24** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)). After `lake build`, CI also runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems).
 
 The Economic filenames that sound like oracles are **parameterised predicates**. They do not see the world. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before you cite them off-repo.
 
@@ -129,14 +129,14 @@ Four invariants, across all formal layers:
 | Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
 | Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
 | SDF / FRep; CSG; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **47** roots, **226** theorems + **17** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
+| Full Lean layer + Economic meso-scale | `Lean/` — **51** roots, **237** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
 | Haskell QuickCheck + sanity | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs); `cabal test landauer-einstein-sanity` — details in [`Haskell/README.md`](Haskell/README.md) and [`PROOF-STATUS.md`](PROOF-STATUS.md) § Cross-Layer Consistency |
 
 See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index (§ **Lean 4 Layer Summary** lists every lake root with theorem counts and flagship lemmas).
 
 ## Lean core (non-Economic) — module roles
 
-The **29** Lean roots outside `Lean/Economic/` are summarized below; full counts and paths are in [`PROOF-STATUS.md`](PROOF-STATUS.md). All are **0** tactic `sorry` in the default closure.
+The **33** Lean roots outside `Lean/Economic/` are summarized below (representative roles; the full per-root table is in [`PROOF-STATUS.md`](PROOF-STATUS.md)). All are **0** tactic `sorry` in the default closure.
 
 | Module | Role (indicative) | Flagship identifiers |
 |--------|-------------------|----------------------|
@@ -161,6 +161,18 @@ The **29** Lean roots outside `Lean/Economic/` are summarized below; full counts
 | `FiberedActivation` | `engineFiber`, universality | (see module) |
 | `MonoidalState` | `combine` on ℚ states, convexity lemmas | `combine_one`, `combine_zero` |
 | `SeparationBound` | Accuracy–safety separation (real line) | `accuracy_safety_separation_real` |
+| `CreditGreedyOptimal` | Greedy vs exhaustive credit scan (Case A) | `credit_greedy_optimal` |
+| `Dignity` | Thermodynamic–epistemic dignity scalar | `dignity_step` |
+| `EtaCog` | MI-per-Joule cockpit metric | `eta_cog_nonneg` |
+| `RhoEstimator` | Gaussian ρ–MI in bits | `rho_based_mi_formula` |
+| `MedianConvergence` | `N_warmup` ceiling / empirical CDF tail | (see module) |
+| `OrderStatisticsBand` | Quantile band / split-sample inequality | (see module) |
+| `Memory.MergeSafe` | Merge-safe memory policy | (see module) |
+| `Memory.TierDisjoint` | Tier-disjointness | (see module) |
+| `DEC` | Triangle DEC / discrete Stokes witness | `discrete_stokes`, `hodge_laplacian_symmetric` |
+| `Adjoint` | Linear adjoint vs terminal gradient (matrix exp) | `adjoint_recovers_gradient` |
+| `RegimeSoundness` | Rational hyperbox regime vs warnings | `warnings_empty_iff_in_regime` |
+| `JenningsGelSpace` | Jennings–Brownyard gel-space strength | `jennings_strength_monotone` |
 
 **Axiom / surrogate honesty:** [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md), [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
 
@@ -173,7 +185,7 @@ The **29** Lean roots outside `Lean/Economic/` are summarized below; full counts
 | [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md) | How theorem/lemma counts are computed |
 | [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) | Surrogate predicates vs deployment claims |
 | [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) | Economic “detector” naming scope |
-| [`Docs/PROOF-REPLAY.md`](Docs/PROOF-REPLAY.md) | Reproducible build / replay commands |
+| [`Docs/PROOF-REPLAY.md`](Docs/PROOF-REPLAY.md) | Reproducible build / replay commands (`check_print_axioms.sh`, stats, link check) |
 
 ## Architecture
 
@@ -188,15 +200,15 @@ umst-formal/
 │   ├── Gate.v, Constitutional.v, LandauerEinsteinBridge.v
 │   ├── InfoTheory.v, MeasurementCost.v
 │   └── Extraction.v
-├── Lean/                   Mathlib 4.14 — **39** `lakefile` roots (authoritative list: `lakefile.lean`)
-│   ├── Gate … SeparationBound.lean   (22 non-Economic roots; see § Lean core above)
-│   ├── Economic/*.lean               (18 files; 17 theorem roots + EconomicDomain)
+├── Lean/                   Mathlib 4.14 — **51** `lakefile` roots (authoritative list: `lakefile.lean`)
+│   ├── Gate … JenningsGelSpace.lean  (33 non-`Economic.*` roots incl. FPD, `Memory.*`, cartridge anchors)
+│   ├── Economic/*.lean               (18 `Economic.*` theorem roots + `EconomicDomain` definitions)
 │   ├── lakefile.lean, lean-toolchain
 │   └── _check_ext.lean               (scratch — not a root)
 ├── Haskell/                See Haskell/README.md — 33 QuickCheck props + optional FFI
 ├── ffi-bridge/             C ABI to umst-core (no README; see PROOF-REPLAY.md)
-├── scripts/                lean_declaration_stats.py, generate_visuals.py, …
-├── visuals/, Makefile      `make lean-stats`, `make visuals`
+├── scripts/                lean_declaration_stats.py, check_print_axioms.sh, generate_visuals.py, …
+├── visuals/, Makefile      `make lean-build`, `make lean-stats`, `make lean-print-axioms`, `make visuals`
 ├── Docs/                   PROOF-REPLAY, COUNT-METHODOLOGY, FALSIFIABILITY_DASHBOARD, roadmaps, …
 ├── PROOF-STATUS.md         Master cross-layer index
 ├── FORMAL_FOUNDATIONS.md   Axioms, audit, paper-claim map
@@ -255,8 +267,9 @@ cd Haskell && cabal build lib:umst-formal -f -with-ffi && cabal test umst-proper
 # Optional: Rust ↔ Haskell (after ffi build)
 cd Haskell && cabal test umst-ffi-correspondence -f with-ffi && cd ..
 
-# Optional: Lean stats + visuals (from repository root)
+# Optional: Lean stats + cartridge-anchor axiom baseline + visuals (from repository root)
 make lean-stats
+make lean-print-axioms
 make visuals
 ```
 
@@ -264,7 +277,7 @@ make visuals
 
 We welcome corrections, proof refactors that **preserve** the layer graph, and documentation that tightens the line between **machine-checked** claims and **analogy**. Please:
 
-- Run `cd Lean && lake build` before opening a PR that touches Lean.
+- Run `cd Lean && lake build` before opening a PR that touches Lean; optionally `make lean-print-axioms` after a successful build to match CI’s Mathlib-baseline gate on headline cartridge theorems.
 - Run `python3 scripts/lean_declaration_stats.py` if you add roots; update [`PROOF-STATUS.md`](PROOF-STATUS.md), [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), and [`scripts/expected_lean_declaration_snapshot.json`](scripts/expected_lean_declaration_snapshot.json) in the **same** commit when totals change (CI enforces the snapshot).
 - Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before renaming or exporting “detector” modules.
 

@@ -11,6 +11,9 @@ Usage (from repository root):
   python3 scripts/lean_declaration_stats.py --json
   python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json
   python3 scripts/lean_declaration_stats.py --theorem-names
+
+After `cd Lean && lake build`, headline cartridge-anchor theorems are also
+checked via `bash scripts/check_print_axioms.sh` (CI: `lean.yml` / `ci.yml`).
 """
 
 from __future__ import annotations

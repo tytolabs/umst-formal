@@ -30,10 +30,11 @@ prerequisites and the sense in which advanced claims are **not in L₀** are in
 | 8. Lean declaration stats | `make lean-stats` (repo root) or `python3 scripts/lean_declaration_stats.py` | Regenerates counts; CI compares to `scripts/expected_lean_declaration_snapshot.json` |
 | 8b. Axiom invariant | `python3 scripts/check_lean_axioms.py` | Exactly `LandauerLaw.physicalSecondLaw` |
 | 8c. Snapshot drift | `python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json` | Same gate as CI Lean job |
-| 8d. Markdown links | `bash scripts/check-markdown-links.sh` | Curated corpus; same as CI docs job |
+| 8d. Cartridge-anchor axiom baseline | `make lean-print-axioms` (repo root) or `bash scripts/check_print_axioms.sh` | After `lake build`; same as CI step on headline theorems |
+| 8e. Markdown links | `bash scripts/check-markdown-links.sh` | Curated corpus; same as CI docs job |
 | 9. Visual fixtures | `make visuals` (repo root) | Runs `scripts/generate_visuals.py` (optional figures; see root `Makefile`) |
 
-Stages 3–5 are **logically independent** proof layers; stage 6 is **computational** consistency of the Haskell reference model; stages 1–2 and 7 relate to the **Rust** implementation path. Stages 8–9 are **documentation / artifact** checks, not proof obligations.
+Stages 3–5 are **logically independent** proof layers; stage 6 is **computational** consistency of the Haskell reference model; stages 1–2 and 7 relate to the **Rust** implementation path. Stages 8–9 are **documentation / artifact** checks, not proof obligations (stage **8d** is a small Mathlib-baseline regression on selected Lean theorems).
 
 ## Repository / CI structural blockers
 
@@ -69,6 +70,7 @@ Use this table for independent audits; **do not** mark PASS without running the 
 | Lean stats | `make lean-stats` (repo root) | | `python3 --version` |
 | Lean axiom gate | `python3 scripts/check_lean_axioms.py` | | |
 | Lean count snapshot | `python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json` | | |
+| Cartridge-anchor axiom baseline | `bash scripts/check_print_axioms.sh` | | (after `cd Lean && lake build UMST`) |
 | Markdown links | `bash scripts/check-markdown-links.sh` | | `node` / `npx` |
 | Visuals | `make visuals` (repo root) | | `python3 --version` |
 

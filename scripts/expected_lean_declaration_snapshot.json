@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 47,
+  "lake_roots_count": 51,
   "lake_roots": [
     "Gate",
     "Helmholtz",
@@ -48,17 +48,21 @@
     "MedianConvergence",
     "OrderStatisticsBand",
     "Memory.MergeSafe",
-    "Memory.TierDisjoint"
+    "Memory.TierDisjoint",
+    "DEC",
+    "Adjoint",
+    "RegimeSoundness",
+    "JenningsGelSpace"
   ],
   "roots_only": {
-    "theorem": 226,
-    "lemma": 17,
-    "total": 243
+    "theorem": 237,
+    "lemma": 24,
+    "total": 261
   },
   "all_lean_glob": {
-    "theorem": 233,
-    "lemma": 17,
-    "total": 250
+    "theorem": 244,
+    "lemma": 24,
+    "total": 268
   },
   "per_root": {
     "Gate": {
@@ -248,6 +252,22 @@
     "Memory.TierDisjoint": {
       "theorem": 3,
       "lemma": 0
+    },
+    "DEC": {
+      "theorem": 4,
+      "lemma": 2
+    },
+    "Adjoint": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "RegimeSoundness": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "JenningsGelSpace": {
+      "theorem": 3,
+      "lemma": 5
     }
   },
   "missing_root_files": [],
