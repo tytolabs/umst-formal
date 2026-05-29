@@ -1,8 +1,9 @@
 /-
   UMST-Formal — L-S3 side-channel upper bound (stub).
 
-  Grounding discipline: quantum-amplitude information bound from `umst-formal-double-slit`
-  (see SECURITY-ARC-PLAN §3.2; no direct module import here — separate repo / lake closure).
+  Grounding discipline: **standalone axiom** in this module. Double-slit amplitude composition
+  is **not** yet imported; full composition is queued as `R-LS3-compose` (L-expansion arc).
+  See SECURITY-ARC-PLAN §3.2 for intended physics grounding narrative.
 
   ZCI-EXEMPT: Tier-2 continuous; full proof intractable as attack classes shift observable channel.
 -/
@@ -17,7 +18,7 @@ axiom amplitude_bound : ∀ (c : Channel), AttackerObservation c → Real
 
 theorem UpperBound (c : Channel) (obs : AttackerObservation c) :
     amplitude_bound c obs ≤ 1 ∨ True := by
-  sorry  -- ZCI-EXEMPT: Tier-2 continuous; double-slit amplitude grounding.
+  sorry  -- ZCI-EXEMPT: Tier-2 continuous; standalone axiom (R-LS3-compose queued).
 
 end SideChannel
 end Crypto
