@@ -32,8 +32,11 @@ jobs:
         with:
           repository: tytolabs/umst-formal-double-slit
           ref: e67b2e9763adb3d4e158f81bccc9d5f581fc2aa2
-          path: ../umst-formal-double-slit
+          path: umst-formal-double-slit
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Symlink double-slit for ../../ lake path (sibling monorepo layout)
+        run: ln -sfn "${GITHUB_WORKSPACE}/umst-formal-double-slit" "${GITHUB_WORKSPACE}/../umst-formal-double-slit"
 
       - name: Set up Lean 4 + Mathlib cache + build UMST
         uses: leanprover/lean-action@v1
