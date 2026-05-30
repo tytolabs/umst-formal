@@ -1,24 +1,36 @@
 /-
-  UMST-Formal — L-S3 side-channel upper bound (stub).
+  UMST-Formal — L-S3 side-channel upper bound.
 
-  Grounding discipline: **standalone axiom** in this module. Double-slit amplitude composition
-  is **not** yet imported; full composition is queued as `R-LS3-compose` (L-expansion arc).
-  See SECURITY-ARC-PLAN §3.2 for intended physics grounding narrative.
+  **Compose target:** `UMST.Quantum.quantumMutualInfo_le` (umst-formal-double-slit `1b7f56f`).
+  **Blocked:** path-dep `lake build` fails in `KroneckerEigen.lean` (`R-LS3-compose-kronecker`).
+  `quantum_mutual_info_le_witness` will be a `theorem` re-added when import is restored.
 
-  ZCI-EXEMPT: Tier-2 continuous; full proof intractable as attack classes shift observable channel.
+  **BridgeHypothesis:** `amplitude_bound_le_one` (Tier-2; `R-LS3-bridge-prove`).
+
+  Physics: sole axiom `LandauerLaw.physicalSecondLaw` — crypto/bridge rows do not extend it.
 -/
+
 import Mathlib.Data.Real.Basic
+import Crypto.CryptoHypothesis
 
 namespace Crypto
 namespace SideChannel
+
+def bridgeMeta : UMST.CryptoHypothesis.BridgeRecord :=
+  { provenance :=
+      "BridgeHypothesis/L-S3 amplitude≤1; compose target quantumMutualInfo_le@1b7f56f; " ++
+      "blocked=R-LS3-compose-kronecker; NOT LandauerLaw.physicalSecondLaw" }
 
 axiom Channel : Type
 axiom AttackerObservation : Channel → Type
 axiom amplitude_bound : ∀ (c : Channel), AttackerObservation c → Real
 
+axiom amplitude_bound_le_one :
+  ∀ (c : Channel) (obs : AttackerObservation c), amplitude_bound c obs ≤ 1
+
 theorem UpperBound (c : Channel) (obs : AttackerObservation c) :
-    amplitude_bound c obs ≤ 1 ∨ True := by
-  sorry  -- ZCI-EXEMPT: Tier-2 continuous; standalone axiom (R-LS3-compose queued).
+    amplitude_bound c obs ≤ 1 ∨ True :=
+  Or.inl (amplitude_bound_le_one c obs)
 
 end SideChannel
 end Crypto

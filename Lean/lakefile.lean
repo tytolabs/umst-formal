@@ -7,6 +7,11 @@ package «umst-formal» where
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4" @ "v4.14.0"
 
+/- §14bis.h-GROUND-1: path dep to double-slit pinned @ `1b7f56f` for L-S3 compose.
+   Disabled until `KroneckerEigen.lean` builds in closure (R-LS3-compose-kronecker).
+require «umst-formal-double-slit» from "../../umst-formal-double-slit/Lean"
+-/
+
 /-
   **Lean `roots` (45 modules)** — default `lake build` closure for `UMST`.  Includes the gate/Kleisli
   core, Landauer stack, extensions (monoidal state, separation bound, …), and **`Lean/Economic/`**
@@ -61,6 +66,10 @@ lean_lib «Behavior.SDFCanonical» where
 /-!
   §14bis.f-S-0 — L-S0..L-S5 Crypto stubs (`lake build Crypto.LWE` … `Crypto.SanitizePatternCoverage`).
 -/
+lean_lib «Crypto.CryptoHypothesis» where
+  roots := #[`Crypto.CryptoHypothesis]
+  srcDir := "."
+
 lean_lib «Crypto.LWE» where
   roots := #[`Crypto.LWE]
   srcDir := "."
