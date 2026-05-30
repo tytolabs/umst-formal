@@ -5,7 +5,7 @@
 **Definition of “exhaustive” (pragmatic):**
 
 1. **Mechanical closure:** Every default `lake` root and every Agda/Coq/Haskell artifact that carries proofs/tests is listed in at least one **authoritative index** (`PROOF-STATUS.md` or language-specific section).
-2. **Semantic closure:** Every **module** (Lean root or top-level Agda/Coq file) has a **one-line role** plus **1–3 flagship identifiers** (theorem / QC property names) somewhere in the doc stack—not necessarily every one of 221 theorems spelled out in the README.
+2. **Semantic closure:** Every **module** (Lean root or top-level Agda/Coq file) has a **one-line role** plus **1–3 flagship identifiers** (theorem / QC property names) somewhere in the doc stack—not necessarily every one of 226 theorems spelled out in the README.
 3. **Honesty closure:** Every **axiom**, **postulate**, **opaque**, and **surrogate predicate** is classified in `FORMAL_FOUNDATIONS.md`, `PROOF-STATUS.md`, `SAFETY-LIMITS.md`, or `FALSIFIABILITY_DASHBOARD.md` as appropriate.
 4. **Navigation closure:** `README.md` points readers to the correct **next click** for depth (never a dead end that implies “nothing else exists”).
 
@@ -37,7 +37,7 @@ Repeat before marking any documentation wave “closed.”
 - [x] **Coq:** `cd Coq && make` — success; `rg 'Admitted' Coq --glob '*.v'` — empty (re-run before release).
 - [x] **Agda:** `cd Agda && make check` — success (re-run before release); `--safe` policy in `PROOF-STATUS`.
 - [x] **Haskell:** `cd Haskell && cabal test umst-properties -f -with-ffi` — pass (re-run before release); optional FFI suite for Rust parity.
-- [x] **Stats:** `python3 scripts/lean_declaration_stats.py` — 45 roots, 221 thm / 17 lemma / 238 total; aligned with `PROOF-STATUS` / `FORMAL_FOUNDATIONS` (verified 2026-04-22).
+- [x] **Stats:** `python3 scripts/lean_declaration_stats.py` — 47 roots, 226 thm / 17 lemma / 243 total; aligned with `PROOF-STATUS` / `FORMAL_FOUNDATIONS` (verified 2026-05-30).
 
 ---
 
@@ -56,7 +56,7 @@ Goal: one script or documented command sequence that lists **all** accountable a
 
 This file should be the **only** place that attempts **per-layer theorem tables** at full width.
 
-### 2.1 Lean — all 45 roots
+### 2.1 Lean — all 47 roots
 
 For **each** `UMST.*` root in `lakefile.lean`:
 
@@ -65,7 +65,7 @@ For **each** `UMST.*` root in `lakefile.lean`:
 - [x] At least **one flagship name** or parenthetical hint for non-obvious modules (`PROOF-STATUS.md`).
 - [x] **Economic surrogate** modules cross-reference `SAFETY-LIMITS.md` / `FALSIFIABILITY_DASHBOARD.md`.
 
-**Checklist by root (45 modules — verified 2026-04-22):**
+**Checklist by root (47 modules — verified 2026-05-30):**
 
 - [x] `Gate` … `Economic.CreativeExplorationTolerance` (all roots listed in `lakefile.lean` ↔ `PROOF-STATUS` table)
 
@@ -87,7 +87,7 @@ For **each** `UMST.*` root in `lakefile.lean`:
 - [x] **Version / wave** — 6.5.2.
 - [x] **Single axiom** — `physicalSecondLaw` only.
 - [x] **Paper Claims ↔ Formal Lemmas** — row **VI** + double-slit external package.
-- [x] **Wave verification audit** — 45 roots, 221/17/238, matches script.
+- [x] **Wave verification audit** — 47 roots, 226/17/243, matches script.
 - [x] **DIB** — matches `DIBKleisli.lean`.
 - [x] Cross-links to `Docs/FALSIFIABILITY_DASHBOARD.md` and `SAFETY-LIMITS.md`.
 
@@ -127,7 +127,7 @@ For **each** `UMST.*` root in `lakefile.lean`:
 
 - [x] **Hero / stats** line matches `lean_declaration_stats.py` (via `PROOF-STATUS` / `FORMAL_FOUNDATIONS`).
 - [x] **Economic** table + **Lean core (non-Economic)** roles + flagship hints (re-verify on each Economic edit).
-- [x] **Architecture tree:** 45 roots, `lakefile.lean`, full Agda/Coq/Haskell/Docs listing.
+- [x] **Architecture tree:** 47 roots, `lakefile.lean`, full Agda/Coq/Haskell/Docs listing.
 - [x] **Agda / Coq** trees include InfoTheory / MeasurementCost / LandauerEinsteinTrace as applicable.
 - [x] **Haskell:** **62** QuickCheck obligations + `landauer-einstein-sanity` + `Haskell/README.md`.
 - [x] **Docs hub:** `FORMAL_FOUNDATIONS`, `PROOF-STATUS`, `COUNT-METHODOLOGY`, `FALSIFIABILITY`, `SAFETY-LIMITS`, `PROOF-REPLAY` — **no** link to this file.

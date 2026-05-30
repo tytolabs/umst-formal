@@ -7,7 +7,7 @@
 - **Lake roots:** Module names come from the first `lean_lib` … `roots := #[…]` block in [`Lean/lakefile.lean`](../Lean/lakefile.lean), parsed by [`scripts/lean_declaration_stats.py`](../scripts/lean_declaration_stats.py) (handles Lake’s `` `Name, `` separators and a final `` `Name] `` without a closing backtick before `]`).
 - **`theorem` / `lemma`:** Count lines starting with exactly `theorem ` or `lemma ` in each `Lean/<Root>.lean` file (roots-only total = sum over roots). **All-Lean** total = every `Lean/**/*.lean` **except** `lakefile.lean` and any path under **`.lake/`** (generated Lake/Mathlib tree). [`scripts/lean_declaration_stats.py`](../scripts/lean_declaration_stats.py) implements this via `rglob` with `".lake" in p.parts` skipped.
 - **Not counted:** `example`, `def`, `instance` proofs, nested declarations inside sections (only line-start top-level).
-- **Project `axiom`:** Lines starting with `axiom ` in `Lean/*.lean` (should be only `physicalSecondLaw` in `LandauerLaw.lean`).
+- **Project `axiom`:** Lines starting with `axiom ` in `Lean/*.lean`. **Physics:** only `physicalSecondLaw` in `LandauerLaw.lean`. **Tier-tagged:** explicit axioms in `Crypto/` and `Behavior/SDFCanonical.lean` (see `scripts/check_lean_axioms.py`).
 
 ## Regenerate
 
@@ -43,7 +43,7 @@ python3 scripts/lean_declaration_stats.py --theorem-names
 python3 scripts/check_lean_axioms.py
 ```
 
-Expect exactly one `axiom`: `LandauerLaw.physicalSecondLaw`.
+Expect `LandauerLaw.physicalSecondLaw` plus tier-tagged axioms only in allowed crypto/behavior files (`check_lean_axioms.py`).
 
 ## Markdown link check (CI)
 

@@ -7,6 +7,10 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Documentation (2026-05-30 — §14bis.x-DOC-COUNTS)
+
+- **Lean metrics sweep** — `python3 scripts/lean_declaration_stats.py`: **47** lake roots, **226**/**17**/**243** (roots-only); **232**/**17**/**249** (all `Lean/*.lean`). `PROOF-STATUS.md`, `FORMAL_FOUNDATIONS.md`, `Docs/DOCUMENTATION-COVERAGE-PLAN.md`, `Docs/COUNT-METHODOLOGY.md` aligned. **KRON-1** path-dep to double-slit; tier-tagged crypto axioms documented (not “single axiom only” in meso fence).
+
 ### Fixed (2026-04-22)
 
 - **Formal CI (`agda` / `coq` / `lean` jobs)** — register **`Agda/umst-formal.agda-lib`** plus a **`standard-library`** stub over a **writable** `cp -a` of **`/usr/share/agda-stdlib`**; run **`coq`** via `docker run coqorg/coq:8.20` with **`chmod a+rwX Coq`** and **`make extract`** (preserves `_CoqProject` `-Q . UMSTFormal`; bare `make check` does not); post **`chown`**; **`leanprover/lean-action@v1`** with `lake build UMST` (no `--wfail` on CI to avoid Mathlib replay flaking on upstream linter noise).

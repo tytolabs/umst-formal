@@ -11,7 +11,7 @@ require mathlib from git
 require «umst-formal-double-slit» from "../../umst-formal-double-slit/Lean"
 
 /-
-  **Lean `roots` (45 modules)** — default `lake build` closure for `UMST`.  Includes the gate/Kleisli
+  **Lean `roots` (47 modules)** — default `lake build` closure for `UMST`.  Includes the gate/Kleisli
   core, Landauer stack, extensions (monoidal state, separation bound, …), and **`Lean/Economic/`**
   (Wave 6.5.2 meso-layer).  Single project `axiom`: `LandauerLaw.physicalSecondLaw`.
 
