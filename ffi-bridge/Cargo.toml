@@ -8,7 +8,7 @@ license = "MIT"
 
 [dependencies]
 # MaOS-Workspace layout: prototype lives at workspace root `umst-prototype/`.
-umst-core = { path = "../../umst-prototype/src/rust/core" }
+umst-core = { path = "../../umst-core" }
 # Sibling checkout name matches CI + MaOS-Workspace (`egoff/`, not `tytolabs-egoff/`).
 umst-math = { path = "../../egoff/umst-math" }
 
