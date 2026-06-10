@@ -149,15 +149,15 @@ For maintainers who open source first:
 - [x] **Single-axiom gate:** CI runs [`scripts/check_lean_axioms.py`](../scripts/check_lean_axioms.py).
 - [x] **Sorry/admit gate:** [`scripts/check_lean_sorry.sh`](../scripts/check_lean_sorry.sh) after `lake build`.
 - [x] **Cartridge-anchor axiom baseline:** CI runs [`scripts/check_print_axioms.sh`](../scripts/check_print_axioms.sh) after `lake build` (uses `Lean/scripts/print_axioms.lean`).
-- [x] **Markdown link check:** [`scripts/check-markdown-links.sh`](../scripts/check-markdown-links.sh) + [`scripts/markdown-link-check.json`](../scripts/markdown-link-check.json) in the **Docs lint + Markdown links** CI job (`../../MaOS-Core` ignored in isolated checkout; in-file `#` anchors ignored).
+- [x] **Markdown link check:** [`scripts/check-markdown-links.sh`](../scripts/check-markdown-links.sh) + [`scripts/markdown-link-check.json`](../scripts/markdown-link-check.json) in the **Docs lint + Markdown links** CI job (optional private sibling checkout ignored in isolated CI; in-file `#` anchors ignored).
 
 ---
 
 ## Rust / Continuum engineering (out of `lake` closure — honesty)
 
-This repository’s **default Lean/Agda/Coq/Haskell** artifacts do **not** machine-check `MaOS-Core` (`vla_server`, swarm fusion, Θ/Σ backends). Treat that code as a **sibling functor** in the workspace: evidence is **tests, probes, and operator runbooks**, not `lake build`.
+This repository’s **default Lean/Agda/Coq/Haskell** artifacts do **not** machine-check private application runtime (`vla_server`, swarm fusion, Θ/Σ backends). Treat that code as a **sibling functor** in the workspace: evidence is **tests, probes, and operator runbooks**, not `lake build`.
 
-**Decomposition / planning (typed morphisms, Θ recon, splat, Σ VarBuilder, CI boot):** sibling doc **[`MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md`](../../MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md) §17**. **AutoExperimenter / oracle policy:** same file §16 + [`FORMAL_FOUNDATIONS.md`](../FORMAL_FOUNDATIONS.md) (Planned: AutoExperimenter).
+**Decomposition / planning (typed morphisms, Θ recon, splat, Σ VarBuilder, CI boot):** sibling doc **private application-runtime continuum backlog doc (out of repo; §17 typed-morphism plan)**. **AutoExperimenter / oracle policy:** same file §16 + [`FORMAL_FOUNDATIONS.md`](../FORMAL_FOUNDATIONS.md) (Planned: AutoExperimenter).
 
 **Rule:** Do not imply in `README` or `PROOF-STATUS` that a theorem here **proves** a Continuum HTTP contract; cross-link §17 when discussing “alignment” between formal gate language and deployed swarm behavior.
 

@@ -12,7 +12,7 @@ This repository is a **standalone mathematical artifact**: it mechanizes **gate
 invariants, naturality, constitutional sequence composition**, the **Landauer–Einstein
 mass-equivalent fragment** (Coq/Lean), and related lemmas.  Anything **not** listed
 in this file as mechanized or as a named axiom/postulate is **out of scope** for this
-repository—regardless of narratives elsewhere in the MaOS / UMST ecosystem.
+repository—regardless of narratives elsewhere in the UMST ecosystem.
 
 | Status | Meaning in this repo |
 |---|---|

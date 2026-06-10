@@ -7,9 +7,9 @@ description = "C-ABI bridge exposing umst-core thermodynamic gate to Haskell/OCa
 license = "MIT"
 
 [dependencies]
-# MaOS-Workspace layout: prototype lives at workspace root `umst-prototype/`.
+# Multi-repo workspace layout: prototype lives at workspace root `umst-prototype/`.
 umst-core = { path = "../../umst-core" }
-# Sibling checkout name matches CI + MaOS-Workspace (`egoff/`, not `tytolabs-egoff/`).
+# Sibling checkout name matches CI + multi-repo workspace (`egoff/`, not `tytolabs-egoff/`).
 umst-math = { path = "../../egoff/umst-math" }
 
 [lib]

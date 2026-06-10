@@ -79,17 +79,17 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 
 ## Planned (engineering): AutoExperimenter — invariants and scope
 
-**Status:** design note only — **no** Lean module or automation ships here yet. When a Rust/TS experiment harness exists (`MaOS-Core` probes, governor metrics), this section records **what formal review must not allow** to change without an explicit law pass.
+**Status:** design note only — **no** Lean module or automation ships here yet. When a Rust/TS experiment harness exists (application-runtime probes, governor metrics (private)), this section records **what formal review must not allow** to change without an explicit law pass.
 
 | Boundary | Requirement |
 |:---------|:------------|
-| **Non-bypass** | Any automated “experiment” that mutates slot wiring, env defaults, or gate thresholds must **not** introduce a path where the thermodynamic gate is skipped or UI shows ACCEPT when the kernel would REJECT (see `MaOS-Config/docs/AGENTS.md` functor language). |
-| **Oracle** | Proposed config deltas should be **gated** by the same executables humans trust today (`cargo test`, `npm run continuum:registry:static`, smoke probes) before merge; no silent self-apply to production env. Phase **3** ordering is in `MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md` §16. Automatable subset: `npm run continuum:ci:oracle` in MaOS-Core (tests + static probe); full harness needs a running `vla_server` (Σ weights). Optional `lake build`: `umst-formal/.github/workflows/ci.yml`. |
+| **Non-bypass** | Any automated “experiment” that mutates slot wiring, env defaults, or gate thresholds must **not** introduce a path where the thermodynamic gate is skipped or UI shows ACCEPT when the kernel would REJECT (see private config-repo AGENTS contract (out of repo) functor language). |
+| **Oracle** | Proposed config deltas should be **gated** by the same executables humans trust today (`cargo test`, `npm run continuum:registry:static`, smoke probes) before merge; no silent self-apply to production env. Phase **3** ordering is in private application-runtime continuum backlog (out of repo; §16). Automatable subset: `npm run continuum:ci:oracle` in private application runtime (tests + static probe); full harness needs a running `vla_server` (Σ weights). Optional `lake build`: `umst-formal/.github/workflows/ci.yml`. |
 | **Human gate (Phase 2)** | Advisory JSON + unified diffs only; **no** auto-commit, auto-merge, or secret writes — see §16 Phase 2 schema sketch in the same doc. |
 | **Scope** | AutoExperimenter concerns **cartridge / env / harness** evidence — **not** new constitutive physics inside universal Layer 1 without a separate proof obligation. |
 | **Lean linkage** | Non-root placeholder: [`Lean/experiments/AutoExperimenterPlaceholder.lean`](Lean/experiments/AutoExperimenterPlaceholder.lean) (excluded from `lakefile.lean`). A real **gated experiment monad** root belongs only after the **Rust harness + policy** are frozen; until then, this file’s **Green-flag** Lean closure is unchanged. |
 
-**Related (repo prose):** `MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md` §§16–17 (truth probes + **typed morphism** breakdown of Θ / Σ / splat / CI backlog), `MaOS-Core/docs/ARCHITECTURE_CONTINUUM.md` (presentation vs kernel).
+**Related (repo prose):** private application-runtime continuum backlog (out of repo; §§16–17) (truth probes + **typed morphism** breakdown of Θ / Σ / splat / CI backlog), private application-runtime architecture continuum doc (out of repo) (presentation vs kernel).
 
 ## Green-flag status
 
@@ -104,7 +104,7 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 | Mathlib axiom baseline (cartridge anchors) | CI: `scripts/check_print_axioms.sh` after `lake build` (headline theorems only; see `Lean/scripts/print_axioms.lean`) |
 | Coq / Agda / Haskell | CI jobs per `.github/workflows/ci.yml` (see `Docs/PROOF-REPLAY.md`) |
 | Docs style | `markdownlint` on curated paths (CI **Docs lint** job) |
-| Doc link integrity | `scripts/check-markdown-links.sh` (curated Markdown; sibling `MaOS-Core` path ignored in CI; in-file `#` anchors ignored) |
+| Doc link integrity | `scripts/check-markdown-links.sh` (curated Markdown; optional private sibling paths ignored in CI; in-file `#` anchors ignored) |
 
 **Cold `lake build` audit:** `rm -rf Lean/.lake && lake build` under `Lean/` completed successfully with no `error:` lines in the captured log (Mathlib may emit `warning:` from upstream; team policy is to treat new project-local warnings as regressions).
 

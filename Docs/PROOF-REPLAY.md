@@ -7,7 +7,7 @@ This document is the **independent replay checklist** for `umst-formal`: what mu
 The mechanized core (gate invariants, naturality, constitutional / Kleisli structure,
 SDF-related lemmas, Landauer–Einstein mass-equivalent fragment) is **this repository’s**
 formal artifact. Anything not listed in `PROOF-STATUS.md` is **not certified here**,
-regardless of discussions elsewhere in the MaOS / UMST ecosystem.
+regardless of discussions elsewhere in the UMST ecosystem.
 
 **Landauer–Einstein fragment:** `Lean/LandauerEinsteinBridge.lean` (SI + coarse/tight
 300 K brackets), `Coq/LandauerEinsteinBridge.v` (algebraic fragment), Agda

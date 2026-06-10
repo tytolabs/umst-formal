@@ -294,7 +294,7 @@ We welcome corrections, proof refactors that **preserve** the layer graph, and d
 
 Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction supplies a second reference; Rust `KleisliArrow` tests mirror monad laws. See [`Haskell/test/Test.hs`](Haskell/test/Test.hs).
 
-**Continuum engineering backlog (Θ / Σ / splat / CI)** is decomposed as **typed morphisms** (first-principles steps + a light λ-shaped planning vocabulary) in **`MaOS-Core/docs/CONTINUUM_GAP_REMEDIATION_PLAN.md`** §17 — same discipline as proofs: small total steps, explicit composition, effects at the rim.
+**Continuum engineering backlog (Θ / Σ / splat / CI)** is decomposed as **typed morphisms** (first-principles steps + a light λ-shaped planning vocabulary) in **private application-runtime continuum backlog doc (out of repo)** §17 — same discipline as proofs: small total steps, explicit composition, effects at the rim.
 
 ## License
 
