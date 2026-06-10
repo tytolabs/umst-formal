@@ -147,7 +147,7 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           repository: tytolabs/umst-manifold
-          ref: 4b34ce4793bc727229594b007ddb13daa153e3df
+          ref: ce9828ea5a8c3ced0a350da648a4c5f336fec0fb
           path: umst-manifold
 
       - name: Install Rust stable
@@ -167,7 +167,7 @@ jobs:
 
       - name: Check formatting
         working-directory: umst-formal/ffi-bridge
-        run: cargo fmt --all -- --check
+        run: cargo fmt --check
 
       - name: Clippy (warnings as errors)
         working-directory: umst-formal/ffi-bridge

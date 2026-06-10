@@ -86,7 +86,10 @@ fn test_identity_always_accepted() {
 fn test_dissipation_zero_dt_guard() {
     let d = umst_dissipation(2000.0, 2000.0, -225.0, -315.0, 0.0);
     assert!(d.is_finite(), "D_int must be finite for dt=0");
-    assert!(d >= 0.0, "D_int must be non-negative for forward hydration at dt=0");
+    assert!(
+        d >= 0.0,
+        "D_int must be non-negative for forward hydration at dt=0"
+    );
 }
 
 #[test]
