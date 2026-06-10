@@ -79,17 +79,11 @@ def find_axioms(lean_dir: Path) -> list[tuple[str, int, str]]:
     return out
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--json", action="store_true", help="print JSON only")
-    args = ap.parse_args()
-
-    root = repo_root()
+def collect_stats(root: Path) -> dict:
     lean = root / "Lean"
     lakefile = lean / "lakefile.lean"
     if not lakefile.is_file():
-        print(f"error: missing {lakefile}", file=sys.stderr)
-        return 1
+        raise FileNotFoundError(f"missing {lakefile}")
 
     roots = parse_lake_roots(lakefile.read_text(encoding="utf-8"))
     per_root: dict[str, dict[str, int]] = {}
@@ -115,8 +109,7 @@ def main() -> int:
         all_l += l
 
     axioms = find_axioms(lean)
-
-    data = {
+    return {
         "repo": root.name,
         "lake_roots_count": len(roots),
         "lake_roots": roots,
@@ -126,6 +119,57 @@ def main() -> int:
         "missing_root_files": missing,
         "axioms": [{"file": a[0], "line": a[1], "name": a[2]} for a in axioms],
     }
+
+
+def verify_snapshot(expected_path: Path, got: dict) -> list[str]:
+    expected = json.loads(expected_path.read_text(encoding="utf-8"))
+    errors: list[str] = []
+    for key in ("lake_roots_count", "lake_roots", "roots_only", "all_lean_glob", "per_root"):
+        if expected.get(key) != got.get(key):
+            errors.append(f"drift in {key}")
+    if got.get("missing_root_files"):
+        errors.append(f"missing root files: {got['missing_root_files']}")
+    return errors
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--json", action="store_true", help="print JSON only")
+    ap.add_argument(
+        "--verify-snapshot",
+        metavar="PATH",
+        help="exit 1 if committed JSON snapshot does not match current Lean tree",
+    )
+    args = ap.parse_args()
+
+    root = repo_root()
+    try:
+        data = collect_stats(root)
+    except FileNotFoundError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 1
+
+    if args.verify_snapshot:
+        snap = Path(args.verify_snapshot)
+        if not snap.is_file():
+            print(f"error: missing snapshot {snap}", file=sys.stderr)
+            return 1
+        errors = verify_snapshot(snap, data)
+        if errors:
+            for err in errors:
+                print(f"FAIL: {err}", file=sys.stderr)
+            return 1
+        print(f"OK: snapshot matches ({data['all_lean_glob']['total']} all-Lean declarations)")
+        return 0
+
+    missing = data["missing_root_files"]
+    roots = data["lake_roots"]
+    per_root = data["per_root"]
+    rt = data["roots_only"]["theorem"]
+    rl = data["roots_only"]["lemma"]
+    all_t = data["all_lean_glob"]["theorem"]
+    all_l = data["all_lean_glob"]["lemma"]
+    axioms = [(a["file"], a["line"], a["name"]) for a in data["axioms"]]
 
     if args.json:
         print(json.dumps(data, indent=2))

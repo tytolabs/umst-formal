@@ -51,8 +51,7 @@
 
 module FFI
   ( -- * High-level wrappers
-    withFilter
-  , rustGateCheck
+    rustGateCheck
     -- * ABI gate (call before any other FFI from this process)
   , assertAbiCompatible
   , getAbiVersionPair
@@ -64,8 +63,6 @@ module FFI
   , runMedianConvergenceCorrespondence
   , runOrderStatisticsCorrespondence
   , runRhoMiCorrespondence
-    -- * C struct (re-exported for advanced use)
-  , CThermodynamicState (..)
   ) where
 
 import Control.Monad (when)
@@ -73,7 +70,6 @@ import Data.Word (Word32, Word64)
 import Foreign
 import Foreign.C.Types
 import Foreign.Marshal.Array (withArray)
-import Control.Exception (bracket)
 import System.IO         (hPutStrLn, stderr)
 
 import UMST
@@ -82,27 +78,11 @@ import UMST
 -- Raw C Imports
 ------------------------------------------------------------------------
 
--- | Allocate a new @ThermodynamicFilter@ on the Rust heap.
--- The caller is responsible for freeing it with 'c_filter_free'.
-foreign import ccall safe "umst_filter_new"
-  c_filter_new :: IO (Ptr ())
-
--- | Free a @ThermodynamicFilter@ previously allocated by 'c_filter_new'.
--- Passing a null or already-freed pointer is undefined behaviour on the
--- Rust side; the bracket wrapper 'withFilter' prevents this.
-foreign import ccall safe "umst_filter_free"
-  c_filter_free :: Ptr () -> IO ()
-
--- | Raw gate check.  Returns 1 if the transition is admissible, 0 if
--- rejected.  The filter pointer must be valid (obtained from
--- 'c_filter_new' and not yet freed).
---
--- Parameter order matches the C header exactly:
--- @filter, old_ρ, old_ψ, old_α, old_fc, new_ρ, new_ψ, new_α, new_fc, new_fc_max, Δt@
+-- | Stateless gate check (ABI 9).  Returns 1 if admissible, 0 if rejected.
+-- Parameter order matches @umst_ffi.h@ exactly (no filter handle).
 foreign import ccall safe "umst_gate_check"
   c_gate_check
-    :: Ptr ()     -- filter handle
-    -> CDouble    -- old density
+    :: CDouble    -- old density
     -> CDouble    -- old free energy
     -> CDouble    -- old hydration
     -> CDouble    -- old strength
@@ -123,87 +103,6 @@ foreign import ccall safe "umst_dissipation"
     -> CDouble    -- new free energy
     -> CDouble    -- dt
     -> IO CDouble
-
--- | Avrami–Parrott hydration-degree model.
--- Returns \(\alpha(t, T, r_{SCM})\) as a single-precision float.
-foreign import ccall safe "umst_hydration_degree"
-  c_hydration_degree
-    :: CFloat     -- age in days
-    -> CFloat     -- temperature (°C)
-    -> CFloat     -- SCM replacement ratio
-    -> IO CFloat
-
--- | Powers gel-space-ratio strength model.
--- Returns \(f_c(w/c, \alpha, a_{air}, A)\) in MPa.
-foreign import ccall safe "umst_strength_powers"
-  c_strength_powers
-    :: CFloat     -- w/c ratio
-    -> CFloat     -- degree of hydration
-    -> CFloat     -- air content (fraction)
-    -> CFloat     -- intrinsic strength (MPa)
-    -> IO CFloat
-
-------------------------------------------------------------------------
--- CThermodynamicState — Storable instance for struct marshalling
-------------------------------------------------------------------------
-
--- | Haskell mirror of the C struct @CThermodynamicState@.
---
--- Layout (assuming no padding, 5 × 8 bytes = 40 bytes):
---
--- @
---   offset 0:  density          (double)
---   offset 8:  free_energy      (double)
---   offset 16: hydration_degree (double)
---   offset 24: strength         (double)
---   offset 32: max_strength     (double)
--- @
-data CThermodynamicState = CThermodynamicState
-  { cDensity    :: !CDouble
-  , cFreeEnergy :: !CDouble
-  , cHydration  :: !CDouble
-  , cStrength   :: !CDouble
-  , cMaxStrength :: !CDouble
-  } deriving (Show, Eq)
-
-instance Storable CThermodynamicState where
-  sizeOf    _ = 5 * sizeOf (undefined :: CDouble)
-  alignment _ = alignment (undefined :: CDouble)
-
-  peek ptr = CThermodynamicState
-    <$> peekElemOff (castPtr ptr) 0
-    <*> peekElemOff (castPtr ptr) 1
-    <*> peekElemOff (castPtr ptr) 2
-    <*> peekElemOff (castPtr ptr) 3
-    <*> peekElemOff (castPtr ptr) 4
-
-  poke ptr (CThermodynamicState d fe h s ms) = do
-    pokeElemOff (castPtr ptr) 0 d
-    pokeElemOff (castPtr ptr) 1 fe
-    pokeElemOff (castPtr ptr) 2 h
-    pokeElemOff (castPtr ptr) 3 s
-    pokeElemOff (castPtr ptr) 4 ms
-
--- | Pointer-based shim for @umst_thermo_state_from_mix@.
---
--- The C function returns a struct by value, which GHC's FFI cannot
--- portably handle.  This import expects a thin C wrapper:
---
--- @
---   void umst_thermo_state_from_mix_ptr(
---       double w_c, double alpha, double temp,
---       CThermodynamicState* out);
--- @
---
--- The wrapper is a trivial addition to @ffi-bridge/src/lib.rs@:
--- allocate the struct on the stack and copy to the out-pointer.
-foreign import ccall safe "umst_thermo_state_from_mix_ptr"
-  c_thermo_state_from_mix_ptr
-    :: CDouble              -- w/c ratio
-    -> CDouble              -- alpha
-    -> CDouble              -- temperature
-    -> Ptr CThermodynamicState  -- out pointer
-    -> IO ()
 
 -- | Rust C-ABI aggregate for Phase M4 (`umst_credit_greedy_sum`).
 foreign import ccall unsafe "umst_credit_greedy_sum"
@@ -269,43 +168,14 @@ assertAbiCompatible = do
           ++ show expected
           ++ ". Rebuild libumst_ffi.so with `cargo build --release -p umst-ffi --features lean-ffi` and ensure LD_LIBRARY_PATH points to the current build."
 
--- | Convert a C-side state to a Haskell 'ThermodynamicState'.
-fromCState :: CThermodynamicState -> ThermodynamicState
-fromCState cs = ThermodynamicState
-  { density     = realToFrac (cDensity cs)
-  , freeEnergy  = realToFrac (cFreeEnergy cs)
-  , hydration   = realToFrac (cHydration cs)
-  , strength    = realToFrac (cStrength cs)
-  , maxStrength = realToFrac (cMaxStrength cs)
-  }
-
 ------------------------------------------------------------------------
 -- Safe Wrappers
 ------------------------------------------------------------------------
 
--- | Bracket pattern for filter lifecycle management.
---
--- Allocates a @ThermodynamicFilter@ on the Rust heap, passes it to
--- the callback, and guarantees deallocation even if the callback
--- throws an exception.  This is the only correct way to use the
--- filter; raw 'c_filter_new'/'c_filter_free' should not be called
--- directly.
---
--- @
---   withFilter $ \\filt -> do
---     result <- rustGateCheckWith filt oldState newState dt
---     print result
--- @
-withFilter :: (Ptr () -> IO a) -> IO a
-withFilter = bracket c_filter_new c_filter_free
-
--- | High-level gate check via the Rust FFI.
---
--- Allocates a filter, evaluates the gate, and returns a Bool.
--- The filter is freed automatically regardless of outcome.
+-- | High-level gate check via the Rust FFI (stateless ABI 9).
 rustGateCheck :: ThermodynamicState -> ThermodynamicState -> Double -> IO Bool
-rustGateCheck old proposed dt = withFilter $ \filt -> do
-  result <- c_gate_check filt
+rustGateCheck old proposed dt = do
+  result <- c_gate_check
     (realToFrac $ density old)
     (realToFrac $ freeEnergy old)
     (realToFrac $ hydration old)
@@ -338,53 +208,6 @@ rustDissipation oldRho newRho oldPsi newPsi dt = do
     (realToFrac newPsi)
     (realToFrac dt)
   pure (realToFrac result)
-
--- | Compute hydration degree via the Avrami–Parrott model.
---
--- Given the age of the concrete, the curing temperature, and the SCM
--- replacement ratio, returns the degree of hydration \(\alpha\).
-rustHydrationDegree
-  :: Float  -- ^ Age in days
-  -> Float  -- ^ Temperature (°C)
-  -> Float  -- ^ SCM replacement ratio (0–1)
-  -> IO Float
-rustHydrationDegree ageDays tempC scmRatio = do
-  result <- c_hydration_degree
-    (realToFrac ageDays)
-    (realToFrac tempC)
-    (realToFrac scmRatio)
-  pure (realToFrac result)
-
--- | Compute compressive strength via the Powers model.
---
--- The gel-space ratio model predicts strength from the water-cement
--- ratio, degree of hydration, air content, and intrinsic strength.
-rustStrengthPowers
-  :: Float  -- ^ w/c ratio
-  -> Float  -- ^ Degree of hydration
-  -> Float  -- ^ Air content (fraction)
-  -> Float  -- ^ Intrinsic strength (MPa)
-  -> IO Float
-rustStrengthPowers wcRatio degHyd airContent intStr = do
-  result <- c_strength_powers
-    (realToFrac wcRatio)
-    (realToFrac degHyd)
-    (realToFrac airContent)
-    (realToFrac intStr)
-  pure (realToFrac result)
-
--- | Construct a 'ThermodynamicState' from mix parameters via the Rust kernel.
---
--- Requires the pointer-based shim (see 'c_thermo_state_from_mix_ptr').
-rustFromMix :: Double -> Double -> Double -> IO ThermodynamicState
-rustFromMix wc alpha temp =
-  alloca $ \outPtr -> do
-    c_thermo_state_from_mix_ptr
-      (realToFrac wc)
-      (realToFrac alpha)
-      (realToFrac temp)
-      outPtr
-    fromCState <$> peek outPtr
 
 ------------------------------------------------------------------------
 -- Property Tests

@@ -54,6 +54,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: tytolabs/umst-formal-double-slit
+          ref: 1c07e05b5c7bfd6acb1ebe25ae0a7493c91e79d0
           path: sibling/umst-formal-double-slit
 
       - name: Shared Lean module drift (8 modules)

@@ -135,57 +135,46 @@ jobs:
         working-directory: Haskell
         run: cabal test landauer-einstein-sanity
 
-  # ── Rust FFI bridge ────────────────────────────────────────────────
-  #
-  # Requires umst-prototype-2a at ../../umst-prototype-2a relative to this
-  # repo root.  Set the repository-level variable UMST_PROTO_REPO to the
-  # GitHub URL of the prototype repo:
-  #   Settings → Variables → Actions → New variable: UMST_PROTO_REPO
+  # ── Rust FFI bridge (ABI 9 agnostic; umst-manifold path dep) ───────
   rust-ffi:
     name: Rust FFI bridge tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Clone umst-prototype-2a (required for path dependency)
-        if: env.UMST_PROTO_REPO != ''
-        run: |
-          git clone --depth=1 "$UMST_PROTO_REPO" \
-            ../umst-prototype-2a
-
-      - name: Skip if prototype repo not configured
-        if: env.UMST_PROTO_REPO == ''
-        run: |
-          echo "::warning::UMST_PROTO_REPO not set — Rust tests skipped."
-          echo "Set the Actions variable UMST_PROTO_REPO to the prototype repo URL."
+      - name: Clone umst-manifold (ffi-bridge path dependency)
+        uses: actions/checkout@v4
+        with:
+          repository: tytolabs/umst-manifold
+          ref: b5bfd0665143d47fb715fbc795d47c5fca477b65
+          path: ../umst-manifold
 
       - name: Install Rust stable
-        if: env.UMST_PROTO_REPO != ''
         uses: dtolnay/rust-toolchain@stable
         with:
+          toolchain: 1.88
           components: clippy, rustfmt
 
       - name: Cache cargo registry
-        if: env.UMST_PROTO_REPO != ''
         uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+            ffi-bridge/target
+          key: ${{ runner.os }}-cargo-ffi-${{ hashFiles('ffi-bridge/Cargo.lock') }}
 
       - name: Check formatting
-        if: env.UMST_PROTO_REPO != ''
+        working-directory: ffi-bridge
         run: cargo fmt --all -- --check
 
       - name: Clippy (warnings as errors)
-        if: env.UMST_PROTO_REPO != ''
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        working-directory: ffi-bridge
+        run: cargo clippy --all-targets -- -D warnings
 
       - name: Run integration tests
-        if: env.UMST_PROTO_REPO != ''
-        run: cargo test --release -p umst-ffi-bridge
+        working-directory: ffi-bridge
+        run: cargo test
 
   # ── Visuals script (optional matplotlib; stub OK if deps missing) ─
   visuals:
@@ -246,6 +235,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: tytolabs/umst-formal-double-slit
+          ref: 1c07e05b5c7bfd6acb1ebe25ae0a7493c91e79d0
           path: sibling/umst-formal-double-slit
 
       - name: Shared Lean module drift (8 modules)
