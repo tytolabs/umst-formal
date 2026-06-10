@@ -1,0 +1,2 @@
+[patch."https://github.com/tytolabs/umst-manifold.git"]
+umst-manifold = { path = "../umst-manifold" }

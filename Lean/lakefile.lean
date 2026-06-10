@@ -28,7 +28,7 @@ lean_lib «UMST» where
   roots := #[`Gate, `Helmholtz, `Constitutional, `Naturality, `Activation, `DIBKleisli, `FormalFoundations,
     `LandauerEinsteinBridge, `GraphProperties, `Powers, `Convergence,
     `GaloisGate, `EnrichedAdmissibility,     `LandauerLaw, `InfoTheory,
-    `EndConditions, `MeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState,
+    `EndConditions, `ClassicalMeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState,
     `SeparationBound,
     -- Meso-scale Economic layer (Lean/Economic/ folder — Wave 6.5.2)
     `Economic.EconomicDomain,

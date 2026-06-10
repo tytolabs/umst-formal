@@ -242,6 +242,17 @@ jobs:
       - name: Cartridge-anchor axiom baseline (Mathlib closure)
         run: bash scripts/check_print_axioms.sh
 
+      - name: Checkout sibling umst-formal-double-slit (shared-module drift)
+        uses: actions/checkout@v4
+        with:
+          repository: tytolabs/umst-formal-double-slit
+          path: sibling/umst-formal-double-slit
+
+      - name: Shared Lean module drift (8 modules)
+        env:
+          UMST_FORMAL_SIBLING_DIR: ${{ github.workspace }}/sibling/umst-formal-double-slit
+        run: bash scripts/check_shared_lean_drift.sh
+
   # ── Markdown / docs lint ───────────────────────────────────────────
   docs:
     name: Docs lint + Markdown links

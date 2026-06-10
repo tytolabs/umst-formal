@@ -339,7 +339,7 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.LandauerLaw` | 9 | 3 | `Lean/LandauerLaw.lean` (1 Lean `axiom`: `physicalSecondLaw`) |
 | `UMST.InfoTheory` | 4 | 0 | `Lean/InfoTheory.lean` |
 | `UMST.EndConditions` | 3 | 0 | `Lean/EndConditions.lean` — stream end-state constraints |
-| `UMST.MeasurementCost` | 1 | 0 | `Lean/MeasurementCost.lean` — observation cost vs Landauer |
+| `UMST.ClassicalMeasurementCost` | 1 | 0 | `Lean/ClassicalMeasurementCost.lean` — classical observation cost vs Landauer |
 | `UMST.LandauerExtension` | 6 | 0 | `Lean/LandauerExtension.lean` — n-bit / temperature scaling |
 | `UMST.FiberedActivation` | 8 | 0 | `Lean/FiberedActivation.lean` — `engineFiber`, covering lemmas |
 | `UMST.MonoidalState` | 6 | 0 | `Lean/MonoidalState.lean` |

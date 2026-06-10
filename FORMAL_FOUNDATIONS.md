@@ -47,7 +47,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 | **I. Clausius–Duhem / rational gate** | Transitions satisfy mass, dissipation (ψ), hydration monotone, strength monotone | `Gate.Admissible`, fields `massDensity` … `strengthMono`; `helmholtz`, `helmholtzAntitone` |
 | **II. 100% admissibility for checked steps** | Any transition accepted by the boolean gate satisfies `Admissible` | `Gate.gateCheckSound` |
 | **III. Graded compositional safety** | Multi-step mass budget composes (triangle inequality); Kleisli lifting | `Gate.admissibleN_compose`; `Constitutional` lemmas citing it |
-| **IV. Landauer / observation / erasure** | Erasure obeys second-law input → Landauer-style bound | `LandauerLaw.physicalSecondLaw` (only project `axiom`); `LandauerExtension`, `MeasurementCost` |
+| **IV. Landauer / observation / erasure** | Erasure obeys second-law input → Landauer-style bound | `LandauerLaw.physicalSecondLaw` (only project `axiom`); `LandauerExtension`, `ClassicalMeasurementCost` |
 | **V. Double-slit, TMI, epistemic layer** | Complementarity, fringe visibility bound, dephasing, trajectory MI | Package **`umst-formal-double-slit`**: `GeneralVisibility.fringeVisibility_n_le_one`, `LindbladDynamics.dephasingSolution_tendsto_diagonal`, `EpistemicMI` / `EpistemicTrajectoryMI` |
 | **VI. Classical economic / burden layer (meso)** | Shannon–Landauer “economic temperature”, burden steps vs `Admissible`, stochastic drift, classical surrogates for exploration cost | **`Lean/Economic/`** (17 named modules + `EconomicDomain`); **no** new physics axioms; surrogates and shells classified in [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) and [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) |
 
@@ -71,7 +71,7 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 |--------|----------------|------|
 | Clausius–Duhem / gate | `Gate.Admissible`, `clausiusDuhem` field, `gateCheckSound` / `gateCheckComplete` | Predicate is the conjunction of four inequalities; **100%** of *checked* transitions satisfy it by **definition** of `gateCheck`; constitutive closure uses explicit hypotheses (e.g. `forwardHydrationAdmissible`). |
 | Graded composition | `Gate.admissibleN_compose`, `Constitutional` Kleisli lemmas | Replaces removed `admissibleTrans`; proved (triangle inequality), not axiomatized. |
-| Landauer / observation cost | `LandauerLaw`, `MeasurementCost`, extensions | **Single** project `axiom`: `physicalSecondLaw` (Clausius inequality input). |
+| Landauer / observation cost | `LandauerLaw`, `ClassicalMeasurementCost`, extensions | **Single** project `axiom`: `physicalSecondLaw` (Clausius inequality input). |
 | Hydration | `Convergence.HydrationInUnitInterval`, `ConstitutionalStream` | Hypothesis-driven; no hydration axiom. |
 | DIB ↔ gate | `dib_semantic_step_admissible`, `dibArtifactGateCheck_eq_true` | **Non-identity** `artifactSemanticStep` (ψ decreases); `gateCheck` always **true** on the interpreted step. Opaque `discover`/`invent`/`build` still unlinked from concrete thermo traces. |
 

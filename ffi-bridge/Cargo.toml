@@ -3,14 +3,12 @@ name = "umst-ffi-bridge"
 version = "0.1.0"
 edition = "2021"
 authors = ["Santhosh Shyamsundar", "Santosh Prabhu Shenbagamoorthy"]
-description = "C-ABI bridge exposing umst-core thermodynamic gate to Haskell/OCaml."
+description = "Material-agnostic C-ABI thermodynamic gate (manifold + umst-math)."
 license = "MIT"
 
 [dependencies]
-# Multi-repo workspace layout: prototype lives at workspace root `umst-prototype/`.
-umst-core = { path = "../../umst-core" }
-# Sibling checkout name matches CI + multi-repo workspace (`egoff/`, not `tytolabs-egoff/`).
-umst-math = { path = "../../egoff/umst-math" }
+umst-manifold = { path = "../../umst-manifold", default-features = false, features = ["ndarray"] }
+umst-math = { path = "../../umst-manifold/umst-math" }
 
 [lib]
 name = "umst_ffi"

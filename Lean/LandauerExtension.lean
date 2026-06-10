@@ -50,11 +50,12 @@ theorem landauerEnergy_mono {T₁ T₂ : ℝ} (h : T₁ ≤ T₂) :
 /-- **N-bit erasure bound**: erasing n independent uniform binary bits requires
     work W_total ≥ n · T · log 2.
     Proved by induction on n ErasureProcesses (each at the same bath T). -/
-theorem landauerBound_nBit (n : ℕ) (T : ℝ) (_hT : 0 < T)
+theorem landauerBound_nBit (n : ℕ) (T : ℝ) (hT : 0 < T)
     (procs : Fin n → ErasureProcess)
     (hbath : ∀ i, (procs i).bath.bathTemp.val = T)
     (hSL : ∀ i, physicalSecondLawUniformBinary (procs i)) :
     (∑ i, (procs i).work) ≥ n * (T * log 2) := by
+  have _ := hT
   induction n with
   | zero => simp
   | succ k ih =>

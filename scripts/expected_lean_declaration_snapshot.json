@@ -18,7 +18,7 @@
     "LandauerLaw",
     "InfoTheory",
     "EndConditions",
-    "MeasurementCost",
+    "ClassicalMeasurementCost",
     "LandauerExtension",
     "FiberedActivation",
     "MonoidalState",
@@ -129,7 +129,7 @@
       "theorem": 3,
       "lemma": 0
     },
-    "MeasurementCost": {
+    "ClassicalMeasurementCost": {
       "theorem": 1,
       "lemma": 0
     },
