@@ -24,7 +24,7 @@ jobs:
     name: README sanity
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
       - name: README sanity (catch accidental wipes)
         run: |
           set -euo pipefail
@@ -40,7 +40,7 @@ jobs:
     name: Agda proof check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
 
       - name: Install Agda + stdlib
         run: |
@@ -72,7 +72,7 @@ jobs:
     # actions/checkout with EACCES on runner file commands).  Run Coq inside
     # the official image via bind mount instead.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
 
       - name: Compile Coq proofs + extraction (Coq 8.20 in Docker)
         run: |
@@ -100,16 +100,16 @@ jobs:
     name: Haskell pure gate tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
 
       - name: Install GHC & cabal
-        uses: haskell-actions/setup@v2
+        uses: haskell-actions/setup@cd0d9bdd65b20557f41bea4dbe43d0b5fbbfe553 # v2
         with:
           ghc-version: "9.6"
           cabal-version: "3.10"
 
       - name: Cache cabal store
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: ~/.cabal/store
           key: ${{ runner.os }}-cabal-${{ hashFiles('Haskell/umst-formal.cabal') }}
@@ -140,23 +140,23 @@ jobs:
     name: Rust FFI bridge tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
 
       - name: Clone umst-manifold (ffi-bridge path dependency)
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
         with:
           repository: tytolabs/umst-manifold
           ref: b5bfd0665143d47fb715fbc795d47c5fca477b65
           path: ../umst-manifold
 
       - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@3c5f7ea28cd621ae0bf5283f0e981fb97b8a7af9 # master
         with:
           toolchain: 1.88
           components: clippy, rustfmt
 
       - name: Cache cargo registry
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: |
             ~/.cargo/registry
@@ -181,10 +181,10 @@ jobs:
     name: Generate visuals (fixtures)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
 
@@ -203,10 +203,10 @@ jobs:
     name: Lean 4 proof check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
 
       - name: Set up Lean 4 + Mathlib cache + build UMST
-        uses: leanprover/lean-action@v1
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1
         with:
           lake-package-directory: Lean
           auto-config: "false"
@@ -232,7 +232,7 @@ jobs:
         run: bash scripts/check_print_axioms.sh
 
       - name: Checkout sibling umst-formal-double-slit (shared-module drift)
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
         with:
           repository: tytolabs/umst-formal-double-slit
           ref: 1c07e05b5c7bfd6acb1ebe25ae0a7493c91e79d0
@@ -248,10 +248,10 @@ jobs:
     name: Docs lint + Markdown links
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364ed6afde # v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
 
