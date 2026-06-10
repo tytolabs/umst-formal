@@ -141,13 +141,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          path: umst-formal
 
-      - name: Clone umst-manifold (ffi-bridge path dependency)
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           repository: tytolabs/umst-manifold
-          ref: b5bfd0665143d47fb715fbc795d47c5fca477b65
-          path: ../umst-manifold
+          ref: 4b34ce4793bc727229594b007ddb13daa153e3df
+          path: umst-manifold
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@3c5f7ea28cd621ae0bf5283f0e981fb97b8a7af9 # master
@@ -161,19 +162,19 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            ffi-bridge/target
-          key: ${{ runner.os }}-cargo-ffi-${{ hashFiles('ffi-bridge/Cargo.lock') }}
+            umst-formal/ffi-bridge/target
+          key: ${{ runner.os }}-cargo-ffi-${{ hashFiles('umst-formal/ffi-bridge/Cargo.lock') }}
 
       - name: Check formatting
-        working-directory: ffi-bridge
+        working-directory: umst-formal/ffi-bridge
         run: cargo fmt --all -- --check
 
       - name: Clippy (warnings as errors)
-        working-directory: ffi-bridge
+        working-directory: umst-formal/ffi-bridge
         run: cargo clippy --all-targets -- -D warnings
 
       - name: Run integration tests
-        working-directory: ffi-bridge
+        working-directory: umst-formal/ffi-bridge
         run: cargo test
 
   # ── Visuals script (optional matplotlib; stub OK if deps missing) ─
@@ -235,7 +236,7 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           repository: tytolabs/umst-formal-double-slit
-          ref: 1c07e05b5c7bfd6acb1ebe25ae0a7493c91e79d0
+          ref: d2b91ef4c08e540b79546f2b8a16fb2be606398b
           path: sibling/umst-formal-double-slit
 
       - name: Shared Lean module drift (8 modules)
