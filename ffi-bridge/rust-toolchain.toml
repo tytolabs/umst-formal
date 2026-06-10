@@ -1,0 +1,6 @@
+# Matches umst-manifold/rust-toolchain.toml: the path-dependency chain
+# (umst-core -> umst-manifold) pulls transitive `time >= 0.3.47`, which
+# requires rustc 1.88. Without this pin, builds on an older default
+# toolchain fail at `cargo update` time.
+[toolchain]
+channel = "1.88"

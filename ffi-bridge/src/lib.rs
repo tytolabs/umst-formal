@@ -70,10 +70,11 @@ pub unsafe extern "C" fn umst_filter_free(ptr: *mut ThermodynamicFilter) {
 ///   3. Hydration irreversibility (implied by positive dissipation)
 ///   4. Strength monotonicity:   fc_new >= fc_old - eps
 ///
-/// Returns 1 if admissible, 0 if rejected.
+/// Returns 1 if admissible, 0 if rejected. A null `filter_ptr` rejects
+/// (fail-closed): an unverifiable transition is never admissible.
 ///
 /// # Safety
-/// `filter_ptr` must be a valid pointer from `umst_filter_new`.
+/// `filter_ptr` must be a valid pointer from `umst_filter_new` (or null).
 #[no_mangle]
 pub unsafe extern "C" fn umst_gate_check(
     filter_ptr: *mut ThermodynamicFilter,
@@ -88,6 +89,9 @@ pub unsafe extern "C" fn umst_gate_check(
     new_max_strength: f64,
     dt: f64,
 ) -> i32 {
+    if filter_ptr.is_null() {
+        return 0;
+    }
     let filter = &mut *filter_ptr;
 
     // Fields not exposed through C ABI (temperature, entropy) are set to
@@ -243,7 +247,8 @@ pub extern "C" fn umst_thermo_state_from_mix(
 /// which Haskell handles via `Storable` + `alloca`.
 ///
 /// # Safety
-/// `out` must point to a valid, aligned `CThermodynamicState`.
+/// `out` must point to a valid, aligned `CThermodynamicState` (or be null,
+/// in which case the call is a no-op).
 #[no_mangle]
 pub unsafe extern "C" fn umst_thermo_state_from_mix_ptr(
     w_c: f64,
@@ -251,6 +256,9 @@ pub unsafe extern "C" fn umst_thermo_state_from_mix_ptr(
     temp: f64,
     out: *mut CThermodynamicState,
 ) {
+    if out.is_null() {
+        return;
+    }
     *out = umst_thermo_state_from_mix(w_c, alpha, temp);
 }
 

@@ -339,3 +339,18 @@ fn test_strength_powers_monotone_with_hydration() {
         "Powers strength must be monotone with α: fc(0.40)={fc_low}, fc(0.70)={fc_high}"
     );
 }
+
+#[test]
+fn test_gate_check_null_filter_fails_closed() {
+    // A null filter must reject (0), never accept or crash: the gate
+    // fails closed when it cannot verify a transition.
+    let result = unsafe {
+        umst_gate_check(
+            std::ptr::null_mut(),
+            2400.0, -1.0e6, 0.5, 30.0, // old state
+            2400.0, -1.1e6, 0.6, 35.0, // new state (otherwise admissible)
+            80.0, 1.0,
+        )
+    };
+    assert_eq!(result, 0, "null filter must fail closed (reject)");
+}
