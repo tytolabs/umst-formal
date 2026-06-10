@@ -3,7 +3,7 @@
 
   `MemoryTier.PairwiseDisjoint` is the generalized 3-way statement; full proof: §14bis.h-L-M3.
   `local_shared_disjoint_under_promotion` is kept for `THEOREM_ALLOWLIST.txt` / backward coverage;
-  it is proved trivially on the stub predicates so strict ZCI sees only one `sorry` (here).
+  it is proved trivially on the stub predicates (`fun _ _ => trivial`) — no `sorry`, no `admit`.
 -/
 
 import Mathlib.Data.Set.Basic

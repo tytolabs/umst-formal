@@ -36,10 +36,16 @@ fn test_inv1_mass_conservation_accepted() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                2000.0, -225.0, 0.5, 20.0,   // old: rho, psi, alpha, fc
-                2050.0, -315.0, 0.7, 30.0,   // new: rho, psi, alpha, fc
-                100.0,                         // new max_strength
-                3600.0,                        // dt = 1 hour
+                2000.0,
+                -225.0,
+                0.5,
+                20.0, // old: rho, psi, alpha, fc
+                2050.0,
+                -315.0,
+                0.7,
+                30.0,   // new: rho, psi, alpha, fc
+                100.0,  // new max_strength
+                3600.0, // dt = 1 hour
             );
             assert_eq!(result, 1, "50 kg/m³ density change should be accepted");
         });
@@ -53,8 +59,14 @@ fn test_inv1_mass_conservation_rejected() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                2000.0, -225.0, 0.5, 20.0,
-                2200.0, -225.0, 0.5, 20.0,   // only density changes (unrealistic)
+                2000.0,
+                -225.0,
+                0.5,
+                20.0,
+                2200.0,
+                -225.0,
+                0.5,
+                20.0, // only density changes (unrealistic)
                 150.0,
                 3600.0,
             );
@@ -92,8 +104,14 @@ fn test_inv2_energy_violation_rejected() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                2000.0, -315.0, 0.7, 30.0,   // old: ψ = -315
-                2000.0, -200.0, 0.7, 30.0,   // new: ψ = -200 > old (illegal)
+                2000.0,
+                -315.0,
+                0.7,
+                30.0, // old: ψ = -315
+                2000.0,
+                -200.0,
+                0.7,
+                30.0, // new: ψ = -200 > old (illegal)
                 150.0,
                 3600.0,
             );
@@ -111,12 +129,21 @@ fn test_inv3_forward_hydration_accepted() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                2000.0, -225.0, 0.5, 20.0,
-                2000.0, -315.0, 0.7, 30.0,
+                2000.0,
+                -225.0,
+                0.5,
+                20.0,
+                2000.0,
+                -315.0,
+                0.7,
+                30.0,
                 150.0,
                 3600.0,
             );
-            assert_eq!(result, 1, "Forward hydration (α: 0.5→0.7) should be accepted");
+            assert_eq!(
+                result, 1,
+                "Forward hydration (α: 0.5→0.7) should be accepted"
+            );
         });
     }
 }
@@ -128,12 +155,21 @@ fn test_inv3_reverse_hydration_rejected() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                2000.0, -315.0, 0.7, 30.0,
-                2000.0, -225.0, 0.5, 20.0,   // alpha decreases
+                2000.0,
+                -315.0,
+                0.7,
+                30.0,
+                2000.0,
+                -225.0,
+                0.5,
+                20.0, // alpha decreases
                 150.0,
                 3600.0,
             );
-            assert_eq!(result, 0, "Reverse hydration (α: 0.7→0.5) should be rejected");
+            assert_eq!(
+                result, 0,
+                "Reverse hydration (α: 0.7→0.5) should be rejected"
+            );
         });
     }
 }
@@ -146,8 +182,14 @@ fn test_inv4_strength_increases_accepted() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                2000.0, -225.0, 0.5, 20.0,
-                2000.0, -315.0, 0.7, 35.0,   // strength 20 → 35 MPa ✓
+                2000.0,
+                -225.0,
+                0.5,
+                20.0,
+                2000.0,
+                -315.0,
+                0.7,
+                35.0, // strength 20 → 35 MPa ✓
                 150.0,
                 3600.0,
             );
@@ -206,10 +248,14 @@ fn test_theorem1_from_mix_forward() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                old_state.density,    old_state.free_energy,
-                old_state.hydration_degree, old_state.strength,
-                new_state.density,    new_state.free_energy,
-                new_state.hydration_degree, new_state.strength,
+                old_state.density,
+                old_state.free_energy,
+                old_state.hydration_degree,
+                old_state.strength,
+                new_state.density,
+                new_state.free_energy,
+                new_state.hydration_degree,
+                new_state.strength,
                 new_state.max_strength,
                 3600.0,
             );
@@ -229,8 +275,14 @@ fn test_identity_always_accepted() {
         with_filter(|ptr| {
             let result = umst_gate_check(
                 ptr as *mut _,
-                2000.0, -315.0, 0.7, 30.0,
-                2000.0, -315.0, 0.7, 30.0,   // identical
+                2000.0,
+                -315.0,
+                0.7,
+                30.0,
+                2000.0,
+                -315.0,
+                0.7,
+                30.0, // identical
                 150.0,
                 3600.0,
             );
@@ -245,14 +297,20 @@ fn test_identity_always_accepted() {
 fn test_dissipation_zero_dt_guard() {
     // dt = 0 must not cause divide-by-zero or NaN.
     let d = umst_dissipation(2000.0, 2000.0, -225.0, -315.0, 0.0);
-    assert!(d.is_finite(), "D_int must be finite for dt=0 (guard is dt+1e-10)");
-    assert!(d >= 0.0, "D_int must be non-negative for forward hydration even at dt=0");
+    assert!(
+        d.is_finite(),
+        "D_int must be finite for dt=0 (guard is dt+1e-10)"
+    );
+    assert!(
+        d >= 0.0,
+        "D_int must be non-negative for forward hydration even at dt=0"
+    );
 }
 
 #[test]
 fn test_hydration_degree_monotone_with_age() {
     // Older paste has higher hydration degree.
-    let alpha_7d  = umst_hydration_degree(7.0,  20.0, 0.0);
+    let alpha_7d = umst_hydration_degree(7.0, 20.0, 0.0);
     let alpha_28d = umst_hydration_degree(28.0, 20.0, 0.0);
     assert!(
         alpha_28d >= alpha_7d,
@@ -274,7 +332,7 @@ fn test_umst_n_quantile_reference_triple() {
 #[test]
 fn test_strength_powers_monotone_with_hydration() {
     // Higher hydration → higher strength (Powers model).
-    let fc_low  = umst_strength_powers(0.45, 0.40, 0.02, 234.0);
+    let fc_low = umst_strength_powers(0.45, 0.40, 0.02, 234.0);
     let fc_high = umst_strength_powers(0.45, 0.70, 0.02, 234.0);
     assert!(
         fc_high >= fc_low,

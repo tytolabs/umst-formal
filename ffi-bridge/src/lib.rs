@@ -96,7 +96,7 @@ pub unsafe extern "C" fn umst_gate_check(
     // the isothermal simplification (sigma:eps_dot = 0, nabla_T = 0).
     let old_state = ThermodynamicState {
         density: old_density,
-        temperature: 293.0,        // 20 C reference (isothermal assumption)
+        temperature: 293.0, // 20 C reference (isothermal assumption)
         free_energy: old_free_energy,
         entropy: old_hydration * 0.1, // simplified; not used by gate
         hydration_degree: old_hydration,
@@ -128,7 +128,11 @@ pub unsafe extern "C" fn umst_gate_check(
         && strength_monotonic
         && hydration_irreversible
         && strength_bounded;
-    if accepted { 1 } else { 0 }
+    if accepted {
+        1
+    } else {
+        0
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -165,14 +169,8 @@ pub extern "C" fn umst_dissipation(
 /// This function wraps `StrengthEngine::compute_hydration_degree` from
 /// umst-core without modification.
 #[no_mangle]
-pub extern "C" fn umst_hydration_degree(
-    age_days: f32,
-    temp_c: f32,
-    scm_ratio: f32,
-) -> f32 {
-    umst_core::physics_kernel::PhysicsKernel::compute_hydration_degree(
-        age_days, temp_c, scm_ratio,
-    )
+pub extern "C" fn umst_hydration_degree(age_days: f32, temp_c: f32, scm_ratio: f32) -> f32 {
+    umst_core::physics_kernel::PhysicsKernel::compute_hydration_degree(age_days, temp_c, scm_ratio)
 }
 
 // ---------------------------------------------------------------------------
