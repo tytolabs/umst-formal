@@ -18,6 +18,7 @@ import SDFGate
 import InfoTheory
 import LandauerExtension
 import qualified MonoidalState
+import qualified PrimeSpectralGuidance
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -301,6 +302,41 @@ prop_combine_freeEnergy_convex =
         MonoidalState.combine_freeEnergy_le w s1 s2
 
 ------------------------------------------------------------------------
+-- Section 6b: PrimeSpectralGuidance
+------------------------------------------------------------------------
+
+genChannel :: Int -> Gen PrimeSpectralGuidance.MultiplicativeChannel
+genChannel n = do
+  vals <- vectorOf n (choose (-10.0, 10.0))
+  pure (PrimeSpectralGuidance.MC vals)
+
+genWeights :: Int -> Gen [Double]
+genWeights n = vectorOf n (choose (0.5, 1.5))
+
+-- | Identity spectral filter preserves channel values.
+prop_spectralFilter_id :: Property
+prop_spectralFilter_id =
+  forAll (choose (1, 12)) $ \n ->
+    forAll (genChannel n) $ \mc ->
+      PrimeSpectralGuidance.spectralFilter_id_check mc
+
+-- | Perturbation identity at each index.
+prop_spectralFilter_perturb :: Property
+prop_spectralFilter_perturb =
+  forAll (choose (1, 12)) $ \n ->
+    forAll (genChannel n) $ \mc ->
+      forAll (genWeights n) $ \ws ->
+        PrimeSpectralGuidance.spectralFilter_perturb_check ws mc
+
+-- | mangoldtWeightedSum is additive on padded vectors.
+prop_mangoldtWeightedSum_add :: Property
+prop_mangoldtWeightedSum_add =
+  forAll (choose (1, 12)) $ \n ->
+    forAll (vectorOf n (choose (-5.0, 5.0))) $ \f ->
+      forAll (vectorOf n (choose (-5.0, 5.0))) $ \g ->
+        PrimeSpectralGuidance.mangoldtWeightedSum_add_check f g
+
+------------------------------------------------------------------------
 -- Section 7: MeasurementCost
 ------------------------------------------------------------------------
 
@@ -431,6 +467,12 @@ main = do
   quickCheck prop_combine_zero
   quickCheck prop_combine_density_interp
   quickCheck prop_combine_freeEnergy_convex
+
+  putStrLn ""
+  putStrLn "-- PrimeSpectralGuidance"
+  quickCheck prop_spectralFilter_id
+  quickCheck prop_spectralFilter_perturb
+  quickCheck prop_mangoldtWeightedSum_add
 
   putStrLn ""
   putStrLn "-- MeasurementCost"

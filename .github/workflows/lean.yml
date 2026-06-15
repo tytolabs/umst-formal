@@ -25,7 +25,7 @@ jobs:
     name: Lean 4 proof check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/checkout@v4 # v4
 
       - name: Set up Lean 4 + Mathlib cache + build UMST
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1
@@ -51,7 +51,7 @@ jobs:
         run: bash scripts/check_print_axioms.sh
 
       - name: Checkout sibling umst-formal-double-slit (shared-module drift)
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@v4 # v4
         with:
           repository: tytolabs/umst-formal-double-slit
           ref: d2b91ef4c08e540b79546f2b8a16fb2be606398b

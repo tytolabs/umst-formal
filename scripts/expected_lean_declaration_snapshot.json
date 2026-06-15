@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 51,
+  "lake_roots_count": 53,
   "lake_roots": [
     "Gate",
     "Helmholtz",
@@ -22,6 +22,8 @@
     "LandauerExtension",
     "FiberedActivation",
     "MonoidalState",
+    "PrimeSpectralGuidance",
+    "PrimeSpectralCategory",
     "SeparationBound",
     "Economic.EconomicDomain",
     "Economic.EconomicTemperature",
@@ -55,14 +57,14 @@
     "JenningsGelSpace"
   ],
   "roots_only": {
-    "theorem": 237,
+    "theorem": 261,
     "lemma": 24,
-    "total": 261
+    "total": 285
   },
   "all_lean_glob": {
-    "theorem": 244,
+    "theorem": 268,
     "lemma": 24,
-    "total": 268
+    "total": 292
   },
   "per_root": {
     "Gate": {
@@ -143,6 +145,14 @@
     },
     "MonoidalState": {
       "theorem": 6,
+      "lemma": 0
+    },
+    "PrimeSpectralGuidance": {
+      "theorem": 17,
+      "lemma": 0
+    },
+    "PrimeSpectralCategory": {
+      "theorem": 7,
       "lemma": 0
     },
     "SeparationBound": {

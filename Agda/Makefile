@@ -9,7 +9,7 @@ AGDA       := agda
 # -W ignore: suppress benign stdlib noise; -W noLibUnknownField: .agda-lib depend field on Agda 2.6
 AGDA_FLAGS := --library=umst-formal -W noLibUnknownField -W ignore
 
-SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda LandauerEinsteinTrace.agda InfoTheory.agda MeasurementCost.agda
+SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda LandauerEinsteinTrace.agda InfoTheory.agda MeasurementCost.agda PrimeSpectralGuidance.agda
 
 .PHONY: all check html clean
 

@@ -38,8 +38,8 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 |-------|------|---------------|--------|
 | Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | Physical postulates in `Gate.agda` (see key); `InfoTheory.agda` (definitions + 3 postulates mirroring Lean/Coq product laws; small length lemmas proved); default `make check` is not `--safe` |
 | Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
-| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **51** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`) and **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`. Counts: **237** `theorem` + **24** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
-| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **62** properties (gate, SDF, InfoTheory, Landauer, monoidal state, burden/stochastic drift, Economic-layer mirrors, **CreditGreedy**, **Dignity**, **EtaCog**, **RhoEstimator**, **MedianConvergence**, **OrderStatisticsBand**); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
+| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **53** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`), **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`, and **prime-spectral guidance** (`PrimeSpectralGuidance`, `PrimeSpectralCategory`; see `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`). Counts: **261** `theorem` + **24** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
+| Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **65** properties (gate, SDF, InfoTheory, Landauer, monoidal state, **prime-spectral guidance**, burden/stochastic drift, Economic-layer mirrors, **CreditGreedy**, **Dignity**, **EtaCog**, **RhoEstimator**, **MedianConvergence**, **OrderStatisticsBand**); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
 | Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (gate + credit + **Dignity** + **η_cog** + **ρ-MI bits** + **`umst_n_warmup`** + **`umst_n_quantile`** correspondence; optional suite). **No `LD_LIBRARY_PATH` required** when the `umst-ffi-correspondence` test stanza embeds `rpath` to `umst-formal/target/release` (GHC 9.10.3 verified). **Fragility:** `$ORIGIN`-relative depth is layout-sensitive; canonical portable fix = `build-tool-depends` pre-test `.so` copy (**Phase N-hygiene-ffi**, scheduled). |
 
 **Legend:**
@@ -315,6 +315,27 @@ inequality).  Coq and Lean are fully in sync.
 
 ---
 
+## Prime-Spectral Guidance (Increment 1 — Lean; Inc 1.5 Agda/Coq)
+
+Novel research scaffolding: prime-statistics **analogies** on auxiliary `MultiplicativeChannel`
+data. **Does not** extend the four-conjunct thermodynamic gate. Design: `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`.
+
+| Claim | Lean | Agda | Coq | Haskell QC | Status |
+|-------|------|------|-----|------------|--------|
+| Channel filter preserves `Admissible` on thermo scalars | `applyChannelFilter_admissible`, `guidance_preserves_admissible` | `applyChannelFilter-admissible`, `guidance-preserves-admissible` | `applyChannelFilter_admissible`, `guidance_preserves_admissible` | -- | proved |
+| Graded Kleisli + guidance commute | `kleisli_guidance_commute` | -- (no `AdmissibleN` in Agda) | `kleisli_guidance_commute` | -- | proved (Lean/Coq) |
+| Identity spectral filter | `spectralFilter_id` | `spectralFilter-id-at` (pointwise) | `spectralFilter_values` + `channelAt` | `prop_spectralFilter_id` | proved |
+| Filter perturbation bound | `spectralFilter_perturb`, `spectralFilter_deviation_le_l1` | -- (see Lean) | -- (see Lean) | `prop_spectralFilter_perturb` | proved |
+| Gate naturality under `GuidanceF` | `gate_naturality` (PrimeSpectralCategory) | -- (Lean category module) | -- | -- | proved (Lean) |
+| Coprime prime lcm = product | `coprime_primes_lcm_eq_mul` | -- | -- | -- | proved (Lean) |
+| Infinite zeta-zero filter convergence | -- | -- | -- | -- | **OPEN** |
+| Manifold Rust witness | -- | -- | -- | -- | **Inc 2** (`prime_spectral_filter.rs`) |
+| Catalog lock bump | -- | -- | -- | -- | **Inc 4** (export digest in 1.5 only) |
+
+**Axioms added:** 0. **Catalog id (prep):** `umst.guidance.prime_spectral`.
+
+---
+
 ## Lean 4 Layer Summary
 
 The Lean 4 layer matches Agda and Coq on the gate / Kleisli core, **plus** an extra
@@ -343,6 +364,8 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.LandauerExtension` | 6 | 0 | `Lean/LandauerExtension.lean` — n-bit / temperature scaling |
 | `UMST.FiberedActivation` | 8 | 0 | `Lean/FiberedActivation.lean` — `engineFiber`, covering lemmas |
 | `UMST.MonoidalState` | 6 | 0 | `Lean/MonoidalState.lean` |
+| `UMST.PrimeSpectralGuidance` | 17 | 0 | `Lean/PrimeSpectralGuidance.lean` — auxiliary `MultiplicativeChannel`, von Mangoldt surrogate, `spectralFilter`, gate-preservation, graded Kleisli commute; **zero new axioms** |
+| `UMST.PrimeSpectralCategory` | 7 | 0 | `Lean/PrimeSpectralCategory.lean` — `GuidanceF` endofunctor, `gate_naturality`; catalog_id prep: `umst.guidance.prime_spectral` |
 | `UMST.SeparationBound` | 2 | 0 | `Lean/SeparationBound.lean` — **Theorem 2 (real-line core):** `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` |
 | `UMST.Economic.EconomicDomain` | 0 | 0 | `Lean/Economic/EconomicDomain.lean` — shared parameters / classical surrogate scaffolding (definitions) |
 | `UMST.Economic.EconomicTemperature` | 3 | 0 | `Lean/Economic/EconomicTemperature.lean` |
@@ -372,7 +395,7 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.Adjoint` | 2 | 0 | `Lean/Adjoint.lean` — matrix exponential transpose identity; terminal-only adjoint closed form |
 | `UMST.RegimeSoundness` | 2 | 0 | `Lean/RegimeSoundness.lean` — regime warnings vs box membership; decidable regime |
 | `UMST.JenningsGelSpace` | 3 | 5 | `Lean/JenningsGelSpace.lean` — Jennings–Brownyard `φ_cap` and gel-space strength monotonicity / nonnegativity |
-| **Total (51 roots)** | **237** | **24** | Regenerate: `cd umst-formal && python3 scripts/lean_declaration_stats.py`. Axiom closure spot-check: `cd Lean && lake env lean --run scripts/print_axioms.lean <name>`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
+| **Total (53 roots)** | **261** | **24** | Regenerate: `cd umst-formal && python3 scripts/lean_declaration_stats.py`. Axiom closure spot-check: `cd Lean && lake env lean --run scripts/print_axioms.lean <name>`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
 
 **Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Gate.lean` / `Constitutional.lean` (not the removed ungraded transitivity axiom).
 
@@ -409,6 +432,7 @@ validates the formal proofs against randomly generated states.
 | `prop_info_marginal_second_product` | `marginalSecond (productJoint p q) ≈ q` (mirror of Lean `marginalY_product`) |
 | `prop_landauer_energy_mono`, `prop_landauer_nBit_scales`, `prop_landauer_300K_pos` | Landauer energy monotonicity, n-bit scaling, 300 K positivity |
 | `prop_combine_one`, `prop_combine_zero`, `prop_combine_density_interp`, `prop_combine_freeEnergy_convex` | Monoidal `combine` on ℚ states (mirrors `MonoidalState`) |
+| `prop_spectralFilter_id`, `prop_spectralFilter_perturb`, `prop_mangoldtWeightedSum_add` | Prime-spectral guidance (mirrors `PrimeSpectralGuidance`) |
 | `prop_mc_uniform_joint_zero_mi`, `prop_mc_energy_nonneg` | Measurement-cost helpers |
 | `prop_burden_symmetric_expectation`, `prop_burden_recursion_admissible`, `prop_burden_geom_decay` | Stochastic burden / recursion / geometric decay (engineering mirrors of `Economic/*`) |
 | `prop_econ_horizon_in_min_max`, `prop_econ_npv_iterate`, `prop_econ_creativity_monotone`, `prop_econ_cost_split_nonneg` | Horizon grounding, NPV iterate, creativity budget, nuance split (mirrors `Lean/Economic/`) |
