@@ -12,7 +12,8 @@
 -/
 
 import Mathlib.Algebra.BigOperators.Group.Finset
-import Mathlib.Data.Nat.Prime
+import Mathlib.Algebra.IsPrimePow
+import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.NumberTheory.VonMangoldt
 import Gate
 
@@ -43,7 +44,7 @@ structure PrimePeriod where
     Uses `minFac n` when `n` is a prime power; 0 otherwise.
     Differs from `ArithmeticFunction.vonMangoldt` (which returns `Real.log p`). -/
 def vonMangoldtWeight (n : Nat) : ℚ :=
-  if _h : IsPrimePow n then (minFac n : ℚ) else 0
+  if _h : IsPrimePow n then (Nat.minFac n : ℚ) else 0
 
 @[simp]
 theorem vonMangoldtWeight_zero : vonMangoldtWeight 0 = 0 := by
@@ -56,7 +57,7 @@ theorem vonMangoldtWeight_one : vonMangoldtWeight 1 = 0 := by
 /-- At a prime `p`, weight equals `p`. -/
 theorem vonMangoldtWeight_prime {p : Nat} (hp : Nat.Prime p) :
     vonMangoldtWeight p = p := by
-  simp [vonMangoldtWeight, hp.isPrimePow, hp.minFac]
+  simp [vonMangoldtWeight, hp.isPrimePow, hp.minFac_eq]
 
 -- ================================================================
 -- SECTION 3: Spectral filter (endofunctor on channels)
@@ -76,8 +77,8 @@ theorem spectralFilter_values {T : Nat} (weights : Fin T → ℚ) (s : Multiplic
 /-- Identity filter is the identity endofunctor. -/
 theorem spectralFilter_id {T : Nat} (s : MultiplicativeChannel T) :
     spectralFilter (fun _ => (1 : ℚ)) s = s := by
-  ext i
-  simp [spectralFilter, MultiplicativeChannel.mk.injEq]
+  cases s
+  simp [spectralFilter, MultiplicativeChannel]
 
 /-- Pointwise perturbation identity: `(w i - 1) * s i`. -/
 theorem spectralFilter_perturb {T : Nat} (w : Fin T → ℚ) (s : MultiplicativeChannel T)
@@ -99,12 +100,15 @@ def weightDeviationL1 {T : Nat} (w : Fin T → ℚ) : ℚ :=
 /-- Bounded deviation: pointwise bound from L¹ bound (crude but provable). -/
 theorem spectralFilter_deviation_le_l1 {T : Nat} (w : Fin T → ℚ) (s : MultiplicativeChannel T)
     (i : Fin T) (h : |w i - 1| ≤ weightDeviationL1 w) :
-    | (spectralFilter w s).values i - s.values i | ≤
+    |(spectralFilter w s).values i - s.values i| ≤
       weightDeviationL1 w * max (|s.values i|) 0 := by
   rw [spectralFilter_perturb]
   have hmul : |(w i - 1) * s.values i| = |w i - 1| * |s.values i| := abs_mul _ _
   rw [hmul]
-  exact mul_le_mul h (le_max_left _ _) (abs_nonneg _) (Nat.zero_le _)
+  have hw : 0 ≤ weightDeviationL1 w := by
+    dsimp [weightDeviationL1]
+    exact Finset.sum_nonneg fun _ _ => abs_nonneg _
+  exact mul_le_mul h (le_max_left _ _) (abs_nonneg _) hw
 
 -- ================================================================
 -- SECTION 4: Explicit formula — finite truncation
@@ -120,7 +124,7 @@ theorem mangoldtWeightedSum_add {T : Nat} (f g : Fin T → ℚ) :
   simp [mangoldtWeightedSum, mul_add, Finset.sum_add_distrib]
 
 theorem mangoldtWeightedSum_zero {T : Nat} :
-    mangoldtWeightedSum (fun _ => (0 : ℚ)) = 0 := by
+    mangoldtWeightedSum (f := fun (_ : Fin T) => (0 : ℚ)) = 0 := by
   simp [mangoldtWeightedSum]
 
 -- ================================================================
@@ -130,7 +134,7 @@ theorem mangoldtWeightedSum_zero {T : Nat} :
 /-- Distinct primes are coprime. -/
 theorem prime_coprime {p q : Nat} (hp : Nat.Prime p) (hq : Nat.Prime q) (hne : p ≠ q) :
     Nat.Coprime p q :=
-  Nat.coprime_primes hp hq hne
+  (Nat.coprime_primes hp hq).mpr hne
 
 /-- lcm of coprime primes equals their product. -/
 theorem coprime_primes_lcm_eq_mul {p q : Nat} (hp : Nat.Prime p) (hq : Nat.Prime q)
@@ -196,7 +200,7 @@ theorem kleisli_guidance_commute {n m k : Nat} (g₁ g₂ g₃ : GuidedState n)
 
 /-- Oscillatory basis function `cos(γ · log n)` for `n > 0` (filter-bank analogy).
     Convergence of infinite sums over zeta zeros is **OPEN** — not used in gate proofs. -/
-noncomputable def zetaOscillator (gamma : ℝ) (n : Nat) (hn : 0 < n) : ℝ :=
+noncomputable def zetaOscillator (gamma : ℝ) (n : Nat) (_hn : 0 < n) : ℝ :=
   Real.cos (gamma * Real.log n)
 
 end UMST.PrimeSpectral
