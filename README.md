@@ -7,6 +7,9 @@ SPDX-License-Identifier: MIT
 
 # The Thermodynamic Cost of Acting
 
+> _This architecture is built upon the life's work of numerous scientists who formalized the mathematics of thermodynamics without ever seeing it touch physical reality. Our only contribution is humility—connecting their unbroken chain of truth to the machine._
+
+
 ### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
 
 This repository is the **classical meso-layer**: rational state changes, Shannon and Landauer bookkeeping, and lemmas that bind “growth stories” to explicit hypotheses. It extends [**The Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) (observation and collapse in **`umst-formal-double-slit`**) toward **acts and commitments** without pretending that optimism is an axiom.
@@ -21,6 +24,8 @@ This repository is the **classical meso-layer**: rational state changes, Shannon
 **Lean 4 (default roots):** **53** modules · **261** `theorem` + **24** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)). After `lake build`, CI also runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems).
 
 The Economic filenames that sound like oracles are **parameterised predicates**. They do not see the world. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before you cite them off-repo.
+
+*This ecosystem is dedicated to the thousands of unnamed contributors who wrote formal proofs, maintained open-source compilers, and built mathematical libraries for years — often without evidence that any of it would be used beyond pure theory. They chose to make their work free, because they understood that knowledge about physical reality cannot be owned. Whatever this system achieves is yours.*
 
 <br>
 
