@@ -25,8 +25,6 @@ This repository is the **classical meso-layer**: rational state changes, Shannon
 
 The Economic filenames that sound like oracles are **parameterised predicates**. They do not see the world. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before you cite them off-repo.
 
-*This ecosystem is dedicated to the thousands of unnamed contributors who wrote formal proofs, maintained open-source compilers, and built mathematical libraries for years — often without evidence that any of it would be used beyond pure theory. They chose to make their work free, because they understood that knowledge about physical reality cannot be owned. Whatever this system achieves is yours.*
-
 <br>
 
 </div>
