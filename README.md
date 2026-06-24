@@ -16,6 +16,7 @@ This repository is the **classical meso-layer**: rational state changes, Shannon
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18940933.svg)](https://doi.org/10.5281/zenodo.18940933)
 <!-- readme:status -->
 [![CI](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml)
+[![CI — Lean](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
 **Machine-checked UMST formal core** — Agda · Coq · Lean 4 · Haskell QuickCheck · optional Rust FFI.
