@@ -9,7 +9,6 @@ SPDX-License-Identifier: MIT
 
 > _This architecture is built upon the life's work of numerous scientists who formalized the mathematics of thermodynamics without ever seeing it touch physical reality. Our only contribution is humility—connecting their unbroken chain of truth to the machine._
 
-
 ### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
 
 This repository is the **classical meso-layer**: rational state changes, Shannon and Landauer bookkeeping, and lemmas that bind “growth stories” to explicit hypotheses. It extends [**The Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) (observation and collapse in **`umst-formal-double-slit`**) toward **acts and commitments** without pretending that optimism is an axiom.
