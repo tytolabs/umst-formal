@@ -48,7 +48,8 @@ lean_lib «UMST» where
     `OrderStatisticsBand,
     `Memory.MergeSafe,
     `Memory.TierDisjoint,
-    `DEC, `Adjoint, `RegimeSoundness, `JenningsGelSpace]
+    `DEC, `Adjoint, `RegimeSoundness, `JenningsGelSpace,
+    `DualLedger]
   srcDir := "."
 
 /-!
