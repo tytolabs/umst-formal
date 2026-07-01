@@ -85,7 +85,7 @@ Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/
 
 | Layer | Repository | Role |
 |--------|------------|------|
-| **Quantum foundation** | **`umst-formal-double-slit`** | **59** lake roots, **537** `theorem` + **34** `lemma` (line-start, roots-only), **0** `sorry`, **1** axiom (`physicalSecondLaw`); complementarity, dephasing + stream-D limits, epistemic MI. Zenodo: [10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660). Counts: sibling `README.md` / `PROOF-STATUS.md`. |
+| **Quantum foundation** | **`umst-formal-double-slit`** | **53** lake roots, **487** `theorem` + **30** `lemma` (line-start, roots-only), **0** `sorry`, **1** axiom (`physicalSecondLaw`); complementarity, dephasing + stream-D limits, epistemic MI. Zenodo: [10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660). Counts: sibling `README.md` / `PROOF-STATUS.md`. |
 | **Meso-scale classical** | **`umst-formal` (this repo)** | Rational gate, Kleisli constitution, Shannon/Landauer bridge, and **`Lean/Economic/`** lemmas — **no** dependency on the double-slit package unless you add one. |
 
 Both share the **single** project Lean **`axiom`** pattern documented in [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) (`physicalSecondLaw`).

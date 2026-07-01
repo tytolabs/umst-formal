@@ -12,12 +12,11 @@ SIBLING_NAME="${UMST_FORMAL_SIBLING:-$DEFAULT_SIBLING}"
 SIBLING="${UMST_FORMAL_SIBLING_DIR:-$ROOT/../$SIBLING_NAME}"
 
 # Shared modules with identical statement contracts in both formal repos.
-# Science-cartridge relocations (formal side only):
-#   Gate      → Core/Gate + Concrete/Gate + Compat/Gate (name-subset vs flat sibling)
-#   Activation → Concrete/Activation
+# Post science-cartridge (2026-07): double-slit no longer vendors flat copies of
+# Gate/Naturality/Activation/FiberedActivation/MonoidalState — it imports
+# `UMST.Core` via `GateCompat` and keeps only the Landauer trilogy byte-aligned.
 MODULES=(
-  Gate LandauerLaw Naturality Activation FiberedActivation
-  LandauerEinsteinBridge LandauerExtension MonoidalState
+  LandauerLaw LandauerEinsteinBridge LandauerExtension
 )
 
 if [[ ! -d "$SIBLING/Lean" ]]; then
