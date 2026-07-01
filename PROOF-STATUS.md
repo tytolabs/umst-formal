@@ -38,7 +38,7 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 |-------|------|---------------|--------|
 | Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | **Core/Concrete/Compat** gate split; physical postulates in `Concrete.Gate` (see key); `Gate.agda` / `Helmholtz.agda` are compat shims; default `make check` is not `--safe` |
 | Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
-| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **53** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`), **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`, and **prime-spectral guidance** (`PrimeSpectralGuidance`, `PrimeSpectralCategory`; see `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`). Counts: **261** `theorem` + **24** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
+| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **59** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`), **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`, and **prime-spectral guidance** (`PrimeSpectralGuidance`, `PrimeSpectralCategory`; see `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`). Counts: **287** `theorem` + **24** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
 | Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **65** properties (gate, SDF, InfoTheory, Landauer, monoidal state, **prime-spectral guidance**, burden/stochastic drift, Economic-layer mirrors, **CreditGreedy**, **Dignity**, **EtaCog**, **RhoEstimator**, **MedianConvergence**, **OrderStatisticsBand**); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
 | Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (gate + credit + **Dignity** + **η_cog** + **ρ-MI bits** + **`umst_n_warmup`** + **`umst_n_quantile`** correspondence; optional suite). **No `LD_LIBRARY_PATH` required** when the `umst-ffi-correspondence` test stanza embeds `rpath` to `umst-formal/target/release` (GHC 9.10.3 verified). **Fragility:** `$ORIGIN`-relative depth is layout-sensitive; canonical portable fix = `build-tool-depends` pre-test `.so` copy (**Phase N-hygiene-ffi**, scheduled). |
 
@@ -55,7 +55,7 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 **Note on postulates:** Agda's `ψ-antitone` and `fc-monotone` are *physical
 model axioms* encoding cement chemistry (Clausius-Duhem, Powers model).  They
 are not logical gaps — they are interface specifications.  The concrete
-arithmetic witness for `ψ-antitone` is fully proved in `Coq/Gate.v`
+arithmetic witness for `ψ-antitone` is fully proved in `Coq/Concrete/Gate.v`
 (helmholtz_antitone, §8) and `Lean/Concrete/Gate.lean` (helmholtzAntitone).  The
 concrete witness for Helmholtz-consistent states is in `Agda/Concrete/Helmholtz.agda`
 (`ψ-antitone-helmholtz`) and `Lean/Concrete/Helmholtz.lean` (`helmholtzStateAdmissible`).
@@ -74,6 +74,17 @@ concrete witness for Helmholtz-consistent states is in `Agda/Concrete/Helmholtz.
 
 Phase B (2026-07): Agda / Coq / Haskell **Core / Concrete / Compat** mirrors landed; Lean remains authoritative on `safe/science-cartridge`.
 
+### Known follow-on asymmetries (harmless; organizational only)
+
+| Item | Status | Why it is safe |
+|------|--------|----------------|
+| Coq `Constitutional.v` not split into Core/Compat | Deferred | Imports `UMSTFormal.Gate` shim; graded Kleisli lemmas unchanged; concrete-only |
+| No separate Coq `Concrete/Helmholtz.v` | Deferred | `helmholtz_antitone` proved in `Concrete/Gate.v` §8 |
+| Agda / Haskell no `Core.Constitutional` Kleisli mirror | Deferred | DIB-Kleisli / `KleisliDIB.hs` unchanged; Lean `Core.Constitutional` is authoritative |
+| Agda `CoreAdmissible` not nested in flat `Admissible` | Deferred | API stability; semantics identical to four-conjunct record |
+
+**Declaration count delta vs pre-refactor `main`:** lake roots **54 → 59** (+5 from `Core.*`, `Concrete.State`, `Compat.*`); roots-only theorems **265 → 287** (+22 from split modules, no removed lemmas); all-Lean declarations **296 → 318** (snapshot-verified). No theorem was deleted — names moved across `Core` / `Concrete` / `Compat`.
+
 ---
 
 ## Complete Axiom / Postulate Inventory
@@ -86,8 +97,8 @@ this table.**
 
 | Declaration | Coq | Agda | Lean | Classification |
 |---|---|---|---|---|
-| Free-energy antitone under hydration | `psi_antitone` (Gate.v) | `ψ-antitone` (Gate.agda) | `helmholtzAntitone` (Concrete/Gate.lean); state witness `ψAntitoneHelmholtz` (Concrete/Helmholtz.lean) — **not** a Lean `axiom` | Clausius-Duhem / Helmholtz model |
-| Strength monotone under hydration | `fc_monotone` (Gate.v) | `fc-monotone` (Gate.agda) | `powersStateFcMonotone` (Concrete/Powers.lean) — **not** a Lean `axiom` | Powers gel-space ratio model |
+| Free-energy antitone under hydration | `psi_antitone` (`Concrete/Gate.v`) | `ψ-antitone` (`Concrete/Gate.agda`) | `helmholtzAntitone` (Concrete/Gate.lean); state witness `ψAntitoneHelmholtz` (Concrete/Helmholtz.lean) — **not** a Lean `axiom` | Clausius-Duhem / Helmholtz model |
+| Strength monotone under hydration | `fc_monotone` (`Concrete/Gate.v`) | `fc-monotone` (`Concrete/Gate.agda`) | `powersStateFcMonotone` (Concrete/Powers.lean) — **not** a Lean `axiom` | Powers gel-space ratio model |
 | Second Law of Thermodynamics (erasure) | -- | -- | `physicalSecondLaw` + `physicalSecondLawUniformBinary` (LandauerLaw.lean) | T_LandauerLaw only; Clausius entropy form; uniform-binary binders use `physicalSecondLawUniformBinary proc` (Lean parse) |
 
 ### Composition / transitivity (RESOLVED — axiom removed)
@@ -106,7 +117,7 @@ violates it.  Formal counterexample: `GraphProperties.lean` (`mass_not_transitiv
 | Graded composition | `admissibleN_compose` (`Concrete/Gate.lean`) | `admissible_N_compose` (Constitutional.v) | -- | Proved via triangle inequality |
 | 0-step identity | `admissibleNRefl 0` (`Concrete/Gate.lean`) | `admissible_N_refl` (Constitutional.v) | -- | Proved |
 | General Kleisli composition | `kleisliComposeWellTypedN` (`Core/Constitutional.lean`) | `kleisli_compose_well_typed_N` (Constitutional.v) | -- | m+n-step graded |
-| N-step Kleisli | `kleisliFoldWellTypedN` (Constitutional.lean) | `kleisli_fold_well_typed_N` (Constitutional.v) | -- | WellTypedN n; no axiom |
+| N-step Kleisli | `kleisliFoldWellTypedN` (`Core/Constitutional.lean`) | `kleisli_fold_well_typed_N` (Constitutional.v) | -- | WellTypedN n; no axiom |
 | Mass non-transitivity | `mass_not_transitive` (GraphProperties.lean) | -- | `prop_mass_not_transitive` | Formal counterexample |
 | Accuracy–safety separation (per-sample $L^1$ / MAE core) | `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` (SeparationBound.lean) | -- | -- | Triangle inequality on ℝ |
 
@@ -146,7 +157,7 @@ derivable in a named extension **T_ext** — see `Docs/FORMAL-PHYSICS-DERIVATION
 
 **In-repo thermodynamics (for comparison):** the **gate** layer already includes a
 **Clausius–Duhem dissipation inequality** and Helmholtz-based constitutive axioms
-(`Gate.v` / `Gate.lean` / `Gate.agda`). That is the **material-state** formalization
+(`Compat/Gate.lean` / `Concrete/Gate.lean` / `Concrete/Gate.agda` / `Concrete/Gate.v`). That is the **material-state** formalization
 in this artifact; it does **not** subsume the continuum items above unless explicitly
 linked in a future module.
 
@@ -248,10 +259,10 @@ erasure theorems, measured gravitational couplings, or cosmological models.
 
 | Theorem | Agda | Coq | Lean 4 | Haskell QC |
 |---------|------|-----|--------|------------|
-| Mass conservation: `\|ρ_new − ρ_old\| ≤ δ` | `Gate.agda` (in Admissible) | `Gate.v` (admissible) | `Gate.lean` (Admissible) | `prop_mass_conservation_spec` |
-| Clausius-Duhem: `D_int ≥ 0` | `Gate.agda` (in Admissible) | `clausius_duhem_forward` | `clausiusDuhemFwd` | `prop_clausius_spec` |
-| Hydration irreversibility: `α_new ≥ α_old` | `Gate.agda` (in Admissible) | `Gate.v` (admissible) | `Gate.lean` (hydrationMono) | `prop_hydration_spec` |
-| Strength monotonicity: `fc_new ≥ fc_old` | `Gate.agda` (in Admissible) | `Gate.v` (admissible) | `Gate.lean` (strengthMono) | `prop_strength_spec` |
+| Mass conservation: `\|ρ_new − ρ_old\| ≤ δ` | `Concrete/Gate.agda` (in Admissible) | `Concrete/Gate.v` (admissible) | `Compat/Gate.lean` (Admissible) | `prop_mass_conservation_spec` |
+| Clausius-Duhem: `D_int ≥ 0` | `Concrete/Gate.agda` (in Admissible) | `clausius_duhem_forward` | `clausiusDuhemFwd` | `prop_clausius_spec` |
+| Hydration irreversibility: `α_new ≥ α_old` | `Concrete/Gate.agda` (in Admissible) | `Concrete/Gate.v` (admissible) | `Compat/Gate.lean` (hydrationMono) | `prop_hydration_spec` |
+| Strength monotonicity: `fc_new ≥ fc_old` | `Concrete/Gate.agda` (in Admissible) | `Concrete/Gate.v` (admissible) | `Compat/Gate.lean` (strengthMono) | `prop_strength_spec` |
 | Gate soundness: `check = true → admissible` | `gate` (Dec) | `gate_check_sound` | `gateCheckSound` | -- |
 | Gate completeness: `admissible → check = true` | `gate` (Dec) | `gate_check_complete` | `gateCheckComplete` | -- |
 | Main safety theorem (forward hydration) | `forward-hydration-admissible` | `forward_hydration_admissible` | `forwardHydrationAdmissible` | `prop_gate_deterministic` |
@@ -412,9 +423,9 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.Adjoint` | 2 | 0 | `Lean/Adjoint.lean` — matrix exponential transpose identity; terminal-only adjoint closed form |
 | `UMST.RegimeSoundness` | 2 | 0 | `Lean/RegimeSoundness.lean` — regime warnings vs box membership; decidable regime |
 | `UMST.JenningsGelSpace` | 3 | 5 | `Lean/JenningsGelSpace.lean` — Jennings–Brownyard `φ_cap` and gel-space strength monotonicity / nonnegativity |
-| **Total (53 roots)** | **261** | **24** | Regenerate: `cd umst-formal && python3 scripts/lean_declaration_stats.py`. Axiom closure spot-check: `cd Lean && lake env lean --run scripts/print_axioms.lean <name>`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
+| **Total (59 roots)** | **287** | **24** | Regenerate: `cd umst-formal && python3 scripts/lean_declaration_stats.py`. Axiom closure spot-check: `cd Lean && lake env lean --run scripts/print_axioms.lean <name>`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
 
-**Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Gate.lean` / `Constitutional.lean` (not the removed ungraded transitivity axiom).
+**Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Compat/Gate.lean` / `Core/Constitutional.lean` (not the removed ungraded transitivity axiom).
 
 **InfoTheory follow-up (not in artifact):** general non-negativity `0 ≤ mutualInformation J` (equivalently subadditivity of Shannon entropy / KL divergence ≥ 0) is stated as a future extension in `InfoTheory.lean`; the product case above already forces `MI = 0` for independent factors.
 

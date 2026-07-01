@@ -10,7 +10,12 @@ open Rat
 
 namespace UMST.Core
 
-/-- Mass conservation tolerance (kg/m³); SSOT across Agda / Coq / Lean / Rust. -/
+/-- Mass conservation tolerance (kg/m³); SSOT across Agda / Coq / Lean / Rust.
+
+    **Provenance:** `100` is currently calibrated to cementitious bulk-density scales
+    (OPC paste / normal-weight concrete). It is **not** yet material-parameterized;
+    a second cartridge should supply its own tolerance via `ThermodynamicSystem` +
+  `CoreAdmissible` without editing this literal until Core is generalized. -/
 def δMass : ℚ := 100
 
 @[simp] theorem δMass_def : δMass = 100 := rfl

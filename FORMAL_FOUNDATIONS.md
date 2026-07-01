@@ -107,7 +107,7 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 
 | Gate | Mechanism |
 |:-----|:----------|
-| Lean default roots | `lake build UMST` — **51** modules in `lakefile.lean` |
+| Lean default roots | `lake build UMST` — **59** modules in `lakefile.lean` |
 | Tactic gaps | **Zero** `sorry` / `admit` in `Lean/**/*.lean` (excl. `.lake`); CI: `scripts/check_lean_sorry.sh` |
 | Project axiom | Exactly **`LandauerLaw.physicalSecondLaw`**; CI: `scripts/check_lean_axioms.py` |
 | Declaration drift | Totals match `scripts/expected_lean_declaration_snapshot.json`; CI: `lean_declaration_stats.py --verify-snapshot` |
