@@ -132,13 +132,8 @@ Four invariants, across all formal layers:
 | Naturality | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Concrete/Activation.lean` |
 | Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Core/Constitutional.lean`, `Lean/Compat/Constitutional.lean` |
 | Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
-<<<<<<< Updated upstream
-| SDF / FRep; CSG; Eikonal | `Agda/Helmholtz.agda §6`, `Lean/Concrete/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **59** roots, **294** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
-=======
-| SDF / FRep; CSG; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **54** roots, **265** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
->>>>>>> Stashed changes
+| SDF / FRep; CSG; Eikonal | `Agda/Concrete/Helmholtz.agda`, `Lean/Concrete/Helmholtz.lean`, `Haskell/SDFGate.hs` |
+| Full Lean layer + Economic meso-scale | `Lean/` — **59** roots, **287** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
 | Haskell QuickCheck + sanity | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs); `cabal test landauer-einstein-sanity` — details in [`Haskell/README.md`](Haskell/README.md) and [`PROOF-STATUS.md`](PROOF-STATUS.md) § Cross-Layer Consistency |
 
 See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index (§ **Lean 4 Layer Summary** lists every lake root with theorem counts and flagship lemmas).
