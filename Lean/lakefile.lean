@@ -25,8 +25,9 @@ require mathlib from git
   should participate in CI; optional experiments stay out of the default closure.
 -/
 lean_lib «UMST» where
-  roots := #[`Core.State, `Core.Gate, `Core.Constitutional,
+  roots := #[`Core.Scalar, `Core.State, `Core.Gate, `Core.Constitutional,
     `Concrete.State, `Concrete.Gate,
+    `Real.State, `Real.Gate,
     `Concrete.Helmholtz, `Concrete.Powers, `Concrete.Convergence, `Concrete.GraphProperties,
     `Concrete.Activation, `Concrete.EndConditions, `Concrete.EnrichedAdmissibility, `Concrete.GaloisGate,
     `Compat.Gate, `Compat.Constitutional,

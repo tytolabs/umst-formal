@@ -1,17 +1,18 @@
 /-
   UMST.Core.State — material-agnostic thermodynamic interfaces.
 -/
-import Mathlib.Algebra.Order.Field.Rat
+import Core.Scalar
 
 namespace UMST.Core
 
-/-- Any thermodynamic state carries density and Helmholtz free energy (ℚ-exact). -/
-class ThermodynamicSystem (S : Type) where
-  density    : S → ℚ
-  freeEnergy : S → ℚ
+/-- Any thermodynamic state carries density and Helmholtz free energy over scalar field `K`. -/
+class ThermodynamicSystem (K : outParam Type) [LinearOrderedField K] [ThermodynamicScalar K] (S : Type) where
+  density    : S → K
+  freeEnergy : S → K
 
 /-- Graded admissibility graph on states: 1-step edge predicate + N-step path predicate. -/
-class AdmissibleSystem (S : Type) [ThermodynamicSystem S] where
+class AdmissibleSystem (K : outParam Type) [LinearOrderedField K] [ThermodynamicScalar K] (S : Type)
+    [ThermodynamicSystem K S] where
   admissibleStep  : S → S → Prop
   admissibleNStep : ℕ → S → S → Prop
   admissible_iff_admissibleN1 :
@@ -21,14 +22,14 @@ class AdmissibleSystem (S : Type) [ThermodynamicSystem S] where
     ∀ {m n s s' s''},
       admissibleNStep m s s' → admissibleNStep n s' s'' → admissibleNStep (m + n) s s''
 
-variable {S : Type} [ThermodynamicSystem S] [AdmissibleSystem S]
-
 /-- Single-step admissibility (edge in the state transition graph). -/
-abbrev Admissible (s s' : S) : Prop :=
-  AdmissibleSystem.admissibleStep s s'
+abbrev Admissible {K : Type} [LinearOrderedField K] [ThermodynamicScalar K] {S : Type}
+    [ThermodynamicSystem K S] [AdmissibleSystem K S] (s s' : S) : Prop :=
+  @AdmissibleSystem.admissibleStep K _ _ S _ _ s s'
 
 /-- N-step admissibility (path of length ≤ n in the weighted graph). -/
-abbrev AdmissibleN (n : ℕ) (s s' : S) : Prop :=
-  AdmissibleSystem.admissibleNStep n s s'
+abbrev AdmissibleN {K : Type} [LinearOrderedField K] [ThermodynamicScalar K] {S : Type}
+    [ThermodynamicSystem K S] [AdmissibleSystem K S] (n : ℕ) (s s' : S) : Prop :=
+  @AdmissibleSystem.admissibleNStep K _ _ S _ _ n s s'
 
 end UMST.Core

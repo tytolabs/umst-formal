@@ -15,9 +15,9 @@ abbrev ThermodynamicState := ConcreteState
 abbrev Admissible := ConcreteAdmissible
 abbrev AdmissibleN := ConcreteAdmissibleN
 
-def δMass : ℚ := UMST.Core.δMass
+def δMass : ℚ := @UMST.Core.δMass ℚ _ _
 
-theorem δMass_eq : δMass = 100 := rfl
+theorem δMass_eq : δMass = 100 := UMST.Core.δMass_def_rat
 def Q_hyd := UMST.Concrete.Q_hyd
 def helmholtz := UMST.Concrete.helmholtz
 
@@ -54,16 +54,16 @@ theorem admissibleN_compose {m n : ℕ} {s s' s'' : ThermodynamicState}
   UMST.Concrete.admissibleN_compose h1 h2
 
 /-- Legacy constitutional path type over cement states. -/
-abbrev ConstitutionalSeq := @UMST.Core.ConstitutionalSeq ConcreteState _ _
+abbrev ConstitutionalSeq := @UMST.Core.ConstitutionalSeq ℚ _ _ ConcreteState _ _
 
 theorem subjectReduction (s1 s2 : ThermodynamicState) (rest : List ThermodynamicState) :
     ConstitutionalSeq (s1 :: s2 :: rest) → ConstitutionalSeq (s2 :: rest) :=
-  @UMST.Core.subjectReduction ConcreteState _ _ s1 s2 rest
+  @UMST.Core.subjectReduction ℚ _ _ ConcreteState _ _ s1 s2 rest
 
 theorem kleisliAdmissibility (seq : List ThermodynamicState) (hseq : ConstitutionalSeq seq) :
     ∀ (i : Nat) (s1 s2 : ThermodynamicState),
       seq.get? i = some s1 → seq.get? (i + 1) = some s2 → Admissible s1 s2 :=
-  @UMST.Core.kleisliAdmissibility ConcreteState _ _ seq hseq
+  @UMST.Core.kleisliAdmissibility ℚ _ _ ConcreteState _ _ seq hseq
 
 /-- Flat constructor (legacy four-conjunct API). -/
 def Admissible.mk (old new : ThermodynamicState)
