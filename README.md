@@ -23,7 +23,7 @@ This repository is the **classical meso-layer**: rational state changes, Shannon
 
 **Machine-checked UMST formal core** — Agda · Coq · Lean 4 · Haskell QuickCheck · optional Rust FFI.
 
-**Lean 4 (default roots):** **59** modules · **287** `theorem` + **24** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)). After `lake build`, CI also runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems).
+**Lean 4 (default roots):** **62** modules · **289** `theorem` + **24** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)). After `lake build`, CI also runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems).
 
 The Economic filenames that sound like oracles are **parameterised predicates**. They do not see the world. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before you cite them off-repo.
 
@@ -85,7 +85,7 @@ Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/
 
 | Layer | Repository | Role |
 |--------|------------|------|
-| **Quantum foundation** | **`umst-formal-double-slit`** | **53** lake roots, **487** `theorem` + **30** `lemma` (line-start, roots-only), **0** `sorry`, **1** axiom (`physicalSecondLaw`); complementarity, dephasing + stream-D limits, epistemic MI. Zenodo: [10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660). Counts: sibling `README.md` / `PROOF-STATUS.md`. |
+| **Quantum foundation** | **`umst-formal-double-slit`** | **52** lake roots, **486** `theorem` + **30** `lemma` (line-start, roots-only), **0** `sorry`, **1** axiom (`physicalSecondLaw`); complementarity, dephasing + stream-D limits, epistemic MI. Zenodo: [10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660). Counts: sibling `README.md` / `PROOF-STATUS.md`. |
 | **Meso-scale classical** | **`umst-formal` (this repo)** | Rational gate, Kleisli constitution, Shannon/Landauer bridge, and **`Lean/Economic/`** lemmas — **no** dependency on the double-slit package unless you add one. |
 
 Both share the **single** project Lean **`axiom`** pattern documented in [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) (`physicalSecondLaw`).
@@ -133,7 +133,7 @@ Four invariants, across all formal layers:
 | Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Core/Constitutional.lean`, `Lean/Compat/Constitutional.lean` |
 | Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
 | SDF / FRep; CSG; Eikonal | `Agda/Concrete/Helmholtz.agda`, `Lean/Concrete/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **59** roots, **287** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
+| Full Lean layer + Economic meso-scale | `Lean/` — **62** roots, **289** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
 | Haskell QuickCheck + sanity | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs); `cabal test landauer-einstein-sanity` — details in [`Haskell/README.md`](Haskell/README.md) and [`PROOF-STATUS.md`](PROOF-STATUS.md) § Cross-Layer Consistency |
 
 See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index (§ **Lean 4 Layer Summary** lists every lake root with theorem counts and flagship lemmas).
