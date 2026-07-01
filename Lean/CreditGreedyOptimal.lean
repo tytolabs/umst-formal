@@ -4,11 +4,10 @@
   **Case A (Python → Lean reduction).** The reference `umst-ucrs/Python/sim/credit.py`
   maintains per-peer balances with greedy *peer selection* (`best_peer` by accuracy)
   and additive `total_credit()`. It does **not** implement a weighted bipartite matching
-  where greedy could differ from an exhaustive optimum. The egoff anchor at
-  `egoff/src/credit.rs` (`record_contribution` / `total_influence`) likewise accumulates
+  The reference credit accumulator (`record_contribution` / `total_influence`) likewise accumulates
   scalar edge weights with no matroid-style exclusion constraint on the summed mass.
 
-  The egoff-relevant core invariant is therefore **aggregate admissible mass**:
+  The engineering-relevant core invariant is therefore **aggregate admissible mass**:
   sum weights of candidates marked admissible. Both “greedy” (scan in list order,
   take each admissible weight) and “exhaustive optimal” (sum over the same admissible
   set) coincide — there is no competing feasible set to optimize over once admissibility
