@@ -1,4 +1,10 @@
+-Q Core UMSTFormal.Core
+-Q Concrete UMSTFormal.Concrete
+-Q Compat UMSTFormal.Compat
 -Q . UMSTFormal
+Core/Gate.v
+Concrete/Gate.v
+Compat/Gate.v
 Gate.v
 Constitutional.v
 LandauerEinsteinBridge.v

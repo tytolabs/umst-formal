@@ -18,7 +18,7 @@
 
 import Mathlib.Order.GaloisConnection
 import Mathlib.Data.Finset.Basic
-import Gate
+import Compat.Gate
 
 namespace UMST
 
@@ -65,8 +65,8 @@ theorem condMeet_full_iff_admissible (old new : ThermodynamicState) :
   simp only [condMeet, Finset.mem_univ, forall_true_left]
   constructor
   · intro h
-    exact ⟨h Mass, h Dissip, h Hydration, h Strength⟩
-  · intro ⟨hm, hd, hh, hs⟩ c
+    exact Admissible.mk old new (h Mass) (h Dissip) (h Hydration) (h Strength)
+  · intro ⟨⟨hm, hd⟩, hh, hs⟩ c
     match c with
     | Mass      => exact hm
     | Dissip    => exact hd
@@ -116,20 +116,37 @@ theorem mass_condition_independent :
     ∃ old new : ThermodynamicState,
       DissipCond old new ∧ HydratCond old new ∧ StrengthCond old new ∧
       ¬ MassCond old new := by
-  refine ⟨⟨0, 0, 0, 0⟩, ⟨200, -100, 1/2, 50⟩, ?_, ?_, ?_, ?_⟩
-  · simp [DissipCond, ThermodynamicState.freeEnergy]
-  · simp [HydratCond, ThermodynamicState.hydration]
-  · simp [StrengthCond, ThermodynamicState.strength]
-  · simp [MassCond, ThermodynamicState.density, δMass]; norm_num
-
+  refine ⟨⟨0, 0, 0, 0⟩, ⟨200, -100, (1 : ℚ) / 2, 50⟩, ?_, ?_, ?_, ?_⟩
+  · rw [DissipCond]
+    change (-100 : ℚ) ≤ (0 : ℚ)
+    norm_num
+  · rw [HydratCond]
+    change (0 : ℚ) ≤ (1 / 2 : ℚ)
+    norm_num
+  · rw [StrengthCond]
+    change (0 : ℚ) ≤ (50 : ℚ)
+    norm_num
+  · intro h
+    rw [MassCond] at h
+    change |(200 : ℚ) - 0| ≤ (100 : ℚ) at h
+    norm_num at h
 /-- Removing the Hydration condition strictly expands the admissible set. -/
 theorem hydration_condition_independent :
     ∃ old new : ThermodynamicState,
       MassCond old new ∧ DissipCond old new ∧ StrengthCond old new ∧
       ¬ HydratCond old new := by
-  refine ⟨⟨2300, -100, 1/2, 50⟩, ⟨2300, -200, 0, 50⟩, ?_, ?_, ?_, ?_⟩
-  · simp [MassCond, ThermodynamicState.density, δMass]
-  · simp [DissipCond, ThermodynamicState.freeEnergy]; norm_num
-  · simp [StrengthCond, ThermodynamicState.strength]
-  · simp [HydratCond, ThermodynamicState.hydration]; try norm_num
+  refine ⟨⟨2300, -100, (1 : ℚ) / 2, 50⟩, ⟨2300, -200, 0, 50⟩, ?_, ?_, ?_, ?_⟩
+  · rw [MassCond]
+    change |(2300 : ℚ) - 2300| ≤ (100 : ℚ)
+    norm_num
+  · rw [DissipCond]
+    change (-200 : ℚ) ≤ (-100 : ℚ)
+    norm_num
+  · rw [StrengthCond]
+    change (50 : ℚ) ≤ (50 : ℚ)
+    norm_num
+  · intro h
+    rw [HydratCond] at h
+    change (1 / 2 : ℚ) ≤ (0 : ℚ) at h
+    norm_num at h
 end UMST

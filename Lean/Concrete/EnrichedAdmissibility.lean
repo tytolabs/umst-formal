@@ -21,7 +21,7 @@
 
 import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.Order.GaloisConnection
-import Gate
+import Compat.Gate
 
 namespace UMST
 
@@ -99,7 +99,7 @@ theorem admissibleN_of_decomp {n : ℕ} {old new : ThermodynamicState}
     (hm : massDist old new ≤ (n : ℚ) * δMass)
     (ho : OrderAdmissible old new) :
     AdmissibleN n old new :=
-  ⟨hm, ho.clausiusDuhem, ho.hydrationMono, ho.strengthMono⟩
+  AdmissibleN.mk n old new hm ho.clausiusDuhem ho.hydrationMono ho.strengthMono
 
 /-- The order component of an admissible transition holds independently of n. -/
 theorem admissibleN_order {n : ℕ} {s s' : ThermodynamicState}
@@ -109,15 +109,14 @@ theorem admissibleN_order {n : ℕ} {s s' : ThermodynamicState}
 /-- Increasing the step budget preserves admissibility. -/
 theorem admissibleN_mono {m n : ℕ} (hmn : m ≤ n)
     {old new : ThermodynamicState} (h : AdmissibleN m old new) :
-    AdmissibleN n old new := by
-  constructor
-  · calc massDist old new ≤ (m : ℚ) * δMass := h.massDensity
-      _ ≤ (n : ℚ) * δMass := by
-            apply mul_le_mul_of_nonneg_right _ (by norm_num [δMass])
-            exact_mod_cast hmn
-  · exact h.clausiusDuhem
-  · exact h.hydrationMono
-  · exact h.strengthMono
+    AdmissibleN n old new :=
+  AdmissibleN.mk n old new
+    (by
+      calc massDist old new ≤ (m : ℚ) * δMass := h.massDensity
+        _ ≤ (n : ℚ) * δMass := by
+          apply mul_le_mul_of_nonneg_right _ (by norm_num [δMass])
+          exact_mod_cast hmn)
+    h.clausiusDuhem h.hydrationMono h.strengthMono
 
 -- ================================================================
 -- SECTION 4: Lawvere Metric Interpretation

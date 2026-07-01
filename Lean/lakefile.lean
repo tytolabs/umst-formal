@@ -8,12 +8,12 @@ require mathlib from git
   "https://github.com/leanprover-community/mathlib4" @ "v4.14.0"
 
 /-
-  **Lean `roots` (53 modules)** — default `lake build` closure for `UMST`.  Includes the gate/Kleisli
-  core, Landauer stack, extensions (monoidal state, separation bound, …), and **`Lean/Economic/`**
+  **Lean `roots` (59 modules)** — default `lake build` closure for `UMST`.  Science-cartridge layout:
+  `Core.*` (universal laws), `Concrete.*` (OPC cement), `Compat.*` (legacy `UMST` API).
   (Wave 6.5.2 meso-layer).  Single project `axiom`: `LandauerLaw.physicalSecondLaw`.
 
   Examples (single-module builds):
-    lake build UMST.Gate
+    lake build UMST.Compat.Gate
     lake build UMST.Economic.EconomicTemperature
   Full inventory + theorem counts: `PROOF-STATUS.md` § Lean 4 Layer Summary; regenerate via
   `python3 scripts/lean_declaration_stats.py`.
@@ -25,10 +25,15 @@ require mathlib from git
   should participate in CI; optional experiments stay out of the default closure.
 -/
 lean_lib «UMST» where
-  roots := #[`Gate, `Helmholtz, `Constitutional, `Naturality, `Activation, `DIBKleisli, `FormalFoundations,
-    `LandauerEinsteinBridge, `GraphProperties, `Powers, `Convergence,
-    `GaloisGate, `EnrichedAdmissibility,     `LandauerLaw, `InfoTheory,
-    `EndConditions, `ClassicalMeasurementCost, `LandauerExtension,     `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
+  roots := #[`Core.State, `Core.Gate, `Core.Constitutional,
+    `Concrete.State, `Concrete.Gate,
+    `Concrete.Helmholtz, `Concrete.Powers, `Concrete.Convergence, `Concrete.GraphProperties,
+    `Concrete.Activation, `Concrete.EndConditions, `Concrete.EnrichedAdmissibility, `Concrete.GaloisGate,
+    `Compat.Gate, `Compat.Constitutional,
+    `Naturality, `DIBKleisli, `FormalFoundations,
+    `LandauerEinsteinBridge,
+    `LandauerLaw, `InfoTheory,
+    `ClassicalMeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
     `SeparationBound,
     -- Meso-scale Economic layer (Lean/Economic/ folder — Wave 6.5.2)
     `Economic.EconomicDomain,

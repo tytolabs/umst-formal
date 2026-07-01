@@ -4,9 +4,9 @@
   Index: `PROOF-STATUS.md` § Lean 4 Layer Summary; axiom inventory `FORMAL_FOUNDATIONS.md`.
 -/
 
-import Gate
+import Compat.Gate
 import DIBKleisli
-import Convergence
+import Concrete.Convergence
 import LandauerLaw
 import PrimeSpectralCategory
 

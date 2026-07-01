@@ -23,8 +23,8 @@
 
 import Mathlib.Topology.Order.MonotoneConvergence
 import Mathlib.Topology.MetricSpace.Basic
-import Gate
-import Helmholtz
+import Compat.Gate
+import Concrete.Helmholtz
 
 open Set Filter
 open scoped Topology BigOperators
@@ -43,9 +43,7 @@ def HydrationInUnitInterval (s : ThermodynamicState) : Prop :=
 theorem freeEnergy_lower_bound (s : ThermodynamicState)
     (h : HelmholtzState s) (hb : HydrationInUnitInterval s) : -(Q_hyd) ≤ s.freeEnergy := by
   rw [h]
-  unfold helmholtz Q_hyd
-  have := hb.2
-  nlinarith
+  exact helmholtz_ge_neg_Q_hyd hb.2
 
 -- ================================================================
 -- SECTION 2: Lyapunov Function
@@ -62,16 +60,14 @@ def lyapunov (s : ThermodynamicState) : ℚ := -s.freeEnergy
 theorem lyapunov_nondecreasing {s s' : ThermodynamicState}
     (h : Admissible s s') : lyapunov s ≤ lyapunov s' := by
   unfold lyapunov
-  linarith [h.clausiusDuhem]
+  exact neg_le_neg h.core.clausiusDuhem
 
 /-- The Lyapunov function is bounded above for Helmholtz states (≤ Q_hyd). -/
 theorem lyapunov_upper_bound (s : ThermodynamicState)
     (h : HelmholtzState s) (hb : HydrationInUnitInterval s) : lyapunov s ≤ Q_hyd := by
   unfold lyapunov
   rw [h]
-  unfold helmholtz Q_hyd
-  have := hb.2
-  nlinarith
+  linarith [helmholtz_ge_neg_Q_hyd hb.2]
 
 -- ================================================================
 -- SECTION 3: Real-Valued Sequence Convergence
@@ -145,7 +141,7 @@ theorem freeEnergyConverges (cs : ConstitutionalStream)
     induction hmn with
     | refl => exact le_refl _
     | @step k _ ih =>
-      have := (cs.property.1 k).clausiusDuhem
+      have := (cs.property.1 k).core.clausiusDuhem
       have cast_le : ((cs.val (k + 1)).freeEnergy : ℝ) ≤ ((cs.val k).freeEnergy : ℝ) := by
         exact_mod_cast this
       exact le_trans cast_le ih

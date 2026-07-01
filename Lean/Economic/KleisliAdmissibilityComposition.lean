@@ -4,7 +4,7 @@
   Re-export graded Kleisli safety as the Economic-layer **composition** API (no duplication).
 -/
 
-import Constitutional
+import Compat.Constitutional
 
 namespace UMST.Economics
 

@@ -8,8 +8,8 @@
   3. equilibriumExists: formal proof of a stopping condition (hydration = 1)
 -/
 
-import Gate
-import GraphProperties
+import Compat.Gate
+import Concrete.GraphProperties
 
 namespace UMST
 

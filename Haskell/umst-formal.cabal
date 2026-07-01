@@ -18,6 +18,9 @@ flag with-ffi
 library
   exposed-modules:
     UMST
+    UMST.Core
+    UMST.Concrete
+    UMST.Compat
     KleisliDIB
     SDFGate
     InfoTheory

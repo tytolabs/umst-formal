@@ -9,7 +9,7 @@
   engines.
 -/
 
-import Activation
+import Concrete.Activation
 
 namespace UMST.FiberedActivation
 

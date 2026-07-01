@@ -15,7 +15,7 @@ import Mathlib.Algebra.BigOperators.Group.Finset
 import Mathlib.Algebra.IsPrimePow
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.NumberTheory.VonMangoldt
-import Gate
+import Compat.Gate
 
 namespace UMST.PrimeSpectral
 

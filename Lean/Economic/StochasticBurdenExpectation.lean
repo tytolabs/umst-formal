@@ -29,14 +29,15 @@ theorem exploration_buffer_geom_tendsto_zero_of_lt_one (μ : ℝ) (hlt : 1 + μ 
   exact exploration_buffer_geom_tendsto_zero μ habs
 
 theorem burden_scale_admissible (B r : ℚ) (hB : |B| * |r - 1| ≤ δMass) :
-    Admissible (stateOfBurden B) (stateOfBurden (r * B)) := by
-  constructor
-  · simp only [stateOfBurden]
-    have hcalc : r * B - B = B * (r - 1) := by ring
-    rw [hcalc]
-    simpa [abs_mul] using hB
-  · simp [stateOfBurden]
-  · simp [stateOfBurden]
-  · simp [stateOfBurden]
+    Admissible (stateOfBurden B) (stateOfBurden (r * B)) :=
+  Admissible.mk _ _
+    (by
+      simp only [stateOfBurden]
+      have hcalc : r * B - B = B * (r - 1) := by ring
+      rw [hcalc]
+      simpa [abs_mul] using hB)
+    (by simp [stateOfBurden])
+    (by simp [stateOfBurden])
+    (by simp [stateOfBurden])
 
 end UMST.Economics
