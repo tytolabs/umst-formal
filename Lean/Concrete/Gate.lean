@@ -13,6 +13,11 @@ open UMST.Core
 
 namespace UMST.Concrete
 
+/-- ℚ mass tolerance (cementitious SSOT = 100). -/
+def δMass : ℚ := @UMST.Core.δMass ℚ _ _
+
+@[simp] theorem δMass_val : δMass = 100 := UMST.Core.δMass_def_rat
+
 /-- Latent heat of hydration (J/kg); SSOT with Agda / Coq / Rust. -/
 def Q_hyd : ℚ := 450
 
@@ -53,13 +58,13 @@ theorem helmholtzAdditive : ∀ α₁ α₂ : ℚ, helmholtz (α₁ + α₂) = h
 
 /-- Cement 1-step admissibility = universal core + constitutive order constraints. -/
 structure ConcreteAdmissible (old new : ConcreteState) : Prop where
-  core          : CoreAdmissible old new
+  core          : CoreAdmissible ℚ ConcreteState old new
   hydrationMono : old.hydration ≤ new.hydration
   strengthMono  : old.strength ≤ new.strength
 
 /-- Graded cement admissibility (N-step mass budget). -/
 structure ConcreteAdmissibleN (n : ℕ) (old new : ConcreteState) : Prop where
-  core          : CoreAdmissibleN n old new
+  core          : CoreAdmissibleN ℚ ConcreteState n old new
   hydrationMono : old.hydration ≤ new.hydration
   strengthMono  : old.strength ≤ new.strength
 
@@ -132,16 +137,16 @@ theorem admissible_iff_admissibleN1 (old new : ConcreteState) :
     simpa [one_mul] using hm
 
 theorem admissibleNRefl (n : ℕ) (s : ConcreteState) : ConcreteAdmissibleN n s s :=
-  ⟨coreAdmissibleN_refl n s, le_refl _, le_refl _⟩
+  ⟨coreAdmissibleN_refl ℚ ConcreteState n s, le_refl _, le_refl _⟩
 
 theorem admissibleN_compose {m n : ℕ} {s s' s'' : ConcreteState}
     (h1 : ConcreteAdmissibleN m s s') (h2 : ConcreteAdmissibleN n s' s'') :
     ConcreteAdmissibleN (m + n) s s'' :=
-  ⟨coreAdmissibleN_compose h1.core h2.core,
+  ⟨coreAdmissibleN_compose ℚ ConcreteState h1.core h2.core,
     le_trans h1.hydrationMono h2.hydrationMono,
     le_trans h1.strengthMono h2.strengthMono⟩
 
-instance concreteAdmissibleSystem : AdmissibleSystem ConcreteState where
+instance concreteAdmissibleSystem : AdmissibleSystem ℚ ConcreteState where
   admissibleStep := ConcreteAdmissible
   admissibleNStep := ConcreteAdmissibleN
   admissible_iff_admissibleN1 := admissible_iff_admissibleN1

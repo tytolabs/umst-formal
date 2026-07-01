@@ -14,7 +14,7 @@ structure ConcreteState where
   strength    : ℚ
   deriving Repr
 
-instance : UMST.Core.ThermodynamicSystem ConcreteState where
+instance : UMST.Core.ThermodynamicSystem ℚ ConcreteState where
   density s    := s.density
   freeEnergy s := s.freeEnergy
 

@@ -1,12 +1,15 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 59,
+  "lake_roots_count": 62,
   "lake_roots": [
+    "Core.Scalar",
     "Core.State",
     "Core.Gate",
     "Core.Constitutional",
     "Concrete.State",
     "Concrete.Gate",
+    "Real.State",
+    "Real.Gate",
     "Concrete.Helmholtz",
     "Concrete.Powers",
     "Concrete.Convergence",
@@ -63,16 +66,20 @@
     "DualLedger"
   ],
   "roots_only": {
-    "theorem": 287,
+    "theorem": 289,
     "lemma": 24,
-    "total": 311
+    "total": 313
   },
   "all_lean_glob": {
-    "theorem": 294,
+    "theorem": 296,
     "lemma": 24,
-    "total": 318
+    "total": 320
   },
   "per_root": {
+    "Core.Scalar": {
+      "theorem": 0,
+      "lemma": 0
+    },
     "Core.State": {
       "theorem": 0,
       "lemma": 0
@@ -91,6 +98,14 @@
     },
     "Concrete.Gate": {
       "theorem": 15,
+      "lemma": 0
+    },
+    "Real.State": {
+      "theorem": 0,
+      "lemma": 0
+    },
+    "Real.Gate": {
+      "theorem": 2,
       "lemma": 0
     },
     "Concrete.Helmholtz": {
