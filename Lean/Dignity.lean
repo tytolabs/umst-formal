@@ -2,10 +2,10 @@
   UMST-Formal: Dignity.lean
 
   Thermodynamic–epistemic **dignity** scalar `d ∈ [0, d_max]` with `d_max = 10`, matching the
-  egoff runtime convention (`closed_loop::dignity_scalar = rcc · 10`, `interpret::dignity_band`).
+  closed-loop runtime convention (`dignity_scalar = rcc · 10`, dignity band on `[0,10]`).
   Landauer floor for **honest spend** uses `LandauerEinsteinBridge.landauerBitEnergy T` (J per bit).
 
-  Reduction vs egoff §14bis / N3 operator spec:
+  Reduction vs the N3 operator spec (§14bis):
   - **Bounds** (`d_max`, nonnegativity) encode the UX band `[0,10]`.
   - **Honest spend** (`honest_spend`) encodes “entropy spent covers Landauer cost for claimed MI bits”.
   - **`dignity_step`** increases dignity only on honest claims (by the MI increment, capped);
@@ -165,7 +165,7 @@ theorem dignity_list_values_sum_nonneg (ds : List Dignity) :
   obtain ⟨d, -, rfl⟩ := hy
   exact d.nonneg
 
-/-- RCC in `[0,1]` maps to the legacy egoff dignity scale `10 · rcc`. -/
+/-- RCC in `[0,1]` maps to the legacy cockpit dignity scale `10 · rcc`. -/
 theorem dignity_of_rcc_try {r : ℝ} (hr0 : 0 ≤ r) (hr1 : r ≤ 1) :
     ∃ d : Dignity, tryDignity (d_max * r) = some d ∧ d.value = d_max * r := by
   have hx0 : 0 ≤ d_max * r := mul_nonneg (show (0 : ℝ) ≤ d_max by unfold d_max; norm_num) hr0

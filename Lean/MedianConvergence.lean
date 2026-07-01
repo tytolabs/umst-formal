@@ -3,7 +3,7 @@
 
   **Warmup sample count** for rolling-window median / percentile stability.
 
-  The engineering runtime keeps **`max 3 ⌈√W⌉`** (`egoff` `FrugalityComputer`).
+  The engineering runtime keeps **`max 3 ⌈√W⌉`** (frugality / rolling-window computer).
   This module supplies the **theorem-derived** count
   `N_warmup(ε, δ, ρ_min) := ⌈ (2 / (ε² ρ_min²)) · log(2/δ) ⌉` (natural logarithm; classical
   Hoeffding / empirical-CDF concentration narrative; cf. Serfling (1980) order-statistics tail bounds).
@@ -13,7 +13,7 @@
 
   **`sqrt_window_warmup_is_admissible`** uses the reference triple `(ε, δ, ρ_min) = (1, 1/2, 1)` at
   `W = 32` (default cockpit window): then `N_warmup = 3` while `max 3 ⌈√32⌉ = 6`.  (Operator-facing
-  narrative in `egoffplan` / §24a may cite an alternative IQR-scaled triple; **any** witness with
+  Operator-facing narrative in the constants-grounding registry / §24a may cite an alternative IQR-scaled triple; **any** witness with
   `max 3 ⌈√W⌉ ≥ N_warmup` is admissible.)
 -/
 

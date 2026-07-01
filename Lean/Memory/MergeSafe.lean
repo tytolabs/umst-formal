@@ -1,7 +1,7 @@
 /-
   UMST-Formal — Federated merge-safety (L-M5 / GMD-8).
 
-  Rust `egoff::memory` promotion requires matching canonical id + theorem id + registry
+  Rust federated-memory promotion requires matching canonical id + theorem id + registry
   membership. This Lean layer states the corresponding merge-safe predicate with a short
   proof (no `sorry`). `Behavior.SDFCanonical` is not yet a separate Lean module; the
   identity side is carried by explicit equality hypotheses on `memory_id` (SDF-canonical

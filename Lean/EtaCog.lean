@@ -2,7 +2,7 @@
   UMST-Formal: EtaCog.lean
 
   MI-per-Joule frugality scalar **η_cog** (cockpit metric schema, COCKPIT_DESIGN_BRIEF §5;
-  egoffplan §14bis.b row N3), dignity-weighted with a **single-bit Landauer floor** in the
+  constants registry §14bis.b row N3), dignity-weighted with a **single-bit Landauer floor** in the
   denominator (encoding **(i)**):
 
   `η_cog d c = d.value * c.delta_mi_bits / (c.delta_energy_j + landauer_joules_per_bit c.T)`.

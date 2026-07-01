@@ -1,7 +1,7 @@
 /-
   UMST-Formal: OrderStatisticsBand.lean
 
-  **Rolling-window P25 / P75 band classifier** (`egoff` `FrugalityComputer::classify_band`).
+  **Rolling-window P25 / P75 band classifier** (frugality computer `classify_band`).
 
   This module **parameterizes** the same Hoeffding-style analytic budget as
   [`MedianConvergence.lean`](MedianConvergence.lean) (`N_warmup` / `nWarmupBound`) across formal
