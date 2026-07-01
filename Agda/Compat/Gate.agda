@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------
--- UMST-Formal: Helmholtz.agda (compat shim)
+-- UMST.Compat.Gate — legacy flat API over the concrete cement cartridge.
 ------------------------------------------------------------------------
 
-module Helmholtz where
+module Compat.Gate where
 
-open import Concrete.Helmholtz public
+open import Concrete.Gate public

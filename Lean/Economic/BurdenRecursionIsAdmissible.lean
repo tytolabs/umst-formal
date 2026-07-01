@@ -4,7 +4,7 @@
   Burden axis embedded in `ThermodynamicState`; one-step and iterated updates.
 -/
 
-import Gate
+import Compat.Gate
 
 namespace UMST.Economics
 
@@ -30,14 +30,12 @@ theorem burden_decreases_when_entropy_dominates (B g ε : ℚ) (h : g < ε) :
 
 /-- **Admissible** one-step recursion whenever `|g - ε| ≤ δMass`. -/
 theorem burdenRecursion_admissible (B g ε : ℚ) (hδ : |g - ε| ≤ δMass) :
-    Admissible (stateOfBurden B) (stateOfBurden (burdenStep B g ε)) := by
-  constructor
-  · simp only [stateOfBurden, burdenStep]
-    rw [show B + g - ε - B = g - ε by ring]
-    exact hδ
-  · simp [stateOfBurden]
-  · simp [stateOfBurden]
-  · simp [stateOfBurden]
+    Admissible (stateOfBurden B) (stateOfBurden (burdenStep B g ε)) :=
+  Admissible.mk _ _
+    (by simp only [stateOfBurden, burdenStep]; rw [show B + g - ε - B = g - ε by ring]; exact hδ)
+    (by simp [stateOfBurden, burdenStep])
+    (by simp [stateOfBurden])
+    (by simp [stateOfBurden])
 
 /-- N-fold iteration (endofunctor power on the burden axis). -/
 def burdenIterate (n : ℕ) (g ε : ℚ) (B : ℚ) : ℚ :=

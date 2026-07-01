@@ -1,5 +1,5 @@
 (* ================================================================== *)
-(*  UMSTFormal.Gate — compat shim (legacy import path).               *)
+(*  UMSTFormal.Compat.Gate — legacy API over the concrete cartridge.  *)
 (* ================================================================== *)
 
-From UMSTFormal.Compat Require Export Gate.
+From UMSTFormal.Concrete Require Export Gate.

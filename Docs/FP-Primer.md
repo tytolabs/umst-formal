@@ -159,7 +159,7 @@ data ThermodynamicState = ThermodynamicState
 ```
 
 The same type is defined, with identical fields, in Agda (`Agda/Gate.agda`), Coq
-(`Coq/Gate.v`), Lean 4 (`Lean/Gate.lean`), and Haskell (`Haskell/UMST.hs`), giving
+(`Coq/Gate.v`), Lean 4 (`Lean/Compat/Gate.lean` + `Lean/Concrete/Gate.lean`), and Haskell (`Haskell/UMST.hs`), giving
 four independent formal representations of the same physical object.
 
 ---

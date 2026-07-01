@@ -14,7 +14,17 @@ No other `axiom` declarations remain under `umst-formal/Lean/`.
 
 | Location | Mechanism | Role |
 |----------|-----------|------|
-| `Lean/Convergence.lean` | `HydrationInUnitInterval s` as an explicit hypothesis; bundled into `ConstitutionalStream` | Hydration in `[0,1]` for streams and Helmholtz bounds. |
+| `Lean/Concrete/Convergence.lean` | `HydrationInUnitInterval s` as an explicit hypothesis; bundled into `ConstitutionalStream` | Hydration in `[0,1]` for streams and Helmholtz bounds. |
+
+## Science Cartridge (Core / Concrete / Compat)
+
+| Layer | Path | Role |
+|-------|------|------|
+| **Core** | `Lean/Core/{State,Gate,Constitutional}.lean` | `ThermodynamicSystem`, `AdmissibleSystem`; universal `δMass`, `CoreAdmissible(N)`; generic Kleisli |
+| **Concrete** | `Lean/Concrete/*` | OPC cement: `ConcreteState`, `Q_hyd`, `helmholtz`, `ConcreteAdmissible`, constitutive modules |
+| **Compat** | `Lean/Compat/{Gate,Constitutional}.lean` | Legacy `UMST` names (`ThermodynamicState`, `Admissible`, `gateCheck`, …) for FFI and fleet anchors |
+
+New material science = new `Concrete/` cartridge + `AdmissibleSystem` instance; **do not** edit `Core/` for constitutive postulates.
 
 ## Semantics tier (DIB)
 
@@ -26,7 +36,7 @@ Opaque: `DIBState`, `discover`, `invent`, `build`.
 
 ## Witness module
 
-`lake build FormalFoundations` imports `Gate`, `DIBKleisli`, `Convergence`, `LandauerLaw` and defines `UMST.umst_formal_complete`.
+`lake build FormalFoundations` imports `Compat.Gate`, `DIBKleisli`, `Concrete.Convergence`, `LandauerLaw` and defines `UMST.umst_formal_complete`.
 
 ## Build
 
@@ -36,7 +46,7 @@ cd Lean && lake build
 
 ## Build scope
 
-Default `lake build` covers **all** registered `lakefile.lean` `roots` (**51** modules, including `Lean/Economic/*`, **Formal-First** cockpit mirrors (`CreditGreedyOptimal`, `Dignity`, `EtaCog`, `RhoEstimator`, `MedianConvergence`, `OrderStatisticsBand`), **`Memory.*`**, and **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
+Default `lake build` covers **all** registered `lakefile.lean` `roots` (**59** modules, including `Core.*`, `Concrete.*`, `Compat.*`, `Lean/Economic/*`, **Formal-First** cockpit mirrors, **`Memory.*`**, and cartridge-anchor modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
 
 ## Paper Claims ↔ Formal Lemmas
 
@@ -44,9 +54,9 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 
 | Theme | Claim (informal) | Formal anchor(s) |
 |--------|------------------|------------------|
-| **I. Clausius–Duhem / rational gate** | Transitions satisfy mass, dissipation (ψ), hydration monotone, strength monotone | `Gate.Admissible`, fields `massDensity` … `strengthMono`; `helmholtz`, `helmholtzAntitone` |
-| **II. 100% admissibility for checked steps** | Any transition accepted by the boolean gate satisfies `Admissible` | `Gate.gateCheckSound` |
-| **III. Graded compositional safety** | Multi-step mass budget composes (triangle inequality); Kleisli lifting | `Gate.admissibleN_compose`; `Constitutional` lemmas citing it |
+| **I. Clausius–Duhem / rational gate** | Transitions satisfy mass, dissipation (ψ), hydration monotone, strength monotone | `Compat.Gate.Admissible` / `Concrete.Gate.ConcreteAdmissible`; `helmholtz`, `helmholtzAntitone` in `Concrete.Gate` |
+| **II. 100% admissibility for checked steps** | Any transition accepted by the boolean gate satisfies `Admissible` | `Concrete.Gate.gateCheckSound` |
+| **III. Graded compositional safety** | Multi-step mass budget composes (triangle inequality); Kleisli lifting | `Concrete.Gate.admissibleN_compose`; `Core.Constitutional` / `Compat.Constitutional` Kleisli lemmas |
 | **IV. Landauer / observation / erasure** | Erasure obeys second-law input → Landauer-style bound | `LandauerLaw.physicalSecondLaw` (only project `axiom`); `LandauerExtension`, `ClassicalMeasurementCost` |
 | **V. Double-slit, TMI, epistemic layer** | Complementarity, fringe visibility bound, dephasing, trajectory MI | Package **`umst-formal-double-slit`**: `GeneralVisibility.fringeVisibility_n_le_one`, `LindbladDynamics.dephasingSolution_tendsto_diagonal`, `EpistemicMI` / `EpistemicTrajectoryMI` |
 | **VI. Classical economic / burden layer (meso)** | Shannon–Landauer “economic temperature”, burden steps vs `Admissible`, stochastic drift, classical surrogates for exploration cost | **`Lean/Economic/`** (17 named modules + `EconomicDomain`); **no** new physics axioms; surrogates and shells classified in [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) and [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) |
@@ -57,8 +67,8 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 |--------|--------|
 | `lake build` (all `lakefile` roots) | **Succeeded** (verified in workspace) |
 | `^axiom ` in `Lean/*.lean` (excluding `.lake`) | **1** — `LandauerLaw.physicalSecondLaw` only |
-| Tactic `sorry` / `admit` / `Admitted` in `Lean/*.lean` | **None** (the word “sorry” appears only in **comments** in: `Gate.lean`, `Helmholtz.lean`, `Naturality.lean`, `Activation.lean`, `DIBKleisli.lean`, `FormalFoundations.lean`) |
-| `theorem` / `lemma` in **`lakefile` roots only** (51 modules; excludes `_check_ext.lean`) | **237** `theorem`, **24** `lemma` (total **261**) — lines starting with `theorem ` / `lemma `; excludes `example` / `def` / proof `instance` |
+| Tactic `sorry` / `admit` / `Admitted` in `Lean/*.lean` | **None** (the word “sorry” appears only in **comments** in core modules) |
+| `theorem` / `lemma` in **`lakefile` roots only** (59 modules) | **294** `theorem`, **24** `lemma` (total **318**) — regenerate via `python3 scripts/lean_declaration_stats.py` |
 | Modules **not** in `lakefile` roots | `_check_ext.lean` — **not** part of `lake build` |
 
 ### Cold rebuild (audit)
@@ -69,10 +79,10 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 
 | Topic | Formal anchor | Note |
 |--------|----------------|------|
-| Clausius–Duhem / gate | `Gate.Admissible`, `clausiusDuhem` field, `gateCheckSound` / `gateCheckComplete` | Predicate is the conjunction of four inequalities; **100%** of *checked* transitions satisfy it by **definition** of `gateCheck`; constitutive closure uses explicit hypotheses (e.g. `forwardHydrationAdmissible`). |
-| Graded composition | `Gate.admissibleN_compose`, `Constitutional` Kleisli lemmas | Replaces removed `admissibleTrans`; proved (triangle inequality), not axiomatized. |
+| Clausius–Duhem / gate | `Compat.Gate.Admissible`, `Admissible.clausiusDuhem`, `Concrete.Gate.gateCheckSound` / `gateCheckComplete` | Predicate = universal core (`CoreAdmissible`) + cement conjuncts (`ConcreteAdmissible`); checked transitions satisfy it by `gateCheck` definition. |
+| Graded composition | `Concrete.Gate.admissibleN_compose`, `Core.Constitutional` Kleisli lemmas | Replaces removed `admissibleTrans`; proved (triangle inequality), not axiomatized. |
 | Landauer / observation cost | `LandauerLaw`, `ClassicalMeasurementCost`, extensions | **Single** project `axiom`: `physicalSecondLaw` (Clausius inequality input). |
-| Hydration | `Convergence.HydrationInUnitInterval`, `ConstitutionalStream` | Hypothesis-driven; no hydration axiom. |
+| Hydration | `Concrete.Convergence.HydrationInUnitInterval`, `ConstitutionalStream` | Hypothesis-driven; no hydration axiom. |
 | DIB ↔ gate | `dib_semantic_step_admissible`, `dibArtifactGateCheck_eq_true` | **Non-identity** `artifactSemanticStep` (ψ decreases); `gateCheck` always **true** on the interpreted step. Opaque `discover`/`invent`/`build` still unlinked from concrete thermo traces. |
 
 **Papers:** the five publications are **not** in-repo; alignment with prose claims is **manual** (this table maps code to themes only). **Mathlib** contributes its **own** axioms under every import (`#print axioms` on a theorem lists them).

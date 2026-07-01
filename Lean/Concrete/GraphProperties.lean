@@ -18,7 +18,8 @@
   graded admissibility model in Gate.lean §10.
 -/
 
-import Gate
+import Mathlib.Tactic
+import Compat.Gate
 
 namespace UMST
 
@@ -36,16 +37,17 @@ namespace UMST
 theorem mass_not_transitive :
     ∃ s₁ s₂ s₃ : ThermodynamicState,
       MassCond s₁ s₂ ∧ MassCond s₂ s₃ ∧ ¬ MassCond s₁ s₃ := by
-  refine ⟨⟨0, 0, 0, 0⟩, ⟨99, 0, (1/2), 0⟩, ⟨198, 0, 1, 0⟩, ?_, ?_, ?_⟩
-  · -- |99 - 0| = 99 ≤ 100
-    simp only [MassCond, ThermodynamicState.density, δMass]
+  refine ⟨⟨0, 0, 0, 0⟩, ⟨99, 0, (1 : ℚ) / 2, 0⟩, ⟨198, 0, 1, 0⟩, ?_, ?_, ?_⟩
+  · rw [MassCond]
+    change |(99 : ℚ) - 0| ≤ (100 : ℚ)
     norm_num
-  · -- |198 - 99| = 99 ≤ 100
-    simp only [MassCond, ThermodynamicState.density, δMass]
+  · rw [MassCond]
+    change |(198 : ℚ) - 99| ≤ (100 : ℚ)
     norm_num
-  · -- |198 - 0| = 198 > 100
-    simp only [MassCond, ThermodynamicState.density, δMass]
-    norm_num
+  · intro h
+    rw [MassCond] at h
+    change |(198 : ℚ) - 0| ≤ (100 : ℚ) at h
+    norm_num at h
 
 /-- The full Admissible predicate is also not transitive (same counterexample).
     This is the formal refutation of the former admissibleTrans axiom. -/
@@ -56,23 +58,24 @@ theorem admissibleTrans_refuted :
   -- hydration is non-decreasing, free energy is non-increasing, strength non-decreasing.
   -- psiAntitone and fcMonotone are required for Admissible but here we use
   -- states where freeEnergy is already non-increasing and strength non-decreasing.
-  refine ⟨⟨0, 0, 0, 0⟩, ⟨99, -225, 1/2, 50⟩, ⟨198, -450, 1, 100⟩, ?_, ?_, ?_⟩
+  refine ⟨⟨0, 0, 0, 0⟩, ⟨99, -225, (1 : ℚ) / 2, 50⟩, ⟨198, -450, 1, 100⟩, ?_, ?_, ?_⟩
   · -- Admissible s₁ s₂
-    constructor
-    · simp [MassCond, ThermodynamicState.density, δMass]; try norm_num
-    · simp [DissipCond, ThermodynamicState.freeEnergy]; try norm_num
-    · simp [HydratCond, ThermodynamicState.hydration]; try norm_num
-    · simp [StrengthCond, ThermodynamicState.strength]; try norm_num
+    exact
+      ⟨⟨show |(99 : ℚ) - 0| ≤ (100 : ℚ) by norm_num,
+          show (-225 : ℚ) ≤ 0 by norm_num⟩,
+        show (0 : ℚ) ≤ (1 / 2 : ℚ) by norm_num,
+        show (0 : ℚ) ≤ (50 : ℚ) by norm_num⟩
   · -- Admissible s₂ s₃
-    constructor
-    · simp [MassCond, ThermodynamicState.density, δMass]; try norm_num
-    · simp [DissipCond, ThermodynamicState.freeEnergy]; try norm_num
-    · simp [HydratCond, ThermodynamicState.hydration]; try norm_num
-    · simp [StrengthCond, ThermodynamicState.strength]; try norm_num
+    exact
+      ⟨⟨show |(198 : ℚ) - 99| ≤ (100 : ℚ) by norm_num,
+          show (-450 : ℚ) ≤ (-225 : ℚ) by norm_num⟩,
+        show (1 / 2 : ℚ) ≤ 1 by norm_num,
+        show (50 : ℚ) ≤ 100 by norm_num⟩
   · -- ¬ Admissible s₁ s₃ (mass condition fails)
     intro h
-    have := h.massDensity
-    simp [MassCond, ThermodynamicState.density, δMass] at this
+    exfalso
+    have hm := h.core.massDensity
+    have : |(198 : ℚ) - 0| ≤ (100 : ℚ) := hm
     norm_num at this
 
 -- ================================================================
@@ -129,17 +132,17 @@ theorem hydration_dag_path {s₀ s₁ : ThermodynamicState}
     Hydration irreversibility prevents reversal of forward-hydrating transitions. -/
 theorem admissible_not_symmetric :
     ∃ s s' : ThermodynamicState, Admissible s s' ∧ ¬ Admissible s' s := by
-  refine ⟨⟨2300, 0, 0, 0⟩, ⟨2300, -225, 1/2, 50⟩, ?_, ?_⟩
+  refine ⟨⟨2300, 0, 0, 0⟩, ⟨2300, -225, (1 : ℚ) / 2, 50⟩, ?_, ?_⟩
   · -- Admissible s s' (forward hydration)
-    constructor
-    · simp [MassCond, ThermodynamicState.density, δMass]; try norm_num
-    · simp [DissipCond, ThermodynamicState.freeEnergy]; try norm_num
-    · simp [HydratCond, ThermodynamicState.hydration]; try norm_num
-    · simp [StrengthCond, ThermodynamicState.strength]; try norm_num
+    exact
+      ⟨⟨show |(2300 : ℚ) - 2300| ≤ (100 : ℚ) by norm_num,
+          show (-225 : ℚ) ≤ 0 by norm_num⟩,
+        show (0 : ℚ) ≤ (1 / 2 : ℚ) by norm_num,
+        show (0 : ℚ) ≤ (50 : ℚ) by norm_num⟩
   · -- ¬ Admissible s' s (hydration would decrease)
     intro h
     have := h.hydrationMono
-    simp [HydratCond, ThermodynamicState.hydration] at this
+    simp only [HydratCond] at this
     norm_num at this
 
 -- ================================================================

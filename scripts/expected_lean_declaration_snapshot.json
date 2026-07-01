@@ -1,23 +1,28 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 54,
+  "lake_roots_count": 59,
   "lake_roots": [
-    "Gate",
-    "Helmholtz",
-    "Constitutional",
+    "Core.State",
+    "Core.Gate",
+    "Core.Constitutional",
+    "Concrete.State",
+    "Concrete.Gate",
+    "Concrete.Helmholtz",
+    "Concrete.Powers",
+    "Concrete.Convergence",
+    "Concrete.GraphProperties",
+    "Concrete.Activation",
+    "Concrete.EndConditions",
+    "Concrete.EnrichedAdmissibility",
+    "Concrete.GaloisGate",
+    "Compat.Gate",
+    "Compat.Constitutional",
     "Naturality",
-    "Activation",
     "DIBKleisli",
     "FormalFoundations",
     "LandauerEinsteinBridge",
-    "GraphProperties",
-    "Powers",
-    "Convergence",
-    "GaloisGate",
-    "EnrichedAdmissibility",
     "LandauerLaw",
     "InfoTheory",
-    "EndConditions",
     "ClassicalMeasurementCost",
     "LandauerExtension",
     "FiberedActivation",
@@ -58,34 +63,78 @@
     "DualLedger"
   ],
   "roots_only": {
-    "theorem": 265,
+    "theorem": 287,
     "lemma": 24,
-    "total": 289
+    "total": 311
   },
   "all_lean_glob": {
-    "theorem": 272,
+    "theorem": 294,
     "lemma": 24,
-    "total": 296
+    "total": 318
   },
   "per_root": {
-    "Gate": {
-      "theorem": 14,
+    "Core.State": {
+      "theorem": 0,
       "lemma": 0
     },
-    "Helmholtz": {
+    "Core.Gate": {
+      "theorem": 4,
+      "lemma": 0
+    },
+    "Core.Constitutional": {
+      "theorem": 11,
+      "lemma": 0
+    },
+    "Concrete.State": {
+      "theorem": 0,
+      "lemma": 0
+    },
+    "Concrete.Gate": {
+      "theorem": 15,
+      "lemma": 0
+    },
+    "Concrete.Helmholtz": {
+      "theorem": 6,
+      "lemma": 0
+    },
+    "Concrete.Powers": {
+      "theorem": 3,
+      "lemma": 5
+    },
+    "Concrete.Convergence": {
+      "theorem": 8,
+      "lemma": 0
+    },
+    "Concrete.GraphProperties": {
+      "theorem": 10,
+      "lemma": 0
+    },
+    "Concrete.Activation": {
+      "theorem": 11,
+      "lemma": 0
+    },
+    "Concrete.EndConditions": {
+      "theorem": 3,
+      "lemma": 0
+    },
+    "Concrete.EnrichedAdmissibility": {
+      "theorem": 12,
+      "lemma": 0
+    },
+    "Concrete.GaloisGate": {
+      "theorem": 6,
+      "lemma": 0
+    },
+    "Compat.Gate": {
       "theorem": 5,
       "lemma": 0
     },
-    "Constitutional": {
+    "Compat.Constitutional": {
       "theorem": 11,
       "lemma": 0
     },
     "Naturality": {
       "theorem": 6,
-      "lemma": 0
-    },
-    "Activation": {
-      "theorem": 11,
       "lemma": 0
     },
     "DIBKleisli": {
@@ -100,36 +149,12 @@
       "theorem": 7,
       "lemma": 5
     },
-    "GraphProperties": {
-      "theorem": 10,
-      "lemma": 0
-    },
-    "Powers": {
-      "theorem": 3,
-      "lemma": 5
-    },
-    "Convergence": {
-      "theorem": 8,
-      "lemma": 0
-    },
-    "GaloisGate": {
-      "theorem": 6,
-      "lemma": 0
-    },
-    "EnrichedAdmissibility": {
-      "theorem": 12,
-      "lemma": 0
-    },
     "LandauerLaw": {
       "theorem": 9,
       "lemma": 3
     },
     "InfoTheory": {
       "theorem": 4,
-      "lemma": 0
-    },
-    "EndConditions": {
-      "theorem": 3,
       "lemma": 0
     },
     "ClassicalMeasurementCost": {

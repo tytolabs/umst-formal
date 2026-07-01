@@ -66,7 +66,7 @@ Types: `feat`, `fix`, `proof`, `docs`, `test`, `refactor`, `chore`.
 1. Update `Docs/Architecture-Invariants.md` with the empirical motivation.
 2. Add the invariant to `Agda/Gate.agda` and prove it.
 3. Mirror the proof in `Coq/Gate.v`.
-4. Port the proof to `Lean/Gate.lean`.
+4. Port the proof to `Lean/Concrete/Gate.lean` (cement witness) and re-export via `Lean/Compat/Gate.lean` (legacy `UMST` API).
 5. Add the check to `Haskell/UMST.hs::gateCheck` and `AdmissibilityResult`.
 6. Expose a C function in `ffi-bridge/src/lib.rs` if the Rust kernel
    needs to be queried.

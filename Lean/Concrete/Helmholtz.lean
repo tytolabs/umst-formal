@@ -15,7 +15,8 @@
     helmholtzGradientConst │ Agda: helmholtz-gradient-const (postulate, proved here)
 -/
 
-import Gate
+import Mathlib.Tactic
+import Compat.Gate
 
 namespace UMST
 
@@ -68,7 +69,7 @@ theorem helmholtzStateAdmissible
     (hm  : |new.density - old.density| ≤ δMass)
     (h_fc : old.hydration ≤ new.hydration → old.strength ≤ new.strength) :
     Admissible old new :=
-  ⟨hm, ψAntitoneHelmholtz old new ho hn hα, hα, h_fc hα⟩
+  Admissible.mk old new hm (ψAntitoneHelmholtz old new ho hn hα) hα (h_fc hα)
 
 -- ================================================================
 -- SECTION 4: Linearity and Gradient (SDF / Eikonal Properties)
@@ -97,6 +98,11 @@ theorem helmholtzGradientConst (α ε : ℚ) :
     helmholtz (α + ε) - helmholtz α = -(Q_hyd * ε) :=
   helmholtzGradient α ε
 
+/-- Under ψ(α) = −Q_hyd·α with Q_hyd > 0, free-energy descent ↔ hydration ascent. -/
+theorem helmholtz_le_iff_hydration {α₁ α₂ : ℚ} :
+    helmholtz α₂ ≤ helmholtz α₁ ↔ α₁ ≤ α₂ :=
+  helmholtz_le_iff α₁ α₂
+
 -- ================================================================
 -- SECTION 5: Eikonal Condition — Gradient Direction and Admissibility
 -- ================================================================
@@ -116,9 +122,6 @@ theorem admissibleDirIsNegGrad
     (hn : HelmholtzState new) :
     new.freeEnergy ≤ old.freeEnergy ↔ old.hydration ≤ new.hydration := by
   rw [ho, hn]
-  unfold helmholtz Q_hyd
-  constructor
-  · intro h; nlinarith
-  · intro h; nlinarith
+  simpa using helmholtz_le_iff_hydration (α₁ := old.hydration) (α₂ := new.hydration)
 
 end UMST

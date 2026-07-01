@@ -21,7 +21,7 @@
     the extended sheaf commentary.
 -/
 
-import Gate
+import Compat.Gate
 import Naturality
 
 namespace UMST

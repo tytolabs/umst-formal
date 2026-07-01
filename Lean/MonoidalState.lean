@@ -14,7 +14,7 @@
     4. Density of the combination is between the two input densities (interpolation).
 -/
 
-import Gate
+import Compat.Gate
 
 namespace UMST.MonoidalState
 

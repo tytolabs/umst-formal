@@ -21,7 +21,7 @@
     constraints uniformly.
 -/
 
-import Gate
+import Compat.Gate
 
 namespace UMST
 
@@ -129,6 +129,8 @@ theorem stateForAdmissibleRefl (M : MaterialClass) :
     is a constraint that the gate η respects. -/
 theorem initialStateMassConserved (M : MaterialClass) :
     MassCond (stateFor M) (stateFor M) := by
-  simp [MassCond, sub_self, abs_zero, δMass]
+  rw [MassCond]
+  change |(stateFor M).density - (stateFor M).density| ≤ (100 : ℚ)
+  simp [sub_self, abs_zero]
 
 end UMST

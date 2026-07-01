@@ -25,7 +25,7 @@
     Build:     gate implementation in the Rust kernel (umst-prototype-2a)
 -/
 
-import Gate
+import Compat.Gate
 
 namespace UMST
 
@@ -201,17 +201,13 @@ instance dibArtifactSemanticsArtifact : DIBArtifactSemantics Artifact where
   nextState := fun _ s => artifactSemanticStep s
 
 theorem dib_semantic_step_admissible (a : Artifact) (s : ThermodynamicState) :
-    Admissible s (interpretArtifact a s) :=
-  {
-    massDensity := by
-      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep, sub_self, abs_zero, δMass]
-    clausiusDuhem := by
-      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep]
-    hydrationMono := by
-      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep]
-    strengthMono := by
-      simp [interpretArtifact, DIBArtifactSemantics.nextState, artifactSemanticStep]
-  }
+    Admissible s (interpretArtifact a s) := by
+  dsimp [interpretArtifact, artifactSemanticStep, DIBArtifactSemantics.nextState]
+  exact Admissible.mk s (artifactSemanticStep s)
+    (by simp [artifactSemanticStep, sub_self, abs_zero, δMass])
+    (by simp [artifactSemanticStep])
+    (by simp [artifactSemanticStep])
+    (by simp [artifactSemanticStep])
 
 /-- Boolean gate for “initial thermo state → state after artefact interpretation”. -/
 def dibArtifactGateCheck (a : Artifact) (s : ThermodynamicState) : Bool :=

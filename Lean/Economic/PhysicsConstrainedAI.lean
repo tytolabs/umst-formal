@@ -5,7 +5,7 @@
   “Sandbox” = arbitrary `propose`; “output” = gate-mediated arrow only.
 -/
 
-import Constitutional
+import Compat.Constitutional
 
 namespace UMST.Economics
 

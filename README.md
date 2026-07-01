@@ -128,45 +128,28 @@ Four invariants, across all formal layers:
 
 | Claim | Mechanized in |
 |-------|----------------|
-| Four gate invariants | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Gate.lean`, `Haskell/UMST.hs` |
-| Naturality | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Activation.lean` |
-| Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Constitutional.lean` |
+| Four gate invariants | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Compat/Gate.lean` + `Lean/Concrete/Gate.lean`, `Haskell/UMST.hs` |
+| Naturality | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Concrete/Activation.lean` |
+| Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Core/Constitutional.lean`, `Lean/Compat/Constitutional.lean` |
 | Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
-| SDF / FRep; CSG; Eikonal | `Agda/Gate.agda §7`, `Agda/Helmholtz.agda §6`, `Lean/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **54** roots, **265** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
+| SDF / FRep; CSG; Eikonal | `Agda/Helmholtz.agda §6`, `Lean/Concrete/Helmholtz.lean`, `Haskell/SDFGate.hs` |
+| Full Lean layer + Economic meso-scale | `Lean/` — **59** roots, **294** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
 | Haskell QuickCheck + sanity | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs); `cabal test landauer-einstein-sanity` — details in [`Haskell/README.md`](Haskell/README.md) and [`PROOF-STATUS.md`](PROOF-STATUS.md) § Cross-Layer Consistency |
 
 See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index (§ **Lean 4 Layer Summary** lists every lake root with theorem counts and flagship lemmas).
 
-## Lean core (non-Economic) — module roles
+## Lean core (non-Economic) — Science Cartridge layout
 
-The **33** Lean roots outside `Lean/Economic/` are summarized below (representative roles; the full per-root table is in [`PROOF-STATUS.md`](PROOF-STATUS.md)). All are **0** tactic `sorry` in the default closure.
+The **40** Lean roots outside `Lean/Economic/` use **Core / Concrete / Compat** (see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)). All are **0** tactic `sorry` in the default closure.
 
-| Module | Role (indicative) | Flagship identifiers |
-|--------|-------------------|----------------------|
-| `Gate` | `Admissible`, graded `AdmissibleN`, gate soundness / completeness | `admissibleN_compose`, `gateCheckSound` |
-| `Helmholtz` | Concrete ψ model, SDF / Eikonal | `helmholtzGradient`, `helmholtzStateAdmissible` |
-| `Constitutional` | N-step Kleisli, subject reduction | `kleisliFoldWellTypedN`, `kleisliComposeWellTypedN` |
-| `Naturality` | Material-agnostic gate | `gateMaterialAgnostic`, `naturalitySquare` |
-| `Activation` | Engine activations, sheaf-style sections | (see module) |
-| `DIBKleisli` | DIB monad laws, semantic step vs `gateCheck` | `dibArtifactGateCheck_eq_true` |
-| `FormalFoundations` | Corpus witness importing core stack | `umst_formal_complete` |
-| `LandauerEinsteinBridge` | SI Landauer scale, `E=mc²` mass brackets | numeric bracket lemmas at 300 K |
-| `GraphProperties` | Mass non-transitivity, DAG lemmas | `mass_not_transitive`, `admissibleTrans_refuted` |
-| `Powers` | Powers gel-space ratio witness | `powersStateFcMonotone` |
-| `Convergence` | Streams, Lyapunov-style bounds | `HydrationInUnitInterval`, `ConstitutionalStream` |
-| `GaloisGate` | Galois connection on gate conditions | (see module) |
-| `EnrichedAdmissibility` | Lawvere metric vs `AdmissibleN` | triangle-inequality lemmas |
-| `LandauerLaw` | `T_LandauerLaw`; **only** project `axiom` `physicalSecondLaw` | `landauerBound` family |
-| `InfoTheory` | Joint Shannon entropy, product joint laws | `marginalX_product`, `sumOne` |
-| `EndConditions` | Terminal / end-state style constraints | (see module) |
-| `MeasurementCost` | Observation cost layer | (see module) |
-| `LandauerExtension` | n-bit scaling, temperature scaling | (see module) |
-| `FiberedActivation` | `engineFiber`, universality | (see module) |
-| `MonoidalState` | `combine` on ℚ states, convexity lemmas | `combine_one`, `combine_zero` |
-| `SeparationBound` | Accuracy–safety separation (real line) | `accuracy_safety_separation_real` |
-| `CreditGreedyOptimal` | Greedy vs exhaustive credit scan (Case A) | `credit_greedy_optimal` |
-| `Dignity` | Thermodynamic–epistemic dignity scalar | `dignity_step` |
+| Layer | Modules | Role |
+|-------|---------|------|
+| **Core** | `Core.State`, `Core.Gate`, `Core.Constitutional` | Universal `ThermodynamicSystem`, `AdmissibleSystem`, `δMass`, generic graded Kleisli |
+| **Concrete** | `Concrete.State`, `Concrete.Gate`, `Concrete.Helmholtz`, `Concrete.Powers`, `Concrete.Convergence`, `Concrete.GraphProperties`, `Concrete.Activation`, `Concrete.EndConditions`, `Concrete.EnrichedAdmissibility`, `Concrete.GaloisGate` | OPC cement cartridge: `Q_hyd`, `helmholtz`, `ConcreteAdmissible`, constitutive witnesses |
+| **Compat** | `Compat.Gate`, `Compat.Constitutional` | Legacy `UMST` names (`ThermodynamicState`, `Admissible`, `gateCheck`, `makeGateArrow`) |
+| **Universal extensions** | `Naturality`, `DIBKleisli`, `LandauerLaw`, `LandauerEinsteinBridge`, `DEC`, `Adjoint`, … | Material-agnostic or cross-cartridge lemmas |
+
+Flagship identifiers: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellTypedN`, `ψAntitoneHelmholtz`, `powers_monotone`, `hydrationConverges`.
 | `EtaCog` | MI-per-Joule cockpit metric | `eta_cog_nonneg` |
 | `RhoEstimator` | Gaussian ρ–MI in bits | `rho_based_mi_formula` |
 | `MedianConvergence` | `N_warmup` ceiling / empirical CDF tail | (see module) |

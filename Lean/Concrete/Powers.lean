@@ -23,7 +23,7 @@
 
 import Mathlib.Algebra.Order.Field.Rat
 import Mathlib.Tactic
-import Gate
+import Compat.Gate
 
 namespace UMST
 
@@ -147,9 +147,6 @@ theorem powersStateAdmissible
     (hwc : 0 < wc)
     (h_psi : old.hydration ≤ new.hydration → new.freeEnergy ≤ old.freeEnergy) :
     Admissible old new :=
-  ⟨hm,
-   h_psi hα,
-   hα,
-   powersStateFcMonotone old new wc ho hn hα₀ hα hwc⟩
+  Admissible.mk old new hm (h_psi hα) hα (powersStateFcMonotone old new wc ho hn hα₀ hα hwc)
 
 end UMST

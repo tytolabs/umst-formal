@@ -36,7 +36,7 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 
 | Layer | Tool | Build command | Status |
 |-------|------|---------------|--------|
-| Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | Physical postulates in `Gate.agda` (see key); `InfoTheory.agda` (definitions + 3 postulates mirroring Lean/Coq product laws; small length lemmas proved); default `make check` is not `--safe` |
+| Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | **Core/Concrete/Compat** gate split; physical postulates in `Concrete.Gate` (see key); `Gate.agda` / `Helmholtz.agda` are compat shims; default `make check` is not `--safe` |
 | Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
 | Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **53** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`), **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`, and **prime-spectral guidance** (`PrimeSpectralGuidance`, `PrimeSpectralCategory`; see `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`). Counts: **261** `theorem` + **24** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
 | Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **65** properties (gate, SDF, InfoTheory, Landauer, monoidal state, **prime-spectral guidance**, burden/stochastic drift, Economic-layer mirrors, **CreditGreedy**, **Dignity**, **EtaCog**, **RhoEstimator**, **MedianConvergence**, **OrderStatisticsBand**); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
@@ -56,9 +56,23 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 model axioms* encoding cement chemistry (Clausius-Duhem, Powers model).  They
 are not logical gaps — they are interface specifications.  The concrete
 arithmetic witness for `ψ-antitone` is fully proved in `Coq/Gate.v`
-(helmholtz_antitone, §8) and `Lean/Gate.lean` (helmholtzAntitone).  The
-concrete witness for Helmholtz-consistent states is in `Agda/Helmholtz.agda`
-(`helmholtz-antitone`) and `Lean/Helmholtz.lean` (`helmholtzStateAdmissible`).
+(helmholtz_antitone, §8) and `Lean/Concrete/Gate.lean` (helmholtzAntitone).  The
+concrete witness for Helmholtz-consistent states is in `Agda/Concrete/Helmholtz.agda`
+(`ψ-antitone-helmholtz`) and `Lean/Concrete/Helmholtz.lean` (`helmholtzStateAdmissible`).
+
+### Science Cartridge correspondence (Lean 4 — 2026-07)
+
+| Concept | Lean | Agda | Coq | Haskell |
+|---------|------|------|-----|---------|
+| Universal mass + dissipation | `Core.Gate` | `Core.Gate` | `Core.Gate` | `UMST.Core` |
+| Cementitious state + gate | `Concrete.State`, `Concrete.Gate` | `Concrete.Gate` | `Concrete.Gate` | `UMST.Concrete` |
+| Legacy FFI / fleet API | `Compat.Gate` | `Compat.Gate` (shim: `Gate.agda`) | `Compat.Gate` (shim: `Gate.v`) | `UMST.Compat` (shim: `UMST.hs`) |
+| Generic Kleisli | `Core.Constitutional` | — | `Constitutional.v` (concrete) | — |
+| Concrete Kleisli arrows | `Compat.Constitutional` | — | — | — |
+| Helmholtz witness | `Concrete.Helmholtz` | `Concrete.Helmholtz` (shim: `Helmholtz.agda`) | `Concrete.Gate` (§8) | — |
+| Powers witness | `Concrete.Powers` | — | — | — |
+
+Phase B (2026-07): Agda / Coq / Haskell **Core / Concrete / Compat** mirrors landed; Lean remains authoritative on `safe/science-cartridge`.
 
 ---
 
@@ -72,8 +86,8 @@ this table.**
 
 | Declaration | Coq | Agda | Lean | Classification |
 |---|---|---|---|---|
-| Free-energy antitone under hydration | `psi_antitone` (Gate.v) | `ψ-antitone` (Gate.agda) | `helmholtzAntitone` (Gate.lean); state witness `ψAntitoneHelmholtz` (Helmholtz.lean) — **not** a Lean `axiom` | Clausius-Duhem / Helmholtz model |
-| Strength monotone under hydration | `fc_monotone` (Gate.v) | `fc-monotone` (Gate.agda) | `powersStateFcMonotone` (Powers.lean) — **not** a Lean `axiom` | Powers gel-space ratio model |
+| Free-energy antitone under hydration | `psi_antitone` (Gate.v) | `ψ-antitone` (Gate.agda) | `helmholtzAntitone` (Concrete/Gate.lean); state witness `ψAntitoneHelmholtz` (Concrete/Helmholtz.lean) — **not** a Lean `axiom` | Clausius-Duhem / Helmholtz model |
+| Strength monotone under hydration | `fc_monotone` (Gate.v) | `fc-monotone` (Gate.agda) | `powersStateFcMonotone` (Concrete/Powers.lean) — **not** a Lean `axiom` | Powers gel-space ratio model |
 | Second Law of Thermodynamics (erasure) | -- | -- | `physicalSecondLaw` + `physicalSecondLawUniformBinary` (LandauerLaw.lean) | T_LandauerLaw only; Clausius entropy form; uniform-binary binders use `physicalSecondLawUniformBinary proc` (Lean parse) |
 
 ### Composition / transitivity (RESOLVED — axiom removed)
@@ -88,10 +102,10 @@ violates it.  Formal counterexample: `GraphProperties.lean` (`mass_not_transitiv
 
 | Declaration | Lean | Coq | Haskell QC | Classification |
 |---|---|---|---|---|
-| Graded admissibility | `AdmissibleN n` (Gate.lean §10) | `admissible_N` (Constitutional.v) | -- | Structure indexed by step count n |
-| Graded composition | `admissibleN_compose` (Gate.lean §10) | `admissible_N_compose` (Constitutional.v) | -- | Proved via triangle inequality |
-| 0-step identity | `admissibleNRefl 0` (Gate.lean §10) | `admissible_N_refl` (Constitutional.v) | -- | Proved |
-| General Kleisli composition | `kleisliComposeWellTypedN` (Constitutional.lean) | `kleisli_compose_well_typed_N` (Constitutional.v) | -- | m+n-step graded |
+| Graded admissibility | `AdmissibleN n` (`Concrete/Gate.lean`) | `admissible_N` (Constitutional.v) | -- | Structure indexed by step count n |
+| Graded composition | `admissibleN_compose` (`Concrete/Gate.lean`) | `admissible_N_compose` (Constitutional.v) | -- | Proved via triangle inequality |
+| 0-step identity | `admissibleNRefl 0` (`Concrete/Gate.lean`) | `admissible_N_refl` (Constitutional.v) | -- | Proved |
+| General Kleisli composition | `kleisliComposeWellTypedN` (`Core/Constitutional.lean`) | `kleisli_compose_well_typed_N` (Constitutional.v) | -- | m+n-step graded |
 | N-step Kleisli | `kleisliFoldWellTypedN` (Constitutional.lean) | `kleisli_fold_well_typed_N` (Constitutional.v) | -- | WellTypedN n; no axiom |
 | Mass non-transitivity | `mass_not_transitive` (GraphProperties.lean) | -- | `prop_mass_not_transitive` | Formal counterexample |
 | Accuracy–safety separation (per-sample $L^1$ / MAE core) | `accuracy_safety_separation_real`, `accuracy_safety_separation_real_symm` (SeparationBound.lean) | -- | -- | Triangle inequality on ℝ |
@@ -173,30 +187,30 @@ linked in a future module.
 
 | Declaration | File | Classification |
 |---|---|---|
-| `AdmissibleN n` | `Lean/Gate.lean` §10 | Graded admissibility structure |
-| `admissibleN_compose` | `Lean/Gate.lean` §10 | Proved (triangle inequality) |
-| `admissible_iff_admissibleN1` | `Lean/Gate.lean` §10 | Proved (ring/simp) |
-| `admissibleNRefl n` | `Lean/Gate.lean` §10 | Proved |
-| `WellTypedN n` | `Lean/Constitutional.lean` | Definition |
-| `kleisliComposeWellTypedN` | `Lean/Constitutional.lean` | Proved |
-| `kleisliFoldWellTypedN` | `Lean/Constitutional.lean` | Proved |
-| `mass_not_transitive` | `Lean/GraphProperties.lean` | Proved (norm_num) |
-| `admissibleTrans_refuted` | `Lean/GraphProperties.lean` | Proved (norm_num) |
-| `dissipCond_transitive` | `Lean/GraphProperties.lean` | Proved (le_trans) |
-| `hydratCond_transitive` | `Lean/GraphProperties.lean` | Proved (le_trans) |
-| `strengthCond_transitive` | `Lean/GraphProperties.lean` | Proved (le_trans) |
-| `hydration_acyclic` | `Lean/GraphProperties.lean` | Proved (linarith) |
-| `powers_monotone` | `Lean/Powers.lean` | Proved (nlinarith) |
-| `PowersState` | `Lean/Powers.lean` | Definition (w/c-indexed) |
-| `powersStateAdmissible` | `Lean/Powers.lean` | Proved |
-| `hydrationConverges` | `Lean/Convergence.lean` | Proved (Monotone Convergence) |
-| `freeEnergyConverges` | `Lean/Convergence.lean` | Proved (Monotone Convergence) |
-| `lyapunov_nondecreasing` | `Lean/Convergence.lean` | Proved |
-| `massDist`, `massDist_triangle` | `Lean/EnrichedAdmissibility.lean` | Proved (abs_add) |
-| `OrderAdmissible`, `orderAdmissible_trans` | `Lean/EnrichedAdmissibility.lean` | Proved |
-| `admissibleN_decomp`, `admissibleN_mono` | `Lean/EnrichedAdmissibility.lean` | Proved |
-| `condMeet_full_iff_admissible` | `Lean/GaloisGate.lean` | Proved |
-| `mass_condition_independent` | `Lean/GaloisGate.lean` | Proved (norm_num) |
+| `AdmissibleN n` | `Lean/Concrete/Gate.lean` §10 | Graded admissibility structure |
+| `admissibleN_compose` | `Lean/Concrete/Gate.lean` §10 | Proved (triangle inequality) |
+| `admissible_iff_admissibleN1` | `Lean/Concrete/Gate.lean` §10 | Proved (ring/simp) |
+| `admissibleNRefl n` | `Lean/Concrete/Gate.lean` §10 | Proved |
+| `WellTypedN n` | `Lean/Core/Constitutional.lean` | Definition |
+| `kleisliComposeWellTypedN` | `Lean/Core/Constitutional.lean` | Proved |
+| `kleisliFoldWellTypedN` | `Lean/Core/Constitutional.lean` | Proved |
+| `mass_not_transitive` | `Lean/Concrete/GraphProperties.lean` | Proved (norm_num) |
+| `admissibleTrans_refuted` | `Lean/Concrete/GraphProperties.lean` | Proved (norm_num) |
+| `dissipCond_transitive` | `Lean/Concrete/GraphProperties.lean` | Proved (le_trans) |
+| `hydratCond_transitive` | `Lean/Concrete/GraphProperties.lean` | Proved (le_trans) |
+| `strengthCond_transitive` | `Lean/Concrete/GraphProperties.lean` | Proved (le_trans) |
+| `hydration_acyclic` | `Lean/Concrete/GraphProperties.lean` | Proved (linarith) |
+| `powers_monotone` | `Lean/Concrete/Powers.lean` | Proved (nlinarith) |
+| `PowersState` | `Lean/Concrete/Powers.lean` | Definition (w/c-indexed) |
+| `powersStateAdmissible` | `Lean/Concrete/Powers.lean` | Proved |
+| `hydrationConverges` | `Lean/Concrete/Convergence.lean` | Proved (Monotone Convergence) |
+| `freeEnergyConverges` | `Lean/Concrete/Convergence.lean` | Proved (Monotone Convergence) |
+| `lyapunov_nondecreasing` | `Lean/Concrete/Convergence.lean` | Proved |
+| `massDist`, `massDist_triangle` | `Lean/Concrete/EnrichedAdmissibility.lean` | Proved (abs_add) |
+| `OrderAdmissible`, `orderAdmissible_trans` | `Lean/Concrete/EnrichedAdmissibility.lean` | Proved |
+| `admissibleN_decomp`, `admissibleN_mono` | `Lean/Concrete/EnrichedAdmissibility.lean` | Proved |
+| `condMeet_full_iff_admissible` | `Lean/Concrete/GaloisGate.lean` | Proved |
+| `mass_condition_independent` | `Lean/Concrete/GaloisGate.lean` | Proved (norm_num) |
 
 ### Mechanized: Landauer–Einstein mass-equivalent fragment
 
@@ -344,22 +358,25 @@ has the algebraic fragment with parameters.  Summary:
 
 | Module | `theorem` | `lemma` | Source |
 |--------|-----------|---------|--------|
-| `UMST.Gate` | 14 | 0 | `Lean/Gate.lean` — AdmissibleN, `admissibleN_compose`, gate soundness/complete |
-| `UMST.Helmholtz` | 5 | 0 | `Lean/Helmholtz.lean` — `helmholtzGradient`, `helmholtzStateAdmissible`, SDF/Eikonal |
-| `UMST.Constitutional` | 11 | 0 | `Lean/Constitutional.lean` — Kleisli graded fold/compose (`kleisliComposeAssoc`, …) |
+| `UMST.Core.Gate` | 4 | 0 | `Lean/Core/Gate.lean` — `δMass`, `CoreAdmissible(N)` |
+| `UMST.Core.Constitutional` | 11 | 0 | `Lean/Core/Constitutional.lean` — generic Kleisli graded fold/compose |
+| `UMST.Concrete.Gate` | 13 | 0 | `Lean/Concrete/Gate.lean` — cement gate, `admissibleN_compose`, soundness/complete |
+| `UMST.Compat.Gate` | 4 | 0 | `Lean/Compat/Gate.lean` — legacy `UMST` API re-exports |
+| `UMST.Compat.Constitutional` | 11 | 0 | `Lean/Compat/Constitutional.lean` — `makeGateArrow`, concrete Kleisli |
+| `UMST.Concrete.Helmholtz` | 6 | 0 | `Lean/Concrete/Helmholtz.lean` — `ψAntitoneHelmholtz`, SDF/Eikonal |
 | `UMST.Naturality` | 6 | 0 | `Lean/Naturality.lean` — `gateMaterialAgnostic`, `naturalitySquare` |
-| `UMST.Activation` | 11 | 0 | `Lean/Activation.lean` — engine profiles; `ActivatedUMST` |
+| `UMST.Concrete.Activation` | 11 | 0 | `Lean/Concrete/Activation.lean` — engine profiles; `ActivatedUMST` |
 | `UMST.DIBKleisli` | 9 | 0 | `Lean/DIBKleisli.lean` — monad laws; `dibArtifactGateCheck_eq_true` |
 | `UMST.FormalFoundations` | 1 | 0 | `Lean/FormalFoundations.lean` — corpus witness |
 | `UMST.LandauerEinsteinBridge` | 7 | 5 | `Lean/LandauerEinsteinBridge.lean` |
-| `UMST.GraphProperties` | 10 | 0 | `Lean/GraphProperties.lean` |
-| `UMST.Powers` | 3 | 5 | `Lean/Powers.lean` |
-| `UMST.Convergence` | 8 | 0 | `Lean/Convergence.lean` |
-| `UMST.GaloisGate` | 6 | 0 | `Lean/GaloisGate.lean` — Galois connection on gate conditions |
-| `UMST.EnrichedAdmissibility` | 12 | 0 | `Lean/EnrichedAdmissibility.lean` |
+| `UMST.GraphProperties` | 10 | 0 | `Lean/Concrete/GraphProperties.lean` |
+| `UMST.Powers` | 3 | 5 | `Lean/Concrete/Powers.lean` |
+| `UMST.Convergence` | 8 | 0 | `Lean/Concrete/Convergence.lean` |
+| `UMST.GaloisGate` | 6 | 0 | `Lean/Concrete/GaloisGate.lean` — Galois connection on gate conditions |
+| `UMST.EnrichedAdmissibility` | 12 | 0 | `Lean/Concrete/EnrichedAdmissibility.lean` |
 | `UMST.LandauerLaw` | 9 | 3 | `Lean/LandauerLaw.lean` (1 Lean `axiom`: `physicalSecondLaw`) |
 | `UMST.InfoTheory` | 4 | 0 | `Lean/InfoTheory.lean` |
-| `UMST.EndConditions` | 3 | 0 | `Lean/EndConditions.lean` — stream end-state constraints |
+| `UMST.Concrete.EndConditions` | 3 | 0 | `Lean/Concrete/EndConditions.lean` — stream end-state constraints |
 | `UMST.ClassicalMeasurementCost` | 1 | 0 | `Lean/ClassicalMeasurementCost.lean` — classical observation cost vs Landauer |
 | `UMST.LandauerExtension` | 6 | 0 | `Lean/LandauerExtension.lean` — n-bit / temperature scaling |
 | `UMST.FiberedActivation` | 8 | 0 | `Lean/FiberedActivation.lean` — `engineFiber`, covering lemmas |
