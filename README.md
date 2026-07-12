@@ -86,7 +86,7 @@ Axioms (^axiom ):
 check_print_axioms: OK (all closures ⊆ Mathlib baseline + optional physicalSecondLaw)
 ```
 
-Counts match MaOS [`docs/ECOSYSTEM_STATE.md`](https://github.com/tytolabs/MaOS-Workspace/blob/master/docs/ECOSYSTEM_STATE.md) (62 / 289 / 24). **Script wins** on any mismatch. Methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
+Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script output above (62 / 289 / 24). **Script wins** on any mismatch. Methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
 
 **Strengthen — do not soften:** Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
 
