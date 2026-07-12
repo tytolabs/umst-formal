@@ -596,12 +596,14 @@ Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized
 <a id="related-repositories"></a>
 ## Related repositories
 
-| Repo | Focus |
-|:---|:---|
-| [`umst-manifold`](https://github.com/tytolabs/umst-manifold) | DEC carrier + catalog lock SSOT |
-| [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge) | Cementitious law + authoritative MCP |
-| [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) | Knowing / observation-cost fiber |
-| [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) | Temporal witness / stamp spine |
+Shared gate spine — **acting** (this fiber) · **matter** · **knowing** · **time**. Each sibling below is listed for how it composes **with this economic / Kleisli proof tree**.
+
+| Repository | Spine role | Relation to this Acting fiber |
+|:---|:---|:---|
+| [`umst-manifold`](https://github.com/tytolabs/umst-manifold) | **Matter** substrate | Hot DEC / gate runtime and catalog lock SSOT. Agents cite theorem names from this tree as **cold witnesses**; they do not treat `lake build` as the robot gate path. |
+| [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge) | **Matter** cartridge + MCP | Authoritative MCP host and cementitious `ConcreteAdmissible` runtime. Economic “detector” modules here are **predicates** ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)) — not tools on `umst-mcp`. |
+| [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) | **Knowing** | Observation / Landauer / Englert fiber. This repo owns commitments and burden bookkeeping — **not** which-path complementarity. Link out; do not duplicate Englert tables. |
+| [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) | **Time** | Stamps when an admissible commitment lands. Does not prove Economic predicates or run the sync mesh inside this proof tree. |
 
 ---
 
