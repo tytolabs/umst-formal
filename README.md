@@ -105,7 +105,7 @@ Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Act
 <summary><strong>Table of contents</strong> (detailed map + outline)</summary>
 <br>
 
-**Top-level map**
+Top-level map
 
 | Block | Jump |
 |:---|:---|
@@ -248,7 +248,7 @@ Agents **consume** exported witnesses and cite theorem names — they do **not**
 
 ## 3. Cross-Domain Integration Specifications
 
-**What this section is for.** Acting is the fiber that answers: *may this state change commit?* Optimism is not an axiom. Once you propose a transition, mass and Clausius–Duhem constraints decide admissibility — and Kleisli composition decides whether a *sequence* of steps may commit. Open a persona below for surface, pipeline, outcome, and an honest limit.
+**What this section is for.** Acting is the fiber that answers: _may this state change commit?_ Optimism is not an axiom. Once you propose a transition, mass and Clausius–Duhem constraints decide admissibility — and Kleisli composition decides whether a _sequence_ of steps may commit. Open a persona below for surface, pipeline, outcome, and an honest limit.
 
 This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs DEC on manifold/concrete; Knowing owns observation cost in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit); Time stamps commitments in [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs). Acting supplies the machine-checked **commitment / economic-predicate** vocabulary those siblings compose through — not moral or legal truth.
 
@@ -256,13 +256,13 @@ This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs 
 <details>
 <summary><b>1. Catalog / agent cold-consume</b> (Agent integrators, manifold witnesses)</summary>
 
-* **Domain Focus / Integration Surface:** Exported witnesses and theorem names — agents **consume** them; they do not `lake build` mid-inference ([§9.2](#92-hot-vs-cold)).
+- **Domain Focus / Integration Surface:** Exported witnesses and theorem names — agents **consume** them; they do not `lake build` mid-inference ([§9.2](#92-hot-vs-cold)).
 
-* **Composition / Pipeline:** Pin the digest from manifold [`artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json) → cite names from [`PROOF-STATUS.md`](PROOF-STATUS.md). Runtime MCP tools live only in concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md).
+- **Composition / Pipeline:** Pin the digest from manifold [`artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json) → cite names from [`PROOF-STATUS.md`](PROOF-STATUS.md). Runtime MCP tools live only in concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md).
 
-* **Computational Outcome:** A cold, digest-pinned vocabulary of admissible acts that agents and CI can cite without rebuilding Lean on a robot.
+- **Computational Outcome:** A cold, digest-pinned vocabulary of admissible acts that agents and CI can cite without rebuilding Lean on a robot.
 
-* **Honest limit:** Never hardcode rival catalog SHAs. Counts @ `python3 scripts/lean_declaration_stats.py` SHA only — script wins when prose drifts.
+- **Honest limit:** Never hardcode rival catalog SHAs. Counts @ `python3 scripts/lean_declaration_stats.py` SHA only — script wins when prose drifts.
 
 </details>
 
@@ -270,13 +270,13 @@ This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs 
 <details>
 <summary><b>2. Propose→gate / Economic predicates</b> (Control AI, safety documentation)</summary>
 
-* **Domain Focus / Integration Surface:** [`PhysicsConstrainedAI.lean`](Lean/Economic/PhysicsConstrainedAI.lean) — propose freely, then gate-check before treating output as admissible. Surrogate “detector” names are scoped in [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md).
+- **Domain Focus / Integration Surface:** [`PhysicsConstrainedAI.lean`](Lean/Economic/PhysicsConstrainedAI.lean) — propose freely, then gate-check before treating output as admissible. Surrogate “detector” names are scoped in [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md).
 
-* **Composition / Pipeline:** `PhysicsConstrainedAI` stages imagination vs admissibility. Modules such as `HallucinationDetector` and `LowEntropyLieDetector` are **threshold predicates** under explicit hypotheses — classical bookkeeping, not black-box products.
+- **Composition / Pipeline:** `PhysicsConstrainedAI` stages imagination vs admissibility. Modules such as `HallucinationDetector` and `LowEntropyLieDetector` are **threshold predicates** under explicit hypotheses — classical bookkeeping, not black-box products.
 
-* **Computational Outcome:** A shared language for burden, creativity slack, collective spread, and horizon-aware grounding that documents *margins*, not legal seals.
+- **Computational Outcome:** A shared language for burden, creativity slack, collective spread, and horizon-aware grounding that documents _margins_, not legal seals.
 
-* **Honest limit:** Economic module names are **not** certifications or semantic truth detectors. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing off-repo.
+- **Honest limit:** Economic module names are **not** certifications or semantic truth detectors. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing off-repo.
 
 </details>
 
@@ -284,13 +284,13 @@ This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs 
 <details>
 <summary><b>3. Kleisli multi-step commitments</b> (Multi-step agents, constitutional control)</summary>
 
-* **Domain Focus / Integration Surface:** `CoreAdmissible` + `kleisliCompose` — [`Core/Gate.lean:23`](Lean/Core/Gate.lean), [`Core/Constitutional.lean:32`](Lean/Core/Constitutional.lean).
+- **Domain Focus / Integration Surface:** `CoreAdmissible` + `kleisliCompose` — [`Core/Gate.lean:23`](Lean/Core/Gate.lean), [`Core/Constitutional.lean:32`](Lean/Core/Constitutional.lean).
 
-* **Composition / Pipeline:** `State₀ --[f admissible]--> State₁ --[g admissible]--> State₂`. N-step folds use `kleisliFoldWellTypedN` ([`KleisliAdmissibilityComposition.lean`](Lean/Economic/KleisliAdmissibilityComposition.lean)).
+- **Composition / Pipeline:** `State₀ --[f admissible]--> State₁ --[g admissible]--> State₂`. N-step folds use `kleisliFoldWellTypedN` ([`KleisliAdmissibilityComposition.lean`](Lean/Economic/KleisliAdmissibilityComposition.lean)).
 
-* **Computational Outcome:** Multi-step agent plans are well-typed only when **every** step is `CoreAdmissible` — a rejected middle step cannot be papered over by a later “success.”
+- **Computational Outcome:** Multi-step agent plans are well-typed only when **every** step is `CoreAdmissible` — a rejected middle step cannot be papered over by a later “success.”
 
-* **Honest limit:** Physics runtime = manifold/concrete. This tree proves the admissibility *vocabulary*, not DEC solvers or MCP stdio.
+- **Honest limit:** Physics runtime = manifold/concrete. This tree proves the admissibility _vocabulary_, not DEC solvers or MCP stdio.
 
 </details>
 
@@ -298,13 +298,13 @@ This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs 
 <details>
 <summary><b>4. Cross-fiber links</b> (Knowing, Time, Matter siblings)</summary>
 
-* **Domain Focus / Integration Surface:** Acting owns predicates. Knowing owns observation cost ([`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit)). Time owns stamps ([`umst-ucrs`](https://github.com/tytolabs/umst-ucrs)). Matter owns DEC + constitutive runtime ([`umst-manifold`](https://github.com/tytolabs/umst-manifold) / concrete).
+- **Domain Focus / Integration Surface:** Acting owns predicates. Knowing owns observation cost ([`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit)). Time owns stamps ([`umst-ucrs`](https://github.com/tytolabs/umst-ucrs)). Matter owns DEC + constitutive runtime ([`umst-manifold`](https://github.com/tytolabs/umst-manifold) / concrete).
 
-* **Composition / Pipeline:** `ConcreteAdmissible` compat mirrors the cartridge gate. UCRS stamps when commitments land. Acting does not run sync protocol and does not re-prove Englert.
+- **Composition / Pipeline:** `ConcreteAdmissible` compat mirrors the cartridge gate. UCRS stamps when commitments land. Acting does not run sync protocol and does not re-prove Englert.
 
-* **Computational Outcome:** Sibling links instead of duplicated Englert tables or `ucrs_seq` mechanics — compositional integrity across the gate spine.
+- **Computational Outcome:** Sibling links instead of duplicated Englert tables or `ucrs_seq` mechanics — compositional integrity across the gate spine.
 
-* **Honest limit:** Does not prove Englert / Kraus or validate constitutive law — cite the correct fiber.
+- **Honest limit:** Does not prove Englert / Kraus or validate constitutive law — cite the correct fiber.
 
 </details>
 
@@ -567,10 +567,10 @@ Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized
 
 ### 9.6 Principles (honest)
 
-* **Acting is gate-checked.** Optimism about transitions is not an axiom; admissibility is proved or rejected under explicit hypotheses.
-* **Cold proof, hot gate elsewhere.** This repo is proof build + catalog export; runtime MCP and arena paths live in concrete/manifold.
-* **Economic names are predicates.** “Detector” modules are threshold bookkeeping — not semantic truth or deployed safety products ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)).
-* **Fiber boundaries.** Knowing theorems and UCRS stamps link out — do not duplicate their proof tables here.
+- **Acting is gate-checked.** Optimism about transitions is not an axiom; admissibility is proved or rejected under explicit hypotheses.
+- **Cold proof, hot gate elsewhere.** This repo is proof build + catalog export; runtime MCP and arena paths live in concrete/manifold.
+- **Economic names are predicates.** “Detector” modules are threshold bookkeeping — not semantic truth or deployed safety products ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)).
+- **Fiber boundaries.** Knowing theorems and UCRS stamps link out — do not duplicate their proof tables here.
 
 ---
 
@@ -594,6 +594,7 @@ Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized
 ---
 
 <a id="related-repositories"></a>
+
 ## Related repositories
 
 Shared gate spine — **acting** (this fiber) · **matter** · **knowing** · **time**. Each sibling below is listed for how it composes **with this economic / Kleisli proof tree**.
