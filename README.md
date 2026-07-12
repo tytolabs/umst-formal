@@ -40,7 +40,7 @@ These public repos share **one** thermodynamic admissibility gate, applied acros
 | **Acting** | **this repo** ([`umst-formal`](https://github.com/tytolabs/umst-formal)) **← you are here** | Economic-admissibility formal fiber |
 | **Time** | [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) | Temporal witness / stamp spine |
 
-Sibling links only — no programme/paper framing in this README. Already-public per-repo DOI badges stay where they exist.
+Sibling links only — no paper-series arc naming in this README. Already-public per-repo DOI badges stay where they exist.
 
 ### What this is, in plain words
 
@@ -63,11 +63,11 @@ Port detail across Core / Concrete / Compat: [`FORMAL_FOUNDATIONS.md`](FORMAL_FO
 
 This repository is a **machine-checked proof artifact**. It does **not** run on the manifold hot arena path and it does **not** host MCP. Runtime gating and cold-edge agent tools live in [`umst-manifold`](https://github.com/tytolabs/umst-manifold) / [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge). Agents **consume** this fiber via the manifold catalog lock export — they do not `lake build` mid-inference.
 
-### Honesty ledger (counts @ `6f0c06e`)
+### Honesty ledger (counts @ `4132be0`)
 
 **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md).
 
-**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`6f0c06e`** (2026-07-12):
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`4132be0`** (2026-07-12):
 
 ```text
 Repository: umst-formal
@@ -93,7 +93,7 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 ### Quick verify
 
 ```bash
-git checkout 6f0c06e   # or origin/main
+git checkout 4132be0   # or origin/main
 python3 scripts/lean_declaration_stats.py
 # after lake build:
 bash scripts/check_print_axioms.sh
@@ -251,7 +251,7 @@ umst-formal/
 │   ├── Gate.v, Constitutional.v, LandauerEinsteinBridge.v
 │   ├── InfoTheory.v, MeasurementCost.v
 │   └── Extraction.v
-├── Lean/                   Mathlib 4.14 — **51** `lakefile` roots (authoritative list: `lakefile.lean`)
+├── Lean/                   Mathlib 4.14 — **62** `lakefile` roots (authoritative list: `lakefile.lean`)
 │   ├── Gate … JenningsGelSpace.lean  (33 non-`Economic.*` roots incl. FPD, `Memory.*`, cartridge anchors)
 │   ├── Economic/*.lean               (18 `Economic.*` theorem roots + `EconomicDomain` definitions)
 │   ├── lakefile.lean, lean-toolchain
