@@ -59,15 +59,22 @@ Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Act
 
 Port detail across Core / Concrete / Compat: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md).
 
-### Performance honesty
+### Hot arena vs cold edge (performance honesty)
 
-This repository is a **machine-checked proof artifact**. It does **not** run on the manifold hot arena path and it does **not** host MCP. Runtime gating and cold-edge agent tools live in [`umst-manifold`](https://github.com/tytolabs/umst-manifold) / [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge). Agents **consume** this fiber via the manifold catalog lock export — they do not `lake build` mid-inference.
+| Path | What | Character |
+|:---|:---|:---|
+| **Cold (this repo)** | `lake build`, Agda/Coq/Haskell CI, `lean_declaration_stats.py` | Machine-checked proof artifact — not inference-time |
+| **Warm** | Optional `make visuals` / pedagogical plots | Surrogate diagrams — not market or lab data |
+| **Hot (not here)** | Manifold DEC / arena mmap; concrete MCP `umst_*` tools | Runtime gate + agent surface → siblings |
+| **Catalog consume** | Agents read manifold export digest | Do not `lake build` mid-inference |
 
-### Honesty ledger (counts @ `4132be0`)
+Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md). Catalog SHA = [`umst-manifold/artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json).
+
+### Honesty ledger (counts @ `e4666ba`)
 
 **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md).
 
-**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`4132be0`** (2026-07-12):
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`e4666ba`** (2026-07-12):
 
 ```text
 Repository: umst-formal
@@ -93,16 +100,32 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 ### Quick verify
 
 ```bash
-git checkout 4132be0   # or origin/main
+git checkout e41278c   # or origin/main
 python3 scripts/lean_declaration_stats.py
 # after lake build:
 bash scripts/check_print_axioms.sh
 cd Lean && lake build
 ```
 
+<details>
+<summary><strong>Table of contents</strong></summary>
+
+- [1. Core idea — Economic acting fiber](#1-core-idea--economic-acting-fiber)
+- [2. Proof architecture & layers](#2-proof-architecture--layers)
+- [3. Cross-Domain Integration](#3-cross-domain-integration)
+- [4. Repository topology](#4-repository-topology)
+- [5. Surfaces & build](#5-surfaces--build)
+- [6. Quick Start](#6-quick-start)
+- [7. Cross-language verification](#7-cross-language-verification)
+- [8. Documentation hub](#8-documentation-hub)
+- [9. Special Protocol: Agents](#9-special-protocol-note-to-autonomous-ai-agents--systems)
+- [10. Conclusion](#10-conclusion-inferences--forward-path)
+
+</details>
+
 ---
 
-## Economic intuition (plain language)
+## 1. Core idea — Economic acting fiber
 
 Growth can outrun friction in the stories people tell. The formal layer does not endorse those stories. It **binds** them: **`Lean/Economic/`** writes burden and information as **classical** quantities and keeps surrogate alarms explicit — thresholds and margins, not black-box “detectors” ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md)).
 
@@ -153,30 +176,32 @@ This repo is the **Acting** row of the gate-spine table above. It does **not** d
 
 ---
 
-## Background
+## 2. Proof architecture & layers
 
-The **Unified Material-State Tensor (UMST)** is a framework for material state transitions. Core ideas:
+The **Acting** fiber proves **admissibility of proposed transitions** under mass and dissipation constraints, then composes gate-checked steps via Kleisli structure. Economic modules are **classical meso-layer predicates** — parameterised, not oracles ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)).
 
-- **Thermodynamic admissibility gate** — accepts or rejects a proposed transition using mass and Clausius–Duhem (and cartridge-specific constitutive) constraints.
-- **Naturality** — the gate is material-agnostic across material classes.
-- **Constitutional sequences** — Kleisli-style composition of gate-checked steps with subject reduction.
-- **Geometry** — admissible region as SDF / CSG; Helmholtz free energy as gradient field.
-- **DIB cycle** — Discovery–Invention–Build as a monad with proved laws.
+```mermaid
+flowchart LR
+    subgraph cold [Cold proof build — this repo]
+        LEAN[Lean 62 roots]
+        AGDA[Agda spec]
+        COQ[Coq + extract]
+        HS[Haskell QuickCheck]
+    end
+    subgraph siblings [Runtime siblings — not here]
+        MAN[manifold DEC + catalog lock]
+        MCP[concrete MCP umst_*]
+        UCRS[ucrs stamps]
+    end
+    LEAN -->|export digest| MAN
+    MAN -->|witness R0| MCP
+    MCP -->|accept + stamp| UCRS
+```
 
-Optional Rust FFI correspondence tests exist; this repository’s primary deliverable remains the formal layers (Agda, Coq, Lean 4, Haskell QuickCheck).
+Agents **consume** exported witnesses and cite theorem names — they do **not** run `lake build` on the inference path. See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty).
 
-## What this repository does not claim (scope guardrail)
-
-This tree is a **standalone formal artifact**. Claims are exactly those in [`PROOF-STATUS.md`](PROOF-STATUS.md) with passing builds.
-
-- **Mechanized:** gate invariants, naturality, Kleisli structure, SDF lemmas in scope, Landauer–Einstein fragment, and **`Lean/Economic/`** (classical meso-layer).
-- **Not mechanized** unless listed: large ethical state spaces, informal “dignity” predicates, or any property absent from `PROOF-STATUS.md`.
-
-[Docs/Architecture-Invariants.md](Docs/Architecture-Invariants.md) records how field observations informed constraints.
-
-## What this repository proves (core invariants)
-
-Four invariants, across all formal layers:
+<details>
+<summary><strong>Four core invariants (all formal layers)</strong></summary>
 
 | # | Invariant | Physical meaning | Formal statement |
 |---|-----------|------------------|------------------|
@@ -185,62 +210,61 @@ Four invariants, across all formal layers:
 | 3 | Hydration irreversibility | Hydration cannot reverse | `alpha_new >= alpha_old` |
 | 4 | Strength monotonicity | Undamaged concrete does not lose strength | `fc_new >= fc_old` |
 
-## What is verified (index)
+</details>
 
-| Claim | Mechanized in |
-|-------|----------------|
-| Four gate invariants | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Compat/Gate.lean` + `Lean/Concrete/Gate.lean`, `Haskell/UMST.hs` |
-| Naturality | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Concrete/Activation.lean` |
-| Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Core/Constitutional.lean`, `Lean/Compat/Constitutional.lean` |
-| Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
-| SDF / FRep; CSG; Eikonal | `Agda/Concrete/Helmholtz.agda`, `Lean/Concrete/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **62** roots, **289** theorems + **24** lemmas; see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) |
-| Haskell QuickCheck + sanity | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs); `cabal test landauer-einstein-sanity` — details in [`Haskell/README.md`](Haskell/README.md) and [`PROOF-STATUS.md`](PROOF-STATUS.md) § Cross-Layer Consistency |
+## 3. Cross-Domain Integration
 
-See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index (§ **Lean 4 Layer Summary** lists every lake root with theorem counts and flagship lemmas).
+The Acting fiber binds **economic and control commitments** to thermodynamic admissibility — not to moral or legal truth.
 
-## Lean core (non-Economic) — Science Cartridge layout
+| Domain | How Acting composes | Honest limit |
+|:---|:---|:---|
+| **Matter** | Cartridge `ConcreteAdmissible` compat layer mirrors gate | Physics runtime = manifold/concrete — not this proof tree |
+| **Knowing** | Observation cost lives in double-slit fiber | Acting does not prove Englert / Kraus — link sibling |
+| **Time** | UCRS stamps when commitments land | Acting does not run sync protocol — link [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) |
+| **Control / AI** | `PhysicsConstrainedAI.lean` — propose then gate-check | Surrogate “detector” names are predicates only |
+| **Multi-agent** | `CollectiveCoherenceCost.lean` — spread penalty | User-parameterised; not deployed safety product |
 
-The **40** Lean roots outside `Lean/Economic/` use **Core / Concrete / Compat** (see [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)). All are **0** tactic `sorry` in the default closure.
+**Impact:** Any autonomous system that **acts** (commits, spends credit, publishes state) can be modeled as Kleisli sequences of gate-checked steps. This repo is the machine-checked vocabulary for that **acting** slice of the shared gate.
 
-| Layer | Modules | Role |
-|-------|---------|------|
-| **Core** | `Core.State`, `Core.Gate`, `Core.Constitutional` | Universal `ThermodynamicSystem`, `AdmissibleSystem`, `δMass`, generic graded Kleisli |
-| **Concrete** | `Concrete.State`, `Concrete.Gate`, `Concrete.Helmholtz`, `Concrete.Powers`, `Concrete.Convergence`, `Concrete.GraphProperties`, `Concrete.Activation`, `Concrete.EndConditions`, `Concrete.EnrichedAdmissibility`, `Concrete.GaloisGate` | OPC cement cartridge: `Q_hyd`, `helmholtz`, `ConcreteAdmissible`, constitutive witnesses |
-| **Compat** | `Compat.Gate`, `Compat.Constitutional` | Legacy `UMST` names (`ThermodynamicState`, `Admissible`, `gateCheck`, `makeGateArrow`) |
-| **Universal extensions** | `Naturality`, `DIBKleisli`, `LandauerLaw`, `LandauerEinsteinBridge`, `DEC`, `Adjoint`, … | Material-agnostic or cross-cartridge lemmas |
+<details>
+<summary><strong>Kleisli composition sketch (Acting fiber)</strong></summary>
 
-Flagship identifiers: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellTypedN`, `ψAntitoneHelmholtz`, `powers_monotone`, `hydrationConverges`.
-
-| Module | Role | Flagship |
-|--------|------|----------|
-| `EtaCog` | MI-per-Joule cockpit metric | `eta_cog_nonneg` |
-| `RhoEstimator` | Gaussian ρ–MI in bits | `rho_based_mi_formula` |
-| `MedianConvergence` | `N_warmup` ceiling / empirical CDF tail | (see module) |
-| `OrderStatisticsBand` | Quantile band / split-sample inequality | (see module) |
-| `Memory.MergeSafe` | Merge-safe memory policy | (see module) |
-| `Memory.TierDisjoint` | Tier-disjointness | (see module) |
-| `DEC` | Triangle DEC / discrete Stokes witness | `discrete_stokes`, `hodge_laplacian_symmetric` |
-| `Adjoint` | Linear adjoint vs terminal gradient (matrix exp) | `adjoint_recovers_gradient` |
-| `RegimeSoundness` | Rational hyperbox regime vs warnings | `warnings_empty_iff_in_regime` |
-| `JenningsGelSpace` | Jennings–Brownyard gel-space strength | `jennings_strength_monotone` |
-
-**Axiom / surrogate honesty:** [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md), [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
-
-### Documentation hub
-
-| Document | Role |
-|:---------|:-----|
-| [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) | Axioms, DIB audit, paper-claim map, AutoExperimenter boundary |
-| [`PROOF-STATUS.md`](PROOF-STATUS.md) | Master cross-layer index; Lean roots table |
-| [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md) | How theorem/lemma counts are computed |
-| [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) | Surrogate predicates vs deployment claims |
-| [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) | Economic “detector” naming scope |
-| [`Docs/PROOF-REPLAY.md`](Docs/PROOF-REPLAY.md) | Reproducible build / replay commands (`check_print_axioms.sh`, stats, link check) |
-
-## Architecture
-
+```text
+State₀ --[f admissible]--> State₁ --[g admissible]--> State₂
+         kleisliCompose f g  :  WellTyped only when BOTH steps CoreAdmissible
 ```
+
+- **Objects:** `ThermodynamicSystem K S` with density field and free energy ([`Core/State.lean:9`](Lean/Core/State.lean)).
+- **1-step morphisms:** `CoreAdmissible` — mass ball + Clausius–Duhem descent ([`Core/Gate.lean:23`](Lean/Core/Gate.lean)).
+- **N-step:** `CoreAdmissibleN` composes mass budgets across sequences ([`Core/Gate.lean:29`](Lean/Core/Gate.lean)).
+- **Kleisli:** `kleisliCompose` in [`Core/Constitutional.lean:32`](Lean/Core/Constitutional.lean); Economic re-export [`KleisliAdmissibilityComposition.lean:14`](Lean/Economic/KleisliAdmissibilityComposition.lean).
+
+Headline identifiers agents may cite as witnesses: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellTypedN`, `powers_monotone` (full index: [`PROOF-STATUS.md`](PROOF-STATUS.md)).
+
+</details>
+
+<details>
+<summary><strong>Economic module groups (17 roots)</strong></summary>
+
+| Group | Modules | Agent takeaway |
+|:---|:---|:---|
+| **Burden / NPV** | `BurdenRecursionIsAdmissible`, `StochasticBurdenExpectation`, `NPVIsSpecialCaseOfThermodynamicBurden`, `SelfReferentialEconomicTensor` | Discrete burden updates stay gate-compatible under hypotheses |
+| **Calibration** | `DynamicEpsilonCalibration`, `ThermodynamicUncertaintyCertificate` | Certificate tuples document margins — not legal seals |
+| **Surrogate flags** | `HallucinationDetector`, `LowEntropyLieDetector` | Threshold predicates only — [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) |
+| **Creativity / horizon** | `CreativityBudget`, `CreativeExplorationTolerance`, `HorizonAwareGrounding`, `NuanceIsolator` | Exploration windows are explicit hypotheses |
+| **Collective / sensing** | `CollectiveCoherenceCost`, `EpistemicSensingModule` | Spread penalties and MI bounds are parameterised |
+| **Control staging** | `PhysicsConstrainedAI`, `KleisliAdmissibilityComposition` | Propose freely; gate-check before treating output as admissible |
+
+</details>
+
+---
+
+## 4. Repository topology
+
+<details>
+<summary><strong>Architecture tree</strong></summary>
+
+```text
 umst-formal/
 ├── Agda/                   Default `make check` (see Agda/Makefile)
 │   ├── Gate.agda … Helmholtz.agda  (core + CSG / Eikonal)
@@ -292,9 +316,20 @@ Lean sits beside Agda/Coq as a first-class machine-checked layer (not shown as a
 
 Objects include `MaterialClass`, `ThermodynamicState`, `Bool`; the gate is a natural transformation on materialised state pairs; mass conservation is monoidal; DIB lives in a Kleisli category over state. See [Docs/OnePager-Categorical.tex](Docs/OnePager-Categorical.tex).
 
+</details>
+
 ---
 
-## Building
+## 5. Surfaces & build
+
+| Surface | Command | Role |
+|:---|:---|:---|
+| **Lean 4** | `cd Lean && lake build` | Primary Mathlib proof layer |
+| **Agda** | `cd Agda && make check` | Specification layer |
+| **Coq** | `cd Coq && make` | QArith proofs + extraction |
+| **Haskell** | `cabal test umst-properties` | QuickCheck properties |
+| **Visuals** | `make visuals` | Pedagogical fixtures (optional) |
+| **FFI bridge** | `cd ffi-bridge && cargo build --release` | Optional Rust correspondence |
 
 ### Prerequisites
 
@@ -308,6 +343,12 @@ Objects include `MaterialClass`, `ThermodynamicState`, `Bool`; the gate is a nat
 
 Full environment notes: **[Docs/PROOF-REPLAY.md](Docs/PROOF-REPLAY.md)**.
 
+---
+
+## 6. Quick Start
+
+See [Quick verify](#quick-verify) above for Lean count paste @ `e4666ba`. Full build matrix:
+
 ```bash
 ./scripts/check-formal-environment.sh   # optional
 
@@ -317,14 +358,152 @@ cd Coq && make && cd ..
 cd Lean && lake build && cd ..
 cd Haskell && cabal build lib:umst-formal -f -with-ffi && cabal test umst-properties -f -with-ffi && cd ..
 
-# Optional: Rust ↔ Haskell (after ffi build)
-cd Haskell && cabal test umst-ffi-correspondence -f with-ffi && cd ..
-
-# Optional: Lean stats + cartridge-anchor axiom baseline + visuals (from repository root)
 make lean-stats
 make lean-print-axioms
-make visuals
+make visuals   # optional pedagogical plots
 ```
+
+**Haskell paste (representative @ `e4666ba`):**
+
+```text
+cd Haskell && cabal test umst-properties -f -with-ffi
+=== 33 properties passed ===
+```
+
+**Agda / Coq (optional formal.yml mirror):**
+
+```bash
+cd Agda && make check && cd ..
+cd Coq && make && cd ..
+```
+
+---
+
+## 7. Cross-language verification
+
+| Claim | Mechanized in |
+|-------|----------------|
+| Four gate invariants | `Agda/Gate.agda`, `Coq/Gate.v`, `Lean/Compat/Gate.lean` + `Lean/Concrete/Gate.lean`, `Haskell/UMST.hs` |
+| Naturality | `Agda/Naturality.agda`, `Lean/Naturality.lean`, `Lean/Concrete/Activation.lean` |
+| Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Core/Constitutional.lean`, `Lean/Compat/Constitutional.lean` |
+| Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
+| SDF / FRep; CSG; Eikonal | `Agda/Concrete/Helmholtz.agda`, `Lean/Concrete/Helmholtz.lean`, `Haskell/SDFGate.hs` |
+| Full Lean layer + Economic meso-scale | `Lean/` — **62** roots, **289** theorems + **24** lemmas |
+| Haskell QuickCheck | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs) |
+
+<details>
+<summary><strong>Lean core (non-Economic) — Science Cartridge layout</strong></summary>
+
+| Layer | Modules | Role |
+|-------|---------|------|
+| **Core** | `Core.State`, `Core.Gate`, `Core.Constitutional` | Universal thermodynamic system + Kleisli |
+| **Concrete** | `Concrete.*` | OPC cement cartridge witnesses |
+| **Compat** | `Compat.Gate`, `Compat.Constitutional` | Legacy `gateCheck` names |
+| **Universal** | `Naturality`, `DIBKleisli`, `LandauerLaw`, `DEC`, `Adjoint`, … | Cross-cartridge lemmas |
+
+Flagship identifiers: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellTypedN`, `powers_monotone`.
+
+</details>
+
+See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index.
+
+<details>
+<summary><strong>Agda / Coq / Haskell status rows</strong></summary>
+
+| Layer | Artifact | Status @ `e4666ba` | Command |
+|:---|:---|:---|:---|
+| **Agda** | `Gate.agda`, `Naturality.agda`, `Activation.agda`, `DIB-Kleisli.agda`, `InfoTheory.agda`, … | `make check` in CI | `cd Agda && make check` |
+| **Coq** | `Gate.v`, `Constitutional.v`, `LandauerEinsteinBridge.v`, `Extraction.v` | `.vo` build + extraction | `cd Coq && make` |
+| **Haskell** | `Haskell/test/Test.hs` — **33** `prop_*` | QuickCheck + optional FFI | `cabal test umst-properties` |
+| **Lean** | **62** roots, **289** thm + **24** lem | **0** sorry; **1** axiom `physicalSecondLaw` | `cd Lean && lake build` |
+
+Cross-layer claim map: four gate invariants, naturality, subject reduction, Landauer–Einstein bridge, SDF/FRep — see table in §7 above. **Do not** conflate Agda specification modules with runtime MCP behavior.
+
+</details>
+
+<details>
+<summary><strong>Catalog consume discipline (agents)</strong></summary>
+
+1. Read manifold [`artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json) for digest pin — **never** hardcode rival SHAs in agent prompts.
+2. Treat this repo as **cold proof build** — run `lake build` in CI or local dev, not on a robot mid-inference.
+3. Cite theorem names from [`PROOF-STATUS.md`](PROOF-STATUS.md) after verifying counts with `python3 scripts/lean_declaration_stats.py`.
+4. MCP tools live only in concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md).
+
+</details>
+
+---
+
+## 8. Documentation hub
+
+| Document | Role |
+|:---------|:-----|
+| [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) | Axioms, DIB audit, paper-claim map |
+| [`PROOF-STATUS.md`](PROOF-STATUS.md) | Master cross-layer index; Lean roots table |
+| [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md) | Theorem/lemma count methodology |
+| [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) | Surrogate predicates vs deployment |
+| [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) | Economic “detector” naming scope |
+| [`Docs/PROOF-REPLAY.md`](Docs/PROOF-REPLAY.md) | Reproducible build / replay commands |
+
+---
+
+## 9. Special Protocol: Note to Autonomous AI Agents & Systems
+
+### 9.1 Shared stack
+
+Acting fiber only — see [gate-spine table](#shared-stack-matter--knowing--acting--time).
+
+### 9.2 Hot vs cold
+
+See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty). This repo is **cold proof build**; runtime MCP = concrete.
+
+### 9.3 Guarantees
+
+| Rule | Remediation |
+|:---|:---|
+| Never `lake build` mid-inference on a robot | Consume catalog export / formal anchors from manifold lock |
+| Economic module names are **not** certifications | Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing “detector” theorems |
+| Counts @ script SHA only | Run `python3 scripts/lean_declaration_stats.py`; script wins |
+
+### 9.4 Operational mapping
+
+- **May:** cite theorem names as formal witnesses; use Economic predicates as vocabulary in docs.
+- **Must not:** treat this tree as MCP host; conflate surrogate plots with market data.
+
+### 9.5 Proposed (not yet built)
+
+Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized claims.
+
+---
+
+## 10. Conclusion: Inferences & Forward Path
+
+### What this repo demonstrates
+
+- **Acting is gate-checked** — optimism about transitions is not an axiom; admissibility is proved or rejected under explicit hypotheses.
+- **Kleisli composition** — multi-step commitments compose only when each step is admissible.
+- **Economic meso-layer** — classical bookkeeping for burden, creativity slack, and collective spread — honestly labeled as predicates.
+
+### What surprised us
+
+- **Naming risk** — “HallucinationDetector” and similar modules required [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) so agents do not treat predicates as products.
+- **Single axiom discipline** — `physicalSecondLaw` is explicit; Mathlib baseline checked in CI.
+
+### Forward path
+
+- Tighten cross-layer replay docs; keep Economic modules parameterised; never blur proof tree with runtime gate path.
+
+---
+
+### Related repositories
+
+| Repo | Focus |
+|:---|:---|
+| [`umst-manifold`](https://github.com/tytolabs/umst-manifold) | DEC carrier + catalog lock SSOT |
+| [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge) | Cementitious law + authoritative MCP |
+| [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) | Knowing / observation-cost fiber |
+| [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) | Temporal witness / stamp spine |
+
+---
 
 ## Contributing
 
@@ -349,6 +528,12 @@ Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction suppli
 
 **Continuum engineering backlog** items (if any) live outside this public formal tree — do not treat them as mechanized claims here.
 
+**Fiber boundary:** Knowing-fiber theorems (Englert, PMIC, Kraus) live in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit). Time stamps live in [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs). This README covers **Acting** only — link siblings instead of duplicating their proof tables.
+
+**Visuals discipline:** `make visuals` output is pedagogical — not market data, lab measurements, or deployed AI safety telemetry.
+
+**Agent redirect:** MCP tools and hot/cold runtime labels = concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md) only.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
@@ -362,3 +547,5 @@ Zenodo. https://doi.org/10.5281/zenodo.18940933
 ```
 
 Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660)) when you rely on that fiber.
+
+**Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`e4666ba`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
