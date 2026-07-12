@@ -103,6 +103,7 @@ Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Act
 
 <details>
 <summary><strong>Table of contents</strong> (detailed map + outline)</summary>
+<br>
 
 **Top-level map**
 
@@ -111,11 +112,15 @@ Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Act
 | Foundations | [§1](#1-core-idea--economic-acting-fiber) · [§2](#2-proof-architecture--layers) · [§3](#3-cross-domain-integration-specifications) |
 | Layout & ops | [§4](#4-repository-topology) · [§5](#5-surfaces--build) · [§6](#6-quick-start) |
 | Verification & docs | [§7](#7-cross-language-verification) · [§8](#8-documentation-hub) |
-| Agents & wrap-up | [§9](#9-special-protocol-note-to-autonomous-ai-agents--systems) · [§10](#10-conclusion-inferences--forward-path) · [Related](#related-repositories) |
+| Agents & wrap-up | [§9](#9-special-protocol-note-to-autonomous-ai-agents--systems) · [§10](#10-conclusion-inferences--forward-path) · [Related](#related-repositories) · [Authors](#authors) · [Acknowledgments](#acknowledgments) · [Contributing](#contributing) · [Citation](#citation) · [License](#license) |
 
-**Detailed outline**
+**Detailed outline** — every entry links to a stable anchor (`README.md#…`); collapsible sections use `<details>` but share the same deep-link fragments.
 
 - [§1 Core idea — Economic acting fiber](#1-core-idea--economic-acting-fiber)
+- [Seventeen Economic modules — one sentence each](#seventeen-economic-modules--one-sentence-each)
+- [Meso-scale features (high level)](#meso-scale-features-high-level)
+- [Honest safety limits](#honest-safety-limits-read-this-before-citing-externally)
+- [Shared stack vs this fiber](#shared-stack-vs-this-fiber)
 - [§2 Proof architecture & layers](#2-proof-architecture--layers)
 - [§3 Cross-Domain Integration Specifications](#3-cross-domain-integration-specifications)
   - [3.1 Catalog / agent cold-consume](#31-catalog--agent-cold-consume)
@@ -123,14 +128,32 @@ Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Act
   - [3.3 Kleisli multi-step commitments](#33-kleisli-multi-step-commitments)
   - [3.4 Cross-fiber links](#34-cross-fiber-links)
 - [§4 Repository topology](#4-repository-topology)
+  - [Layer relationships](#layer-relationships-specification--bridge--rust)
+  - [Categorical backbone](#categorical-backbone-sketch)
 - [§5 Surfaces & build](#5-surfaces--build)
+  - [Prerequisites](#prerequisites)
 - [§6 Quick Start](#6-quick-start)
 - [§7 Cross-language verification](#7-cross-language-verification)
 - [§8 Documentation hub](#8-documentation-hub)
 - [§9 Special Protocol: Agents](#9-special-protocol-note-to-autonomous-ai-agents--systems)
-  - [9.1–9.6](#91-shared-stack)
+  - [9.1 Shared stack](#91-shared-stack)
+  - [9.2 Hot vs cold](#92-hot-vs-cold)
+  - [9.3 Guarantees](#93-guarantees)
+  - [9.4 Operational mapping](#94-operational-mapping)
+  - [9.5 Proposed](#95-proposed-not-yet-built)
+  - [9.6 Principles](#96-principles-honest)
 - [§10 Conclusion](#10-conclusion-inferences--forward-path)
+  - [What this repo demonstrates](#what-this-repo-demonstrates)
+  - [What surprised us](#what-surprised-us)
+  - [Forward path](#forward-path)
 - [Related repositories](#related-repositories)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgments)
+- [Contributing](#contributing)
+  - [Extending (new material class)](#extending-new-material-class)
+  - [Correspondence to the Rust kernel](#correspondence-to-the-rust-kernel)
+- [Citation](#citation)
+- [License](#license)
 
 </details>
 
@@ -582,37 +605,6 @@ Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized
 
 ---
 
-## Contributing
-
-We welcome corrections, proof refactors that **preserve** the layer graph, and documentation that tightens the line between **machine-checked** claims and **analogy**. Please:
-
-- Run `cd Lean && lake build` before opening a PR that touches Lean; optionally `make lean-print-axioms` after a successful build to match CI’s Mathlib-baseline gate on headline cartridge theorems.
-- Run `python3 scripts/lean_declaration_stats.py` if you add roots; update [`PROOF-STATUS.md`](PROOF-STATUS.md), [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), and [`scripts/expected_lean_declaration_snapshot.json`](scripts/expected_lean_declaration_snapshot.json) in the **same** commit when totals change (CI enforces the snapshot).
-- Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before renaming or exporting “detector” modules.
-
-**Zenodo:** this artifact is archived at [doi.org/10.5281/zenodo.18940933](https://doi.org/10.5281/zenodo.18940933). Browse [zenodo.org](https://zenodo.org/) for versioned uploads.
-
-## Extending (new material class)
-
-1. **Agda:** extend `MaterialClass` / `ActivatedUMST` in `Activation.agda`.
-2. **Coq:** mirror in `Gate.v`.
-3. **Haskell:** `MaterialType` in `UMST.hs` and activation in `KleisliDIB.hs`.
-4. **FFI:** unchanged if naturality still holds.
-
-## Correspondence to the Rust kernel
-
-Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction supplies a second reference; Rust `KleisliArrow` tests mirror monad laws. See [`Haskell/test/Test.hs`](Haskell/test/Test.hs).
-
-**Continuum engineering backlog** items (if any) live outside this public formal tree — do not treat them as mechanized claims here.
-
-**Fiber boundary:** Knowing-fiber theorems (Englert, PMIC, Kraus) live in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit). Time stamps live in [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs). This README covers **Acting** only — link siblings instead of duplicating their proof tables.
-
-**Visuals discipline:** `make visuals` output is pedagogical — not market data, lab measurements, or deployed AI safety telemetry.
-
-**Agent redirect:** MCP tools and hot/cold runtime labels = concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md) only.
-
----
-
 ## Authors
 
 **Santhosh Shyamsundar** — Studio TYTO · [santhoshshyamsundar@tyto.studio](mailto:santhoshshyamsundar@tyto.studio)
@@ -633,9 +625,37 @@ The large-language models assisted with exploration, drafting, and code scaffold
 
 We gratefully acknowledge the open-source ecosystems that make this work possible: **Lean 4** and **Mathlib**; **Agda**; **Coq**; **Haskell** (QuickCheck); and **Python** visualization scripts.
 
-## License
+---
 
-MIT. See [LICENSE](LICENSE).
+## Contributing
+
+We welcome corrections, proof refactors that **preserve** the layer graph, and documentation that tightens the line between **machine-checked** claims and **analogy**. Please:
+
+- Run `cd Lean && lake build` before opening a PR that touches Lean; optionally `make lean-print-axioms` after a successful build to match CI’s Mathlib-baseline gate on headline cartridge theorems.
+- Run `python3 scripts/lean_declaration_stats.py` if you add roots; update [`PROOF-STATUS.md`](PROOF-STATUS.md), [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), and [`scripts/expected_lean_declaration_snapshot.json`](scripts/expected_lean_declaration_snapshot.json) in the **same** commit when totals change (CI enforces the snapshot).
+- Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before renaming or exporting “detector” modules.
+- See also [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+### Extending (new material class)
+
+1. **Agda:** extend `MaterialClass` / `ActivatedUMST` in `Activation.agda`.
+2. **Coq:** mirror in `Gate.v`.
+3. **Haskell:** `MaterialType` in `UMST.hs` and activation in `KleisliDIB.hs`.
+4. **FFI:** unchanged if naturality still holds.
+
+### Correspondence to the Rust kernel
+
+Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction supplies a second reference; Rust `KleisliArrow` tests mirror monad laws. See [`Haskell/test/Test.hs`](Haskell/test/Test.hs).
+
+**Continuum engineering backlog** items (if any) live outside this public formal tree — do not treat them as mechanized claims here.
+
+**Fiber boundary:** Knowing-fiber theorems (Englert, PMIC, Kraus) live in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit). Time stamps live in [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs). This README covers **Acting** only — link siblings instead of duplicating their proof tables.
+
+**Visuals discipline:** `make visuals` output is pedagogical — not market data, lab measurements, or deployed AI safety telemetry.
+
+**Agent redirect:** MCP tools and hot/cold runtime labels = concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md) only.
+
+---
 
 ## Citation
 
@@ -648,3 +668,9 @@ Zenodo. https://doi.org/10.5281/zenodo.18940933
 Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660)) when you rely on that fiber.
 
 **Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`e41278c`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE). © 2026 Studio TYTO.
