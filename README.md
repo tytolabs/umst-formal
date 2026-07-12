@@ -584,9 +584,9 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 
 ### What surprised us
 
-- **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` *sound* like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
-- **One axiom carries the whole tree.** We expected formalising acting-under-thermodynamic-law to accrete assumptions. It didn't: the entire economic-admissibility structure rests on a single explicit physical axiom, `physicalSecondLaw`, with every other result derived and checked against a Mathlib axiom baseline in CI. How little you have to *assume* to get this much structure was the surprise.
-- **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when *every* step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
+- **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` _sound_ like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
+- **One axiom carries the whole tree.** We expected formalising acting-under-thermodynamic-law to accrete assumptions. It didn't: the entire economic-admissibility structure rests on a single explicit physical axiom, `physicalSecondLaw`, with every other result derived and checked against a Mathlib axiom baseline in CI. How little you have to _assume_ to get this much structure was the surprise.
+- **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when _every_ step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
 
 ### Forward path
 
