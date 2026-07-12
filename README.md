@@ -141,7 +141,7 @@ Top-level map
   - [9.3 Guarantees](#93-guarantees)
   - [9.4 Operational mapping](#94-operational-mapping)
   - [9.5 Proposed](#95-proposed-not-yet-built)
-  - [9.6 Principles](#96-principles-honest)
+  - [9.6 Principles](#96-principles)
 - [§10 Conclusion](#10-conclusion-inferences--forward-path)
   - [What this repo demonstrates](#what-this-repo-demonstrates)
   - [What surprised us](#what-surprised-us)
