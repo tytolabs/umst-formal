@@ -7,11 +7,17 @@ SPDX-License-Identifier: MIT
 
 # The Thermodynamic Cost of Acting
 
+### `umst-formal` — acting / economic-admissibility formal fiber
+
 > _This ecosystem is dedicated to the thousands of unnamed contributors who wrote formal proofs, maintained open-source compilers, and built mathematical libraries for years — often without evidence that any of it would be used beyond pure theory. They chose to make their work free, because they understood that knowledge about physical reality cannot be owned. Whatever this system achieves is yours._
 
 ### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
 
-This repository is the **classical meso-layer**: rational state changes, Shannon and Landauer bookkeeping, and lemmas that bind “growth stories” to explicit hypotheses. It extends [**The Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) (observation and collapse in **`umst-formal-double-slit`**) toward **acts and commitments** without pretending that optimism is an axiom.
+**What it is.** Machine-checked formalizations (Lean 4 · Agda · Coq · Haskell QuickCheck) of the **thermodynamic admissibility gate** for **acts and commitments** — rational state changes, Shannon/Landauer bookkeeping, and Kleisli composition of gate-checked steps. This is a **proof tree**, not a runtime solver and not an MCP host.
+
+**The gate idea.** A proposed transition is admissible only if mass/density and free-energy (Clausius–Duhem) constraints hold under explicit hypotheses — structural accept/reject in logic, not a soft penalty at inference time.
+
+**Honest is / isn't.** **Is:** lake-rooted Lean modules with declared theorem/lemma counts, cross-layer gate mirrors, Economic meso-layer predicates. **Isn't:** live inference on a robot, MCP tools, or “seeing the world.” Economic filenames that sound like oracles are **parameterised predicates** — read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing them off-repo.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18940933.svg)](https://doi.org/10.5281/zenodo.18940933)
 <!-- readme:status -->
@@ -21,29 +27,88 @@ This repository is the **classical meso-layer**: rational state changes, Shannon
 [![CI — Formal (Agda+Coq)](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
-**Machine-checked UMST formal core** — Agda · Coq · Lean 4 · Haskell QuickCheck · optional Rust FFI.
-
-**Lean 4 (default roots):** **62** modules · **289** `theorem` + **24** `lemma` (line-start; `python3 scripts/lean_declaration_stats.py`; CI checks a frozen snapshot) · **0** tactic `sorry` · **1** project `axiom` (`physicalSecondLaw` in `LandauerLaw.lean` — [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md)). After `lake build`, CI also runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems).
-
-The Economic filenames that sound like oracles are **parameterised predicates**. They do not see the world. Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before you cite them off-repo.
-
-<br>
-
 </div>
+
+### Shared stack (matter · knowing · acting · time)
+
+These public repos share **one** thermodynamic admissibility gate, applied across domains:
+
+| Domain | Public repo | Role |
+|:---|:---|:---|
+| **Matter** | [`umst-manifold`](https://github.com/tytolabs/umst-manifold) + [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge) | DEC carrier + cementitious constitutive law |
+| **Knowing** | [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) | Observation / measurement-cost formal fiber |
+| **Acting** | **this repo** ([`umst-formal`](https://github.com/tytolabs/umst-formal)) **← you are here** | Economic-admissibility formal fiber |
+| **Time** | [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) | Temporal witness / stamp spine |
+
+Sibling links only — no programme/paper framing in this README. Already-public per-repo DOI badges stay where they exist.
+
+### What this is, in plain words
+
+Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
+
+### Real objects (categorical — not “the proofs”)
+
+| Symbol | Role | Defined at |
+|:---|:---|:---|
+| `ThermodynamicSystem K S` | Objects: states with density + free energy over scalar field `K` | [`Lean/Core/State.lean:9`](Lean/Core/State.lean) |
+| `CoreAdmissible K S` | 1-step morphism: mass metric ball + free-energy descent | [`Lean/Core/Gate.lean:23`](Lean/Core/Gate.lean) |
+| `CoreAdmissibleN` | N-step mass-budget path | [`Lean/Core/Gate.lean:29`](Lean/Core/Gate.lean) |
+| `KleisliArrow` / `WellTyped` / `kleisliCompose` | Kleisli morphisms that only fire when the step is admissible | [`Lean/Core/Constitutional.lean:9–32`](Lean/Core/Constitutional.lean) |
+| `econ_kleisliComposeWellTypedN` | Economic-layer re-export of graded Kleisli composition | [`Lean/Economic/KleisliAdmissibilityComposition.lean:14`](Lean/Economic/KleisliAdmissibilityComposition.lean) |
+| Compat `Admissible` | Legacy cement cartridge alias over `ConcreteAdmissible` | [`Lean/Compat/Gate.lean:15`](Lean/Compat/Gate.lean) |
+
+Port detail across Core / Concrete / Compat: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md).
+
+### Performance honesty
+
+This repository is a **machine-checked proof artifact**. It does **not** run on the manifold hot arena path and it does **not** host MCP. Runtime gating and cold-edge agent tools live in [`umst-manifold`](https://github.com/tytolabs/umst-manifold) / [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge). Agents **consume** this fiber via the manifold catalog lock export — they do not `lake build` mid-inference.
+
+### Honesty ledger (counts @ `6f0c06e`)
+
+**One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md).
+
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`6f0c06e`** (2026-07-12):
+
+```text
+Repository: umst-formal
+Lake roots: 62 modules
+Roots-only:  289 theorem, 24 lemma, total 313
+All Lean/*:  296 theorem, 24 lemma, total 320
+Axioms (^axiom ):
+  LandauerLaw.lean:155  physicalSecondLaw
+```
+
+- **0** tactic `sorry` in the default rooted closure (see module headers / CI).
+- **1** project `axiom`: `physicalSecondLaw` in [`Lean/LandauerLaw.lean:155`](Lean/LandauerLaw.lean).
+- After `lake build`, CI runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems). Paste (same SHA):
+
+```text
+check_print_axioms: OK (all closures ⊆ Mathlib baseline + optional physicalSecondLaw)
+```
+
+Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script output above (62 / 289 / 24). **Script wins** on any mismatch. Methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
+
+**Strengthen — do not soften:** Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
+
+### Quick verify
+
+```bash
+git checkout 6f0c06e   # or origin/main
+python3 scripts/lean_declaration_stats.py
+# after lake build:
+bash scripts/check_print_axioms.sh
+cd Lean && lake build
+```
 
 ---
 
-## From the cost of knowing to the cost of acting
-
-[**The Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) (**`umst-formal-double-slit`**) mechanises observation and collapse: path information has a Landauer-scale price. **This** tree holds the meso-scale follow-on — rational transitions, Shannon/Landauer lines in the ledger, and questions posed as **admissibility** and **burden** under stated assumptions. Quantum RCC does not load unless you attach the other artifact.
-
 ## Economic intuition (plain language)
 
-Growth can outrun friction in the stories people tell. The formal layer does not endorse those stories. It **binds** them: **`Lean/Economic/`** (Wave 6.5.2) writes burden and information as **classical** quantities and keeps surrogate alarms explicit — thresholds and margins, not black-box “detectors” ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md)).
+Growth can outrun friction in the stories people tell. The formal layer does not endorse those stories. It **binds** them: **`Lean/Economic/`** writes burden and information as **classical** quantities and keeps surrogate alarms explicit — thresholds and margins, not black-box “detectors” ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md)).
 
 ## Seventeen Economic modules — one sentence each
 
-Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/EconomicDomain.lean). Each file below is a **lake** root; proofs **compose** existing gate, Landauer, and information theory lemmas (**no** new physics axioms).
+Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/EconomicDomain.lean). Each file below is a **lake** root; proofs **compose** existing gate, Landauer, and information theory lemmas (**no** new physics axioms beyond the single project axiom above).
 
 | # | Module | Plain-English purpose |
 |---|--------|------------------------|
@@ -79,16 +144,12 @@ Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/
 
 - This framework **measures dissipation-style costs** and **biases reasoning toward lower-dissipation paths** under the model — it does **not** define **moral truth**, **legal compliance**, or **factual correctness** of natural-language claims.
 - **Truth and values** remain human, cultural, and goal-dependent. The Lean code says what follows **from explicit axioms and hypotheses**, not what society ought to do.
-- Economic and “AI safety” **names are not certifications**. For quantum RCC, double-slit bridges, or deployment claims, follow [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) and sibling [`umst-formal-double-slit`](https://doi.org/10.5281/zenodo.19159660).
+- Economic and “AI safety” **names are not certifications**. For observation-cost formalizations, see sibling [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) (public DOI kept on that artifact). Deployment / surrogate claims: [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md).
+- Soften **none** of the above. Prefer under-claiming.
 
-## Layered architecture
+## Shared stack vs this fiber
 
-| Layer | Repository | Role |
-|--------|------------|------|
-| **Quantum foundation** | **`umst-formal-double-slit`** | **52** lake roots, **486** `theorem` + **30** `lemma` (line-start, roots-only), **0** `sorry`, **1** axiom (`physicalSecondLaw`); complementarity, dephasing + stream-D limits, epistemic MI. Zenodo: [10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660). Counts: sibling `README.md` / `PROOF-STATUS.md`. |
-| **Meso-scale classical** | **`umst-formal` (this repo)** | Rational gate, Kleisli constitution, Shannon/Landauer bridge, and **`Lean/Economic/`** lemmas — **no** dependency on the double-slit package unless you add one. |
-
-Both share the **single** project Lean **`axiom`** pattern documented in [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) (`physicalSecondLaw`).
+This repo is the **Acting** row of the gate-spine table above. It does **not** depend on the double-slit package unless you add a dependency. Both fibers share the single project Lean **`axiom`** pattern documented in [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md) (`physicalSecondLaw`). Sibling lake-root counts for Knowing live in that sibling’s README / `PROOF-STATUS.md` (do not hardcode here).
 
 ---
 
@@ -96,13 +157,13 @@ Both share the **single** project Lean **`axiom`** pattern documented in [`FORMA
 
 The **Unified Material-State Tensor (UMST)** is a framework for material state transitions. Core ideas:
 
-- **Thermodynamic gate** — accepts or rejects a proposed transition using four constraints (mass, Clausius–Duhem, hydration, strength).
+- **Thermodynamic admissibility gate** — accepts or rejects a proposed transition using mass and Clausius–Duhem (and cartridge-specific constitutive) constraints.
 - **Naturality** — the gate is material-agnostic across material classes.
 - **Constitutional sequences** — Kleisli-style composition of gate-checked steps with subject reduction.
 - **Geometry** — admissible region as SDF / CSG; Helmholtz free energy as gradient field.
 - **DIB cycle** — Discovery–Invention–Build as a monad with proved laws.
 
-The Rust kernel (`umst-prototype-2a`) implements the gate. This repository proves consistency across **Agda, Coq, Lean 4, and Haskell QuickCheck**; Rust correspondence uses optional FFI tests.
+Optional Rust FFI correspondence tests exist; this repository’s primary deliverable remains the formal layers (Agda, Coq, Lean 4, Haskell QuickCheck).
 
 ## What this repository does not claim (scope guardrail)
 
@@ -150,6 +211,9 @@ The **40** Lean roots outside `Lean/Economic/` use **Core / Concrete / Compat** 
 | **Universal extensions** | `Naturality`, `DIBKleisli`, `LandauerLaw`, `LandauerEinsteinBridge`, `DEC`, `Adjoint`, … | Material-agnostic or cross-cartridge lemmas |
 
 Flagship identifiers: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellTypedN`, `ψAntitoneHelmholtz`, `powers_monotone`, `hydrationConverges`.
+
+| Module | Role | Flagship |
+|--------|------|----------|
 | `EtaCog` | MI-per-Joule cockpit metric | `eta_cog_nonneg` |
 | `RhoEstimator` | Gaussian ρ–MI in bits | `rho_based_mi_formula` |
 | `MedianConvergence` | `N_warmup` ceiling / empirical CDF tail | (see module) |
@@ -218,9 +282,11 @@ umst-formal/
 └──────────────┬──────────────────────────────────────────────────┘
                ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  ffi-bridge / umst-prototype-2a — executable gate               │
-└─────────────────────────────────────────────────────────────────┘
+│  Optional FFI correspondence (Rust gate executable — not this proof tree) │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+Lean sits beside Agda/Coq as a first-class machine-checked layer (not shown as a sequential “after Haskell” step). This diagram is pedagogical — it does **not** mean Lean proofs run on the inference path.
 
 ### Categorical backbone (sketch)
 
@@ -268,7 +334,7 @@ We welcome corrections, proof refactors that **preserve** the layer graph, and d
 - Run `python3 scripts/lean_declaration_stats.py` if you add roots; update [`PROOF-STATUS.md`](PROOF-STATUS.md), [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md), and [`scripts/expected_lean_declaration_snapshot.json`](scripts/expected_lean_declaration_snapshot.json) in the **same** commit when totals change (CI enforces the snapshot).
 - Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before renaming or exporting “detector” modules.
 
-**Zenodo:** this artifact is archived at [doi.org/10.5281/zenodo.18940933](https://doi.org/10.5281/zenodo.18940933); browse [zenodo.org](https://zenodo.org/) for versioned uploads and community collections. An **upcoming preprint** will align prose with the Economic layer — check the record’s **related identifiers** and the **Citation** block below for the latest bib entry.
+**Zenodo:** this artifact is archived at [doi.org/10.5281/zenodo.18940933](https://doi.org/10.5281/zenodo.18940933). Browse [zenodo.org](https://zenodo.org/) for versioned uploads.
 
 ## Extending (new material class)
 
@@ -281,7 +347,7 @@ We welcome corrections, proof refactors that **preserve** the layer graph, and d
 
 Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction supplies a second reference; Rust `KleisliArrow` tests mirror monad laws. See [`Haskell/test/Test.hs`](Haskell/test/Test.hs).
 
-**Continuum engineering backlog (Θ / Σ / splat / CI)** is decomposed as **typed morphisms** (first-principles steps + a light λ-shaped planning vocabulary) in **private application-runtime continuum backlog doc (out of repo)** §17 — same discipline as proofs: small total steps, explicit composition, effects at the rim.
+**Continuum engineering backlog** items (if any) live outside this public formal tree — do not treat them as mechanized claims here.
 
 ## License
 
@@ -295,4 +361,4 @@ UMST-Formal: Categorical Verification of Physics-Gated Material State Transition
 Zenodo. https://doi.org/10.5281/zenodo.18940933
 ```
 
-Also cite the [**Thermodynamic Cost of Knowing**](https://doi.org/10.5281/zenodo.19159660) artifact when you rely on the quantum track.
+Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660)) when you rely on that fiber.
