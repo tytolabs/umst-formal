@@ -273,6 +273,23 @@ The Acting fiber binds **economic and control commitments** to thermodynamic adm
 
 **Impact:** Any autonomous system that **acts** (commits, spends credit, publishes state) can be modeled as Kleisli sequences of gate-checked steps. This repo is the machine-checked vocabulary for that **acting** slice of the shared gate.
 
+<details>
+<summary><strong>Kleisli composition sketch (Acting fiber)</strong></summary>
+
+```text
+State₀ --[f admissible]--> State₁ --[g admissible]--> State₂
+         kleisliCompose f g  :  WellTyped only when BOTH steps CoreAdmissible
+```
+
+- **Objects:** `ThermodynamicSystem K S` with density field and free energy ([`Core/State.lean:9`](Lean/Core/State.lean)).
+- **1-step morphisms:** `CoreAdmissible` — mass ball + Clausius–Duhem descent ([`Core/Gate.lean:23`](Lean/Core/Gate.lean)).
+- **N-step:** `CoreAdmissibleN` composes mass budgets across sequences ([`Core/Gate.lean:29`](Lean/Core/Gate.lean)).
+- **Kleisli:** `kleisliCompose` in [`Core/Constitutional.lean:32`](Lean/Core/Constitutional.lean); Economic re-export [`KleisliAdmissibilityComposition.lean:14`](Lean/Economic/KleisliAdmissibilityComposition.lean).
+
+Headline identifiers agents may cite as witnesses: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellTypedN`, `powers_monotone` (full index: [`PROOF-STATUS.md`](PROOF-STATUS.md)).
+
+</details>
+
 ---
 
 ## 4. Repository topology
@@ -570,9 +587,9 @@ Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction suppli
 
 ## Authors
 
-**Santhosh Shyamsundar** — Studio TYTO; IAAC Barcelona · [santhoshshyamsundar@tyto.studio](mailto:santhoshshyamsundar@tyto.studio)
+**Santhosh Shyamsundar** — Studio TYTO · [santhoshshyamsundar@tyto.studio](mailto:santhoshshyamsundar@tyto.studio)
 
-**Santosh Prabhu Shenbagamoorthy** — Studio TYTO; IAAC Barcelona · [santosh@tyto.studio](mailto:santosh@tyto.studio)
+**Santosh Prabhu Shenbagamoorthy** — Studio TYTO · [santosh@tyto.studio](mailto:santosh@tyto.studio)
 
 ---
 
