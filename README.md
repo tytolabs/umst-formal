@@ -102,18 +102,35 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
 
 <details>
-<summary><strong>Table of contents</strong></summary>
+<summary><strong>Table of contents</strong> (detailed map + outline)</summary>
 
-- [1. Core idea — Economic acting fiber](#1-core-idea--economic-acting-fiber)
-- [2. Proof architecture & layers](#2-proof-architecture--layers)
-- [3. Cross-Domain Integration](#3-cross-domain-integration)
-- [4. Repository topology](#4-repository-topology)
-- [5. Surfaces & build](#5-surfaces--build)
-- [6. Quick Start](#6-quick-start)
-- [7. Cross-language verification](#7-cross-language-verification)
-- [8. Documentation hub](#8-documentation-hub)
-- [9. Special Protocol: Agents](#9-special-protocol-note-to-autonomous-ai-agents--systems)
-- [10. Conclusion](#10-conclusion-inferences--forward-path)
+**Top-level map**
+
+| Block | Jump |
+|:---|:---|
+| Foundations | [§1](#1-core-idea--economic-acting-fiber) · [§2](#2-proof-architecture--layers) · [§3](#3-cross-domain-integration-specifications) |
+| Layout & ops | [§4](#4-repository-topology) · [§5](#5-surfaces--build) · [§6](#6-quick-start) |
+| Verification & docs | [§7](#7-cross-language-verification) · [§8](#8-documentation-hub) |
+| Agents & wrap-up | [§9](#9-special-protocol-note-to-autonomous-ai-agents--systems) · [§10](#10-conclusion-inferences--forward-path) · [Related](#related-repositories) |
+
+**Detailed outline**
+
+- [§1 Core idea — Economic acting fiber](#1-core-idea--economic-acting-fiber)
+- [§2 Proof architecture & layers](#2-proof-architecture--layers)
+- [§3 Cross-Domain Integration Specifications](#3-cross-domain-integration-specifications)
+  - [3.1 Catalog / agent cold-consume](#31-catalog--agent-cold-consume)
+  - [3.2 Propose→gate / Economic predicates](#32-proposegate--economic-predicates)
+  - [3.3 Kleisli multi-step commitments](#33-kleisli-multi-step-commitments)
+  - [3.4 Cross-fiber links](#34-cross-fiber-links)
+- [§4 Repository topology](#4-repository-topology)
+- [§5 Surfaces & build](#5-surfaces--build)
+- [§6 Quick Start](#6-quick-start)
+- [§7 Cross-language verification](#7-cross-language-verification)
+- [§8 Documentation hub](#8-documentation-hub)
+- [§9 Special Protocol: Agents](#9-special-protocol-note-to-autonomous-ai-agents--systems)
+  - [9.1–9.6](#91-shared-stack)
+- [§10 Conclusion](#10-conclusion-inferences--forward-path)
+- [Related repositories](#related-repositories)
 
 </details>
 
@@ -206,50 +223,55 @@ Agents **consume** exported witnesses and cite theorem names — they do **not**
 
 </details>
 
-## 3. Cross-Domain Integration
+## 3. Cross-Domain Integration Specifications
 
-The Acting fiber binds **economic and control commitments** to thermodynamic admissibility — not to moral or legal truth.
+The Acting fiber binds **economic and control commitments** to thermodynamic admissibility — not to moral or legal truth. Pick your integration surface:
 
-| Domain | How Acting composes | Honest limit |
-|:---|:---|:---|
-| **Matter** | Cartridge `ConcreteAdmissible` compat layer mirrors gate | Physics runtime = manifold/concrete — not this proof tree |
-| **Knowing** | Observation cost lives in double-slit fiber | Acting does not prove Englert / Kraus — link sibling |
-| **Time** | UCRS stamps when commitments land | Acting does not run sync protocol — link [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) |
-| **Control / AI** | `PhysicsConstrainedAI.lean` — propose then gate-check | Surrogate “detector” names are predicates only |
-| **Multi-agent** | `CollectiveCoherenceCost.lean` — spread penalty | User-parameterised; not deployed safety product |
+<a id="31-catalog--agent-cold-consume"></a>
+<details>
+<summary><b>1. Catalog / agent cold-consume</b> (Agent integrators, manifold witnesses)</summary>
+
+* **Domain Focus / Integration Surface:** Exported witnesses and theorem names — agents **consume**, they do not `lake build` mid-inference ([§9.2](#92-hot-vs-cold)).
+* **Composition / Pipeline:** Manifold [`artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json) digest pin → cite `PROOF-STATUS` names; MCP tools only in concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md).
+* **Computational Outcome:** Cold proof build in CI/local dev; hot runtime gate on manifold/concrete.
+* **Honest limit:** Never hardcode rival catalog SHAs; counts @ `python3 scripts/lean_declaration_stats.py` SHA only.
+
+</details>
+
+<a id="32-proposegate--economic-predicates"></a>
+<details>
+<summary><b>2. Propose→gate / Economic predicates</b> (Control AI, safety documentation)</summary>
+
+* **Domain Focus / Integration Surface:** [`Lean/Economic/PhysicsConstrainedAI.lean`](Lean/Economic/PhysicsConstrainedAI.lean) — propose freely, gate-check before treating output as admissible; surrogate “detector” names per [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md).
+* **Composition / Pipeline:** `PhysicsConstrainedAI` + `HallucinationDetector` / `LowEntropyLieDetector` as **threshold predicates** — not deployed products.
+* **Computational Outcome:** Vocabulary for burden, creativity slack, collective spread — classical bookkeeping under explicit hypotheses.
+* **Honest limit:** Economic module names are **not** certifications or semantic truth detectors; read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing off-repo.
+
+</details>
+
+<a id="33-kleisli-multi-step-commitments"></a>
+<details>
+<summary><b>3. Kleisli multi-step commitments</b> (Multi-step agents, constitutional control)</summary>
+
+* **Domain Focus / Integration Surface:** `CoreAdmissible` + `kleisliCompose` — [`Core/Gate.lean:23`](Lean/Core/Gate.lean), [`Core/Constitutional.lean:32`](Lean/Core/Constitutional.lean).
+* **Composition / Pipeline:** `State₀ --[f admissible]--> State₁ --[g admissible]--> State₂`; `kleisliFoldWellTypedN` for N-step sequences ([`KleisliAdmissibilityComposition.lean`](Lean/Economic/KleisliAdmissibilityComposition.lean)).
+* **Computational Outcome:** Multi-step commitments compose **only** when each step is `CoreAdmissible` — optimism is not an axiom.
+* **Honest limit:** Physics runtime = manifold/concrete; this tree proves admissibility vocabulary, not DEC solvers or MCP stdio.
+
+</details>
+
+<a id="34-cross-fiber-links"></a>
+<details>
+<summary><b>4. Cross-fiber links</b> (Knowing, Time, Matter siblings)</summary>
+
+* **Domain Focus / Integration Surface:** Acting owns predicates; Knowing owns observation cost ([`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit)); Time owns stamps ([`umst-ucrs`](https://github.com/tytolabs/umst-ucrs)).
+* **Composition / Pipeline:** `ConcreteAdmissible` compat mirrors cartridge gate; UCRS stamps when commitments land — Acting does not run sync protocol.
+* **Computational Outcome:** Link siblings instead of duplicating Englert tables or `ucrs_seq` mechanics in this README.
+* **Honest limit:** Does not prove Englert / Kraus or validate constitutive law — cite the correct fiber.
+
+</details>
 
 **Impact:** Any autonomous system that **acts** (commits, spends credit, publishes state) can be modeled as Kleisli sequences of gate-checked steps. This repo is the machine-checked vocabulary for that **acting** slice of the shared gate.
-
-<details>
-<summary><strong>Kleisli composition sketch (Acting fiber)</strong></summary>
-
-```text
-State₀ --[f admissible]--> State₁ --[g admissible]--> State₂
-         kleisliCompose f g  :  WellTyped only when BOTH steps CoreAdmissible
-```
-
-- **Objects:** `ThermodynamicSystem K S` with density field and free energy ([`Core/State.lean:9`](Lean/Core/State.lean)).
-- **1-step morphisms:** `CoreAdmissible` — mass ball + Clausius–Duhem descent ([`Core/Gate.lean:23`](Lean/Core/Gate.lean)).
-- **N-step:** `CoreAdmissibleN` composes mass budgets across sequences ([`Core/Gate.lean:29`](Lean/Core/Gate.lean)).
-- **Kleisli:** `kleisliCompose` in [`Core/Constitutional.lean:32`](Lean/Core/Constitutional.lean); Economic re-export [`KleisliAdmissibilityComposition.lean:14`](Lean/Economic/KleisliAdmissibilityComposition.lean).
-
-Headline identifiers agents may cite as witnesses: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellTypedN`, `powers_monotone` (full index: [`PROOF-STATUS.md`](PROOF-STATUS.md)).
-
-</details>
-
-<details>
-<summary><strong>Economic module groups (17 roots)</strong></summary>
-
-| Group | Modules | Agent takeaway |
-|:---|:---|:---|
-| **Burden / NPV** | `BurdenRecursionIsAdmissible`, `StochasticBurdenExpectation`, `NPVIsSpecialCaseOfThermodynamicBurden`, `SelfReferentialEconomicTensor` | Discrete burden updates stay gate-compatible under hypotheses |
-| **Calibration** | `DynamicEpsilonCalibration`, `ThermodynamicUncertaintyCertificate` | Certificate tuples document margins — not legal seals |
-| **Surrogate flags** | `HallucinationDetector`, `LowEntropyLieDetector` | Threshold predicates only — [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) |
-| **Creativity / horizon** | `CreativityBudget`, `CreativeExplorationTolerance`, `HorizonAwareGrounding`, `NuanceIsolator` | Exploration windows are explicit hypotheses |
-| **Collective / sensing** | `CollectiveCoherenceCost`, `EpistemicSensingModule` | Spread penalties and MI bounds are parameterised |
-| **Control staging** | `PhysicsConstrainedAI`, `KleisliAdmissibilityComposition` | Propose freely; gate-check before treating output as admissible |
-
-</details>
 
 ---
 
@@ -475,15 +497,22 @@ See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty). This 
 
 Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized claims.
 
+### 9.6 Principles (honest)
+
+* **Acting is gate-checked.** Optimism about transitions is not an axiom; admissibility is proved or rejected under explicit hypotheses.
+* **Cold proof, hot gate elsewhere.** This repo is proof build + catalog export; runtime MCP and arena paths live in concrete/manifold.
+* **Economic names are predicates.** “Detector” modules are threshold bookkeeping — not semantic truth or deployed safety products ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)).
+* **Fiber boundaries.** Knowing theorems and UCRS stamps link out — do not duplicate their proof tables here.
+
 ---
 
 ## 10. Conclusion: Inferences & Forward Path
 
 ### What this repo demonstrates
 
-- **Acting is gate-checked** — optimism about transitions is not an axiom; admissibility is proved or rejected under explicit hypotheses.
-- **Kleisli composition** — multi-step commitments compose only when each step is admissible.
-- **Economic meso-layer** — classical bookkeeping for burden, creativity slack, and collective spread — honestly labeled as predicates.
+- **Acting is gate-checked, not optimistic** — once you propose a state change, mass and Clausius–Duhem constraints decide admissibility; rejected transitions are not softened into warnings in the formal story.
+- **Kleisli composition is the commitment model** — `kleisliCompose` and `kleisliFoldWellTypedN` make multi-step agent plans well-typed only when **every** step is `CoreAdmissible`.
+- **Economic meso-layer is honest classical bookkeeping** — burden, creativity slack, and collective spread are parameterised predicates with explicit [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) scope — not black-box “AI safety” products.
 
 ### What surprised us
 
@@ -496,7 +525,8 @@ Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized
 
 ---
 
-### Related repositories
+<a id="related-repositories"></a>
+## Related repositories
 
 | Repo | Focus |
 |:---|:---|
@@ -535,6 +565,28 @@ Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction suppli
 **Visuals discipline:** `make visuals` output is pedagogical — not market data, lab measurements, or deployed AI safety telemetry.
 
 **Agent redirect:** MCP tools and hot/cold runtime labels = concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md) only.
+
+---
+
+## Authors
+
+**Santhosh Shyamsundar** — Studio TYTO; IAAC Barcelona · [santhoshshyamsundar@tyto.studio](mailto:santhoshshyamsundar@tyto.studio)
+
+**Santosh Prabhu Shenbagamoorthy** — Studio TYTO; IAAC Barcelona · [santosh@tyto.studio](mailto:santosh@tyto.studio)
+
+---
+
+## Acknowledgments
+
+Portions of this work were developed in collaboration with advanced large-language-model tools, across multiple model iterations.
+Claude Opus and Sonnet (Anthropic) provided surgical precision during drafting and refinement.
+Gemini (Google) offered exceptional large-context planning and file management.
+Grok (xAI) and its collaborative reasoning team contributed core mathematical and scientific reasoning.
+The Cursor code editor, Composer, Claude Code, and Antigravity supported seamless implementation and agentic file management.
+
+The large-language models assisted with exploration, drafting, and code scaffolding — never with the validity of formal proofs. All theorems were machine-checked by their respective compilers (Lean 4, Coq, Agda), which accept only well-typed terms, never persuasive arguments.
+
+We gratefully acknowledge the open-source ecosystems that make this work possible: **Lean 4** and **Mathlib**; **Agda**; **Coq**; **Haskell** (QuickCheck); and **Python** visualization scripts.
 
 ## License
 
