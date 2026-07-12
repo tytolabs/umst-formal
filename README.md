@@ -563,9 +563,9 @@ See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty). This 
 
 ### 9.5 Proposed (not yet built)
 
-Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized claims.
+Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-STATUS.md) and therefore **not** claimed as proved: continuum / PDE-scale admissibility, and deeper cross-layer replay linking this acting fiber to the knowing proofs in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit). Nothing here is asserted until it appears in `PROOF-STATUS.md`.
 
-### 9.6 Principles (honest)
+### 9.6 Principles
 
 - **Acting is gate-checked.** Optimism about transitions is not an axiom; admissibility is proved or rejected under explicit hypotheses.
 - **Cold proof, hot gate elsewhere.** This repo is proof build + catalog export; runtime MCP and arena paths live in concrete/manifold.
@@ -584,12 +584,13 @@ Continuum engineering backlog items outside `PROOF-STATUS.md` — not mechanized
 
 ### What surprised us
 
-- **Naming risk** — “HallucinationDetector” and similar modules required [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) so agents do not treat predicates as products.
-- **Single axiom discipline** — `physicalSecondLaw` is explicit; Mathlib baseline checked in CI.
+- **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` *sound* like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
+- **One axiom carries the whole tree.** We expected formalising acting-under-thermodynamic-law to accrete assumptions. It didn't: the entire economic-admissibility structure rests on a single explicit physical axiom, `physicalSecondLaw`, with every other result derived and checked against a Mathlib axiom baseline in CI. How little you have to *assume* to get this much structure was the surprise.
+- **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when *every* step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
 
 ### Forward path
 
-- Tighten cross-layer replay docs; keep Economic modules parameterised; never blur proof tree with runtime gate path.
+Discharge the continuum backlog into `PROOF-STATUS.md`; keep the Economic modules parameterised — predicates, never products; and hold the line between this proof tree and the runtime gate. Anchor, not gate, is the productive pattern here too.
 
 ---
 
