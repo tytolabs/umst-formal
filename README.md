@@ -29,6 +29,8 @@ SPDX-License-Identifier: MIT
 
 </div>
 
+**Repository:** [`tytolabs/umst-formal`](https://github.com/tytolabs/umst-formal) — **acting** fiber: machine-checked economic admissibility and Kleisli composition (Lean · Agda · Coq · Haskell).
+
 ### Shared stack (matter · knowing · acting · time)
 
 These public repos share **one** thermodynamic admissibility gate, applied across domains:
@@ -42,9 +44,7 @@ These public repos share **one** thermodynamic admissibility gate, applied acros
 
 Sibling links only — no paper-series arc naming in this README. Already-public per-repo DOI badges stay where they exist.
 
-### What this is, in plain words
-
-Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
+**Acting fiber** (economic admissibility proofs). Runtime DEC gate, arena hot path, and MCP live in [`umst-manifold`](https://github.com/tytolabs/umst-manifold) and [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge).
 
 ### Real objects (categorical — not “the proofs”)
 
@@ -70,11 +70,11 @@ Port detail across Core / Concrete / Compat: [`FORMAL_FOUNDATIONS.md`](FORMAL_FO
 
 Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md). Catalog SHA = [`umst-manifold/artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json).
 
-### Honesty ledger (counts @ `e4666ba`)
+### Honesty ledger (one status pointer)
 
-**One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md).
+Counts @ **`e41278c`**. **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
 
-**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`e4666ba`** (2026-07-12):
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`e41278c`** (2026-07-12):
 
 ```text
 Repository: umst-formal
@@ -97,15 +97,9 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 
 **Strengthen — do not soften:** Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
 
-### Quick verify
+### What this is, in plain words
 
-```bash
-git checkout e41278c   # or origin/main
-python3 scripts/lean_declaration_stats.py
-# after lake build:
-bash scripts/check_print_axioms.sh
-cd Lean && lake build
-```
+Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
 
 <details>
 <summary><strong>Table of contents</strong></summary>
@@ -347,7 +341,15 @@ Full environment notes: **[Docs/PROOF-REPLAY.md](Docs/PROOF-REPLAY.md)**.
 
 ## 6. Quick Start
 
-See [Quick verify](#quick-verify) above for Lean count paste @ `e4666ba`. Full build matrix:
+```bash
+git checkout e41278c   # or origin/main
+python3 scripts/lean_declaration_stats.py
+# after lake build:
+bash scripts/check_print_axioms.sh
+cd Lean && lake build
+```
+
+See Lean count paste @ `e41278c` in [Honesty ledger](#honesty-ledger-one-status-pointer). Full build matrix:
 
 ```bash
 ./scripts/check-formal-environment.sh   # optional
@@ -363,7 +365,7 @@ make lean-print-axioms
 make visuals   # optional pedagogical plots
 ```
 
-**Haskell paste (representative @ `e4666ba`):**
+**Haskell paste (representative @ `e41278c`):**
 
 ```text
 cd Haskell && cabal test umst-properties -f -with-ffi
@@ -410,7 +412,7 @@ See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index.
 <details>
 <summary><strong>Agda / Coq / Haskell status rows</strong></summary>
 
-| Layer | Artifact | Status @ `e4666ba` | Command |
+| Layer | Artifact | Status @ `e41278c` | Command |
 |:---|:---|:---|:---|
 | **Agda** | `Gate.agda`, `Naturality.agda`, `Activation.agda`, `DIB-Kleisli.agda`, `InfoTheory.agda`, … | `make check` in CI | `cd Agda && make check` |
 | **Coq** | `Gate.v`, `Constitutional.v`, `LandauerEinsteinBridge.v`, `Extraction.v` | `.vo` build + extraction | `cd Coq && make` |
@@ -548,4 +550,4 @@ Zenodo. https://doi.org/10.5281/zenodo.18940933
 
 Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660)) when you rely on that fiber.
 
-**Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`e4666ba`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
+**Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`e41278c`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
