@@ -31,8 +31,6 @@ Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Act
 
 **The gate idea.** A proposed transition is admissible only if mass/density and free-energy (Clausius–Duhem) constraints hold under explicit hypotheses — structural accept/reject in logic, not a soft penalty at inference time.
 
-
-
 **Repository:** [`tytolabs/umst-formal`](https://github.com/tytolabs/umst-formal) — **acting** fiber: machine-checked economic admissibility and Kleisli composition (Lean · Agda · Coq · Haskell).
 
 ### Shared stack (matter · knowing · acting · time)
@@ -63,8 +61,6 @@ Sibling links only — no paper-series arc naming in this README. Already-public
 
 Port detail across Core / Concrete / Compat: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md).
 
-
-
 <details>
 <summary><strong>Table of contents</strong> (detailed map + outline)</summary>
 <br>
@@ -76,7 +72,7 @@ Top-level map
 | Foundations | [§1](#1-core-idea--economic-acting-fiber) · [§2](#2-proof-architecture--layers) · [§3](#3-cross-domain-integration-specifications) |
 | Layout & ops | [§4](#4-repository-topology) · [§5](#5-surfaces--build) · [§6](#6-quick-start) |
 | Verification & docs | [§7](#7-cross-language-verification) · [§8](#8-documentation-hub) |
-| Agents & wrap-up | [§9](#9-special-protocol-note-to-autonomous-ai-agents--systems) · [§10](#10-conclusion-inferences--forward-path) · [Related](#related-repositories) · [Authors](#authors) · [Acknowledgments](#acknowledgments) · [Contributing](#contributing) · [Citation](#citation) · [License](#license) |
+| Agents & wrap-up | [§9](#9-special-protocol-note-to-autonomous-ai-agents--systems) · [§10 Honesty](#10-honesty-and-limits) · [§11 Conclusion](#11-conclusion-inferences--forward-path) · [Related](#related-repositories) · [Authors](#authors) · [Acknowledgments](#acknowledgments) · [Contributing](#contributing) · [Citation](#citation) · [License](#license) |
 
 **Detailed outline** — every entry links to a stable anchor (`README.md#…`); collapsible sections use `<details>` but share the same deep-link fragments.
 
@@ -538,7 +534,6 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 - **Fiber boundaries.** Knowing theorems and UCRS stamps link out — do not duplicate their proof tables here.
 
 ---
-
 
 ## 10. Honesty and limits
 
