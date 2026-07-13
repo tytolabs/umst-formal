@@ -549,6 +549,7 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 | **Catalog consume** | Agents read manifold export digest | Do not `lake build` mid-inference |
 
 Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md). Catalog SHA = [`umst-manifold/artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json).
+
 ### Honesty ledger (one status pointer)
 
 Counts @ **`e41278c`**. **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
