@@ -13,12 +13,6 @@ SPDX-License-Identifier: MIT
 
 ### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
 
-**What it is.** Machine-checked formalizations (Lean 4 · Agda · Coq · Haskell QuickCheck) of the **thermodynamic admissibility gate** for **acts and commitments** — rational state changes, Shannon/Landauer bookkeeping, and Kleisli composition of gate-checked steps. This is a **proof tree**, not a runtime solver and not an MCP host.
-
-**The gate idea.** A proposed transition is admissible only if mass/density and free-energy (Clausius–Duhem) constraints hold under explicit hypotheses — structural accept/reject in logic, not a soft penalty at inference time.
-
-**Honest is / isn't.** **Is:** lake-rooted Lean modules with declared theorem/lemma counts, cross-layer gate mirrors, Economic meso-layer predicates. **Isn't:** live inference on a robot, MCP tools, or “seeing the world.” Economic filenames that sound like oracles are **parameterised predicates** — read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing them off-repo.
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18940933.svg)](https://doi.org/10.5281/zenodo.18940933)
 <!-- readme:status -->
 [![CI](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml)
@@ -28,6 +22,16 @@ SPDX-License-Identifier: MIT
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
 </div>
+
+### What this is, in plain words
+
+Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
+
+**What it is.** Machine-checked formalizations (Lean 4 · Agda · Coq · Haskell QuickCheck) of the **thermodynamic admissibility gate** for **acts and commitments** — rational state changes, Shannon/Landauer bookkeeping, and Kleisli composition of gate-checked steps. This is a **proof tree**, not a runtime solver and not an MCP host.
+
+**The gate idea.** A proposed transition is admissible only if mass/density and free-energy (Clausius–Duhem) constraints hold under explicit hypotheses — structural accept/reject in logic, not a soft penalty at inference time.
+
+
 
 **Repository:** [`tytolabs/umst-formal`](https://github.com/tytolabs/umst-formal) — **acting** fiber: machine-checked economic admissibility and Kleisli composition (Lean · Agda · Coq · Haskell).
 
@@ -59,47 +63,7 @@ Sibling links only — no paper-series arc naming in this README. Already-public
 
 Port detail across Core / Concrete / Compat: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md).
 
-### Hot arena vs cold edge (performance honesty)
 
-| Path | What | Character |
-|:---|:---|:---|
-| **Cold (this repo)** | `lake build`, Agda/Coq/Haskell CI, `lean_declaration_stats.py` | Machine-checked proof artifact — not inference-time |
-| **Warm** | Optional `make visuals` / pedagogical plots | Surrogate diagrams — not market or lab data |
-| **Hot (not here)** | Manifold DEC / arena mmap; concrete MCP `umst_*` tools | Runtime gate + agent surface → siblings |
-| **Catalog consume** | Agents read manifold export digest | Do not `lake build` mid-inference |
-
-Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md). Catalog SHA = [`umst-manifold/artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json).
-
-### Honesty ledger (one status pointer)
-
-Counts @ **`e41278c`**. **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
-
-**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`e41278c`** (2026-07-12):
-
-```text
-Repository: umst-formal
-Lake roots: 62 modules
-Roots-only:  289 theorem, 24 lemma, total 313
-All Lean/*:  296 theorem, 24 lemma, total 320
-Axioms (^axiom ):
-  LandauerLaw.lean:155  physicalSecondLaw
-```
-
-- **0** tactic `sorry` in the default rooted closure (see module headers / CI).
-- **1** project `axiom`: `physicalSecondLaw` in [`Lean/LandauerLaw.lean:155`](Lean/LandauerLaw.lean).
-- After `lake build`, CI runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems). Paste (same SHA):
-
-```text
-check_print_axioms: OK (all closures ⊆ Mathlib baseline + optional physicalSecondLaw)
-```
-
-Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script output above (62 / 289 / 24). **Script wins** on any mismatch. Methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
-
-**Strengthen — do not soften:** Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
-
-### What this is, in plain words
-
-Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
 
 <details>
 <summary><strong>Table of contents</strong> (detailed map + outline)</summary>
@@ -142,7 +106,8 @@ Top-level map
   - [9.4 Operational mapping](#94-operational-mapping)
   - [9.5 Proposed](#95-proposed-not-yet-built)
   - [9.6 Principles](#96-principles)
-- [§10 Conclusion](#10-conclusion-inferences--forward-path)
+- [§10 Honesty and limits](#10-honesty-and-limits)
+- [§11 Conclusion](#11-conclusion-inferences--forward-path)
   - [What this repo demonstrates](#what-this-repo-demonstrates)
   - [What surprised us](#what-surprised-us)
   - [Forward path](#forward-path)
@@ -574,7 +539,49 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 
 ---
 
-## 10. Conclusion: Inferences & Forward Path
+
+## 10. Honesty and limits
+
+**Honest is / isn't.** **Is:** lake-rooted Lean modules with declared theorem/lemma counts, cross-layer gate mirrors, Economic meso-layer predicates. **Isn't:** live inference on a robot, MCP tools, or “seeing the world.” Economic filenames that sound like oracles are **parameterised predicates** — read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing them off-repo.
+
+### Hot arena vs cold edge (performance honesty)
+
+| Path | What | Character |
+|:---|:---|:---|
+| **Cold (this repo)** | `lake build`, Agda/Coq/Haskell CI, `lean_declaration_stats.py` | Machine-checked proof artifact — not inference-time |
+| **Warm** | Optional `make visuals` / pedagogical plots | Surrogate diagrams — not market or lab data |
+| **Hot (not here)** | Manifold DEC / arena mmap; concrete MCP `umst_*` tools | Runtime gate + agent surface → siblings |
+| **Catalog consume** | Agents read manifold export digest | Do not `lake build` mid-inference |
+
+Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md). Catalog SHA = [`umst-manifold/artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json).
+### Honesty ledger (one status pointer)
+
+Counts @ **`e41278c`**. **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
+
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`e41278c`** (2026-07-12):
+
+```text
+Repository: umst-formal
+Lake roots: 62 modules
+Roots-only:  289 theorem, 24 lemma, total 313
+All Lean/*:  296 theorem, 24 lemma, total 320
+Axioms (^axiom ):
+  LandauerLaw.lean:155  physicalSecondLaw
+```
+
+- **0** tactic `sorry` in the default rooted closure (see module headers / CI).
+- **1** project `axiom`: `physicalSecondLaw` in [`Lean/LandauerLaw.lean:155`](Lean/LandauerLaw.lean).
+- After `lake build`, CI runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems). Paste (same SHA):
+
+```text
+check_print_axioms: OK (all closures ⊆ Mathlib baseline + optional physicalSecondLaw)
+```
+
+Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script output above (62 / 289 / 24). **Script wins** on any mismatch. Methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
+
+**Strengthen — do not soften:** Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
+
+## 11. Conclusion: Inferences & Forward Path
 
 ### What this repo demonstrates
 
