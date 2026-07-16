@@ -1,0 +1,15 @@
+# Self-description manifest (blueprint §18 / NEW_REPOS_BUILD_SPEC C8).
+# Consumed by umst-meta when implemented; not checked yet.
+
+name = "tytolabs/umst-formal"
+path = "umst-formal"
+
+kind = "formal"
+spdx = "MIT"
+layer = "spine"
+formal_anchors = ["physicalSecondLaw", "sequentialCompositionSafe"]
+status = "wip"
+
+[registry]
+id = "tytolabs/umst-formal"
+validation_status = "unvalidated"
