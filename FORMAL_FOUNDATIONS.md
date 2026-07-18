@@ -46,7 +46,7 @@ cd Lean && lake build
 
 ## Build scope
 
-Default `lake build` covers **all** registered `lakefile.lean` `roots` (**64** modules, including `Core.*`, `Concrete.*` (incl. **`Concrete.StiffnessTransition`** — B1 α-stiffness L1a), `Compat.*`, `Lean/Economic/*`, **Formal-First** cockpit mirrors, **`Memory.*`**, and cartridge-anchor modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
+Default `lake build` covers **all** registered `lakefile.lean` `roots` (**65** modules, including `Core.*`, `Concrete.*` (incl. **`Concrete.StiffnessTransition`** — B1 α-stiffness L1a; **`Concrete.MicroMechanics`** — B1 scalar MT L1b), `Compat.*`, `Lean/Economic/*`, **Formal-First** cockpit mirrors, **`Memory.*`**, and cartridge-anchor modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
 
 ## Paper Claims ↔ Formal Lemmas
 

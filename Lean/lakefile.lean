@@ -8,7 +8,7 @@ require mathlib from git
   "https://github.com/leanprover-community/mathlib4" @ "v4.14.0"
 
 /-
-  **Lean `roots` (64 modules)** — default `lake build` closure for `UMST`.  Science-cartridge layout:
+  **Lean `roots` (65 modules)** — default `lake build` closure for `UMST`.  Science-cartridge layout:
   `Core.*` (universal laws), `Concrete.*` (OPC cement), `Compat.*` (legacy `UMST` API).
   (Wave 6.5.2 meso-layer).  Single project `axiom`: `LandauerLaw.physicalSecondLaw`.
 
@@ -29,6 +29,7 @@ lean_lib «UMST» where
     `Concrete.State, `Concrete.Gate,
     `Real.State, `Real.Gate,
     `Concrete.Helmholtz, `Concrete.Powers, `Concrete.StiffnessTransition,
+    `Concrete.MicroMechanics,
     `Concrete.Convergence, `Concrete.GraphProperties,
     `Concrete.Activation, `Concrete.EndConditions, `Concrete.EnrichedAdmissibility, `Concrete.GaloisGate,
     `Compat.Gate, `Compat.Constitutional,
