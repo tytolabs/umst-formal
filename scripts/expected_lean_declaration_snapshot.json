@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 62,
+  "lake_roots_count": 63,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -27,6 +27,7 @@
     "LandauerLaw",
     "InfoTheory",
     "ClassicalMeasurementCost",
+    "CoordinationCost",
     "LandauerExtension",
     "FiberedActivation",
     "MonoidalState",
@@ -66,14 +67,14 @@
     "DualLedger"
   ],
   "roots_only": {
-    "theorem": 289,
+    "theorem": 297,
     "lemma": 24,
-    "total": 313
+    "total": 321
   },
   "all_lean_glob": {
-    "theorem": 296,
-    "lemma": 24,
-    "total": 320
+    "theorem": 311,
+    "lemma": 26,
+    "total": 337
   },
   "per_root": {
     "Core.Scalar": {
@@ -174,6 +175,10 @@
     },
     "ClassicalMeasurementCost": {
       "theorem": 1,
+      "lemma": 0
+    },
+    "CoordinationCost": {
+      "theorem": 8,
       "lemma": 0
     },
     "LandauerExtension": {

@@ -391,6 +391,7 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.InfoTheory` | 4 | 0 | `Lean/InfoTheory.lean` |
 | `UMST.Concrete.EndConditions` | 3 | 0 | `Lean/Concrete/EndConditions.lean` — stream end-state constraints |
 | `UMST.ClassicalMeasurementCost` | 1 | 0 | `Lean/ClassicalMeasurementCost.lean` — classical observation cost vs Landauer |
+| `UMST.CoordinationCost` | 8 | 0 | `Lean/CoordinationCost.lean` — A7 floor projection scaffold (see `Docs/COORDINATION_COST_SEMANTICS.md`) |
 | `UMST.LandauerExtension` | 6 | 0 | `Lean/LandauerExtension.lean` — n-bit / temperature scaling |
 | `UMST.FiberedActivation` | 8 | 0 | `Lean/FiberedActivation.lean` — `engineFiber`, covering lemmas |
 | `UMST.MonoidalState` | 6 | 0 | `Lean/MonoidalState.lean` |
