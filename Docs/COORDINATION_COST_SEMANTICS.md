@@ -1,6 +1,6 @@
 # Coordination Cost — lower-bound semantics (Landauer floor)
 
-**Status:** A7 formal scaffold @ 2026-07-18 — definitions + algebraic lemmas only.  
+**Status:** A7 formal scaffold deepened @ 2026-07-18 13:17 — definitions + algebraic lemmas + channel split + mass-equiv bridge.  
 **Lean module:** [`Lean/CoordinationCost.lean`](../Lean/CoordinationCost.lean)  
 **Rust SSOT:** `umst-arcs/crates/umst-arcs/src/coordination_cost.rs`
 
@@ -34,10 +34,12 @@ Label every UI / cert string that surfaces this number as **projection** or **fl
 
 | Layer | Artifact | Role |
 |-------|----------|------|
-| **Definitions** | `coordinationSavingJoules`, `landauerCostJoules` | SI joule reporting functor |
+| **Definitions** | `coordinationSavingJoules`, `landauerCostJoules`, `coordinationMassEquivalentKg` | SI joule + kg reporting functors |
 | **Bit / nat bridge** | `mutualInformationBits` | \(I_\text{bits} = I_\text{nats} / \ln 2\) |
-| **Classical MI link** | `classical_measurement_floor_agrees` | Same floor as `ClassicalMeasurementCost.measurementEnergyLowerBound` |
-| **Landauer bit scale** | `landauerBitEnergy` (`LandauerEinsteinBridge`) | One-bit floor at temperature \(T\) |
+| **Classical MI link** | `classical_measurement_floor_agrees`, `physical_channel_floor_agrees` | Same floor as `ClassicalMeasurementCost.measurementEnergyLowerBound` |
+| **Landauer bit scale** | `landauerBitEnergy`, `landauerEnergyAt` | One-bit floor at temperature \(T\) (`landauerBitEnergy_eq_landauerEnergyAt`) |
+| **Independent−joint delta** | `independentMinusJointDelta`, `independent_minus_joint_eq_mi_delta` | Algebraic form of Rust `coordination_cost_identity_independent_minus_joint` |
+| **A7-4 scaffold** | `globalCoordinationSavingJoules`, `PhysicalMiChannel`, `EpistemicMiDraft` | Global/multi-info + channel split (no epistemic→thermo slip) |
 | **Thermodynamic bound** | `landauerBound` (`LandauerLaw`) | Erasure work ≥ \(T \ln 2\) (uses sole project axiom `physicalSecondLaw`) |
 | **Operational orthogonality** | `kleisli_compose_preserves_admissibility` tests (Rust) | `coordination_saving` does not alter `gate<R>` |
 
@@ -45,15 +47,23 @@ Label every UI / cert string that surfaces this number as **projection** or **fl
 
 ## 3. What is proved in the scaffold
 
-All of the following are machine-checked without new axioms or `sorry`:
+All of the following are machine-checked without new axioms or `sorry` (24 theorems):
 
 - `coordinationSaving_eq_landauerCost` — alias coherence
+- `landauerBitEnergy_eq_landauerEnergyAt` — SI bridge alignment
+- `coordinationSaving_eq_landauerEnergyAt` — joule scale via `landauerEnergyAt`
 - `coordinationSaving_zero` — zero MI ⇒ zero saving
-- `coordinationSaving_linear` — linear in MI (bits)
+- `coordinationSaving_linear` / `coordinationSaving_additive` — linear / additive in MI (bits)
 - `coordinationSaving_one_bit` — one bit = `landauerBitEnergy T`
 - `coordinationSaving_temp_scaling` — linear in \(T\)
+- `coordinationSaving_nonneg` / `coordinationSaving_pos` — sign witnesses (hypothesised MI, T)
+- `coordinationMassEquivalent_eq_div` / `coordinationMassEquivalent_temp_scaling` — egoff `mass_equiv_kg` bridge
+- `independent_minus_joint_eq_mi_delta` — independent−joint parity identity
+- `globalCoordinationSaving_eq_pairwise` — A7-4 global alias reduces to pairwise
+- `physical_channel_floor_agrees` — `PhysicalMiChannel` floor witness
 - `zero_mi_zero_saving` — product joint ⇒ zero saving
 - `classical_measurement_floor_agrees` — nats vs bits convention bridge
+- `mkReport_*` — `CoordinationReport` projection fields (joules + kg)
 
 ---
 

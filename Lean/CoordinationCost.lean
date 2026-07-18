@@ -13,8 +13,11 @@
     - `umst-ucrs/Rust/src/landauer.rs` `coordination_cost`
 
   **Provable in this scaffold (no new axioms, no `sorry`):**
-    - Definitional alignment with `landauerBitEnergy` and `ClassicalMeasurementCost`
-    - Zero MI ⇒ zero saving; linear scaling in MI; temperature homogeneity
+    - Definitional alignment with `landauerBitEnergy`, `landauerEnergyAt`, `ClassicalMeasurementCost`
+    - Zero MI ⇒ zero saving; linear / additive scaling in MI; temperature homogeneity
+    - Mass-equivalent bridge via `LandauerEinsteinBridge.massEquivalent`
+    - `CoordinationReport` projection witnesses (joules + kg)
+    - Independent-minus-joint delta identity (algebraic form of Rust parity test)
 
   **Explicit non-claims (documented via `OpenObligation`, not proved here):**
     - Joint erasure of correlated registers costs less than independent erasure
@@ -52,27 +55,78 @@ noncomputable def coordinationSavingJoules (miBits T : ℝ) : ℝ :=
 noncomputable def landauerCostJoules (bits T : ℝ) : ℝ :=
   coordinationSavingJoules bits T
 
+/-- Mass equivalent [kg] of the coordination saving at temperature `T` [K].
+    Matches egoff `CoordinationReport.mass_equiv_kg` (`cost_j / c²`). -/
+noncomputable def coordinationMassEquivalentKg (miBits T : ℝ) : ℝ :=
+  massEquivalent T * miBits
+
+/-- A7-4 **global** correlation floor (multi-information in bits).
+    Reporting identity only — pairwise SSOT preserved; not a replacement. -/
+noncomputable def globalCoordinationSavingJoules (multiInfoBits T : ℝ) : ℝ :=
+  coordinationSavingJoules multiInfoBits T
+
+/-- Independent erasure minus joint erasure floor [J].
+    Algebraic form of `coordination_cost_identity_independent_minus_joint` (Rust). -/
+noncomputable def independentMinusJointDelta (independentBits jointBits T : ℝ) : ℝ :=
+  coordinationSavingJoules independentBits T - coordinationSavingJoules jointBits T
+
 /-- Labels a scalar as a **floor projection**, not measured energy. -/
 structure CoordinationReport where
   mutualInfoBits : ℝ
   temperatureKelvin : ℝ
   savingJoules : ℝ
+  massEquivalentKg : ℝ
   isProjection : savingJoules = coordinationSavingJoules mutualInfoBits temperatureKelvin
+  massEquivMatches :
+    massEquivalentKg = coordinationMassEquivalentKg mutualInfoBits temperatureKelvin
 
 /-- Construct a projection report from MI (bits) and bath temperature. -/
 noncomputable def mkReport (miBits T : ℝ) : CoordinationReport where
   mutualInfoBits := miBits
   temperatureKelvin := T
   savingJoules := coordinationSavingJoules miBits T
+  massEquivalentKg := coordinationMassEquivalentKg miBits T
   isProjection := rfl
+  massEquivMatches := rfl
 
 -- ================================================================
--- SECTION 2: Algebraic lemmas (proved — no physics beyond definitions)
+-- SECTION 2: Channel split scaffold (A7-4 — no epistemic→thermo slip)
 -- ================================================================
+
+/-- Physical MI channel: only declared joint distributions enter cert fixtures. -/
+structure PhysicalMiChannel (n m : ℕ) where
+  joint : JointDist n m
+
+/-- Epistemic MI draft — **not** a thermodynamic witness without an explicit bridge.
+    Mirrors egoff `ClosedLoop.cumulative_mi_bits` policy (reporting only). -/
+structure EpistemicMiDraft where
+  cumulativeBits : ℝ
+
+/-- Physical channel projects to bits via Shannon MI on the declared joint. -/
+noncomputable def physicalMiBits {n m : ℕ} (ch : PhysicalMiChannel n m) : ℝ :=
+  mutualInformationBits ch.joint
+
+/-- Epistemic draft carries raw bits only — no `PhysicalMiChannel` claim. -/
+noncomputable def epistemicMiBits (draft : EpistemicMiDraft) : ℝ :=
+  draft.cumulativeBits
+
+-- ================================================================
+-- SECTION 3: Algebraic lemmas (proved — no physics beyond definitions)
+-- ================================================================
+
+theorem landauerBitEnergy_eq_landauerEnergyAt (T : ℝ) :
+    landauerBitEnergy T = landauerEnergyAt T := by
+  unfold landauerBitEnergy landauerEnergyAt kBoltzmannSI kB
+  rfl
 
 theorem coordinationSaving_eq_landauerCost (miBits T : ℝ) :
     coordinationSavingJoules miBits T = landauerCostJoules miBits T :=
   rfl
+
+theorem coordinationSaving_eq_landauerEnergyAt (miBits T : ℝ) :
+    coordinationSavingJoules miBits T = miBits * landauerEnergyAt T := by
+  unfold coordinationSavingJoules landauerBitEnergy landauerEnergyAt kB kBoltzmannSI
+  ring
 
 theorem coordinationSaving_zero (T : ℝ) :
     coordinationSavingJoules 0 T = 0 := by
@@ -81,6 +135,12 @@ theorem coordinationSaving_zero (T : ℝ) :
 
 theorem coordinationSaving_linear (a miBits T : ℝ) :
     coordinationSavingJoules (a * miBits) T = a * coordinationSavingJoules miBits T := by
+  unfold coordinationSavingJoules landauerBitEnergy
+  ring
+
+theorem coordinationSaving_additive (mi₁ mi₂ T : ℝ) :
+    coordinationSavingJoules (mi₁ + mi₂) T =
+      coordinationSavingJoules mi₁ T + coordinationSavingJoules mi₂ T := by
   unfold coordinationSavingJoules landauerBitEnergy
   ring
 
@@ -94,11 +154,71 @@ theorem coordinationSaving_temp_scaling (miBits a T : ℝ) (_ha : 0 < a) :
   unfold coordinationSavingJoules landauerBitEnergy
   ring
 
+theorem coordinationMassEquivalent_eq_div (miBits T : ℝ) :
+    coordinationMassEquivalentKg miBits T =
+      coordinationSavingJoules miBits T / speedOfLightSI ^ 2 := by
+  unfold coordinationMassEquivalentKg massEquivalent coordinationSavingJoules landauerBitEnergy
+  ring
+
+theorem coordinationMassEquivalent_temp_scaling (miBits a T : ℝ) (ha : 0 < a) :
+    coordinationMassEquivalentKg miBits (a * T) =
+      a * coordinationMassEquivalentKg miBits T := by
+  rw [coordinationMassEquivalent_eq_div, coordinationMassEquivalent_eq_div]
+  rw [coordinationSaving_temp_scaling miBits a T ha]
+  ring
+
+theorem globalCoordinationSaving_eq_pairwise (miBits T : ℝ) :
+    globalCoordinationSavingJoules miBits T = coordinationSavingJoules miBits T :=
+  rfl
+
+theorem independent_minus_joint_eq_mi_delta (independent joint T : ℝ) :
+    independentMinusJointDelta independent joint T =
+      coordinationSavingJoules (independent - joint) T := by
+  unfold independentMinusJointDelta coordinationSavingJoules landauerBitEnergy
+  ring
+
+theorem independent_minus_joint_zero_joint (independent T : ℝ) :
+    independentMinusJointDelta independent 0 T = coordinationSavingJoules independent T := by
+  rw [independent_minus_joint_eq_mi_delta, sub_zero]
+
+theorem mkReport_saving (miBits T : ℝ) :
+    (mkReport miBits T).savingJoules = coordinationSavingJoules miBits T :=
+  rfl
+
+theorem mkReport_mass_equiv (miBits T : ℝ) :
+    (mkReport miBits T).massEquivalentKg = coordinationMassEquivalentKg miBits T :=
+  rfl
+
+theorem mkReport_fields (miBits T : ℝ) :
+    (mkReport miBits T).mutualInfoBits = miBits ∧
+      (mkReport miBits T).temperatureKelvin = T :=
+  ⟨rfl, rfl⟩
+
 theorem mutualInformationBits_product_zero {n m : ℕ} (p : ProbDist n) (q : ProbDist m) :
     mutualInformationBits (productJoint p q) = 0 := by
   unfold mutualInformationBits
   rw [mutualInformation_product_zero]
   simp
+
+theorem physicalMiBits_product_zero {n m : ℕ} (p : ProbDist n) (q : ProbDist m) :
+    physicalMiBits ⟨productJoint p q⟩ = 0 := by
+  unfold physicalMiBits
+  exact mutualInformationBits_product_zero p q
+
+theorem coordinationSaving_physical_zero {n m : ℕ} (T : ℝ) (p : ProbDist n) (q : ProbDist m) :
+    coordinationSavingJoules (physicalMiBits ⟨productJoint p q⟩) T = 0 := by
+  rw [physicalMiBits_product_zero, coordinationSaving_zero]
+
+theorem coordinationSaving_nonneg (miBits T : ℝ) (hmi : 0 ≤ miBits) (hT : 0 ≤ T) :
+    0 ≤ coordinationSavingJoules miBits T := by
+  unfold coordinationSavingJoules landauerBitEnergy
+  refine mul_nonneg ?_ hmi
+  exact mul_nonneg (mul_nonneg (le_of_lt kBoltzmannSI_pos) hT) (le_of_lt log_two_pos)
+
+theorem coordinationSaving_pos (miBits T : ℝ) (hmi : 0 < miBits) (hT : 0 < T) :
+    0 < coordinationSavingJoules miBits T := by
+  unfold coordinationSavingJoules landauerBitEnergy
+  exact mul_pos (mul_pos (mul_pos kBoltzmannSI_pos hT) log_two_pos) hmi
 
 theorem zero_mi_zero_saving {n m : ℕ} (T : ℝ) (p : ProbDist n) (q : ProbDist m) :
     coordinationSavingJoules (mutualInformationBits (productJoint p q)) T = 0 := by
@@ -116,8 +236,14 @@ theorem classical_measurement_floor_agrees {n m : ℕ} (T : ℝ) (J : JointDist 
   field_simp
   ring
 
+theorem physical_channel_floor_agrees {n m : ℕ} (T : ℝ) (ch : PhysicalMiChannel n m) :
+    measurementEnergyLowerBound T ch.joint =
+      coordinationSavingJoules (physicalMiBits ch) T := by
+  unfold physicalMiBits
+  exact classical_measurement_floor_agrees T ch.joint
+
 -- ================================================================
--- SECTION 3: Open obligations (indexed — no `sorry` placeholders)
+-- SECTION 4: Open obligations (indexed — no `sorry` placeholders)
 -- ================================================================
 
 /-- Proof targets deferred beyond this scaffold. Listed for audit / receipt traceability. -/
@@ -126,5 +252,14 @@ inductive OpenObligation
   | finite_time_excess_bound
   | epistemic_mi_witness
   deriving DecidableEq, Repr
+
+/-- Human-readable obligation labels for receipts / cert tooling. -/
+def openObligationDescription : OpenObligation → String
+  | .joint_erasure_sub_additive =>
+      "joint erasure of correlated registers cheaper than independent sum"
+  | .finite_time_excess_bound =>
+      "finite-time excess dissipation above isothermal Landauer floor"
+  | .epistemic_mi_witness =>
+      "epistemic MI bridge witness (L10 fiber) — not physical MI"
 
 end UMST.CoordinationCost

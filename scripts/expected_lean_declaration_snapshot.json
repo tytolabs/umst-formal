@@ -68,14 +68,14 @@
     "DualLedger"
   ],
   "roots_only": {
-    "theorem": 311,
+    "theorem": 327,
     "lemma": 26,
-    "total": 337
+    "total": 353
   },
   "all_lean_glob": {
-    "theorem": 318,
+    "theorem": 334,
     "lemma": 26,
-    "total": 344
+    "total": 360
   },
   "per_root": {
     "Core.Scalar": {
@@ -183,7 +183,7 @@
       "lemma": 0
     },
     "CoordinationCost": {
-      "theorem": 8,
+      "theorem": 24,
       "lemma": 0
     },
     "LandauerExtension": {
