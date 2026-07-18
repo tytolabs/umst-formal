@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 64,
+  "lake_roots_count": 65,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -13,6 +13,7 @@
     "Concrete.Helmholtz",
     "Concrete.Powers",
     "Concrete.StiffnessTransition",
+    "Concrete.MicroMechanics",
     "Concrete.Convergence",
     "Concrete.GraphProperties",
     "Concrete.Activation",
@@ -68,14 +69,14 @@
     "DualLedger"
   ],
   "roots_only": {
-    "theorem": 327,
-    "lemma": 26,
-    "total": 353
+    "theorem": 356,
+    "lemma": 31,
+    "total": 387
   },
   "all_lean_glob": {
-    "theorem": 334,
-    "lemma": 26,
-    "total": 360
+    "theorem": 363,
+    "lemma": 31,
+    "total": 394
   },
   "per_root": {
     "Core.Scalar": {
@@ -121,6 +122,10 @@
     "Concrete.StiffnessTransition": {
       "theorem": 14,
       "lemma": 2
+    },
+    "Concrete.MicroMechanics": {
+      "theorem": 11,
+      "lemma": 5
     },
     "Concrete.Convergence": {
       "theorem": 8,
@@ -183,7 +188,7 @@
       "lemma": 0
     },
     "CoordinationCost": {
-      "theorem": 24,
+      "theorem": 42,
       "lemma": 0
     },
     "LandauerExtension": {

@@ -1,8 +1,8 @@
 # Coordination Cost — lower-bound semantics (Landauer floor)
 
-**Status:** A7 formal scaffold deepened @ 2026-07-18 13:17 — definitions + algebraic lemmas + channel split + mass-equiv bridge.  
+**Status:** A7-4 n-ary scaffold @ 2026-07-18 13:27 — `multiInformationBits` + global floor lemmas; pairwise SSOT preserved.  
 **Lean module:** [`Lean/CoordinationCost.lean`](../Lean/CoordinationCost.lean)  
-**Rust SSOT:** `umst-arcs/crates/umst-arcs/src/coordination_cost.rs`
+**Rust SSOT:** `umst-arcs/crates/umst-arcs/src/coordination_cost.rs` (+ planned `coordination_cost_global.rs`)
 
 ---
 
@@ -39,7 +39,9 @@ Label every UI / cert string that surfaces this number as **projection** or **fl
 | **Classical MI link** | `classical_measurement_floor_agrees`, `physical_channel_floor_agrees` | Same floor as `ClassicalMeasurementCost.measurementEnergyLowerBound` |
 | **Landauer bit scale** | `landauerBitEnergy`, `landauerEnergyAt` | One-bit floor at temperature \(T\) (`landauerBitEnergy_eq_landauerEnergyAt`) |
 | **Independent−joint delta** | `independentMinusJointDelta`, `independent_minus_joint_eq_mi_delta` | Algebraic form of Rust `coordination_cost_identity_independent_minus_joint` |
-| **A7-4 scaffold** | `globalCoordinationSavingJoules`, `PhysicalMiChannel`, `EpistemicMiDraft` | Global/multi-info + channel split (no epistemic→thermo slip) |
+| **A7-4 n-ary** | `multiInformationBits`, `multiInformationNats`, `coordinationSavingGlobalJoules` | Total correlation `I_n = Σᵢ H(Xᵢ) − H(joint)` in bits |
+| **A7-4 channel split** | `PhysicalMultiInfoChannel`, `EpistemicMultiInfoDraft`, `PhysicalMiChannel`, `EpistemicMiDraft` | N-ary + pairwise physical vs epistemic (no epistemic→thermo slip) |
+| **n=2 reduction** | `multiInformationBits_pair_eq_mutualInformationBits`, `global_floor_pair_agrees` | Global scalar reduces to pairwise SSOT on `JointDist` |
 | **Thermodynamic bound** | `landauerBound` (`LandauerLaw`) | Erasure work ≥ \(T \ln 2\) (uses sole project axiom `physicalSecondLaw`) |
 | **Operational orthogonality** | `kleisli_compose_preserves_admissibility` tests (Rust) | `coordination_saving` does not alter `gate<R>` |
 
@@ -47,7 +49,7 @@ Label every UI / cert string that surfaces this number as **projection** or **fl
 
 ## 3. What is proved in the scaffold
 
-All of the following are machine-checked without new axioms or `sorry` (24 theorems):
+All of the following are machine-checked without new axioms or `sorry` (42 theorems):
 
 - `coordinationSaving_eq_landauerCost` — alias coherence
 - `landauerBitEnergy_eq_landauerEnergyAt` — SI bridge alignment
@@ -60,6 +62,11 @@ All of the following are machine-checked without new axioms or `sorry` (24 theor
 - `coordinationMassEquivalent_eq_div` / `coordinationMassEquivalent_temp_scaling` — egoff `mass_equiv_kg` bridge
 - `independent_minus_joint_eq_mi_delta` — independent−joint parity identity
 - `globalCoordinationSaving_eq_pairwise` — A7-4 global alias reduces to pairwise
+- `multiInformationBits_pair_eq_mutualInformationBits` — n=2 total correlation = pairwise MI
+- `multiInformationBits_pair_product_zero` — independent product joint ⇒ zero multi-info
+- `multiInformationBits_nonneg` — nonnegativity when `joint ≤ Σ marginals` (hypothesis)
+- `coordinationSavingGlobal_eq_pairwise` / `global_floor_pair_agrees` — global joule floor
+- `physicalMultiInfoBits_pair_eq` — `PhysicalMultiInfoChannel` pairwise bridge
 - `physical_channel_floor_agrees` — `PhysicalMiChannel` floor witness
 - `zero_mi_zero_saving` — product joint ⇒ zero saving
 - `classical_measurement_floor_agrees` — nats vs bits convention bridge

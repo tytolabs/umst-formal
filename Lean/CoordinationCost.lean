@@ -18,6 +18,7 @@
     - Mass-equivalent bridge via `LandauerEinsteinBridge.massEquivalent`
     - `CoordinationReport` projection witnesses (joules + kg)
     - Independent-minus-joint delta identity (algebraic form of Rust parity test)
+    - A7-4 n-ary `multiInformationBits` with n=2 reduction to pairwise `mutualInformationBits`
 
   **Explicit non-claims (documented via `OpenObligation`, not proved here):**
     - Joint erasure of correlated registers costs less than independent erasure
@@ -60,10 +61,24 @@ noncomputable def landauerCostJoules (bits T : ℝ) : ℝ :=
 noncomputable def coordinationMassEquivalentKg (miBits T : ℝ) : ℝ :=
   massEquivalent T * miBits
 
-/-- A7-4 **global** correlation floor (multi-information in bits).
-    Reporting identity only — pairwise SSOT preserved; not a replacement. -/
-noncomputable def globalCoordinationSavingJoules (multiInfoBits T : ℝ) : ℝ :=
+/-- Total correlation / multi-information in **nats**:
+    `I_n = Σᵢ H(Xᵢ) − H(joint)` (Shannon entropies in nats). -/
+noncomputable def multiInformationNats (marginalEntropies : List ℝ) (jointEntropy : ℝ) : ℝ :=
+  marginalEntropies.sum - jointEntropy
+
+/-- A7-4 global correlation scalar in **bits** (`I_n_bits = I_n_nats / ln 2`).
+    Additive reporting identity — pairwise SSOT preserved; not a replacement. -/
+noncomputable def multiInformationBits (marginalEntropies : List ℝ) (jointEntropy : ℝ) : ℝ :=
+  multiInformationNats marginalEntropies jointEntropy / log 2
+
+/-- A7-4 **global** coordination floor [J] from multi-information in bits.
+    Matches planned `coordination_saving_global_joules` in umst-arcs (`feature a7-4`). -/
+noncomputable def coordinationSavingGlobalJoules (multiInfoBits T : ℝ) : ℝ :=
   coordinationSavingJoules multiInfoBits T
+
+/-- Legacy alias — same functor as `coordinationSavingGlobalJoules`. -/
+noncomputable def globalCoordinationSavingJoules (multiInfoBits T : ℝ) : ℝ :=
+  coordinationSavingGlobalJoules multiInfoBits T
 
 /-- Independent erasure minus joint erasure floor [J].
     Algebraic form of `coordination_cost_identity_independent_minus_joint` (Rust). -/
@@ -109,6 +124,39 @@ noncomputable def physicalMiBits {n m : ℕ} (ch : PhysicalMiChannel n m) : ℝ 
 /-- Epistemic draft carries raw bits only — no `PhysicalMiChannel` claim. -/
 noncomputable def epistemicMiBits (draft : EpistemicMiDraft) : ℝ :=
   draft.cumulativeBits
+
+-- ================================================================
+-- SECTION 2b: N-ary physical channel (A7-4 — fixture declarations only)
+-- ================================================================
+
+/-- N-ary physical channel: declared marginal + joint Shannon entropies (nats).
+    Fixture-only — no silent epistemic→thermo promotion. -/
+structure PhysicalMultiInfoChannel where
+  marginalEntropiesNats : List ℝ
+  jointEntropyNats : ℝ
+
+/-- Epistemic n-ary draft — **not** a thermodynamic witness without explicit bridge. -/
+structure EpistemicMultiInfoDraft where
+  marginalBits : List ℝ
+  jointBits : ℝ
+
+/-- Project declared entropies to multi-information in bits. -/
+noncomputable def physicalMultiInfoBits (ch : PhysicalMultiInfoChannel) : ℝ :=
+  multiInformationBits ch.marginalEntropiesNats ch.jointEntropyNats
+
+/-- Epistemic n-ary draft carries raw bits only — no `PhysicalMultiInfoChannel` claim. -/
+noncomputable def epistemicMultiInfoBits (draft : EpistemicMultiInfoDraft) : ℝ :=
+  multiInformationBits draft.marginalBits draft.jointBits
+
+/-- Pairwise joint distribution as a 2-ary physical multi-info channel. -/
+noncomputable def physicalMultiInfoChannel_pair {n m : ℕ} (J : JointDist n m) :
+    PhysicalMultiInfoChannel where
+  marginalEntropiesNats := [shannonEntropy (marginalX J), shannonEntropy (marginalY J)]
+  jointEntropyNats := jointEntropy J
+
+/-- Global coordination report from multi-information (bits) at temperature `T`. -/
+noncomputable def mkGlobalReport (multiInfoBits T : ℝ) : CoordinationReport :=
+  mkReport multiInfoBits T
 
 -- ================================================================
 -- SECTION 3: Algebraic lemmas (proved — no physics beyond definitions)
@@ -167,8 +215,109 @@ theorem coordinationMassEquivalent_temp_scaling (miBits a T : ℝ) (ha : 0 < a) 
   rw [coordinationSaving_temp_scaling miBits a T ha]
   ring
 
+theorem multiInformationNats_eq_sum_sub (marginals joint : ℝ) :
+    multiInformationNats [marginals] joint = marginals - joint := by
+  simp [multiInformationNats]
+
+theorem multiInformationBits_eq_div (marginalEntropies : List ℝ) (jointEntropy : ℝ) :
+    multiInformationBits marginalEntropies jointEntropy =
+      multiInformationNats marginalEntropies jointEntropy / log 2 := by
+  rfl
+
+theorem multiInformationNats_pair (hX hY joint : ℝ) :
+    multiInformationNats [hX, hY] joint = hX + hY - joint := by
+  simp [multiInformationNats]
+
+theorem multiInformationBits_pair (hX hY joint : ℝ) :
+    multiInformationBits [hX, hY] joint = (hX + hY - joint) / log 2 := by
+  unfold multiInformationBits multiInformationNats
+  simp
+
+theorem multiInformationNats_zero (marginalEntropies : List ℝ) (jointEntropy : ℝ)
+    (h : marginalEntropies.sum = jointEntropy) :
+    multiInformationNats marginalEntropies jointEntropy = 0 := by
+  unfold multiInformationNats
+  rw [h, sub_self]
+
+theorem multiInformationBits_zero (marginalEntropies : List ℝ) (jointEntropy : ℝ)
+    (h : marginalEntropies.sum = jointEntropy) :
+    multiInformationBits marginalEntropies jointEntropy = 0 := by
+  unfold multiInformationBits multiInformationNats
+  rw [h, sub_self, zero_div]
+
+theorem multiInformationNats_nonneg (marginalEntropies : List ℝ) (jointEntropy : ℝ)
+    (h : jointEntropy ≤ marginalEntropies.sum) :
+    0 ≤ multiInformationNats marginalEntropies jointEntropy := by
+  unfold multiInformationNats
+  exact sub_nonneg.mpr h
+
+theorem multiInformationBits_nonneg (marginalEntropies : List ℝ) (jointEntropy : ℝ)
+    (h : jointEntropy ≤ marginalEntropies.sum) :
+    0 ≤ multiInformationBits marginalEntropies jointEntropy := by
+  unfold multiInformationBits multiInformationNats
+  exact div_nonneg (sub_nonneg.mpr h) (le_of_lt log_two_pos)
+
+theorem multiInformationBits_pair_eq_mutualInformationBits {n m : ℕ} (J : JointDist n m) :
+    multiInformationBits
+        [shannonEntropy (marginalX J), shannonEntropy (marginalY J)]
+        (jointEntropy J) =
+      mutualInformationBits J := by
+  unfold multiInformationBits mutualInformationBits mutualInformation multiInformationNats
+  simp only [List.sum_cons, List.sum_nil, add_zero]
+
+theorem physicalMultiInfoBits_pair_eq {n m : ℕ} (J : JointDist n m) :
+    physicalMultiInfoBits (physicalMultiInfoChannel_pair J) = mutualInformationBits J := by
+  unfold physicalMultiInfoBits physicalMultiInfoChannel_pair
+  exact multiInformationBits_pair_eq_mutualInformationBits J
+
+theorem multiInformationBits_pair_product_zero {n m : ℕ} (p : ProbDist n) (q : ProbDist m) :
+    multiInformationBits
+        [shannonEntropy p, shannonEntropy q]
+        (jointEntropy (productJoint p q)) = 0 := by
+  have hj :
+      [shannonEntropy p, shannonEntropy q].sum = jointEntropy (productJoint p q) := by
+    simp only [List.sum_cons, List.sum_nil, add_zero]
+    rw [← jointEntropy_product p q]
+  exact multiInformationBits_zero _ _ hj
+
+theorem coordinationSavingGlobal_eq_pairwise (multiInfoBits T : ℝ) :
+    coordinationSavingGlobalJoules multiInfoBits T = coordinationSavingJoules multiInfoBits T :=
+  rfl
+
+theorem globalCoordinationSaving_eq_global (multiInfoBits T : ℝ) :
+    globalCoordinationSavingJoules multiInfoBits T = coordinationSavingGlobalJoules multiInfoBits T :=
+  rfl
+
 theorem globalCoordinationSaving_eq_pairwise (miBits T : ℝ) :
     globalCoordinationSavingJoules miBits T = coordinationSavingJoules miBits T :=
+  rfl
+
+theorem coordinationSavingGlobal_linear (a multiInfoBits T : ℝ) :
+    coordinationSavingGlobalJoules (a * multiInfoBits) T =
+      a * coordinationSavingGlobalJoules multiInfoBits T := by
+  unfold coordinationSavingGlobalJoules
+  exact coordinationSaving_linear a multiInfoBits T
+
+theorem coordinationSavingGlobal_zero (T : ℝ) :
+    coordinationSavingGlobalJoules 0 T = 0 := by
+  unfold coordinationSavingGlobalJoules
+  exact coordinationSaving_zero T
+
+theorem coordinationSavingGlobal_physical_zero {n m : ℕ} (T : ℝ) (p : ProbDist n) (q : ProbDist m) :
+    coordinationSavingGlobalJoules
+        (physicalMultiInfoBits
+          ⟨[shannonEntropy p, shannonEntropy q], jointEntropy (productJoint p q)⟩)
+        T = 0 := by
+  rw [physicalMultiInfoBits, multiInformationBits_pair_product_zero, coordinationSavingGlobal_zero]
+
+theorem global_floor_pair_agrees {n m : ℕ} (T : ℝ) (J : JointDist n m) :
+    coordinationSavingGlobalJoules (physicalMultiInfoBits (physicalMultiInfoChannel_pair J)) T =
+      coordinationSavingJoules (mutualInformationBits J) T := by
+  rw [physicalMultiInfoBits_pair_eq, coordinationSavingGlobal_eq_pairwise]
+
+theorem mkGlobalReport_saving (multiInfoBits T : ℝ) :
+    (mkGlobalReport multiInfoBits T).savingJoules =
+      coordinationSavingGlobalJoules multiInfoBits T :=
   rfl
 
 theorem independent_minus_joint_eq_mi_delta (independent joint T : ℝ) :
