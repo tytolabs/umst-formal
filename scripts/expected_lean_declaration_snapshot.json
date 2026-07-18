@@ -68,14 +68,14 @@
     "DualLedger"
   ],
   "roots_only": {
-    "theorem": 306,
+    "theorem": 311,
     "lemma": 26,
-    "total": 332
+    "total": 337
   },
   "all_lean_glob": {
-    "theorem": 313,
+    "theorem": 318,
     "lemma": 26,
-    "total": 339
+    "total": 344
   },
   "per_root": {
     "Core.Scalar": {
@@ -119,7 +119,7 @@
       "lemma": 5
     },
     "Concrete.StiffnessTransition": {
-      "theorem": 9,
+      "theorem": 14,
       "lemma": 2
     },
     "Concrete.Convergence": {

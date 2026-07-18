@@ -55,6 +55,16 @@ theorem stiffnessScale_eq_zero_of_le_threshold {α : ℚ}
   have hsub : α - stiffnessAlphaThreshold ≤ 0 := sub_nonpos.mpr hα
   simp [stiffnessScale, max_eq_right hsub]
 
+/-- Stiffness scale vanishes exactly at the hydration threshold. -/
+theorem stiffnessScale_at_threshold : stiffnessScale stiffnessAlphaThreshold = 0 :=
+  stiffnessScale_eq_zero_of_le_threshold le_rfl
+
+/-- Above threshold, stiffness scale equals the excess hydration. -/
+theorem stiffnessScale_eq_sub_above_threshold {α : ℚ}
+    (hα : stiffnessAlphaThreshold ≤ α) : stiffnessScale α = α - stiffnessAlphaThreshold := by
+  have hsub : 0 ≤ α - stiffnessAlphaThreshold := sub_nonneg.mpr hα
+  simp [stiffnessScale, max_eq_left hsub]
+
 /-- Stiffness scale is monotone in α on ℚ (D4). -/
 theorem stiffnessScale_mono {α₁ α₂ : ℚ} (hα : α₁ ≤ α₂) :
     stiffnessScale α₁ ≤ stiffnessScale α₂ := by
@@ -107,6 +117,34 @@ theorem psi_stiffness_alpha_mono_in_alpha {epsilon e0 α₁ α₂ : ℚ}
   have hmul := mul_le_mul_of_nonneg_left hscale hfactor_nonneg
   linarith
 
+/-- Combined Helmholtz + α-stiffness free energy at scalar hydration. -/
+noncomputable def stiffnessTransitionEnergy (epsilon e0 α : ℚ) : ℚ :=
+  helmholtz α + psi_stiffness_alpha epsilon e0 α
+
+/-- Stiffness-transition free energy is antitone in α at fixed ε, E₀ ≥ 0. -/
+theorem stiffnessTransitionEnergy_antitone {epsilon e0 α₁ α₂ : ℚ}
+    (he0 : 0 ≤ e0) (hα : α₁ ≤ α₂) :
+    stiffnessTransitionEnergy epsilon e0 α₂ ≤ stiffnessTransitionEnergy epsilon e0 α₁ := by
+  unfold stiffnessTransitionEnergy
+  exact add_le_add (helmholtzAntitone α₁ α₂ hα)
+    (psi_stiffness_alpha_mono_in_alpha (epsilon := epsilon) (e0 := e0) he0 hα)
+
+/-- Free-energy descent ↔ hydration ascent under the stiffness-transition model. -/
+theorem stiffnessTransition_le_iff {epsilon e0 α₁ α₂ : ℚ} (he0 : 0 ≤ e0) :
+    stiffnessTransitionEnergy epsilon e0 α₂ ≤ stiffnessTransitionEnergy epsilon e0 α₁ ↔
+      α₁ ≤ α₂ := by
+  constructor
+  · intro hle
+    by_contra h
+    have hhelm : helmholtz α₁ < helmholtz α₂ :=
+      not_le.mp ((not_congr (helmholtz_le_iff α₁ α₂)).2 h)
+    have hpsi : psi_stiffness_alpha epsilon e0 α₁ ≤ psi_stiffness_alpha epsilon e0 α₂ :=
+      psi_stiffness_alpha_mono_in_alpha (epsilon := epsilon) (e0 := e0) he0 (le_of_not_ge h)
+    unfold stiffnessTransitionEnergy at hle
+    linarith
+  · intro hα
+    exact stiffnessTransitionEnergy_antitone (epsilon := epsilon) (e0 := e0) he0 hα
+
 -- ================================================================
 -- SECTION 4: StiffnessTransitionState — gate witness (D6–D7)
 -- ================================================================
@@ -142,7 +180,18 @@ theorem stiffnessTransitionStateAdmissible
     (hm : |new.density - old.density| ≤ δMass)
     (h_fc : old.hydration ≤ new.hydration → old.strength ≤ new.strength) :
     Admissible old new :=
-  Admissible.mk old new hm
+    Admissible.mk old new hm
     (ψAntitoneStiffnessTransition old new e0 epsilon ho hn he0 hα) hα (h_fc hα)
+
+/-- The admissible transition direction is the negative-gradient direction of the
+    combined Helmholtz + α-stiffness free energy (D8 witness). -/
+theorem stiffnessTransitionDirIsNegGrad
+    (old new : ThermodynamicState) (e0 epsilon : ℚ)
+    (ho : StiffnessTransitionState old e0 epsilon)
+    (hn : StiffnessTransitionState new e0 epsilon)
+    (he0 : 0 ≤ e0) :
+    new.freeEnergy ≤ old.freeEnergy ↔ old.hydration ≤ new.hydration := by
+  rw [ho, hn]
+  simpa using stiffnessTransition_le_iff (epsilon := epsilon) (e0 := e0) he0
 
 end UMST
