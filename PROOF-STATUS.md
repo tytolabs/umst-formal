@@ -38,7 +38,7 @@ This list is **descriptive** (current coverage), not a forecast of what is true 
 |-------|------|---------------|--------|
 | Agda | Agda 2.8 + bundled stdlib (Homebrew) or 2.6.4+ | `cd Agda && make check` | **Core/Concrete/Compat** gate split; physical postulates in `Concrete.Gate` (see key); `Gate.agda` / `Helmholtz.agda` are compat shims; default `make check` is not `--safe` |
 | Coq / Rocq | Rocq 9 / Coq 8.18 + QArith | `cd Coq && make` | No `Admitted`; `admissible_trans` REMOVED (refutable); replaced by graded `admissible_N_compose`; `InfoTheory.v` (product joint, `joint_mass_product`, both marginals as `Forall2 Qeq`, incl. `marginal_second_product` / normalized corollary) |
-| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **62** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`), **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`, and **prime-spectral guidance** (`PrimeSpectralGuidance`, `PrimeSpectralCategory`; see `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`). Counts: **289** `theorem` + **24** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
+| Lean 4 | Lean 4.14+ + Mathlib4 | `cd Lean && lake build` | No tactic `sorry`; `admissibleTrans` REMOVED; graded `admissibleN_compose` across **64** `UMST` library roots (`Lean/lakefile.lean`), including **`Lean/Economic/`** (classical Shannon/Landauer + burden lemmas; see `SAFETY-LIMITS.md`), **cartridge-anchor** modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`, **B1 continuum L1a** `Concrete.StiffnessTransition`, and **prime-spectral guidance** (`PrimeSpectralGuidance`, `PrimeSpectralCategory`; see `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`). Counts: **306** `theorem` + **26** `lemma` (line-start, roots only) — run `python3 scripts/lean_declaration_stats.py` from **`umst-formal/`**. See `FORMAL_FOUNDATIONS.md` / `Docs/COUNT-METHODOLOGY.md`. |
 | Haskell | GHC 9.6+ (tested 9.14) + QuickCheck | `cd Haskell && cabal test umst-properties -f -with-ffi` | **65** properties (gate, SDF, InfoTheory, Landauer, monoidal state, **prime-spectral guidance**, burden/stochastic drift, Economic-layer mirrors, **CreditGreedy**, **Dignity**, **EtaCog**, **RhoEstimator**, **MedianConvergence**, **OrderStatisticsBand**); plus `cabal test landauer-einstein-sanity` (Rational check vs Lean tight bracket) |
 | Haskell ↔ Rust | same + `libumst_ffi` | `cd ffi-bridge && cargo build --release` then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Fixed scenarios via `FFI.runCorrespondenceTests` (gate + credit + **Dignity** + **η_cog** + **ρ-MI bits** + **`umst_n_warmup`** + **`umst_n_quantile`** correspondence; optional suite). **No `LD_LIBRARY_PATH` required** when the `umst-ffi-correspondence` test stanza embeds `rpath` to `umst-formal/target/release` (GHC 9.10.3 verified). **Fragility:** `$ORIGIN`-relative depth is layout-sensitive; canonical portable fix = `build-tool-depends` pre-test `.so` copy (**Phase N-hygiene-ffi**, scheduled). |
 
@@ -195,6 +195,13 @@ linked in a future module.
 | `adjoint_recovers_gradient`, `adjoint_uses_only_terminal` | `UMST` (`Lean/Adjoint.lean`) | **FORMAL** | `Mathlib.Analysis.Normed.Algebra.MatrixExponential`, matrix transpose / smul | 2026-05-10 | Linear ODE terminal cost: `(exp (T • A))ᵀ *ᵥ c = exp (T • Aᵀ) *ᵥ c`; closed-form adjoint depends only on terminal data `(T, t, A, c)` by construction (`rfl`). |
 | `warnings_empty_iff_in_regime`, `warning_dimension_violated`, `in_regime_decidable` | `UMST` (`Lean/RegimeSoundness.lean`) | **FORMAL** | `Mathlib` `Finset` / `Fintype` on `Fin n → ℚ` | 2026-05-10 | Regime = coordinate box; `warning_set` indices where bounds fail; warnings empty iff in regime; violated dimension contradicts interval membership; decidable `in_regime` instance. |
 | `capillary_porosity_antitone_in_alpha`, `jennings_strength_monotone`, `jennings_strength_nonneg` | `UMST` (`Lean/JenningsGelSpace.lean`) | **FORMAL** | `Mathlib` ordered rationals, `pow_le_pow_left₀` | 2026-05-10 | Jennings–Brownyard gel-space witness on `ℚ`: `φ_cap` antitone in `α`; strength `a · (1 − φ_cap)^p` monotone in `α` and nonnegative for `a > 0`, `wc > 0`, `p > 0`. |
+
+### Phase L1a-StiffnessTransition — B1 continuum α-stiffness, 2026-07-18
+
+| Theorem (primary) | Module path | proof-status | Dependencies | Date | Informal statement |
+|---|---|---|---|---|---|
+| `stiffnessScale_mono`, `psi_stiffness_alpha_mono_in_alpha` | `UMST` (`Lean/Concrete/StiffnessTransition.lean`) | **FORMAL** | `Mathlib` ordered rationals; `max` monotonicity | 2026-07-18 | α-dependent stiffness scale `max(α − 1/2, 0)` monotone in α; M1-negative `ψ_stiffness_α` antitone in α at fixed ε, E₀ ≥ 0. |
+| `StiffnessTransitionState`, `ψAntitoneStiffnessTransition`, `stiffnessTransitionStateAdmissible` | `UMST` (`Lean/Concrete/StiffnessTransition.lean`) | **FORMAL** | `Compat.Gate` (`helmholtz`, `Admissible`); D4–D5 lemmas | 2026-07-18 | Helmholtz + α-stiffness summand model on `ThermodynamicState`; forward hydration + mass bound ⇒ gate admissible (strength via abstract `fcMonotone` slot). **Catalog `[proved]` export deferred** — operator `make lean-catalog-export` not run. |
 
 ### New theorems (Phase 0-2, 2026-03-19)
 
@@ -384,6 +391,7 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.LandauerEinsteinBridge` | 7 | 5 | `Lean/LandauerEinsteinBridge.lean` |
 | `UMST.GraphProperties` | 10 | 0 | `Lean/Concrete/GraphProperties.lean` |
 | `UMST.Powers` | 3 | 5 | `Lean/Concrete/Powers.lean` |
+| `UMST.Concrete.StiffnessTransition` | 9 | 2 | `Lean/Concrete/StiffnessTransition.lean` — B1 α-stiffness scale + `ψ_stiffness_α`; `StiffnessTransitionState` gate witness (no catalog export) |
 | `UMST.Convergence` | 8 | 0 | `Lean/Concrete/Convergence.lean` |
 | `UMST.GaloisGate` | 6 | 0 | `Lean/Concrete/GaloisGate.lean` — Galois connection on gate conditions |
 | `UMST.EnrichedAdmissibility` | 12 | 0 | `Lean/Concrete/EnrichedAdmissibility.lean` |
@@ -426,7 +434,7 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.Adjoint` | 2 | 0 | `Lean/Adjoint.lean` — matrix exponential transpose identity; terminal-only adjoint closed form |
 | `UMST.RegimeSoundness` | 2 | 0 | `Lean/RegimeSoundness.lean` — regime warnings vs box membership; decidable regime |
 | `UMST.JenningsGelSpace` | 3 | 5 | `Lean/JenningsGelSpace.lean` — Jennings–Brownyard `φ_cap` and gel-space strength monotonicity / nonnegativity |
-| **Total (59 roots)** | **287** | **24** | Regenerate: `cd umst-formal && python3 scripts/lean_declaration_stats.py`. Axiom closure spot-check: `cd Lean && lake env lean --run scripts/print_axioms.lean <name>`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
+| **Total (64 roots)** | **306** | **26** | Regenerate: `cd umst-formal && python3 scripts/lean_declaration_stats.py`. Axiom closure spot-check: `cd Lean && lake env lean --run scripts/print_axioms.lean <name>`. Methodology: `Docs/COUNT-METHODOLOGY.md`. |
 
 **Kleisli naming:** use `admissibleN_compose` / `kleisliComposeAssoc` as in `Compat/Gate.lean` / `Core/Constitutional.lean` (not the removed ungraded transitivity axiom).
 

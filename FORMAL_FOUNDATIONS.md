@@ -46,7 +46,7 @@ cd Lean && lake build
 
 ## Build scope
 
-Default `lake build` covers **all** registered `lakefile.lean` `roots` (**59** modules, including `Core.*`, `Concrete.*`, `Compat.*`, `Lean/Economic/*`, **Formal-First** cockpit mirrors, **`Memory.*`**, and cartridge-anchor modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
+Default `lake build` covers **all** registered `lakefile.lean` `roots` (**64** modules, including `Core.*`, `Concrete.*` (incl. **`Concrete.StiffnessTransition`** — B1 α-stiffness L1a), `Compat.*`, `Lean/Economic/*`, **Formal-First** cockpit mirrors, **`Memory.*`**, and cartridge-anchor modules `DEC`, `Adjoint`, `RegimeSoundness`, `JenningsGelSpace`). Scratch / debug files such as `_check_ext.lean` are **excluded** from that closure. They have been **manually grep-checked** for tactic `sorry` and stray project `axiom` declarations. **Count methodology:** [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md); regenerate via `python3 scripts/lean_declaration_stats.py`.
 
 ## Paper Claims ↔ Formal Lemmas
 
@@ -54,7 +54,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 
 | Theme | Claim (informal) | Formal anchor(s) |
 |--------|------------------|------------------|
-| **I. Clausius–Duhem / rational gate** | Transitions satisfy mass, dissipation (ψ), hydration monotone, strength monotone | `Compat.Gate.Admissible` / `Concrete.Gate.ConcreteAdmissible`; `helmholtz`, `helmholtzAntitone` in `Concrete.Gate` |
+| **I. Clausius–Duhem / rational gate** | Transitions satisfy mass, dissipation (ψ), hydration monotone, strength monotone | `Compat.Gate.Admissible` / `Concrete.Gate.ConcreteAdmissible`; `helmholtz`, `helmholtzAntitone` in `Concrete.Gate`; B1 α-stiffness witness `StiffnessTransitionState` / `stiffnessTransitionStateAdmissible` in `Concrete.StiffnessTransition` |
 | **II. 100% admissibility for checked steps** | Any transition accepted by the boolean gate satisfies `Admissible` | `Concrete.Gate.gateCheckSound` |
 | **III. Graded compositional safety** | Multi-step mass budget composes (triangle inequality); Kleisli lifting | `Concrete.Gate.admissibleN_compose`; `Core.Constitutional` / `Compat.Constitutional` Kleisli lemmas |
 | **IV. Landauer / observation / erasure** | Erasure obeys second-law input → Landauer-style bound; coordination saving as **floor projection** | `LandauerLaw.physicalSecondLaw` (only project `axiom`); `LandauerExtension`, `ClassicalMeasurementCost`, `CoordinationCost` (scaffold — see `Docs/COORDINATION_COST_SEMANTICS.md`) |

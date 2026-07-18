@@ -6,14 +6,15 @@
     scale(α) = max(α − 1/2, 0)
     ψ_stiffness_α = −(1/10) · E₀ · ε² · scale(α)
 
-  Proof status (week 1 / D1–D5): core definitions + monotonicity lemmas.
-  Zero sorry.  No `[proved]` catalog graduation — symbol audit deferred to week 2.
+  Proof status (D1–D10): core definitions, monotonicity lemmas, `StiffnessTransitionState`
+  witness + gate admissibility.  Zero sorry.  No `[proved]` catalog export without operator.
 
   NOT a reuse of `Powers.lean` / `powers_monotone`: that witness is fc(α), not E(α).
 -/
 
 import Mathlib.Algebra.Order.Field.Rat
 import Mathlib.Tactic
+import Compat.Gate
 
 namespace UMST
 
@@ -105,5 +106,43 @@ theorem psi_stiffness_alpha_mono_in_alpha {epsilon e0 α₁ α₂ : ℚ}
     exact mul_nonneg (mul_nonneg (by norm_num) he0) (sq_nonneg epsilon)
   have hmul := mul_le_mul_of_nonneg_left hscale hfactor_nonneg
   linarith
+
+-- ================================================================
+-- SECTION 4: StiffnessTransitionState — gate witness (D6–D7)
+-- ================================================================
+
+/-- A state satisfies the stiffness-transition model at parameters `(e0, ε)` if its
+    free energy equals the Helmholtz base plus the α-stiffness summand.
+    Mirrors `HelmholtzState` + continuum `psi_stiffness_alpha_domain` slice. -/
+def StiffnessTransitionState (s : ThermodynamicState) (e0 epsilon : ℚ) : Prop :=
+  s.freeEnergy = helmholtz s.hydration + psi_stiffness_alpha epsilon e0 s.hydration
+
+/-- For stiffness-transition-consistent states, forward hydration implies
+    decreasing free energy (concrete witness for the gate's ψ-antitone slot). -/
+theorem ψAntitoneStiffnessTransition
+    (s₁ s₂ : ThermodynamicState) (e0 epsilon : ℚ)
+    (h₁ : StiffnessTransitionState s₁ e0 epsilon)
+    (h₂ : StiffnessTransitionState s₂ e0 epsilon)
+    (he0 : 0 ≤ e0)
+    (hα : s₁.hydration ≤ s₂.hydration) :
+    s₂.freeEnergy ≤ s₁.freeEnergy := by
+  rw [h₂, h₁]
+  exact add_le_add (helmholtzAntitone s₁.hydration s₂.hydration hα)
+    (psi_stiffness_alpha_mono_in_alpha (epsilon := epsilon) (e0 := e0) he0 hα)
+
+/-- For two stiffness-transition-consistent states: forward hydration + mass
+    conservation implies an admissible gate transition.
+    Strength monotonicity uses the abstract `fcMonotone` slot (as in `HelmholtzState`). -/
+theorem stiffnessTransitionStateAdmissible
+    (old new : ThermodynamicState) (e0 epsilon : ℚ)
+    (ho : StiffnessTransitionState old e0 epsilon)
+    (hn : StiffnessTransitionState new e0 epsilon)
+    (he0 : 0 ≤ e0)
+    (hα : old.hydration ≤ new.hydration)
+    (hm : |new.density - old.density| ≤ δMass)
+    (h_fc : old.hydration ≤ new.hydration → old.strength ≤ new.strength) :
+    Admissible old new :=
+  Admissible.mk old new hm
+    (ψAntitoneStiffnessTransition old new e0 epsilon ho hn he0 hα) hα (h_fc hα)
 
 end UMST
