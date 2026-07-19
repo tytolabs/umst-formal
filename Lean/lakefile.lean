@@ -35,7 +35,7 @@ lean_lib «UMST» where
     `Compat.Gate, `Compat.Constitutional,
     `Naturality, `DIBKleisli, `FormalFoundations,
     `LandauerEinsteinBridge,
-    `LandauerLaw, `InfoTheory,
+    `LandauerLaw, `InfoTheory, `SemanticSecondLaw,
     `ClassicalMeasurementCost, `CoordinationCost, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
     `SeparationBound,
     -- Meso-scale Economic layer (Lean/Economic/ folder — Wave 6.5.2)
@@ -57,7 +57,8 @@ lean_lib «UMST» where
     `Memory.MergeSafe,
     `Memory.TierDisjoint,
     `DEC, `Adjoint, `RegimeSoundness, `JenningsGelSpace,
-    `DualLedger]
+    `DualLedger, `Concrete.PoromechanicsB3, `Concrete.ShrinkageB4,
+    `Web]
   srcDir := "."
 
 /-!
