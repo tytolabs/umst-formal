@@ -105,4 +105,21 @@ Full closure: `lake build` (module registered in `lakefile.lean` roots).
 
 ---
 
-*Semantics doc: `Docs/COORDINATION_COST_SEMANTICS.md` · spawn `i-coord-lean-1144` · no push*
+## 7. P6 extension crosswalk (F25-B06)
+
+A7 physical floor semantics are **frozen** in this doc. P6 semantic/L10 prep lives in
+[`COORDINATION_COST_P6_SPINE.md`](COORDINATION_COST_P6_SPINE.md) and
+[`Lean/CoordinationCostP6.lean`](../Lean/CoordinationCostP6.lean) (**13 thm · 0 sorry**).
+
+| A7 concept | P6 stub | Honest rule |
+|------------|---------|-------------|
+| `coordinationSavingJoules` | `physicalUnderstandingFloorJoules` | Same functor on physical bridge |
+| `EpistemicMiDraft` | `EpistemicMiDeficitDraft` | Bits only until bridge |
+| `mkReport` | `FixtureGridRow` | Lean-bridge grid pin (no `JointDist`) |
+| `CoordinationReport` | `SemanticFloorReport` | `isPhysicalProjection` flag |
+
+**Not claimed:** epistemic auto-projection · `SemanticResponse` gate · cert Proved.
+
+---
+
+*Semantics doc: `Docs/COORDINATION_COST_SEMANTICS.md` · F25-B06 deepen · no push*

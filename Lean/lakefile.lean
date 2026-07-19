@@ -69,6 +69,14 @@ lean_lib «Behavior.SDFCanonical» where
   srcDir := "."
 
 /-!
+  LEAN-COORD-COST — `CoordinationCostP6` (A10 P6 spine prep). Built standalone;
+  not in default `UMST` roots. See `Docs/COORDINATION_COST_P6_SPINE.md`.
+-/
+lean_lib «CoordinationCostP6» where
+  roots := #[`CoordinationCostP6]
+  srcDir := "."
+
+/-!
   §14bis.f-S-0 — L-S0..L-S5 Crypto stubs (`lake build Crypto.LWE` … `Crypto.SanitizePatternCoverage`).
 -/
 lean_lib «Crypto.LWE» where
