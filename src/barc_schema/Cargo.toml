@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
+#
+# FLEET-COMPOSER-ACCEL-B AC43 — LIB-ADOPT-F-BARC-SCHEMA formal-tree owner (INV4-S2a).
+# Standalone write-set crate @ umst-formal/src/barc_schema* — no ffi-bridge mutation.
+
+[package]
+name = "umst-formal-barc-schema"
+version = "0.0.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "Formal-tree INV4-S2a BARC schema adoption witness (honest-partial · 3/4 wire hops)"
+
+[lib]
+path = "lib.rs"
+
+# Standalone write-set crate — not a member of umst-formal/ffi-bridge workspace.
+[workspace]

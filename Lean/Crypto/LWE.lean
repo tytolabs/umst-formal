@@ -1,19 +1,31 @@
 /-
-  UMST-Formal — L-S0 Module-LWE hardness.
+  UMST-Formal — L-S0 Module-LWE hardness (ML-KEM-768 / NIST FIPS 203).
 
-  Concrete instantiation: hardness is stated as disjunctive weakening (∨ True),
-  preserving the statement shape while remaining provable.
+  Layer: **CryptoHypothesis** (NOT `PhysicsAxiom`).
+  Warrant: egoff §14bis.f-S-0 Measurement — `s0_crypto_kem_kat`, `s0_crypto_kem_roundtrip`,
+    `s0_crypto_kem_constant_time`, `s0_crypto_registry_constants`, `s0_crypto_malformed_input`
+    (umst-algebra/tests).
+  Physics stack: unchanged — sole physics axiom `LandauerLaw.physicalSecondLaw`.
+  Full lattice proof: research-frontier residue `R-LS0-full` (very low priority).
 -/
+
+import Crypto.CryptoHypothesis
 
 namespace Crypto
 namespace LWE
 
-abbrev LatticeProblem := Unit
-def hardness_assumption : LatticeProblem → Prop := fun _ => True
+def hypothesisMeta : UMST.CryptoHypothesis.Record :=
+  { provenance :=
+      "CryptoHypothesis/L-S0 Module-LWE ML-KEM-768; NIST FIPS 203 research-frontier; " ++
+      "warrant=s0_crypto_kem_kat,s0_crypto_kem_roundtrip,s0_crypto_kem_constant_time," ++
+      "s0_crypto_registry_constants,s0_crypto_malformed_input; " ++
+      "NOT LandauerLaw.physicalSecondLaw" }
 
-theorem ModuleLWEHardness (p : LatticeProblem) :
-    hardness_assumption p :=
-  trivial
+axiom LatticeProblem : Type
+axiom hardness_assumption : LatticeProblem → Prop
+
+/-- Module-LWE / Module-LWR hardness — Tier-1 CryptoHypothesis (statement only). -/
+axiom ModuleLWEHardness (p : LatticeProblem) : hardness_assumption p
 
 end LWE
 end Crypto

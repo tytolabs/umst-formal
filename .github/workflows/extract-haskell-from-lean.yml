@@ -1,0 +1,55 @@
+# §14bis.h L-5 — Lean→Haskell extraction CI (checked-in Haskell mirror + lake build gate).
+#
+# The Haskell tree under `Haskell/` is the operator-facing extract artifact; this workflow
+# verifies Lean compiles and the Haskell module set remains present (ABI handshake in umst-ffi).
+name: Extract Haskell from Lean
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - "Lean/**"
+      - "Haskell/**"
+      - "ffi-bridge/**"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - ".github/workflows/extract-haskell-from-lean.yml"
+  pull_request:
+    paths:
+      - "Lean/**"
+      - "Haskell/**"
+      - "ffi-bridge/**"
+      - "lakefile.lean"
+      - "lean-toolchain"
+      - ".github/workflows/extract-haskell-from-lean.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  extract-haskell:
+    name: Lean build + Haskell mirror inventory
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # v4
+
+      - name: Install elan (Lean toolchain)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: lake build (Lean formal roots)
+        working-directory: Lean
+        run: lake build
+
+      - name: Verify Haskell extract tree
+        run: |
+          test -d Haskell
+          count="$(find Haskell -maxdepth 1 -name '*.hs' | wc -l | tr -d ' ')"
+          echo "haskell_modules=$count"
+          test "$count" -ge 1
+
+      - name: FFI bridge ABI tag sanity
+        run: |
+          rg -q 'UMST_FFI_ABI_VERSION:\s*u32\s*=\s*9' ffi-bridge/src/lib.rs

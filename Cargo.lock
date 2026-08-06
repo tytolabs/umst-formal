@@ -21,6 +21,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
+name = "arrayref"
+version = "0.3.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76a2e8124351fda1ef8aaaa3bbd7ebbcb486bbcd4225aca0aa0d84bb2db8fecb"
+
+[[package]]
+name = "arrayvec"
+version = "0.7.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d3fb67a6e08acf24fdeccbac2cb6ac4305825bd1f117462e0e6f2f193345ad56"
+
+[[package]]
 name = "async-trait"
 version = "0.1.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -54,6 +66,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf95709a440f45e986983918d0e8a1f30a9b1df04918fc828670606804ac3c09"
 dependencies = [
  "virtue",
+]
+
+[[package]]
+name = "blake3"
+version = "1.8.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0aa83c34e62843d924f905e0f5c866eb1dd6545fc4d719e803d9ba6030371fce"
+dependencies = [
+ "arrayref",
+ "arrayvec",
+ "cc",
+ "cfg-if",
+ "constant_time_eq",
+ "cpufeatures 0.3.0",
 ]
 
 [[package]]
@@ -195,10 +221,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 
 [[package]]
+name = "constant_time_eq"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d52eff69cd5e647efe296129160853a42795992097e8af39800e1060caeea9b"
+
+[[package]]
 name = "cpufeatures"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "59ed5838eebb26a2bb2e58f6d5b5316989ae9d08bab10e0e6d103e656d1b0280"
+dependencies = [
+ "libc",
+]
+
+[[package]]
+name = "cpufeatures"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b2a41393f66f16b0823bb79094d54ac5fbd34ab292ddafb9a0456ac9f87d201"
 dependencies = [
  "libc",
 ]
@@ -432,7 +473,7 @@ version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cb26cec98cce3a3d96cbb7bced3c4b16e3d13f27ec56dbd62cbc8f39cfb9d653"
 dependencies = [
- "cpufeatures",
+ "cpufeatures 0.2.17",
 ]
 
 [[package]]
@@ -794,7 +835,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"
 dependencies = [
  "cfg-if",
- "cpufeatures",
+ "cpufeatures 0.2.17",
  "digest",
 ]
 
@@ -822,6 +863,12 @@ checksum = "6980e8d7511241f8acf4aebddbb1ff938df5eebe98691418c4468d0b72a96a67"
 dependencies = [
  "lock_api",
 ]
+
+[[package]]
+name = "subtle"
+version = "2.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 
 [[package]]
 name = "syn"
@@ -920,11 +967,101 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "562d481066bde0658276a35467c4af00bdc6ee726305698a55b86e61d7ad82bb"
 
 [[package]]
+name = "umst-algebra"
+version = "0.1.0"
+dependencies = [
+ "blake3",
+ "ordered-float",
+ "petgraph",
+ "pqcrypto-dilithium",
+ "pqcrypto-kyber",
+ "pqcrypto-sphincsplus",
+ "pqcrypto-traits",
+ "serde",
+ "serde_json",
+ "sha2",
+ "sha3",
+ "subtle",
+ "thiserror",
+ "umst-layout-codegen",
+]
+
+[[package]]
+name = "umst-cartridge-api"
+version = "0.1.0"
+dependencies = [
+ "umst-algebra",
+]
+
+[[package]]
+name = "umst-cartridge-concrete"
+version = "0.1.0"
+dependencies = [
+ "umst-cartridge-api",
+ "umst-cartridge-continuum",
+ "umst-cartridge-poromechanics",
+ "umst-cartridge-solid-inelastic",
+ "umst-chem",
+ "umst-gate",
+]
+
+[[package]]
+name = "umst-cartridge-continuum"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "umst-cartridge-api",
+]
+
+[[package]]
+name = "umst-cartridge-poromechanics"
+version = "0.1.0"
+dependencies = [
+ "umst-cartridge-api",
+]
+
+[[package]]
+name = "umst-cartridge-solid-inelastic"
+version = "0.1.0"
+dependencies = [
+ "umst-cartridge-api",
+]
+
+[[package]]
+name = "umst-chem"
+version = "0.1.0"
+
+[[package]]
+name = "umst-dec"
+version = "0.1.0"
+dependencies = [
+ "umst-algebra",
+]
+
+[[package]]
 name = "umst-ffi-bridge"
 version = "0.1.0"
 dependencies = [
  "umst-manifold",
  "umst-math",
+]
+
+[[package]]
+name = "umst-gate"
+version = "0.1.0"
+dependencies = [
+ "umst-cartridge-api",
+ "umst-dec",
+]
+
+[[package]]
+name = "umst-layout-codegen"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "thiserror",
 ]
 
 [[package]]
@@ -941,6 +1078,11 @@ dependencies = [
  "sha2",
  "time",
  "tracing",
+ "umst-algebra",
+ "umst-cartridge-api",
+ "umst-cartridge-concrete",
+ "umst-gate",
+ "umst-layout-codegen",
 ]
 
 [[package]]
@@ -953,8 +1095,11 @@ dependencies = [
  "pqcrypto-kyber",
  "pqcrypto-sphincsplus",
  "pqcrypto-traits",
+ "serde_json",
+ "sha2",
  "sha3",
  "thiserror",
+ "umst-layout-codegen",
 ]
 
 [[package]]

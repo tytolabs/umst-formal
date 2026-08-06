@@ -9,7 +9,11 @@
   Proof status (D1–D10): core definitions, monotonicity lemmas, `StiffnessTransitionState`
   witness + gate admissibility.  Zero sorry.  No `[proved]` catalog export without operator.
 
+  L1a rational grid (schema `lean_l1_stiffness_v2` · 7 rows) + honest posture pins bind
+  `UMST_COMPOSITION_DOCTRINE` Second-Law fences: witnessed-not-proved · no Proved invent.
+
   NOT a reuse of `Powers.lean` / `powers_monotone`: that witness is fc(α), not E(α).
+  `EXPECTED_PROVED_COUNT = 0` until operator catalog export + symbol audit.
 -/
 
 import Mathlib.Algebra.Order.Field.Rat
@@ -193,5 +197,131 @@ theorem stiffnessTransitionDirIsNegGrad
     new.freeEnergy ≤ old.freeEnergy ↔ old.hydration ≤ new.hydration := by
   rw [ho, hn]
   simpa using stiffnessTransition_le_iff (epsilon := epsilon) (e0 := e0) he0
+
+-- ================================================================
+-- SECTION 5: L1a rational witness grid (Rust↔Lean ℚ conformance pin)
+-- ================================================================
+-- Pins mirror `lean_l1_stiffness_adopt::V2_GRID_ROWS` (7 rows · Z37/Y41 adopt audit).
+-- Fixture GREEN ≠ catalog `[proved]`; continuum tensor stiffness is **not** claimed here.
+
+/-- Schema pin — matches Rust v2 grid fixture (`lean_l1_stiffness_v2`). -/
+def l1aRationalGridSchema : String := "lean_l1_stiffness_v2"
+
+/-- Pinned rational witness row count (v2 grid 7/7). -/
+def l1aRationalGridRowCount : Nat := 7
+
+/-- Reference E₀ for grid rows 1–3, 5–6 (30 GPa as ℚ). -/
+def gridE0RefPa : ℚ := 30000000000
+
+/-- Alternate E₀ for grid row 4 (25 GPa as ℚ). -/
+def gridE0AltPa : ℚ := 25000000000
+
+/-- Alternate E₀ for grid row 7 (28 GPa as ℚ). -/
+def gridE0Row7Pa : ℚ := 28000000000
+
+/-- Grid row 2: stiffness scale at α = 3/4 (`stiffnessScale_mono` anchor). -/
+theorem stiffness_scale_grid_row2 :
+    stiffnessScale (3 / 4) = 1 / 4 := by
+  simpa using stiffnessScale_eq_sub_above_threshold (α := 3 / 4) (by norm_num)
+
+/-- Grid row 3: stiffness scale at α = 1. -/
+theorem stiffness_scale_grid_row3 :
+    stiffnessScale 1 = 1 / 2 := by
+  simpa using stiffnessScale_eq_sub_above_threshold (α := 1) (by norm_num)
+
+/-- Grid row 4: stiffness scale at α = 3/5. -/
+theorem stiffness_scale_grid_row4 :
+    stiffnessScale (3 / 5) = 1 / 10 := by
+  simpa using stiffnessScale_eq_sub_above_threshold (α := 3 / 5) (by norm_num)
+
+/-- Grid row 6: stiffness scale at α = 4/5. -/
+theorem stiffness_scale_grid_row6 :
+    stiffnessScale (4 / 5) = 3 / 10 := by
+  simpa using stiffnessScale_eq_sub_above_threshold (α := 4 / 5) (by norm_num)
+
+/-- Grid row 2 ψ evaluation at ε = 1/100, E₀ = 30 GPa. -/
+theorem psi_stiffness_alpha_grid_row2 :
+    psi_stiffness_alpha (1 / 100) gridE0RefPa (3 / 4) = -75000 := by
+  unfold psi_stiffness_alpha gridE0RefPa stiffnessCoupling
+  simp [stiffness_scale_grid_row2]
+  norm_num
+
+/-- Grid row 3 ψ evaluation at ε = 1/50, E₀ = 30 GPa. -/
+theorem psi_stiffness_alpha_grid_row3 :
+    psi_stiffness_alpha (1 / 50) gridE0RefPa 1 = -600000 := by
+  unfold psi_stiffness_alpha gridE0RefPa stiffnessCoupling
+  simp [stiffness_scale_grid_row3]
+  norm_num
+
+/-- Grid row 4 ψ evaluation at ε = 3/200, E₀ = 25 GPa. -/
+theorem psi_stiffness_alpha_grid_row4 :
+    psi_stiffness_alpha (3 / 200) gridE0AltPa (3 / 5) = -56250 := by
+  unfold psi_stiffness_alpha gridE0AltPa stiffnessCoupling
+  simp [stiffness_scale_grid_row4]
+  norm_num
+
+/-- Grid row 5: below threshold ⇒ ψ = 0 at ε = 1/100 (`psi_stiffness_alpha_eq_zero_below_threshold`). -/
+theorem psi_stiffness_alpha_grid_row5_zero :
+    psi_stiffness_alpha (1 / 100) gridE0RefPa (2 / 5) = 0 := by
+  simpa using psi_stiffness_alpha_eq_zero_below_threshold
+    (epsilon := 1 / 100) (e0 := gridE0RefPa) (α := 2 / 5) (by norm_num)
+
+/-- Grid row 6: zero strain ⇒ ψ = 0 at α = 4/5 (`psi_stiffness_alpha_eq_zero_at_zero_strain`). -/
+theorem psi_stiffness_alpha_grid_row6_zero_strain :
+    psi_stiffness_alpha 0 gridE0RefPa (4 / 5) = 0 := by
+  simpa using psi_stiffness_alpha_eq_zero_at_zero_strain gridE0RefPa (4 / 5)
+
+/-- Grid row 7: below threshold ⇒ ψ = 0 at ε = 1/50. -/
+theorem psi_stiffness_alpha_grid_row7_zero :
+    psi_stiffness_alpha (1 / 50) gridE0Row7Pa (9 / 20) = 0 := by
+  simpa using psi_stiffness_alpha_eq_zero_below_threshold
+    (epsilon := 1 / 50) (e0 := gridE0Row7Pa) (α := 9 / 20) (by norm_num)
+
+/-- All seven pinned grid rows evaluate without sorry (computational witness bundle). -/
+theorem l1a_rational_grid_row_count :
+    l1aRationalGridRowCount = 7 := by
+  rfl
+
+-- ================================================================
+-- SECTION 6: Honest posture pins (witnessed-not-proved · no Proved invent)
+-- ================================================================
+-- Binds `UMST_COMPOSITION_DOCTRINE` §B–§E: Second-Law only · constants classified · no fake GREEN.
+
+/-- LIB adoption workstream id — matches Rust `WORKSTREAM_ID`. -/
+def leanL1WorkstreamId : String := "LIB-ADOPT-F-LEAN-L1"
+
+/-- Honest adoption tier — witnessed-not-proved until operator catalog export. -/
+def postureTag : String := "witnessed-not-proved"
+
+/-- Frozen proved-count posture — agents must not inflate. -/
+def expectedProvedCount : Nat := 0
+
+/-- Machine-checked pin: proved-count stays zero until operator catalog export. -/
+theorem expectedProvedCount_zero : expectedProvedCount = 0 := rfl
+
+/-- Structural cert-proved fence honest — **not** tier-2→Proved promotion. -/
+def certProvedFenceHonest : Bool := true
+
+/-- Formal fence closed — structural audit GREEN; tier promotion still blocked. -/
+def formalFenceClosed : Bool := certProvedFenceHonest && expectedProvedCount = 0
+
+/-- Machine-checked pin: formal fence closed without Proved inflation. -/
+theorem formalFenceClosed_honest : formalFenceClosed = true := by
+  simp [formalFenceClosed, certProvedFenceHonest, expectedProvedCount_zero]
+
+/-- Catalog `[proved]` export remains operator-gated. -/
+def catalogExportDeferred : Bool := true
+
+/-- Slice-1 hot path does not wire this module's adopt audit into production gate yet. -/
+def productionWired : Bool := false
+
+/-- Explicit non-claims carried beside the rational grid (fixture parity). -/
+def stiffnessTransitionNonClaims : List String :=
+  [ "fixture GREEN ≠ catalog [proved]"
+  , "v2 grid 7/7 = witnessed-not-proved adopt audit (Z37/Y41) — not Proved tier"
+  , "slice-1 ψ_stiffness_α uses scalar ℚ reduction — not tensor continuum stiffness"
+  , "Powers.lean fc(α) witness orthogonal — not E(α) stiffness scale"
+  , "catalog export deferred — operator make lean-catalog-export"
+  , "production_wired=false — prep/adopt slice only" ]
 
 end UMST

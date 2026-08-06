@@ -1,7 +1,7 @@
 /-
   UMST-Formal: CoordinationCost.lean
 
-  Scaffold for the MTP-Arc **Coordination Cost Identity** (Paper 6 / A7):
+  Scaffold for the MTP-Arc **Coordination Cost Identity** (A7):
     `CoordCost(A,B; T) = k_B · T · ln 2 · I(A:B)`  with mutual information in **bits**.
 
   **Semantics tier: reporting lower bound (Landauer floor).**

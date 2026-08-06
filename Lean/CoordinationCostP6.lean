@@ -4,8 +4,8 @@
   **P6 formal spine prep** — thinnest extension of A7 `CoordinationCost` toward A10
   `SemanticResponse` (`mi_deficit` · `understanding_cost`) and L10 colimit obligations.
 
-  Status: PREP / PARTIAL — definitions + obligation index only.
-  Does **not** import `Gate.lean` or discharge epistemic→thermo bridge.
+  Status: PREP / PARTIAL — definitions + obligation index + A10 gate bind stubs (G75-L07 · N40-L01).
+  Does **not** import `Gate.lean` or discharge epistemic→thermo bridge or `gate<SemanticResponse>`.
 
   Build standalone (not in default `lake build` roots):
     cd egoff/umst-formal/Lean && lake build CoordinationCostP6
@@ -39,6 +39,116 @@ structure SemanticCostLegDraft where
 /-- Domain guard for semantic cost legs (M6-C01 prep — not a gate witness). -/
 def semanticCostLegsDomainValid (draft : SemanticCostLegDraft) : Prop :=
   0 ≤ draft.miDeficitBits ∧ 0 ≤ draft.understandingCostJoules
+
+-- ================================================================
+-- SECTION 1b: A10 SemanticResponse gate bind (G75-L07 deepen)
+-- ================================================================
+
+/-- A10 `SemanticResponse` draft — mirrors M6 scaffold `SemanticResponse.rs.txt`. -/
+structure SemanticResponseDraft where
+  consistencyDefect : ℝ
+  miDeficitBits : ℝ
+  understandingCostJoules : ℝ
+  miWeight : ℝ
+  understandingWeight : ℝ
+
+/-- Core dissipation leg: `−consistency_defect` benefit. -/
+noncomputable def semanticDissipation (r : SemanticResponseDraft) : ℝ :=
+  -r.consistencyDefect
+
+/-- Core `power_input` leg: `λ·mi_deficit + μ·understanding_cost`. -/
+noncomputable def semanticPowerInput (r : SemanticResponseDraft) : ℝ :=
+  r.miWeight * r.miDeficitBits + r.understandingWeight * r.understandingCostJoules
+
+/-- Net dissipation `σ_net = dissipation − power_input` (gate conjunct input). -/
+noncomputable def semanticNetDissipation (r : SemanticResponseDraft) : ℝ :=
+  semanticDissipation r - semanticPowerInput r
+
+/-- Domain conjunct — mirrors Rust `semantic_cost_legs_domain_valid`. -/
+def semanticDomainValid (r : SemanticResponseDraft) : Prop :=
+  0 ≤ r.consistencyDefect ∧ 0 ≤ r.miDeficitBits ∧ 0 ≤ r.understandingCostJoules
+
+/-- `mi_deficit` gate domain — domain conjunct + nonneg calibration weights. -/
+def miDeficitGateDomainValid (r : SemanticResponseDraft) : Prop :=
+  semanticDomainValid r ∧ 0 ≤ r.miWeight ∧ 0 ≤ r.understandingWeight
+
+/-- Precondition indexed by `P6OpenObligation.mi_deficit_gate` (discharge still OPEN). -/
+def miDeficitGatePrecondition (r : SemanticResponseDraft) : Prop :=
+  miDeficitGateDomainValid r
+
+/-- Extract P6 cost legs from a semantic response draft. -/
+def semanticCostLegs (r : SemanticResponseDraft) : SemanticCostLegDraft where
+  miDeficitBits := r.miDeficitBits
+  understandingCostJoules := r.understandingCostJoules
+
+/-- Bind `mi_deficit` field to epistemic draft (bits only — no auto-joules). -/
+def epistemicMiFromResponse (r : SemanticResponseDraft) : EpistemicMiDeficitDraft where
+  deficitBits := r.miDeficitBits
+
+/-- Bind `understanding_cost` field to hypothesis draft (joules declared). -/
+def understandingCostFromResponse (r : SemanticResponseDraft) : UnderstandingCostDraft where
+  declaredJoules := r.understandingCostJoules
+
+/-- Admissible chair witness — mirrors `SemanticResponse::consistent()`. -/
+def consistentResponse : SemanticResponseDraft where
+  consistencyDefect := 0
+  miDeficitBits := 0
+  understandingCostJoules := 0
+  miWeight := 1
+  understandingWeight := 1
+
+/-- P3 MI shortfall fixture — mirrors `SemanticResponse::mi_shortfall()`. -/
+def miShortfallResponse : SemanticResponseDraft where
+  consistencyDefect := 0
+  miDeficitBits := 1.5
+  understandingCostJoules := 0
+  miWeight := 1
+  understandingWeight := 1
+
+/-- P2 injection fixture — mirrors `SemanticResponse::inconsistent_no_back()`. -/
+def inconsistentNoBackResponse : SemanticResponseDraft where
+  consistencyDefect := 1
+  miDeficitBits := 0
+  understandingCostJoules := 0
+  miWeight := 1
+  understandingWeight := 1
+
+/-- Over-budget understanding cost — mirrors `SemanticResponse::over_budget()`. -/
+def overBudgetResponse : SemanticResponseDraft where
+  consistencyDefect := 0
+  miDeficitBits := 0
+  understandingCostJoules := 2
+  miWeight := 1
+  understandingWeight := 1
+
+/-- Per-field σ contribution ledger — mirrors Rust `SemanticWitnessLegs`. -/
+structure SemanticWitnessLegs where
+  defectContribution : ℝ
+  miContribution : ℝ
+  understandingContribution : ℝ
+
+/-- Extract per-field σ contributions — mirrors Rust `witness_legs`. -/
+noncomputable def witnessLegs (r : SemanticResponseDraft) : SemanticWitnessLegs where
+  defectContribution := -r.consistencyDefect
+  miContribution := -r.miWeight * r.miDeficitBits
+  understandingContribution := -r.understandingWeight * r.understandingCostJoules
+
+/-- Sum of witness-field σ contributions — mirrors Rust `SemanticWitnessLegs::net`. -/
+noncomputable def semanticWitnessLegsNet (legs : SemanticWitnessLegs) : ℝ :=
+  legs.defectContribution + legs.miContribution + legs.understandingContribution
+
+/-- P0 degenerate entropy production — cost legs zeroed. -/
+noncomputable def entropyProductionP0 (r : SemanticResponseDraft) : ℝ :=
+  -r.consistencyDefect
+
+/-- Full three-leg entropy production alias — equals `semanticNetDissipation`. -/
+noncomputable def entropyProduction (r : SemanticResponseDraft) : ℝ :=
+  semanticWitnessLegsNet (witnessLegs r)
+
+/-- Indexed bind stub — records gate-domain preconditions; full discharge OPEN. -/
+structure MiDeficitGateBindStub where
+  response : SemanticResponseDraft
+  domainValid : miDeficitGateDomainValid response
 
 /-- Witness that epistemic deficit was promoted via a **physical** MI channel. -/
 structure PhysicalMiBridgeWitness (n m : ℕ) where
@@ -174,6 +284,157 @@ theorem mkSemanticFloorReport_agrees_mkReport {n m : ℕ}
       (mkReport w.declaredDeficitBits T).savingJoules := by
   unfold mkSemanticFloorReport physicalUnderstandingFloorJoules mkReport
   rfl
+
+-- ================================================================
+-- SECTION 2b: SemanticResponse gate bind theorems (G75-L07)
+-- ================================================================
+
+theorem semanticCostLegs_domain (r : SemanticResponseDraft) (h : semanticDomainValid r) :
+    semanticCostLegsDomainValid (semanticCostLegs r) := by
+  unfold semanticDomainValid semanticCostLegs semanticCostLegsDomainValid at *
+  exact ⟨h.2.1, h.2.2⟩
+
+theorem epistemicMiFromResponse_deficit (r : SemanticResponseDraft) :
+    (epistemicMiFromResponse r).deficitBits = r.miDeficitBits :=
+  rfl
+
+theorem understandingCostFromResponse_joules (r : SemanticResponseDraft) :
+    (understandingCostFromResponse r).declaredJoules = r.understandingCostJoules :=
+  rfl
+
+theorem semanticNetDissipation_def (r : SemanticResponseDraft) :
+    semanticNetDissipation r = -r.consistencyDefect - semanticPowerInput r := by
+  unfold semanticNetDissipation semanticDissipation semanticPowerInput
+  ring
+
+theorem semanticPowerInput_unit_weights (r : SemanticResponseDraft)
+    (hMiW : r.miWeight = 1) (hUndW : r.understandingWeight = 1) :
+    semanticPowerInput r = r.miDeficitBits + r.understandingCostJoules := by
+  unfold semanticPowerInput
+  simp [hMiW, hUndW]
+
+theorem consistentResponse_net_zero :
+    semanticNetDissipation consistentResponse = 0 := by
+  unfold consistentResponse semanticNetDissipation semanticDissipation semanticPowerInput
+  norm_num
+
+theorem consistentResponse_domain :
+    miDeficitGatePrecondition consistentResponse := by
+  unfold miDeficitGatePrecondition miDeficitGateDomainValid semanticDomainValid consistentResponse
+  exact ⟨⟨by norm_num, by norm_num, by norm_num⟩, by norm_num, by norm_num⟩
+
+theorem miShortfallResponse_net :
+    semanticNetDissipation miShortfallResponse = -1.5 := by
+  unfold miShortfallResponse semanticNetDissipation semanticDissipation semanticPowerInput
+  norm_num
+
+theorem miShortfallResponse_domain :
+    miDeficitGatePrecondition miShortfallResponse := by
+  unfold miDeficitGatePrecondition miDeficitGateDomainValid semanticDomainValid miShortfallResponse
+  exact ⟨⟨by norm_num, by norm_num, by norm_num⟩, by norm_num, by norm_num⟩
+
+noncomputable def understandingFloorFromResponse? {n m : ℕ}
+    (r : SemanticResponseDraft) (witness : Option (PhysicalMiBridgeWitness n m)) (T : ℝ) :
+    Option ℝ :=
+  epistemicUnderstandingFloorJoules? (epistemicMiFromResponse r) witness T
+
+theorem understandingFloorFromResponse_some {n m : ℕ}
+    (r : SemanticResponseDraft) (w : PhysicalMiBridgeWitness n m) (T : ℝ)
+    (h : w.declaredDeficitBits = r.miDeficitBits) :
+    understandingFloorFromResponse? r (some w) T =
+      some (coordinationSavingJoules r.miDeficitBits T) := by
+  unfold understandingFloorFromResponse? epistemicMiFromResponse
+  exact epistemicUnderstandingFloor_some (epistemicMiFromResponse r) w T (by simpa using h)
+
+theorem understandingFloorFromResponse_none {n m : ℕ}
+    (r : SemanticResponseDraft) (T : ℝ) :
+    @understandingFloorFromResponse? n m r none T = none := by
+  unfold understandingFloorFromResponse?
+  exact epistemicUnderstandingFloor_none (epistemicMiFromResponse r) T
+
+/-- Build indexed gate bind stub from a domain-valid response. -/
+def mkMiDeficitGateBindStub (r : SemanticResponseDraft)
+    (h : miDeficitGateDomainValid r) : MiDeficitGateBindStub :=
+  { response := r, domainValid := h }
+
+-- ================================================================
+-- SECTION 2c: mi_deficit_gate witness-leg bind (N40-L01)
+-- ================================================================
+
+theorem semanticDissipation_eq_neg_defect (r : SemanticResponseDraft) :
+    semanticDissipation r = -r.consistencyDefect := by
+  unfold semanticDissipation
+  rfl
+
+theorem witnessLegs_net (r : SemanticResponseDraft) :
+    semanticWitnessLegsNet (witnessLegs r) = semanticNetDissipation r := by
+  unfold semanticWitnessLegsNet witnessLegs semanticNetDissipation
+    semanticDissipation semanticPowerInput
+  ring
+
+theorem entropyProduction_eq_semanticNet (r : SemanticResponseDraft) :
+    entropyProduction r = semanticNetDissipation r :=
+  witnessLegs_net r
+
+theorem entropyProductionP0_eq_neg_defect (r : SemanticResponseDraft) :
+    entropyProductionP0 r = -r.consistencyDefect := by
+  unfold entropyProductionP0
+  rfl
+
+theorem witnessLegs_mi_shortfall :
+    let legs := witnessLegs miShortfallResponse
+    legs.defectContribution = 0 ∧ legs.miContribution = -1.5 ∧
+      legs.understandingContribution = 0 := by
+  dsimp [witnessLegs, miShortfallResponse]
+  norm_num
+
+theorem inconsistentNoBackResponse_net :
+    semanticNetDissipation inconsistentNoBackResponse = -1 := by
+  unfold inconsistentNoBackResponse semanticNetDissipation semanticDissipation semanticPowerInput
+  norm_num
+
+theorem inconsistentNoBackResponse_domain :
+    miDeficitGatePrecondition inconsistentNoBackResponse := by
+  unfold miDeficitGatePrecondition miDeficitGateDomainValid semanticDomainValid
+    inconsistentNoBackResponse
+  exact ⟨⟨by norm_num, by norm_num, by norm_num⟩, by norm_num, by norm_num⟩
+
+theorem overBudgetResponse_net :
+    semanticNetDissipation overBudgetResponse = -2 := by
+  unfold overBudgetResponse semanticNetDissipation semanticDissipation semanticPowerInput
+  norm_num
+
+theorem overBudgetResponse_domain :
+    miDeficitGatePrecondition overBudgetResponse := by
+  unfold miDeficitGatePrecondition miDeficitGateDomainValid semanticDomainValid overBudgetResponse
+  exact ⟨⟨by norm_num, by norm_num, by norm_num⟩, by norm_num, by norm_num⟩
+
+theorem entropyProductionP0_matches_net_at_zero_cost_legs
+    (r : SemanticResponseDraft) (hmi : r.miDeficitBits = 0) (hu : r.understandingCostJoules = 0) :
+    entropyProductionP0 r = semanticNetDissipation r := by
+  unfold entropyProductionP0 semanticNetDissipation semanticDissipation semanticPowerInput
+  simp [hmi, hu]
+
+theorem mkMiDeficitGateBindStub_response (r : SemanticResponseDraft)
+    (h : miDeficitGateDomainValid r) :
+    (mkMiDeficitGateBindStub r h).response = r :=
+  rfl
+
+theorem mkMiDeficitGateBindStub_domain (r : SemanticResponseDraft)
+    (h : miDeficitGateDomainValid r) :
+    miDeficitGateDomainValid (mkMiDeficitGateBindStub r h).response :=
+  h
+
+theorem miDeficitGateBindStub_precondition (stub : MiDeficitGateBindStub) :
+    miDeficitGatePrecondition stub.response :=
+  stub.domainValid
+
+theorem semanticPowerInput_nonneg (r : SemanticResponseDraft)
+    (h : miDeficitGateDomainValid r) :
+    0 ≤ semanticPowerInput r := by
+  unfold semanticPowerInput miDeficitGateDomainValid semanticDomainValid at *
+  rcases h with ⟨⟨_hdef, hmi, hu⟩, hMiW, hUndW⟩
+  exact add_nonneg (mul_nonneg hMiW hmi) (mul_nonneg hUndW hu)
 
 -- ================================================================
 -- SECTION 3: P6 open obligations (indexed — no `sorry`)

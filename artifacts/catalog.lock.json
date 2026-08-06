@@ -2,7 +2,7 @@
   "version": 1,
   "role": "lean_catalog_lock",
   "catalog_path": "artifacts/catalog.json",
-  "catalog_digest_hex": "39924c2c2cf7f81f9255528f118832f69776eb09aee9da4fefe74ad4bfb04a38",
-  "module_count": 70,
+  "catalog_digest_hex": "aea5080d2ba81de9ddfdec1e4ca8f40ca851bd9bbd1a99b0416cea6ef8e85dff",
+  "module_count": 84,
   "notes": "Regenerated via scripts/regenerate_lean_catalog.sh"
 }

@@ -212,6 +212,25 @@ linked in a future module.
 | `psi_elastic_base_nonpos`, `psi_elastic_base_antitone_in_d` | `UMST` (`Lean/Concrete/MicroMechanics.lean`) | **FORMAL** | MT-1–MT-2; M1-negative sign algebra | 2026-07-18 | `ψ_elastic_base = −½·E_eff·ε²` ≤ 0; \|ψ\| softens (ψ monotone toward 0) as damage advances. |
 | `MicroMechanicsState`, `ψSofteningMicroMechanics`, `microMechanicsStateAdmissible` | `UMST` (`Lean/Concrete/MicroMechanics.lean`) | **FORMAL** | `Compat.Gate`; MT-5 lemmas | 2026-07-18 | Helmholtz + elastic-base summand model; damage softening witness; gate fragment (full CD with `ψ_damage_release` deferred to L1d). **Catalog `[proved]` export deferred** — operator `make lean-catalog-export` not run. |
 
+### Phase L1b-MicroMechanics grid deepen — `LIB-LEARN-F-MORI-TANAKA` · P1542-B3 · 2026-07-21
+
+| Pin | Value | Class |
+|-----|-------|-------|
+| `l1bRationalGridSchema` | `lean_l1_micro_mechanics_v2` | **Derived** (schema pin) |
+| `l1bRationalGridRowCount` | **7** | **Derived** (`lake build` + `norm_num` eval theorems) |
+| `expectedProvedCount` | **0** | **Derived** (frozen posture — no Proved invent) |
+| `literatureAnchorTier` | `assumed` | **Primitive-fact** (literature URI — not mechanized) |
+| `catalogExportDeferred` | `true` | **Measured** (operator export not run) |
+| `mtHomogenizationWiredToSlice1` | `false` | **Measured** (slice-1 uses Vinet `E₀` blend) |
+
+| Theorem (primary) | Module path | proof-status | Dependencies | Date | Informal statement |
+|---|---|---|---|---|---|
+| `e_eff_mt_grid_row1` … `e_eff_mt_grid_row5` | `UMST` (`Lean/Concrete/MicroMechanics.lean`) | **FORMAL** | `e_eff_mt`; pinned ℚ `gridE0RefPa` / `gridE0AltPa` | 2026-07-21 | Seven-row rational grid rows 1–5: `E_eff` closed-form eval at fixture damage pins (`d ∈ {0, 1/4, 1/2, 99/100, 1/10}`). |
+| `psi_elastic_base_grid_row5`, `psi_elastic_base_grid_row6_zero_strain`, `psi_elastic_base_grid_row7_zero_damage` | `UMST` (`Lean/Concrete/MicroMechanics.lean`) | **FORMAL** | MT-4–MT-5; G55 ψ anchors | 2026-07-21 | Grid rows 5–7: ψ eval at pinned ε (`1/50`, `0`, `3/200`); fixture parity with cartridge `lean_l1_micro_mechanics_v2`. |
+| `l1b_rational_grid_row_count` | `UMST` (`Lean/Concrete/MicroMechanics.lean`) | **FORMAL** | `rfl` | 2026-07-21 | Row-count pin `7` — witnessed-not-proved; **not** catalog `[proved]`. |
+
+**Honest residuals (unchanged):** `literature://mori-tanaka-effective-modulus` stays **[assumed]**; tensor Mori–Tanaka (`mt-closure` / Zhang Eshelby) **not wired** to slice-1 `ψ_elastic_base`; `make lean-catalog-export` **deferred**. **Next hop:** operator catalog export or cartridge `effective_modulus_mt_pa` census wire (`mt_elastic.rs`).
+
 ### New theorems (Phase 0-2, 2026-03-19)
 
 | Declaration | File | Classification |
@@ -401,7 +420,7 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.GraphProperties` | 10 | 0 | `Lean/Concrete/GraphProperties.lean` |
 | `UMST.Powers` | 3 | 5 | `Lean/Concrete/Powers.lean` |
 | `UMST.Concrete.StiffnessTransition` | 14 | 2 | `Lean/Concrete/StiffnessTransition.lean` — B1 α-stiffness scale + `ψ_stiffness_α`; `StiffnessTransitionState` gate witness + Eikonal iff (no catalog export) |
-| `UMST.Concrete.MicroMechanics` | 11 | 5 | `Lean/Concrete/MicroMechanics.lean` — B1 scalar MT `ψ_elastic_base`; `A_MT_scalar` model choice; `MicroMechanicsState` gate fragment (no catalog export) |
+| `UMST.Concrete.MicroMechanics` | 20 | 5 | `Lean/Concrete/MicroMechanics.lean` — B1 scalar MT `ψ_elastic_base`; `A_MT_scalar` model choice; 7-row ℚ rational grid (`lean_l1_micro_mechanics_v2`); `expectedProvedCount = 0`; `MicroMechanicsState` gate fragment (no catalog export) |
 | `UMST.Convergence` | 8 | 0 | `Lean/Concrete/Convergence.lean` |
 | `UMST.GaloisGate` | 6 | 0 | `Lean/Concrete/GaloisGate.lean` — Galois connection on gate conditions |
 | `UMST.EnrichedAdmissibility` | 12 | 0 | `Lean/Concrete/EnrichedAdmissibility.lean` |

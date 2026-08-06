@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
+#
+# FLEET-COMPOSER-ACCEL-C AC64 — PBM-008 `WS-formal-anchors` formal-tree owner.
+# Standalone write-set crate @ umst-formal/src/pbm_008* — no ffi-bridge mutation.
+
+[package]
+name = "umst-formal"
+version = "0.0.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "Formal-tree WS-formal-anchors cert fence (honest [assumed] tier pins · 0 flip)"
+
+[lib]
+path = "lib.rs"

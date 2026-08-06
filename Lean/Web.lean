@@ -28,6 +28,14 @@ def defaultLandauerWeight : ℝ := 1
 /-- Informational slack ε_int for near-neutral transitions. -/
 noncomputable def defaultIntTolerance : ℝ := 1 / (10 ^ 9 : ℕ)
 
+/-- Domain monotone constraints for a11y coverage and perf budget (M4-A8-I7).
+    Orthogonal to Core `D_web_int` — certifies non-regression, not WCAG. -/
+structure MonotoneHooks where
+  /-- Accessibility coverage ∈ [0, 1] — non-decreasing across admitted transitions. -/
+  accessibilityCoverage : ℝ
+  /-- Cumulative performance budget consumed ∈ [0, 1] — non-decreasing, capped at 1. -/
+  perfBudgetConsumed : ℝ
+
 /-- Web mesh state tensor — informational transition snapshot.
     Scalar legs align with `umst-web::WebStateTensor` (M4-A8-I2). -/
 structure WebStateTensor where
@@ -41,6 +49,8 @@ structure WebStateTensor where
   complexityWeight : ℝ := defaultComplexityWeight
   /-- Landauer rendering weight μ. -/
   landauerWeight : ℝ := defaultLandauerWeight
+  /-- Optional a11y/perf monotone hooks (orthogonal to Core gate). -/
+  monotone : Option MonotoneHooks := none
 
 /-- 𝒟_web_int = ΔIntentFidelity − λ·ΔComplexityCost − μ·LandauerRenderingCost. -/
 noncomputable def D_web_int (s : WebStateTensor) : ℝ :=
@@ -192,5 +202,120 @@ theorem web_kleisliComposeWellTyped (ε : ℝ) (f g : WebKleisliArrow ε)
     (hf : WebWellTyped ε f) (hg : WebWellTyped ε g) :
     WebWellTyped ε (webKleisliCompose ε f g) :=
   webKleisliComposeWellTyped ε f g hf hg
+
+-- ================================================================
+-- SECTION 5: Monotone domain constraints (orthogonal to D_web_int)
+-- ================================================================
+
+/-- Full coverage, zero perf debt — neutral starting point (Rust `MonotoneHooks::baseline`). -/
+def monotoneBaseline : MonotoneHooks :=
+  { accessibilityCoverage := 1
+    perfBudgetConsumed := 0 }
+
+/-- Degraded a11y fixture for monotone violation tests (Rust `MonotoneHooks::degraded`). -/
+def monotoneDegraded : MonotoneHooks :=
+  { accessibilityCoverage := 0.4
+    perfBudgetConsumed := 0.6 }
+
+/-- Whether scalar legs lie in declared [0, 1] envelopes. -/
+def monotoneHooksInBounds (h : MonotoneHooks) : Prop :=
+  0 ≤ h.accessibilityCoverage ∧ h.accessibilityCoverage ≤ 1 ∧
+  0 ≤ h.perfBudgetConsumed ∧ h.perfBudgetConsumed ≤ 1
+
+/-- Monotone transition check: a11y coverage must not regress; perf debt must not shrink. -/
+def monotoneTransitionRespects (prior next : MonotoneHooks) : Prop :=
+  monotoneHooksInBounds next ∧
+  monotoneHooksInBounds prior ∧
+  prior.accessibilityCoverage ≤ next.accessibilityCoverage ∧
+  prior.perfBudgetConsumed ≤ next.perfBudgetConsumed
+
+/-- Whether the transition from `prior` to `next` respects monotone a11y/perf constraints.
+    Returns `true` when either side omits hooks (optional layer). -/
+def transitionRespectsMonotone (prior next : WebStateTensor) : Prop :=
+  match prior.monotone, next.monotone with
+  | some p, some n => monotoneTransitionRespects p n
+  | _, _ => True
+
+/-- **Accessibility monotonicity** — domain constraint, not a new project axiom.
+    Admitted transitions must not reduce declared accessibility coverage. -/
+theorem accessibility_monotonic (prior next : MonotoneHooks)
+    (h : monotoneTransitionRespects prior next) :
+    prior.accessibilityCoverage ≤ next.accessibilityCoverage :=
+  h.2.2.1
+
+/-- Lift `accessibility_monotonic` to optional-layer tensor transitions (blueprint §2). -/
+theorem transitionRespectsMonotone_accessibility (prior next : WebStateTensor)
+    {p n : MonotoneHooks}
+    (hp : prior.monotone = some p) (hn : next.monotone = some n)
+    (h : transitionRespectsMonotone prior next) :
+    p.accessibilityCoverage ≤ n.accessibilityCoverage := by
+  rw [transitionRespectsMonotone, hp, hn] at h
+  exact accessibility_monotonic p n h
+
+/-- **Performance budget monotonicity** — cumulative perf debt is honestly non-shrinking. -/
+theorem perf_budget_monotonic (prior next : MonotoneHooks)
+    (h : monotoneTransitionRespects prior next) :
+    prior.perfBudgetConsumed ≤ next.perfBudgetConsumed :=
+  h.2.2.2
+
+theorem monotoneBaseline_inBounds : monotoneHooksInBounds monotoneBaseline := by
+  unfold monotoneHooksInBounds monotoneBaseline
+  norm_num
+
+theorem monotoneDegraded_inBounds : monotoneHooksInBounds monotoneDegraded := by
+  unfold monotoneHooksInBounds monotoneDegraded
+  norm_num
+
+theorem monotone_transition_transitive (h₀ h₁ h₂ : MonotoneHooks)
+    (h01 : monotoneTransitionRespects h₀ h₁)
+    (h12 : monotoneTransitionRespects h₁ h₂) :
+    monotoneTransitionRespects h₀ h₂ := by
+  unfold monotoneTransitionRespects at h01 h12 ⊢
+  rcases h01 with ⟨_, hb₀, ha01, hp01⟩
+  rcases h12 with ⟨hb₂, _, ha12, hp12⟩
+  exact ⟨hb₂, hb₀, le_trans ha01 ha12, le_trans hp01 hp12⟩
+
+/-- Monotone hooks are **orthogonal** to Core `isAdmissible`: the same tensor may be
+    gate-admissible while omitting hooks, and inadmissible states may still carry hooks. -/
+theorem monotone_orthogonal_to_admissibility :
+    isAdmissible neutral defaultIntTolerance ∧
+    ¬ isAdmissible heavyPresentation defaultIntTolerance ∧
+    monotoneHooksInBounds monotoneDegraded := by
+  refine ⟨neutral_admissible, heavy_inadmissible, monotoneDegraded_inBounds⟩
+
+/-- Neutral web state with baseline monotone hooks attached. -/
+def neutralWithMonotone : WebStateTensor :=
+  { neutral with monotone := some monotoneBaseline }
+
+theorem D_web_int_neutralWithMonotone : D_web_int neutralWithMonotone = D_web_int neutral := by
+  simp [neutralWithMonotone, D_web_int, neutral]
+
+theorem neutral_with_monotone_admissible :
+    isAdmissible neutralWithMonotone defaultIntTolerance := by
+  rw [isAdmissible, D_web_int_neutralWithMonotone]
+  exact neutral_admissible
+
+/-- A11y regression is rejected by the monotone layer (Rust `monotone_transition_rejects_a11y_regression`). -/
+theorem monotone_transition_rejects_a11y_regression :
+    ¬ monotoneTransitionRespects monotoneBaseline
+        { monotoneBaseline with accessibilityCoverage := 0.5 } := by
+  intro h
+  have := accessibility_monotonic monotoneBaseline _ h
+  simp [monotoneBaseline] at this
+  norm_num at this
+
+/-- When both endpoints and the intermediate state carry hooks, monotone transitions compose. -/
+theorem transitionRespectsMonotone_trans_chained
+    (s s' s'' : WebStateTensor) {p m n : MonotoneHooks}
+    (hp : s.monotone = some p) (hm : s'.monotone = some m) (hn : s''.monotone = some n)
+    (h01 : transitionRespectsMonotone s s')
+    (h12 : transitionRespectsMonotone s' s'') :
+    transitionRespectsMonotone s s'' := by
+  simp [transitionRespectsMonotone, hp, hm, hn] at h01 h12 ⊢
+  exact monotone_transition_transitive p m n h01 h12
+
+/-- Kleisli arrow that preserves monotone hooks on every `some` output. -/
+def WebMonotoneWellTyped (ε : ℝ) (f : WebKleisliArrow ε) : Prop :=
+  ∀ s s', f s = some s' → transitionRespectsMonotone s s'
 
 end UMST.Web

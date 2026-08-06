@@ -6,7 +6,7 @@
 | **Status** | **PARTIAL** — A7 physical floor GREEN; P6 semantic/L10 bridge OPEN |
 | **SSOT** | [`BLUEPRINT_STEELMAN_RESEARCH.md`](../../../docs/BLUEPRINT_STEELMAN_RESEARCH.md) II.5 · VIII.5–VIII.7 · [`CARTRIDGE_REORG_BLUEPRINT.md`](../../../docs/CARTRIDGE_REORG_BLUEPRINT.md) §17.6 |
 | **Lean (A7)** | [`Lean/CoordinationCost.lean`](../Lean/CoordinationCost.lean) — **42 thm · 0 sorry** |
-| **Lean (P6 stub)** | [`Lean/CoordinationCostP6.lean`](../Lean/CoordinationCostP6.lean) — standalone; **13 thm · 0 sorry** (F25-B06 deepen) |
+| **Lean (P6 stub)** | [`Lean/CoordinationCostP6.lean`](../Lean/CoordinationCostP6.lean) — standalone; **24 thm · 0 sorry** (G75-L07 A10 gate bind) |
 | **Rust SSOT** | `umst-arcs/crates/umst-arcs/src/coordination_cost.rs` |
 | **Semantics** | [`COORDINATION_COST_SEMANTICS.md`](COORDINATION_COST_SEMANTICS.md) |
 | **L10 colimit thermo gate** | [`L10_COLIMIT_THERMO_GATE.md`](L10_COLIMIT_THERMO_GATE.md) — VIII.4 unproven extension register |
@@ -33,7 +33,7 @@
 | **A7-4 n-ary** | `multiInformationBits` · `coordinationSavingGlobalJoules` | **GREEN** — n=2 reduction proved |
 | **A7 operational** | Kleisli compose preserves `gate<R>` | **GREEN (Rust)** — not imported in Lean |
 | **P3/P6 thermo proxy** | `understanding_cost` as Landauer projection | **PARTIAL** — `UnderstandingCostDraft` + `PhysicalMiBridgeWitness` |
-| **P3 semantic draft** | `mi_deficit` loop | **PARTIAL** — `SemanticCostLegDraft` + `semanticCostLegsDomainValid` |
+| **P3 semantic draft** | `mi_deficit` loop | **PARTIAL** — `SemanticResponseDraft` + `miDeficitGateDomainValid` + bind stubs |
 | **P6 colimit** | Culture = colimit over thermo-grounded agents | **OPEN** — research; no Lean colimit module |
 | **P6 functor** | Conservative `F : L10 → L0` | **OPEN** — indexed obligation only |
 
@@ -53,7 +53,7 @@ plus thinnest type split — not a finished colimit proof.
 | Physical MI fixture | `coordination_cost_identity` tests | `PhysicalMiChannel` | re-export | cert fixture |
 | Epistemic MI | egoff `cumulative_mi_bits` (reporting) | `EpistemicMiDraft` | `EpistemicMiDeficitDraft` · `EpistemicOnlyFloorReport` | `mi_deficit` |
 | Fixture grid pin | `lean_bridge_coordination_cost_grid.json` | `mkReport` | `FixtureGridRow` | cert differential witness |
-| Semantic cost legs | M6 `SemanticResponse` scaffold | — | `SemanticCostLegDraft` | `power_input()` legs |
+| Semantic cost legs | M6 `SemanticResponse` scaffold | — | `SemanticCostLegDraft` · `SemanticResponseDraft` | `power_input()` legs |
 | n-ary global floor | `coordination_saving_global_joules` | `coordinationSavingGlobalJoules` | — | multi-agent P6 |
 
 **Bridge rule (honest):** `understanding_cost` may reuse `coordinationSavingJoules` **only** when a
@@ -84,15 +84,19 @@ Indexed in [`CoordinationCostP6.lean`](../Lean/CoordinationCostP6.lean); **not**
 `epistemicUnderstandingFloorJoules?` bridge discipline · `semanticCostLegsDomainValid` ·
 `mkSemanticFloorReport_agrees_mkReport`.
 
+**G75-L07 deepen (+11 proved theorems → 24 total):** `SemanticResponseDraft` gate bind ·
+`semanticDissipation` / `semanticPowerInput` / `semanticNetDissipation` · `miDeficitGateDomainValid` ·
+fixture witnesses `consistentResponse` / `miShortfallResponse` · `understandingFloorFromResponse?` chain.
+
 ```bash
 cd egoff/umst-formal/Lean && lake build CoordinationCostP6
-rg '^theorem' CoordinationCostP6.lean | wc -l   # → 13
+rg '^theorem' CoordinationCostP6.lean | wc -l   # → 24
 rg 'sorry' CoordinationCostP6.lean              # → 0 (comments only)
 ```
 
 | Constructor | Meaning | Blocked by |
 |-------------|---------|------------|
-| `mi_deficit_gate` | `mi_deficit` as admissibility conjunct on `SemanticResponse` | A10 P2–P3 gate module |
+| `mi_deficit_gate` | `mi_deficit` as admissibility conjunct on `SemanticResponse` | A10 P2–P3 gate module — **domain bind stubbed** (`MiDeficitGateBindStub`) |
 | `understanding_cost_bounded` | `understanding_cost ≤ coordinationSavingJoules` on physical bridge | Epistemic→physical witness |
 | `colimit_universal_floor` | L10 colimit cocone preserves coordination floor | L10 colimit construction |
 | `functor_F_conservative` | `F : L10 → L0` does not increase Landauer floor | Category scaffold + physics packaging |
@@ -174,9 +178,60 @@ cargo test -p umst-arcs coordination_cost_identity
 | Claim | Verdict |
 |-------|---------|
 | 42 + 13 Lean thm → cert Proved | **NOT** |
-| `SemanticResponse` gate wired | **NOT** |
+| `SemanticResponse` gate wired | **PARTIAL** — domain + σ_net bind stubs; full `gate<R>` discharge OPEN |
 | L10 colimit / functor F | **OPEN** |
 
 ---
 
 *Prep doc: `Docs/COORDINATION_COST_P6_SPINE.md` · job `F25-B06` / parent `LEAN-COORD-COST` · no push*
+
+---
+
+## 10. G75-L07 A10 gate bind (@ 12:02 IST)
+
+| Lens | Verdict |
+|------|---------|
+| **Parent** | `LEAN-COORD-COST` @ 1142 — PARTIAL |
+| **Extends** | `F25-R04` @ 1150 — cost identity wire |
+| **Job** | `G75-L07` — `SemanticResponse` / `mi_deficit_gate` bind deepen |
+| **Cert Proved** | **NOT** — `EXPECTED_PROVED_COUNT = 0` |
+| **A7 unchanged** | `CoordinationCost.lean` — **42 thm · 0 sorry** |
+
+### Lean gate bind (`CoordinationCostP6.lean` §1b–2b)
+
+| Addition | Role |
+|----------|------|
+| `SemanticResponseDraft` | Mirrors M6 `SemanticResponse.rs.txt` five-field witness |
+| `semanticDissipation` / `semanticPowerInput` / `semanticNetDissipation` | Core `AdmissibilityResponse` leg bind |
+| `semanticDomainValid` / `miDeficitGateDomainValid` | Domain conjunct — mirrors `semantic_cost_legs_domain_valid` |
+| `miDeficitGatePrecondition` | Indexed precondition for `P6OpenObligation.mi_deficit_gate` |
+| `MiDeficitGateBindStub` | Receipt-indexed stub — full gate discharge still OPEN |
+| `consistentResponse` / `miShortfallResponse` | Fixture witnesses matching Rust scaffold |
+| `understandingFloorFromResponse?` | Chains `mi_deficit` → `epistemicMiFromResponse` → A7 floor |
+
+### Rust ↔ Lean crosswalk (A10 gate legs)
+
+| Rust (`SemanticResponse.rs.txt`) | Lean (P6) | Bind theorem |
+|----------------------------------|-----------|--------------|
+| `dissipation()` | `semanticDissipation` | definitional |
+| `power_input()` | `semanticPowerInput` | `semanticPowerInput_unit_weights` @ λ=μ=1 |
+| `net_dissipation()` | `semanticNetDissipation` | `semanticNetDissipation_def` |
+| `semantic_cost_legs_domain_valid` | `semanticDomainValid` | `semanticCostLegs_domain` |
+| `SemanticResponse::consistent()` | `consistentResponse` | `consistentResponse_net_zero` · `_domain` |
+| `SemanticResponse::mi_shortfall()` | `miShortfallResponse` | `miShortfallResponse_net` · `_domain` |
+| `mi_deficit` field | `epistemicMiFromResponse` | `epistemicMiFromResponse_deficit` |
+| `understanding_cost` field | `understandingCostFromResponse` | `understandingCostFromResponse_joules` |
+| Physical floor projection | `understandingFloorFromResponse?` | `_some` / `_none` |
+
+### Honest boundary (unchanged)
+
+| Claim | Verdict |
+|-------|---------|
+| 24 Lean thm → cert Proved | **NOT** |
+| `gate<SemanticResponse>` discharged in Lean | **NOT** — no `Gate.lean` import |
+| `mi_deficit_gate` obligation closed | **NOT** — domain stub only |
+| L10 colimit / functor F | **OPEN** |
+
+---
+
+*G75-L07 deepen: `Docs/COORDINATION_COST_P6_SPINE.md` §10 · receipt `G75-L07_lean_coord_a10_1202.md` · no push*

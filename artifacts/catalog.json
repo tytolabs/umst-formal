@@ -86,7 +86,7 @@
     },
     {
       "path": "Compat/Gate.lean",
-      "content_sha256": "40110d487fc7717247ca159828357c02d4e315000d79412fcc3f5ce85c59e49d",
+      "content_sha256": "41583bc1f39b89c3662b32376e0d60ef6c26788edd3dcf5add10d103713a5240",
       "declarations": {
         "def": [
           "\u03b4Mass",
@@ -283,9 +283,10 @@
     },
     {
       "path": "Concrete/Gate.lean",
-      "content_sha256": "56eadb8de1221f429cb08fdb75771a8e8767849c52006c76547b1dac27aa6e38",
+      "content_sha256": "d018b296b830bb9dc3ef976b01cc3cef2395b0f3701be9549b4fe851bae77802",
       "declarations": {
         "def": [
+          "\u03b4Mass",
           "Q_hyd",
           "helmholtz",
           "gateCheck",
@@ -374,6 +375,130 @@
       "module": "Concrete.Helmholtz"
     },
     {
+      "path": "Concrete/MicroMechanics.lean",
+      "content_sha256": "819404384ac4c871c990fb0acb40a607752b65f4d6d4a8c0dcf1748949ab46f4",
+      "declarations": {
+        "def": [
+          "damageDMax",
+          "damageAdmissible",
+          "MicroMechanicsState"
+        ],
+        "lemma": [
+          "damageDMax_pos",
+          "damageDMax_le_one",
+          "damageAdmissible_zero",
+          "damageAdmissible_one_sub_nonneg",
+          "damageAdmissible_one_sub_le_one"
+        ],
+        "theorem": [
+          "e_eff_mt_nonneg",
+          "e_eff_mt_at_zero",
+          "e_eff_mt_at_max",
+          "e_eff_mt_antitone_in_d",
+          "psi_elastic_base_nonpos",
+          "psi_elastic_base_eq_zero_at_zero_strain",
+          "psi_elastic_base_at_zero_damage",
+          "psi_elastic_base_antitone_in_d",
+          "microMechanicsEnergy_softens_in_damage",
+          "\u03c8SofteningMicroMechanics",
+          "microMechanicsStateAdmissible"
+        ]
+      },
+      "import_lines": [
+        "Compat.Gate",
+        "Mathlib.Algebra.Order.Field.Rat",
+        "Mathlib.Tactic"
+      ],
+      "module": "Concrete.MicroMechanics"
+    },
+    {
+      "path": "Concrete/PoromechanicsB3.lean",
+      "content_sha256": "abd112c12e12dc3ea404c724ebc6cbcf7abdf6dca75c5e2c36b385b561537664",
+      "declarations": {
+        "structure": [
+          "PowersCapillaryCoeffs",
+          "ChlorideDiffusivityCoeffs",
+          "FlowWitness",
+          "PoromechanicsDissipationCoeffs",
+          "DissipationTerms",
+          "PoromechanicsEnergyCoeffs"
+        ],
+        "def": [
+          "g0PowersCoeffs",
+          "coeffsAdmissible",
+          "capillaryPorosityAdmissible",
+          "life365DiffusivityCoeffs",
+          "chlorideDiffusivityCoeffsAdmissible",
+          "flowPorosityAdmissible",
+          "flowTransportTensorBridge",
+          "slice1DissipationCoeffs",
+          "dissipationCoeffsAdmissible",
+          "dissipationTermIdStr",
+          "dissipationTransport",
+          "dissipationReaction",
+          "DissipationTerms.summand",
+          "DissipationTerms.total",
+          "dissipationTerms",
+          "dissipationTotal",
+          "dissipationComposeCdSlice1",
+          "b3OpenObligationCertId",
+          "b3OpenObligationDescription",
+          "slice1EnergyCoeffs",
+          "energyCoeffsAdmissible",
+          "unitIntervalAdmissible",
+          "psiTransportAdmissible"
+        ],
+        "lemma": [
+          "g0PowersCoeffs_admissible",
+          "denom_pos_of_admissible",
+          "capillaryPorosity_g0_eq_jennings",
+          "capillaryPorosity_nonneg",
+          "capillaryPorosity_le_one",
+          "life365DiffusivityCoeffs_admissible",
+          "clamp01_flow_admissible",
+          "tortuosityWitness_nonpos",
+          "chlorideDiffusivityWitness_nonpos",
+          "slice1DissipationCoeffs_admissible",
+          "dissipationTransport_nonneg",
+          "dissipationReaction_nonneg",
+          "slice1EnergyCoeffs_admissible",
+          "psiTransport_summand_identity"
+        ],
+        "theorem": [
+          "capillaryPorosity_unit_interval",
+          "capillaryPorosity_antitone_in_alpha",
+          "capillaryPorosity_g0_antitone_in_alpha",
+          "capillaryPorosity_g0_fixture_value",
+          "flowWitness_capillaryPorosity_unit_interval",
+          "flow_transport_tensor_bridge",
+          "dissipationTerms_nonneg",
+          "dissipationTerms_passive_pin",
+          "dissipationTerms_total_identity",
+          "dissipation_homogeneous_degree_two",
+          "dissipationComposeCdSlice1_holds",
+          "psiTransport_nonneg",
+          "psiTransport_eq_zero_at_unit_pin",
+          "psiTransport_slice1_fixture_value",
+          "psiTransportSaturationComponent_antitone_in_s"
+        ],
+        "inductive": [
+          "DissipationTermId",
+          "B3OpenObligation"
+        ],
+        "abbrev": [
+          "TransportAxis"
+        ]
+      },
+      "import_lines": [
+        "JenningsGelSpace",
+        "Mathlib.Algebra.Order.Field.Rat",
+        "Mathlib.Data.Matrix.Basic",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Tactic"
+      ],
+      "module": "Concrete.PoromechanicsB3"
+    },
+    {
       "path": "Concrete/Powers.lean",
       "content_sha256": "78dd7179f08118576cc74d0c4f3ab99b83f2be0077c20dc6200e546aba640d28",
       "declarations": {
@@ -402,8 +527,78 @@
       "module": "Concrete.Powers"
     },
     {
+      "path": "Concrete/ShrinkageB4.lean",
+      "content_sha256": "b18d3fed4587624fcf64b820ed27a2ed1e6cc9e00fb8283d7b1d927b2260ee37",
+      "declarations": {
+        "def": [
+          "criticalWcChemPin",
+          "b4WcLo",
+          "b4WcMid",
+          "b4WcHi",
+          "b4WcAdmissible",
+          "shrinkageInputAdmissible",
+          "b2OpenObligationCertId",
+          "b2OpenObligationDescription"
+        ],
+        "lemma": [
+          "criticalWcChemPin_pos",
+          "b4WcMid_le_hi",
+          "b4WcLo_lt_critical",
+          "b4WcLo_le_critical",
+          "critical_le_b4WcMid",
+          "b4WcLo_lt_mid",
+          "critical_lt_mid",
+          "b4WcLo_lt_hi",
+          "b4WcMid_lt_hi",
+          "shrinkageDevelopment_nonneg",
+          "shrinkageDevelopment_le_one",
+          "alphaUlt_mono",
+          "shrinkageDevelopment_mono_in_degree",
+          "shrinkageDevelopment_mono_in_degree_admissible",
+          "shrinkageDevelopmentExp_nonneg",
+          "shrinkageDevelopmentExp_le_one",
+          "shrinkageDevelopmentExp_mono_in_degree",
+          "shrinkageDevelopment_coe_rational"
+        ],
+        "theorem": [
+          "b4UltimateEnvelope_nonpos",
+          "b4UltimateEnvelope_at_hi",
+          "b4UltimateEnvelope_at_lo",
+          "b4UltimateEnvelope_at_critical",
+          "b4UltimateEnvelope_at_mid",
+          "b4UltimateEnvelope_mono_on_lo",
+          "b4UltimateEnvelope_mono_on_critical",
+          "b4UltimateEnvelope_mono_on_mid",
+          "b4UltimateEnvelope_mono_on_hi",
+          "b4UltimateEnvelope_mid_knot_le_hi_branch",
+          "b4UltimateEnvelope_knots_mono_lo_critical",
+          "b4UltimateEnvelope_knots_mono_critical_mid",
+          "b4UltimateEnvelope_knots_mono_mid_hi",
+          "b4UltimateEnvelope_knots_mono",
+          "envelope_global_mono_cross_knot",
+          "b4UltimateEnvelope_mono",
+          "shrinkageDevelopmentExp_at_zero",
+          "shrinkageDevelopment_parallel_bounds",
+          "autogenousShrinkageMicrostrain_nonpos"
+        ],
+        "structure": [
+          "AutogenousShrinkageInput"
+        ],
+        "inductive": [
+          "B2OpenObligation"
+        ]
+      },
+      "import_lines": [
+        "Mathlib.Algebra.Order.Field.Rat",
+        "Mathlib.Data.Complex.Exponential",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Tactic"
+      ],
+      "module": "Concrete.ShrinkageB4"
+    },
+    {
       "path": "Concrete/State.lean",
-      "content_sha256": "9872709b91f19246695c1eb5f6e16fec1e0f1d4081fb51093b69e196e4552dbb",
+      "content_sha256": "85a2ed02ba5eee6720311d11eebb4db90186d865924da49ab0573896073c3d22",
       "declarations": {
         "structure": [
           "ConcreteState"
@@ -415,8 +610,195 @@
       "module": "Concrete.State"
     },
     {
+      "path": "Concrete/StiffnessTransition.lean",
+      "content_sha256": "9bf57a7c29d01f1c601a44dcdca014667126d696febd13f032f6d43551fdf482",
+      "declarations": {
+        "def": [
+          "stiffnessAlphaThreshold",
+          "stiffnessCoupling",
+          "StiffnessTransitionState"
+        ],
+        "lemma": [
+          "stiffnessCoupling_nonneg",
+          "stiffnessCoupling_pos"
+        ],
+        "theorem": [
+          "stiffnessScale_nonneg",
+          "stiffnessScale_eq_zero_of_le_threshold",
+          "stiffnessScale_at_threshold",
+          "stiffnessScale_eq_sub_above_threshold",
+          "stiffnessScale_mono",
+          "psi_stiffness_alpha_nonpos",
+          "psi_stiffness_alpha_eq_zero_at_zero_strain",
+          "psi_stiffness_alpha_eq_zero_below_threshold",
+          "psi_stiffness_alpha_mono_in_alpha",
+          "stiffnessTransitionEnergy_antitone",
+          "stiffnessTransition_le_iff",
+          "\u03c8AntitoneStiffnessTransition",
+          "stiffnessTransitionStateAdmissible",
+          "stiffnessTransitionDirIsNegGrad"
+        ]
+      },
+      "import_lines": [
+        "Compat.Gate",
+        "Mathlib.Algebra.Order.Field.Rat",
+        "Mathlib.Tactic"
+      ],
+      "module": "Concrete.StiffnessTransition"
+    },
+    {
+      "path": "CoordinationCost.lean",
+      "content_sha256": "8125da9130d9b8d68f35d4db7d0e8c0f6afc651b05ce8f7f598b7f15ce652aca",
+      "declarations": {
+        "structure": [
+          "CoordinationReport",
+          "PhysicalMiChannel",
+          "EpistemicMiDraft",
+          "PhysicalMultiInfoChannel",
+          "EpistemicMultiInfoDraft"
+        ],
+        "theorem": [
+          "landauerBitEnergy_eq_landauerEnergyAt",
+          "coordinationSaving_eq_landauerCost",
+          "coordinationSaving_eq_landauerEnergyAt",
+          "coordinationSaving_zero",
+          "coordinationSaving_linear",
+          "coordinationSaving_additive",
+          "coordinationSaving_one_bit",
+          "coordinationSaving_temp_scaling",
+          "coordinationMassEquivalent_eq_div",
+          "coordinationMassEquivalent_temp_scaling",
+          "multiInformationNats_eq_sum_sub",
+          "multiInformationBits_eq_div",
+          "multiInformationNats_pair",
+          "multiInformationBits_pair",
+          "multiInformationNats_zero",
+          "multiInformationBits_zero",
+          "multiInformationNats_nonneg",
+          "multiInformationBits_nonneg",
+          "multiInformationBits_pair_eq_mutualInformationBits",
+          "physicalMultiInfoBits_pair_eq",
+          "multiInformationBits_pair_product_zero",
+          "coordinationSavingGlobal_eq_pairwise",
+          "globalCoordinationSaving_eq_global",
+          "globalCoordinationSaving_eq_pairwise",
+          "coordinationSavingGlobal_linear",
+          "coordinationSavingGlobal_zero",
+          "coordinationSavingGlobal_physical_zero",
+          "global_floor_pair_agrees",
+          "mkGlobalReport_saving",
+          "independent_minus_joint_eq_mi_delta",
+          "independent_minus_joint_zero_joint",
+          "mkReport_saving",
+          "mkReport_mass_equiv",
+          "mkReport_fields",
+          "mutualInformationBits_product_zero",
+          "physicalMiBits_product_zero",
+          "coordinationSaving_physical_zero",
+          "coordinationSaving_nonneg",
+          "coordinationSaving_pos",
+          "zero_mi_zero_saving",
+          "classical_measurement_floor_agrees",
+          "physical_channel_floor_agrees"
+        ],
+        "inductive": [
+          "OpenObligation"
+        ],
+        "def": [
+          "openObligationDescription"
+        ]
+      },
+      "import_lines": [
+        "ClassicalMeasurementCost",
+        "InfoTheory",
+        "LandauerEinsteinBridge"
+      ],
+      "module": "CoordinationCost"
+    },
+    {
+      "path": "CoordinationCostP6.lean",
+      "content_sha256": "7f7d2e2ac9c1ae703ef675cec5692f0821c37b882fa209f52267353018b789c4",
+      "declarations": {
+        "structure": [
+          "EpistemicMiDeficitDraft",
+          "UnderstandingCostDraft",
+          "SemanticCostLegDraft",
+          "SemanticResponseDraft",
+          "SemanticWitnessLegs",
+          "MiDeficitGateBindStub",
+          "PhysicalMiBridgeWitness",
+          "FixtureGridRow",
+          "EpistemicOnlyFloorReport",
+          "SemanticFloorReport"
+        ],
+        "def": [
+          "semanticCostLegsDomainValid",
+          "semanticDomainValid",
+          "miDeficitGateDomainValid",
+          "miDeficitGatePrecondition",
+          "semanticCostLegs",
+          "epistemicMiFromResponse",
+          "understandingCostFromResponse",
+          "consistentResponse",
+          "miShortfallResponse",
+          "inconsistentNoBackResponse",
+          "overBudgetResponse",
+          "mkMiDeficitGateBindStub",
+          "p6OpenObligationDescription",
+          "fromA7OpenObligation"
+        ],
+        "theorem": [
+          "physicalUnderstandingFloor_eq_coordinationSaving",
+          "mkSemanticFloorReport_understandingCost",
+          "mkSemanticFloorReport_mi_deficit",
+          "mkSemanticFloorReport_is_physical",
+          "fixtureGridRow_saving",
+          "fixtureGridRow_eq_mkReport",
+          "epistemicOnlyReport_no_projection",
+          "epistemicUnderstandingFloor_some",
+          "epistemicUnderstandingFloor_none",
+          "epistemicUnderstandingFloor_mismatch",
+          "physicalUnderstandingFloor_nonneg",
+          "semanticCostLegsDomainValid_mk",
+          "mkSemanticFloorReport_agrees_mkReport",
+          "semanticCostLegs_domain",
+          "epistemicMiFromResponse_deficit",
+          "understandingCostFromResponse_joules",
+          "semanticNetDissipation_def",
+          "semanticPowerInput_unit_weights",
+          "consistentResponse_net_zero",
+          "consistentResponse_domain",
+          "miShortfallResponse_net",
+          "miShortfallResponse_domain",
+          "understandingFloorFromResponse_some",
+          "understandingFloorFromResponse_none",
+          "semanticDissipation_eq_neg_defect",
+          "witnessLegs_net",
+          "entropyProduction_eq_semanticNet",
+          "entropyProductionP0_eq_neg_defect",
+          "witnessLegs_mi_shortfall",
+          "inconsistentNoBackResponse_net",
+          "inconsistentNoBackResponse_domain",
+          "overBudgetResponse_net",
+          "overBudgetResponse_domain",
+          "entropyProductionP0_matches_net_at_zero_cost_legs",
+          "mkMiDeficitGateBindStub_response",
+          "mkMiDeficitGateBindStub_domain",
+          "miDeficitGateBindStub_precondition",
+          "semanticPowerInput_nonneg"
+        ],
+        "inductive": [
+          "P6OpenObligation"
+        ]
+      },
+      "import_lines": [
+        "CoordinationCost"
+      ],
+      "module": "CoordinationCostP6"
+    },
+    {
       "path": "Core/Constitutional.lean",
-      "content_sha256": "7291b2b74714e31ddd3b2e3475615f909120bb3b548969e6f6242aae1e95f1c0",
+      "content_sha256": "9afac21876a675f517b4ee2377db8e5a0b08de52e1711804313c74933e5b296e",
       "declarations": {
         "def": [
           "KleisliArrow",
@@ -450,16 +832,15 @@
     },
     {
       "path": "Core/Gate.lean",
-      "content_sha256": "9642c73abeb1c07f25aad5444b87c6c944af4f2d6103aabdbf928b0ccbbe185e",
+      "content_sha256": "d7e12338ac044030555c4dd849b2c5b5a8475292e6c79349a9077146e328c2c1",
       "declarations": {
-        "def": [
-          "\u03b4Mass",
-          "CoreMassCond",
-          "CoreDissipCond"
-        ],
         "structure": [
           "CoreAdmissible",
           "CoreAdmissibleN"
+        ],
+        "def": [
+          "CoreMassCond",
+          "CoreDissipCond"
         ],
         "theorem": [
           "coreAdmissible_iff_mass_dissip",
@@ -469,15 +850,37 @@
         ]
       },
       "import_lines": [
+        "Core.Scalar",
         "Core.State",
-        "Mathlib.Algebra.Order.Field.Rat",
+        "Mathlib.Algebra.Order.Field.Basic",
         "Mathlib.Tactic"
       ],
       "module": "Core.Gate"
     },
     {
+      "path": "Core/Scalar.lean",
+      "content_sha256": "c896176738351865c611f1e6243b7f079a12f3c9a429b5c5690785e99176db0e",
+      "declarations": {
+        "class": [
+          "ThermodynamicScalar"
+        ],
+        "def": [
+          "\u03b4Mass"
+        ],
+        "instance": [
+          "thermodynamicScalarRat",
+          "thermodynamicScalarReal"
+        ]
+      },
+      "import_lines": [
+        "Mathlib.Algebra.Order.Field.Rat",
+        "Mathlib.Data.Real.Basic"
+      ],
+      "module": "Core.Scalar"
+    },
+    {
       "path": "Core/State.lean",
-      "content_sha256": "811721f0838ad5dfa0bd0f1e9e16de611232bcc02f6839d391b63a85c39857f6",
+      "content_sha256": "14e7cbf5a46e9386e5e4b91648c6a3b446e2b88dcf0bba901f369fc9fe503c6d",
       "declarations": {
         "class": [
           "ThermodynamicSystem",
@@ -489,13 +892,13 @@
         ]
       },
       "import_lines": [
-        "Mathlib.Algebra.Order.Field.Rat"
+        "Core.Scalar"
       ],
       "module": "Core.State"
     },
     {
       "path": "CreditGreedyOptimal.lean",
-      "content_sha256": "322e9447d0401fa001141c3e5ab02fb359b5020a7947e432d6547025aa301972",
+      "content_sha256": "4577e38cf982476ceb5f135c1130d310b10698b6652e00841a03f248147ca6eb",
       "declarations": {
         "structure": [
           "CreditCandidate"
@@ -706,7 +1109,7 @@
     },
     {
       "path": "Dignity.lean",
-      "content_sha256": "c64293e285e216743dc007f06998f61cbfd28c606bba3ad1611656d7cbdcab82",
+      "content_sha256": "374e46b4df876e6175a6bc181d6d61cb3adf04be40792fb73c961fe31e706917",
       "declarations": {
         "lemma": [
           "landauer_joules_per_bit_pos"
@@ -1059,7 +1462,7 @@
     },
     {
       "path": "EtaCog.lean",
-      "content_sha256": "3e33e0037f11777b3b17f42aa2af7d629834d73fb90b88713556d08b023c87af",
+      "content_sha256": "8bb135322596588c2b3434c0a2a8c2805e00ce4c4327fd793a657eea9b29c49f",
       "declarations": {
         "structure": [
           "EtaCogClaim"
@@ -1257,8 +1660,51 @@
       "module": "LandauerLaw"
     },
     {
+      "path": "MeaningState.lean",
+      "content_sha256": "20abc6097b339b3cf453b0d3a96d6b730010265ddec1cccf5e0180f14a8e2d93",
+      "declarations": {
+        "structure": [
+          "MeaningContext",
+          "MeaningState",
+          "CoreAdmissibleCommunication"
+        ],
+        "def": [
+          "structurallyConsistent",
+          "advanceTurn",
+          "toCommunicativeTransition",
+          "communicativeTransitionBetween",
+          "coreAdmissible",
+          "MeaningKleisliArrow",
+          "MeaningWellTyped",
+          "meaningStructuralGateCheck",
+          "makeMeaningGateArrow",
+          "meaningIdentityArrow"
+        ],
+        "theorem": [
+          "coreAdmissible_semanticSecondLaw",
+          "meaningStructuralGateCheck_true_iff",
+          "makeMeaningGateArrowWellTyped_structural",
+          "meaningKleisliComposeWellTyped",
+          "meaning_kleisliComposeWellTyped",
+          "consistentP0Meaning_structurallyConsistent",
+          "consistentP0Meaning_zero_model_uncertainty_drop",
+          "meaningIdentityArrowWellTyped",
+          "meaningKleisliCompose_identity_identity",
+          "consistentP0_coreAdmissible_at_zero",
+          "meaning_state_module_witness"
+        ],
+        "abbrev": [
+          "CoreAdmissible"
+        ]
+      },
+      "import_lines": [
+        "SemanticSecondLaw"
+      ],
+      "module": "MeaningState"
+    },
+    {
       "path": "MedianConvergence.lean",
-      "content_sha256": "59de0321fa136af8373f7359b15d73e2419bbc6f9b54b251469c6d1b94bfb826",
+      "content_sha256": "76da48d2ce454b60097310c0f86216d622fa4605ce2b057632034650bea4bbde",
       "declarations": {
         "theorem": [
           "median_convergence_sample_size",
@@ -1283,7 +1729,7 @@
     },
     {
       "path": "Memory/MergeSafe.lean",
-      "content_sha256": "17445c96ffbad60723c65ca2ba455b4f9c52cf3d1af5b31d4fbafb6d9394c325",
+      "content_sha256": "bde45d7b2cc10066bad40b540bcb5fba34ce38808238cbf65435401027571cb3",
       "declarations": {
         "structure": [
           "MemoryEntry"
@@ -1373,7 +1819,7 @@
     },
     {
       "path": "OrderStatisticsBand.lean",
-      "content_sha256": "a980acfb8852994fdee73ed69bc6ea3e28f6d5227f449e943bca9745c67cae62",
+      "content_sha256": "3179efe79010b1563d5bc45ae09ff92d951a17910a15a2b5f810b758463c8fae",
       "declarations": {
         "theorem": [
           "order_statistic_concentration",
@@ -1464,6 +1910,37 @@
       "module": "PrimeSpectralGuidance"
     },
     {
+      "path": "Real/Gate.lean",
+      "content_sha256": "129c691a7d531e50274e00f59a7f3d767b296ee035fe0da4e84bbb689278e52f",
+      "declarations": {
+        "theorem": [
+          "realAdmissibleRefl",
+          "realAdmissible_eq_core"
+        ],
+        "abbrev": [
+          "RealAdmissible"
+        ]
+      },
+      "import_lines": [
+        "Core.Gate",
+        "Real.State"
+      ],
+      "module": "Real.Gate"
+    },
+    {
+      "path": "Real/State.lean",
+      "content_sha256": "463848c3da2df0e595177d0a5cea6fc53a9908d97bda4a2e2ac454180ed8cd7e",
+      "declarations": {
+        "structure": [
+          "RealThermodynamicState"
+        ]
+      },
+      "import_lines": [
+        "Core.State"
+      ],
+      "module": "Real.State"
+    },
+    {
       "path": "RegimeSoundness.lean",
       "content_sha256": "ad516ec8e936f65d918853aabac86ad45e4c86806fd176f0881f942ec361b25a",
       "declarations": {
@@ -1514,6 +1991,89 @@
       "module": "RhoEstimator"
     },
     {
+      "path": "SemanticEconomicModules.lean",
+      "content_sha256": "5fe10d151c6f6de91f5a73398f5afcadabbfc4979a9e121a7d69e19a8a859163",
+      "declarations": {
+        "structure": [
+          "MisunderstandingBurden",
+          "HallucinationThreshold",
+          "CreativityMeaningSlack",
+          "InterpretationTolerance",
+          "SemanticEconomicParams"
+        ],
+        "def": [
+          "withinMisunderstandingBudget",
+          "semanticHallucinationAlarm",
+          "withinCreativityMeaningSlack",
+          "interpretationWithinTolerance",
+          "meaningConsistencyWithinTolerance",
+          "defaultMaxMisunderstandingCharge",
+          "defaultCreativitySlackDelta",
+          "defaultMisunderstandingBurden",
+          "defaultCreativityMeaningSlack"
+        ],
+        "theorem": [
+          "meaningGateReadsTolerance_zero",
+          "defaultMisunderstanding_withinBudget",
+          "semanticHallucination_product_off",
+          "defaultCreativitySlack_zero",
+          "defaultInterpretation_zero_within",
+          "catalogRead_eq_default",
+          "defaultParams_consistency_within_tolerance",
+          "semantic_economic_modules_witness"
+        ]
+      },
+      "import_lines": [
+        "Economic.CreativityBudget",
+        "Economic.EconomicDomain",
+        "Economic.EconomicTemperature",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Tactic.Linarith",
+        "SemanticSecondLaw"
+      ],
+      "module": "SemanticEconomicModules"
+    },
+    {
+      "path": "SemanticSecondLaw.lean",
+      "content_sha256": "caaa311c029b958dfc720d089f20607a09820b46ba1d3e171723002241d43406",
+      "declarations": {
+        "structure": [
+          "SemanticBath",
+          "CommunicativeTransition",
+          "ProposalOutcomeWitness",
+          "PhysicalSemanticBridge"
+        ],
+        "def": [
+          "semanticBathOf",
+          "structurallyConsistent",
+          "miPreserved",
+          "semanticSecondLaw",
+          "admissibleSemanticTransition",
+          "understandingCostAccounted"
+        ],
+        "theorem": [
+          "semantic_entropy_bound_from_physical",
+          "understandingCostLandauerBound",
+          "semanticConsistency_required",
+          "semanticMiPreservation_required",
+          "semanticEntropyAccounting_required",
+          "semanticSecondLaw_from_physical_bridge",
+          "understandingCost_zero_drop",
+          "consistentP0_zero_uncertainty_drop",
+          "consistentP0_structurallyConsistent",
+          "productWitness_mi_zero",
+          "productWitness_miPreserved_at_zero",
+          "semantic_second_law_module_witness"
+        ]
+      },
+      "import_lines": [
+        "CoordinationCost",
+        "InfoTheory",
+        "LandauerLaw"
+      ],
+      "module": "SemanticSecondLaw"
+    },
+    {
       "path": "SeparationBound.lean",
       "content_sha256": "72526f7158bfae75eaa7c632024a62f6139714b1b6a2d5f5cb3e74a5c7f38920",
       "declarations": {
@@ -1528,6 +2088,112 @@
         "Mathlib.Tactic.Ring"
       ],
       "module": "SeparationBound"
+    },
+    {
+      "path": "Web/WebMat.lean",
+      "content_sha256": "7698a38c60208ab63ae59fe989c9fde61f2da7ae93cceca2da4d64486ea3050c",
+      "declarations": {
+        "structure": [
+          "Hom"
+        ],
+        "def": [
+          "idHom",
+          "compHom",
+          "ProposalPreserves",
+          "mapObj",
+          "mapHom"
+        ],
+        "theorem": [
+          "hom_id_comp",
+          "hom_comp_id",
+          "hom_comp_assoc",
+          "proposal_map_id",
+          "proposal_map_comp",
+          "proposal_mapObj_comp",
+          "gateNT_def",
+          "gateNT_eq_makeWebGateArrow",
+          "gateNT_some_iff",
+          "gateNT_wellTyped",
+          "gateNT_natural_step",
+          "gateNT_natural_square",
+          "neutral_idHom",
+          "gateNT_rejects_heavy",
+          "ProposalPreserves_id",
+          "gateNT_accepts_neutral_id",
+          "proposal_gate_functoriality_neutral",
+          "ProposalPreserves_const",
+          "web_mat_module_witness"
+        ],
+        "abbrev": [
+          "Obj"
+        ]
+      },
+      "import_lines": [
+        "Web"
+      ],
+      "module": "Web.WebMat"
+    },
+    {
+      "path": "Web.lean",
+      "content_sha256": "6cdedc5583a38395c880ca9089a832adf3ad894bef2a5c4acb623b839908e8ac",
+      "declarations": {
+        "def": [
+          "defaultComplexityWeight",
+          "defaultLandauerWeight",
+          "isAdmissible",
+          "neutral",
+          "heavyPresentation",
+          "WebWellTyped",
+          "monotoneBaseline",
+          "monotoneDegraded",
+          "monotoneHooksInBounds",
+          "monotoneTransitionRespects",
+          "transitionRespectsMonotone",
+          "neutralWithMonotone",
+          "WebMonotoneWellTyped"
+        ],
+        "structure": [
+          "MonotoneHooks",
+          "WebStateTensor",
+          "WebRenderWitness"
+        ],
+        "theorem": [
+          "D_web_int_neutral",
+          "D_web_int_heavy",
+          "neutral_admissible",
+          "heavy_inadmissible",
+          "web_rendering_single_bit_floor",
+          "web_rendering_n_bit_floor",
+          "landauer_rendering_embeds_physical",
+          "D_web_int_nonneg_of_landauer_bound",
+          "admissible_of_nonneg",
+          "webGateCheck_true_iff",
+          "makeWebGateArrowWellTyped",
+          "webKleisliComposeWellTyped",
+          "web_kleisliComposeWellTyped",
+          "accessibility_monotonic",
+          "transitionRespectsMonotone_accessibility",
+          "perf_budget_monotonic",
+          "monotoneBaseline_inBounds",
+          "monotoneDegraded_inBounds",
+          "monotone_transition_transitive",
+          "monotone_orthogonal_to_admissibility",
+          "neutral_with_monotone_admissible",
+          "monotone_transition_rejects_a11y_regression",
+          "transitionRespectsMonotone_trans_chained"
+        ],
+        "abbrev": [
+          "informationalSecondLaw",
+          "WebKleisliArrow"
+        ]
+      },
+      "import_lines": [
+        "LandauerExtension",
+        "LandauerLaw",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "module": "Web"
     },
     {
       "path": "_check_ext.lean",
@@ -1551,7 +2217,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "4fea988823bc47380486c8769b5b0078ac89128d24edd2a4cf1f095cee12378e",
+      "content_sha256": "bc40e8c74563e860088c98ea9077587bb596f21b423dee56e2e07278757a79ec",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -1747,6 +2413,46 @@
       "to_approx": "Mathlib.Tactic"
     },
     {
+      "from": "Concrete.MicroMechanics",
+      "import": "Compat.Gate",
+      "to_approx": "Compat.Gate"
+    },
+    {
+      "from": "Concrete.MicroMechanics",
+      "import": "Mathlib.Algebra.Order.Field.Rat",
+      "to_approx": "Mathlib.Algebra.Order.Field.Rat"
+    },
+    {
+      "from": "Concrete.MicroMechanics",
+      "import": "Mathlib.Tactic",
+      "to_approx": "Mathlib.Tactic"
+    },
+    {
+      "from": "Concrete.PoromechanicsB3",
+      "import": "JenningsGelSpace",
+      "to_approx": "JenningsGelSpace"
+    },
+    {
+      "from": "Concrete.PoromechanicsB3",
+      "import": "Mathlib.Algebra.Order.Field.Rat",
+      "to_approx": "Mathlib.Algebra.Order.Field.Rat"
+    },
+    {
+      "from": "Concrete.PoromechanicsB3",
+      "import": "Mathlib.Data.Matrix.Basic",
+      "to_approx": "Mathlib.Data.Matrix.Basic"
+    },
+    {
+      "from": "Concrete.PoromechanicsB3",
+      "import": "Mathlib.Data.Real.Basic",
+      "to_approx": "Mathlib.Data.Real.Basic"
+    },
+    {
+      "from": "Concrete.PoromechanicsB3",
+      "import": "Mathlib.Tactic",
+      "to_approx": "Mathlib.Tactic"
+    },
+    {
       "from": "Concrete.Powers",
       "import": "Compat.Gate",
       "to_approx": "Compat.Gate"
@@ -1762,9 +2468,64 @@
       "to_approx": "Mathlib.Tactic"
     },
     {
+      "from": "Concrete.ShrinkageB4",
+      "import": "Mathlib.Algebra.Order.Field.Rat",
+      "to_approx": "Mathlib.Algebra.Order.Field.Rat"
+    },
+    {
+      "from": "Concrete.ShrinkageB4",
+      "import": "Mathlib.Data.Complex.Exponential",
+      "to_approx": "Mathlib.Data.Complex.Exponential"
+    },
+    {
+      "from": "Concrete.ShrinkageB4",
+      "import": "Mathlib.Data.Real.Basic",
+      "to_approx": "Mathlib.Data.Real.Basic"
+    },
+    {
+      "from": "Concrete.ShrinkageB4",
+      "import": "Mathlib.Tactic",
+      "to_approx": "Mathlib.Tactic"
+    },
+    {
       "from": "Concrete.State",
       "import": "Core.State",
       "to_approx": "Core.State"
+    },
+    {
+      "from": "Concrete.StiffnessTransition",
+      "import": "Compat.Gate",
+      "to_approx": "Compat.Gate"
+    },
+    {
+      "from": "Concrete.StiffnessTransition",
+      "import": "Mathlib.Algebra.Order.Field.Rat",
+      "to_approx": "Mathlib.Algebra.Order.Field.Rat"
+    },
+    {
+      "from": "Concrete.StiffnessTransition",
+      "import": "Mathlib.Tactic",
+      "to_approx": "Mathlib.Tactic"
+    },
+    {
+      "from": "CoordinationCost",
+      "import": "ClassicalMeasurementCost",
+      "to_approx": "ClassicalMeasurementCost"
+    },
+    {
+      "from": "CoordinationCost",
+      "import": "InfoTheory",
+      "to_approx": "InfoTheory"
+    },
+    {
+      "from": "CoordinationCost",
+      "import": "LandauerEinsteinBridge",
+      "to_approx": "LandauerEinsteinBridge"
+    },
+    {
+      "from": "CoordinationCostP6",
+      "import": "CoordinationCost",
+      "to_approx": "CoordinationCost"
     },
     {
       "from": "Core.Constitutional",
@@ -1773,13 +2534,18 @@
     },
     {
       "from": "Core.Gate",
+      "import": "Core.Scalar",
+      "to_approx": "Core.Scalar"
+    },
+    {
+      "from": "Core.Gate",
       "import": "Core.State",
       "to_approx": "Core.State"
     },
     {
       "from": "Core.Gate",
-      "import": "Mathlib.Algebra.Order.Field.Rat",
-      "to_approx": "Mathlib.Algebra.Order.Field.Rat"
+      "import": "Mathlib.Algebra.Order.Field.Basic",
+      "to_approx": "Mathlib.Algebra.Order.Field.Basic"
     },
     {
       "from": "Core.Gate",
@@ -1787,9 +2553,19 @@
       "to_approx": "Mathlib.Tactic"
     },
     {
-      "from": "Core.State",
+      "from": "Core.Scalar",
       "import": "Mathlib.Algebra.Order.Field.Rat",
       "to_approx": "Mathlib.Algebra.Order.Field.Rat"
+    },
+    {
+      "from": "Core.Scalar",
+      "import": "Mathlib.Data.Real.Basic",
+      "to_approx": "Mathlib.Data.Real.Basic"
+    },
+    {
+      "from": "Core.State",
+      "import": "Core.Scalar",
+      "to_approx": "Core.Scalar"
     },
     {
       "from": "CreditGreedyOptimal",
@@ -2152,6 +2928,11 @@
       "to_approx": "Mathlib.Analysis.SpecialFunctions.Log.Basic"
     },
     {
+      "from": "MeaningState",
+      "import": "SemanticSecondLaw",
+      "to_approx": "SemanticSecondLaw"
+    },
+    {
       "from": "MedianConvergence",
       "import": "Mathlib.Algebra.Order.Floor",
       "to_approx": "Mathlib.Algebra.Order.Floor"
@@ -2252,6 +3033,21 @@
       "to_approx": "Mathlib.NumberTheory.VonMangoldt"
     },
     {
+      "from": "Real.Gate",
+      "import": "Core.Gate",
+      "to_approx": "Core.Gate"
+    },
+    {
+      "from": "Real.Gate",
+      "import": "Real.State",
+      "to_approx": "Real.State"
+    },
+    {
+      "from": "Real.State",
+      "import": "Core.State",
+      "to_approx": "Core.State"
+    },
+    {
       "from": "RegimeSoundness",
       "import": "Mathlib.Algebra.Order.Field.Rat",
       "to_approx": "Mathlib.Algebra.Order.Field.Rat"
@@ -2292,6 +3088,51 @@
       "to_approx": "Mathlib.Tactic"
     },
     {
+      "from": "SemanticEconomicModules",
+      "import": "Economic.CreativityBudget",
+      "to_approx": "Economic.CreativityBudget"
+    },
+    {
+      "from": "SemanticEconomicModules",
+      "import": "Economic.EconomicDomain",
+      "to_approx": "Economic.EconomicDomain"
+    },
+    {
+      "from": "SemanticEconomicModules",
+      "import": "Economic.EconomicTemperature",
+      "to_approx": "Economic.EconomicTemperature"
+    },
+    {
+      "from": "SemanticEconomicModules",
+      "import": "Mathlib.Data.Real.Basic",
+      "to_approx": "Mathlib.Data.Real.Basic"
+    },
+    {
+      "from": "SemanticEconomicModules",
+      "import": "Mathlib.Tactic.Linarith",
+      "to_approx": "Mathlib.Tactic.Linarith"
+    },
+    {
+      "from": "SemanticEconomicModules",
+      "import": "SemanticSecondLaw",
+      "to_approx": "SemanticSecondLaw"
+    },
+    {
+      "from": "SemanticSecondLaw",
+      "import": "CoordinationCost",
+      "to_approx": "CoordinationCost"
+    },
+    {
+      "from": "SemanticSecondLaw",
+      "import": "InfoTheory",
+      "to_approx": "InfoTheory"
+    },
+    {
+      "from": "SemanticSecondLaw",
+      "import": "LandauerLaw",
+      "to_approx": "LandauerLaw"
+    },
+    {
       "from": "SeparationBound",
       "import": "Mathlib.Data.Real.Basic",
       "to_approx": "Mathlib.Data.Real.Basic"
@@ -2305,6 +3146,31 @@
       "from": "SeparationBound",
       "import": "Mathlib.Tactic.Ring",
       "to_approx": "Mathlib.Tactic.Ring"
+    },
+    {
+      "from": "Web.WebMat",
+      "import": "Web",
+      "to_approx": "Web"
+    },
+    {
+      "from": "Web",
+      "import": "LandauerExtension",
+      "to_approx": "LandauerExtension"
+    },
+    {
+      "from": "Web",
+      "import": "LandauerLaw",
+      "to_approx": "LandauerLaw"
+    },
+    {
+      "from": "Web",
+      "import": "Mathlib.Data.Real.Basic",
+      "to_approx": "Mathlib.Data.Real.Basic"
+    },
+    {
+      "from": "Web",
+      "import": "Mathlib.Tactic.Linarith",
+      "to_approx": "Mathlib.Tactic.Linarith"
     },
     {
       "from": "_check_ext",
@@ -2337,5 +3203,5 @@
       "to_approx": "Lean.Util.SearchPath"
     }
   ],
-  "digest": "39924c2c2cf7f81f9255528f118832f69776eb09aee9da4fefe74ad4bfb04a38"
+  "digest": "aea5080d2ba81de9ddfdec1e4ca8f40ca851bd9bbd1a99b0416cea6ef8e85dff"
 }

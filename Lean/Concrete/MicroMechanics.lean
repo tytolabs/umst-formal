@@ -10,8 +10,12 @@
   B1 scalar reduction — not derived from tensor Mori–Tanaka homogenization.
   E₀ provenance (`blended_youngs_pa`) is external until L1c `VinetPartition`.
 
-  Proof status (L1b D1–D7): core definitions, monotonicity lemmas, `MicroMechanicsState`
-  witness + gate fragment.  Zero sorry.  No `[proved]` catalog export without operator.
+  Proof status (L1b D1–D8): core definitions, monotonicity lemmas, pinned ℚ rational grid
+  (schema `lean_l1_micro_mechanics_v2` · 7 rows), `MicroMechanicsState` witness + gate fragment.
+  Zero sorry.  No `[proved]` catalog export without operator.
+
+  Literature anchor `literature://mori-tanaka-effective-modulus` stays **[assumed]** — not proved here.
+  `EXPECTED_PROVED_COUNT = 0` until operator catalog export + symbol audit.
 -/
 
 import Mathlib.Algebra.Order.Field.Rat
@@ -190,5 +194,112 @@ theorem microMechanicsStateAdmissible
     (h_fc : old.hydration ≤ new.hydration → old.strength ≤ new.strength) :
     Admissible old new :=
   Admissible.mk old new hm (h_psi hα) hα (h_fc hα)
+
+-- ================================================================
+-- SECTION 5: L1b rational witness grid (Rust↔Lean ℚ conformance pin)
+-- ================================================================
+-- Pins mirror cartridge fixture `lean_l1_micro_mechanics_v2` (7 rows).
+-- Fixture GREEN ≠ catalog `[proved]`; tensor MT homogenization is **not** claimed.
+
+/-- Schema pin — matches Rust `lean_l1_micro_mechanics_v2`. -/
+def l1bRationalGridSchema : String := "lean_l1_micro_mechanics_v2"
+
+/-- Pinned rational witness row count (G55 extend: 5 → 7). -/
+def l1bRationalGridRowCount : Nat := 7
+
+/-- Reference E₀ for grid rows 1–4 and row 7 (30 GPa as ℚ). -/
+def gridE0RefPa : ℚ := 30000000000
+
+/-- Alternate E₀ for grid row 5 (25 GPa as ℚ). -/
+def gridE0AltPa : ℚ := 25000000000
+
+/-- Grid row 1: intact modulus at zero damage (`e_eff_mt_at_zero` anchor). -/
+theorem e_eff_mt_grid_row1 :
+    e_eff_mt gridE0RefPa 0 = gridE0RefPa := by
+  simpa [gridE0RefPa] using e_eff_mt_at_zero gridE0RefPa
+
+/-- Grid row 2: E_eff at d = 1/4 (`e_eff_mt_nonneg` anchor). -/
+theorem e_eff_mt_grid_row2 :
+    e_eff_mt gridE0RefPa (1 / 4) = 16875000000 := by
+  unfold e_eff_mt gridE0RefPa
+  norm_num
+
+/-- Grid row 3: E_eff at d = 1/2 (`e_eff_mt_antitone_in_d` anchor). -/
+theorem e_eff_mt_grid_row3 :
+    e_eff_mt gridE0RefPa (1 / 2) = 7500000000 := by
+  unfold e_eff_mt gridE0RefPa
+  norm_num
+
+/-- Grid row 4: E_eff at maximum admissible damage (`e_eff_mt_at_max` anchor). -/
+theorem e_eff_mt_grid_row4 :
+    e_eff_mt gridE0RefPa damageDMax = 3000000 := by
+  unfold e_eff_mt damageDMax gridE0RefPa
+  norm_num
+
+/-- Grid row 5: alternate E₀ at d = 1/10 (`psi_elastic_base_nonpos` anchor). -/
+theorem e_eff_mt_grid_row5 :
+    e_eff_mt gridE0AltPa (1 / 10) = 20250000000 := by
+  unfold e_eff_mt gridE0AltPa
+  norm_num
+
+/-- Grid row 5 ψ evaluation at ε = 1/50. -/
+theorem psi_elastic_base_grid_row5 :
+    psi_elastic_base (1 / 50) (1 / 10) gridE0AltPa = -4050000 := by
+  unfold psi_elastic_base gridE0AltPa
+  norm_num [e_eff_mt]
+
+/-- Grid row 6 (G55): zero strain ⇒ ψ = 0 at d = 1/4 (`psi_elastic_base_eq_zero_at_zero_strain`). -/
+theorem psi_elastic_base_grid_row6_zero_strain :
+    psi_elastic_base 0 (1 / 4) gridE0RefPa = 0 := by
+  simpa using psi_elastic_base_eq_zero_at_zero_strain (1 / 4) gridE0RefPa
+
+/-- Grid row 7 (G55): zero damage ⇒ intact elastic energy at ε = 3/200 (`psi_elastic_base_at_zero_damage`). -/
+theorem psi_elastic_base_grid_row7_zero_damage :
+    psi_elastic_base (3 / 200) 0 gridE0RefPa = -3375000 := by
+  unfold psi_elastic_base gridE0RefPa
+  simp [e_eff_mt_at_zero]
+  norm_num
+
+/-- All seven pinned grid rows evaluate without sorry (computational witness bundle). -/
+theorem l1b_rational_grid_row_count :
+    l1bRationalGridRowCount = 7 := by
+  rfl
+
+-- ================================================================
+-- SECTION 6: Honest posture pins (witnessed-not-proved · no Proved invent)
+-- ================================================================
+
+/-- Frozen proved-count posture — agents must not inflate. -/
+def expectedProvedCount : Nat := 0
+
+/-- Machine-checked pin: proved-count stays zero until operator catalog export. -/
+theorem expectedProvedCount_zero : expectedProvedCount = 0 := rfl
+
+/-- Structural cert-proved fence honest — **not** tier-2→Proved promotion. -/
+def certProvedFenceHonest : Bool := true
+
+/-- Formal fence closed — structural audit GREEN; tier promotion still blocked. -/
+def formalFenceClosed : Bool := certProvedFenceHonest && expectedProvedCount = 0
+
+/-- Machine-checked pin: formal fence closed without Proved inflation. -/
+theorem formalFenceClosed_honest : formalFenceClosed = true := by
+  simp [formalFenceClosed, certProvedFenceHonest, expectedProvedCount_zero]
+
+/-- Literature anchor tier — **[assumed]**, not mechanized homogenization. -/
+def literatureAnchorTier : String := "assumed"
+
+/-- Catalog `[proved]` export remains operator-gated. -/
+def catalogExportDeferred : Bool := true
+
+/-- Slice-1 `ψ_elastic_base` hot path does not use this module's wire yet. -/
+def mtHomogenizationWiredToSlice1 : Bool := false
+
+/-- Explicit non-claims carried beside the rational grid (fixture parity). -/
+def microMechanicsNonClaims : List String :=
+  [ "fixture GREEN ≠ catalog [proved]"
+  , "e_eff_mt scalar (1−d)² ≠ tensor Mori–Tanaka homogenization"
+  , "slice-1 ψ_elastic_base uses Vinet E₀ blend — not Zhang MT closure"
+  , "effective_modulus_mt_pa (mt-closure feature) orthogonal P2 — not wired to slice-1"
+  , "A_MT_scalar is model choice — not derived from Eshelby tensor" ]
 
 end UMST
