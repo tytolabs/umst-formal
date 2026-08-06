@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
+#
+# FLEET-COMPOSER-ACCEL-F AC134 — PBM sustain residue host.
+# Integration tests @ umst-pbm/tests/pbm008*.
+
+[package]
+name = "umst-pbm"
+version = "0.0.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "PBM sustain residue witness — honest partial · absorbs AC64"
+
+[dependencies]
+umst-formal = { path = "../umst-formal/src/pbm_008" }
+
+[lib]
+path = "src/lib.rs"

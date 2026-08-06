@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: MIT
+# Composed copy of umst-pbm inside umst-formal (R3). Root umst-pbm/ RETAINED.
+
+name = "umst-formal-pbm-compose"
+path = "umst-formal/pbm"
+
+kind = "formal"
+spdx = "MIT"
+layer = "spine"
+status = "wip"
+stability = "evolving"
+semver = "0.1.0"
+composes_into = "self"
+composes_into_satisfied = true
+composes_note = "In-tree compose of umst-pbm; source root retained."
+
+[registry]
+id = "umst-formal-pbm-compose"
+validation_status = "unvalidated"
+notes = "R3 composition copy — hash-matched; not physics GREEN."
