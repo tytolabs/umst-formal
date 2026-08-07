@@ -33,7 +33,7 @@ pub const G0_FIXTURE_SURFACE: &str =
 
 /// T-regime finding card.
 pub const T_REGIME_FINDING_PATH: &str =
-    "archived/residuals/misc-outputs-tmp/R-gate-temp-regime.md";
+    "old/residuals/residuals/misc-outputs-tmp/R-gate-temp-regime.md";
 
 /// PBM-004 workstream id.
 pub const WORKSTREAM_ID: &str = "WS-sixmix-resolve";

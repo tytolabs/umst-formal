@@ -20,7 +20,7 @@ pub const RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_Y78_0808.md";
 
 /// Prior SWARM L-5 probe receipt (absorbed; no blind redo).
 pub const PRIOR_SWARM_RECEIPT_PATH: &str =
-    "archived/residuals/swarm-0831/COMPLETION_SWARM_SWARM-C25-0831-51_0831.md";
+    "old/residuals/residuals/swarm-0831/COMPLETION_SWARM_SWARM-C25-0831-51_0831.md";
 
 /// Upstream Lean→Haskell extraction workflow (relative to umst-formal root).
 pub const L5_WORKFLOW_REL: &str = ".github/workflows/extract-haskell-from-lean.yml";

@@ -385,10 +385,10 @@ pub extern "C" fn umst_ffi_abi_version_expected() -> u32 {
 pub const FORMAL_NIGHT_2350_JOB_ID: &str = "AGAP-2350-FORMAL";
 
 /// Completion receipt cross-ref for AGAP-2350 night wave.
-pub const FORMAL_RECEIPT_PATH_2350: &str = "archived/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL_2350.md";
+pub const FORMAL_RECEIPT_PATH_2350: &str = "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL_2350.md";
 
 /// Prior formal crypto deepen receipt.
-pub const FORMAL_PRIOR_RECEIPT_PATH: &str = "archived/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL-CRYPTO_2033.md";
+pub const FORMAL_PRIOR_RECEIPT_PATH: &str = "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL-CRYPTO_2033.md";
 
 /// Night deepen probe — Lean crypto GROUND-1 tier posture (no fake theorem GREEN).
 #[derive(Debug, Clone, PartialEq, Eq)]

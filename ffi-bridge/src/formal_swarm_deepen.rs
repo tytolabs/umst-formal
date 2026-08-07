@@ -8,10 +8,10 @@ use super::{umst_gate_check, UMST_FFI_ABI_VERSION};
 pub const JOB_ID: &str = "SWARM-C25-0831-92";
 
 /// Completion receipt cross-ref.
-pub const RECEIPT_PATH: &str = "archived/residuals/swarm-0831/COMPLETION_SWARM_SWARM-C25-0831-92_0831.md";
+pub const RECEIPT_PATH: &str = "old/residuals/residuals/swarm-0831/COMPLETION_SWARM_SWARM-C25-0831-92_0831.md";
 
 /// Prior AGAP-2350 FORMAL night deepen receipt.
-pub const PRIOR_RECEIPT_AGAP_2350: &str = "archived/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL_2350.md";
+pub const PRIOR_RECEIPT_AGAP_2350: &str = "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL_2350.md";
 
 /// Lean theorem this witness cross-links (`Concrete/Helmholtz.lean`).
 pub const LEAN_WITNESS_THEOREM: &str = "UMST.ψAntitoneHelmholtz";

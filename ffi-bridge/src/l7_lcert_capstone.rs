@@ -21,7 +21,7 @@ pub const RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_Z123_1232.md";
 
 /// Prior AGAP-2033 L567 deepen receipt (absorbed; no blind redo).
 pub const PRIOR_RECEIPT_PATH: &str =
-    "archived/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_L567_2033.md";
+    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_L567_2033.md";
 
 /// Honest capstone gate exit until L-1..L-6 all GREEN (`LCERT-NOT-WIRED`).
 pub const LCERT_EXPECTED_GATE_EXIT: i32 = 2;

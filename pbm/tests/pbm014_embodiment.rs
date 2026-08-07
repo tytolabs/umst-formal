@@ -29,15 +29,15 @@ pub const PRIOR_J39_RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_J39_2348.md";
 
 /// AGAP-2033 PBM-014 deepen receipt.
 pub const PRIOR_2033_RECEIPT_PATH: &str =
-    "archived/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_PBM-014_2033.md";
+    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_PBM-014_2033.md";
 
 /// AGAP-2350 PBM-014 night audit receipt.
 pub const PRIOR_2350_RECEIPT_PATH: &str =
-    "archived/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_PBM-014_2350.md";
+    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_PBM-014_2350.md";
 
 /// Master pending gaps ledger — PBM-014 sustain row.
 pub const TODO_MASTER_GAPS_PATH: &str =
-    "archived/residuals/misc-outputs-tmp/TODO_MASTER_PENDING_GAPS_1800.md";
+    "old/residuals/residuals/misc-outputs-tmp/TODO_MASTER_PENDING_GAPS_1800.md";
 
 /// Egoff PBM-014 dignity-freeze owner surface @ H69.
 pub const EGOFF_OWNER_SURFACE: &str = "egoff/egoff/src/lib_learn_dignity_freeze.rs";

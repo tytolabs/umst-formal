@@ -4,7 +4,7 @@
 |-------|-------|
 | **When** | 2026-07-19 11:54 IST |
 | **Job** | F25-M6-05 · M6 L10 research deepen |
-| **Authority** | [`BLUEPRINT_STEELMAN_RESEARCH.md`](../../../docs/BLUEPRINT_STEELMAN_RESEARCH.md) VIII.4 · [`CARTRIDGE_REORG_BLUEPRINT.md`](../../../docs/CARTRIDGE_REORG_BLUEPRINT.md) §17.7 · [`M6_L10_LITERATURE_1048.md`](../../../archived/residuals/misc-outputs-tmp/m6_prep/M6_L10_LITERATURE_1048.md) |
+| **Authority** | [`BLUEPRINT_STEELMAN_RESEARCH.md`](../../../docs/BLUEPRINT_STEELMAN_RESEARCH.md) VIII.4 · [`CARTRIDGE_REORG_BLUEPRINT.md`](../../../docs/CARTRIDGE_REORG_BLUEPRINT.md) §17.7 · [`M6_L10_LITERATURE_1048.md`](../../../old/residuals/residuals/misc-outputs-tmp/m6_prep/M6_L10_LITERATURE_1048.md) |
 | **Prior deepen** | W3M-28 round 2 · M6-PREP-R4 |
 | **Status** | **RESEARCH ONLY** — extension labeled **unproven**; no Lean colimit module; no `gate<SemanticResponse>` production |
 | **Lean index** | `P6OpenObligation.colimit_universal_floor` · `functor_F_conservative` in [`CoordinationCostP6.lean`](../Lean/CoordinationCostP6.lean) |
@@ -206,11 +206,11 @@ From [`CoordinationCostP6.lean`](../Lean/CoordinationCostP6.lean) `P6OpenObligat
 
 | Doc | Role |
 |-----|------|
-| [`M6_L10_LITERATURE_1048.md`](../../../archived/residuals/misc-outputs-tmp/m6_prep/M6_L10_LITERATURE_1048.md) | R4 authority · VIII.4 cross-link |
-| [`cell_W3M-28_l10_lit.md`](../../../archived/residuals/misc-outputs-tmp/m6_cells/cell_W3M-28_l10_lit.md) | Round 2 literature deepen |
+| [`M6_L10_LITERATURE_1048.md`](../../../old/residuals/residuals/misc-outputs-tmp/m6_prep/M6_L10_LITERATURE_1048.md) | R4 authority · VIII.4 cross-link |
+| [`cell_W3M-28_l10_lit.md`](../../../old/residuals/residuals/misc-outputs-tmp/m6_cells/cell_W3M-28_l10_lit.md) | Round 2 literature deepen |
 | [`COORDINATION_COST_P6_SPINE.md`](COORDINATION_COST_P6_SPINE.md) | A7 → P6 obligation map |
-| [`M6_SEMANTICS_PREP_1043.md`](../../../archived/residuals/misc-outputs-tmp/m6_prep/M6_SEMANTICS_PREP_1043.md) | §6.1 conservative `F` |
-| [`wave4_embodied_schedule.md`](../../../archived/residuals/misc-outputs-tmp/wave4_embodied_schedule.md) | W4-SEM-P6.1 |
+| [`M6_SEMANTICS_PREP_1043.md`](../../../old/residuals/residuals/misc-outputs-tmp/m6_prep/M6_SEMANTICS_PREP_1043.md) | §6.1 conservative `F` |
+| [`wave4_embodied_schedule.md`](../../../old/residuals/residuals/misc-outputs-tmp/wave4_embodied_schedule.md) | W4-SEM-P6.1 |
 
 ---
 

@@ -46,7 +46,7 @@ pub const PRIOR_H4_JOB_ID: &str = "PRABHU-WAVE-H-1800-H4-PBM-010";
 
 /// AGAP-2350 slice-3c authority receipt — carried through Y60.
 pub const PRIOR_2350_RECEIPT: &str =
-    "archived/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_PBM-010_2350.md";
+    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_PBM-010_2350.md";
 
 /// Parent PBM card id.
 pub const PARENT_WORKSTREAM_ID: &str = "PBM-010";
