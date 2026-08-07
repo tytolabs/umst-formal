@@ -2,7 +2,7 @@
 # Consumed by umst-meta when implemented; not checked yet.
 
 name = "tytolabs/umst-formal"
-path = "umst-formal"
+path = "umst/umst-formal"
 
 kind = "formal"
 spdx = "MIT"

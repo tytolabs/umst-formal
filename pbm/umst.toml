@@ -2,7 +2,7 @@
 # Composed copy of umst-pbm inside umst-formal (R3). Root umst-pbm/ RETAINED.
 
 name = "umst-formal-pbm-compose"
-path = "umst-formal/pbm"
+path = "umst/umst-formal/pbm"
 
 kind = "formal"
 spdx = "MIT"
