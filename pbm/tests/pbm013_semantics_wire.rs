@@ -14,9 +14,9 @@ pub const AC609_RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_ACCEL2_AC609.md";
 pub const PRIOR_AC65_RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_ACCEL2_AC65.md";
 pub const PBM013_DOC_PATH: &str = "docs/PBM-013_SEMANTICS_WIRE.md";
 pub const L10_CONCEPTS_SURFACE: &str =
-    "umst-semantics/crates/umst-semantics/src/l10_concepts.rs";
+    "umst-semantics/crates/umst-semantics/src/concepts.rs";
 pub const L10_GATE_TEST_PATH: &str =
-    "umst-semantics/crates/umst-semantics/tests/l10_concepts_gate.rs";
+    "umst-semantics/crates/umst-semantics/tests/concepts_gate.rs";
 pub const WORKSTREAM_ID: &str = "WS-l10-concepts";
 pub const PBM_OWNER: &str = "PBM-013";
 pub const POSTURE_TAG: &str = "honest-partial";

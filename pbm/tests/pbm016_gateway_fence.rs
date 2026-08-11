@@ -64,7 +64,7 @@ pub const GATEWAY_BRIDGE_PREP_SURFACE: &str =
 
 /// F4 spine close path owner.
 pub const F4_SPINE_CLOSE_PATH_SURFACE: &str =
-    "umst-gateway/crates/umst-gateway/src/f4_spine_close_path.rs";
+    "umst-gateway/crates/umst-gateway/src/spine_close_path.rs";
 
 /// PBM-016 workstream id.
 pub const WORKSTREAM_ID: &str = "WS-gateway-fence";

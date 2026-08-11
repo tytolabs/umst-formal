@@ -9,8 +9,11 @@ mod agap_2350_l1_inventory;
 mod agap_2350_l2_attestation;
 mod agap_2350_l6_attestation;
 mod formal_swarm_deepen;
+#[path = "extract_runtime.rs"]
 mod l5_extract_runtime;
+#[path = "lcert.rs"]
 mod l5_lcert;
+#[path = "lcert_capstone.rs"]
 mod l7_lcert_capstone;
 mod lean_l1_bridge_prep;
 mod lean_l1_stiffness_adopt;
