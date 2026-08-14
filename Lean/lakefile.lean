@@ -58,7 +58,7 @@ lean_lib «UMST» where
     `Memory.MergeSafe,
     `Memory.TierDisjoint,
     `DEC, `Adjoint, `RegimeSoundness, `JenningsGelSpace,
-    `DualLedger, `Excitement, `ExcitementProofs, `Concrete.PoromechanicsB3, `Concrete.ShrinkageB4,
+    `DualLedger, `Excitement, `ExcitementProofs, `WaveShape, `Concrete.PoromechanicsB3, `Concrete.ShrinkageB4,
     `Web, `Web.WebMat]
   srcDir := "."
 
