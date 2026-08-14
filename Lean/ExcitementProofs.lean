@@ -89,7 +89,8 @@ theorem select_swap_equal_energy_distinct_id {S : Type} [ThermodynamicSystem ℚ
     rfl
   rw [hsel_ab, hsel_ba, hcomm]
 
-/-- Full `List.Perm` invariance of `select` — open residue `R-e1e-select-perm-invariant`. -/
+/-- Open residue `R-e1e-select-perm-invariant` — swap fibre proved (`select_swap_equal_energy_distinct_id`).
+    Remaining conjunct: `pickMin` associativity on lists, `filter` commutes with `Perm`, duplicate ids unspecified. -/
 theorem select_perm_invariant_residue : True := trivial
 
 end UMST.Excitement
