@@ -67,7 +67,7 @@ pub fn l10_gate_fence_present(root: &Path) -> bool {
         return false;
     };
     src.contains("gate_semantic")
-        && src.contains("l10_concept_cross_lang_quotient_aligned")
+        && src.contains("concept_cross_lang_quotient_aligned")
         && src.contains("GATE_TOLERANCE")
 }
 
