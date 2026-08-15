@@ -7,9 +7,8 @@ description = "Material-agnostic C-ABI thermodynamic gate (manifold + umst-math)
 license = "MIT"
 
 [dependencies]
-umst-manifold = { path = "../../umst-manifold", default-features = false, features = ["ndarray"] }
-umst-math = { path = "../../umst-manifold/umst-math" }
-
+umst-manifold = { version = "0.1.0", path = "../../umst-manifold", default-features = false, features = ["ndarray"] }
+umst-math = { version = "0.1.0", path = "../../umst-manifold/umst-math" }
 [lib]
 name = "umst_ffi"
 # rlib is required for integration tests (tests/ directory).

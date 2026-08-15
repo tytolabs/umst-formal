@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
+#
+# FLEET-COMPOSER-ACCEL-K AC344 — PBM-008 hop6 formal test host.
+# Standalone integration-test crate @ umst-formal/tests/pbm008_hop6_formal*.
+
+[package]
+name = "pbm008-hop6-formal"
+version = "0.0.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "PBM-008 hop6 catalog_live_export formal witness — honest OPEN · 0 flip"
+
+[workspace]
+
+[dependencies]
+umst-formal = { path = "../../src/pbm_008" }
+
+[[test]]
+name = "pbm008_hop6_formal"
+path = "pbm008_hop6_formal.rs"

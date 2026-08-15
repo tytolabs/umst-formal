@@ -108,3 +108,23 @@ fn test_abi_version_tags() {
     assert_eq!(umst_ffi_abi_version(), 9);
     assert_eq!(umst_ffi_abi_version_expected(), 9);
 }
+
+#[test]
+fn test_agap_2350_l2_attestation_census_honest() {
+    let probe = agap_2350_l2_probe();
+    assert!(agap_2350_l2_honest(&probe));
+    assert!(!probe.l2_attestation_wired);
+    assert_eq!(probe.bind_coverage_bound, 9);
+    assert_eq!(l2_registry_bound_count(), 9);
+}
+
+#[test]
+fn test_agap_2350_l6_attestation_census_honest() {
+    let probe = agap_2350_l6_probe();
+    assert!(agap_2350_l6_honest(&probe));
+    assert!(!probe.crosswalk_wired);
+    assert!(!probe.production_wired);
+    assert!(probe.map_rows >= L6_MIN_MAP_ROWS);
+    assert!(probe.covered_derived_rows < probe.derived_constant_rows);
+    assert!(l6_probe_detail().contains("L-6 probe"));
+}

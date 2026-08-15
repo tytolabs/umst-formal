@@ -8,9 +8,10 @@ require mathlib from git
   "https://github.com/leanprover-community/mathlib4" @ "v4.14.0"
 
 /-
-  **Lean `roots` (62 modules)** — default `lake build` closure for `UMST`.  Science-cartridge layout:
+  **Lean `roots` (65 modules)** — default `lake build` closure for `UMST`.  Science-cartridge layout:
   `Core.*` (universal laws), `Concrete.*` (OPC cement), `Compat.*` (legacy `UMST` API).
-  (Wave 6.5.2 meso-layer).  Single project `axiom`: `LandauerLaw.physicalSecondLaw`.
+  (Wave 6.5.2 meso-layer).  Sole physics `axiom`: `LandauerLaw.physicalSecondLaw`;
+  tier-tagged crypto axioms live under `Crypto/` (GROUND-1 / §14bis.f-S-0).
 
   Examples (single-module builds):
     lake build UMST.Compat.Gate
@@ -28,13 +29,15 @@ lean_lib «UMST» where
   roots := #[`Core.Scalar, `Core.State, `Core.Gate, `Core.Constitutional,
     `Concrete.State, `Concrete.Gate,
     `Real.State, `Real.Gate,
-    `Concrete.Helmholtz, `Concrete.Powers, `Concrete.Convergence, `Concrete.GraphProperties,
+    `Concrete.Helmholtz, `Concrete.Powers, `Concrete.StiffnessTransition,
+    `Concrete.MicroMechanics,
+    `Concrete.Convergence, `Concrete.GraphProperties,
     `Concrete.Activation, `Concrete.EndConditions, `Concrete.EnrichedAdmissibility, `Concrete.GaloisGate,
     `Compat.Gate, `Compat.Constitutional,
     `Naturality, `DIBKleisli, `FormalFoundations,
     `LandauerEinsteinBridge,
-    `LandauerLaw, `InfoTheory,
-    `ClassicalMeasurementCost, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
+    `LandauerLaw, `InfoTheory, `SemanticSecondLaw, `MeaningState, `InterpretationFunctor, `SemanticEconomicModules,
+    `ClassicalMeasurementCost, `CoordinationCost, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
     `SeparationBound,
     -- Meso-scale Economic layer (Lean/Economic/ folder — Wave 6.5.2)
     `Economic.EconomicDomain,
@@ -55,7 +58,8 @@ lean_lib «UMST» where
     `Memory.MergeSafe,
     `Memory.TierDisjoint,
     `DEC, `Adjoint, `RegimeSoundness, `JenningsGelSpace,
-    `DualLedger]
+    `DualLedger, `Excitement, `ExcitementProofs, `WaveShape, `Concrete.PoromechanicsB3, `Concrete.ShrinkageB4,
+    `Web, `Web.WebMat]
   srcDir := "."
 
 /-!
@@ -67,8 +71,21 @@ lean_lib «Behavior.SDFCanonical» where
   srcDir := "."
 
 /-!
-  §14bis.f-S-0 — L-S0..L-S5 Crypto stubs (`lake build Crypto.LWE` … `Crypto.SanitizePatternCoverage`).
+  LEAN-COORD-COST — `CoordinationCostP6` (A10 P6 spine prep). Built standalone;
+  not in default `UMST` roots. See `Docs/COORDINATION_COST_P6_SPINE.md`.
 -/
+lean_lib «CoordinationCostP6» where
+  roots := #[`CoordinationCostP6]
+  srcDir := "."
+
+/-!
+  §14bis.f-S-0 — L-S0..L-S5 Crypto stubs (`lake build Crypto.LWE` … `Crypto.SanitizePatternCoverage`).
+  Shared metadata: `Crypto.CryptoHypothesis` (GROUND-1 provenance records).
+-/
+lean_lib «Crypto.CryptoHypothesis» where
+  roots := #[`Crypto.CryptoHypothesis]
+  srcDir := "."
+
 lean_lib «Crypto.LWE» where
   roots := #[`Crypto.LWE]
   srcDir := "."
@@ -91,4 +108,12 @@ lean_lib «Crypto.Composability» where
 
 lean_lib «Crypto.SanitizePatternCoverage» where
   roots := #[`Crypto.SanitizePatternCoverage]
+  srcDir := "."
+
+/-!
+  AC48 — `LIB-LEARN-F-MORI-TANAKA` doctrinal binding (`lake build MoriTanaka`).
+  Built standalone alongside `Concrete.MicroMechanics`; not in default `UMST` roots.
+-/
+lean_lib «MoriTanaka» where
+  roots := #[`Concrete.MoriTanaka, `Concrete.MoriTanakaPosture]
   srcDir := "."

@@ -32,4 +32,12 @@ abbrev AdmissibleN {K : Type} [LinearOrderedField K] [ThermodynamicScalar K] {S 
     [ThermodynamicSystem K S] [AdmissibleSystem K S] (n : ℕ) (s s' : S) : Prop :=
   @AdmissibleSystem.admissibleNStep K _ _ S _ _ n s s'
 
+/-- Joint thermodynamic fields for Excitement's free-energy functional (distinct from Helmholtz `freeEnergy`). -/
+class JointThermo (K : outParam Type) [LinearOrderedField K] [ThermodynamicScalar K] (S : Type) where
+  internalEnergy : S → K
+  entropy        : S → K
+  mutualInfo     : S → K
+  temperature    : S → K
+  temperature_pos : ∀ s, 0 < temperature s
+
 end UMST.Core

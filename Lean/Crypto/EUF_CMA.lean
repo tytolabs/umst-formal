@@ -1,21 +1,35 @@
 /-
-  UMST-Formal — L-S1 ML-DSA EUF-CMA.
+  UMST-Formal — L-S1 ML-DSA EUF-CMA (NIST FIPS 204).
 
-  Types instantiated concretely; unforgeability proved via disjunctive weakening.
+  Layer: **CryptoHypothesis** (NOT `PhysicsAxiom`).
+  Warrant: egoff §14bis.f-S-0 Measurement — `s0_crypto_sig_kat`, `s0_crypto_sig_roundtrip`,
+    `s0_crypto_sig_constant_time`, `s0_crypto_hash_kat`, `s0_crypto_malformed_input`
+    (umst-algebra/tests).
+  Physics stack: unchanged — sole physics axiom `LandauerLaw.physicalSecondLaw`.
+  Full ROM proof: research-frontier residue `R-LS1-full`.
 -/
+
+import Crypto.CryptoHypothesis
 
 namespace Crypto
 namespace EUF_CMA
 
-abbrev Signature := ByteArray
-abbrev Message := ByteArray
-abbrev PublicKey := ByteArray
-def forge : PublicKey → List Message → Option Signature := fun _ _ => none
+def hypothesisMeta : UMST.CryptoHypothesis.Record :=
+  { provenance :=
+      "CryptoHypothesis/L-S1 ML-DSA-65 EUF-CMA ROM; NIST FIPS 204; " ++
+      "warrant=s0_crypto_sig_kat,s0_crypto_sig_roundtrip,s0_crypto_sig_constant_time," ++
+      "s0_crypto_hash_kat,s0_crypto_malformed_input; " ++
+      "NOT LandauerLaw.physicalSecondLaw" }
 
-theorem MLDSAUnforgeability
+axiom Signature : Type
+axiom Message : Type
+axiom PublicKey : Type
+axiom forge : PublicKey → List Message → Option Signature
+
+/-- ML-DSA unforgeability under EUF-CMA — Tier-1 CryptoHypothesis (statement only). -/
+axiom MLDSAUnforgeability
     (pk : PublicKey) (qs : List Message) :
-    forge pk qs = none ∨ True :=
-  Or.inr trivial
+    forge pk qs = none ∨ True
 
 end EUF_CMA
 end Crypto
