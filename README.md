@@ -400,7 +400,7 @@ bash scripts/check_print_axioms.sh
 cd Lean && lake build
 ```
 
-See Lean count paste @ `9bb3385` in [Honesty ledger](#honesty-ledger-one-status-pointer). Full build matrix:
+See Lean count paste @ `522d944` in [Honesty ledger](#honesty-ledger-one-status-pointer). Full build matrix:
 
 ```bash
 ./scripts/check-formal-environment.sh   # optional
@@ -552,9 +552,9 @@ Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](
 
 ### Honesty ledger (one status pointer)
 
-Counts @ **`9bb3385`** (2026-08-15). **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
+Counts @ **`522d944`** (2026-08-15). **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
 
-**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` @ **`9bb3385`** (2026-08-15):
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` @ **`522d944`** (2026-08-15):
 
 ```text
 Repository: umst-formal
@@ -677,7 +677,7 @@ Zenodo. https://doi.org/10.5281/zenodo.18940933
 
 Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660)) when you rely on that fiber.
 
-**Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`9bb3385`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
+**Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`522d944`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
 
 ---
 
