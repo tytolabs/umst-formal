@@ -178,7 +178,7 @@ The **Acting** fiber proves **admissibility of proposed transitions** under mass
 ```mermaid
 flowchart LR
     subgraph cold [Cold proof build — this repo]
-        LEAN[Lean 62 roots]
+        LEAN[Lean 76 roots]
         AGDA[Agda spec]
         COQ[Coq + extract]
         HS[Haskell QuickCheck]
@@ -400,7 +400,7 @@ bash scripts/check_print_axioms.sh
 cd Lean && lake build
 ```
 
-See Lean count paste @ `e41278c` in [Honesty ledger](#honesty-ledger-one-status-pointer). Full build matrix:
+See Lean count paste @ `9bb3385` in [Honesty ledger](#honesty-ledger-one-status-pointer). Full build matrix:
 
 ```bash
 ./scripts/check-formal-environment.sh   # optional
@@ -441,7 +441,7 @@ cd Coq && make && cd ..
 | Subject reduction; Kleisli admissibility | `Coq/Constitutional.v`, `Lean/Core/Constitutional.lean`, `Lean/Compat/Constitutional.lean` |
 | Landauer–Einstein mass equivalent | `Coq/LandauerEinsteinBridge.v`, `Lean/LandauerEinsteinBridge.lean` |
 | SDF / FRep; CSG; Eikonal | `Agda/Concrete/Helmholtz.agda`, `Lean/Concrete/Helmholtz.lean`, `Haskell/SDFGate.hs` |
-| Full Lean layer + Economic meso-scale | `Lean/` — **62** roots, **289** theorems + **24** lemmas |
+| Full Lean layer + Economic meso-scale | `Lean/` — **76** roots, **514** theorems + **63** lemmas (roots-only) |
 | Haskell QuickCheck | **33** `prop_*` in [`Haskell/test/Test.hs`](Haskell/test/Test.hs) |
 
 <details>
@@ -468,7 +468,7 @@ See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index.
 | **Agda** | `Gate.agda`, `Naturality.agda`, `Activation.agda`, `DIB-Kleisli.agda`, `InfoTheory.agda`, … | `make check` in CI | `cd Agda && make check` |
 | **Coq** | `Gate.v`, `Constitutional.v`, `LandauerEinsteinBridge.v`, `Extraction.v` | `.vo` build + extraction | `cd Coq && make` |
 | **Haskell** | `Haskell/test/Test.hs` — **33** `prop_*` | QuickCheck + optional FFI | `cabal test umst-properties` |
-| **Lean** | **62** roots, **289** thm + **24** lem | **0** sorry; **1** axiom `physicalSecondLaw` | `cd Lean && lake build` |
+| **Lean** | **76** roots, **514** thm + **63** lem (roots-only) | **0** sorry; **1** physical `physicalSecondLaw` + **28** Crypto Tier-1 `axiom`s | `cd Lean && lake build` |
 
 Cross-layer claim map: four gate invariants, naturality, subject reduction, Landauer–Einstein bridge, SDF/FRep — see table in §7 above. **Do not** conflate Agda specification modules with runtime MCP behavior.
 
@@ -552,28 +552,31 @@ Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](
 
 ### Honesty ledger (one status pointer)
 
-Counts @ **`e41278c`**. **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
+Counts @ **`9bb3385`** (2026-08-15). **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
 
-**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` on `origin/main` @ **`e41278c`** (2026-07-12):
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` @ **`9bb3385`** (2026-08-15):
 
 ```text
 Repository: umst-formal
-Lake roots: 62 modules
-Roots-only:  289 theorem, 24 lemma, total 313
-All Lean/*:  296 theorem, 24 lemma, total 320
+Lake roots: 76 modules
+Roots-only:  514 theorem, 63 lemma, total 577
+All Lean/*:  585 theorem, 63 lemma, total 648
 Axioms (^axiom ):
+  Collision.lean / Composability.lean / EUF_CMA.lean / LWE.lean /
+  SanitizePatternCoverage.lean / SideChannel.lean  — 28 Crypto Tier-1 hardness axioms
   LandauerLaw.lean:155  physicalSecondLaw
 ```
 
-- **0** tactic `sorry` in the default rooted closure (see module headers / CI).
-- **1** project `axiom`: `physicalSecondLaw` in [`Lean/LandauerLaw.lean:155`](Lean/LandauerLaw.lean).
+- **0** tactic `sorry` in the default rooted closure (`bash scripts/check_lean_sorry.sh`).
+- **1** physical project `axiom`: `physicalSecondLaw` in [`Lean/LandauerLaw.lean:155`](Lean/LandauerLaw.lean).
+- **28** additional `axiom` declarations under `Lean/Crypto/` (Tier-1 cryptographic hardness / statement stubs — not Second-Law physics). Do not collapse these into “one axiom.”
 - After `lake build`, CI runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems). Paste (same SHA):
 
 ```text
 check_print_axioms: OK (all closures ⊆ Mathlib baseline + optional physicalSecondLaw)
 ```
 
-Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script output above (62 / 289 / 24). **Script wins** on any mismatch. Methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
+Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script output above (**76 / 514 / 63** roots-only). **Script wins** on any mismatch. Methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md). Command: `cd umst-formal && python3 scripts/lean_declaration_stats.py`.
 
 **Strengthen — do not soften:** Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
 
@@ -588,7 +591,7 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 ### What surprised us
 
 - **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` _sound_ like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
-- **One axiom carries the whole tree.** We expected formalising acting-under-thermodynamic-law to accrete assumptions. It didn't: the entire economic-admissibility structure rests on a single explicit physical axiom, `physicalSecondLaw`, with every other result derived and checked against a Mathlib axiom baseline in CI. How little you have to _assume_ to get this much structure was the surprise.
+- **One physical axiom carries the thermodynamic spine.** Economic-admissibility rests on a single explicit physical axiom, `physicalSecondLaw`, with gate/Kleisli results derived against a Mathlib axiom baseline in CI. Separately, `Lean/Crypto/` carries **28** Tier-1 hardness `axiom`s (statement stubs) — counted honestly, not folded into the physical floor.
 - **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when _every_ step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
 
 ### Forward path
@@ -674,7 +677,7 @@ Zenodo. https://doi.org/10.5281/zenodo.18940933
 
 Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660)) when you rely on that fiber.
 
-**Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`e41278c`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
+**Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`9bb3385`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
 
 ---
 
