@@ -89,8 +89,17 @@ theorem select_swap_equal_energy_distinct_id {S : Type} [ThermodynamicSystem ℚ
     rfl
   rw [hsel_ab, hsel_ba, hcomm]
 
-/-- Open residue `R-e1e-select-perm-invariant` — swap fibre proved (`select_swap_equal_energy_distinct_id`).
-    Remaining conjunct: `pickMin` associativity on lists, `filter` commutes with `Perm`, duplicate ids unspecified. -/
-theorem select_perm_invariant_residue : True := trivial
+/-- Full list-permutation invariance of `select` (liquid-PPO reorder licence).
+    Hypotheses: candidates are a permutation, and ids are pairwise distinct (E1B tie-break).
+    **Open proof obligation (named):** `List.foldl pickMin` must be permutation-invariant on
+    the filtered tagged sublist — requires `filter` commuting with `Perm` plus fold/pickMin
+    associativity beyond the 2-element swap already proved above. -/
+theorem select_perm_invariant {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
+    [JointThermo ℚ S] (src : S)
+    (cands1 cands2 : List (Cand (K := ℚ) src))
+    (hperm : List.Perm cands1 cands2)
+    (_huniq : List.Pairwise (fun a b => a.id ≠ b.id) cands1) :
+    select src cands1 = select src cands2 := by
+  sorry
 
 end UMST.Excitement
