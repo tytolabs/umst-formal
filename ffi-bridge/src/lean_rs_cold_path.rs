@@ -6,8 +6,8 @@
 use std::path::{Path, PathBuf};
 
 use super::lean_l1_bridge_prep::{
-    lean_l1_bridge_j31_probe, lean_l1_bridge_prep_probe, L1A_LEAN_MODULE, L1B_LEAN_MODULE,
-    COMPOSER_J31_RECEIPT_PATH, RECEIPT_PATH as H50_RECEIPT_PATH,
+    lean_l1_bridge_j31_probe, lean_l1_bridge_prep_probe, COMPOSER_J31_RECEIPT_PATH,
+    L1A_LEAN_MODULE, L1B_LEAN_MODULE, RECEIPT_PATH as H50_RECEIPT_PATH,
 };
 use super::lean_l1_stiffness_adopt::{
     lean_l1_adopt_audit_closed, Z37_RECEIPT_PATH as LEAN_L1_Z37_RECEIPT_PATH,

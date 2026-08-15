@@ -971,7 +971,10 @@ mod tests {
     fn probe_pbm_007_k1941_fence_deepen_witness_on_disk() {
         let root = tyto_workspace_root();
         let msg = probe_pbm_007_k1941_fence_deepen(&root).expect("K1941 fence deepen witness");
-        assert!(msg.contains("k1941_fence_deepen_closed=true"), "deepen: {msg}");
+        assert!(
+            msg.contains("k1941_fence_deepen_closed=true"),
+            "deepen: {msg}"
+        );
         assert!(msg.contains("expected_proved_count=0"), "fence: {msg}");
         assert!(msg.contains("pbm_007_fully_closed=false"), "fence: {msg}");
         assert!(msg.contains("closure=RESIDUE"), "residue: {msg}");
@@ -982,7 +985,10 @@ mod tests {
     fn probe_pbm_007_ac55_fence_deepen_witness_on_disk() {
         let root = tyto_workspace_root();
         let msg = probe_pbm_007_ac55_fence_deepen(&root).expect("AC55 fence deepen witness");
-        assert!(msg.contains("ac55_fence_deepen_closed=true"), "deepen: {msg}");
+        assert!(
+            msg.contains("ac55_fence_deepen_closed=true"),
+            "deepen: {msg}"
+        );
         assert!(msg.contains("k3_absorbed=true"), "k3: {msg}");
         assert!(msg.contains("expected_proved_count=0"), "fence: {msg}");
         assert!(msg.contains("pbm_007_fully_closed=false"), "fence: {msg}");

@@ -52,4 +52,10 @@ jobs:
 
       - name: FFI bridge ABI tag sanity
         run: |
+          # Runner images do not always ship ripgrep; install then fail closed on miss.
+          if ! command -v rg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ripgrep
+          fi
+          command -v rg
           rg -q 'UMST_FFI_ABI_VERSION:\s*u32\s*=\s*9' ffi-bridge/src/lib.rs

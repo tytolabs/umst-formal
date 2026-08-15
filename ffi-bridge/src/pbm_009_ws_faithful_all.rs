@@ -705,7 +705,10 @@ mod tests {
     fn probe_pbm_009_ac03_fence_deepen_witness_on_disk() {
         let root = tyto_workspace_root();
         let msg = probe_pbm_009_ac03_fence_deepen(&root).expect("AC03 fence deepen witness");
-        assert!(msg.contains("ac03_fence_deepen_closed=true"), "deepen: {msg}");
+        assert!(
+            msg.contains("ac03_fence_deepen_closed=true"),
+            "deepen: {msg}"
+        );
         assert!(msg.contains("witnessed_atom_count=6"), "fence: {msg}");
         assert!(msg.contains("pbm_009_fully_closed=false"), "fence: {msg}");
         assert!(msg.contains("closure=RESIDUE"), "residue: {msg}");
@@ -719,8 +722,7 @@ mod tests {
             eprintln!("skip probe_pbm_009_formal_filesystem_honest_residue: bench consumer absent");
             return;
         }
-        let msg =
-            probe_pbm_009_formal_ws_faithful_all(&root).expect("PBM-009 paths on disk");
+        let msg = probe_pbm_009_formal_ws_faithful_all(&root).expect("PBM-009 paths on disk");
         assert!(msg.contains("status=[~]"), "must not invent [x]: {msg}");
         assert!(msg.contains("witnessed_atom_count=6"), "fence: {msg}");
         assert!(msg.contains("pbm_009_fully_closed=false"), "fence: {msg}");

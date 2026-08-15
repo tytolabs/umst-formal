@@ -41,10 +41,9 @@ pub use agap_2350_l2_attestation::{
 pub use agap_2350_l6_attestation::{
     agap_2350_l6_honest, agap_2350_l6_probe, l6_crosswalk_fully_wired,
     l6_crosswalk_wired as agap_l6_crosswalk_wired, l6_probe_detail, Agap2350L6Probe,
-    JOB_ID as AGAP_2350_L6_JOB_ID, L6_DUMP_SCRIPT_REL, L6_EXPECTED_GATE_EXIT,
-    L6_GATE_SCRIPT_REL, L6_MIN_MAP_ROWS, POSTURE_TAG as L6_POSTURE_TAG,
-    PRIOR_Y_RECEIPT_PATH as AGAP_L6_PRIOR_Y_RECEIPT,
-    RECEIPT_PATH as AGAP_2350_L6_RECEIPT_PATH,
+    JOB_ID as AGAP_2350_L6_JOB_ID, L6_DUMP_SCRIPT_REL, L6_EXPECTED_GATE_EXIT, L6_GATE_SCRIPT_REL,
+    L6_MIN_MAP_ROWS, POSTURE_TAG as L6_POSTURE_TAG,
+    PRIOR_Y_RECEIPT_PATH as AGAP_L6_PRIOR_Y_RECEIPT, RECEIPT_PATH as AGAP_2350_L6_RECEIPT_PATH,
 };
 
 pub use lean_rs_cold_path::{
@@ -60,30 +59,29 @@ pub use lean_rs_cold_path::{
 };
 
 pub use lean_l1_bridge_prep::{
-    effective_modulus_mt, e_eff_mt_at_zero_holds, l1_bridge_witness_rows, lean_l1_bridge_j31_honest,
-    lean_l1_bridge_j31_probe, lean_l1_bridge_prep_honest,
+    e_eff_mt_at_zero_holds, effective_modulus_mt, l1_bridge_witness_rows,
+    lean_l1_bridge_j31_honest, lean_l1_bridge_j31_probe, lean_l1_bridge_prep_honest,
     lean_l1_bridge_prep_probe, psi_elastic_base, psi_elastic_base_nonpos_holds,
     psi_softening_micro_mechanics_holds, stiffness_scale, stiffness_scale_mono_holds,
-    COMPOSER_J31_JOB_ID, COMPOSER_J31_RECEIPT_PATH, L1BridgeWitnessRow, LeanL1BridgeJ31Probe,
-    LeanL1BridgePrepProbe, DAMAGE_D_MAX as L1_DAMAGE_D_MAX,
-    JOB_ID as LEAN_L1_BRIDGE_JOB_ID, L1A_LEAN_MODULE, L1A_WITNESS_THEOREM, L1B_LEAN_MODULE,
-    L1B_WITNESS_THEOREM, POSTURE_TAG as LEAN_L1_BRIDGE_POSTURE, PRIOR_G_SLOT as LEAN_L1_PRIOR_G_SLOT,
+    L1BridgeWitnessRow, LeanL1BridgeJ31Probe, LeanL1BridgePrepProbe, COMPOSER_J31_JOB_ID,
+    COMPOSER_J31_RECEIPT_PATH, DAMAGE_D_MAX as L1_DAMAGE_D_MAX, JOB_ID as LEAN_L1_BRIDGE_JOB_ID,
+    L1A_LEAN_MODULE, L1A_WITNESS_THEOREM, L1B_LEAN_MODULE, L1B_WITNESS_THEOREM,
+    POSTURE_TAG as LEAN_L1_BRIDGE_POSTURE, PRIOR_G_SLOT as LEAN_L1_PRIOR_G_SLOT,
     RECEIPT_PATH as LEAN_L1_BRIDGE_RECEIPT_PATH, STIFFNESS_ALPHA_THRESHOLD,
 };
 
 pub use lean_l1_stiffness_adopt::{
-    lean_l1_adopt_audit_closed, lean_l1_y41_honest, lean_l1_y41_probe, lean_l1_z37_honest,
-    lean_l1_z37_probe, l1a_lean_source_on_disk, l1b_lean_source_on_disk, run_l1_adopt_audit,
-    v2_grid_conformance_mismatch, L1AdoptAudit, L1AdoptProbe, LeanL1Y41Probe, LeanL1Z37Probe,
-    EXPECTED_LEMMA_COUNT as L1_ADOPT_EXPECTED_LEMMA_COUNT,
+    l1a_lean_source_on_disk, l1b_lean_source_on_disk, lean_l1_adopt_audit_closed,
+    lean_l1_y41_honest, lean_l1_y41_probe, lean_l1_z37_honest, lean_l1_z37_probe,
+    run_l1_adopt_audit, v2_grid_conformance_mismatch, L1AdoptAudit, L1AdoptProbe, LeanL1Y41Probe,
+    LeanL1Z37Probe, EXPECTED_LEMMA_COUNT as L1_ADOPT_EXPECTED_LEMMA_COUNT,
     EXPECTED_PROVED_COUNT as L1_ADOPT_EXPECTED_PROVED_COUNT,
-    EXPECTED_THEOREM_COUNT as L1_ADOPT_EXPECTED_THEOREM_COUNT,
-    JOB_ID as LEAN_L1_Y41_JOB_ID, L1_PROBE_COUNT as L1_ADOPT_PROBE_COUNT,
-    POSTURE_TAG as L1_ADOPT_POSTURE, PRIOR_H50_RECEIPT_PATH as L1_ADOPT_PRIOR_H50_RECEIPT,
-    PRIOR_X_SLOT as L1_ADOPT_PRIOR_X_SLOT, RECEIPT_PATH as LEAN_L1_Y41_RECEIPT_PATH,
-    V2_GRID_ROW_COUNT as L1_V2_GRID_ROW_COUNT, WORKSTREAM_ID as L1_ADOPT_WORKSTREAM_ID,
-    Z37_JOB_ID as LEAN_L1_Z37_JOB_ID, Z37_RECEIPT_PATH as LEAN_L1_Z37_RECEIPT_PATH,
-    Z37_WAVE_SLOT as LEAN_L1_Z37_WAVE_SLOT,
+    EXPECTED_THEOREM_COUNT as L1_ADOPT_EXPECTED_THEOREM_COUNT, JOB_ID as LEAN_L1_Y41_JOB_ID,
+    L1_PROBE_COUNT as L1_ADOPT_PROBE_COUNT, POSTURE_TAG as L1_ADOPT_POSTURE,
+    PRIOR_H50_RECEIPT_PATH as L1_ADOPT_PRIOR_H50_RECEIPT, PRIOR_X_SLOT as L1_ADOPT_PRIOR_X_SLOT,
+    RECEIPT_PATH as LEAN_L1_Y41_RECEIPT_PATH, V2_GRID_ROW_COUNT as L1_V2_GRID_ROW_COUNT,
+    WORKSTREAM_ID as L1_ADOPT_WORKSTREAM_ID, Z37_JOB_ID as LEAN_L1_Z37_JOB_ID,
+    Z37_RECEIPT_PATH as LEAN_L1_Z37_RECEIPT_PATH, Z37_WAVE_SLOT as LEAN_L1_Z37_WAVE_SLOT,
 };
 
 pub use formal_swarm_deepen::{
@@ -98,68 +96,68 @@ pub use formal_swarm_deepen::{
 pub use l5_extract_runtime::{
     haskell_module_inventory, l5_extract_runtime_honest, l5_extract_runtime_probe,
     l5_extraction_wired, l5_probe_detail, l5_receipt_status_label, l5_runtime_inventory,
-    l5_workflow_path, L5_EXPECTED_GATE_EXIT, L5ExtractRuntimeProbe, L5RuntimeInventory,
-    JOB_ID as L5_EXTRACT_JOB_ID, L5_GATE_SCRIPT_REL, L5_WORKFLOW_REL,
-    POSTURE_TAG as L5_EXTRACT_POSTURE, PRIOR_SWARM_RECEIPT_PATH as L5_PRIOR_SWARM_RECEIPT,
-    RECEIPT_PATH as L5_EXTRACT_RECEIPT_PATH,
+    l5_workflow_path, L5ExtractRuntimeProbe, L5RuntimeInventory, JOB_ID as L5_EXTRACT_JOB_ID,
+    L5_EXPECTED_GATE_EXIT, L5_GATE_SCRIPT_REL, L5_WORKFLOW_REL, POSTURE_TAG as L5_EXTRACT_POSTURE,
+    PRIOR_SWARM_RECEIPT_PATH as L5_PRIOR_SWARM_RECEIPT, RECEIPT_PATH as L5_EXTRACT_RECEIPT_PATH,
 };
 
 pub use l5_lcert::{
     l5_lcert_factor_closed, l5_lcert_honest, l5_lcert_probe, L5LcertProbe,
     JOB_ID as L5_LCERT_JOB_ID, POSTURE_TAG as L5_LCERT_POSTURE,
-    PRIOR_Y78_RECEIPT_PATH as L5_LCERT_PRIOR_Y78_RECEIPT,
-    RECEIPT_PATH as L5_LCERT_RECEIPT_PATH, Z121_JOB_ID as L5_LCERT_Z121_JOB_ID,
-    Z121_WAVE_SLOT as L5_LCERT_Z121_WAVE_SLOT,
+    PRIOR_Y78_RECEIPT_PATH as L5_LCERT_PRIOR_Y78_RECEIPT, RECEIPT_PATH as L5_LCERT_RECEIPT_PATH,
+    Z121_JOB_ID as L5_LCERT_Z121_JOB_ID, Z121_WAVE_SLOT as L5_LCERT_Z121_WAVE_SLOT,
 };
 
 pub use l7_lcert_capstone::{
-    l7_capstone_wired, l7_lcert_capstone_honest, l7_lcert_capstone_probe, l6_crosswalk_partial,
-    l6_crosswalk_wired, l_cert_ledger_path, lcert_factor_readiness_matrix,
+    l6_crosswalk_partial, l6_crosswalk_wired, l7_capstone_wired, l7_lcert_capstone_honest,
+    l7_lcert_capstone_probe, l_cert_ledger_path, lcert_factor_readiness_matrix,
     lcert_gate_factor_table, lcert_prereq_factor_rows, L7LcertCapstoneProbe, LcertFactorRow,
-    JOB_ID as L7_LCERT_JOB_ID, LCERT_EXPECTED_GATE_EXIT,
-    L_CERT_LEDGER_REL, POSTURE_TAG as L7_LCERT_POSTURE, PRIOR_RECEIPT_PATH as L7_PRIOR_RECEIPT,
+    JOB_ID as L7_LCERT_JOB_ID, LCERT_EXPECTED_GATE_EXIT, L_CERT_LEDGER_REL,
+    POSTURE_TAG as L7_LCERT_POSTURE, PRIOR_RECEIPT_PATH as L7_PRIOR_RECEIPT,
     RECEIPT_PATH as L7_LCERT_RECEIPT_PATH,
 };
 
 pub use pbm_009_ws_faithful_all::{
-    bench_consumer_posture_pins_honest, lean_faithful_gate_on_disk, pbm_009_ac03_fence_deepen_closed,
-    pbm_009_ac03_honest, pbm_009_ac03_probe, pbm_009_done_when_probe, pbm_009_formal_fence_closed,
-    pbm_009_fully_closed, pbm_009_j4_absorb_honest, pbm_009_j4_absorb_probe,
-    pbm_009_production_tensor_closed, pbm_009_production_wired,
-    pbm_009_ws_faithful_all_probe_honest, probe_pbm_009_ac03_fence_deepen,
-    probe_pbm_009_formal_ws_faithful_all, run_formal_faithful_fence_audit, Pbm009Ac03Probe,
-    Pbm009DoneWhenProbe, Pbm009FaithfulWireHop, Pbm009FormalAudit, Pbm009FormalProbe,
-    Pbm009J4AbsorbProbe, Pbm009WsFaithfulAllProbe, ATOM_TOTAL as PBM_009_ATOM_TOTAL,
-    B6_DISSIPATION_DEFER_SURFACE as PBM_009_B6_DISSIPATION, BENCH_CONSUMER_PATH as PBM_009_BENCH_PATH,
-    BENCH_POSTURE_FIXTURE as PBM_009_POSTURE_FIXTURE,
-    D_EVALUATOR_LANDED_COUNT as PBM_009_D_LANDED_COUNT,
+    bench_consumer_posture_pins_honest, lean_faithful_gate_on_disk,
+    pbm_009_ac03_fence_deepen_closed, pbm_009_ac03_honest, pbm_009_ac03_probe,
+    pbm_009_done_when_probe, pbm_009_formal_fence_closed, pbm_009_fully_closed,
+    pbm_009_j4_absorb_honest, pbm_009_j4_absorb_probe, pbm_009_production_tensor_closed,
+    pbm_009_production_wired, pbm_009_ws_faithful_all_probe_honest,
+    probe_pbm_009_ac03_fence_deepen, probe_pbm_009_formal_ws_faithful_all,
+    run_formal_faithful_fence_audit, Pbm009Ac03Probe, Pbm009DoneWhenProbe, Pbm009FaithfulWireHop,
+    Pbm009FormalAudit, Pbm009FormalProbe, Pbm009J4AbsorbProbe, Pbm009WsFaithfulAllProbe,
+    ATOM_TOTAL as PBM_009_ATOM_TOTAL, B6_DISSIPATION_DEFER_SURFACE as PBM_009_B6_DISSIPATION,
+    BENCH_CONSUMER_PATH as PBM_009_BENCH_PATH, BENCH_POSTURE_FIXTURE as PBM_009_POSTURE_FIXTURE,
     DEFER_BLOCKER_PINNED_COUNT as PBM_009_DEFER_BLOCKER_COUNT,
-    FLEET_PARENT as PBM_009_FLEET_PARENT, FORMAL_PROBE_COUNT as PBM_009_FORMAL_PROBE_COUNT,
-    FORMAL_WITNESS_RELPATH as PBM_009_FORMAL_WITNESS, JOB_ID as PBM_009_JOB_ID,
-    J4_WIRE_HOP_COUNT as PBM_009_J4_WIRE_HOP_COUNT, LEAN_SOURCE_RELPATH as PBM_009_LEAN_SOURCE,
-    PARENT_WORKSTREAM_ID as PBM_009_PARENT_ID, POSTURE_TAG as PBM_009_POSTURE,
-    PRIOR_E4_RECEIPT as PBM_009_PRIOR_E4_RECEIPT, PRIOR_J4_JOB_ID as PBM_009_PRIOR_J4_JOB_ID,
-    PRIOR_J4_RECEIPT as PBM_009_PRIOR_J4_RECEIPT, PRIOR_Y59_RECEIPT as PBM_009_PRIOR_Y59_RECEIPT,
-    PRIOR_Z68_RECEIPT as PBM_009_PRIOR_Z68_RECEIPT, PSI_WITNESSED_COUNT as PBM_009_PSI_WITNESSED,
-    RECEIPT_PATH as PBM_009_RECEIPT_PATH, WIRE_HOPS as PBM_009_WIRE_HOPS,
-    WITNESSED_ATOM_COUNT as PBM_009_WITNESSED_COUNT, WORKSTREAM_ID as PBM_009_WORKSTREAM_ID,
+    D_EVALUATOR_LANDED_COUNT as PBM_009_D_LANDED_COUNT, FLEET_PARENT as PBM_009_FLEET_PARENT,
+    FORMAL_PROBE_COUNT as PBM_009_FORMAL_PROBE_COUNT,
+    FORMAL_WITNESS_RELPATH as PBM_009_FORMAL_WITNESS,
+    J4_WIRE_HOP_COUNT as PBM_009_J4_WIRE_HOP_COUNT, JOB_ID as PBM_009_JOB_ID,
+    LEAN_SOURCE_RELPATH as PBM_009_LEAN_SOURCE, PARENT_WORKSTREAM_ID as PBM_009_PARENT_ID,
+    POSTURE_TAG as PBM_009_POSTURE, PRIOR_E4_RECEIPT as PBM_009_PRIOR_E4_RECEIPT,
+    PRIOR_J4_JOB_ID as PBM_009_PRIOR_J4_JOB_ID, PRIOR_J4_RECEIPT as PBM_009_PRIOR_J4_RECEIPT,
+    PRIOR_Y59_RECEIPT as PBM_009_PRIOR_Y59_RECEIPT, PRIOR_Z68_RECEIPT as PBM_009_PRIOR_Z68_RECEIPT,
+    PSI_WITNESSED_COUNT as PBM_009_PSI_WITNESSED, RECEIPT_PATH as PBM_009_RECEIPT_PATH,
+    WIRE_HOPS as PBM_009_WIRE_HOPS, WITNESSED_ATOM_COUNT as PBM_009_WITNESSED_COUNT,
+    WORKSTREAM_ID as PBM_009_WORKSTREAM_ID,
 };
 
 pub use pbm_007_ws_cert_proved::{
-    catalog_export_deferred as pbm_007_catalog_export_deferred,
-    lean_cert_proved_posture_on_disk, pbm_007_d1650_honest, pbm_007_done_when_probe,
-    pbm_007_formal_fence_closed, pbm_007_fully_closed, pbm_007_k1938_honest,
-    pbm_007_k1938_probe, pbm_007_k1941_fence_deepen_closed, pbm_007_k1941_honest,
-    pbm_007_k1941_probe, pbm_007_production_wired, pbm_007_ws_cert_proved_probe_honest,
+    catalog_export_deferred as pbm_007_catalog_export_deferred, lean_cert_proved_posture_on_disk,
+    pbm_007_d1650_honest, pbm_007_done_when_probe, pbm_007_formal_fence_closed,
+    pbm_007_fully_closed, pbm_007_k1938_honest, pbm_007_k1938_probe,
+    pbm_007_k1941_fence_deepen_closed, pbm_007_k1941_honest, pbm_007_k1941_probe,
+    pbm_007_production_wired, pbm_007_ws_cert_proved_probe_honest,
     probe_pbm_007_formal_ws_cert_proved, probe_pbm_007_k1941_fence_deepen,
     run_formal_cert_proved_fence_audit, Pbm007CertProvedWireHop, Pbm007DoneWhenProbe,
     Pbm007FormalAudit, Pbm007FormalProbe, Pbm007K1938Probe, Pbm007K1941Probe,
     Pbm007WsCertProvedProbe, ABSORBED_J39_RECEIPT as PBM_007_ABSORBED_J39_RECEIPT,
     ABSORBED_Y58_RECEIPT as PBM_007_ABSORBED_Y58_RECEIPT,
     ABSORBED_Z100_RECEIPT as PBM_007_ABSORBED_Z100_RECEIPT,
-    ABSORBED_Z43_RECEIPT as PBM_007_ABSORBED_Z43_RECEIPT, BENCH_CONSUMER_PATH as PBM_007_BENCH_PATH,
-    BENCH_POSTURE_FIXTURE as PBM_007_POSTURE_FIXTURE, EXPECTED_PROVED_COUNT as PBM_007_EXPECTED_PROVED,
-    FLEET_PARENT as PBM_007_FLEET_PARENT, FORMAL_PROBE_COUNT as PBM_007_FORMAL_PROBE_COUNT,
+    ABSORBED_Z43_RECEIPT as PBM_007_ABSORBED_Z43_RECEIPT,
+    BENCH_CONSUMER_PATH as PBM_007_BENCH_PATH, BENCH_POSTURE_FIXTURE as PBM_007_POSTURE_FIXTURE,
+    EXPECTED_PROVED_COUNT as PBM_007_EXPECTED_PROVED, FLEET_PARENT as PBM_007_FLEET_PARENT,
+    FORMAL_PROBE_COUNT as PBM_007_FORMAL_PROBE_COUNT,
     FORMAL_WITNESS_RELPATH as PBM_007_FORMAL_WITNESS, JOB_ID as PBM_007_JOB_ID,
     K2_WIRE_HOP_COUNT as PBM_007_K2_WIRE_HOP_COUNT, LEAN_SOURCE_RELPATH as PBM_007_LEAN_SOURCE,
     META_OWNER_PATH as PBM_007_META_OWNER, PARENT_WORKSTREAM_ID as PBM_007_PARENT_ID,
@@ -388,10 +386,12 @@ pub extern "C" fn umst_ffi_abi_version_expected() -> u32 {
 pub const FORMAL_NIGHT_2350_JOB_ID: &str = "AGAP-2350-FORMAL";
 
 /// Completion receipt cross-ref for AGAP-2350 night wave.
-pub const FORMAL_RECEIPT_PATH_2350: &str = "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL_2350.md";
+pub const FORMAL_RECEIPT_PATH_2350: &str =
+    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL_2350.md";
 
 /// Prior formal crypto deepen receipt.
-pub const FORMAL_PRIOR_RECEIPT_PATH: &str = "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL-CRYPTO_2033.md";
+pub const FORMAL_PRIOR_RECEIPT_PATH: &str =
+    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL-CRYPTO_2033.md";
 
 /// Night deepen probe — Lean crypto GROUND-1 tier posture (no fake theorem GREEN).
 #[derive(Debug, Clone, PartialEq, Eq)]

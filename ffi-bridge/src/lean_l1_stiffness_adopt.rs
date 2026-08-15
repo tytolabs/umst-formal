@@ -156,17 +156,13 @@ pub fn umst_formal_root() -> std::path::PathBuf {
 /// L1a Lean source on disk @ workspace `umst-formal`.
 #[must_use]
 pub fn l1a_lean_source_on_disk() -> bool {
-    umst_formal_root()
-        .join(LEAN_SOURCE_RELPATH)
-        .is_file()
+    umst_formal_root().join(LEAN_SOURCE_RELPATH).is_file()
 }
 
 /// L1b Lean source on disk @ workspace `umst-formal`.
 #[must_use]
 pub fn l1b_lean_source_on_disk() -> bool {
-    umst_formal_root()
-        .join(L1B_LEAN_SOURCE_RELPATH)
-        .is_file()
+    umst_formal_root().join(L1B_LEAN_SOURCE_RELPATH).is_file()
 }
 
 /// Count top-level `theorem` / `lemma` in on-disk StiffnessTransition.lean.

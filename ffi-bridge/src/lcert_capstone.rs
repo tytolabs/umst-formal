@@ -126,9 +126,7 @@ pub fn lcert_gate_factor_table() -> String {
 #[must_use]
 pub fn lcert_factor_readiness_matrix() -> String {
     let rows = lcert_prereq_factor_rows();
-    let mut out = String::from(
-        "LCERT factor readiness (slice | probe_wired | capstone_credit):\n",
-    );
+    let mut out = String::from("LCERT factor readiness (slice | probe_wired | capstone_credit):\n");
     let mut blocked = 0usize;
     for row in &rows {
         let credit = row.probe_wired;
@@ -192,9 +190,7 @@ pub fn l7_lcert_capstone_probe() -> L7LcertCapstoneProbe {
 /// Returns true only when all L-1..L-6 factors are wired (capstone exit 0 tier).
 #[must_use]
 pub fn l7_capstone_wired() -> bool {
-    lcert_prereq_factor_rows()
-        .iter()
-        .all(|r| r.probe_wired)
+    lcert_prereq_factor_rows().iter().all(|r| r.probe_wired)
 }
 
 /// Honesty gate for operator receipts — scaffold posture, no fake LCERT-OK.
@@ -209,7 +205,9 @@ pub fn l7_lcert_capstone_honest(probe: &L7LcertCapstoneProbe) -> bool {
         && !probe.capstone_wired
         && !probe.production_wired
         && probe.blocked_factor_count > 0
-        && probe.gate_factor_table.contains("L-7 capstone expected_gate_exit=2")
+        && probe
+            .gate_factor_table
+            .contains("L-7 capstone expected_gate_exit=2")
         && probe.factor_matrix.contains("LCERT factor readiness")
 }
 

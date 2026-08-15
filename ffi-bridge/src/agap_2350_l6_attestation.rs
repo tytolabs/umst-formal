@@ -34,8 +34,7 @@ pub const L6_MIN_MAP_ROWS: usize = 5;
 #[must_use]
 pub fn l6_crosswalk_fully_wired() -> bool {
     let stats = crosswalk_stats();
-    stats.covered_derived_rows >= stats.derived_constant_rows
-        && stats.derived_constant_rows > 0
+    stats.covered_derived_rows >= stats.derived_constant_rows && stats.derived_constant_rows > 0
 }
 
 /// Honest `l6_crosswalk_wired` mirror — stays false until L6_RECEIPT flips GREEN.

@@ -274,8 +274,7 @@ pub fn lean_sequential_composition_on_disk() -> bool {
     let Ok(text) = fs::read_to_string(path) else {
         return false;
     };
-    text.contains("theorem sequentialCompositionSafe")
-        && text.contains("ConstitutionalSeq")
+    text.contains("theorem sequentialCompositionSafe") && text.contains("ConstitutionalSeq")
 }
 
 /// Literature anchor stays `[assumed]` — not promoted to mechanised.
@@ -377,10 +376,7 @@ pub fn mechanised_anchors_on_disk() -> bool {
 
 #[must_use]
 pub fn pbm_008_wire_hops_closed_count() -> u8 {
-    FORMAL_ANCHOR_WIRE_HOPS
-        .iter()
-        .filter(|h| h.wired)
-        .count() as u8
+    FORMAL_ANCHOR_WIRE_HOPS.iter().filter(|h| h.wired).count() as u8
 }
 
 #[must_use]

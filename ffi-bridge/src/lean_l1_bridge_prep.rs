@@ -112,7 +112,10 @@ pub struct LeanL1BridgePrepProbe {
 pub fn lean_l1_bridge_prep_probe(lake_build_green: bool) -> LeanL1BridgePrepProbe {
     let rows = l1_bridge_witness_rows();
     let all_hold = rows.iter().all(|r| r.witness_holds);
-    debug_assert!(all_hold, "L1 bridge witness rows must hold on pinned scenarios");
+    debug_assert!(
+        all_hold,
+        "L1 bridge witness rows must hold on pinned scenarios"
+    );
 
     LeanL1BridgePrepProbe {
         job_id: JOB_ID,

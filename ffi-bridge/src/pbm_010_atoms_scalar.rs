@@ -66,12 +66,10 @@ pub const MANIFOLD_RESIDUAL_SURFACE: &str =
     "umst-manifold/src/runtime/atoms_tensor_lift_residual.rs";
 
 /// Manifold owner adapter surface.
-pub const MANIFOLD_ADAPTER_SURFACE: &str =
-    "umst-manifold/src/runtime/atoms_tensor_lift_adapter.rs";
+pub const MANIFOLD_ADAPTER_SURFACE: &str = "umst-manifold/src/runtime/atoms_tensor_lift_adapter.rs";
 
 /// Manifold owner ledger surface.
-pub const MANIFOLD_LEDGER_SURFACE: &str =
-    "umst-manifold/src/runtime/atoms_tensor_lift_ledger.rs";
+pub const MANIFOLD_LEDGER_SURFACE: &str = "umst-manifold/src/runtime/atoms_tensor_lift_ledger.rs";
 
 /// Manifold owner ops surface.
 pub const MANIFOLD_OPS_SURFACE: &str = "umst-manifold/src/runtime/atoms_tensor_lift_ops.rs";
@@ -335,16 +333,12 @@ pub fn run_formal_atoms_scalar_fence_audit() -> Pbm010FormalAudit {
     let probes = vec![
         Pbm010FormalProbe {
             probe: "bench_consumer_on_disk",
-            green: tyto_workspace_root()
-                .join(BENCH_CONSUMER_PATH)
-                .is_file(),
+            green: tyto_workspace_root().join(BENCH_CONSUMER_PATH).is_file(),
             detail: "umst-bench pbm_010_atoms_scalar.rs present",
         },
         Pbm010FormalProbe {
             probe: "posture_fixture_on_disk",
-            green: tyto_workspace_root()
-                .join(BENCH_POSTURE_FIXTURE)
-                .is_file(),
+            green: tyto_workspace_root().join(BENCH_POSTURE_FIXTURE).is_file(),
             detail: "pbm_010_atoms_scalar_posture.json present",
         },
         Pbm010FormalProbe {
@@ -428,9 +422,7 @@ pub fn pbm_010_atoms_scalar_probe_honest() -> Pbm010AtomsScalarProbe {
         fence_hop_count: FENCE_HOP_COUNT,
         formal_fence_closed: pbm_010_formal_fence_closed(),
         f1_lift_fence_honest: audit.all_green(),
-        bench_consumer_wired: tyto_workspace_root()
-            .join(BENCH_CONSUMER_PATH)
-            .is_file(),
+        bench_consumer_wired: tyto_workspace_root().join(BENCH_CONSUMER_PATH).is_file(),
         posture_pins_f1_open: posture_pins_f1_open_on_disk(),
         pbm_010_fully_closed: pbm_010_fully_closed(),
         pbm_010_flip_blocked: true,
@@ -589,7 +581,9 @@ pub fn probe_pbm_010_accel_ac04_fence_deepen(root: &Path) -> Result<String, Stri
         return Err(format!("missing H4 receipt: {}", h4_receipt.display()));
     }
     if !pbm_010_accel_ac04_fence_deepen_closed() {
-        return Err("AC04 fence deepen not closed — structural audit or prior absorb failed".into());
+        return Err(
+            "AC04 fence deepen not closed — structural audit or prior absorb failed".into(),
+        );
     }
     let probe = pbm_010_accel_ac04_probe();
     if !pbm_010_accel_ac04_honest(&probe) {
@@ -616,7 +610,10 @@ mod tests {
         assert_eq!(FLEET_PARENT, "FLEET-COMPOSER-ACCEL-25-2030");
         assert_eq!(JOB_ID, "FLEET-COMPOSER-ACCEL-25-2030-AC04-PBM-010");
         assert_eq!(RECEIPT_PATH, "outputs/.tmp/COMPOSER_ACCEL_2030_AC04.md");
-        assert_eq!(PRIOR_Y60_JOB_ID, "FLEET-COMPOSER-Y60-PBM-010-R-ATOMS-SCALAR");
+        assert_eq!(
+            PRIOR_Y60_JOB_ID,
+            "FLEET-COMPOSER-Y60-PBM-010-R-ATOMS-SCALAR"
+        );
         assert_eq!(PRIOR_E2_JOB_ID, "PRABHU-WAVE-E-1700-E2-PBM-010");
         assert_eq!(PRIOR_H4_JOB_ID, "PRABHU-WAVE-H-1800-H4-PBM-010");
         assert_eq!(PARENT_WORKSTREAM_ID, "PBM-010");
@@ -705,9 +702,11 @@ mod tests {
     #[test]
     fn probe_pbm_010_accel_ac04_fence_deepen_witness_on_disk() {
         let root = tyto_workspace_root();
-        let msg = probe_pbm_010_accel_ac04_fence_deepen(&root)
-            .expect("AC04 fence deepen witness");
-        assert!(msg.contains("accel_ac04_fence_deepen_closed=true"), "deepen: {msg}");
+        let msg = probe_pbm_010_accel_ac04_fence_deepen(&root).expect("AC04 fence deepen witness");
+        assert!(
+            msg.contains("accel_ac04_fence_deepen_closed=true"),
+            "deepen: {msg}"
+        );
         assert!(msg.contains("f1_fully_closed=false"), "fence: {msg}");
         assert!(msg.contains("pbm_010_fully_closed=false"), "fence: {msg}");
         assert!(msg.contains("closure=RESIDUE"), "residue: {msg}");

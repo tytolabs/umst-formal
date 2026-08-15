@@ -222,22 +222,31 @@ def gridE0Row7Pa : ℚ := 28000000000
 /-- Grid row 2: stiffness scale at α = 3/4 (`stiffnessScale_mono` anchor). -/
 theorem stiffness_scale_grid_row2 :
     stiffnessScale (3 / 4) = 1 / 4 := by
-  simpa using stiffnessScale_eq_sub_above_threshold (α := 3 / 4) (by norm_num)
+  -- Threshold must be unfolded for both the side-condition and the arithmetic.
+  rw [stiffnessScale_eq_sub_above_threshold (by unfold stiffnessAlphaThreshold; norm_num)]
+  unfold stiffnessAlphaThreshold
+  norm_num
 
 /-- Grid row 3: stiffness scale at α = 1. -/
 theorem stiffness_scale_grid_row3 :
     stiffnessScale 1 = 1 / 2 := by
-  simpa using stiffnessScale_eq_sub_above_threshold (α := 1) (by norm_num)
+  rw [stiffnessScale_eq_sub_above_threshold (by unfold stiffnessAlphaThreshold; norm_num)]
+  unfold stiffnessAlphaThreshold
+  norm_num
 
 /-- Grid row 4: stiffness scale at α = 3/5. -/
 theorem stiffness_scale_grid_row4 :
     stiffnessScale (3 / 5) = 1 / 10 := by
-  simpa using stiffnessScale_eq_sub_above_threshold (α := 3 / 5) (by norm_num)
+  rw [stiffnessScale_eq_sub_above_threshold (by unfold stiffnessAlphaThreshold; norm_num)]
+  unfold stiffnessAlphaThreshold
+  norm_num
 
 /-- Grid row 6: stiffness scale at α = 4/5. -/
 theorem stiffness_scale_grid_row6 :
     stiffnessScale (4 / 5) = 3 / 10 := by
-  simpa using stiffnessScale_eq_sub_above_threshold (α := 4 / 5) (by norm_num)
+  rw [stiffnessScale_eq_sub_above_threshold (by unfold stiffnessAlphaThreshold; norm_num)]
+  unfold stiffnessAlphaThreshold
+  norm_num
 
 /-- Grid row 2 ψ evaluation at ε = 1/100, E₀ = 30 GPa. -/
 theorem psi_stiffness_alpha_grid_row2 :
@@ -264,7 +273,8 @@ theorem psi_stiffness_alpha_grid_row4 :
 theorem psi_stiffness_alpha_grid_row5_zero :
     psi_stiffness_alpha (1 / 100) gridE0RefPa (2 / 5) = 0 := by
   simpa using psi_stiffness_alpha_eq_zero_below_threshold
-    (epsilon := 1 / 100) (e0 := gridE0RefPa) (α := 2 / 5) (by norm_num)
+    (epsilon := 1 / 100) (e0 := gridE0RefPa) (α := 2 / 5)
+    (by unfold stiffnessAlphaThreshold; norm_num)
 
 /-- Grid row 6: zero strain ⇒ ψ = 0 at α = 4/5 (`psi_stiffness_alpha_eq_zero_at_zero_strain`). -/
 theorem psi_stiffness_alpha_grid_row6_zero_strain :
@@ -275,7 +285,8 @@ theorem psi_stiffness_alpha_grid_row6_zero_strain :
 theorem psi_stiffness_alpha_grid_row7_zero :
     psi_stiffness_alpha (1 / 50) gridE0Row7Pa (9 / 20) = 0 := by
   simpa using psi_stiffness_alpha_eq_zero_below_threshold
-    (epsilon := 1 / 50) (e0 := gridE0Row7Pa) (α := 9 / 20) (by norm_num)
+    (epsilon := 1 / 50) (e0 := gridE0Row7Pa) (α := 9 / 20)
+    (by unfold stiffnessAlphaThreshold; norm_num)
 
 /-- All seven pinned grid rows evaluate without sorry (computational witness bundle). -/
 theorem l1a_rational_grid_row_count :

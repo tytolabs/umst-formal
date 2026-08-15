@@ -31,7 +31,10 @@ pub const L2_METRIC_THEOREM_BINDINGS: &[(&str, &str)] = &[
         "frugality.rcc",
         "UMST.FormalDoubleSlit.GeneralResidualCoherence::residual_coherence_capacity",
     ),
-    ("closed_loop.landauer_slack", "UMST.Formal.LandauerLaw::landauerBound"),
+    (
+        "closed_loop.landauer_slack",
+        "UMST.Formal.LandauerLaw::landauerBound",
+    ),
     (
         "closed_loop.mutual_information_bits",
         "UMST.Formal.RhoEstimator::rho_based_mi_formula",
