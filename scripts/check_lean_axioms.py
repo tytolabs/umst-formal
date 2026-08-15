@@ -11,9 +11,14 @@ def workspace_root() -> Path:
     return Path(__file__).resolve().parents[3]
 
 def discover_lean_roots(ws: Path) -> list[Path]:
-    skip = {".lake", "node_modules", "old", "archived", "scratch", "target", ".git"}
+    """Discover Lean roots under umst/ (UMST fibers), not a hardcoded list.
+    Skips .lake/packages, fixtures, and non-umst trees (e.g. private docs)."""
+    skip = {".lake", "node_modules", "old", "archived", "scratch", "target", ".git", "fixtures"}
     roots = []
-    for lean_dir in ws.rglob("Lean"):
+    search = ws / "umst"
+    if not search.is_dir():
+        return []
+    for lean_dir in search.rglob("Lean"):
         if not lean_dir.is_dir():
             continue
         if any(part in skip for part in lean_dir.parts):

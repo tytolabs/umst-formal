@@ -17,10 +17,14 @@ COMMENT = re.compile(r"--.*$")
 
 def discover():
     roots = []
-    for lean_dir in ws.rglob("Lean"):
+    skip2 = skip | {"fixtures"}
+    search = ws / "umst"
+    if not search.is_dir():
+        return []
+    for lean_dir in search.rglob("Lean"):
         if not lean_dir.is_dir():
             continue
-        if any(p in skip for p in lean_dir.parts) or "packages" in lean_dir.parts:
+        if any(p in skip2 for p in lean_dir.parts) or "packages" in lean_dir.parts:
             continue
         if any(p.suffix == ".lean" and p.name != "lakefile.lean" for p in lean_dir.rglob("*.lean") if ".lake" not in p.parts):
             roots.append(lean_dir)
