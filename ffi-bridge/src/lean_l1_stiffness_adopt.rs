@@ -39,7 +39,7 @@ pub const L1_PROBE_COUNT: usize = 10;
 pub const V2_GRID_ROW_COUNT: usize = 7;
 
 /// Expected theorem count @ StiffnessTransition L1a.
-pub const EXPECTED_THEOREM_COUNT: u32 = 14;
+pub const EXPECTED_THEOREM_COUNT: u32 = 27;
 
 /// Expected lemma count @ StiffnessTransition L1a.
 pub const EXPECTED_LEMMA_COUNT: u32 = 2;
@@ -182,7 +182,7 @@ pub fn lean_source_decl_counts() -> Option<(u32, u32)> {
     Some((thm, lem))
 }
 
-/// On-disk decl counts match inventory pin (14 thm + 2 lem).
+/// On-disk decl counts match inventory pin (27 thm + 2 lem).
 #[must_use]
 pub fn lean_source_decl_counts_honest() -> bool {
     matches!(
