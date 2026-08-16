@@ -1,8 +1,9 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+<!-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar -->
+<!-- SPDX-License-Identifier: MIT -->
+
 <!--
 -->
-<!-- markdownlint-disable-file MD013 MD040 MD001 MD026 — hero README is intentionally dense; other docs stay strict via shared config. -->
+<!-- markdownlint-disable-file MD013 MD040 MD001 MD026 MD022 MD032 MD051 MD042 — hero README is intentionally dense; other docs stay strict via shared config. -->
 
 <div align="center">
 
@@ -678,7 +679,7 @@ UMST-Formal: Categorical Verification of Physics-Gated Material State Transition
 Zenodo. 
 ```
 
-Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660]()) when you rely on that fiber.
+Also cite the sibling observation-cost formal artifact [DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660) when you rely on that fiber.
 
 **Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`522d944`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
 

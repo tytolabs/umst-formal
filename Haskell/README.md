@@ -1,5 +1,6 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+<!-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar -->
+<!-- SPDX-License-Identifier: MIT -->
+
 # Haskell Layer — Categorical Bridge & Property Tests
 
 Categorical semantics bridge connecting the formal Agda/Coq specifications to the Rust kernel via FFI, with property-based testing for correspondence validation.

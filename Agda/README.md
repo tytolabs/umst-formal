@@ -1,5 +1,6 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+<!-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar -->
+<!-- SPDX-License-Identifier: MIT -->
+
 # Agda Layer — Dependent-Type Proofs
 
 Dependent-type proofs of the four thermodynamic gate invariants and the categorical structure underlying the UMST kernel.

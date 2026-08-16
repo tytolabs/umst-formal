@@ -1,5 +1,6 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+<!-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar -->
+<!-- SPDX-License-Identifier: MIT -->
+
 # Architecture Invariants
 
 This document describes the empirical basis for the four gate invariants and their

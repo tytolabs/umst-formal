@@ -152,6 +152,13 @@ jobs:
           ref: ce9828ea5a8c3ced0a350da648a4c5f336fec0fb
           path: umst-manifold
 
+      - name: Overlay umst-math from manifold docs (crosswalk_stats SSOT)
+        run: |
+          set -euo pipefail
+          cd umst-manifold
+          git fetch --depth=1 origin c25c8ef55533495523e0149b2c300ea13bca5def
+          git checkout FETCH_HEAD -- umst-math/
+
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@3c5f7ea28cd621ae0bf5283f0e981fb97b8a7af9 # master
         with:
@@ -238,7 +245,7 @@ jobs:
         uses: actions/checkout@v4 # v4
         with:
           repository: tytolabs/umst-formal-double-slit
-          ref: d2b91ef4c08e540b79546f2b8a16fb2be606398b
+          ref: docs/reorganize-readme
           path: sibling/umst-formal-double-slit
 
       - name: Shared Lean module drift (8 modules)

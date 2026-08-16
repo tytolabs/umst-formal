@@ -1,5 +1,6 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+<!-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar -->
+<!-- SPDX-License-Identifier: MIT -->
+
 # Coq Layer — Verified Extraction of Gate Logic
 
 Verified formalisation of the UMST thermodynamic gate with extraction to OCaml.
@@ -63,6 +64,7 @@ ocamlfind ocamlopt gate_extracted.ml -o gate_test
 ```
 
 ## Extraction scope
+
 | Coq definition         | OCaml output           | Role                    |
 |------------------------|------------------------|--------------------------|
 | `ThermodynamicState`   | Record type            | State representation     |
