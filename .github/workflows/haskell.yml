@@ -5,7 +5,7 @@ name: Haskell
 on:
   workflow_dispatch:
   push:
-    branches: [main, master]
+    branches: [main, master, docs/reorganize-readme]
     paths:
       - "Haskell/**"
       - ".github/workflows/haskell.yml"
