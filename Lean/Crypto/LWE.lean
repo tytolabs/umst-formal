@@ -7,6 +7,8 @@
     (umst-algebra/tests).
   Physics stack: unchanged — sole physics axiom `LandauerLaw.physicalSecondLaw`.
   Full lattice proof: research-frontier residue `R-LS0-full` (very low priority).
+
+  **No axiom.** Hardness is a field of `Spec`, discharged where a lattice family is supplied.
 -/
 
 import Crypto.CryptoHypothesis
@@ -21,11 +23,18 @@ def hypothesisMeta : UMST.CryptoHypothesis.Record :=
       "s0_crypto_registry_constants,s0_crypto_malformed_input; " ++
       "NOT LandauerLaw.physicalSecondLaw" }
 
-axiom LatticeProblem : Type
-axiom hardness_assumption : LatticeProblem → Prop
+/-- A lattice problem family together with its hardness hypothesis and provenance. -/
+structure Spec where
+  LatticeProblem     : Type
+  hardness_assumption : LatticeProblem → Prop
+  /-- Module-LWE / Module-LWR hardness — Tier-1 CryptoHypothesis (statement only). -/
+  hardness : ∀ p : LatticeProblem, hardness_assumption p
+  /-- Provenance for the hypothesis above; never `PhysicsAxiom`. -/
+  hypothesis : UMST.CryptoHypothesis.Record
 
-/-- Module-LWE / Module-LWR hardness — Tier-1 CryptoHypothesis (statement only). -/
-axiom ModuleLWEHardness (p : LatticeProblem) : hardness_assumption p
+theorem ModuleLWEHardness (L : Spec) (p : L.LatticeProblem) :
+    L.hardness_assumption p :=
+  L.hardness p
 
 end LWE
 end Crypto

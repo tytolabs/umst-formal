@@ -468,7 +468,7 @@ See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index.
 | **Agda** | `Gate.agda`, `Naturality.agda`, `Activation.agda`, `DIB-Kleisli.agda`, `InfoTheory.agda`, … | `make check` in CI | `cd Agda && make check` |
 | **Coq** | `Gate.v`, `Constitutional.v`, `LandauerEinsteinBridge.v`, `Extraction.v` | `.vo` build + extraction | `cd Coq && make` |
 | **Haskell** | `Haskell/test/Test.hs` — **33** `prop_*` | QuickCheck + optional FFI | `cabal test umst-properties` |
-| **Lean** | **76** roots, **514** thm + **63** lem (roots-only) | **0** sorry; **1** physical `physicalSecondLaw` + **28** Crypto Tier-1 `axiom`s | `cd Lean && lake build` |
+| **Lean** | **76** roots, **514** thm + **63** lem (roots-only) | **0** sorry; **1** `axiom` in the repository — `physicalSecondLaw` | `cd Lean && lake build` |
 
 Cross-layer claim map: four gate invariants, naturality, subject reduction, Landauer–Einstein bridge, SDF/FRep — see table in §7 above. **Do not** conflate Agda specification modules with runtime MCP behavior.
 
@@ -554,22 +554,27 @@ Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](
 
 Counts @ **`522d944`** (2026-08-15). **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
 
-**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` @ **`522d944`** (2026-08-15):
+**Lean 4 (default lake roots)** — paste from `python3 scripts/lean_declaration_stats.py` (2026-08-16):
 
 ```text
 Repository: umst-formal
 Lake roots: 76 modules
 Roots-only:  514 theorem, 63 lemma, total 577
-All Lean/*:  585 theorem, 63 lemma, total 648
+All Lean/*:  587 theorem, 63 lemma, total 650
 Axioms (^axiom ):
-  Collision.lean / Composability.lean / EUF_CMA.lean / LWE.lean /
-  SanitizePatternCoverage.lean / SideChannel.lean  — 28 Crypto Tier-1 hardness axioms
-  LandauerLaw.lean:155  physicalSecondLaw
+  LandauerLaw.lean:155  physicalSecondLaw          — the only axiom in this repository
 ```
+
+The 28 former `Crypto/` axioms are gone. Carriers, hardness assumptions and the coverage claim are
+now **fields of a `structure`** — `Collision.Scheme`, `Composability.Spec`, `EUF_CMA.Scheme`,
+`LWE.Spec`, `SanitizePatternCoverage.Spec`, `SideChannel.Spec` — so each is discharged where a
+scheme is instantiated instead of asserted globally, and each abstraction now admits a witness.
+`MLDSAUnforgeability` and `ModuleLWEHardness` became theorems over their schemes, which is the +2
+against the previous all-files count.
 
 - **0** tactic `sorry` in the default rooted closure (`bash scripts/check_lean_sorry.sh`).
 - **1** physical project `axiom`: `physicalSecondLaw` in [`Lean/LandauerLaw.lean:155`](Lean/LandauerLaw.lean).
-- **28** additional `axiom` declarations under `Lean/Crypto/` (Tier-1 cryptographic hardness / statement stubs — not Second-Law physics). Do not collapse these into “one axiom.”
+- **0** other `axiom` declarations. `Lean/Crypto/` formerly carried 28 (Tier-1 hardness and statement stubs, never Second-Law physics); each is now a field of a `structure`, discharged where a scheme is instantiated. `python3 ../../workspace/scripts/check_axiom_floor.py` enforces the floor across every repository.
 - After `lake build`, CI runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems). Paste (same SHA):
 
 ```text
@@ -591,7 +596,7 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 ### What surprised us
 
 - **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` _sound_ like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
-- **One physical axiom carries the thermodynamic spine.** Economic-admissibility rests on a single explicit physical axiom, `physicalSecondLaw`, with gate/Kleisli results derived against a Mathlib axiom baseline in CI. Separately, `Lean/Crypto/` carries **28** Tier-1 hardness `axiom`s (statement stubs) — counted honestly, not folded into the physical floor.
+- **One physical axiom carries the thermodynamic spine.** Economic-admissibility rests on a single explicit physical axiom, `physicalSecondLaw`, with gate/Kleisli results derived against a Mathlib axiom baseline in CI. `Lean/Crypto/` once carried 28 Tier-1 hardness `axiom`s beside it, and counting them honestly was the right first step; typing them was the better second one. A hardness assumption is not an axiom of the theory — it is an obligation on whoever instantiates the scheme, and expressing it as a `structure` field says so in the type. The repository now declares exactly one `axiom`.
 - **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when _every_ step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
 
 ### Forward path

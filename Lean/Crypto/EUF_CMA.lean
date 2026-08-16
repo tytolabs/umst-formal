@@ -7,6 +7,11 @@
     (umst-algebra/tests).
   Physics stack: unchanged — sole physics axiom `LandauerLaw.physicalSecondLaw`.
   Full ROM proof: research-frontier residue `R-LS1-full`.
+
+  **No axiom.** Unforgeability is a field of `Scheme` carrying its provenance record, so adopting
+  ML-DSA states the hypothesis at the point of adoption. Note that the statement retains its
+  disjunctive `∨ True` form and is therefore satisfiable without content; strengthening it is
+  residue `R-LS1-full`.
 -/
 
 import Crypto.CryptoHypothesis
@@ -21,15 +26,21 @@ def hypothesisMeta : UMST.CryptoHypothesis.Record :=
       "s0_crypto_hash_kat,s0_crypto_malformed_input; " ++
       "NOT LandauerLaw.physicalSecondLaw" }
 
-axiom Signature : Type
-axiom Message : Type
-axiom PublicKey : Type
-axiom forge : PublicKey → List Message → Option Signature
+/-- A signature scheme together with its unforgeability hypothesis and provenance. -/
+structure Scheme where
+  Signature : Type
+  Message   : Type
+  PublicKey : Type
+  forge     : PublicKey → List Message → Option Signature
+  /-- ML-DSA unforgeability under EUF-CMA — Tier-1 CryptoHypothesis (statement only). -/
+  unforgeable : ∀ (pk : PublicKey) (qs : List Message), forge pk qs = none ∨ True
+  /-- Provenance for the hypothesis above; never `PhysicsAxiom`. -/
+  hypothesis : UMST.CryptoHypothesis.Record
 
-/-- ML-DSA unforgeability under EUF-CMA — Tier-1 CryptoHypothesis (statement only). -/
-axiom MLDSAUnforgeability
-    (pk : PublicKey) (qs : List Message) :
-    forge pk qs = none ∨ True
+theorem MLDSAUnforgeability (S : Scheme)
+    (pk : S.PublicKey) (qs : List S.Message) :
+    S.forge pk qs = none ∨ True :=
+  S.unforgeable pk qs
 
 end EUF_CMA
 end Crypto

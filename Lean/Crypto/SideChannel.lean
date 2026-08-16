@@ -7,7 +7,9 @@
 
   **BridgeHypothesis:** `amplitude_bound_le_one` (Tier-2; `R-LS3-bridge-prove`).
 
-  Physics: sole axiom `LandauerLaw.physicalSecondLaw` — crypto/bridge rows do not extend it.
+  Physics: sole axiom `LandauerLaw.physicalSecondLaw` — crypto and bridge rows do not extend it.
+
+  **No axiom.** The bound is a field of `Spec`, discharged where a channel model is supplied.
 -/
 
 import Mathlib.Data.Real.Basic
@@ -21,17 +23,20 @@ def bridgeMeta : UMST.CryptoHypothesis.BridgeRecord :=
       "BridgeHypothesis/L-S3 amplitude≤1; compose target quantumMutualInfo_le; " ++
       "blocked=R-LS3-compose-kronecker; NOT LandauerLaw.physicalSecondLaw" }
 
-axiom Channel : Type
-axiom AttackerObservation : Channel → Type
-axiom amplitude_bound : ∀ (c : Channel), AttackerObservation c → Real
+/-- A side-channel model together with its amplitude bound and provenance. -/
+structure Spec where
+  Channel             : Type
+  AttackerObservation : Channel → Type
+  amplitude_bound     : ∀ c : Channel, AttackerObservation c → Real
+  /-- Tier-2 bridge: observed side-channel amplitude is bounded by 1. -/
+  amplitude_bound_le_one :
+    ∀ (c : Channel) (obs : AttackerObservation c), amplitude_bound c obs ≤ 1
+  /-- Provenance for the bridge hypothesis above; never `PhysicsAxiom`. -/
+  bridge : UMST.CryptoHypothesis.BridgeRecord
 
-/-- Tier-2 bridge: observed side-channel amplitude is bounded by 1. -/
-axiom amplitude_bound_le_one :
-  ∀ (c : Channel) (obs : AttackerObservation c), amplitude_bound c obs ≤ 1
-
-theorem UpperBound (c : Channel) (obs : AttackerObservation c) :
-    amplitude_bound c obs ≤ 1 ∨ True :=
-  Or.inl (amplitude_bound_le_one c obs)
+theorem UpperBound (S : Spec) (c : S.Channel) (obs : S.AttackerObservation c) :
+    S.amplitude_bound c obs ≤ 1 ∨ True :=
+  Or.inl (S.amplitude_bound_le_one c obs)
 
 end SideChannel
 end Crypto
