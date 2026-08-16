@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 65,
+  "lake_roots_count": 76,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -28,6 +28,10 @@
     "LandauerEinsteinBridge",
     "LandauerLaw",
     "InfoTheory",
+    "SemanticSecondLaw",
+    "MeaningState",
+    "InterpretationFunctor",
+    "SemanticEconomicModules",
     "ClassicalMeasurementCost",
     "CoordinationCost",
     "LandauerExtension",
@@ -66,17 +70,24 @@
     "Adjoint",
     "RegimeSoundness",
     "JenningsGelSpace",
-    "DualLedger"
+    "DualLedger",
+    "Excitement",
+    "ExcitementProofs",
+    "WaveShape",
+    "Concrete.PoromechanicsB3",
+    "Concrete.ShrinkageB4",
+    "Web",
+    "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 356,
-    "lemma": 31,
-    "total": 387
+    "theorem": 514,
+    "lemma": 63,
+    "total": 577
   },
   "all_lean_glob": {
-    "theorem": 363,
-    "lemma": 31,
-    "total": 394
+    "theorem": 587,
+    "lemma": 63,
+    "total": 650
   },
   "per_root": {
     "Core.Scalar": {
@@ -120,11 +131,11 @@
       "lemma": 5
     },
     "Concrete.StiffnessTransition": {
-      "theorem": 14,
+      "theorem": 27,
       "lemma": 2
     },
     "Concrete.MicroMechanics": {
-      "theorem": 11,
+      "theorem": 22,
       "lemma": 5
     },
     "Concrete.Convergence": {
@@ -181,6 +192,22 @@
     },
     "InfoTheory": {
       "theorem": 4,
+      "lemma": 0
+    },
+    "SemanticSecondLaw": {
+      "theorem": 12,
+      "lemma": 0
+    },
+    "MeaningState": {
+      "theorem": 13,
+      "lemma": 0
+    },
+    "InterpretationFunctor": {
+      "theorem": 1,
+      "lemma": 0
+    },
+    "SemanticEconomicModules": {
+      "theorem": 8,
       "lemma": 0
     },
     "ClassicalMeasurementCost": {
@@ -337,6 +364,34 @@
     },
     "DualLedger": {
       "theorem": 4,
+      "lemma": 0
+    },
+    "Excitement": {
+      "theorem": 0,
+      "lemma": 0
+    },
+    "ExcitementProofs": {
+      "theorem": 13,
+      "lemma": 0
+    },
+    "WaveShape": {
+      "theorem": 8,
+      "lemma": 0
+    },
+    "Concrete.PoromechanicsB3": {
+      "theorem": 15,
+      "lemma": 14
+    },
+    "Concrete.ShrinkageB4": {
+      "theorem": 19,
+      "lemma": 18
+    },
+    "Web": {
+      "theorem": 24,
+      "lemma": 0
+    },
+    "Web.WebMat": {
+      "theorem": 21,
       "lemma": 0
     }
   },

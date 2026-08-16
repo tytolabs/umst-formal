@@ -7,8 +7,28 @@ from pathlib import Path
 
 AXIOM_RE = re.compile(r"^axiom\s+(\S+)")
 
+def repo_root() -> Path:
+    """This repository's root — scripts/ lives directly under it."""
+    return Path(__file__).resolve().parents[1]
+
 def workspace_root() -> Path:
-    return Path(__file__).resolve().parents[3]
+    """The monorepo root when this repo is checked out inside it.
+
+    Walk upward looking for `workspace/ops`. A standalone clone — which is what
+    CI checks out — has no such ancestor, so fall back to this repository. The
+    gate then scans this repo's own Lean tree and writes its census locally,
+    instead of walking above the checkout and failing on an unwritable path.
+    """
+    here = Path(__file__).resolve()
+    for cand in here.parents:
+        if (cand / "workspace" / "ops").is_dir():
+            return cand
+    return repo_root()
+
+def census_dir(ws: Path) -> Path:
+    """Where the census is written: monorepo ops directory, else repo-local."""
+    ops = ws / "workspace" / "ops"
+    return ops if ops.is_dir() else (ws / "artifacts")
 
 def discover_lean_roots(ws: Path) -> list[Path]:
     """Discover Lean roots under umst/ (UMST fibers), not a hardcoded list.
@@ -17,7 +37,9 @@ def discover_lean_roots(ws: Path) -> list[Path]:
     roots = []
     search = ws / "umst"
     if not search.is_dir():
-        return []
+        # Standalone checkout: this repository is itself the fiber to scan.
+        own = ws / "Lean"
+        return [own] if own.is_dir() else []
     for lean_dir in search.rglob("Lean"):
         if not lean_dir.is_dir():
             continue
@@ -90,12 +112,14 @@ def write_census(ws, all_axioms, roots):
         },
         "axioms": all_axioms,
     }
-    path = ws / "workspace/ops/U1_AXIOM_CENSUS.json"
+    target = census_dir(ws)
+    target.mkdir(parents=True, exist_ok=True)
+    path = target / "U1_AXIOM_CENSUS.json"
     path.write_text(json.dumps(out, indent=2) + "\n")
     return path
 
 def run_synthetic_tier2_fail(ws: Path) -> None:
-    scratch = ws / "workspace/ops/.tmp_u1_tier2_scratch/Lean"
+    scratch = census_dir(ws) / ".tmp_u1_tier2_scratch/Lean"
     scratch.mkdir(parents=True, exist_ok=True)
     bad = scratch / "SyntheticTier2.lean"
     bad.write_text("axiom synthetic_tier2_must_fail : True\n")
