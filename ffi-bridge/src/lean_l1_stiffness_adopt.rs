@@ -452,7 +452,7 @@ mod tests {
         let audit = run_l1_adopt_audit();
         assert_eq!(audit.probes.len(), L1_PROBE_COUNT);
         for p in &audit.probes {
-            assert!(p.green, "probe {:?} failed", p);
+            assert!(p.green, "probe {p:?} failed");
         }
     }
 

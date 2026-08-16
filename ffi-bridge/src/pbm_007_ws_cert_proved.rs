@@ -889,7 +889,7 @@ mod tests {
         let audit = run_formal_cert_proved_fence_audit();
         assert_eq!(audit.probes.len(), FORMAL_PROBE_COUNT);
         for p in &audit.probes {
-            assert!(p.green, "probe {:?} failed", p);
+            assert!(p.green, "probe {p:?} failed");
         }
     }
 

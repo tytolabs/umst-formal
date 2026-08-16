@@ -331,8 +331,8 @@ mod tests {
     #[test]
     fn l1a_l1b_lean_sources_on_disk() {
         let sources = l1_on_disk_sources();
-        assert!(sources[0].0, "missing {}", sources[0].1);
-        assert!(sources[1].0, "missing {}", sources[1].1);
+        assert!(sources[0].0, "missing {path}", path = sources[0].1);
+        assert!(sources[1].0, "missing {path}", path = sources[1].1);
         assert!(lean_source_on_disk(L1A_LEAN_SOURCE));
         assert!(lean_source_on_disk(L1B_LEAN_SOURCE));
     }
