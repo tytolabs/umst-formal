@@ -184,7 +184,7 @@ jobs:
 
       - name: Run integration tests
         working-directory: umst-formal/ffi-bridge
-        run: cargo test
+        run: cargo test --test integration
 
   # ── Visuals script (optional matplotlib; stub OK if deps missing) ─
   visuals:
