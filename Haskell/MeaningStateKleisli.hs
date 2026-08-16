@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- |
 -- Module      : MeaningStateKleisli
 -- Description : HCOM-002 Haskell QuickCheck stub — Kleisli dialogue composition

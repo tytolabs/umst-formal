@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Functional Programming and Category Theory: Concepts in UMST-Formal
 
 This document explains the functional programming and category theory concepts used

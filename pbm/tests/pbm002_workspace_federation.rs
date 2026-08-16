@@ -1,5 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
 //
 // FLEET-COMPOSER-ACCEL2 AC607 — PBM-002 workspace federation honest witness.
 // PENDING_GAPS §B2: sustain `pbm_002_fully_closed=false` · `production_wired=false`.

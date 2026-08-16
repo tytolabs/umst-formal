@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
 # Multi-repo sorry gate. Excludes sorry_detector_fixture by PURPOSE marker.
 # Matches line-start sorry/admit AND inline `by sorry` / `by admit` (UCRS stubs).
 set -euo pipefail

@@ -1,5 +1,6 @@
-<!--
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 SPDX-License-Identifier: MIT
+<!--
 -->
 
 # SAFETY-LIMITS — Meso-scale Economic layer (Wave 6.5.2)

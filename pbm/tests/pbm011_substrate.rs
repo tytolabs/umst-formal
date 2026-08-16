@@ -1,5 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
 //
 // FLEET-COMPOSER-ACCEL-G AC152 — PBM-011 substrate test deepen honest witness.
 // PENDING_GAPS §B8: sustain `hardware_substrate_green=false` without invent GREEN.

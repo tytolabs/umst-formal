@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- |
 -- Module      : LandauerExtension
 -- Description : Extended Landauer bounds (Haskell parity of Lean/LandauerExtension.lean)

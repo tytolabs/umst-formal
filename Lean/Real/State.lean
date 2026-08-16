@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST.Real.State — continuous ℝ thermodynamic scaffold (quantum cartridge analogue).
 -/

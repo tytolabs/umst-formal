@@ -1,5 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
 //
 // FLEET-COMPOSER-ACCEL-L AC378 — PBM-014 embodiment guarded test honest witness.
 // PENDING_GAPS §7.2: sustain `P3_MI_GATE_BLOCKED=true` across dignity/P3 coupling spine.

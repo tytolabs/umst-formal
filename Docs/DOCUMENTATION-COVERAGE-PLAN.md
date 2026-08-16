@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Documentation coverage plan — exhaustive sorry-free corpus
 
 **Purpose:** Maintainer checklist so every machine-checked claim in `umst-formal` is **accounted for** in the right document, with cross-links among canonical indices (`PROOF-STATUS.md`, `FORMAL_FOUNDATIONS.md`, `Docs/*`). **Not** linked from `README.md` by design (entry point stays short; depth lives in those files). Re-verify **zero** tactic `sorry` / `admit` in default Lean roots in Layer 0 before each release.

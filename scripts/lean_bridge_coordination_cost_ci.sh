@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
 #
 # CI hook — Rust↔Lean differential fixture (coordination cost witness grid).
 # Track 7 / LEAN-BRIDGE-RDI round-2 · tier: witnessed-not-proved · EXPECTED_PROVED_COUNT=0

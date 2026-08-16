@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
 """Multi-repo Lean axiom gate with Tier 0/1/2 and U1_AXIOM_CENSUS.json."""
 from __future__ import annotations
 import argparse, json, re, sys

@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Prime-Spectral UMST — Design Document (Increment 1)
 
 **Date:** 2026-06-15  

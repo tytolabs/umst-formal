@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST.Core.Scalar — per-field mass tolerance and minimal ordered-field structure for K.
 -/

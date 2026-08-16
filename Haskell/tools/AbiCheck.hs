@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- | Minimal executable: load @libumst_ffi@ and run `assertAbiCompatible` only (negative-test harness).
 module Main (main) where
 

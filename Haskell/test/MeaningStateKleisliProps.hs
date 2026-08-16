@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- |
 -- QuickCheck stub for HCOM-002 Kleisli dialogue composition.
 -- Run: cabal test meaning-state-kleisli-props

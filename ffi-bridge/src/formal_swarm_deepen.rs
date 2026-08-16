@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // SWARM-C25-0831-92 — FORMAL-DEEPEN: umst-formal crate one witness (honest PARTIAL).

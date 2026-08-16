@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Formal physics extensions — roadmap for `umst-formal`
 
 This document plans **optional future mathematics** in this repository. It does

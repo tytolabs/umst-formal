@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 # SPDX-License-Identifier: MIT
 # One-shot local gate for science-cartridge branch (mirrors umst-formal lean.yml + drift).
 set -euo pipefail

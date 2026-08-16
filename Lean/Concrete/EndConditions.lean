@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST-Formal: EndConditions.lean
   Lean 4 — Terminal thermodynamic state conditions and invariants

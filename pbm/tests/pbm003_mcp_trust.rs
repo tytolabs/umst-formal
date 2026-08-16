@@ -1,5 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
 //
 // FLEET-COMPOSER-ACCEL-L AC377 — PBM-003 MCP trust fence honest witness.
 // PENDING_GAPS §B1: sustain `production_wired=false` on umst-mcp L4/L5 trust + native wrap.

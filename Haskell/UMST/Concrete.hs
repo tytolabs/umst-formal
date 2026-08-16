@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- |
 -- Module      : UMST.Concrete
 -- Description : OPC cement cartridge — state types and gate logic.

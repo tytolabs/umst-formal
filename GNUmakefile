@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
 # GNUmakefile — Root-level orchestration for umst-formal
 #
 # Builds all four layers in the correct dependency order:

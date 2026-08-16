@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- | Engineering mirror of `Lean/MedianConvergence.lean` (median warmup budget).
 module MedianConvergence where
 

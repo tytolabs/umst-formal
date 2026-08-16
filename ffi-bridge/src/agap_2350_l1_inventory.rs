@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // AGAP-2350-L-1 — theorem FFI binding inventory census (FLEET-COMPOSER-Y Y76).

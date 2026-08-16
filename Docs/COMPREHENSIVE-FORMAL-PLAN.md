@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Comprehensive Formal Plan: Grounding Claims, Closing Gaps, and Extending L₀
 
 **Date:** 2026-03-19

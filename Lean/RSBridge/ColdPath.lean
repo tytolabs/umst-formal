@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST-Formal: RSBridge/ColdPath.lean
   Lean 4 — Rust↔Lean cold-path bridge surface (LIB-ADOPT-F-LEAN-RS).

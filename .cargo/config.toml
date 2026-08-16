@@ -1,2 +1,4 @@
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
 [patch."https://github.com/tytolabs/umst-manifold.git"]
 umst-manifold = { path = "../umst-manifold" }

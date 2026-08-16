@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- | Runs 'FFI.runCorrespondenceTests' when the package is built with @-f with-ffi@.
 -- That suite includes 'FFI.runEtaCogCorrespondence', 'FFI.runRhoMiCorrespondence' (≥120 seeds each, |diff| ≤ 1e-9),
 -- and 'FFI.runMedianConvergenceCorrespondence' (120 seeds, exact Word64) alongside gate / credit / dignity.

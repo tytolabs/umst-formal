@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Coordination Cost — lower-bound semantics (Landauer floor)
 
 **Status:** A7-4 n-ary scaffold @ 2026-07-18 13:27 — `multiInformationBits` + global floor lemmas; pairwise SSOT preserved.  

@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // OPERATOR-ACCEL-2030 AC03 — PBM-009 `WS-faithful-all` formal-tree owner deepen.

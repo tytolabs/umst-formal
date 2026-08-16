@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST-Formal: Naturality.lean
   Lean 4 — Natural-transformation proof for the thermodynamic gate.

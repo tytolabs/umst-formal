@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   Accuracy–safety separation (Theorem 2, paper) — real-line (MAE-compatible) core.
 

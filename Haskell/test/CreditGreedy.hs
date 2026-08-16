@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- | Engineering mirror of `Lean/CreditGreedyOptimal.lean` (Case A: filter-then-sum).
 module CreditGreedy where
 

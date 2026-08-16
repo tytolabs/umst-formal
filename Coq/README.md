@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Coq Layer — Verified Extraction of Gate Logic
 
 Verified formalisation of the UMST thermodynamic gate with extraction to OCaml.
@@ -158,3 +160,6 @@ Coq/
 5. **Keep the extracted interface small** — extract only the decision
    function and its types.  The smaller the trusted interface, the easier
    it is to audit and integrate.
+## 🔒 Confidentiality Notice
+
+This repository contains proprietary information. Copyright (c) 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar. All rights reserved. Unauthorized copying, distribution, or use of these files, via any medium, is prohibited.

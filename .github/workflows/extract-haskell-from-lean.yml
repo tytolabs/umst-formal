@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
 # §14bis.h L-5 — Lean→Haskell extraction CI (checked-in Haskell mirror + lake build gate).
 #
 # The Haskell tree under `Haskell/` is the operator-facing extract artifact; this workflow

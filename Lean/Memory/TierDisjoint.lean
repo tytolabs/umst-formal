@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST-Formal — Memory tier disjointness (L-M3 parallel to §14bis.f-M-2 / M-3 3-tier ADT).
 

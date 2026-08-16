@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // FLEET-COMPOSER-ACCEL-25-2030 AC04 — PBM-010 `R-atoms-scalar` formal-tree owner deepen.

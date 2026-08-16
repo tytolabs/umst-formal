@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
 # CI / local: axiom dependency closure for headline cartridge + DEC theorems must
 # stay within the usual Mathlib baseline (+ optional project physicalSecondLaw).
 #

@@ -1,3 +1,5 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 {-# LANGUAGE ScopedTypeVariables #-}
 -- | QuickCheck smoke: happy-path ABI check + visible version pair (native FFI gate).
 module Main (main) where

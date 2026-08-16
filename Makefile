@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
 # UMST-Formal — minimal orchestration (Wave 6.5.2)
 .PHONY: lean-build lean-stats lean-print-axioms visuals haskell-test
 

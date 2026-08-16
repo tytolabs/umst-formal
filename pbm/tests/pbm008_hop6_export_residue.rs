@@ -1,5 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
 //
 // FLEET-COMPOSER-ACCEL-F AC134 — PBM-008 hop6 catalog_live_export honest residue.
 // Absorbs AC64 (`COMPOSER_ACCEL2_AC64.md`) formal fence without re-census.

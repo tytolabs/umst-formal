@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Formal foundations — `umst-formal`
 
 **Version:** Wave 6.5.2 — **2026-04-04** (Lean declaration totals refreshed **2026-05-10** — **51** lake roots, cartridge anchors `DEC` / `Adjoint` / `RegimeSoundness` / `JenningsGelSpace`, `scripts/check_print_axioms.sh` in CI; see audit table)

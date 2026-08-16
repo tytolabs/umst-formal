@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Formal physics derivation plan — mathematical scope and proof obligations
 
 This document specifies **what it would mean** to *derive* (not merely cite) several

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2026 Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy — Studio TYTO
 """Export coordination-cost witness grid for Rust↔Lean differential fixture.
 
 Mirrors Lean SI constants from ``LandauerEinsteinBridge.lean``:

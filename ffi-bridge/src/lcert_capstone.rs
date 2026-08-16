@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // FLEET-COMPOSER-Z Z123 — AGAP-2350-L-7 `:lcert` capstone factor table (honest SCAFFOLD).

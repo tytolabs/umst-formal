@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // FLEET-COMPOSER-Z Z121 — AGAP-2350-L-5 `:lcert` factor slice (honest CLOSE).

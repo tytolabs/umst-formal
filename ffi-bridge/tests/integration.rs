@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+// SPDX-License-Identifier: MIT
 // integration.rs — Black-box tests for the material-agnostic umst-ffi-bridge C ABI
 
 use umst_ffi::*;

@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Proof replay — install, closure, and evidence notes
 
 This document is the **independent replay checklist** for `umst-formal`: what must be true to re-check the machine-checked layers, what the repository does **not** mechanize (see `PROOF-STATUS.md`), and known gaps between **documentation claims** and **default CI/local commands**.

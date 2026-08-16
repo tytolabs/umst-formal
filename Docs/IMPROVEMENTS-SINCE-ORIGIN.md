@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 # Improvements since `origin/master` (GitHub cloud)
 
 This note summarizes **local** `umst-formal` advances versus the published

@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // FLEET-COMPOSER-Y42 — LIB-ADOPT-F-LEAN-RS cold-path v2 + L1a/L1b pending inventory.

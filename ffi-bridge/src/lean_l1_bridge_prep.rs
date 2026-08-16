@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
 // FLEET-COMPOSER-H50 — LIB-LEARN-F-LEAN formal bridge prep slice.

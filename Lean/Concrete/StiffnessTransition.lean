@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST-Formal: StiffnessTransition.lean
   Lean 4 — B1 continuum L1a: α-dependent elastic stiffness scaling witness.

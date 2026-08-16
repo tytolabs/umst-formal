@@ -1,3 +1,5 @@
+SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+SPDX-License-Identifier: MIT
 /-
   UMST-Formal: ShrinkageB4.lean — B2 shrinkage envelope + development scaffold.
   G75-L02: `shrinkageDevelopmentExp` mirrors Rust `1 - exp(-3α/α_ult)` on ℝ.
