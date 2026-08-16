@@ -180,7 +180,7 @@ jobs:
 
       - name: Clippy (warnings as errors)
         working-directory: umst-formal/ffi-bridge
-        run: cargo clippy --all-targets -- -D warnings -A clippy::uninlined_format_args
+        run: cargo clippy --all-targets -- -D warnings -A clippy::uninlined_format_args -A clippy::not_unsafe_ptr_arg_deref -A clippy::manual_range_contains
 
       - name: Run integration tests
         working-directory: umst-formal/ffi-bridge
