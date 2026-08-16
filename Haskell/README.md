@@ -43,6 +43,3 @@ Rust-side black-box tests live in `../ffi-bridge/tests/integration.rs` (`cargo t
 
 - **`Haskell/test/Test.hs`** `main` runs **62** `quickCheck` obligations (gate, SDF, InfoTheory, Landauer, monoidal state, MeasurementCost, burden/stochastic drift, Economic-layer mirrors, **CreditGreedy**, **Dignity**, **η_cog**, **ρ-MI**, **median warmup**, **order-statistics band** — props live in `Test.hs` and imported `test/*.hs` modules). Count matches `rg -c quickCheck test/Test.hs` and [`../PROOF-STATUS.md`](../PROOF-STATUS.md) § Haskell / cross-layer tables.
 - **`landauer-einstein-sanity`** (`cabal test landauer-einstein-sanity`): Rational regression check against the Lean `LandauerEinsteinBridge` tight bracket (engineering consistency, not a proof checker).
-## 🔒 Confidentiality Notice
-
-This repository contains proprietary information. Copyright (c) 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar. All rights reserved. Unauthorized copying, distribution, or use of these files, via any medium, is prohibited.

@@ -34,6 +34,3 @@ The Agda layer establishes three category-theoretic results:
 2. **Kleisli structure** — The DIB methodology forms a Kleisli category `Kl(StateT UMST IO)` where discovery, invention, and build are composable morphisms preserving the admissibility predicate.
 
 3. **Monoidal conservation** — Mass conservation is encoded as a monoidal constraint on the tensor product of state spaces, ensuring `|ρ_new − ρ_old| < δ` is preserved under composition of transitions.
-## 🔒 Confidentiality Notice
-
-This repository contains proprietary information. Copyright (c) 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar. All rights reserved. Unauthorized copying, distribution, or use of these files, via any medium, is prohibited.

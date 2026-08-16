@@ -62,8 +62,7 @@ ocamlfind ocamlc gate_extracted.ml -o gate_test
 ocamlfind ocamlopt gate_extracted.ml -o gate_test
 ```
 
-## What Gets Extracted
-
+## Extraction scope
 | Coq definition         | OCaml output           | Role                    |
 |------------------------|------------------------|--------------------------|
 | `ThermodynamicState`   | Record type            | State representation     |
@@ -160,6 +159,3 @@ Coq/
 5. **Keep the extracted interface small** — extract only the decision
    function and its types.  The smaller the trusted interface, the easier
    it is to audit and integrate.
-## 🔒 Confidentiality Notice
-
-This repository contains proprietary information. Copyright (c) 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar. All rights reserved. Unauthorized copying, distribution, or use of these files, via any medium, is prohibited.
