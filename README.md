@@ -14,25 +14,18 @@ SPDX-License-Identifier: MIT
 
 ### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18940933.svg)](https://doi.org/10.5281/zenodo.18940933)
 <!-- readme:status -->
-[![CI](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml)
-[![CI — Lean](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml)
-[![CI — Haskell](https://github.com/tytolabs/umst-formal/actions/workflows/haskell.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/haskell.yml)
-[![CI — Formal (Agda+Coq)](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 
 </div>
 
-### What this is, in plain words
-
+### Acting fiber in plain words
 Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
 
-**What it is.** Machine-checked formalizations (Lean 4 · Agda · Coq · Haskell QuickCheck) of the **thermodynamic admissibility gate** for **acts and commitments** — rational state changes, Shannon/Landauer bookkeeping, and Kleisli composition of gate-checked steps. This is a **proof tree**, not a runtime solver and not an MCP host.
+**Role.** Machine-checked formalizations (Lean 4 · Agda · Coq · Haskell QuickCheck) of the **thermodynamic admissibility gate** for **acts and commitments** — rational state changes, Shannon/Landauer bookkeeping, and Kleisli composition of gate-checked steps. This is a **proof tree**, not a runtime solver and not an MCP host.
 
 **The gate idea.** A proposed transition is admissible only if mass/density and free-energy (Clausius–Duhem) constraints hold under explicit hypotheses — structural accept/reject in logic, not a soft penalty at inference time.
 
-**Repository:** [`tytolabs/umst-formal`](https://github.com/tytolabs/umst-formal) — **acting** fiber: machine-checked economic admissibility and Kleisli composition (Lean · Agda · Coq · Haskell).
+**Repository:** ``tytolabs/umst-formal`` — **acting** fiber: machine-checked economic admissibility and Kleisli composition (Lean · Agda · Coq · Haskell).
 
 ### Shared stack (matter · knowing · acting · time)
 
@@ -40,14 +33,14 @@ These public repos share **one** thermodynamic admissibility gate, applied acros
 
 | Domain | Public repo | Role |
 |:---|:---|:---|
-| **Matter** | [`umst-manifold`](https://github.com/tytolabs/umst-manifold) + [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge) | DEC carrier + cementitious constitutive law |
-| **Knowing** | [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) | Observation / measurement-cost formal fiber |
-| **Acting** | **this repo** ([`umst-formal`](https://github.com/tytolabs/umst-formal)) **← you are here** | Economic-admissibility formal fiber |
-| **Time** | [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) | Temporal witness / stamp spine |
+| **Matter** | ``umst-manifold`` + ``umst-concrete-cartridge`` | DEC carrier + cementitious constitutive law |
+| **Knowing** | ``umst-formal-double-slit`` | Observation / measurement-cost formal fiber |
+| **Acting** | **this repo** (``umst-formal``) **← you are here** | Economic-admissibility formal fiber |
+| **Time** | ``umst-ucrs`` | Temporal witness / stamp spine |
 
 Sibling links only — no paper-series arc naming in this README. Already-public per-repo DOI badges stay where they exist.
 
-**Acting fiber** (economic admissibility proofs). Runtime DEC gate, arena hot path, and MCP live in [`umst-manifold`](https://github.com/tytolabs/umst-manifold) and [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge).
+**Acting fiber** (economic admissibility proofs). Runtime DEC gate, arena hot path, and MCP live in ``umst-manifold`` and ``umst-concrete-cartridge``.
 
 ### Real objects (categorical — not “the proofs”)
 
@@ -163,7 +156,7 @@ Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/
 
 - This framework **measures dissipation-style costs** and **biases reasoning toward lower-dissipation paths** under the model — it does **not** define **moral truth**, **legal compliance**, or **factual correctness** of natural-language claims.
 - **Truth and values** remain human, cultural, and goal-dependent. The Lean code says what follows **from explicit axioms and hypotheses**, not what society ought to do.
-- Economic and “AI safety” **names are not certifications**. For observation-cost formalizations, see sibling [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) (public DOI kept on that artifact). Deployment / surrogate claims: [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md).
+- Economic and “AI safety” **names are not certifications**. For observation-cost formalizations, see sibling ``umst-formal-double-slit`` (public DOI kept on that artifact). Deployment / surrogate claims: [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md).
 - Soften **none** of the above. Prefer under-claiming.
 
 ## Shared stack vs this fiber
@@ -212,7 +205,7 @@ Agents **consume** exported witnesses and cite theorem names — they do **not**
 
 **What this section is for.** Acting is the fiber that answers: _may this state change commit?_ Optimism is not an axiom. Once you propose a transition, mass and Clausius–Duhem constraints decide admissibility — and Kleisli composition decides whether a _sequence_ of steps may commit. Open a persona below for surface, pipeline, outcome, and an honest limit.
 
-This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs DEC on manifold/concrete; Knowing owns observation cost in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit); Time stamps commitments in [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs). Acting supplies the machine-checked **commitment / economic-predicate** vocabulary those siblings compose through — not moral or legal truth.
+This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs DEC on manifold/concrete; Knowing owns observation cost in ``umst-formal-double-slit``; Time stamps commitments in ``umst-ucrs``. Acting supplies the machine-checked **commitment / economic-predicate** vocabulary those siblings compose through — not moral or legal truth.
 
 <a id="31-catalog--agent-cold-consume"></a>
 <details>
@@ -220,7 +213,7 @@ This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs 
 
 - **Domain Focus / Integration Surface:** Exported witnesses and theorem names — agents **consume** them; they do not `lake build` mid-inference ([§9.2](#92-hot-vs-cold)).
 
-- **Composition / Pipeline:** Pin the digest from manifold [`artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json) → cite names from [`PROOF-STATUS.md`](PROOF-STATUS.md). Runtime MCP tools live only in concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md).
+- **Composition / Pipeline:** Pin the digest from manifold ``artifacts/catalog.lock.json`` → cite names from [`PROOF-STATUS.md`](PROOF-STATUS.md). Runtime MCP tools live only in concrete ``AGENT_MCP.md``.
 
 - **Computational Outcome:** A cold, digest-pinned vocabulary of admissible acts that agents and CI can cite without rebuilding Lean on a robot.
 
@@ -260,7 +253,7 @@ This is a **proof tree**, not a runtime solver and not an MCP host. Matter runs 
 <details>
 <summary><b>4. Cross-fiber links</b> (Knowing, Time, Matter siblings)</summary>
 
-- **Domain Focus / Integration Surface:** Acting owns predicates. Knowing owns observation cost ([`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit)). Time owns stamps ([`umst-ucrs`](https://github.com/tytolabs/umst-ucrs)). Matter owns DEC + constitutive runtime ([`umst-manifold`](https://github.com/tytolabs/umst-manifold) / concrete).
+- **Domain Focus / Integration Surface:** Acting owns predicates. Knowing owns observation cost (``umst-formal-double-slit``). Time owns stamps (``umst-ucrs``). Matter owns DEC + constitutive runtime (``umst-manifold`` / concrete).
 
 - **Composition / Pipeline:** `ConcreteAdmissible` compat mirrors the cartridge gate. UCRS stamps when commitments land. Acting does not run sync protocol and does not re-prove Englert.
 
@@ -478,10 +471,10 @@ Cross-layer claim map: four gate invariants, naturality, subject reduction, Land
 <details>
 <summary><strong>Catalog consume discipline (agents)</strong></summary>
 
-1. Read manifold [`artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json) for digest pin — **never** hardcode rival SHAs in agent prompts.
+1. Read manifold ``artifacts/catalog.lock.json`` for digest pin — **never** hardcode rival SHAs in agent prompts.
 2. Treat this repo as **cold proof build** — run `lake build` in CI or local dev, not on a robot mid-inference.
 3. Cite theorem names from [`PROOF-STATUS.md`](PROOF-STATUS.md) after verifying counts with `python3 scripts/lean_declaration_stats.py`.
-4. MCP tools live only in concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md).
+4. MCP tools live only in concrete ``AGENT_MCP.md``.
 
 </details>
 
@@ -525,7 +518,7 @@ See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty). This 
 
 ### 9.5 Proposed (not yet built)
 
-Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-STATUS.md) and therefore **not** claimed as proved: continuum / PDE-scale admissibility, and deeper cross-layer replay linking this acting fiber to the knowing proofs in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit). Nothing here is asserted until it appears in `PROOF-STATUS.md`.
+Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-STATUS.md) and therefore **not** claimed as proved: continuum / PDE-scale admissibility, and deeper cross-layer replay linking this acting fiber to the knowing proofs in ``umst-formal-double-slit``. Nothing here is asserted until it appears in `PROOF-STATUS.md`.
 
 ### 9.6 Principles
 
@@ -549,7 +542,7 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 | **Hot (not here)** | Manifold DEC / arena mmap; concrete MCP `umst_*` tools | Runtime gate + agent surface → siblings |
 | **Catalog consume** | Agents read manifold export digest | Do not `lake build` mid-inference |
 
-Authoritative agent MCP surface = [`umst-concrete-cartridge/docs/AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md). Catalog SHA = [`umst-manifold/artifacts/catalog.lock.json`](https://github.com/tytolabs/umst-manifold/blob/main/artifacts/catalog.lock.json).
+Authoritative agent MCP surface = ``umst-concrete-cartridge/docs/AGENT_MCP.md``. Catalog SHA = ``umst-manifold/artifacts/catalog.lock.json``.
 
 ### Honesty ledger (one status pointer)
 
@@ -588,14 +581,12 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 
 ## 11. Conclusion: Inferences & Forward Path
 
-### What this repo demonstrates
-
+### This repository demonstrates
 - **Acting is gate-checked, not optimistic** — once you propose a state change, mass and Clausius–Duhem constraints decide admissibility; rejected transitions are not softened into warnings in the formal story.
 - **Kleisli composition is the commitment model** — `kleisliCompose` and `kleisliFoldWellTypedN` make multi-step agent plans well-typed only when **every** step is `CoreAdmissible`.
 - **Economic meso-layer is honest classical bookkeeping** — burden, creativity slack, and collective spread are parameterised predicates with explicit [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) scope — not black-box “AI safety” products.
 
-### What surprised us
-
+### Inferences from the work
 - **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` _sound_ like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
 - **One physical axiom carries the thermodynamic spine.** Economic-admissibility rests on a single explicit physical axiom, `physicalSecondLaw`, with gate/Kleisli results derived against a Mathlib axiom baseline in CI. `Lean/Crypto/` once carried 28 Tier-1 hardness `axiom`s beside it, and counting them honestly was the right first step; typing them was the better second one. A hardness assumption is not an axiom of the theory — it is an obligation on whoever instantiates the scheme, and expressing it as a `structure` field says so in the type. The repository now declares exactly one `axiom`.
 - **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when _every_ step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
@@ -614,10 +605,10 @@ Shared gate spine — **acting** (this fiber) · **matter** · **knowing** · **
 
 | Repository | Spine role | Relation to this Acting fiber |
 |:---|:---|:---|
-| [`umst-manifold`](https://github.com/tytolabs/umst-manifold) | **Matter** substrate | Hot DEC / gate runtime and catalog lock SSOT. Agents cite theorem names from this tree as **cold witnesses**; they do not treat `lake build` as the robot gate path. |
-| [`umst-concrete-cartridge`](https://github.com/tytolabs/umst-concrete-cartridge) | **Matter** cartridge + MCP | Authoritative MCP host and cementitious `ConcreteAdmissible` runtime. Economic “detector” modules here are **predicates** ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)) — not tools on `umst-mcp`. |
-| [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit) | **Knowing** | Observation / Landauer / Englert fiber. This repo owns commitments and burden bookkeeping — **not** which-path complementarity. Link out; do not duplicate Englert tables. |
-| [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs) | **Time** | Stamps when an admissible commitment lands. Does not prove Economic predicates or run the sync mesh inside this proof tree. |
+| ``umst-manifold`` | **Matter** substrate | Hot DEC / gate runtime and catalog lock SSOT. Agents cite theorem names from this tree as **cold witnesses**; they do not treat `lake build` as the robot gate path. |
+| ``umst-concrete-cartridge`` | **Matter** cartridge + MCP | Authoritative MCP host and cementitious `ConcreteAdmissible` runtime. Economic “detector” modules here are **predicates** ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)) — not tools on `umst-mcp`. |
+| ``umst-formal-double-slit`` | **Knowing** | Observation / Landauer / Englert fiber. This repo owns commitments and burden bookkeeping — **not** which-path complementarity. Link out; do not duplicate Englert tables. |
+| ``umst-ucrs`` | **Time** | Stamps when an admissible commitment lands. Does not prove Economic predicates or run the sync mesh inside this proof tree. |
 
 ---
 
@@ -665,11 +656,11 @@ Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction suppli
 
 **Continuum engineering backlog** items (if any) live outside this public formal tree — do not treat them as mechanized claims here.
 
-**Fiber boundary:** Knowing-fiber theorems (Englert, PMIC, Kraus) live in [`umst-formal-double-slit`](https://github.com/tytolabs/umst-formal-double-slit). Time stamps live in [`umst-ucrs`](https://github.com/tytolabs/umst-ucrs). This README covers **Acting** only — link siblings instead of duplicating their proof tables.
+**Fiber boundary:** Knowing-fiber theorems (Englert, PMIC, Kraus) live in ``umst-formal-double-slit``. Time stamps live in ``umst-ucrs``. This README covers **Acting** only — link siblings instead of duplicating their proof tables.
 
 **Visuals discipline:** `make visuals` output is pedagogical — not market data, lab measurements, or deployed AI safety telemetry.
 
-**Agent redirect:** MCP tools and hot/cold runtime labels = concrete [`AGENT_MCP.md`](https://github.com/tytolabs/umst-concrete-cartridge/blob/main/docs/AGENT_MCP.md) only.
+**Agent redirect:** MCP tools and hot/cold runtime labels = concrete ``AGENT_MCP.md`` only.
 
 ---
 
@@ -678,10 +669,10 @@ Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction suppli
 ```
 Shyamsundar, S., Shenbagamoorthy, S. P. (2026).
 UMST-Formal: Categorical Verification of Physics-Gated Material State Transitions.
-Zenodo. https://doi.org/10.5281/zenodo.18940933
+Zenodo. 
 ```
 
-Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660](https://doi.org/10.5281/zenodo.19159660)) when you rely on that fiber.
+Also cite the sibling observation-cost formal artifact ([DOI 10.5281/zenodo.19159660]()) when you rely on that fiber.
 
 **Replay discipline:** counts and axiom baselines in this README are pinned to git SHA **`522d944`**. Re-run `python3 scripts/lean_declaration_stats.py` and `bash scripts/check_print_axioms.sh` after any Lean root change; update [`PROOF-STATUS.md`](PROOF-STATUS.md) in the same commit when totals move.
 
