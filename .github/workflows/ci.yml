@@ -157,7 +157,7 @@ jobs:
           set -euo pipefail
           cd umst-manifold
           git fetch --depth=1 origin c25c8ef55533495523e0149b2c300ea13bca5def
-          git checkout FETCH_HEAD -- umst-math/
+          git checkout FETCH_HEAD -- umst-math/src/theorem_registry.rs
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@3c5f7ea28cd621ae0bf5283f0e981fb97b8a7af9 # master
