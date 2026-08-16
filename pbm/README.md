@@ -5,7 +5,7 @@ SPDX-License-Identifier: MIT
 <!-- AUTO-LATTICE:BEGIN -->
 ## Lattice position
 
-**What it is:** `umst-formal-pbm-compose` — R3 composition copy — hash-matched; not physics GREEN.
+**Role.** `umst-formal-pbm-compose` — R3 composition copy — hash-matched; not physics GREEN.
 
 **One-line role:** `formal` on layer `spine` (status `wip`, stability `evolving`, semver `0.1.0`).
 

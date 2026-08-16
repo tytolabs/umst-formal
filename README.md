@@ -691,7 +691,7 @@ Released under the [MIT License](LICENSE). © 2026 .
 <!-- AUTO-LATTICE:BEGIN -->
 ## Lattice position
 
-**What it is:** `tytolabs/umst-formal` — formal · layer=spine
+**Role.** `tytolabs/umst-formal` — formal · layer=spine
 
 **One-line role:** `formal` on layer `spine` (status `wip`, stability `evolving`, semver `0.1.0`).
 
