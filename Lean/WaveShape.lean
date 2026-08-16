@@ -1,5 +1,5 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 /-
   UMST.WaveShape — weighted wave distance over finite deliverable regions (ℚ).
 -/

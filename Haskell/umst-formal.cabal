@@ -1,11 +1,10 @@
--- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
--- SPDX-License-Identifier: MIT
-
 cabal-version:   3.0
+
 name:            umst-formal
 version:         0.1.0.0
 synopsis:        Categorical semantics bridge and Rust FFI for UMST thermodynamic gate
 license:         MIT
+copyright:      2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 author:          Santhosh Shyamsundar, Santosh Prabhu Shenbagamoorthy
 build-type:      Simple
 

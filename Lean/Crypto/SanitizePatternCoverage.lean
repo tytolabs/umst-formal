@@ -1,5 +1,5 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 /-
   UMST-Formal — L-S5 sanitize-pattern coverage over attack class K.
 

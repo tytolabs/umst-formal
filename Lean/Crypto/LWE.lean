@@ -1,5 +1,5 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 /-
   UMST-Formal — L-S0 Module-LWE hardness (ML-KEM-768 / NIST FIPS 203).
 

@@ -1,5 +1,5 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 /-
   UMST-Formal: MoriTanaka.lean
   Lean 4 — AC48 doctrinal binding for `LIB-LEARN-F-MORI-TANAKA`.

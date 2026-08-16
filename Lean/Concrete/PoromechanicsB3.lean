@@ -1,5 +1,5 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 /-
   UMST-Formal: PoromechanicsB3.lean
   Lean 4 — B3 poromechanics capillary porosity scaffold (ℚ slice).

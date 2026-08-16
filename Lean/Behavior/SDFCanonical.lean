@@ -1,5 +1,5 @@
-SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
-SPDX-License-Identifier: MIT
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: MIT
 -- Behavior/SDFCanonical.lean
 -- L-M2: Behavior.SDFCanonical — byte-equal canonicalised SDFs ⇒ behavior-equivalent actions.
 -- Concrete instantiation: BehaviorEquiv defined as canonical_sdf equality,
