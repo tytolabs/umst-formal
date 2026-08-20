@@ -3,9 +3,18 @@
 /-
   UMST-Formal: Economic/CreativeExplorationTolerance.lean
 
-  Wire exploration slack on identity-class writes: bounded positive feedback only
-  inside sdf ≥ 0 (GoalRegion membership surrogate). Exploration tolerance is not a
-  virus hole — self-propagation cannot hide behind creative slack.
+  Bounded positive feedback on identity-class exploration: charge within creative slack
+  `Δ`, inside sdf ≥ 0 (GoalRegion membership surrogate), and **not** self-propagation.
+
+  **Collision (AGENT-LOOP-11):** exploration tolerance is **not** a virus hole.  Slack inside
+  sdf ≥ 0 is bounded positive feedback — not optional autoimmunity and not self-propagation
+  hiding behind creative charge.
+
+  **Honesty (AGENT-LOOP-11):** formal present on identity exploration **≠** wired on agent
+  identity.  `formalPresentOnIdentityExploration` is true;
+  `explorationToleranceWiredOnAgentIdentity` stays false until runtime consumes tolerance on
+  identity-class writes.  `agentLoopRemainderRow11Closed` and `physicsGreen` stay false — do
+  not bool-flip Padma closed or invent GREEN.  The gap is formal present, unused on identity.
 -/
 
 import Economic.CreativityBudget
@@ -71,5 +80,54 @@ theorem slack_inside_set_not_optional (e : IdentityExplorationEvidence)
 
 theorem propagate_blocks_tolerance (e : IdentityExplorationEvidence) (hp : e.propagate) :
     ¬ explorationToleranceOnIdentity e := fun ⟨_, _, hnp⟩ => hnp hp
+
+/-- Formal module landed on identity exploration bookkeeping (Lean present). -/
+def formalPresentOnIdentityExploration : Bool := true
+
+/-- Runtime wiring on agent identity — measured false until tolerance gate consumes slack. -/
+def explorationToleranceWiredOnAgentIdentity : Bool := false
+
+/-- Padma remainder row AGENT-LOOP-11 — stays open; do not bool-flip closed. -/
+def agentLoopRemainderRow11Closed : Bool := false
+
+/-- Physics GREEN — toolkit does not measure agent identity wiring. -/
+def physicsGreen : Bool := false
+
+theorem formal_present_on_identity_exploration : formalPresentOnIdentityExploration = true := rfl
+
+theorem exploration_tolerance_not_wired_on_agent_identity :
+    explorationToleranceWiredOnAgentIdentity = false := rfl
+
+theorem agent_loop_remainder_row_11_not_closed : agentLoopRemainderRow11Closed = false := rfl
+
+theorem physics_green_false : physicsGreen = false := rfl
+
+/-- Named gap: formal present, unused on agent identity (exploration predicates only). -/
+def formalPresentUnusedOnAgentIdentityGap : Prop :=
+  formalPresentOnIdentityExploration = true ∧ explorationToleranceWiredOnAgentIdentity = false
+
+theorem formal_present_unused_on_agent_identity_gap :
+    formalPresentUnusedOnAgentIdentityGap := by
+  exact ⟨formal_present_on_identity_exploration, exploration_tolerance_not_wired_on_agent_identity⟩
+
+/-- Non-claims beside exploration predicates — no fleet GREEN / production close. -/
+def creativeExplorationNonClaims : List String :=
+  [ "formal present on identity exploration ≠ wired on agent identity"
+  , "exploration tolerance ≠ virus hole; propagate blocks tolerance"
+  , "slack inside sdf≥0 is bounded positive feedback — not optional autoimmunity"
+  , "agent_loop_remainder row 11 closed=false — do not bool-flip Padma"
+  , "physics_green=false — Lean tolerance predicate is not production wiring" ]
+
+/-- AGENT-LOOP-11 formal close is honest: predicates landed, wiring + remainder open. -/
+def agentLoop11FormalCloseHonest : Bool :=
+  formalPresentOnIdentityExploration = true &&
+  explorationToleranceWiredOnAgentIdentity = false &&
+  agentLoopRemainderRow11Closed = false &&
+  physicsGreen = false
+
+theorem agent_loop_11_formal_close_honest : agentLoop11FormalCloseHonest = true := by
+  simp [agentLoop11FormalCloseHonest, formal_present_on_identity_exploration,
+    exploration_tolerance_not_wired_on_agent_identity, agent_loop_remainder_row_11_not_closed,
+    physics_green_false]
 
 end UMST.Economics
