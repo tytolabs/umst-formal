@@ -16,11 +16,11 @@
 ### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
 
 <!-- readme:status -->
-[![CI](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml)
-[![CI — Lean](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml)
-[![CI — Haskell](https://github.com/tytolabs/umst-formal/actions/workflows/haskell.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/haskell.yml)
-[![CI — Formal (Agda+Coq)](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
+[![Figure 1: CI](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml)
+[![Figure 2: CI Lean](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/lean.yml)
+[![Figure 3: CI Haskell](https://github.com/tytolabs/umst-formal/actions/workflows/haskell.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/haskell.yml)
+[![Figure 4: CI Formal Agda Coq](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/formal.yml)
+[![Figure 5: License MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 <!-- /readme:status -->
 
 </div>
@@ -105,8 +105,8 @@ Top-level map
   - [9.6 Principles](#96-principles)
 - [§10 Honesty and limits](#10-honesty-and-limits)
 - [§11 Conclusion](#11-conclusion-inferences--forward-path)
-  - [What this repo demonstrates](#what-this-repo-demonstrates)
-  - [What surprised us](#what-surprised-us)
+  - [This repository demonstrates](#this-repository-demonstrates)
+  - [Inferences from the work](#inferences-from-the-work)
   - [Forward path](#forward-path)
 - [Related repositories](#related-repositories)
 - [Authors](#authors)
@@ -542,7 +542,7 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 
 ### Hot arena vs cold edge (performance honesty)
 
-| Path | What | Character |
+| Path | Role | Character |
 |:---|:---|:---|
 | **Cold (this repo)** | `lake build`, Agda/Coq/Haskell CI, `lean_declaration_stats.py` | Machine-checked proof artifact — not inference-time |
 | **Warm** | Optional `make visuals` / pedagogical plots | Surrogate diagrams — not market or lab data |
