@@ -2,6 +2,9 @@
 -- SPDX-License-Identifier: MIT
 /-
   UMST.Core.Gate — universal thermodynamic bounds (all cartridges).
+
+  CHEM-L0-FORMAL-01 anchor (umst-chem meso lift, Unwired):
+  meso/acting admissibility theorems live on `umst-formal` only — never quantum/knowing cross-wire.
 -/
 
 import Mathlib.Algebra.Order.Field.Basic

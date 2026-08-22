@@ -33,6 +33,9 @@
     - Bekenstein/holographic entropy bounds.
     - FLRW information density.
     These require additional signature extensions beyond ΔL.
+
+  CHEM-L0-FORMAL-01 anchor (umst-chem meso lift, Unwired):
+  acting economic meso layer on `umst-formal` only — knowing fiber is `umst-formal-double-slit`.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
