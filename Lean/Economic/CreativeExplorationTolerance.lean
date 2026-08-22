@@ -42,6 +42,11 @@ def sdfInsideSet (sdf : ℚ) : Prop :=
 def virusHole (e : IdentityExplorationEvidence) : Prop :=
   e.propagate ∧ withinCreativityBudget e.Q e.Q_admitted e.Δ
 
+
+/-- Exploration poison: over budget, outside sdf set, or self-propagation (≠ bounded tolerance). -/
+def explorationPoison (e : IdentityExplorationEvidence) : Prop :=
+  ¬ withinCreativityBudget e.Q e.Q_admitted e.Δ ∨ ¬ sdfInsideSet e.sdf ∨ e.propagate
+
 /-- Exploration slack on identity: budgeted charge, inside set, no self-propagation flag. -/
 def explorationToleranceOnIdentity (e : IdentityExplorationEvidence) : Prop :=
   withinCreativityBudget e.Q e.Q_admitted e.Δ ∧
@@ -82,6 +87,15 @@ theorem slack_inside_set_not_optional (e : IdentityExplorationEvidence)
 
 theorem propagate_blocks_tolerance (e : IdentityExplorationEvidence) (hp : e.propagate) :
     ¬ explorationToleranceOnIdentity e := fun ⟨_, _, hnp⟩ => hnp hp
+
+
+theorem explorationTolerance_disjoint_poison (e : IdentityExplorationEvidence)
+    (h : explorationToleranceOnIdentity e) : ¬ explorationPoison e := by
+  intro hpoison
+  rcases hpoison with hob | hsdf | hprop
+  · exact hob h.1
+  · exact hsdf h.2.1
+  · exact h.2.2 hprop
 
 /-- Collision pin: slack inside sdf≥0 (tolerance) implies bounded feedback and excludes virus hole. -/
 theorem slack_inside_set_not_virus_hole (e : IdentityExplorationEvidence)
@@ -148,6 +162,7 @@ def creativeExplorationNonClaims : List String :=
   [ "withinCreativityBudget exists ≠ exploration slack wired on identity writes"
   , "formal present on identity exploration ≠ wired on agent identity"
   , "exploration tolerance ≠ virus hole; propagate blocks tolerance"
+  , "exploration tolerance ≠ poison; poison is over-budget ∨ outside sdf ∨ propagate"
   , "slack inside sdf≥0 is bounded positive feedback — not optional autoimmunity"
   , "remainder_row_closed=false — do not bool-flip Padma row 11"
   , "physics_green=false — Lean tolerance predicate is not production wiring" ]
