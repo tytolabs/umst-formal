@@ -12,11 +12,10 @@
   distributed salami; this module names spread + nested `core_id` as the collective
   bookkeeping target.
 
-  **Honesty (AGENT-LOOP-08):** formal present on agent spread **≠** wired on agent
-  identity.  `formalPresentOnAgentSpread` is true; `collectiveCoherenceWiredOnAgentIdentity`
-  stays false until runtime consumes spread penalties on identity-class writes.
-  `agentLoopRemainderRow08Closed` and `physicsGreen` stay false — do not bool-flip Padma
-  closed or invent GREEN.  The gap is formal present, unused on agent identity.
+  **Honesty (AGENT-LOOP-08):** cross-host salami formal **≠** wired on agent identity.
+  Spread + nested `core_id` predicates land in Lean; runtime still does not consume
+  cross-host penalties on identity-class writes.  `remainder_row_closed` /
+  `agentLoopRemainderRow08Closed` and `physicsGreen` stay false — no GREEN theater.
 -/
 
 import Mathlib.Data.Rat.Defs
@@ -108,8 +107,17 @@ def formalPresentOnAgentSpread : Bool := true
 /-- Runtime wiring on agent identity — measured false until spread gate consumes penalties. -/
 def collectiveCoherenceWiredOnAgentIdentity : Bool := false
 
+/-- Cross-host salami formal landed (spread bookkeeping present in Lean). -/
+def crossHostSalamiFormalPresent : Bool := formalPresentOnAgentSpread
+
+/-- Cross-host salami not wired on agent identity — runtime gate still open. -/
+def crossHostSalamiWiredOnAgentIdentity : Bool := collectiveCoherenceWiredOnAgentIdentity
+
 /-- Padma remainder row AGENT-LOOP-08 — stays open; do not bool-flip closed. -/
 def agentLoopRemainderRow08Closed : Bool := false
+
+/-- Alias for gate_deltas: remainder row stays open. -/
+def remainderRowClosed : Bool := agentLoopRemainderRow08Closed
 
 /-- Physics GREEN — toolkit does not measure agent collective wiring. -/
 def physicsGreen : Bool := false
@@ -121,7 +129,22 @@ theorem collective_coherence_not_wired_on_agent_identity :
 
 theorem agent_loop_remainder_row_08_not_closed : agentLoopRemainderRow08Closed = false := rfl
 
+theorem remainder_row_closed_false : remainderRowClosed = false := rfl
+
 theorem physics_green_false : physicsGreen = false := rfl
+
+theorem cross_host_salami_formal_present : crossHostSalamiFormalPresent = true := rfl
+
+theorem cross_host_salami_not_wired_on_agent_identity :
+    crossHostSalamiWiredOnAgentIdentity = false := rfl
+
+/-- Named gap: cross-host salami formal present, unused on agent identity. -/
+def crossHostSalamiFormalUnusedOnAgentIdentityGap : Prop :=
+  crossHostSalamiFormalPresent = true ∧ crossHostSalamiWiredOnAgentIdentity = false
+
+theorem cross_host_salami_formal_unused_on_agent_identity_gap :
+    crossHostSalamiFormalUnusedOnAgentIdentityGap := by
+  exact ⟨cross_host_salami_formal_present, cross_host_salami_not_wired_on_agent_identity⟩
 
 /-- Named gap: formal present, unused on agent identity (spread predicates only). -/
 def formalPresentUnusedOnAgentIdentityGap : Prop :=
@@ -131,24 +154,30 @@ theorem formal_present_unused_on_agent_identity_gap :
     formalPresentUnusedOnAgentIdentityGap := by
   exact ⟨formal_present_on_agent_spread, collective_coherence_not_wired_on_agent_identity⟩
 
+/-- Local one-host coalition cannot witness cross-host salami wiring. -/
+theorem local_coalition_cannot_witness_cross_host_wiring
+    (_spread : AgentSpread) (_coal : OneHostCoalition) :
+    crossHostSalamiWiredOnAgentIdentity = false :=
+  cross_host_salami_not_wired_on_agent_identity
+
 /-- Non-claims beside spread predicates — no fleet GREEN / production close. -/
 def collectiveCoherenceNonClaims : List String :=
-  [ "formal present on agent spread ≠ wired on agent identity"
-  , "cross-host salami named; local one-host coalition prune is not the collective object"
+  [ "cross-host salami formal present ≠ wired on agent identity"
+  , "local one-host coalition prune is not the collective object"
   , "nested core_id named on fragments — runtime identity gate still open"
-  , "agent_loop_remainder row 08 closed=false — do not bool-flip Padma"
+  , "remainder_row_closed=false — do not bool-flip Padma row 08"
   , "physics_green=false — Lean penalty sum is not production wiring" ]
 
 /-- AGENT-LOOP-08 formal close is honest: spread landed, wiring + remainder open. -/
 def agentLoop08FormalCloseHonest : Bool :=
-  formalPresentOnAgentSpread = true &&
-  collectiveCoherenceWiredOnAgentIdentity = false &&
-  agentLoopRemainderRow08Closed = false &&
+  crossHostSalamiFormalPresent = true &&
+  crossHostSalamiWiredOnAgentIdentity = false &&
+  remainderRowClosed = false &&
   physicsGreen = false
 
 theorem agent_loop_08_formal_close_honest : agentLoop08FormalCloseHonest = true := by
-  simp [agentLoop08FormalCloseHonest, formal_present_on_agent_spread,
-    collective_coherence_not_wired_on_agent_identity, agent_loop_remainder_row_08_not_closed,
+  simp [agentLoop08FormalCloseHonest, cross_host_salami_formal_present,
+    cross_host_salami_not_wired_on_agent_identity, remainder_row_closed_false,
     physics_green_false]
 
 end UMST.Economics
