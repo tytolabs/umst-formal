@@ -14,6 +14,8 @@
 import Chem.Conservation
 import Chem.SecondLaw
 
+set_option linter.dupNamespace false
+
 open Real Finset UMST.LandauerLaw UMST.Chem.SecondLaw UMST.Chem.Conservation
 
 namespace UMST.Chem.Element
@@ -273,11 +275,6 @@ theorem elementCardinality_eq : elementCardinality = 118 := rfl
 /-- Atomic numbers lie in the IUPAC closed range. -/
 theorem elementZ_in_range (e : Element) : 1 ≤ elementZ e ∧ elementZ e ≤ 118 := by
   cases e <;> decide
-
-/-- `elementZ` is injective on the inductive carrier. -/
-theorem elementZ_injective : Function.Injective elementZ := by
-  intro a b h
-  cases a <;> cases b <;> first | rfl | simp [elementZ] at h
 
 /-- Canonical hydrogen (Z = 1). -/
 def hydrogenElement : Element := .H
@@ -552,8 +549,15 @@ theorem elementOfFin_finOfElement (e : Element) : elementOfFin (finOfElement e) 
   cases e <;> native_decide
 
 theorem elementZ_finOfElement (e : Element) :
-    elementZ e = finOfElement e |>.val + 1 := by
+    elementZ e = (finOfElement e).val + 1 := by
   cases e <;> native_decide
+
+/-- `elementZ` is injective on the inductive carrier. -/
+theorem elementZ_injective (a b : Element) (h : elementZ a = elementZ b) : a = b := by
+  have hfin : finOfElement a = finOfElement b := by
+    ext
+    simpa [elementZ_finOfElement] using h
+  simpa [elementOfFin_finOfElement] using congrArg elementOfFin hfin
 
 -- ================================================================
 -- SECTION 3: Sibling spine witnesses (second law + conservation)
@@ -564,14 +568,15 @@ structure ElementAssemblageSlot (n : ℕ) where
   element : Element
   stoichiometry : Fin n → ℤ
 
-/-- Conservation-aware element slot: thermochemical transition + composition delta. -/
+/-- Conservation-aware element slot: witness + conserved transition. -/
 structure ConservedElementSlot (n : ℕ) where
   slot : ElementAssemblageSlot n
+  witness : LinearConservationWitness n
   transition : ConservedChemTransition n
 
-/-- Second-law admissibility for a conserved element slot. -/
+/-- Second-law + conservation admissibility for a conserved element slot. -/
 def elementSlotAdmissible {n : ℕ} (s : ConservedElementSlot n) : Prop :=
-  admissibleConservedChemTransition s.transition
+  admissibleConservedTransition s.witness s.transition
 
 /-- Catalog witness: canonical element carrier module is present. -/
 theorem element_module_witness : True := trivial
