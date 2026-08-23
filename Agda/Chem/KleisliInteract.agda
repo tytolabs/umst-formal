@@ -29,7 +29,7 @@ open import Data.Product using (_×_; _,_; proj₁; proj₂; ∃-syntax)
 open import Data.Rational as ℚ using (ℚ; 0ℚ; _+_; _-_; _≤_)
 open import Data.Rational.Properties as ℚ-Props using (+-inverseʳ; ≤-refl; ≤-trans)
 open import Data.Unit using (⊤; tt)
-open import Relation.Binary.PropositionalEquality using (_≡_; refl; cong; sym; subst)
+open import Relation.Binary.PropositionalEquality using (_≡_; refl; cong; sym; subst; trans)
 open import Relation.Nullary using (Dec; yes; no; ¬_)
 open import Relation.Nullary.Decidable.Core using (from-yes)
 
@@ -60,8 +60,14 @@ admissible-refl s = mkAdmissible
 KleisliArrow : Set
 KleisliArrow = ThermodynamicState → Maybe ThermodynamicState
 
+interact-identity : KleisliArrow
+interact-identity s = just s
+
+admissible-step : ThermodynamicState → ThermodynamicState → Set
+admissible-step = Admissible
+
 WellTyped : KleisliArrow → Set
-WellTyped f = ∀ s s' → f s ≡ just s' → Admissible s s'
+WellTyped f = ∀ s s' → f s ≡ just s' → admissible-step s s'
 
 nothing≢just : ∀ {A : Set} {x : A} → nothing ≡ just x → ⊥
 nothing≢just ()
@@ -73,20 +79,22 @@ kleisli-compose f g s = go (f s)
   go nothing = nothing
   go (just s') = g s'
 
+make-gate-arrow : (ThermodynamicState → ThermodynamicState) → KleisliArrow
+make-gate-arrow propose s with gate s (propose s)
+... | yes prf = just (propose s)
+... | no ¬prf = nothing
+
+gate-arrow-wellTyped :
+  ∀ propose → WellTyped (make-gate-arrow propose)
+gate-arrow-wellTyped propose s s' eq with gate s (propose s)
+... | yes prf = subst (admissible-step s) (just-injective eq) prf
+... | no ¬prf = ⊥-elim (nothing≢just eq)
+
 kleisli-compose-two-step-safe :
   ∀ (f g : KleisliArrow) → WellTyped f → WellTyped g →
   ∀ s s' s'' → f s ≡ just s' → g s' ≡ just s'' → Admissible s s' × Admissible s' s''
 kleisli-compose-two-step-safe f g hf hg s s' s'' hfs hgs =
   hf s s' hfs , hg s' s'' hgs
-
-kleisli-compose-output-admissible :
-  ∀ (f g : KleisliArrow) → WellTyped f → WellTyped g →
-  ∀ s s'' → kleisli-compose f g s ≡ just s'' →
-  ∃[ s' ] (f s ≡ just s' × g s' ≡ just s'' × Admissible s s' × Admissible s' s'')
-kleisli-compose-output-admissible f g hf hg s s'' eq with f s
-kleisli-compose-output-admissible f g hf hg s s'' eq | nothing = ⊥-elim (nothing≢just eq)
-kleisli-compose-output-admissible f g hf hg s s'' eq | just s' =
-  s' , (refl , eq , hf s s' refl , hg s' s'' eq)
 
 kleisli-fold : List.List KleisliArrow → KleisliArrow
 kleisli-fold List.[] = λ s → just s
@@ -97,9 +105,9 @@ AllWellTyped : List.List KleisliArrow → Set
 AllWellTyped List.[] = ⊤
 AllWellTyped (f List.∷ fs) = WellTyped f × AllWellTyped fs
 
-identity-wellTyped : WellTyped (λ s → just s)
+identity-wellTyped : WellTyped interact-identity
 identity-wellTyped s s' eq =
-  subst (Admissible s) (just-injective eq) (admissible-refl s)
+  subst (admissible-step s) (just-injective eq) (admissible-refl s)
 
 kleisli-fold-id-wellTyped : WellTyped (kleisli-fold List.[])
 kleisli-fold-id-wellTyped = identity-wellTyped
@@ -115,37 +123,56 @@ kleisli-fold-singleton-wellTyped f wf = wf
 kleisli-compose-assoc :
   ∀ (f g h : KleisliArrow) (s : ThermodynamicState) →
   kleisli-compose (kleisli-compose f g) h s ≡ kleisli-compose f (kleisli-compose g h) s
-kleisli-compose-assoc f g h s = go (f s)
-  where
-  go : Maybe ThermodynamicState → _
-  go nothing = refl
-  go (just s') = go₂ (g s')
-    where
-    go₂ : Maybe ThermodynamicState → _
-    go₂ nothing = refl
-    go₂ (just _) = refl
+kleisli-compose-assoc f g h s with f s
+... | nothing = refl
+... | just s' with g s'
+... | nothing = refl
+... | just s'' = refl
 
 kleisli-left-unit :
   ∀ (f : KleisliArrow) (s : ThermodynamicState) →
-  kleisli-compose (λ s → just s) f s ≡ f s
-kleisli-left-unit f s = go (f s)
-  where
-  go : Maybe ThermodynamicState → _
-  go nothing = refl
-  go (just _) = refl
+  kleisli-compose interact-identity f s ≡ f s
+kleisli-left-unit f s with f s
+... | nothing = refl
+... | just _ = refl
 
 kleisli-right-unit :
   ∀ (f : KleisliArrow) (s : ThermodynamicState) →
-  kleisli-compose f (λ s → just s) s ≡ f s
-kleisli-right-unit f s = go (f s)
-  where
-  go : Maybe ThermodynamicState → _
-  go nothing = refl
-  go (just _) = refl
+  kleisli-compose f interact-identity s ≡ f s
+kleisli-right-unit f s with f s
+... | nothing = refl
+... | just _ = refl
+
+kleisli-coherence-units :
+  ∀ (f : KleisliArrow) (s g h : ThermodynamicState) →
+  kleisli-compose interact-identity f s ≡ just g →
+  kleisli-compose f interact-identity s ≡ just h →
+  g ≡ h
+kleisli-coherence-units f s g h hleft hright =
+  let hfs = subst (λ m → m ≡ just g) (kleisli-left-unit f s) hleft
+      hfs' = subst (λ m → m ≡ just h) (kleisli-right-unit f s) hright
+  in just-injective (trans (sym hfs) hfs')
+
+------------------------------------------------------------------------
+-- Meso acting honesty fence (mirrors HS / Lean / Coq — physics GREEN false)
+------------------------------------------------------------------------
+
+chem-physics-green : Bool
+chem-physics-green = false
+
+chem-physics-green-false : chem-physics-green ≡ false
+chem-physics-green-false = refl
+
+kleisli-interact-production-wired : Bool
+kleisli-interact-production-wired = false
+
+kleisli-interact-production-wired-false :
+  kleisli-interact-production-wired ≡ false
+kleisli-interact-production-wired-false = refl
 
 ------------------------------------------------------------------------
 -- Module witness (meso acting Kleisli Interact anchor)
 ------------------------------------------------------------------------
 
-kleisliInteractModuleWitness : KleisliArrow → Set
-kleisliInteractModuleWitness f = WellTyped f
+kleisliInteractModuleWitness : ⊤
+kleisliInteractModuleWitness = tt
