@@ -21,6 +21,7 @@ library
   exposed-modules:
     UMST
     UMST.Core
+    UMST.Chem
     UMST.Concrete
     UMST.Compat
     KleisliDIB
