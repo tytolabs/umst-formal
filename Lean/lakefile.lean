@@ -28,6 +28,17 @@ require mathlib from git
   `_check_ext.lean` (local `#print` / `#check` only).  Add a module to `roots` when it
   should participate in CI; optional experiments stay out of the default closure.
 -/
+/-!
+  CHEM-FORMAL-MESO-LEAN-CHEM — meso acting chemistry lift (`lake build UMST.Chem`).
+  `Chem.+` glob: later `Chem/*.lean` compile without re-editing this lakefile.
+  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Declared before `lean_lib «UMST»` so the `UMST.Chem` target is not shadowed.
+-/
+lean_lib UMST.Chem where
+  roots := #[`Chem.SecondLaw, `Chem.Conservation]
+  globs := #[`Chem.+]
+  srcDir := "."
+
 lean_lib «UMST» where
   roots := #[`Core.Scalar, `Core.State, `Core.Gate, `Core.Constitutional,
     `Concrete.State, `Concrete.Gate,
