@@ -194,12 +194,22 @@ findSocialNode (n List.∷ rest) nid with nid ≟ SocialNode.node-id n
 ... | no _ = findSocialNode rest nid
 
 socialNodeKindEq : SocialNodeKind → SocialNodeKind → Bool
-socialNodeKindEq k1 k2 with k1 | k2
-... | social-patch | social-patch = true
-... | social-issue | social-issue = true
-... | social-review | social-review = true
-... | social-identity | social-identity = true
-... | _ | _ = false
+socialNodeKindEq social-patch social-patch = true
+socialNodeKindEq social-patch social-issue = false
+socialNodeKindEq social-patch social-review = false
+socialNodeKindEq social-patch social-identity = false
+socialNodeKindEq social-issue social-patch = false
+socialNodeKindEq social-issue social-issue = true
+socialNodeKindEq social-issue social-review = false
+socialNodeKindEq social-issue social-identity = false
+socialNodeKindEq social-review social-patch = false
+socialNodeKindEq social-review social-issue = false
+socialNodeKindEq social-review social-review = true
+socialNodeKindEq social-review social-identity = false
+socialNodeKindEq social-identity social-patch = false
+socialNodeKindEq social-identity social-issue = false
+socialNodeKindEq social-identity social-review = false
+socialNodeKindEq social-identity social-identity = true
 
 addSocialNode :
   TypedSocialGraph → SocialNodeKind → String →
@@ -317,11 +327,8 @@ admitSecondLaw-from-physical :
   PhysicalSecondLaw (PhysicalHistoryBridge.proc b)
     (HistoryTransition.entropy-drop (PhysicalHistoryBridge.transition b)) →
   admitSecondLaw (PhysicalHistoryBridge.transition b)
-admitSecondLaw-from-physical b h =
-  subst
-    (λ d → HistoryTransition.entropy-drop (PhysicalHistoryBridge.transition b) ≤ d)
-    (PhysicalHistoryBridge.dissipated-eq b)
-    h
+admitSecondLaw-from-physical record { proc = proc; transition = t; dissipated-eq = deq } h =
+  subst (λ d → HistoryTransition.entropy-drop t ≤ d) (sym deq) h
 
 admitSecondLaw-from-landauer :
   ∀ (proc : ErasureProcess) (entropyDecrease : ℚ) →
@@ -331,13 +338,16 @@ admitSecondLaw-from-landauer :
   HistoryTransition.dissipated-entropy t ≡ ErasureProcess.dissipatedEntropy proc →
   admitSecondLaw t
 admitSecondLaw-from-landauer proc ΔS hSL t hent hdiss =
-  subst (λ d → HistoryTransition.entropy-drop t ≤ d) hdiss hSL
+  let step1 = subst (λ x → x ≤ ErasureProcess.dissipatedEntropy proc) (sym hent) hSL
+  in subst (λ d → HistoryTransition.entropy-drop t ≤ d) (sym hdiss) step1
 
 physicalSecondLaw-discharge :
-  ∀ (proc : ErasureProcess) (ΔS : ℚ) →
-  admitSecondLaw-from-landauer proc ΔS (physicalSecondLaw proc ΔS)
-physicalSecondLaw-discharge proc ΔS =
-  admitSecondLaw-from-landauer proc ΔS (physicalSecondLaw proc ΔS)
+  ∀ (proc : ErasureProcess) (entropyDecrease : ℚ) (t : HistoryTransition) →
+  HistoryTransition.entropy-drop t ≡ entropyDecrease →
+  HistoryTransition.dissipated-entropy t ≡ ErasureProcess.dissipatedEntropy proc →
+  admitSecondLaw t
+physicalSecondLaw-discharge proc ΔS t hent hdiss =
+  admitSecondLaw-from-landauer proc ΔS (physicalSecondLaw proc ΔS) t hent hdiss
 
 ------------------------------------------------------------------------
 -- SECTION 8: Honesty flags + catalog witnesses
