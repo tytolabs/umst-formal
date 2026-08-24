@@ -25,6 +25,7 @@ library
     UMST.Chem.Kleisli
     UMST.Concrete
     UMST.Urge.AdmitKleisli
+    UMST.Urge.AppendOnly
     UMST.Urge.ExcitementImport
     UMST.Urge.MergeSafe
     UMST.Urge.ProvenancePreserve
