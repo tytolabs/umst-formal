@@ -22,7 +22,9 @@ library
     UMST
     UMST.Core
     UMST.Chem
+    UMST.Chem.Kleisli
     UMST.Concrete
+    UMST.Urge.AdmitKleisli
     UMST.Compat
     KleisliDIB
     SDFGate
