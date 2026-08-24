@@ -24,15 +24,6 @@ library
     UMST.Chem
     UMST.Chem.Kleisli
     UMST.Concrete
-    UMST.Urge.AdmitKleisli
-    UMST.Urge.AppendOnly
-    UMST.Urge.CarrierProduct
-    UMST.Urge.CollaborativeObject
-    UMST.Urge.CompactionComposite
-    UMST.Urge.ExcitementImport
-    UMST.Urge.HistoryFunctor
-    UMST.Urge.MergeSafe
-    UMST.Urge.ProvenancePreserve
     UMST.Compat
     KleisliDIB
     SDFGate
@@ -42,6 +33,57 @@ library
     MonoidalState
     PrimeSpectralGuidance
     MeaningStateKleisli
+    UMST.Urge.AdmitKleisli
+    UMST.Urge.AntichainIndependent
+    UMST.Urge.AppendOnly
+    UMST.Urge.BackupRecovery
+    UMST.Urge.CarrierProduct
+    UMST.Urge.ClosedLoopWitness
+    UMST.Urge.CobSocialGraph
+    UMST.Urge.CollaborativeObject
+    UMST.Urge.CompactionAsArrow
+    UMST.Urge.CompactionComposite
+    UMST.Urge.ContentAddressed
+    UMST.Urge.CountedConsume
+    UMST.Urge.CryptoCompose
+    UMST.Urge.DropProvenance
+    UMST.Urge.EntityRemote
+    UMST.Urge.ExactAlgCoeffs
+    UMST.Urge.ExactRatFreeEnergy
+    UMST.Urge.ExcitementImport
+    UMST.Urge.FabricNodes
+    UMST.Urge.FastPathAdmit
+    UMST.Urge.FrugalMi
+    UMST.Urge.GateBeforeSync
+    UMST.Urge.GeometricMemory
+    UMST.Urge.GossipTick
+    UMST.Urge.HilbertPersist
+    UMST.Urge.HistoryFunctor
+    UMST.Urge.HomologNotCopy
+    UMST.Urge.InvariantWitness
+    UMST.Urge.KleisliClone
+    UMST.Urge.KleisliFetch
+    UMST.Urge.KleisliInherit
+    UMST.Urge.KleisliMerge
+    UMST.Urge.KleisliPush
+    UMST.Urge.KleisliRecover
+    UMST.Urge.KleisliStatus
+    UMST.Urge.LatencyBudget
+    UMST.Urge.MergeSafe
+    UMST.Urge.MetaReflexive
+    UMST.Urge.OccupancyNotForge
+    UMST.Urge.OriginRefuse
+    UMST.Urge.ProvenancePreserve
+    UMST.Urge.ReplicaClass
+    UMST.Urge.ReplicaCoalgebra
+    UMST.Urge.ResidueReturn
+    UMST.Urge.SdfCanonical
+    UMST.Urge.SignedPropagate
+    UMST.Urge.ThreeDagSeparate
+    UMST.Urge.UmstTomlRemotes
+    UMST.Urge.UnmeasuredMeasured
+    UMST.Urge.WorktreeExclusive
+
 
   -- FFI module exposed only when Rust library is available.
   if flag(with-ffi)
