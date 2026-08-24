@@ -39,6 +39,17 @@ lean_lib UMST.Chem where
   globs := #[`Chem.+]
   srcDir := "."
 
+/-!
+  URGE-FORMAL-MESO-LEAN-ADMIT-KLEISLI — meso acting Urge lift (`lake build UMST.Urge`).
+  `Urge.+` glob: later `Urge/*.lean` compile without re-editing this lakefile.
+  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Declared before `lean_lib «UMST»` so the `UMST.Urge` target is not shadowed.
+-/
+lean_lib UMST.Urge where
+  roots := #[`Urge.AdmitKleisli]
+  globs := #[`Urge.+]
+  srcDir := "."
+
 lean_lib «UMST» where
   roots := #[`Core.Scalar, `Core.State, `Core.Gate, `Core.Constitutional,
     `Concrete.State, `Concrete.Gate,
