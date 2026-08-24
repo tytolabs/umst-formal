@@ -12,7 +12,7 @@
 (*  ZERO `Admitted`. ZERO new `Axiom`. Unwired.                        *)
 (* ================================================================== *)
 
-From Stdlib Require Import Arith Bool Lia.
+From Coq Require Import Arith Bool Lia.
 Open Scope bool_scope.
 
 Require Import UMSTFormal.Gate.

@@ -12,7 +12,7 @@
 (*  ZERO `Admitted`. Landauer discharge on Lean `LandauerLaw`.           *)
 (* ================================================================== *)
 
-From Stdlib Require Import Arith Bool Lia.
+From Coq Require Import Arith Bool Lia.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 Require Import UMSTFormal.Urge.ExcitementImport.

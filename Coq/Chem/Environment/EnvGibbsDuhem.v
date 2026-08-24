@@ -12,7 +12,7 @@
 (*  ZERO new axioms.  physics_green stays false.                         *)
 (* ================================================================== *)
 
-From Stdlib Require Import Reals QArith List Psatz.
+From Coq Require Import Reals QArith List Psatz.
 Require UMSTFormal.Chem.Constants.ConstantsSheaf.
 Require Import UMSTFormal.Chem.Conservation.
 Require Import UMSTFormal.InfoTheory.

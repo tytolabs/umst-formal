@@ -12,7 +12,7 @@
 (*  Excitement `select` composed — no second argmin. ZERO Admitted.     *)
 (* ================================================================== *)
 
-From Stdlib Require Import Reals Arith List QArith.
+From Coq Require Import Reals Arith List QArith.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 
 Open Scope R_scope.

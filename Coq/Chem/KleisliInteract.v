@@ -14,7 +14,7 @@
 (*  Imports only existing UMSTFormal modules; ZERO new axioms.           *)
 (* ================================================================== *)
 
-From Stdlib Require Import Arith Arith.PeanoNat Bool List Reals QArith Lia.
+From Coq Require Import Arith Arith.PeanoNat Bool List Reals QArith Lia.
 Require Import UMSTFormal.Chem.SecondLaw.
 Require Import UMSTFormal.Chem.Conservation.
 Require Import UMSTFormal.InfoTheory.

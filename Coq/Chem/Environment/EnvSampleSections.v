@@ -13,7 +13,7 @@
 (*  physics_green stays false — thermo witnesses remain Unwired.        *)
 (* ================================================================== *)
 
-From Stdlib Require Import Reals List Psatz.
+From Coq Require Import Reals List Psatz.
 Require Import UMSTFormal.Chem.Environment.EnvironmentContinuum.
 
 Open Scope R_scope.

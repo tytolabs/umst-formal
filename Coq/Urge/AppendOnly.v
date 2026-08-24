@@ -12,7 +12,7 @@
 (*  Adds **zero** Coq `Axiom` declarations. ZERO `Admitted`.           *)
 (* ================================================================== *)
 
-From Stdlib Require Import Arith List Lia.
+From Coq Require Import Arith List Lia.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 

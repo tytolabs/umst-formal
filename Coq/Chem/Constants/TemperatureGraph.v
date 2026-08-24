@@ -13,7 +13,7 @@
 (*  physics_green stays false — thermo witnesses remain Unwired.        *)
 (* ================================================================== *)
 
-From Stdlib Require Import Reals QArith List.
+From Coq Require Import Reals QArith List.
 Require Import UMSTFormal.Chem.SecondLaw.
 Require Import UMSTFormal.Chem.Conservation.
 Require Import UMSTFormal.InfoTheory.
