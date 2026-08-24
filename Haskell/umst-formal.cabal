@@ -30,6 +30,7 @@ library
     UMST.Urge.CollaborativeObject
     UMST.Urge.CompactionComposite
     UMST.Urge.ExcitementImport
+    UMST.Urge.HistoryFunctor
     UMST.Urge.MergeSafe
     UMST.Urge.ProvenancePreserve
     UMST.Compat
