@@ -23,11 +23,12 @@ open import Data.Rational using (ℚ)
 
 open import Data.Bool using (Bool; false; true; if_then_else_)
 open import Data.Nat using (ℕ; _<_; zero; suc)
-open import Data.Nat.Properties as ℕ-Props using (_≟_; 0<1+n)
+open import Data.Nat.Properties as ℕ-Props using (_≟_; 0<1+n; ≟-diag)
 open import Data.Product using (_×_; _,_)
 open import Data.Unit using (⊤; tt)
-open import Relation.Binary.PropositionalEquality using (_≡_; refl; sym; trans)
+open import Relation.Binary.PropositionalEquality using (_≡_; refl; sym; trans; cong)
 open import Relation.Nullary using (does; yes; no)
+open import Relation.Nullary.Decidable.Core using (Dec)
 
 ------------------------------------------------------------------------
 -- SECTION 1: History memory carriers (parallel to Rust HistoryObject)
@@ -89,23 +90,33 @@ data mergeSafeVerdict : Set where
   merge-safe-admit : mergeSafeVerdict
   merge-safe-refuse-mismatch : mergeSafeVerdict
 
+merge-safe-core :
+  {m n k l : ℕ} → Dec (m ≡ n) → Dec (k ≡ l) → mergeSafeVerdict
+merge-safe-core cidDec thmDec =
+  if does cidDec then
+    if does thmDec then merge-safe-admit else merge-safe-refuse-mismatch
+  else merge-safe-refuse-mismatch
+
 merge-safe : HistoryMemoryEntry → HistoryMemoryEntry → mergeSafeVerdict
 merge-safe left right =
-  if does (ℕ-Props._≟_ (HistoryMemoryEntry.history-content-id left) (HistoryMemoryEntry.history-content-id right)) then
-    if does (ℕ-Props._≟_ (HistoryMemoryEntry.history-theorem-id left) (HistoryMemoryEntry.history-theorem-id right)) then
-      merge-safe-admit
-    else
-      merge-safe-refuse-mismatch
-  else
-    merge-safe-refuse-mismatch
+  merge-safe-core
+    (ℕ-Props._≟_ (HistoryMemoryEntry.history-content-id left)
+                (HistoryMemoryEntry.history-content-id right))
+    (ℕ-Props._≟_ (HistoryMemoryEntry.history-theorem-id left)
+                (HistoryMemoryEntry.history-theorem-id right))
 
 merge-safe-pred→admit :
   (left right : HistoryMemoryEntry) →
   mergeSafePred left right →
   merge-safe left right ≡ merge-safe-admit
 merge-safe-pred→admit left right (hid , hth)
-  rewrite hid
-  rewrite hth
+  rewrite
+    cong
+      (λ cidDec → merge-safe-core cidDec
+        (ℕ-Props._≟_ (HistoryMemoryEntry.history-theorem-id left)
+                    (HistoryMemoryEntry.history-theorem-id right)))
+      (≟-diag hid)
+  rewrite cong (merge-safe-core (yes hid)) (≟-diag hth)
   = refl
 
 ------------------------------------------------------------------------
