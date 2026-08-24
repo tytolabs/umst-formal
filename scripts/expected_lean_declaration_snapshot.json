@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 76,
+  "lake_roots_count": 77,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -30,6 +30,7 @@
     "InfoTheory",
     "SemanticSecondLaw",
     "MeaningState",
+    "SemanticFormal",
     "InterpretationFunctor",
     "SemanticEconomicModules",
     "ClassicalMeasurementCost",
@@ -80,14 +81,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 514,
+    "theorem": 544,
     "lemma": 63,
-    "total": 577
+    "total": 607
   },
   "all_lean_glob": {
-    "theorem": 587,
+    "theorem": 2128,
     "lemma": 63,
-    "total": 650
+    "total": 2191
   },
   "per_root": {
     "Core.Scalar": {
@@ -202,6 +203,10 @@
       "theorem": 13,
       "lemma": 0
     },
+    "SemanticFormal": {
+      "theorem": 0,
+      "lemma": 0
+    },
     "InterpretationFunctor": {
       "theorem": 1,
       "lemma": 0
@@ -307,11 +312,11 @@
       "lemma": 0
     },
     "Economic.CollectiveCoherenceCost": {
-      "theorem": 1,
+      "theorem": 13,
       "lemma": 0
     },
     "Economic.CreativeExplorationTolerance": {
-      "theorem": 1,
+      "theorem": 19,
       "lemma": 0
     },
     "CreditGreedyOptimal": {
@@ -399,7 +404,7 @@
   "axioms": [
     {
       "file": "LandauerLaw.lean",
-      "line": 155,
+      "line": 160,
       "name": "physicalSecondLaw"
     }
   ]

@@ -27,12 +27,18 @@ def repo_root() -> Path:
 
 
 def parse_lake_roots(lakefile_text: str) -> list[str]:
-    """Extract root module names from the first `lean_lib` … `roots := #[…]` block.
+    """Extract root module names from the default `lean_lib «UMST»` `roots := #[…]` block.
+
+    CHEM/Urge meso libs are declared *before* `«UMST»` so their Lake targets are not
+    shadowed. Stats and CI snapshots still count the UMST default closure, not the
+    first `lean_lib` in the file.
 
     Lake allows `` `Name, `` between roots and the last entry may be `` `Name] `` without
     a closing backtick before `]`; we match each `` `Identifier`` with a regex.
     """
-    i = lakefile_text.find("lean_lib")
+    i = lakefile_text.find("lean_lib «UMST» where")
+    if i < 0:
+        i = lakefile_text.find("lean_lib")
     if i < 0:
         raise ValueError("lean_lib not found in lakefile.lean")
     sub = lakefile_text[i:]
