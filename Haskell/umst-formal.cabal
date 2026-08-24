@@ -26,6 +26,7 @@ library
     UMST.Concrete
     UMST.Urge.AdmitKleisli
     UMST.Urge.ExcitementImport
+    UMST.Urge.MergeSafe
     UMST.Compat
     KleisliDIB
     SDFGate
