@@ -26,6 +26,7 @@ library
     UMST.Concrete
     UMST.Urge.AdmitKleisli
     UMST.Urge.AppendOnly
+    UMST.Urge.CompactionComposite
     UMST.Urge.ExcitementImport
     UMST.Urge.MergeSafe
     UMST.Urge.ProvenancePreserve
