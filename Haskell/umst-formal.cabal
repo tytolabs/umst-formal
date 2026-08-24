@@ -25,6 +25,7 @@ library
     UMST.Chem.Kleisli
     UMST.Concrete
     UMST.Urge.AdmitKleisli
+    UMST.Urge.ExcitementImport
     UMST.Compat
     KleisliDIB
     SDFGate
