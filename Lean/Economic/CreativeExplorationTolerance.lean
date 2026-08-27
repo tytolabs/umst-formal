@@ -103,6 +103,36 @@ theorem slack_inside_set_not_virus_hole (e : IdentityExplorationEvidence)
     boundedPositiveFeedbackInsideSet e ∧ ¬ virusHole e :=
   ⟨explorationTolerance_implies_bounded e h, explorationTolerance_disjoint_virusHole e h⟩
 
+/-- Identity-class write is refused when exploration is poison or a virus hole. -/
+def identityExplorationWriteRefused (e : IdentityExplorationEvidence) : Prop :=
+  explorationPoison e ∨ virusHole e
+
+/-- Identity-class write admits only bounded slack inside sdf≥0 with no self-propagation. -/
+def identityExplorationWriteAdmits (e : IdentityExplorationEvidence) : Prop :=
+  explorationToleranceOnIdentity e
+
+theorem identity_write_refuses_when_poison_or_virus
+    (e : IdentityExplorationEvidence)
+    (h : identityExplorationWriteRefused e) :
+    ¬ identityExplorationWriteAdmits e := by
+  intro ht
+  rcases h with hp | hv
+  · exact explorationTolerance_disjoint_poison e ht hp
+  · exact explorationTolerance_disjoint_virusHole e ht hv
+
+theorem identity_write_admit_not_refused
+    (e : IdentityExplorationEvidence)
+    (h : identityExplorationWriteAdmits e) :
+    ¬ identityExplorationWriteRefused e :=
+  fun hr => identity_write_refuses_when_poison_or_virus e hr h
+
+/-- Grounded novelty inside sdf≥0 with budget is not priced as poison. -/
+theorem grounded_novelty_inside_set_not_poison
+    (e : IdentityExplorationEvidence)
+    (h : identityExplorationWriteAdmits e) :
+    ¬ explorationPoison e :=
+  explorationTolerance_disjoint_poison e h
+
 /-- `withinCreativityBudget` predicate exists in `CreativityBudget` (formal bookkeeping landed). -/
 def withinCreativityBudgetPredicateExists : Bool := true
 
