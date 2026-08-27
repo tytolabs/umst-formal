@@ -85,6 +85,11 @@ def collectiveNotOneHostCoalition : Prop :=
       collectiveSpreadPenalty spread ≠ oneHostCoalitionPenalty coal ∨
         spreadPenalties spread ≠ coal.local_penalties
 
+/-- Identity-class collective object: nonempty spread with nested `core_id` named on every fragment.
+    Runtime identity writes still do not consume this (`collectiveCoherenceWiredOnAgentIdentity`). -/
+def identityClassSpreadAdmits (spread : AgentSpread) : Prop :=
+  nestedCoreIdNamed spread ∧ collectiveCoherenceObject spread
+
 theorem collectivePenalty_nonneg (xs : List ℚ) (hx : ∀ x ∈ xs, 0 ≤ x) : 0 ≤ collectivePenalty xs := by
   induction xs with
   | nil => simp [collectivePenalty, List.sum_nil]
@@ -159,6 +164,36 @@ theorem local_coalition_cannot_witness_cross_host_wiring
     (_spread : AgentSpread) (_coal : OneHostCoalition) :
     crossHostSalamiWiredOnAgentIdentity = false :=
   cross_host_salami_not_wired_on_agent_identity
+
+/-- Two distinct hosts are a cross-host spread (the collective object). -/
+theorem isCrossHostSpread_pair (f g : SalamiFragment) (hhost : f.host ≠ g.host) :
+    isCrossHostSpread ⟨[f, g]⟩ := by
+  simp [isCrossHostSpread]
+  exact hhost.symm
+
+/-- Local one-host coalition that only sees `f` cannot match two-host spread cost when `g` pays. -/
+theorem two_host_spread_penalty_exceeds_one_host_local
+    (f g : SalamiFragment) (hhost : f.host ≠ g.host) (hg : 0 < g.penalty) :
+    isCrossHostSpread ⟨[f, g]⟩ ∧
+      oneHostCoalitionPenalty ⟨f.host, [f.penalty]⟩ < collectiveSpreadPenalty ⟨[f, g]⟩ := by
+  refine ⟨isCrossHostSpread_pair f g hhost, ?_⟩
+  simp [collectiveSpreadPenalty, spreadPenalties, oneHostCoalitionPenalty, collectivePenalty,
+    List.map, List.sum_cons, List.sum_nil]
+  linarith
+
+/-- Anonymous `core_id` refuses the identity-class spread object. -/
+theorem anonymous_core_refuses_identity_spread (host : AgentHostId) (p : ℚ) :
+    ¬ identityClassSpreadAdmits ⟨[{ host := host, core_id := "", penalty := p }]⟩ := by
+  intro h
+  exact h.1 { host := host, core_id := "", penalty := p } (by simp) rfl
+
+/-- Named nonempty spread admits as the collective object — still unused on live identity writes. -/
+theorem named_spread_admits_identity_object (f : SalamiFragment) (hn : f.core_id ≠ "") :
+    identityClassSpreadAdmits ⟨[f]⟩ := by
+  refine ⟨?_, by simp [collectiveCoherenceObject]⟩
+  intro g hg
+  simp at hg
+  simpa [hg] using hn
 
 /-- Non-claims beside spread predicates — no fleet GREEN / production close. -/
 def collectiveCoherenceNonClaims : List String :=
