@@ -39,4 +39,14 @@ Lemma padma_not_fifth_fibre :
   padma_is_fifth_fibre_formal = false.
 Proof. reflexivity. Qed.
 
+Definition four_arm_run_formal : bool := false.
+
+Lemma four_arm_run_stays_false :
+  four_arm_run_formal = false.
+Proof. reflexivity. Qed.
+
+Lemma invent_physics_green_refused :
+  physics_green_formal = true -> False.
+Proof. discriminate. Qed.
+
 End PadmaMembraneBacking.
