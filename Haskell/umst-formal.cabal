@@ -71,7 +71,9 @@ library
     UMST.Urge.LatencyBudget
     UMST.Urge.MergeSafe
     UMST.Urge.MetaReflexive
+    UMST.Urge.NoWorkLost
     UMST.Urge.OccupancyNotForge
+    UMST.Urge.PadmaMembraneBacking
     UMST.Urge.OriginRefuse
     UMST.Urge.ProvenancePreserve
     UMST.Urge.ReplicaClass
