@@ -83,6 +83,7 @@ inductive ContentAddressedRefusal where
   | gateRejected (seq : Nat)
   | geometricZero (snapshotId : Nat)
   | secondArgminRefused
+  | provenanceMissingRefused
   deriving Repr
 
 /-- Verdict of a content-addressed admission operation class. -/
@@ -340,5 +341,134 @@ theorem contentAddressed_noNewAxiom : True := trivial
 def contentAddressedNonClaim : String :=
   "§3 content-addressed history; geometric identity primary, git hash compatibility; " ++
   "compose excitement_select not local argmin; not physics GREEN; not production_wired"
+
+-- ================================================================
+-- SECTION 7: §13 content-hash provenance at block naming (S13-01)
+-- ================================================================
+
+/-- BLAKE3 digest surrogate — 32 canonical bytes (transport-independent content address). -/
+abbrev ContentHashDigest := List UInt8
+
+def contentHashDigestLen (h : ContentHashDigest) : Nat := h.length
+
+def contentHashDigestValid (h : ContentHashDigest) : Bool := h.length == 32
+
+/-- Provenance stamp bound into content-address naming (`carries_provenance` conjunct). -/
+structure ProvenanceStamp where
+  derivationChain : Nat
+  signatureSlot   : List UInt8
+  wallStamp       : String
+  witnessBudget   : Nat
+
+/-- §4 `carries_provenance` — non-zero derivation, signed slot, wall `T`, witness budget. -/
+def carriesProvenance (s : ProvenanceStamp) : Bool :=
+  s.derivationChain != 0
+    && s.witnessBudget > 0
+    && s.wallStamp.contains 'T'
+    && s.signatureSlot.length == 8
+    && s.signatureSlot.any (· != 0)
+
+/-- Content-defined chunk — geometric-primary identity + BLAKE3 witness. -/
+structure ContentChunk where
+  index        : Nat
+  total        : Nat
+  contentHash  : ContentHashDigest
+  geometric    : ContentGeometricIdentity
+
+/-- Named content block — geometric primary, BLAKE3 hash, provenance at naming. -/
+structure NamedContentBlock where
+  geometric         : ContentGeometricIdentity
+  contentHash       : ContentHashDigest
+  provenanceStamp   : ProvenanceStamp
+  gitCompat         : Option ContentGitHashCompat
+
+def refuseProvenanceMissing : ContentAddressedRefusal := .provenanceMissingRefused
+
+def nameContentBlock (payload : Nat) (resolutionBits : Nat) (contentHash : ContentHashDigest)
+    (stamp : ProvenanceStamp) (gitCompat : Option ContentGitHashCompat) :
+    NamedContentBlock ⊕ ContentAddressedRefusal :=
+  if !carriesProvenance stamp then
+    Sum.inr .provenanceMissingRefused
+  else if contentHash.length != 32 then
+    Sum.inr (.geometricZero payload)
+  else
+    let geometric : ContentGeometricIdentity := { contentId := payload, resolutionBits := resolutionBits }
+    if geometric.contentId == 0 then
+      match gitCompat with
+      | some compat => Sum.inr (.gitHashOnlyIdentity compat.gitHash)
+      | none => Sum.inr (.hostIdIdentity payload)
+    else
+      Sum.inl
+        { geometric := geometric
+          contentHash := contentHash
+          provenanceStamp := stamp
+          gitCompat := gitCompat }
+
+theorem refuseProvenanceMissing_positive :
+    refuseProvenanceMissing = .provenanceMissingRefused := rfl
+
+def contentHashFixtureDigest : ContentHashDigest :=
+  List.replicate 32 (UInt8.ofNat 0xCD)
+
+def contentHashFixtureStamp : ProvenanceStamp :=
+  { derivationChain := 1
+    signatureSlot := List.replicate 8 (UInt8.ofNat 0xAB)
+    wallStamp := "2026-08-30T19:00:00Z"
+    witnessBudget := 1 }
+
+theorem carriesProvenance_fixture_ok : carriesProvenance contentHashFixtureStamp := by
+  unfold carriesProvenance contentHashFixtureStamp
+  native_decide
+
+theorem carriesProvenance_empty_refused :
+    carriesProvenance
+      { derivationChain := 0
+        signatureSlot := List.replicate 8 0
+        wallStamp := ""
+        witnessBudget := 0 } = false := by
+  native_decide
+
+def contentHashFixtureGitCompat : ContentGitHashCompat :=
+  { gitHash := "sha1:geometric-primary-compat" }
+
+theorem contentHashFixtureDigest_len : contentHashFixtureDigest.length = 32 := by
+  simp [contentHashFixtureDigest]
+
+theorem contentHashFixture_name_block_ok :
+    nameContentBlock 42 2 contentHashFixtureDigest contentHashFixtureStamp
+      (some contentHashFixtureGitCompat) =
+      Sum.inl
+        { geometric := { contentId := 42, resolutionBits := 2 }
+          contentHash := contentHashFixtureDigest
+          provenanceStamp := contentHashFixtureStamp
+          gitCompat := some contentHashFixtureGitCompat } := by
+  unfold nameContentBlock
+  simp [carriesProvenance_fixture_ok, contentHashFixtureDigest_len, Bool.not_true]
+
+theorem contentHashFixture_provenance_missing_refused :
+    nameContentBlock 42 2 contentHashFixtureDigest
+      { derivationChain := 0, signatureSlot := List.replicate 8 0, wallStamp := "", witnessBudget := 0 }
+      none = Sum.inr .provenanceMissingRefused := by
+  unfold nameContentBlock carriesProvenance
+  simp [carriesProvenance_empty_refused, Bool.not_false]
+
+theorem contentHashFixture_git_hash_only_refused :
+    nameContentBlock 0 2 contentHashFixtureDigest contentHashFixtureStamp
+      (some { gitHash := "sha1:only-hash" }) =
+      Sum.inr (.gitHashOnlyIdentity "sha1:only-hash") := by
+  unfold nameContentBlock
+  simp [carriesProvenance_fixture_ok, contentHashFixtureDigest_len, Bool.not_true]
+
+def contentHashProvenanceMarker : String := "urge_ii_s13_01_content_hash_provenance_v1"
+
+def contentHashProvenanceNonClaim : String :=
+  "URGE-II-S13-01 content hash BLAKE3 over canonical bytes; geometric identity primary; " ++
+  "git hash compatibility only; content-defined chunking; carries_provenance at block naming; " ++
+  "not physics GREEN; not production_wired"
+
+theorem contentHashProvenancePhysicsGreenFalse : contentAddressedPhysicsGreen = false := rfl
+
+theorem contentHashProvenanceModuleWitness : True := trivial
+
 
 end UMST.Urge.ContentAddressed
