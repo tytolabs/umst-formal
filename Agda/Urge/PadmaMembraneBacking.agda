@@ -13,8 +13,10 @@
 
 module Urge.PadmaMembraneBacking where
 
-open import Data.Bool using (Bool; false)
+open import Data.Bool using (Bool; false; true)
+open import Data.Empty using (⊥)
 open import Relation.Binary.PropositionalEquality using (_≡_; refl)
+open import Relation.Nullary using (¬_)
 
 leanProvenOnPortableFormal : Bool
 leanProvenOnPortableFormal = false
@@ -45,3 +47,12 @@ portableCrateWiredStaysFalse = refl
 
 padmaNotFifthFibre : padmaIsFifthFibreFormal ≡ false
 padmaNotFifthFibre = refl
+
+fourArmRunFormal : Bool
+fourArmRunFormal = false
+
+fourArmRunStaysFalse : fourArmRunFormal ≡ false
+fourArmRunStaysFalse = refl
+
+inventPhysicsGreenRefused : ¬ (physicsGreenFormal ≡ true)
+inventPhysicsGreenRefused ()
