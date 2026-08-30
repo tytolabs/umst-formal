@@ -54,6 +54,7 @@ Urge/KleisliStatus.v
 Urge/LatencyBudget.v
 Urge/MergeSafe.v
 Urge/MetaReflexive.v
+Urge/NoWorkLost.v
 Urge/OccupancyNotForge.v
 Urge/OriginRefuse.v
 Urge/ProvenancePreserve.v
