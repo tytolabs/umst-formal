@@ -74,6 +74,7 @@ library
     UMST.Urge.NoWorkLost
     UMST.Urge.Reconcile
     UMST.Urge.Transport
+    UMST.Urge.Supervision
     UMST.Urge.OccupancyNotForge
     UMST.Urge.PadmaMembraneBacking
     UMST.Urge.OriginRefuse
