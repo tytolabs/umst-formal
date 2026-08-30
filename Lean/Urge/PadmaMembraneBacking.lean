@@ -48,6 +48,16 @@ theorem portable_crate_wired_stays_false : portableCrateWiredFormal = false := b
 theorem padma_not_fifth_fibre : padmaIsFifthFibreFormal = false := by
   rfl
 
+/-- Formal witness: four_arm_run stays false until measured arms execute. -/
+def fourArmRunFormal : Bool := false
+
+theorem four_arm_run_stays_false : fourArmRunFormal = false := by
+  rfl
+
+/-- Adversarial: inventing physics_green=true is refused on this formal surface. -/
+theorem invent_physics_green_refused : ¬ (physicsGreenFormal = true) := by
+  simp [physicsGreenFormal]
+
 /-- Cite second law without restating the axiom. -/
 theorem second_law_cited : True :=
   trivial
