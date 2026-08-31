@@ -15,6 +15,7 @@ module UMST.Urge.OverlayCompose
   , occupancyRemainderAdmissible
   , OverlayAdminPlane (..)
   , productionAdminPlaneAdmissible
+  , didBoundWgAdmissible
   ) where
 
 data OverlayCarrier = OverlayCarrier
@@ -53,3 +54,9 @@ data OverlayAdminPlane = Lan | WireGuard | TailscaleFallback
 productionAdminPlaneAdmissible :: OverlayAdminPlane -> Bool
 productionAdminPlaneAdmissible TailscaleFallback = False
 productionAdminPlaneAdmissible _ = True
+
+-- | DID-bound WG peer: LAN/WG, not CGNAT, library never wg-set.
+didBoundWgAdmissible :: OverlayAdminPlane -> Bool -> Bool -> Bool
+didBoundWgAdmissible plane cgnat kernelApply =
+  productionAdminPlaneAdmissible plane && not cgnat && not kernelApply
+
