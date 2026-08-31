@@ -51,3 +51,26 @@ Theorem lan_wg_production_eligible :
   production_admin_plane_admissible Lan = true /\
   production_admin_plane_admissible WireGuard = true.
 Proof. split; reflexivity. Qed.
+
+Definition did_bound_wg_admissible (p : OverlayAdminPlane) (cgnat kernel_apply : bool) : bool :=
+  match production_admin_plane_admissible p, cgnat, kernel_apply with
+  | true, false, false => true
+  | _, _, _ => false
+  end.
+
+Theorem tailscale_wg_peer_refused :
+  did_bound_wg_admissible TailscaleFallback false false = false.
+Proof. reflexivity. Qed.
+
+Theorem cgnat_wg_peer_refused :
+  did_bound_wg_admissible WireGuard true false = false.
+Proof. reflexivity. Qed.
+
+Theorem kernel_apply_wg_peer_refused :
+  did_bound_wg_admissible WireGuard false true = false.
+Proof. reflexivity. Qed.
+
+Theorem lan_wg_peer_eligible :
+  did_bound_wg_admissible Lan false false = true.
+Proof. reflexivity. Qed.
+
