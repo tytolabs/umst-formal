@@ -48,3 +48,24 @@ tailscaleNotProduction = refl
 lanWgEligible :
   productionAdminPlaneAdmissible lanPlane ≡ true
 lanWgEligible = refl
+
+notBool : Bool → Bool
+notBool true = false
+notBool false = true
+
+didBoundWgAdmissible : OverlayAdminPlane → Bool → Bool → Bool
+didBoundWgAdmissible p cgnat kernel =
+  (productionAdminPlaneAdmissible p ∧ notBool cgnat) ∧ notBool kernel
+
+tailscaleWgPeerRefused : didBoundWgAdmissible tailscaleFallback false false ≡ false
+tailscaleWgPeerRefused = refl
+
+cgnatWgPeerRefused : didBoundWgAdmissible wireGuardPlane true false ≡ false
+cgnatWgPeerRefused = refl
+
+kernelApplyWgPeerRefused : didBoundWgAdmissible wireGuardPlane false true ≡ false
+kernelApplyWgPeerRefused = refl
+
+lanWgPeerEligible : didBoundWgAdmissible lanPlane false false ≡ true
+lanWgPeerEligible = refl
+
