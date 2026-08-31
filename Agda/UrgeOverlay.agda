@@ -14,9 +14,13 @@ record OverlayCarrier : Set where
     gateAdmit : Bool
     occupancyCanonical : Bool
 
+_∧_ : Bool → Bool → Bool
+true  ∧ b = b
+false ∧ _ = false
+
 overlayAdmissible : OverlayCarrier → Bool
 overlayAdmissible c =
-  OverlayCarrier.suiteBound c
+  (OverlayCarrier.suiteBound c ∧ OverlayCarrier.gateAdmit c) ∧ OverlayCarrier.occupancyCanonical c
 
 tunnelOnly : OverlayCarrier
 tunnelOnly = record
@@ -28,3 +32,19 @@ tunnelOnly = record
 
 tunnelOnlyInadmissible : overlayAdmissible tunnelOnly ≡ false
 tunnelOnlyInadmissible = refl
+
+data OverlayAdminPlane : Set where
+  lanPlane : OverlayAdminPlane
+  wireGuardPlane : OverlayAdminPlane
+  tailscaleFallback : OverlayAdminPlane
+
+productionAdminPlaneAdmissible : OverlayAdminPlane → Bool
+productionAdminPlaneAdmissible tailscaleFallback = false
+productionAdminPlaneAdmissible _ = true
+
+tailscaleNotProduction : productionAdminPlaneAdmissible tailscaleFallback ≡ false
+tailscaleNotProduction = refl
+
+lanWgEligible :
+  productionAdminPlaneAdmissible lanPlane ≡ true
+lanWgEligible = refl
