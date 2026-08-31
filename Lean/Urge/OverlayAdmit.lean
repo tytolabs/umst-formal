@@ -79,5 +79,50 @@ theorem occupancy_missing_not_admissible
   intro h
   exact ho h.2.2
 
+/-- Production admin plane. TailscaleFallback is not production. -/
+inductive OverlayAdminPlane where
+  | lan
+  | wireGuard
+  | tailscaleFallback
+
+def productionAdminPlaneAdmissible : OverlayAdminPlane → Prop
+  | .lan => True
+  | .wireGuard => True
+  | .tailscaleFallback => False
+
+/-- DID-bound WG peer: LAN/WG, not CGNAT, library never applies to kernel. -/
+structure DidBoundWgPeer where
+  plane : OverlayAdminPlane
+  cgnatEndpoint : Prop
+  kernelApply : Prop
+
+def didBoundWgAdmissible (p : DidBoundWgPeer) : Prop :=
+  productionAdminPlaneAdmissible p.plane ∧ ¬ p.cgnatEndpoint ∧ ¬ p.kernelApply
+
+theorem tailscale_wg_peer_refused :
+    ¬ didBoundWgAdmissible
+      { plane := .tailscaleFallback, cgnatEndpoint := False, kernelApply := False } := by
+  intro h
+  exact h.1
+
+theorem cgnat_wg_peer_refused :
+    ¬ didBoundWgAdmissible
+      { plane := .wireGuard, cgnatEndpoint := True, kernelApply := False } := by
+  intro h
+  exact h.2.1 trivial
+
+theorem kernel_apply_wg_peer_refused :
+    ¬ didBoundWgAdmissible
+      { plane := .wireGuard, cgnatEndpoint := False, kernelApply := True } := by
+  intro h
+  exact h.2.2 trivial
+
+theorem lan_wg_peer_eligible :
+    didBoundWgAdmissible
+      { plane := .lan, cgnatEndpoint := False, kernelApply := False } := by
+  constructor
+  · trivial
+  · constructor <;> intro h <;> exact h
+
 end OverlayAdmit
 end UMST.Urge
