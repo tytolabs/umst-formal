@@ -78,6 +78,7 @@ library
     UMST.Urge.OccupancyNotForge
     UMST.Urge.PadmaMembraneBacking
     UMST.Urge.OriginRefuse
+    UMST.Urge.OverlayCompose
     UMST.Urge.ProvenancePreserve
     UMST.Urge.ReplicaClass
     UMST.Urge.ReplicaCoalgebra
