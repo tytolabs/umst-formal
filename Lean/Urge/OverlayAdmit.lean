@@ -60,5 +60,24 @@ theorem magicdns_not_geometric
   intro h
   exact hn h.1
 
+/-- Positive compose: the three conjuncts are exactly overlay admit (I §24.7). -/
+theorem overlay_admissible_iff_conjuncts (c : OverlayCarrier) :
+    overlayAdmissible c ↔ c.suiteBound ∧ c.gateAdmit ∧ c.occupancyCanonical :=
+  Iff.rfl
+
+/-- Missing UCRS gate independently refuses overlay admit. -/
+theorem gate_missing_not_admissible
+    {c : OverlayCarrier} (hg : ¬ c.gateAdmit) :
+    ¬ overlayAdmissible c := by
+  intro h
+  exact hg h.2.1
+
+/-- Missing occupancy-canonical SDF independently refuses overlay admit. -/
+theorem occupancy_missing_not_admissible
+    {c : OverlayCarrier} (ho : ¬ c.occupancyCanonical) :
+    ¬ overlayAdmissible c := by
+  intro h
+  exact ho h.2.2
+
 end OverlayAdmit
 end UMST.Urge
