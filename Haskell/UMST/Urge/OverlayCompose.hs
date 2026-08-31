@@ -13,6 +13,8 @@ module UMST.Urge.OverlayCompose
   , tunnelOnly
   , packetArrivalNotSufficient
   , occupancyRemainderAdmissible
+  , OverlayAdminPlane (..)
+  , productionAdminPlaneAdmissible
   ) where
 
 data OverlayCarrier = OverlayCarrier
@@ -42,3 +44,12 @@ packetArrivalNotSufficient c =
 occupancyRemainderAdmissible :: Double -> Double -> Bool
 occupancyRemainderAdmissible remainder budget =
   remainder <= budget && budget >= 0
+
+
+-- | Production admin plane. TailscaleFallback is not production.
+data OverlayAdminPlane = Lan | WireGuard | TailscaleFallback
+  deriving (Eq, Show)
+
+productionAdminPlaneAdmissible :: OverlayAdminPlane -> Bool
+productionAdminPlaneAdmissible TailscaleFallback = False
+productionAdminPlaneAdmissible _ = True
