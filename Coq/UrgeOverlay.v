@@ -34,3 +34,20 @@ Proof.
   unfold overlay_admissible, tunnel_only; simpl.
   intros [Hs _]; discriminate.
 Qed.
+
+Inductive OverlayAdminPlane : Type := Lan | WireGuard | TailscaleFallback.
+
+Definition production_admin_plane_admissible (p : OverlayAdminPlane) : bool :=
+  match p with
+  | TailscaleFallback => false
+  | _ => true
+  end.
+
+Theorem tailscale_not_production :
+  production_admin_plane_admissible TailscaleFallback = false.
+Proof. reflexivity. Qed.
+
+Theorem lan_wg_production_eligible :
+  production_admin_plane_admissible Lan = true /\
+  production_admin_plane_admissible WireGuard = true.
+Proof. split; reflexivity. Qed.
