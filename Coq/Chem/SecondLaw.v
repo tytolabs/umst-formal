@@ -7,7 +7,7 @@
 (*  lift.  Imports only existing UMSTFormal modules; ZERO new axioms.    *)
 (* ================================================================== *)
 
-From Coq Require Import Reals.
+From Stdlib Require Import Reals.
 Require Import UMSTFormal.LandauerEinsteinBridge.
 Require Import UMSTFormal.MeasurementCost.
 

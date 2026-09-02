@@ -29,6 +29,9 @@ require mathlib from git
   should participate in CI; optional experiments stay out of the default closure.
 -/
 /-!
+  CHEM-NS-MVP-FORMAL-MESO-DEFECT-CLEAR — SERIAL_ON_LAKEFILE meso acting fiber defect-clear wave.
+  Sole writer for `UMST.Chem` lake targets during this SERIAL close. Build: `lake build UMST.Chem`.
+  Honesty: measured census receipts; not physics GREEN.
   CHEM-FORMAL-MESO-LEAN-CHEM — meso acting chemistry lift (`lake build UMST.Chem`).
   `Chem.+` glob: later `Chem/*.lean` compile without re-editing this lakefile.
   Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
