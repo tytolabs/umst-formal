@@ -13,7 +13,9 @@ license = "MIT"
 description = "PBM sustain residue witness — honest partial · absorbs AC64"
 
 [dependencies]
-umst-formal = { path = "../umst-formal/src/pbm_008" }
+umst-formal = { path = "../src/pbm_008" }
 
 [lib]
 path = "src/lib.rs"
+
+[workspace]
