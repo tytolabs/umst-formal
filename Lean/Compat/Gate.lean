@@ -23,6 +23,7 @@ theorem δMass_eq : δMass = 100 := UMST.Core.δMass_def_rat
 def Q_hyd := UMST.Concrete.Q_hyd
 def helmholtz := UMST.Concrete.helmholtz
 
+/-- Compat pin: `Q_hyd` is 450 kJ/kg (not 450 J/kg). -/
 @[simp] theorem Q_hyd_eq : Q_hyd = 450 := rfl
 
 @[inherit_doc UMST.Concrete.helmholtz_formula] abbrev helmholtz_formula := UMST.Concrete.helmholtz_formula

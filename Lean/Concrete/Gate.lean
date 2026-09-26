@@ -20,7 +20,7 @@ def δMass : ℚ := @UMST.Core.δMass ℚ _ _
 
 @[simp] theorem δMass_val : δMass = 100 := UMST.Core.δMass_def_rat
 
-/-- Latent heat of hydration (J/kg); SSOT with Agda / Coq / Rust. -/
+/-- Latent heat of hydration (kJ/kg = J/g); SSOT with Rust `OPC_REACTION_ENTHALPY_KJ_PER_KG`. -/
 def Q_hyd : ℚ := 450
 
 @[simp] theorem Q_hyd_val : Q_hyd = 450 := rfl
