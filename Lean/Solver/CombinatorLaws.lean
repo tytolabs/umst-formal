@@ -6,8 +6,7 @@
   Toy `OrElse` on a two-constructor `SolverTerm` with `fail` as the monoid unit.
   Fully proved left/right identity and associativity (no `sorry`, no `axiom`).
 
-  `lean4checker` is not installed in this workspace slice — this file is not
-  kernel-checked yet; elaboration is expected once the module is wired into Lake.
+  `lake env lean4checker Solver.CombinatorLaws` is the kernel check once `UMST.Solver` is built.
 -/
 
 namespace UMST.Solver
@@ -43,7 +42,7 @@ theorem OrElse_assoc (a b c : SolverTerm) :
 
 theorem eval_OrElse (a b : SolverTerm) :
     eval (OrElse a b) = (eval a).orElse (fun _ => eval b) := by
-  cases a <;> cases b <;> simp [OrElse, eval]
+  cases a <;> cases b <;> simp [OrElse, eval, Option.orElse]
 
 end CombinatorLaws
 

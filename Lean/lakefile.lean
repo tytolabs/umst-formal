@@ -53,6 +53,16 @@ lean_lib UMST.Urge where
   globs := #[`Urge.+]
   srcDir := "."
 
+/-!
+  FORMAL-COMBINATOR-LAKEFILE — `Solver.CombinatorLaws` (`lake build UMST.Solver`).
+  `Solver.+` glob: later `Solver/*.lean` compile without re-editing this lakefile.
+  Prelude-only combinator laws; no project axioms added here.
+-/
+lean_lib UMST.Solver where
+  roots := #[`Solver.CombinatorLaws]
+  globs := #[`Solver.+]
+  srcDir := "."
+
 lean_lib «UMST» where
   roots := #[`Core.Scalar, `Core.State, `Core.Gate, `Core.Constitutional,
     `Concrete.State, `Concrete.Gate,
