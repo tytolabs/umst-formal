@@ -254,7 +254,11 @@ def acceptSrc : ThermodynamicState := ⟨2400, 10, 0, 0⟩
 def acceptTgt : ThermodynamicState := ⟨2400, 3, 0, 0⟩
 
 def acceptAdmissible : Admissible acceptSrc acceptTgt :=
-  gateCheckSound acceptSrc acceptTgt (by native_decide)
+  Admissible.mk acceptSrc acceptTgt
+    (by dsimp [acceptSrc, acceptTgt, δMass_eq]; norm_num)
+    (by dsimp [acceptSrc, acceptTgt]; norm_num)
+    (by dsimp [acceptSrc, acceptTgt]; norm_num)
+    (by dsimp [acceptSrc, acceptTgt]; norm_num)
 
 def acceptCandidate : Cand (K := ℚ) acceptSrc where
   id := 1
