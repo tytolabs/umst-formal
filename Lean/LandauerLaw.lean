@@ -9,7 +9,10 @@
   T = L₀ ∪ ΔL, where ΔL adds:
     ErasureProcess   — stochastic erasure channel
     shannonEntropy   — Shannon entropy S(p) = -∑ pᵢ ln pᵢ
-    SecondLaw / physicalSecondLaw — admissibility predicate (not a Lean axiom)
+    SecondLaw / physicalSecondLaw — erasure-instance admissibility (not a Lean axiom);
+      unified process family in `Process.lean` (`UMST.ProcessFamily.SecondLaw`).
+
+  Import `Process` only after this module is defined (erase branch delegates here).
 
   Main theorem (Landauer Bound):
     For any isothermal erasure at temperature T > 0, dissipated
@@ -155,20 +158,24 @@ structure ErasureProcess where
     This is the membership test for physically admissible erasures — not a
     universal quantifier over every `ErasureProcess`.  Theorems take
     `(h : SecondLaw proc prior)` (or `physicalSecondLawUniformBinary proc`). -/
-def SecondLaw (proc : ErasureProcess) (prior : ProbDist 2) : Prop :=
+def eraseSecondLaw (proc : ErasureProcess) (prior : ProbDist 2) : Prop :=
   shannonEntropy prior - shannonEntropy (diracDist (0 : Fin 2)) ≤
     proc.work / proc.bath.bathTemp.val
 
-/-- Wire anchor name (runtime `axiom_anchor: "physicalSecondLaw"`) — same predicate. -/
-abbrev physicalSecondLaw := SecondLaw
+/-- Erasure-only spelling retained for existing importers (`ProcessFamily.SecondLaw` generalises this). -/
+abbrev SecondLaw := eraseSecondLaw
+
+/-- Wire anchor name (runtime `axiom_anchor: "physicalSecondLaw"`) — erase-instance predicate
+    (same as `eraseSecondLaw`; process-family view in `Process.lean`). -/
+abbrev physicalSecondLaw := eraseSecondLaw
 
 /-- Uniform-binary erasure instance, spelt for binder ergonomics (Lean 4 parse issue on
     `SecondLaw proc uniformBinary` in some positions). -/
 def physicalSecondLawUniformBinary (proc : ErasureProcess) : Prop :=
-  SecondLaw proc uniformBinary
+  eraseSecondLaw proc uniformBinary
 
 theorem physicalSecondLawUniformBinary_eq (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc = SecondLaw proc uniformBinary := rfl
+    physicalSecondLawUniformBinary proc = eraseSecondLaw proc uniformBinary := rfl
 
 /-- Erasure process that meets the Landauer floor at `uniformBinary` (work = T · ln 2). -/
 noncomputable def landauerTightErasure (T : ℝ) (hT : 0 < T) : ErasureProcess where
@@ -176,13 +183,13 @@ noncomputable def landauerTightErasure (T : ℝ) (hT : 0 < T) : ErasureProcess w
   work := T * log 2
 
 theorem SecondLaw_landauerTight (T : ℝ) (hT : 0 < T) :
-    SecondLaw (landauerTightErasure T hT) uniformBinary := by
-  dsimp [SecondLaw, landauerTightErasure]
+    eraseSecondLaw (landauerTightErasure T hT) uniformBinary := by
+  dsimp [eraseSecondLaw, landauerTightErasure]
   rw [binaryErasureEntropyDrop]
   rw [le_div_iff₀ hT]
   linarith
 
-theorem secondLaw_satisfiable : ∃ proc prior, SecondLaw proc prior :=
+theorem secondLaw_satisfiable : ∃ proc prior, eraseSecondLaw proc prior :=
   ⟨landauerTightErasure 300 (by norm_num), uniformBinary,
     SecondLaw_landauerTight 300 (by norm_num)⟩
 
@@ -191,8 +198,8 @@ theorem secondLaw_satisfiable : ∃ proc prior, SecondLaw proc prior :=
 theorem secondLaw_sequential_compose (proc1 proc2 : ErasureProcess) (prior : ProbDist 2)
     (_hT : proc1.bath.bathTemp.val = proc2.bath.bathTemp.val)
     (hw2 : 0 ≤ proc2.work)
-    (h1 : SecondLaw proc1 prior) (_h2 : SecondLaw proc2 prior) :
-    SecondLaw ⟨proc1.bath, proc1.work + proc2.work⟩ prior := by
+    (h1 : eraseSecondLaw proc1 prior) (_h2 : eraseSecondLaw proc2 prior) :
+    eraseSecondLaw ⟨proc1.bath, proc1.work + proc2.work⟩ prior := by
   have hTpos : 0 < proc1.bath.bathTemp.val := proc1.bath.bathTemp.property
   have hW : proc1.work ≤ proc1.work + proc2.work := le_add_of_nonneg_right hw2
   have hdiv :
@@ -208,7 +215,7 @@ theorem physicalSecondLaw_landauerTight (T : ℝ) (hT : 0 < T) :
 /-- Witness at T = 1, W = 1 (loose slack: ln 2 < 1). -/
 theorem SecondLaw_unitBathOneWork :
     physicalSecondLawUniformBinary { bath := { bathTemp := ⟨1, by norm_num⟩ }, work := 1 } := by
-  unfold physicalSecondLawUniformBinary SecondLaw
+  unfold physicalSecondLawUniformBinary eraseSecondLaw
   rw [binaryErasureEntropyDrop, div_one]
   have h : log 2 < (1 : ℝ) := log_two_lt_d9.trans (by norm_num1)
   exact le_of_lt h
