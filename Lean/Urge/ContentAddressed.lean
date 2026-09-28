@@ -359,12 +359,14 @@ structure ProvenanceStamp where
   signatureSlot   : List UInt8
   wallStamp       : String
   witnessBudget   : Nat
+  /-- Decidable surrogate for `wallStamp.contains 'T'` (kernel `decide` path; string scan is runtime). -/
+  wallHasT        : Bool
 
 /-- §4 `carries_provenance` — non-zero derivation, signed slot, wall `T`, witness budget. -/
 def carriesProvenance (s : ProvenanceStamp) : Bool :=
   s.derivationChain != 0
     && s.witnessBudget > 0
-    && s.wallStamp.contains 'T'
+    && s.wallHasT
     && s.signatureSlot.length == 8
     && s.signatureSlot.any (· != 0)
 
@@ -414,19 +416,22 @@ def contentHashFixtureStamp : ProvenanceStamp :=
   { derivationChain := 1
     signatureSlot := List.replicate 8 (UInt8.ofNat 0xAB)
     wallStamp := "2026-08-30T19:00:00Z"
-    witnessBudget := 1 }
+    witnessBudget := 1
+    wallHasT := true }
 
 theorem carriesProvenance_fixture_ok : carriesProvenance contentHashFixtureStamp := by
   unfold carriesProvenance contentHashFixtureStamp
-  native_decide
+  decide
 
 theorem carriesProvenance_empty_refused :
     carriesProvenance
       { derivationChain := 0
         signatureSlot := List.replicate 8 0
         wallStamp := ""
-        witnessBudget := 0 } = false := by
-  native_decide
+        witnessBudget := 0
+        wallHasT := false } = false := by
+  unfold carriesProvenance
+  decide
 
 def contentHashFixtureGitCompat : ContentGitHashCompat :=
   { gitHash := "sha1:geometric-primary-compat" }
@@ -447,7 +452,8 @@ theorem contentHashFixture_name_block_ok :
 
 theorem contentHashFixture_provenance_missing_refused :
     nameContentBlock 42 2 contentHashFixtureDigest
-      { derivationChain := 0, signatureSlot := List.replicate 8 0, wallStamp := "", witnessBudget := 0 }
+      { derivationChain := 0, signatureSlot := List.replicate 8 0, wallStamp := "", witnessBudget := 0,
+        wallHasT := false }
       none = Sum.inr .provenanceMissingRefused := by
   unfold nameContentBlock carriesProvenance
   simp [carriesProvenance_empty_refused, Bool.not_false]
