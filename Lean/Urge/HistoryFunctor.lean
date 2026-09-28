@@ -76,7 +76,7 @@ def evaluateTransition (step : RepoTransitionStep) : TransitionVerdict :=
     match step.provenanceStamp with
     | none => TransitionVerdict.Reject
     | some stamp =>
-      if stamp.trim.isEmpty then TransitionVerdict.Reject
+      if stamp.isEmpty then TransitionVerdict.Reject
       else if step.after.provenanceIntact && !step.after.physicsGreenClaim then
         TransitionVerdict.Accept
       else TransitionVerdict.Reject
@@ -100,7 +100,8 @@ theorem evaluateTransition_rejects_drops_provenance (step : RepoTransitionStep)
 
 theorem provenancedOkStep_evaluates_accept :
     evaluateTransition provenancedOkStep = TransitionVerdict.Accept := by
-  native_decide
+  simp only [evaluateTransition, provenancedOkStep]
+  decide
 
 def fixtureState : ThermodynamicState :=
   { density := 2400, freeEnergy := 0, hydration := 0, strength := 0 }
