@@ -60,6 +60,7 @@ open import Relation.Nullary.Decidable using (⌊_⌋)
 open import Data.Product using (_×_; _,_; proj₁; proj₂)
 open import Data.Sum using (_⊎_; inj₁; inj₂)
 open import Relation.Nullary using (Dec; yes; no; ¬_)
+open import Data.Unit using (⊤; tt)
 
 ------------------------------------------------------------------------
 -- 1. MaterialClass — the objects of a discrete category
@@ -132,18 +133,12 @@ stateFor Earth      = mkState (ℚ.normalize 1500 1) 0ℚ 0ℚ 0ℚ
 -- (hydration, carbonation, etc.) before the gate filters it.
 --
 -- For the naturality proof we need G to be "another state" against
--- which the gate can be checked.  We make it abstract: given *any*
--- function that produces a "proposed new state" per material, the
+-- which the gate can be checked.  We quantify over *any* function that
+-- produces a "proposed new state" per material (no postulate): the
 -- gate's decision depends only on the state values, not the material
 -- label.
-
-postulate
-  -- G is any function from MaterialClass to ThermodynamicState.
-  -- We leave it abstract because naturality must hold for ALL such G,
-  -- not just a specific one.  This universality is the whole point:
-  -- no matter what physics engines produce the new state, the gate
-  -- evaluates the same four inequalities.
-  stateAfter : MaterialClass → ThermodynamicState
+--
+-- physics_green: false — structural naturality only; not a dynamics bundle.
 
 ------------------------------------------------------------------------
 -- 4. The Gate as a Natural Transformation
@@ -175,8 +170,8 @@ open GateDecision
 -- The natural transformation: for each material, apply the gate to
 -- (stateFor M , stateAfter M).  This is η_M.
 
-η : (M : MaterialClass) → GateDecision M
-η M = mkGateDecision
+η : (stateAfter : MaterialClass → ThermodynamicState) (M : MaterialClass) → GateDecision M
+η stateAfter M = mkGateDecision
         (stateFor M)
         (stateAfter M)
         (gate (stateFor M) (stateAfter M))
@@ -202,11 +197,12 @@ open GateDecision
 -- then verdict (η M₁) and verdict (η M₂) agree (up to transport).
 
 gate-material-agnostic :
+  (stateAfter : MaterialClass → ThermodynamicState) →
   ∀ (M₁ M₂ : MaterialClass) →
   stateFor M₁ ≡ stateFor M₂ →
   stateAfter M₁ ≡ stateAfter M₂ →
   ⌊ gate (stateFor M₁) (stateAfter M₁) ⌋ ≡ ⌊ gate (stateFor M₂) (stateAfter M₂) ⌋
-gate-material-agnostic M₁ M₂ p q =
+gate-material-agnostic stateAfter M₁ M₂ p q =
   cong₂ (λ o n → ⌊ gate o n ⌋) p q
 
 ------------------------------------------------------------------------
@@ -259,17 +255,19 @@ F-map refl = refl
   -- The only morphism is refl (identity), so F maps it to refl.
 
 -- The action of G on morphisms.
-G-map : ∀ {M₁ M₂} → MaterialMorphism M₁ M₂ → stateAfter M₁ ≡ stateAfter M₂
-G-map refl = refl
+G-map : (stateAfter : MaterialClass → ThermodynamicState) →
+  ∀ {M₁ M₂} → MaterialMorphism M₁ M₂ → stateAfter M₁ ≡ stateAfter M₂
+G-map stateAfter refl = refl
   -- Same reasoning: G(id) = id.
 
 -- The naturality square commutes (trivially in a discrete category).
 naturality-square :
+  (stateAfter : MaterialClass → ThermodynamicState) →
   ∀ {M₁ M₂ : MaterialClass} →
   (f : MaterialMorphism M₁ M₂) →
   ⌊ gate (stateFor M₁) (stateAfter M₁) ⌋ ≡ ⌊ gate (stateFor M₂) (stateAfter M₂) ⌋
-naturality-square {M₁} {M₂} f =
-  gate-material-agnostic M₁ M₂ (F-map f) (G-map f)
+naturality-square stateAfter {M₁} {M₂} f =
+  gate-material-agnostic stateAfter M₁ M₂ (F-map f) (G-map stateAfter f)
   -- Do not use `refl = refl` here: `Dec (Admissible …)` is indexed by `M₁`/`M₂`
   -- until `f` is decomposed; reuse the Boolean-shadow congruence proof above.
 
@@ -313,9 +311,11 @@ naturality-square {M₁} {M₂} f =
 -- depends only on stateFor OPC and stateAfter OPC, not on the string
 -- "OPC".  This is a special case of gate-material-agnostic.
 
-example-opc-naturality : gate (stateFor OPC) (stateAfter OPC) ≡
-                         gate (stateFor OPC) (stateAfter OPC)
-example-opc-naturality = refl
+example-opc-naturality :
+  (stateAfter : MaterialClass → ThermodynamicState) →
+  gate (stateFor OPC) (stateAfter OPC) ≡
+  gate (stateFor OPC) (stateAfter OPC)
+example-opc-naturality _ = refl
   -- This is definitionally true, but it serves as a "type-level unit
   -- test" confirming that the proof machinery works for concrete inputs.
 
@@ -326,7 +326,7 @@ example-opc-naturality = refl
 -- What we proved:
 --   1. MaterialClass is a discrete category (5 objects, identity-only
 --      morphisms).
---   2. stateFor (F) and stateAfter (G) are functors from MaterialClass
+--   2. stateFor (F) and any stateAfter (G) are functors from MaterialClass
 --      to ThermodynamicState (trivially, since the category is discrete).
 --   3. The gate is a natural transformation η : F ⟹ G in the sense
 --      that its decision depends only on state values, not material
@@ -346,3 +346,7 @@ example-opc-naturality = refl
 --   materials with nothing in common but their thermodynamics.
 --   This module confirms it formally.
 ------------------------------------------------------------------------
+
+-- Witness: this module adds no `postulate` (G is a ∀-bound parameter).
+naturality-zero-postulate : ⊤
+naturality-zero-postulate = tt
