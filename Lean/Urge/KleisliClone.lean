@@ -290,7 +290,7 @@ theorem cloneFixtureArrowAdmitsLabs :
   rfl
 
 theorem cloneFixtureComposeUpstreamRefused :
-    composeUpstreamRefused "github.com" = true := by native_decide
+    composeUpstreamRefused "github.com" = true := by decide
 
 theorem cloneFixtureComposeEntityRefusedOnGithub :
     runCloneKleisliArrow .compose cloneFixtureCoalgebraAdmit cloneFixtureRemoteGithub =
