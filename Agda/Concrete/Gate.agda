@@ -83,56 +83,68 @@ gate old new with (density new - density old) ℚ.≤? δ-mass
       no (λ adm → ¬str (strength-monotone adm))
 
 ------------------------------------------------------------------------
--- 5. Physical Model Postulates (Concrete cartridge only)
+-- 5. Hydration monotone coupling (explicit assumptions, not postulates)
+--
+-- Independent [ThermodynamicState] fields do not determine ψ(α) or σ(α);
+-- cartridge coupling is assumed explicitly (mirrors Coq HydrationMonotoneCoupling).
 ------------------------------------------------------------------------
 
-postulate
-  ψ-antitone : ∀ (s₁ s₂ : ThermodynamicState) →
-    hydration s₁ ≤ hydration s₂ →
-    free-energy s₂ ≤ free-energy s₁
+record HydrationMonotoneCoupling : Set where
+  field
+    ψ-antitone : ∀ (s₁ s₂ : ThermodynamicState) →
+      hydration s₁ ≤ hydration s₂ →
+      free-energy s₂ ≤ free-energy s₁
 
-  fc-monotone : ∀ (s₁ s₂ : ThermodynamicState) →
-    hydration s₁ ≤ hydration s₂ →
-    strength s₁ ≤ strength s₂
+    fc-monotone : ∀ (s₁ s₂ : ThermodynamicState) →
+      hydration s₁ ≤ hydration s₂ →
+      strength s₁ ≤ strength s₂
 
-forward-hydration-admissible :
-  ∀ (old new : ThermodynamicState) →
-  hydration old ≤ hydration new →
-  (density new - density old ≤ δ-mass) →
-  (density old - density new ≤ δ-mass) →
-  Admissible old new
-forward-hydration-admissible old new α-adv mc₁ mc₂ =
-  mkAdmissible
-    (mc₁ , mc₂)
-    (ψ-antitone old new α-adv)
-    α-adv
-    (fc-monotone old new α-adv)
+module HydrationCoupling (coupling : HydrationMonotoneCoupling) where
+
+  open HydrationMonotoneCoupling coupling
+
+  ------------------------------------------------------------------------
+  -- 6. Forward hydration under explicit coupling
+  ------------------------------------------------------------------------
+
+  forward-hydration-admissible :
+    ∀ (old new : ThermodynamicState) →
+    hydration old ≤ hydration new →
+    (density new - density old ≤ δ-mass) →
+    (density old - density new ≤ δ-mass) →
+    Admissible old new
+  forward-hydration-admissible old new α-adv mc₁ mc₂ =
+    mkAdmissible
+      (mc₁ , mc₂)
+      (ψ-antitone old new α-adv)
+      α-adv
+      (fc-monotone old new α-adv)
+
+  ------------------------------------------------------------------------
+  -- 7. Corollary: The Gate Accepts Forward Hydration
+  ------------------------------------------------------------------------
+
+  gate-accepts-forward :
+    ∀ (old new : ThermodynamicState) →
+    hydration old ≤ hydration new →
+    (density new - density old ≤ δ-mass) →
+    (density old - density new ≤ δ-mass) →
+    ∃[ prf ] (gate old new ≡ yes prf)
+  gate-accepts-forward old new α-adv mc₁ mc₂
+    with (density new - density old) ℚ.≤? δ-mass
+       | (density old - density new) ℚ.≤? δ-mass
+       | free-energy new ℚ.≤? free-energy old
+       | hydration old ℚ.≤? hydration new
+       | strength old ℚ.≤? strength new
+  ... | yes _  | yes _  | yes _  | yes _  | yes _  = _ , refl
+  ... | no ¬p  | _      | _      | _      | _      = ⊥-elim (¬p mc₁)
+  ... | _      | no ¬p  | _      | _      | _      = ⊥-elim (¬p mc₂)
+  ... | _      | _      | no ¬p  | _      | _      = ⊥-elim (¬p (ψ-antitone old new α-adv))
+  ... | _      | _      | _      | no ¬p  | _      = ⊥-elim (¬p α-adv)
+  ... | _      | _      | _      | _      | no ¬p  = ⊥-elim (¬p (fc-monotone old new α-adv))
 
 ------------------------------------------------------------------------
--- 6. Corollary: The Gate Accepts Forward Hydration
-------------------------------------------------------------------------
-
-gate-accepts-forward :
-  ∀ (old new : ThermodynamicState) →
-  hydration old ≤ hydration new →
-  (density new - density old ≤ δ-mass) →
-  (density old - density new ≤ δ-mass) →
-  ∃[ prf ] (gate old new ≡ yes prf)
-gate-accepts-forward old new α-adv mc₁ mc₂
-  with (density new - density old) ℚ.≤? δ-mass
-     | (density old - density new) ℚ.≤? δ-mass
-     | free-energy new ℚ.≤? free-energy old
-     | hydration old ℚ.≤? hydration new
-     | strength old ℚ.≤? strength new
-... | yes _  | yes _  | yes _  | yes _  | yes _  = _ , refl
-... | no ¬p  | _      | _      | _      | _      = ⊥-elim (¬p mc₁)
-... | _      | no ¬p  | _      | _      | _      = ⊥-elim (¬p mc₂)
-... | _      | _      | no ¬p  | _      | _      = ⊥-elim (¬p (ψ-antitone old new α-adv))
-... | _      | _      | _      | no ¬p  | _      = ⊥-elim (¬p α-adv)
-... | _      | _      | _      | _      | no ¬p  = ⊥-elim (¬p (fc-monotone old new α-adv))
-
-------------------------------------------------------------------------
--- 7. CSG Decomposition
+-- 8. CSG Decomposition
 ------------------------------------------------------------------------
 
 MassCond : ThermodynamicState → ThermodynamicState → Set
