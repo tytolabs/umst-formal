@@ -443,7 +443,7 @@ theorem recoverSecondLaw_from_physical (b : PhysicalRecoverBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleRecoverHistoryMove_from_physical (b : PhysicalRecoverBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :

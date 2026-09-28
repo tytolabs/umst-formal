@@ -282,9 +282,9 @@ theorem statusPositiveRefuse_aggregate :
 -- SECTION 5: Landauer bridge (inherited — zero new axioms)
 -- ================================================================
 
-theorem physicalSecondLaw_imported (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 theorem statusSecondLaw_from_physical (b : PhysicalHistoryBridge)
     (hSL : physicalSecondLawUniformBinary b.proc) :

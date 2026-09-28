@@ -303,9 +303,9 @@ theorem invariantSecondLawFromLandauer (b : PhysicalHistoryBridge)
   admitSecondLaw_from_physical b hSL
 
 /-- Landauer anchor cited — `physicalSecondLaw` imported, not re-declared. -/
-theorem landauerAnchorCited (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem landauerAnchorCited (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 def invariantWitnessPhysicsGreen : Bool := false
 

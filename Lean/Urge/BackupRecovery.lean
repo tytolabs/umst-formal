@@ -276,7 +276,7 @@ theorem backupSecondLaw_from_physical (b : PhysicalBackupBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleBackupTransition_from_physical (b : PhysicalBackupBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :

@@ -314,7 +314,7 @@ theorem persistHilbertSecondLaw_from_physical (b : PhysicalPersistHilbertBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissiblePersistHilbertTransition_from_physical (b : PhysicalPersistHilbertBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :

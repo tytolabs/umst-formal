@@ -332,16 +332,16 @@ theorem fetchSecondLaw_from_physical (b : PhysicalFetchBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleFetchTransition_from_physical (b : PhysicalFetchBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :
     admissibleFetchTransition b.transition :=
   b.admissible
 
-theorem fetch_physicalSecondLaw_discharge (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem fetch_physicalSecondLaw_discharge (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 7: Honesty flags + catalog witnesses

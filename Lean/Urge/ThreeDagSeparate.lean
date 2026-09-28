@@ -337,7 +337,7 @@ theorem threeDagSecondLaw_from_physical (b : PhysicalThreeDagBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleThreeDagWalk_from_physical (b : PhysicalThreeDagBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :

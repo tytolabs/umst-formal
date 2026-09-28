@@ -293,7 +293,7 @@ theorem frugalMiSecondLaw_from_physical (b : PhysicalFrugalMiBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleFrugalMiTransition_from_physical (b : PhysicalFrugalMiBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :

@@ -302,7 +302,7 @@ theorem umstTomlRemotesSecondLaw_from_physical (b : PhysicalUmstTomlRemotesBridg
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleUmstTomlRemotes_from_physical (b : PhysicalUmstTomlRemotesBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :

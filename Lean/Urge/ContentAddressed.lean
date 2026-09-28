@@ -311,16 +311,16 @@ theorem contentSecondLaw_from_physical (b : PhysicalContentBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleContentAddressed_from_physical (b : PhysicalContentBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :
     admissibleContentAddressed b.transition :=
   b.admissible
 
-theorem physicalSecondLaw_imported (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses

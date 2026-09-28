@@ -428,16 +428,16 @@ theorem fabricSecondLaw_from_physical (b : PhysicalFabricBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleFabricHistoryMove_from_physical (b : PhysicalFabricBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :
     admissibleFabricHistoryMove b.transition.move :=
   b.admissible
 
-theorem landauerAnchorCited (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem landauerAnchorCited (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 def fabricNodesPhysicsGreen : Bool := false
 

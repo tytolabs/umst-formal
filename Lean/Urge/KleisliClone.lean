@@ -345,11 +345,11 @@ theorem cloneAdmitSecondLaw_from_physical (b : PhysicalCloneBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
-theorem clonePhysicalSecondLawDischarge (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem clonePhysicalSecondLawDischarge (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 8: Honesty flags + catalog witnesses

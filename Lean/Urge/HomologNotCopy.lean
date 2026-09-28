@@ -391,7 +391,7 @@ theorem homologSecondLaw_from_physical (b : PhysicalHomologBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleHomologRecovery_from_physical (b : PhysicalHomologBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :

@@ -351,7 +351,7 @@ theorem signedPropagateSecondLaw_from_physical (b : PhysicalSignedPropagateBridg
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 theorem admissibleSignedPropagateHistoryMove_from_physical (b : PhysicalSignedPropagateBridge)
     (_hSL : physicalSecondLawUniformBinary b.proc) :
@@ -360,7 +360,7 @@ theorem admissibleSignedPropagateHistoryMove_from_physical (b : PhysicalSignedPr
 
 theorem landauerAnchorCited :
     physicalSecondLawUniformBinary { bath := { bathTemp := ⟨1, by norm_num⟩ }, work := 1 } :=
-  physicalSecondLaw_uniform_binary { bath := { bathTemp := ⟨1, by norm_num⟩ }, work := 1 }
+  SecondLaw_unitBathOneWork
 
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses

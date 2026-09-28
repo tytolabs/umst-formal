@@ -242,9 +242,9 @@ theorem cob_admitSecondLaw_from_physical (b : PhysicalHistoryBridge)
     admitSecondLaw b.transition :=
   admitSecondLaw_from_physical b hSL
 
-theorem cob_physicalSecondLaw_discharge (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem cob_physicalSecondLaw_discharge (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses

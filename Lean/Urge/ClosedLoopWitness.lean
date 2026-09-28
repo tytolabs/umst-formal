@@ -383,9 +383,9 @@ theorem closedLoop_admissible_from_physical (b : PhysicalClosedLoopBridge)
   rw [b.historyEq]
   exact admissibleHistoryTransition_from_physical b.bridge hSL
 
-theorem physicalSecondLaw_imported (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses

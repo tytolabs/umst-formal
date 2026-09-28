@@ -360,18 +360,18 @@ theorem replicaClassComposeExcitementNotArgmin {S : Type} [ThermodynamicSystem �
 -- SECTION 5: Landauer bridge (inherited — zero new axioms)
 -- ================================================================
 
-theorem physicalSecondLaw_imported (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 theorem replicaClassSecondLaw_from_physical (b : PhysicalHistoryBridge)
     (hSL : physicalSecondLawUniformBinary b.proc) :
     admitSecondLaw b.transition :=
   admitSecondLaw_from_physical b hSL
 
-theorem landauerAnchorCited (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw_uniform_binary proc
+theorem landauerAnchorCited (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
