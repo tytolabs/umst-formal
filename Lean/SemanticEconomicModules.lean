@@ -142,7 +142,8 @@ def meaningGateReadsTolerance (consistencyDefect : ℚ) : Bool :=
 
 theorem meaningGateReadsTolerance_zero :
     meaningGateReadsTolerance 0 = true := by
-  native_decide
+  simp only [meaningGateReadsTolerance, defaultInterpretationEpsilonQ, decide_eq_true_eq]
+  constructor <;> norm_num
 
 -- ================================================================
 -- SECTION 5: Witness theorems (0 sorry — catalog / gate fixtures)
