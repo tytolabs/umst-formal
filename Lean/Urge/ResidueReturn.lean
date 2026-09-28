@@ -132,7 +132,7 @@ theorem pinSixResidueConstructors_length : pinSixResidueConstructors.length = 6 
 
 theorem pinSixResidueConstructors_tags_nodup :
     (pinSixResidueConstructors.map residueConstructorTag).Nodup := by
-  native_decide
+  decide
 
 theorem residue_cases_in_pinSix (r : Residue) : r ∈ pinSixResidueConstructors := by
   rcases r <;> simp [pinSixResidueConstructors]
