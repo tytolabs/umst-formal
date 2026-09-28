@@ -155,3 +155,11 @@ lean_lib «Crypto.SanitizePatternCoverage» where
 lean_lib «MoriTanaka» where
   roots := #[`Concrete.MoriTanaka, `Concrete.MoriTanakaPosture]
   srcDir := "."
+
+/-!
+  LIB-ADOPT-F-LEAN-RS — RSBridge cold-path inventory (`lake build RSBridge.ColdPath`).
+  Standalone; not in default `UMST` roots.
+-/
+lean_lib «RSBridge.ColdPath» where
+  roots := #[`RSBridge.ColdPath]
+  srcDir := "."
