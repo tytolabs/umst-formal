@@ -393,8 +393,14 @@ def cobSocialGraphNonClaim : String :=
   "§3 COB typed social graph (patch/issue/review/identity); positive refuse not only !physics_green; " ++
   "compose Excitement.select not local argmin; not physics GREEN; not production_wired"
 
+theorem cobSocialGraphNonClaim_prefix_len :
+    ("§3 COB typed social graph (patch/issue/review/identity); positive refuse not only !physics_green; ").length > 0 := by
+  decide
+
 theorem cobSocialGraphNonClaim_nonempty : cobSocialGraphNonClaim.length > 0 := by
-  native_decide
+  unfold cobSocialGraphNonClaim
+  rw [String.length_append]
+  exact Nat.lt_of_lt_of_le cobSocialGraphNonClaim_prefix_len (Nat.le_add_right _ _)
 
 theorem cobSocialGraphModuleWitness : True := trivial
 
