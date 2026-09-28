@@ -131,7 +131,7 @@ theorem admitSecondLaw_from_physical (b : PhysicalHistoryBridge)
     congr 1
     exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   rw [hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 /-- **Admit morphism axiom discipline**: history second-law admissibility discharges from
     the sole project axiom `physicalSecondLaw` — zero new Lean `axiom` declarations. -/

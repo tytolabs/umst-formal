@@ -152,7 +152,7 @@ theorem semantic_entropy_bound_from_physical (b : PhysicalSemanticBridge)
         congrArg Subtype.val (congrArg SemanticBath.bathTemp b.bathEq)
     rw [b.workEq, hbval]
   rw [hdrop, hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 /-- Landauer bound on understanding work for a physically bridged transition. -/
 theorem understandingCostLandauerBound (b : PhysicalSemanticBridge)

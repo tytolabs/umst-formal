@@ -113,7 +113,7 @@ theorem chem_entropy_bound_from_physical (b : PhysicalChemBridge)
         congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
     rw [b.workEq, hbval]
   rw [hdrop, hwork]
-  simpa [physicalSecondLawUniformBinary] using hSL
+  exact hSL
 
 /-- Landauer bound on dissipated work for a physically bridged assemblage erasure. -/
 theorem refinementLandauerBound (b : PhysicalChemBridge)

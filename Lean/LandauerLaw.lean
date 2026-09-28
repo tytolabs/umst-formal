@@ -2,13 +2,14 @@
 -- SPDX-License-Identifier: MIT
 /-
   UMST-Formal: LandauerLaw.lean
-  Sole project `axiom`: `physicalSecondLaw` (see `FORMAL_FOUNDATIONS.md`, `PROOF-STATUS.md`).
+  Sole project physical law: `SecondLaw` / wire alias `physicalSecondLaw` (predicate — zero Lean axioms;
+  see `FORMAL_FOUNDATIONS.md`, `PROOF-STATUS.md`).
 
   T_LandauerLaw: The Landauer Principle in the signature extension
   T = L₀ ∪ ΔL, where ΔL adds:
     ErasureProcess   — stochastic erasure channel
     shannonEntropy   — Shannon entropy S(p) = -∑ pᵢ ln pᵢ
-    physicalSecondLaw — total entropy non-decreasing (physical axiom)
+    SecondLaw / physicalSecondLaw — admissibility predicate (not a Lean axiom)
 
   Main theorem (Landauer Bound):
     For any isothermal erasure at temperature T > 0, dissipated
@@ -39,6 +40,7 @@
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Data.Complex.ExponentialBounds
 import Mathlib.Algebra.BigOperators.Group.Finset
 
 open Real Finset
@@ -141,36 +143,75 @@ structure ErasureProcess where
   work : ℝ
 
 -- ================================================================
--- SECTION 5: Physical Axiom — Second Law
+-- SECTION 5: Second Law — admissibility predicate (not a Lean axiom)
 -- ================================================================
 
 /-- **Second Law of Thermodynamics** (Clausius entropy form):
-    For any isothermal erasure process starting from a prior distribution,
-    the system entropy decrease cannot exceed the work dissipated divided
-    by temperature.
+    For an isothermal erasure to the Dirac post-state, the entropy decrease
+    from `prior` cannot exceed dissipated work divided by bath temperature.
 
-    Formally: ΔS_sys = S(prior) − S(post) ≤ W / T.
+    Formally: ΔS_sys = S(prior) − S(Dirac) ≤ W / T.
 
-    This is the Clausius inequality in discrete form.  It is an AXIOM
-    in T_LandauerLaw: it does not follow from the L₀ gate predicates
-    alone and requires statistical-mechanical foundations outside L₀.
-
-    Use `physicalSecondLawUniformBinary proc` in theorem binders: Lean misparses
-    raw `physicalSecondLaw proc uniformBinary` inside `(h : …)`. -/
-axiom physicalSecondLaw (proc : ErasureProcess) (prior : ProbDist 2) :
-    shannonEntropy prior - shannonEntropy (diracDist (0 : Fin 2)) ≤
+    This is the membership test for physically admissible erasures — not a
+    universal quantifier over every `ErasureProcess`.  Theorems take
+    `(h : SecondLaw proc prior)` (or `physicalSecondLawUniformBinary proc`). -/
+def SecondLaw (proc : ErasureProcess) (prior : ProbDist 2) : Prop :=
+  shannonEntropy prior - shannonEntropy (diracDist (0 : Fin 2)) ≤
     proc.work / proc.bath.bathTemp.val
 
-/-- Same proposition as `physicalSecondLaw proc uniformBinary`, spelt without applying
-    the axiom at `uniformBinary` in binders (Lean 4 parse issue). -/
+/-- Wire anchor name (runtime `axiom_anchor: "physicalSecondLaw"`) — same predicate. -/
+abbrev physicalSecondLaw := SecondLaw
+
+/-- Uniform-binary erasure instance, spelt for binder ergonomics (Lean 4 parse issue on
+    `SecondLaw proc uniformBinary` in some positions). -/
 def physicalSecondLawUniformBinary (proc : ErasureProcess) : Prop :=
-  shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2)) ≤
-    proc.work / proc.bath.bathTemp.val
+  SecondLaw proc uniformBinary
 
-/-- The uniform-binary instance follows from the general second-law axiom. -/
-theorem physicalSecondLaw_uniform_binary (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc :=
-  physicalSecondLaw proc uniformBinary
+theorem physicalSecondLawUniformBinary_eq (proc : ErasureProcess) :
+    physicalSecondLawUniformBinary proc = SecondLaw proc uniformBinary := rfl
+
+/-- Erasure process that meets the Landauer floor at `uniformBinary` (work = T · ln 2). -/
+noncomputable def landauerTightErasure (T : ℝ) (hT : 0 < T) : ErasureProcess where
+  bath := { bathTemp := ⟨T, hT⟩ }
+  work := T * log 2
+
+theorem SecondLaw_landauerTight (T : ℝ) (hT : 0 < T) :
+    SecondLaw (landauerTightErasure T hT) uniformBinary := by
+  dsimp [SecondLaw, landauerTightErasure]
+  rw [binaryErasureEntropyDrop]
+  rw [le_div_iff₀ hT]
+  linarith
+
+theorem secondLaw_satisfiable : ∃ proc prior, SecondLaw proc prior :=
+  ⟨landauerTightErasure 300 (by norm_num), uniformBinary,
+    SecondLaw_landauerTight 300 (by norm_num)⟩
+
+/-- Sequential composition (same bath): admissible processes with non-negative follow-on work
+    remain admissible when dissipated work is additive. -/
+theorem secondLaw_sequential_compose (proc1 proc2 : ErasureProcess) (prior : ProbDist 2)
+    (_hT : proc1.bath.bathTemp.val = proc2.bath.bathTemp.val)
+    (hw2 : 0 ≤ proc2.work)
+    (h1 : SecondLaw proc1 prior) (_h2 : SecondLaw proc2 prior) :
+    SecondLaw ⟨proc1.bath, proc1.work + proc2.work⟩ prior := by
+  have hTpos : 0 < proc1.bath.bathTemp.val := proc1.bath.bathTemp.property
+  have hW : proc1.work ≤ proc1.work + proc2.work := le_add_of_nonneg_right hw2
+  have hdiv :
+      proc1.work / proc1.bath.bathTemp.val ≤
+        (proc1.work + proc2.work) / proc1.bath.bathTemp.val :=
+    div_le_div_of_nonneg_right hW hTpos.le
+  exact le_trans h1 hdiv
+
+theorem physicalSecondLaw_landauerTight (T : ℝ) (hT : 0 < T) :
+    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
+  SecondLaw_landauerTight T hT
+
+/-- Witness at T = 1, W = 1 (loose slack: ln 2 < 1). -/
+theorem SecondLaw_unitBathOneWork :
+    physicalSecondLawUniformBinary { bath := { bathTemp := ⟨1, by norm_num⟩ }, work := 1 } := by
+  unfold physicalSecondLawUniformBinary SecondLaw
+  rw [binaryErasureEntropyDrop, div_one]
+  have h : log 2 < (1 : ℝ) := log_two_lt_d9.trans (by norm_num1)
+  exact le_of_lt h
 
 -- ================================================================
 -- SECTION 6: The Landauer Bound
@@ -197,7 +238,7 @@ theorem landauerBound (proc : ErasureProcess)
   have hT : 0 < proc.bath.bathTemp.val := proc.bath.bathTemp.property
   have hentropy : log 2 ≤ proc.work / proc.bath.bathTemp.val := by
     rw [← binaryErasureEntropyDrop]
-    simpa [physicalSecondLawUniformBinary] using hSL
+    exact hSL
   rw [le_div_iff₀ hT] at hentropy
   linarith
 

@@ -103,7 +103,7 @@ this table.**
 |---|---|---|---|---|
 | Free-energy antitone under hydration | `psi_antitone` (`Concrete/Gate.v`) | `ψ-antitone` (`Concrete/Gate.agda`) | `helmholtzAntitone` (Concrete/Gate.lean); state witness `ψAntitoneHelmholtz` (Concrete/Helmholtz.lean) — **not** a Lean `axiom` | Clausius-Duhem / Helmholtz model |
 | Strength monotone under hydration | `fc_monotone` (`Concrete/Gate.v`) | `fc-monotone` (`Concrete/Gate.agda`) | `powersStateFcMonotone` (Concrete/Powers.lean) — **not** a Lean `axiom` | Powers gel-space ratio model |
-| Second Law of Thermodynamics (erasure) | -- | -- | `physicalSecondLaw` + `physicalSecondLawUniformBinary` (LandauerLaw.lean) | T_LandauerLaw only; Clausius entropy form; uniform-binary binders use `physicalSecondLawUniformBinary proc` (Lean parse) |
+| Second Law of Thermodynamics (erasure) | -- | -- | `SecondLaw` / wire alias `physicalSecondLaw` + `physicalSecondLawUniformBinary` (LandauerLaw.lean) | T_LandauerLaw; admissibility predicate (zero Lean physics axioms); `secondLaw_satisfiable` + `secondLaw_sequential_compose`; uniform-binary binders use `physicalSecondLawUniformBinary proc` |
 
 ### Composition / transitivity (RESOLVED — axiom removed)
 
@@ -426,7 +426,7 @@ has the algebraic fragment with parameters.  Summary:
 | `UMST.Convergence` | 8 | 0 | `Lean/Concrete/Convergence.lean` |
 | `UMST.GaloisGate` | 6 | 0 | `Lean/Concrete/GaloisGate.lean` — Galois connection on gate conditions |
 | `UMST.EnrichedAdmissibility` | 12 | 0 | `Lean/Concrete/EnrichedAdmissibility.lean` |
-| `UMST.LandauerLaw` | 9 | 3 | `Lean/LandauerLaw.lean` (1 Lean `axiom`: `physicalSecondLaw`) |
+| `UMST.LandauerLaw` | 9 | 3 | `Lean/LandauerLaw.lean` (0 Lean physics axioms; `SecondLaw` predicate) |
 | `UMST.InfoTheory` | 4 | 0 | `Lean/InfoTheory.lean` |
 | `UMST.Concrete.EndConditions` | 3 | 0 | `Lean/Concrete/EndConditions.lean` — stream end-state constraints |
 | `UMST.ClassicalMeasurementCost` | 1 | 0 | `Lean/ClassicalMeasurementCost.lean` — classical observation cost vs Landauer |
@@ -471,7 +471,7 @@ has the algebraic fragment with parameters.  Summary:
 
 **InfoTheory follow-up (not in artifact):** general non-negativity `0 ≤ mutualInformation J` (equivalently subadditivity of Shannon entropy / KL divergence ≥ 0) is stated as a future extension in `InfoTheory.lean`; the product case above already forces `MI = 0` for independent factors.
 
-All Lean 4 theorems/lemmas in these roots are tactic-`sorry`-free. Physical Lean `axiom`: `physicalSecondLaw` in `LandauerLaw.lean`. Plus **28** Crypto Tier-1 `axiom`s under `Lean/Crypto/` (hardness stubs) — see `python3 scripts/lean_declaration_stats.py`.  CI badge: see `.github/workflows/ci.yml`
+All Lean 4 theorems/lemmas in these roots are tactic-`sorry`-free. Physical law: `SecondLaw` predicate in `LandauerLaw.lean` (wire name `physicalSecondLaw`; no project physics `axiom`). Plus **28** Crypto Tier-1 `axiom`s under `Lean/Crypto/` (hardness stubs) — see `python3 scripts/lean_declaration_stats.py`.  CI badge: see `.github/workflows/ci.yml`
 job `lean`.
 
 ---
