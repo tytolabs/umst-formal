@@ -17,9 +17,9 @@ module InfoTheory where
 
 open import Data.List.Base as List using (List; []; _∷_; map; length; foldl)
 open import Data.List.Membership.Propositional using (_∈_)
-open import Data.List.Relation.Unary.Any as Any using (Any; here; there)
+open import Data.List.Relation.Unary.Any using (here; there)
 open import Data.List.Relation.Binary.Pointwise.Base as Pw
-  using (Pointwise)
+  using (Pointwise; head; tail)
   renaming ([] to pw-[]; _∷_ to _pw∷_)
 open import Data.List.Relation.Binary.Pointwise.Properties using (Pointwise-length)
 open import Data.Nat using (ℕ; suc; zero)
@@ -32,13 +32,15 @@ open import Relation.Binary.PropositionalEquality
 open import Relation.Binary.PropositionalEquality.Properties using (setoid)
 open import Relation.Binary.Reasoning.Setoid (setoid ℚ)
 
-pw-sym : ∀ {l₁ l₂} → Pointwise _≡_ l₁ l₂ → Pointwise _≡_ l₂ l₁
-pw-sym pw-[] = pw-[]
-pw-sym (eq pw∷ rest) = sym eq pw∷ pw-sym rest
+pw-sym : ∀ {l₁ l₂ : List ℚ} → Pointwise _≡_ l₁ l₂ → Pointwise _≡_ l₂ l₁
+pw-sym {l₁ = []}     {l₂ = []}     pw-[] = pw-[]
+pw-sym {l₁ = x ∷ xs} {l₂ = y ∷ ys} (eq pw∷ rest) = sym eq pw∷ pw-sym rest
 
-pw-trans : ∀ {l₁ l₂ l₃} → Pointwise _≡_ l₁ l₂ → Pointwise _≡_ l₂ l₃ → Pointwise _≡_ l₁ l₃
-pw-trans pw-[] pw-[] = pw-[]
-pw-trans (eq₁ pw∷ rest₁) (eq₂ pw∷ rest₂) = trans eq₁ eq₂ pw∷ pw-trans rest₁ rest₂
+pw-trans :
+  ∀ {l₁ l₂ l₃ : List ℚ} → Pointwise _≡_ l₁ l₂ → Pointwise _≡_ l₂ l₃ → Pointwise _≡_ l₁ l₃
+pw-trans {l₁ = []}     {l₂ = []}     {l₃ = []}     pw-[] pw-[] = pw-[]
+pw-trans {l₁ = x ∷ xs} {l₂ = y ∷ ys} {l₃ = z ∷ zs} (eq₁ pw∷ rest₁) (eq₂ pw∷ rest₂) =
+  trans eq₁ eq₂ pw∷ pw-trans rest₁ rest₂
 
 pw-refl : ∀ (xs : List ℚ) → Pointwise _≡_ xs xs
 pw-refl [] = pw-[]
@@ -167,9 +169,10 @@ pointwiseAdd-compatˡ :
   Pointwise _≡_ (pointwiseAdd R0 l1) (pointwiseAdd R0 l2)
 pointwiseAdd-compatˡ [] [] [] pw-[] = pw-[]
 pointwiseAdd-compatˡ (hr ∷ rt) [] [] pw-[] = pw-refl (hr ∷ rt)
-pointwiseAdd-compatˡ [] (y ∷ ys) (y' ∷ ys') (Hxy pw∷ Hys) = Hxy pw∷ Hys
-pointwiseAdd-compatˡ (hr ∷ rt) (y ∷ ys) (y' ∷ ys') (Hxy pw∷ Hys) =
-  cong₂ _+_ refl Hxy pw∷ pointwiseAdd-compatˡ rt ys ys' Hys
+pointwiseAdd-compatˡ [] (x ∷ xs) (y ∷ ys) H =
+  head H pw∷ pointwiseAdd-compatˡ [] xs ys (tail H)
+pointwiseAdd-compatˡ (hr ∷ rt) (x ∷ xs) (y ∷ ys) H =
+  cong (hr +_) (head H) pw∷ pointwiseAdd-compatˡ rt xs ys (tail H)
 
 productJoint-row-length :
   ∀ (p q row : List ℚ) → row ∈ productJoint p q → length row ≡ length q
@@ -264,7 +267,7 @@ map-mul-comm-pointwise :
   Pointwise _≡_ (map (λ qk → qk * c) l) (map (λ qk → c * qk) l)
 map-mul-comm-pointwise c [] = pw-[]
 map-mul-comm-pointwise c (qh ∷ qt) =
-  sym (*-comm qh c) pw∷ map-mul-comm-pointwise c qt
+  *-comm qh c pw∷ map-mul-comm-pointwise c qt
 
 marginalSecondProduct :
   ∀ (ph : ℚ) (pt q : List ℚ) →
@@ -276,17 +279,20 @@ sumList-singleton ph =
 
 marginalSecondProduct ph [] q =
   pw-trans (mapMulRow-as-map ph q)
-    (pw-trans (map-mul-comm-pointwise ph q)
-      (pw-trans (map-scale-pointwise q ph (sumList (ph ∷ [])) (sym (sumList-singleton ph)))
-        (pw-sym (map-mul-comm-pointwise (sumList (ph ∷ [])) q))))
+    (pw-trans (map-scale-pointwise q ph (sumList (ph ∷ [])) (sym (sumList-singleton ph)))
+      (map-mul-comm-pointwise (sumList (ph ∷ [])) q))
 marginalSecondProduct ph (a ∷ pt') q =
   let Hrows row Hin = productJoint-row-length (a ∷ pt') q row Hin
-      Hdim row Hin = trans (Hrows row Hin) (mapMulRow-length ph q)
+      Hdim row Hin = trans (Hrows row Hin) (sym (mapMulRow-length ph q))
       step₁ = marginalSecond-fold (mapMulRow ph q) (productJoint (a ∷ pt') q) Hdim
       step₂ = pointwiseAdd-compatˡ (mapMulRow ph q)
         (marginalSecond (productJoint (a ∷ pt') q))
         (map (λ qk → sumList (a ∷ pt') * qk) q)
         (marginalSecondProduct a pt' q)
+      step₂' = pointwiseAdd-compatˡ (mapMulRow ph q)
+        (map (λ qk → sumList (a ∷ pt') * qk) q)
+        (map (λ qk → qk * sumList (a ∷ pt')) q)
+        (pw-sym (map-mul-comm-pointwise (sumList (a ∷ pt')) q))
       step₃ = pointwiseAdd-mapMul ph (sumList (a ∷ pt')) q
-      step₄ = map-scale-pointwise q (ph + sumList (a ∷ pt')) (sumList (ph ∷ a ∷ pt')) refl
-  in pw-trans step₁ (pw-trans (pw-sym step₂) (pw-trans step₃ step₄))
+      step₄ = map-mul-comm-pointwise (sumList (ph ∷ a ∷ pt')) q
+  in pw-trans step₁ (pw-trans step₂ (pw-trans step₂' (pw-trans step₃ step₄)))
