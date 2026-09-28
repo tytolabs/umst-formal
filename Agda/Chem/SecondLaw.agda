@@ -4,14 +4,15 @@
 -- UMST-Formal: Chem.SecondLaw — meso/acting chemistry second-law anchor.
 --
 -- CHEM-L0-FORMAL-01 / CHEM-NS-W0-AXIOM (umst-formal acting fiber only).
--- Sole project physics postulate mirrors:
---   • Lean  @Lean/LandauerLaw.lean@  `physicalSecondLaw`
---   • Haskell / Coq Shannon+log bounds remain authority for numeric ln 2.
+-- Physical hypothesis mirrors Lean @Lean/LandauerLaw.lean@ `physicalSecondLaw`,
+-- but is threaded as a `SecondLawPhysics` record field (zero postulates).
+--
+-- Importers: `open Chem.SecondLaw.Anchored Φ` after supplying `Φ : SecondLawPhysics`.
 --
 -- physics_green: false — this module does not duplicate Mathlib analysis.
 ------------------------------------------------------------------------
 
-{-# OPTIONS --without-K --exact-split #-}
+{-# OPTIONS --without-K --exact-split --safe #-}
 
 module Chem.SecondLaw where
 
@@ -36,12 +37,14 @@ PhysicalSecondLaw proc entropyDecrease =
   entropyDecrease ≤ ErasureProcess.dissipatedEntropy proc
 
 ------------------------------------------------------------------------
--- Physical axiom — mirrors LandauerLaw.physicalSecondLaw (honesty fence)
+-- Physical hypothesis — record field (P0-13b / W-04; no postulate block)
 ------------------------------------------------------------------------
 
-postulate
-  physicalSecondLaw : ∀ (proc : ErasureProcess) (entropyDecrease : ℚ) →
-    PhysicalSecondLaw proc entropyDecrease
+record SecondLawPhysics : Set where
+  field
+    physicalSecondLaw :
+      ∀ (proc : ErasureProcess) (entropyDecrease : ℚ) →
+      PhysicalSecondLaw proc entropyDecrease
 
 ------------------------------------------------------------------------
 -- Derived witnesses (zero new physics postulates)
@@ -61,3 +64,11 @@ physicalSecondLawUniformBinary proc ΔS h = h
 
 secondLawModuleWitness : ErasureProcess → ℚ → Set
 secondLawModuleWitness proc ΔS = PhysicalSecondLaw proc ΔS
+
+------------------------------------------------------------------------
+-- Parameterized anchor for importers (thread `Φ : SecondLawPhysics`)
+------------------------------------------------------------------------
+
+module Anchored (Φ : SecondLawPhysics) where
+
+  open SecondLawPhysics Φ public using (physicalSecondLaw)
