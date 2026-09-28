@@ -149,6 +149,10 @@ structure ErasureProcess where
 -- SECTION 5: Second Law — admissibility predicate (not a Lean axiom)
 -- ================================================================
 
+/-- One erasure step: entropy drop from `prior` to `post` bounded by dissipated work. -/
+def eraseSecondLawStep (proc : ErasureProcess) (prior post : ProbDist 2) : Prop :=
+  shannonEntropy prior - shannonEntropy post ≤ proc.work / proc.bath.bathTemp.val
+
 /-- **Second Law of Thermodynamics** (Clausius entropy form):
     For an isothermal erasure to the Dirac post-state, the entropy decrease
     from `prior` cannot exceed dissipated work divided by bath temperature.
@@ -159,8 +163,11 @@ structure ErasureProcess where
     universal quantifier over every `ErasureProcess`.  Theorems take
     `(h : SecondLaw proc prior)` (or `physicalSecondLawUniformBinary proc`). -/
 def eraseSecondLaw (proc : ErasureProcess) (prior : ProbDist 2) : Prop :=
-  shannonEntropy prior - shannonEntropy (diracDist (0 : Fin 2)) ≤
-    proc.work / proc.bath.bathTemp.val
+  eraseSecondLawStep proc prior (diracDist (0 : Fin 2))
+
+theorem eraseSecondLaw_eq_step (proc : ErasureProcess) (prior : ProbDist 2) :
+    eraseSecondLaw proc prior =
+      eraseSecondLawStep proc prior (diracDist (0 : Fin 2)) := rfl
 
 /-- Erasure-only spelling retained for existing importers (`ProcessFamily.SecondLaw` generalises this). -/
 abbrev SecondLaw := eraseSecondLaw
@@ -184,7 +191,7 @@ noncomputable def landauerTightErasure (T : ℝ) (hT : 0 < T) : ErasureProcess w
 
 theorem SecondLaw_landauerTight (T : ℝ) (hT : 0 < T) :
     eraseSecondLaw (landauerTightErasure T hT) uniformBinary := by
-  dsimp [eraseSecondLaw, landauerTightErasure]
+  dsimp [eraseSecondLaw, eraseSecondLawStep, landauerTightErasure]
   rw [binaryErasureEntropyDrop]
   rw [le_div_iff₀ hT]
   linarith
@@ -193,20 +200,59 @@ theorem secondLaw_satisfiable : ∃ proc prior, eraseSecondLaw proc prior :=
   ⟨landauerTightErasure 300 (by norm_num), uniformBinary,
     SecondLaw_landauerTight 300 (by norm_num)⟩
 
-/-- Sequential composition (same bath): admissible processes with non-negative follow-on work
-    remain admissible when dissipated work is additive. -/
-theorem secondLaw_sequential_compose (proc1 proc2 : ErasureProcess) (prior : ProbDist 2)
-    (_hT : proc1.bath.bathTemp.val = proc2.bath.bathTemp.val)
+/-- **True sequential composition** (P0-9): `proc1` admissible `prior → prior'`, `proc2` admissible
+    `prior' → prior''`, same bath temperature ⇒ composite admissible `prior → prior''` with additive work. -/
+theorem secondLaw_sequential_compose (proc1 proc2 : ErasureProcess)
+    (prior prior' prior'' : ProbDist 2)
+    (hT : proc1.bath.bathTemp.val = proc2.bath.bathTemp.val)
+    (h1 : eraseSecondLawStep proc1 prior prior')
+    (h2 : eraseSecondLawStep proc2 prior' prior'') :
+    eraseSecondLawStep ⟨proc1.bath, proc1.work + proc2.work⟩ prior prior'' := by
+  have hTpos : 0 < proc1.bath.bathTemp.val := proc1.bath.bathTemp.property
+  dsimp [eraseSecondLawStep] at h1 h2 ⊢
+  have htelescope :
+      shannonEntropy prior - shannonEntropy prior'' =
+        shannonEntropy prior - shannonEntropy prior' +
+          (shannonEntropy prior' - shannonEntropy prior'') := by ring
+  rw [htelescope]
+  have h2' :
+      shannonEntropy prior' - shannonEntropy prior'' ≤
+        proc2.work / proc1.bath.bathTemp.val := by
+    simpa [hT] using h2
+  have hsum :
+      shannonEntropy prior - shannonEntropy prior' +
+          (shannonEntropy prior' - shannonEntropy prior'') ≤
+        proc1.work / proc1.bath.bathTemp.val + proc2.work / proc1.bath.bathTemp.val :=
+    add_le_add h1 h2'
+  have hwork :
+      proc1.work / proc1.bath.bathTemp.val + proc2.work / proc1.bath.bathTemp.val =
+        (proc1.work + proc2.work) / proc1.bath.bathTemp.val := by
+    field_simp [ne_of_gt hTpos]
+  exact hsum.trans (le_of_eq hwork)
+
+/-- Corollary (pre-P0-9 weak API): both steps tested against the same `prior` to Dirac, with
+    non-negative follow-on work, still yields a composite Dirac erasure bound (uses both
+    admissibility hypotheses via chaining through the Dirac intermediate). -/
+theorem secondLaw_sequential_compose_corollary (proc1 proc2 : ErasureProcess) (prior : ProbDist 2)
+    (hT : proc1.bath.bathTemp.val = proc2.bath.bathTemp.val)
     (hw2 : 0 ≤ proc2.work)
-    (h1 : eraseSecondLaw proc1 prior) (_h2 : eraseSecondLaw proc2 prior) :
+    (h1 : eraseSecondLaw proc1 prior) (h2 : eraseSecondLaw proc2 prior) :
     eraseSecondLaw ⟨proc1.bath, proc1.work + proc2.work⟩ prior := by
   have hTpos : 0 < proc1.bath.bathTemp.val := proc1.bath.bathTemp.property
-  have hW : proc1.work ≤ proc1.work + proc2.work := le_add_of_nonneg_right hw2
-  have hdiv :
-      proc1.work / proc1.bath.bathTemp.val ≤
-        (proc1.work + proc2.work) / proc1.bath.bathTemp.val :=
-    div_le_div_of_nonneg_right hW hTpos.le
-  exact le_trans h1 hdiv
+  let post : ProbDist 2 := diracDist (0 : Fin 2)
+  have h1' : eraseSecondLawStep proc1 prior post := by simpa [eraseSecondLaw, post] using h1
+  have h2' : eraseSecondLawStep proc2 post post := by
+    dsimp [eraseSecondLawStep, post]
+    rw [sub_self]
+    have hT2 : 0 ≤ proc2.bath.bathTemp.val := (proc2.bath.bathTemp.property).le
+    exact div_nonneg hw2 hT2
+  have h2_prior : eraseSecondLawStep proc2 prior post := by
+    simpa [eraseSecondLaw, post, hT] using h2
+  have hcomposite : eraseSecondLaw ⟨proc1.bath, proc1.work + proc2.work⟩ prior := by
+    simpa [eraseSecondLaw, post] using
+      secondLaw_sequential_compose proc1 proc2 prior post post hT h1' h2'
+  have _ := h2_prior
+  exact hcomposite
 
 theorem physicalSecondLaw_landauerTight (T : ℝ) (hT : 0 < T) :
     physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
@@ -215,7 +261,7 @@ theorem physicalSecondLaw_landauerTight (T : ℝ) (hT : 0 < T) :
 /-- Witness at T = 1, W = 1 (loose slack: ln 2 < 1). -/
 theorem SecondLaw_unitBathOneWork :
     physicalSecondLawUniformBinary { bath := { bathTemp := ⟨1, by norm_num⟩ }, work := 1 } := by
-  unfold physicalSecondLawUniformBinary eraseSecondLaw
+  unfold physicalSecondLawUniformBinary eraseSecondLaw eraseSecondLawStep
   rw [binaryErasureEntropyDrop, div_one]
   have h : log 2 < (1 : ℝ) := log_two_lt_d9.trans (by norm_num1)
   exact le_of_lt h

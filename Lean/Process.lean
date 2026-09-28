@@ -167,4 +167,32 @@ theorem secondLaw_process_family_satisfiable :
 theorem physicalSecondLaw_erase_instance (proc : ErasureProcess) (prior : ProbDist 2) :
     SecondLaw (.erase proc) (.erasure prior) = physicalSecondLaw proc prior := rfl
 
+-- ================================================================
+-- SECTION 7: Erasure sequential composition (P0-9)
+-- ================================================================
+
+/-- Erasure-step admissibility `prior → post` (generalises `SecondLaw` on `.erase`). -/
+def eraseStepSecondLaw (proc : ErasureProcess) (prior post : ProbDist 2) : Prop :=
+  eraseSecondLawStep proc prior post
+
+theorem eraseStepSecondLaw_dirac (proc : ErasureProcess) (prior : ProbDist 2) :
+    eraseStepSecondLaw proc prior (diracDist (0 : Fin 2)) = eraseSecondLaw proc prior := rfl
+
+/-- Chained erase processes: admissible `p → p'` then `p' → p''` ⇒ composite `p → p''`. -/
+theorem SecondLaw_erase_sequential_compose (proc1 proc2 : ErasureProcess)
+    (prior prior' prior'' : ProbDist 2)
+    (hT : proc1.bath.bathTemp.val = proc2.bath.bathTemp.val)
+    (h1 : eraseStepSecondLaw proc1 prior prior')
+    (h2 : eraseStepSecondLaw proc2 prior' prior'') :
+    eraseStepSecondLaw ⟨proc1.bath, proc1.work + proc2.work⟩ prior prior'' :=
+  secondLaw_sequential_compose proc1 proc2 prior prior' prior'' hT h1 h2
+
+/-- When the first step is a Dirac erasure, `SecondLaw (.erase proc1) (.erasure prior)` is the
+    same membership test as `eraseStepSecondLaw proc1 prior (diracDist 0)`. -/
+theorem SecondLaw_erase_diracStep (proc : ErasureProcess) (prior : ProbDist 2) :
+    SecondLaw (.erase proc) (.erasure prior) ↔
+      eraseStepSecondLaw proc prior (diracDist (0 : Fin 2)) := by
+  dsimp [SecondLaw, eraseStepSecondLaw]
+  rfl
+
 end UMST.ProcessFamily
