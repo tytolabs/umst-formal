@@ -12,6 +12,10 @@
   (`SecondLaw` membership) implies coarse-scale membership when the map is an
   Esposito-admissible coarse graining.
 
+  `EspositoCoarseGrainingConditions` is **structural** (work preservation, prior
+  pushforward on `Fin 2 × Fin 2` lumping, entropy-drop monotonicity) — not a circular
+  `SecondLaw` implication.
+
   Scale ladder (vision §7): quantum → stochastic → continuum. Maps are **named** here
   with conditions or **typed absence** when the carrier is not in L₀.
 
@@ -20,7 +24,7 @@
 
 import Process
 
-open UMST.ProcessFamily UMST.LandauerLaw
+open UMST.ProcessFamily UMST.LandauerLaw UMST.InfoTheory UMST.InfoTheory.JointDist
 
 namespace UMST.CoarseGraining
 
@@ -44,50 +48,179 @@ def CoarseGrainMap.comp (g f : CoarseGrainMap) : CoarseGrainMap where
   mapPrior := fun pr => g.mapPrior (f.mapPrior pr)
 
 -- ================================================================
--- SECTION 2: Esposito conditions — SecondLaw(fine) → SecondLaw(coarse)
+-- SECTION 2: Structural Esposito conditions (non-circular)
 -- ================================================================
 
-/-- **Esposito coarse-graining conditions** (PRE 85, 041125).
+/-- Entropy drop for an erasure step to the canonical Dirac post-state at `0 : Fin 2`. -/
+noncomputable def eraseEntropyDrop (prior : ProbDist 2) : ℝ :=
+  shannonEntropy prior - shannonEntropy (diracDist (0 : Fin 2))
 
-    Entropy production at the coarse description is a lower bound on the fine one;
-    at the predicate level this is: fine `SecondLaw` ⇒ coarse `SecondLaw` for the
-    paired images under `cg`. Timescale separation and Markovian projection are
-    **not** encoded in L₀ — they appear only as external hypotheses bundled here. -/
-def EspositoCoarseGrainingConditions (cg : CoarseGrainMap) : Prop :=
-  ∀ (p : Process) (pr : Prior), SecondLaw p pr → SecondLaw (cg.mapProcess p) (cg.mapPrior pr)
+/-- **Esposito coarse-graining conditions** (PRE 85, 041125) at the L₀ predicate layer.
 
-/-- Fine admissibility implies coarse admissibility under Esposito conditions. -/
-theorem secondLaw_coarse_from_fine (cg : CoarseGrainMap) (hEsp : EspositoCoarseGrainingConditions cg)
-    (p : Process) (pr : Prior) (hFine : SecondLaw p pr) :
-    SecondLaw (cg.mapProcess p) (cg.mapPrior pr) :=
-  hEsp p pr hFine
+    Three independent structural clauses (not a `SecondLaw` implication):
+    * **work preservation** on the erase branch;
+    * **prior pushforward** for the `Fin 2 × Fin 2` → `Fin 2` lump (first factor);
+    * **entropy-drop lower bound** (coarse drop ≤ fine drop — Esposito σ inequality on drops). -/
+structure EspositoCoarseGrainingConditions (cg : CoarseGrainMap) : Prop where
+  erase_work_preservation :
+    ∀ (proc proc' : ErasureProcess),
+      cg.mapProcess (.erase proc) = .erase proc' →
+        proc'.work = proc.work ∧ proc'.bath = proc.bath
+  erase_prior_pushforward_pair :
+    ∀ (J : JointDist 2 2) (q : ProbDist 2),
+      cg.mapPrior (.feedback J) = .erasure q → q = marginalX J
+  erase_entropy_drop_lower_bound :
+    ∀ (proc proc' : ErasureProcess) (p q : ProbDist 2),
+      cg.mapProcess (.erase proc) = .erase proc' →
+        cg.mapPrior (.erasure p) = .erasure q →
+          eraseEntropyDrop q ≤ eraseEntropyDrop p
+  erase_process_image :
+    ∀ (proc : ErasureProcess), ∃ (proc' : ErasureProcess), cg.mapProcess (.erase proc) = .erase proc'
+  erase_erasure_prior_image :
+    ∀ (p : ProbDist 2), ∃ (q : ProbDist 2), cg.mapPrior (.erasure p) = .erasure q
+  non_erase_process_preserved :
+    ∀ (p : Process), (∀ proc, p ≠ .erase proc) → cg.mapProcess p = p
+  non_erasure_prior_preserved :
+    ∀ (pr : Prior), (∀ (pd : ProbDist 2), pr ≠ .erasure pd) →
+      (∀ {n m : ℕ} (J : JointDist n m), pr ≠ .feedback J) → cg.mapPrior pr = pr
 
-theorem espinositoConditions_id : EspositoCoarseGrainingConditions idCoarseGrainMap :=
-  fun _ _ h => h
+private lemma eraseSecondLaw_of_entropy_drop_le
+    (proc : ErasureProcess) (prior : ProbDist 2)
+    (hdrop : eraseEntropyDrop prior ≤ proc.work / proc.bath.bathTemp.val) :
+    LandauerLaw.eraseSecondLaw proc prior := by
+  dsimp [LandauerLaw.eraseSecondLaw, LandauerLaw.eraseSecondLawStep, eraseEntropyDrop] at hdrop ⊢
+  rw [diracEntropy_zero LandauerLaw.two_pos (0 : Fin 2)] at hdrop ⊢
+  exact hdrop
 
-theorem secondLaw_coarse_from_fine_id (p : Process) (pr : Prior) (hFine : SecondLaw p pr) :
-    SecondLaw (idCoarseGrainMap.mapProcess p) (idCoarseGrainMap.mapPrior pr) :=
-  secondLaw_coarse_from_fine idCoarseGrainMap espinositoConditions_id p pr hFine
+/-- Fine erase admissibility implies coarse erase admissibility under structural Esposito conditions. -/
+theorem secondLaw_coarse_from_fine (cg : CoarseGrainMap)
+    (hEsp : EspositoCoarseGrainingConditions cg) (proc : ErasureProcess) (prior : ProbDist 2)
+    (hFine : ProcessFamily.SecondLaw (.erase proc) (.erasure prior)) :
+    ProcessFamily.SecondLaw (cg.mapProcess (.erase proc)) (cg.mapPrior (.erasure prior)) := by
+  obtain ⟨proc', hProc⟩ := hEsp.erase_process_image proc
+  obtain ⟨q, hPrior⟩ := hEsp.erase_erasure_prior_image prior
+  have hW := hEsp.erase_work_preservation proc proc' hProc
+  have hEnt := hEsp.erase_entropy_drop_lower_bound proc proc' prior q hProc hPrior
+  dsimp only [ProcessFamily.SecondLaw] at hFine ⊢
+  have hfineDrop : eraseEntropyDrop prior ≤ proc.work / proc.bath.bathTemp.val := by
+    dsimp only [eraseEntropyDrop, LandauerLaw.eraseSecondLaw, LandauerLaw.eraseSecondLawStep] at hFine ⊢
+    rw [diracEntropy_zero LandauerLaw.two_pos (0 : Fin 2)] at hFine ⊢
+    exact hFine
+  have hdrop : eraseEntropyDrop q ≤ proc'.work / proc'.bath.bathTemp.val :=
+    le_trans hEnt (by simpa [hW.1, hW.2] using hfineDrop)
+  simpa [hProc, hPrior, ProcessFamily.SecondLaw] using eraseSecondLaw_of_entropy_drop_le proc' q hdrop
 
-theorem espinositoConditions_comp (f g : CoarseGrainMap)
-    (hf : EspositoCoarseGrainingConditions f) (hg : EspositoCoarseGrainingConditions g) :
-    EspositoCoarseGrainingConditions (g.comp f) := by
-  intro p pr hFine
-  exact hg (f.mapProcess p) (f.mapPrior pr) (hf p pr hFine)
+theorem espinositoConditions_id : EspositoCoarseGrainingConditions idCoarseGrainMap where
+  erase_work_preservation := by
+    intro proc proc' h
+    dsimp [idCoarseGrainMap] at h
+    cases h
+    exact ⟨rfl, rfl⟩
+  erase_prior_pushforward_pair := by
+    intro J q h
+    cases h
+  erase_entropy_drop_lower_bound := by
+    intro proc proc' p q hP hQ
+    dsimp [idCoarseGrainMap] at hP hQ ⊢
+    cases hQ
+    simp [eraseEntropyDrop]
+  erase_process_image := by
+    intro proc
+    exact ⟨proc, rfl⟩
+  erase_erasure_prior_image := by
+    intro p
+    exact ⟨p, rfl⟩
+  non_erase_process_preserved := by intro p _; rfl
+  non_erasure_prior_preserved := by
+    intro pr _ _
+    cases pr <;> rfl
 
-theorem secondLaw_coarse_from_fine_comp (f g : CoarseGrainMap)
-    (hf : EspositoCoarseGrainingConditions f) (hg : EspositoCoarseGrainingConditions g)
-    (p : Process) (pr : Prior) (hFine : SecondLaw p pr) :
-    SecondLaw ((g.comp f).mapProcess p) ((g.comp f).mapPrior pr) :=
-  secondLaw_coarse_from_fine (g.comp f) (espinositoConditions_comp f g hf hg) p pr hFine
+theorem secondLaw_coarse_from_fine_id (proc : ErasureProcess) (prior : ProbDist 2)
+    (hFine : ProcessFamily.SecondLaw (.erase proc) (.erasure prior)) :
+    ProcessFamily.SecondLaw (idCoarseGrainMap.mapProcess (.erase proc))
+      (idCoarseGrainMap.mapPrior (.erasure prior)) :=
+  secondLaw_coarse_from_fine idCoarseGrainMap espinositoConditions_id proc prior hFine
 
-/-- Contrapositive: a coarse-scale **refusal** is sound — violation at coarse would
-    contradict fine admissibility under Esposito conditions. -/
-theorem coarse_refusal_sound (cg : CoarseGrainMap) (hEsp : EspositoCoarseGrainingConditions cg)
-    (p : Process) (pr : Prior) :
-    ¬ SecondLaw (cg.mapProcess p) (cg.mapPrior pr) → ¬ SecondLaw p pr := by
+/-- Contrapositive on the erase branch: coarse refusal is sound for matched erasure priors. -/
+theorem coarse_refusal_sound_erase (cg : CoarseGrainMap) (hEsp : EspositoCoarseGrainingConditions cg)
+    (proc : ErasureProcess) (prior : ProbDist 2) :
+    ¬ ProcessFamily.SecondLaw (cg.mapProcess (.erase proc)) (cg.mapPrior (.erasure prior)) →
+      ¬ ProcessFamily.SecondLaw (.erase proc) (.erasure prior) := by
   intro hCoarseBad hFine
-  exact hCoarseBad (hEsp p pr hFine)
+  exact hCoarseBad (secondLaw_coarse_from_fine cg hEsp proc prior hFine)
+
+-- ================================================================
+-- SECTION 2b: `Fin 2 × Fin 2` lump → `Fin 2` on erase (non-identity witness)
+-- ================================================================
+
+/-- Lump the product alphabet by the first factor (`Fin 2 × Fin 2 → Fin 2`). -/
+def lumpPairFirst : Fin 2 × Fin 2 → Fin 2 := Prod.fst
+
+/-- Coarse-graining that pushes a fine joint prior forward to the first-factor marginal on erase. -/
+noncomputable def lumpPairEraseCoarseGrainMap : CoarseGrainMap where
+  mapProcess := id
+  mapPrior pr := match pr with
+    | .feedback (J : JointDist 2 2) => .erasure (JointDist.marginalX J)
+    | pr' => pr'
+
+/-- Fine joint entropy bound on `Fin 2 × Fin 2` (product carrier; not circular with coarse `SecondLaw`). -/
+def jointEraseFineSecondLaw (proc : ErasureProcess) (p q : ProbDist 2) : Prop :=
+  jointEntropy (productJoint p q) ≤ proc.work / proc.bath.bathTemp.val
+
+theorem espinositoConditions_lumpPairErase :
+    EspositoCoarseGrainingConditions lumpPairEraseCoarseGrainMap where
+  erase_work_preservation := by
+    intro proc proc' h
+    dsimp [lumpPairEraseCoarseGrainMap] at h
+    cases h
+    exact ⟨rfl, rfl⟩
+  erase_prior_pushforward_pair := by
+    intro J q h
+    dsimp [lumpPairEraseCoarseGrainMap] at h
+    cases h
+    rfl
+  erase_entropy_drop_lower_bound := by
+    intro proc proc' p q hP hQ
+    dsimp [lumpPairEraseCoarseGrainMap] at hP hQ ⊢
+    cases hQ
+    simp [eraseEntropyDrop]
+  erase_process_image := by
+    intro proc
+    dsimp [lumpPairEraseCoarseGrainMap]
+    exact ⟨proc, rfl⟩
+  erase_erasure_prior_image := by
+    intro p
+    dsimp [lumpPairEraseCoarseGrainMap]
+    exact ⟨p, rfl⟩
+  non_erase_process_preserved := by
+    intro p _
+    rfl
+  non_erasure_prior_preserved := by
+    intro pr _ hfw
+    dsimp [lumpPairEraseCoarseGrainMap]
+    cases pr with
+    | erasure pd => rfl
+    | feedback J => exact False.elim (hfw J rfl)
+    | thermodynamic old new => rfl
+
+/-- Joint fine admissibility ⇒ coarse erase `SecondLaw` after `Fin 2 × Fin 2` lumping (first factor). -/
+theorem lumpPair_secondLaw_coarse_from_fine_joint (proc : ErasureProcess) (p q : ProbDist 2)
+    (hFine : jointEraseFineSecondLaw proc p q) :
+    ProcessFamily.SecondLaw (lumpPairEraseCoarseGrainMap.mapProcess (.erase proc))
+      (lumpPairEraseCoarseGrainMap.mapPrior (.feedback (productJoint p q))) := by
+  dsimp [lumpPairEraseCoarseGrainMap, jointEraseFineSecondLaw, ProcessFamily.SecondLaw] at hFine ⊢
+  have hfineDrop : eraseEntropyDrop p ≤ proc.work / proc.bath.bathTemp.val := by
+    dsimp [eraseEntropyDrop]
+    rw [diracEntropy_zero LandauerLaw.two_pos (0 : Fin 2)]
+    linarith [JointDist.shannonEntropy_marginalX_le_jointEntropy_product p q, hFine]
+  simpa [JointDist.marginalX_product p q] using eraseSecondLaw_of_entropy_drop_le proc p hfineDrop
+
+theorem lumpPairErase_not_identity :
+    lumpPairEraseCoarseGrainMap.mapPrior (.feedback (productJoint uniformBinary uniformBinary)) ≠
+      .feedback (productJoint uniformBinary uniformBinary) := by
+  dsimp [lumpPairEraseCoarseGrainMap]
+  intro h
+  cases h
 
 -- ================================================================
 -- SECTION 3: Thermodynamic scale ladder — names, conditions, typed absence
@@ -126,9 +259,9 @@ def scaleMapStochasticToContinuum : ScaleMapRegistration :=
 def scaleMapQuantumToContinuumDirect : ScaleMapRegistration :=
   .absent .quantum_to_continuum_direct .quantum_to_continuum_skips_meso
 
-/-- Stochastic-layer identity (double-slit / UCRS carriers live outside this module). -/
-def scaleMapStochasticIdentity : ScaleMapRegistration :=
-  .implemented .stochastic_to_continuum idCoarseGrainMap espinositoConditions_id
+/-- Stochastic-layer pair lumping (`Fin 2 × Fin 2 → Fin 2` on erase), not the identity map. -/
+noncomputable def scaleMapStochasticPairLump : ScaleMapRegistration :=
+  .implemented .stochastic_to_continuum lumpPairEraseCoarseGrainMap espinositoConditions_lumpPairErase
 
 theorem scaleMapQuantumToStochastic_absent :
     ∃ r, scaleMapQuantumToStochastic = .absent .quantum_to_stochastic r :=
@@ -142,19 +275,12 @@ theorem scaleMapQuantumToContinuumDirect_absent :
     ∃ r, scaleMapQuantumToContinuumDirect = .absent .quantum_to_continuum_direct r :=
   ⟨ScaleMapAbsenceReason.quantum_to_continuum_skips_meso, rfl⟩
 
-theorem scaleMapStochasticIdentity_implemented :
-    ∃ cg h, scaleMapStochasticIdentity = .implemented .stochastic_to_continuum cg h :=
-  ⟨idCoarseGrainMap, espinositoConditions_id, rfl⟩
-
-/-- Cross-scale composition is monotone when each edge satisfies Esposito conditions. -/
-theorem scale_ladder_compose_second_law (f g : CoarseGrainMap)
-    (hf : EspositoCoarseGrainingConditions f) (hg : EspositoCoarseGrainingConditions g)
-    (p : Process) (pr : Prior) (hFine : SecondLaw p pr) :
-    SecondLaw ((g.comp f).mapProcess p) ((g.comp f).mapPrior pr) :=
-  secondLaw_coarse_from_fine_comp f g hf hg p pr hFine
+theorem scaleMapStochasticPairLump_implemented :
+    ∃ cg h, scaleMapStochasticPairLump = .implemented .stochastic_to_continuum cg h :=
+  ⟨lumpPairEraseCoarseGrainMap, espinositoConditions_lumpPairErase, rfl⟩
 
 theorem coarse_graining_p0_12_satisfiable :
     ∃ cg, EspositoCoarseGrainingConditions cg :=
-  ⟨idCoarseGrainMap, espinositoConditions_id⟩
+  ⟨lumpPairEraseCoarseGrainMap, espinositoConditions_lumpPairErase⟩
 
 end UMST.CoarseGraining

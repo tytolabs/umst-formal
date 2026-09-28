@@ -12,7 +12,6 @@ import LandauerLaw
 import Mathlib.Algebra.BigOperators.Ring
 import Mathlib.Data.Fintype.BigOperators
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
-
 open Real Finset UMST LandauerLaw
 
 namespace UMST.InfoTheory
@@ -134,6 +133,30 @@ theorem mutualInformation_product_zero (p : ProbDist n) (q : ProbDist m) :
   unfold mutualInformation
   rw [marginalX_product, marginalY_product, jointEntropy_product]
   ring
+
+private theorem prob_mass_le_one {k : ℕ} (p : ProbDist k) (i : Fin k) : p.mass i ≤ 1 := by
+  have hle : p.mass i ≤ ∑ j : Fin k, p.mass j :=
+    Finset.single_le_sum (fun j _ => p.nonneg j) (Finset.mem_univ i)
+  simpa [p.sumOne] using hle
+
+private theorem shannonEntropy_nonneg {k : ℕ} (p : ProbDist k) : 0 ≤ shannonEntropy p := by
+  classical
+  unfold shannonEntropy
+  have hterm_nonpos :
+      ∀ i : Fin k, p.mass i * log (p.mass i) ≤ 0 := by
+    intro i
+    by_cases hi : p.mass i = 0
+    · simp [hi, log_zero, mul_zero]
+    · have hi' : 0 < p.mass i := lt_of_le_of_ne (p.nonneg i) (Ne.symm hi)
+      exact mul_nonpos_of_nonneg_of_nonpos hi'.le (log_nonpos hi'.le (prob_mass_le_one p i))
+  have hsum_nonpos : ∑ i, p.mass i * log (p.mass i) ≤ 0 := Finset.sum_nonpos fun i _ => hterm_nonpos i
+  simpa using neg_nonneg.mpr hsum_nonpos
+
+/-- After lumping `Fin 2 × Fin 2` by the first factor, product-state entropy dominates the marginal. -/
+theorem shannonEntropy_marginalX_le_jointEntropy_product (p q : ProbDist 2) :
+    shannonEntropy p ≤ jointEntropy (productJoint p q) := by
+  rw [jointEntropy_product]
+  linarith [shannonEntropy_nonneg q]
 
 end JointDist
 
