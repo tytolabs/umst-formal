@@ -543,14 +543,14 @@ def finOfElement (e : Element) : Fin 118 :=
   | .Og => ⟨117, by decide⟩
 
 theorem finOfElement_elementOfFin (i : Fin 118) : finOfElement (elementOfFin i) = i := by
-  fin_cases i <;> native_decide
+  fin_cases i <;> decide
 
 theorem elementOfFin_finOfElement (e : Element) : elementOfFin (finOfElement e) = e := by
-  cases e <;> native_decide
+  cases e <;> decide
 
 theorem elementZ_finOfElement (e : Element) :
     elementZ e = (finOfElement e).val + 1 := by
-  cases e <;> native_decide
+  cases e <;> decide
 
 /-- `elementZ` is injective on the inductive carrier. -/
 theorem elementZ_injective (a b : Element) (h : elementZ a = elementZ b) : a = b := by
