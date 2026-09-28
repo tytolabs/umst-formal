@@ -2,13 +2,15 @@
 -- SPDX-License-Identifier: MIT
 ------------------------------------------------------------------------
 -- UMST.Concrete.Helmholtz — Helmholtz free-energy model (OPC cartridge).
+--
+-- FORMAL-AGDA-HELMHOLTZ: zero postulate lines; ordered-field proofs on ℚ.
+-- physics_green: false — concrete arithmetic witness only (Gate ψ-antitone
+-- remains a separate physical-model interface).
 ------------------------------------------------------------------------
 
 module Concrete.Helmholtz where
 
-open import Data.Integer.Base as ℤ using (ℤ; +_; ∣_∣)
-open import Data.Nat.Coprimality as ℕ using (sym; 1-coprimeTo)
-open import Data.Rational as ℚ using (ℚ; 0ℚ; mkℚ; _+_; _*_; _-_; _≤_; -_)
+open import Data.Rational as ℚ using (ℚ; 0ℚ; normalize; _+_; _*_; _-_; _≤_; -_; NonNegative)
 open import Data.Rational.Properties as ℚ-Props
 open import Relation.Binary.PropositionalEquality
   using (_≡_; refl; trans; cong)
@@ -22,8 +24,14 @@ open ThermodynamicState
 -- 1. Physical Constants
 ------------------------------------------------------------------------
 
+-- 450 J/kg latent heat (normalize 450/1 ≡ mkℚ (+ 450) 1).
 Q-hyd : ℚ
-Q-hyd = mkℚ (+ 450) 0 (ℕ.sym (ℕ.1-coprimeTo ∣ + 450 ∣))
+Q-hyd = normalize 450 1
+
+private
+  instance
+    nonNeg-Q-hyd : NonNegative Q-hyd
+    nonNeg-Q-hyd = ℚ-Props.normalize-nonNeg 450 1
 
 ------------------------------------------------------------------------
 -- 2. The Helmholtz Free-Energy Model
@@ -36,8 +44,9 @@ helmholtz α = - (Q-hyd * α)
 -- 3. Antitone Lemma (Concrete Arithmetic)
 ------------------------------------------------------------------------
 
-postulate
-  helmholtz-antitone : ∀ (α₁ α₂ : ℚ) → α₁ ≤ α₂ → helmholtz α₂ ≤ helmholtz α₁
+helmholtz-antitone : ∀ (α₁ α₂ : ℚ) → α₁ ≤ α₂ → helmholtz α₂ ≤ helmholtz α₁
+helmholtz-antitone α₁ α₂ α₁≤α₂ =
+  ℚ-Props.neg-antimono-≤ (ℚ-Props.*-monoˡ-≤-nonNeg Q-hyd α₁≤α₂)
 
 ------------------------------------------------------------------------
 -- 4. HelmholtzState: States Satisfying the Model
@@ -67,10 +76,28 @@ HelmholtzState s = free-energy s ≡ helmholtz (hydration s)
 -- 6. Linearity and Gradient Theorem (SDF Interpretation)
 ------------------------------------------------------------------------
 
-postulate
-  helmholtz-linear : ∀ (α₁ α₂ : ℚ) →
-    helmholtz (α₁ + α₂) ≡ helmholtz α₁ + helmholtz α₂
+helmholtz-linear : ∀ (α₁ α₂ : ℚ) →
+  helmholtz (α₁ + α₂) ≡ helmholtz α₁ + helmholtz α₂
+helmholtz-linear α₁ α₂ =
+  trans
+    (cong -_ (ℚ-Props.*-distribˡ-+ Q-hyd α₁ α₂))
+    (ℚ-Props.neg-distrib-+ (Q-hyd * α₁) (Q-hyd * α₂))
 
-postulate
-  helmholtz-gradient-const : ∀ (α ε : ℚ) →
-    helmholtz (α + ε) - helmholtz α ≡ -(Q-hyd * ε)
+private
+  helmholtz-add-cancel : ∀ (α ε : ℚ) →
+    helmholtz α + helmholtz ε - helmholtz α ≡ helmholtz ε
+  helmholtz-add-cancel α ε =
+    trans
+      (ℚ-Props.+-assoc (helmholtz α) (helmholtz ε) (- helmholtz α))
+      (trans
+        (cong (λ x → helmholtz α + x) (ℚ-Props.+-comm (helmholtz ε) (- helmholtz α)))
+        (trans
+          (≡-sym (ℚ-Props.+-assoc (helmholtz α) (- helmholtz α) (helmholtz ε)))
+          (trans
+            (cong (λ x → x + helmholtz ε) (ℚ-Props.+-inverseʳ (helmholtz α)))
+            (ℚ-Props.+-identityˡ (helmholtz ε)))))
+
+helmholtz-gradient-const : ∀ (α ε : ℚ) →
+  helmholtz (α + ε) - helmholtz α ≡ -(Q-hyd * ε)
+helmholtz-gradient-const α ε =
+  trans (cong (_- helmholtz α) (helmholtz-linear α ε)) (helmholtz-add-cancel α ε)
