@@ -58,14 +58,6 @@ Proof.
   intros -> -> -> -> ->. reflexivity.
 Qed.
 
-Axiom psi_antitone : forall s1 s2 : ThermodynamicState,
-  hydration s1 <= hydration s2 ->
-  free_energy s2 <= free_energy s1.
-
-Axiom fc_monotone : forall s1 s2 : ThermodynamicState,
-  hydration s1 <= hydration s2 ->
-  strength s1 <= strength s2.
-
 Lemma helmholtz_antitone : forall a1 a2 : Q,
   a1 <= a2 -> helmholtz a2 <= helmholtz a1.
 Proof.
@@ -99,6 +91,18 @@ Proof.
   unfold helmholtz, Q_hyd.
   ring.
 Qed.
+
+(* Independent [ThermodynamicState] fields do not determine ψ(α) or σ(α);
+   cartridge coupling is assumed explicitly (not global axioms). *)
+Section HydrationMonotoneCoupling.
+
+  Variable psi_antitone : forall s1 s2 : ThermodynamicState,
+    hydration s1 <= hydration s2 ->
+    free_energy s2 <= free_energy s1.
+
+  Variable fc_monotone : forall s1 s2 : ThermodynamicState,
+    hydration s1 <= hydration s2 ->
+    strength s1 <= strength s2.
 
 Theorem clausius_duhem_forward :
   forall s1 s2 : ThermodynamicState,
@@ -179,6 +183,8 @@ Proof.
   apply gate_check_complete.
   exact (forward_hydration_admissible old new_ Hhyd Hmc1 Hmc2).
 Qed.
+
+End HydrationMonotoneCoupling.
 
 Definition admissible_N (n : nat) (old new_ : ThermodynamicState) : Prop :=
   (density new_ - density old <= inject_Z (Z.of_nat n) * delta_mass) /\
