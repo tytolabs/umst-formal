@@ -145,7 +145,7 @@ def patternClassOfFin (i : Fin 25) : PatternClass :=
 
 theorem patternClass_index_roundtrip (c : PatternClass) :
     patternClassOfFin (PatternClass.index c) = c := by
-  cases c <;> native_decide
+  cases c <;> decide
 
 -- ================================================================
 -- SECTION 3: Classifiers as predicates on Element (not XOR worlds)

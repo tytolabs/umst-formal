@@ -264,9 +264,15 @@ def collaborativeObjectNonClaim : String :=
   "§3 COB: same carrier + typed social graph (patch, issue, review, identity); " ++
   "geometric identity primary; not physics GREEN; not production_wired"
 
+theorem collaborativeObjectNonClaim_prefix_len :
+    ("§3 COB: same carrier + typed social graph (patch, issue, review, identity); ").length > 0 := by
+  decide
+
 theorem collaborativeObjectNonClaim_nonempty :
     collaborativeObjectNonClaim.length > 0 := by
-  native_decide
+  unfold collaborativeObjectNonClaim
+  rw [String.length_append]
+  exact Nat.lt_of_lt_of_le collaborativeObjectNonClaim_prefix_len (Nat.le_add_right _ _)
 
 theorem collaborativeObjectModuleWitness : True := trivial
 
