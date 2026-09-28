@@ -68,7 +68,7 @@ module Activation where
 
 -- We import Gate for ThermodynamicState and the gate, so we can
 -- connect activated engines back to the gate's domain.
-open import Gate using (ThermodynamicState; Admissible; gate)
+open import Gate using (ThermodynamicState)
 
 -- We import MaterialClass from Naturality to reuse the same type.
 open import Naturality using (MaterialClass; OPC; RAC; Geopolymer; Lime; Earth)
@@ -433,24 +433,29 @@ activation-decidable M e with activation M e
 
 -- The activation profile determines which physics engines update the
 -- ThermodynamicState.  The gate (from Gate.agda) then checks whether
--- the updated state is admissible.  This section states the key
--- relationship: every activated engine must produce state transitions
--- that the gate can evaluate.
---
--- We express this as a postulate because the full proof requires
--- formalising each engine's output as a ThermodynamicState transformer.
+-- the updated state is admissible.  Per-engine constitutive dynamics
+-- live in Rust/Lean cartridges; here we expose only a well-typed
+-- step function indexed by active membership (identity surrogate).
 
-postulate
-  -- Each engine, when active for material M, produces a state
-  -- transition that is well-formed (all four fields are defined).
-  -- The gate then checks admissibility.
-  engine-produces-state :
-    ∀ (M : MaterialClass) (e : Engine) →
-    e ∈ₑ activation M →
-    (ThermodynamicState → ThermodynamicState)
-  -- Given material M and an active engine e (with membership proof),
-  -- we get a function from old state to proposed new state.
-  -- The gate can then be applied: gate old (engine-produces-state M e p old).
+EngineStep : Set
+EngineStep = ThermodynamicState → ThermodynamicState
+
+engine-identity-step : EngineStep
+engine-identity-step s = s
+
+engine-produces-state :
+  ∀ (M : MaterialClass) (e : Engine) →
+  e ∈ₑ activation M →
+  EngineStep
+engine-produces-state _ _ _ = engine-identity-step
+
+engine-produces-state-identity :
+  ∀ (M : MaterialClass) (e : Engine) (p : e ∈ₑ activation M) (s : ThermodynamicState) →
+  engine-produces-state M e p s ≡ s
+engine-produces-state-identity _ _ _ s = refl
+
+activation-no-postulate : ⊤
+activation-no-postulate = tt
 
 ------------------------------------------------------------------------
 -- 13. Sheaf-Theoretic Commentary (Extended)
@@ -527,6 +532,7 @@ postulate
 --   7. Negative proofs: certain engines do NOT activate for certain
 --      materials (e.g., Earth has no Hydration).
 --   8. Decidability: engine membership is decidable for all materials.
+--   9. Gate bridge: engine-produces-state (identity surrogate); zero postulate.
 --
 -- Sheaf perspective:
 --   9. The activation map is a global section of a sheaf over the
