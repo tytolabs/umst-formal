@@ -74,7 +74,8 @@ lean_lib «UMST» where
     `Compat.Gate, `Compat.Constitutional,
     `Naturality, `DIBKleisli, `FormalFoundations,
     `LandauerEinsteinBridge,
-    `LandauerLaw, `Process, `CoarseGraining, `InfoTheory, `SemanticSecondLaw, `MeaningState, `SemanticFormal, `InterpretationFunctor, `SemanticEconomicModules,
+    `LandauerLaw, `Process, `OneInequalitySecondLaw, `ConvexPhiDissipation,
+    `CoarseGraining, `InfoTheory, `SemanticSecondLaw, `MeaningState, `SemanticFormal, `InterpretationFunctor, `SemanticEconomicModules,
     `ClassicalMeasurementCost, `CoordinationCost, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
     `SeparationBound,
     -- Meso-scale Economic layer (Lean/Economic/ folder — Wave 6.5.2)
