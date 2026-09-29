@@ -91,8 +91,10 @@ def classify_repo(lean_root: Path, axioms: list[dict]) -> list[str]:
     errs = []
     physics = [a for a in axioms if a["tier"] == 0]
     has_landauer = any(p.name == "LandauerLaw.lean" for p in lean_files(lean_root))
-    if has_landauer and len(physics) != 1:
-        errs.append(f"{lean_root}: Tier-0 expected exactly 1 physicalSecondLaw, got {len(physics)}")
+    if has_landauer and len(physics) != 0:
+        errs.append(
+            f"{lean_root}: Tier-0 expected 0 Lean axioms (physicalSecondLaw is SecondLaw predicate in LandauerLaw.lean), got {len(physics)}"
+        )
     if len(physics) > 1:
         errs.append(f"{lean_root}: Tier-0 must be unique, got {len(physics)}")
     for a in axioms:

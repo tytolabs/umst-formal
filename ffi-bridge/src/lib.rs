@@ -87,11 +87,10 @@ pub use lean_l1_stiffness_adopt::{
 
 pub use formal_swarm_deepen::{
     formal_swarm_deepen_honest, formal_swarm_deepen_probe, helmholtz_gate_correspondence,
-    helmholtz_psi, psi_antitone_helmholtz_holds, psi_antitone_helmholtz_scenario,
+    helmholtz_psi, psi_antitone_helmholtz_holds, psi_antitone_helmholtz_scenario, q_hyd_j_per_kg,
     FormalSwarmDeepenProbe, HelmholtzWitnessScenario, JOB_ID as FORMAL_SWARM_JOB_ID,
     LEAN_WITNESS_MODULE, LEAN_WITNESS_THEOREM, PINNED_CATALOG_DIGEST_HEX,
     POSTURE_TAG as FORMAL_SWARM_POSTURE, PRIOR_RECEIPT_AGAP_2350, Q_HYD_REGISTRY_NAME,
-    q_hyd_j_per_kg,
     RECEIPT_PATH as FORMAL_SWARM_RECEIPT_PATH,
 };
 
