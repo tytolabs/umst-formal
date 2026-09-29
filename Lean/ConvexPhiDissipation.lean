@@ -68,31 +68,42 @@ theorem convex_phi_nonneg_dissipation (P : GsmDissipationPotential) (sDot : ℝ)
 structure GsmCartridge where
   dissip : GsmDissipationPotential
 
-/-- Passive transition data: free-energy descent within the core mass budget. -/
-structure PassiveGsmTransition (old new : RealThermodynamicState) : Prop where
+/-- One-step passive energy balance: ψ̇ + D = P_in with P_in = 0 and D = ṡ·φ'(ṡ). -/
+structure PassiveGsmEnergyBalance (C : GsmCartridge) (old new : RealThermodynamicState) (sDot : ℝ) :
+    Prop where
   mass : CoreMassCond ℝ RealThermodynamicState old new
-  freeEnergyDescent : new.freeEnergy ≤ old.freeEnergy
+  /-- Discrete ψ̇ + D = P_in with P_in = 0 (ψ̇ = new.ψ − old.ψ, D = ṡ·φ'(ṡ)). -/
+  energyBalance :
+    (new.freeEnergy - old.freeEnergy) + dissipationPower C.dissip sDot = 0
 
-/-- **Passive SecondLaw** for any GSM cartridge: Clausius–Duhem + mass edge ⇒ `SecondLawₚ`. -/
-theorem gsmCartridge_passive_secondLaw (_C : GsmCartridge) {old new : RealThermodynamicState}
-    (h : PassiveGsmTransition old new) :
+/-- Passive balance + cartridge dissipation ⇒ Clausius–Duhem descent (not assumed). -/
+theorem passive_energy_balance_freeEnergy_descent (C : GsmCartridge)
+    {old new : RealThermodynamicState} {sDot : ℝ} (h : PassiveGsmEnergyBalance C old new sDot) :
+    new.freeEnergy ≤ old.freeEnergy := by
+  rcases h with ⟨_, hbal⟩
+  have hD : 0 ≤ dissipationPower C.dissip sDot := convex_phi_dissipation_nonneg C.dissip sDot
+  have hΔ : new.freeEnergy - old.freeEnergy = -(dissipationPower C.dissip sDot) := by linarith [hbal]
+  linarith [hΔ, hD]
+
+/-- **Passive SecondLaw** for a GSM cartridge: energy balance uses `C.dissip`; descent is derived. -/
+theorem gsmCartridge_passive_secondLaw (C : GsmCartridge) {old new : RealThermodynamicState} {sDot : ℝ}
+    (h : PassiveGsmEnergyBalance C old new sDot) :
     SecondLawₚ .transition (.thermodynamic old new) := by
-  rcases h with ⟨hm, hd⟩
-  exact ⟨hm, hd⟩
+  exact ⟨h.mass, passive_energy_balance_freeEnergy_descent C h⟩
 
-theorem gsmCartridge_passive_secondLaw_of_descent (_C : GsmCartridge)
-    {old new : RealThermodynamicState}
+theorem gsmCartridge_passive_secondLaw_of_balance (C : GsmCartridge)
+    {old new : RealThermodynamicState} (sDot : ℝ)
     (hm : CoreMassCond ℝ RealThermodynamicState old new)
-    (hd : new.freeEnergy ≤ old.freeEnergy) :
+    (hbal : (new.freeEnergy - old.freeEnergy) + dissipationPower C.dissip sDot = 0) :
     SecondLawₚ .transition (.thermodynamic old new) :=
-  gsmCartridge_passive_secondLaw _C ⟨hm, hd⟩
+  gsmCartridge_passive_secondLaw C ⟨hm, hbal⟩
 
 /-- Local dissipation nonnegativity available for every GSM cartridge at any rate. -/
 theorem gsmCartridge_dissipation_nonneg (C : GsmCartridge) (sDot : ℝ) :
     0 ≤ dissipationPower C.dissip sDot :=
   convex_phi_dissipation_nonneg C.dissip sDot
 
-def convexPhiDissipationCellId : String := "C-CONVEX-1"
+def convexPhiDissipationCellId : String := "C-CONVEX-1B"
 
 def convexPhiDissipationPhysicsGreen : Bool := false
 
