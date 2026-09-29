@@ -11,7 +11,7 @@
 (*  ZERO new axioms. ZERO `Admitted`. Landauer on Lean `LandauerLaw`.   *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool ZArith QArith.
+From Stdlib Require Import Arith List Bool ZArith QArith.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 Require Import UMSTFormal.Urge.ExcitementImport.

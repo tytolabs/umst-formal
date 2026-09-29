@@ -26,10 +26,10 @@
 (*  ZERO Parameter / Axiom in this module.                              *)
 (* ================================================================== *)
 
-From Coq Require Import Reals Lra Field.
-From Coq Require Import Rpower.
-From Coq Require Import QArith Qreals.
-From Coq Require Import ZArith.
+From Stdlib Require Import Reals Lra Field.
+From Stdlib Require Import Rpower.
+From Stdlib Require Import QArith Qreals.
+From Stdlib Require Import ZArith.
 
 Open Scope R_scope.
 

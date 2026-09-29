@@ -13,7 +13,7 @@
 (*  `Chem.SecondLaw` — cited, not restated.                             *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool String QArith.
+From Stdlib Require Import Arith List Bool String QArith.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Constitutional.
 Require Import UMSTFormal.Urge.AdmitKleisli.

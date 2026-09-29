@@ -12,7 +12,7 @@
 (*  ZERO new axioms. ZERO `Admitted`. Landauer discharge on Lean.        *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool String QArith.
+From Stdlib Require Import Arith List Bool String QArith.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 Require Import UMSTFormal.Urge.ExcitementImport.

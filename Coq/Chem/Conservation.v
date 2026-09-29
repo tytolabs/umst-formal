@@ -7,7 +7,7 @@
 (*  InfoTheory joint lifts.  ZERO new axioms.                          *)
 (* ================================================================== *)
 
-From Coq Require Import QArith Qring List.
+From Stdlib Require Import QArith Qring List.
 Import ListNotations.
 
 Require Import UMSTFormal.InfoTheory.

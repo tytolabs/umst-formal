@@ -10,7 +10,7 @@
 (*  Excitement `select` composed — no second argmin. ZERO Admitted.     *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool String.
+From Stdlib Require Import Arith List Bool String.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 Require Import UMSTFormal.Urge.CarrierProduct.
 

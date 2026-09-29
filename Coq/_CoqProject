@@ -1,3 +1,5 @@
+-arg "-w"
+-arg "-abstract-large-number"
 -Q Core UMSTFormal.Core
 -Q Concrete UMSTFormal.Concrete
 -Q Compat UMSTFormal.Compat

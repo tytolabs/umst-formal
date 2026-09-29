@@ -3,7 +3,7 @@
 (* UrgeOverlay: packet arrival is not overlay admit (refuses tunnel-as-trust). *)
 (* Zero new physics axioms. *)
 
-From Coq Require Import Bool.
+From Stdlib Require Import Bool.
 
 Record OverlayCarrier : Type := mkOverlay {
   packetArrived : bool;

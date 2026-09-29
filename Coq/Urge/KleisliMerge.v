@@ -13,7 +13,7 @@
 (*  ZERO new Axiom. Landauer discharge on Lean `LandauerLaw`.           *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool QArith.
+From Stdlib Require Import Arith List Bool QArith.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 Require Import UMSTFormal.Urge.MergeSafe.
@@ -132,7 +132,7 @@ Record merge_outcome : Set := {
 (*  SECTION 2: MergeSafe + tier disjoint + provenance (computational)   *)
 (* ------------------------------------------------------------------ *)
 
-Fixpoint memory_tier_eqb (t1 t2 : memory_tier) : bool :=
+Definition memory_tier_eqb (t1 t2 : memory_tier) : bool :=
   match t1, t2 with
   | mt_ephemeral, mt_ephemeral => true
   | mt_device, mt_device => true
@@ -147,12 +147,12 @@ Fixpoint list_eqb {A : Type} (eqA : A -> A -> bool) (xs ys : list A) : bool :=
   | _, _ => false
   end.
 
-Fixpoint operator_verb_eqb (v1 v2 : operator_verb) : bool :=
+Definition operator_verb_eqb (v1 v2 : operator_verb) : bool :=
   match v1, v2 with
   | op_verb_merge, op_verb_merge => true
   end.
 
-Fixpoint inbound_gate_check_eqb (g1 g2 : inbound_gate_check) : bool :=
+Definition inbound_gate_check_eqb (g1 g2 : inbound_gate_check) : bool :=
   match g1, g2 with
   | igc_admitted, igc_admitted => true
   | igc_refused, igc_refused => true
@@ -160,14 +160,14 @@ Fixpoint inbound_gate_check_eqb (g1 g2 : inbound_gate_check) : bool :=
   | _, _ => false
   end.
 
-Fixpoint tier_disjoint_verdict_eqb (v1 v2 : tier_disjoint_verdict) : bool :=
+Definition tier_disjoint_verdict_eqb (v1 v2 : tier_disjoint_verdict) : bool :=
   match v1, v2 with
   | tdv_admit, tdv_admit => true
   | tdv_refuse_cross_tier, tdv_refuse_cross_tier => true
   | _, _ => false
   end.
 
-Fixpoint provenance_preserve_verdict_eqb (v1 v2 : provenance_preserve_verdict) : bool :=
+Definition provenance_preserve_verdict_eqb (v1 v2 : provenance_preserve_verdict) : bool :=
   match v1, v2 with
   | ppv_admit, ppv_admit => true
   | ppv_refuse_prior_dag, ppv_refuse_prior_dag => true

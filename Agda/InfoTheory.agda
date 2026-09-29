@@ -23,10 +23,10 @@ open import Data.List.Relation.Binary.Pointwise.Base as Pw
   renaming ([] to pw-[]; _∷_ to _pw∷_)
 open import Data.List.Relation.Binary.Pointwise.Properties using (Pointwise-length)
 open import Data.Nat using (ℕ; suc; zero)
-open import Data.Nat.Properties using (+-0; +-suc; suc-injective)
+open import Data.Nat.Properties using (suc-injective)
 open import Data.Rational as ℚ using (ℚ; 0ℚ; _+_; _*_)
 open import Data.Rational.Properties
-  using (*-distribʳ-+; *-distribˡ-+; *-comm; *-cong; +-cong; *-zeroˡ; *-zeroʳ; +-assoc; +-identityʳ)
+  using (*-distribʳ-+; *-distribˡ-+; *-comm; *-zeroˡ; *-zeroʳ; +-assoc; +-identityʳ)
 open import Relation.Binary.PropositionalEquality
   using (_≡_; refl; cong; cong₂; sym; trans; subst)
 open import Relation.Binary.PropositionalEquality.Properties using (setoid)

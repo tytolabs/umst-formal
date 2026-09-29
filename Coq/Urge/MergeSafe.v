@@ -11,7 +11,7 @@
 (*  ZERO Admitted. ZERO new axioms.                                      *)
 (* ================================================================== *)
 
-From Coq Require Import Arith Bool.
+From Stdlib Require Import Arith Bool.
 Open Scope bool_scope.
 
 (* ------------------------------------------------------------------ *)

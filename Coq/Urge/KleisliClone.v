@@ -13,7 +13,7 @@
 (*  `LandauerLaw`.                                                       *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List String Bool.
+From Stdlib Require Import Arith List String Bool.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Constitutional.
 Require Import UMSTFormal.Urge.AdmitKleisli.

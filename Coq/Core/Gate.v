@@ -4,8 +4,8 @@
 (*  UMSTFormal.Core.Gate — universal thermodynamic bounds.            *)
 (* ================================================================== *)
 
-From Coq Require Import QArith.
-From Coq Require Import Qfield.
+From Stdlib Require Import QArith.
+From Stdlib Require Import Qfield.
 
 Open Scope Q_scope.
 

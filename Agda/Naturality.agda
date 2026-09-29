@@ -48,7 +48,8 @@ module Naturality where
 -- We import the Gate module for ThermodynamicState, Admissible, and
 -- the gate decision procedure.
 open import Gate
-  using (ThermodynamicState; mkState; Admissible; mkAdmissible; gate; δ-mass)
+  using (ThermodynamicState; mkState; Admissible; mkAdmissible; gate)
+open import Core.Gate using (δ-mass)
 open ThermodynamicState
 
 -- Standard library: rationals for state values, propositional equality

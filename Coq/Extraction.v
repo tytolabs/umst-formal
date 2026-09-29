@@ -46,9 +46,9 @@ Require Import UMSTFormal.Gate.
     These mappings ensure the extracted code is idiomatic OCaml
     rather than a naive transliteration of inductive types. *)
 
-Require Import Extraction.
-Require Import ExtrOcamlBasic.
-Require Import ExtrOcamlString.
+From Stdlib Require Import Extraction ExtrOcamlBasic ExtrOcamlString.
+
+Set Extraction Output Directory "ocaml".
 
 (** We also configure extraction of Q (rationals).
     By default, Q extracts to a pair (Z, positive) with arithmetic

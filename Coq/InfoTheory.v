@@ -13,7 +13,7 @@
 (*  Second marginal: [marginal_second] = column sums (fold of rows).    *)
 (* ================================================================== *)
 
-From Coq Require Import QArith Qring List Lia.
+From Stdlib Require Import QArith Qring List Lia.
 Import ListNotations.
 
 Open Scope Q_scope.

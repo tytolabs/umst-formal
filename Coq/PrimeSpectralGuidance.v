@@ -6,11 +6,11 @@
 (*  channels. Does NOT extend the four-conjunct thermodynamic gate.   *)
 (* ================================================================== *)
 
-From Coq Require Import QArith.
-From Coq Require Import Qfield.
-From Coq Require Import Arith.
-From Coq Require Import Lia.
-From Coq Require Import Bool.
+From Stdlib Require Import QArith.
+From Stdlib Require Import Qfield.
+From Stdlib Require Import Arith.
+From Stdlib Require Import Lia.
+From Stdlib Require Import Bool.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Constitutional.
 

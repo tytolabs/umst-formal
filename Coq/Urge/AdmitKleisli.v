@@ -13,7 +13,7 @@
 (*  `umst-formal-double-slit` — cited, not restated here.               *)
 (* ================================================================== *)
 
-From Coq Require Import Reals Arith List.
+From Stdlib Require Import Reals Arith List.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Constitutional.
 Require Import UMSTFormal.Chem.SecondLaw.

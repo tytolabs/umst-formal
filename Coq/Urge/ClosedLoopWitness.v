@@ -11,7 +11,7 @@
 (*  ZERO `Admitted`. Landauer discharge on Lean `LandauerLaw`.           *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool QArith.
+From Stdlib Require Import Arith List Bool QArith.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Constitutional.
 Require Import UMSTFormal.Urge.AdmitKleisli.

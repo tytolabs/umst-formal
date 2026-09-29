@@ -14,7 +14,7 @@
 (*  Adds **zero** Coq `Axiom` declarations. ZERO `Admitted`.          *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool.
+From Stdlib Require Import Arith List Bool.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 Require Import UMSTFormal.Urge.ProvenancePreserve.

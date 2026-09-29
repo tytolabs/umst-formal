@@ -13,7 +13,7 @@
 (*  Chem.SecondLaw anchor only — zero new Coq axioms.                   *)
 (* ================================================================== *)
 
-From Coq Require Import Reals Arith List String.
+From Stdlib Require Import Reals Arith List String.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 

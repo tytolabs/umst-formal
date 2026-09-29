@@ -12,7 +12,7 @@
 (*  ZERO `Admitted`. Landauer discharge on Lean `LandauerLaw`.           *)
 (* ================================================================== *)
 
-From Coq Require Import Arith List Bool QArith.
+From Stdlib Require Import Arith List Bool QArith.
 Require Import UMSTFormal.Gate.
 Require Import UMSTFormal.Urge.AdmitKleisli.
 Require Import UMSTFormal.Urge.ExcitementImport.
@@ -325,7 +325,7 @@ Definition counted_fixture_conjunct : counted_admissibility_conjunct :=
 (** Hand-filled domain fixture — cardinality theater (author construct). *)
 Definition counted_fixture_hand_filled : counted_domain :=
   {| counted_scope := (1%nat :: 2%nat :: nil);
-     counted_cardinality := 11809%nat;
+     counted_cardinality := 11809;
      counted_exclusions := nil;
      counted_provenance := cdp_counted |}.
 
