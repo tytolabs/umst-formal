@@ -3,6 +3,8 @@
 //
 // SWARM-C25-0831-92 — FORMAL-DEEPEN: umst-formal crate one witness (honest PARTIAL).
 
+use umst_math::constants::registry::registry_f64_by_name;
+
 use super::{umst_gate_check, UMST_FFI_ABI_VERSION};
 
 /// SWARM slot id (0831 morning wave row 92).
@@ -26,8 +28,14 @@ pub const LEAN_WITNESS_MODULE: &str = "Concrete.Helmholtz";
 pub const PINNED_CATALOG_DIGEST_HEX: &str =
     "aea5080d2ba81de9ddfdec1e4ca8f40ca851bd9bbd1a99b0416cea6ef8e85dff";
 
-/// `Q_hyd` SSOT — matches Lean `UMST.Concrete.Q_hyd = 450`.
-pub const Q_HYD_J_PER_KG: f64 = 450.0;
+/// Stable [`ConstantEntry::name`] for formal-layer `Q_hyd` (J/kg).
+pub const Q_HYD_REGISTRY_NAME: &str = "q_hyd_j_per_kg";
+
+/// `Q_hyd` from [`umst_math::constants::registry`] (explicit J/kg row).
+#[must_use]
+pub fn q_hyd_j_per_kg() -> f64 {
+    registry_f64_by_name(Q_HYD_REGISTRY_NAME).expect("constants::registry q_hyd_j_per_kg")
+}
 
 /// Honest adoption tier — computational witness only, not Proved export.
 pub const POSTURE_TAG: &str = "witnessed-not-proved";
@@ -44,7 +52,7 @@ pub struct HelmholtzWitnessScenario {
 /// Build Helmhotz ψ values ψ(α) = −Q_hyd · α matching Lean `Concrete.Gate`.
 #[must_use]
 pub fn helmholtz_psi(alpha: f64) -> f64 {
-    -Q_HYD_J_PER_KG * alpha
+    -q_hyd_j_per_kg() * alpha
 }
 
 /// Scenario for `ψAntitoneHelmholtz`: α advances ⇒ ψ decreases.
@@ -141,6 +149,18 @@ mod tests {
         assert_eq!(JOB_ID, "SWARM-C25-0831-92");
         assert!(RECEIPT_PATH.contains("COMPLETION_SWARM_SWARM-C25-0831-92"));
         assert_eq!(PINNED_CATALOG_DIGEST_HEX.len(), 64);
+    }
+
+    #[test]
+    fn q_hyd_registry_row_is_j_per_kg() {
+        use umst_math::constants::registry::REGISTRY;
+
+        let row = REGISTRY
+            .iter()
+            .find(|e| e.name == Q_HYD_REGISTRY_NAME)
+            .expect("q_hyd_j_per_kg registry row");
+        assert!(row.expression.contains("J/kg"));
+        assert!((q_hyd_j_per_kg() - 450.0).abs() < 1e-9);
     }
 
     #[test]
