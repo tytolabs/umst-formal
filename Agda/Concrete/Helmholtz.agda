@@ -46,7 +46,8 @@ helmholtz α = - (Q-hyd * α)
 
 helmholtz-antitone : ∀ (α₁ α₂ : ℚ) → α₁ ≤ α₂ → helmholtz α₂ ≤ helmholtz α₁
 helmholtz-antitone α₁ α₂ α₁≤α₂ =
-  ℚ-Props.neg-antimono-≤ (ℚ-Props.*-monoˡ-≤-nonNeg Q-hyd α₁≤α₂)
+  ℚ-Props.neg-antimono-≤
+    (ℚ-Props.*-monoˡ-≤-nonNeg Q-hyd (ℚ-Props.normalize-nonNeg 450 1) α₁≤α₂)
 
 ------------------------------------------------------------------------
 -- 4. HelmholtzState: States Satisfying the Model
