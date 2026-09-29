@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 # SPDX-License-Identifier: MIT
-# W-62 git dep on umst-manifold @ ce9828ea pulls ordered-float 5.x (rustc 1.90+).
+# W-62: lockfile pins ordered-float <5.5 so CI and root census (rustc 1.88) agree.
 [toolchain]
-channel = "1.90"
+channel = "1.88.0"
