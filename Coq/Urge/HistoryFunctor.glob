@@ -1,0 +1,477 @@
+DIGEST e5aa5ddfe4e25952cf7d98f89999d4b0
+FUMSTFormal.Urge.HistoryFunctor
+R1132:1136 Stdlib.Arith.Arith <> <> lib
+R1138:1141 Stdlib.Bool.Bool <> <> lib
+R1143:1148 Stdlib.Strings.String <> <> lib
+R1150:1155 Stdlib.QArith.QArith <> <> lib
+R1173:1187 UMSTFormal.Gate <> <> lib
+R1205:1232 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1250:1281 UMSTFormal.Urge.ExcitementImport <> <> lib
+def 1628:1641 <> RawCommitBytes
+R1646:1649 Corelib.Init.Datatypes <> list ind
+R1651:1653 Corelib.Init.Datatypes <> nat ind
+rec 1664:1675 <> RawGitCommit
+proj 1690:1699 <> commitHash
+proj 1710:1716 <> payload
+R1703:1705 Corelib.Init.Datatypes <> nat ind
+R1720:1733 UMSTFormal.Urge.HistoryFunctor <> RawCommitBytes def
+rec 1746:1759 <> RepoStateSlice
+proj 1774:1795 <> repo_provenance_intact
+proj 1807:1830 <> repo_physics_green_claim
+proj 1842:1861 <> repo_witness_present
+R1799:1802 Corelib.Init.Datatypes <> bool ind
+R1834:1837 Corelib.Init.Datatypes <> bool ind
+R1865:1868 Corelib.Init.Datatypes <> bool ind
+rec 1881:1898 <> RepoTransitionStep
+proj 1913:1923 <> repo_before
+proj 1945:1954 <> repo_after
+proj 1976:1996 <> repo_provenance_stamp
+proj 2017:2037 <> repo_drops_provenance
+proj 2049:2066 <> repo_invents_green
+R1927:1940 UMSTFormal.Urge.HistoryFunctor <> RepoStateSlice rec
+R1958:1971 UMSTFormal.Urge.HistoryFunctor <> RepoStateSlice rec
+R2000:2005 Corelib.Init.Datatypes <> option ind
+R2007:2012 Stdlib.Strings.String <> string ind
+R2041:2044 Corelib.Init.Datatypes <> bool ind
+R2070:2073 Corelib.Init.Datatypes <> bool ind
+ind 2089:2105 <> TransitionVerdict
+constr 2114:2130 <> transition_accept
+constr 2136:2152 <> transition_reject
+scheme 2089:2105 <> TransitionVerdict_rect
+scheme 2089:2105 <> TransitionVerdict_ind
+scheme 2089:2105 <> TransitionVerdict_rec
+scheme 2089:2105 <> TransitionVerdict_sind
+rec 2163:2174 <> TypedHistory
+proj 2189:2202 <> typed_snapshot
+proj 2225:2247 <> typed_provenance_intact
+R2206:2220 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+R2251:2254 Corelib.Init.Datatypes <> bool ind
+rec 2267:2290 <> AdmissibleHistoryFunctor
+proj 2305:2318 <> history_decode
+proj 2361:2386 <> history_preserve_commit_id
+R2334:2337 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2322:2333 UMSTFormal.Urge.HistoryFunctor <> RawGitCommit rec
+R2338:2343 Corelib.Init.Datatypes <> option ind
+R2345:2356 UMSTFormal.Urge.HistoryFunctor <> TypedHistory rec
+binder 2401:2401 <> c:21
+binder 2403:2403 <> h:22
+R2431:2440 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2422:2424 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2406:2419 UMSTFormal.Urge.HistoryFunctor <> history_decode:20 meth
+R2421:2421 UMSTFormal.Urge.HistoryFunctor <> c:21 var
+R2425:2428 Corelib.Init.Datatypes <> Some constr
+R2430:2430 UMSTFormal.Urge.HistoryFunctor <> h:22 var
+R2453:2455 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2441:2450 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R2452:2452 UMSTFormal.Urge.HistoryFunctor <> c:21 var
+R2456:2472 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R2475:2488 UMSTFormal.Urge.HistoryFunctor <> typed_snapshot proj
+R2490:2490 UMSTFormal.Urge.HistoryFunctor <> h:22 var
+def 2508:2531 <> history_functor_identity
+R2535:2540 Stdlib.Strings.String <> string ind
+def 2804:2821 <> gateAdmissibleHead
+R2828:2844 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 2824:2824 <> t:24
+R2859:2868 UMSTFormal.Concrete.Gate <> admissible def
+R2871:2882 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R2885:2897 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R2899:2899 UMSTFormal.Urge.HistoryFunctor <> t:24 var
+R2904:2915 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R2918:2929 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R2931:2931 UMSTFormal.Urge.HistoryFunctor <> t:24 var
+def 2948:2963 <> preservationProp
+R2970:2986 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 2966:2966 <> t:25
+R3017:3020 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3001:3014 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R3016:3016 UMSTFormal.Urge.HistoryFunctor <> t:25 var
+R3021:3038 UMSTFormal.Urge.HistoryFunctor <> gateAdmissibleHead def
+R3040:3040 UMSTFormal.Urge.HistoryFunctor <> t:25 var
+prf 3052:3081 <> preservationProp_of_admissible
+R3088:3104 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 3084:3084 <> t:26
+R3116:3142 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition def
+R3144:3144 UMSTFormal.Urge.HistoryFunctor <> t:26 var
+binder 3112:3112 <> h:27
+R3149:3164 UMSTFormal.Urge.HistoryFunctor <> preservationProp def
+R3166:3166 UMSTFormal.Urge.HistoryFunctor <> t:26 var
+R3209:3226 UMSTFormal.Urge.HistoryFunctor <> gateAdmissibleHead def
+R3236:3258 UMSTFormal.Urge.AdmitKleisli <> history_gate_admissible proj
+R3236:3258 UMSTFormal.Urge.AdmitKleisli <> history_gate_admissible proj
+def 3502:3518 <> provenancedOkStep
+R3522:3539 UMSTFormal.Urge.HistoryFunctor <> RepoTransitionStep rec
+R3549:3559 UMSTFormal.Urge.HistoryFunctor <> repo_before proj
+R3549:3559 UMSTFormal.Urge.HistoryFunctor <> repo_before proj
+R3549:3559 UMSTFormal.Urge.HistoryFunctor <> repo_before proj
+R3700:3709 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R3700:3709 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R3850:3870 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_stamp proj
+R3850:3870 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_stamp proj
+R3902:3922 UMSTFormal.Urge.HistoryFunctor <> repo_drops_provenance proj
+R3902:3922 UMSTFormal.Urge.HistoryFunctor <> repo_drops_provenance proj
+R3939:3956 UMSTFormal.Urge.HistoryFunctor <> repo_invents_green proj
+R3939:3956 UMSTFormal.Urge.HistoryFunctor <> repo_invents_green proj
+R3574:3595 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R3574:3595 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R3574:3595 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R3616:3639 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R3616:3639 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R3661:3680 UMSTFormal.Urge.HistoryFunctor <> repo_witness_present proj
+R3661:3680 UMSTFormal.Urge.HistoryFunctor <> repo_witness_present proj
+R3600:3603 Corelib.Init.Datatypes <> true constr
+R3644:3648 Corelib.Init.Datatypes <> false constr
+R3685:3689 Corelib.Init.Datatypes <> false constr
+R3724:3745 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R3724:3745 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R3724:3745 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R3766:3789 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R3766:3789 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R3811:3830 UMSTFormal.Urge.HistoryFunctor <> repo_witness_present proj
+R3811:3830 UMSTFormal.Urge.HistoryFunctor <> repo_witness_present proj
+R3750:3753 Corelib.Init.Datatypes <> true constr
+R3794:3798 Corelib.Init.Datatypes <> false constr
+R3835:3839 Corelib.Init.Datatypes <> false constr
+R3875:3878 Corelib.Init.Datatypes <> Some constr
+R3927:3931 Corelib.Init.Datatypes <> false constr
+R3961:3965 Corelib.Init.Datatypes <> false constr
+def 3983:4000 <> evaluateTransition
+R4010:4027 UMSTFormal.Urge.HistoryFunctor <> RepoTransitionStep rec
+binder 4003:4006 <> step:28
+R4032:4048 UMSTFormal.Urge.HistoryFunctor <> TransitionVerdict ind
+R4058:4075 UMSTFormal.Urge.HistoryFunctor <> repo_invents_green proj
+R4077:4080 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4157:4170 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4115:4138 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R4141:4150 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R4152:4155 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4171:4174 Corelib.Init.Datatypes <> negb def
+R4177:4196 UMSTFormal.Urge.HistoryFunctor <> repo_witness_present proj
+R4199:4208 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R4210:4213 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4250:4270 UMSTFormal.Urge.HistoryFunctor <> repo_drops_provenance proj
+R4272:4275 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4351:4364 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4310:4331 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R4334:4344 UMSTFormal.Urge.HistoryFunctor <> repo_before proj
+R4346:4349 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4365:4368 Corelib.Init.Datatypes <> negb def
+R4371:4392 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R4395:4404 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R4406:4409 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4453:4473 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_stamp proj
+R4475:4478 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4491:4494 Corelib.Init.Datatypes <> None constr
+R4499:4515 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R4523:4526 Corelib.Init.Datatypes <> Some constr
+R4546:4555 Stdlib.Strings.String <> eqb def
+R4650:4667 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4610:4631 UMSTFormal.Urge.HistoryFunctor <> repo_provenance_intact proj
+R4634:4643 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R4645:4648 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4668:4671 Corelib.Init.Datatypes <> negb def
+R4674:4697 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R4700:4709 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R4711:4714 UMSTFormal.Urge.HistoryFunctor <> step:28 var
+R4760:4776 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R4731:4747 UMSTFormal.Urge.HistoryFunctor <> transition_accept constr
+R4578:4594 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R4418:4434 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R4282:4298 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R4222:4238 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R4087:4103 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+prf 4796:4835 <> evaluateTransition_rejects_invents_green
+R4845:4862 UMSTFormal.Urge.HistoryFunctor <> RepoTransitionStep rec
+binder 4838:4841 <> step:29
+R4897:4899 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4874:4891 UMSTFormal.Urge.HistoryFunctor <> repo_invents_green proj
+R4893:4896 UMSTFormal.Urge.HistoryFunctor <> step:29 var
+R4900:4903 Corelib.Init.Datatypes <> true constr
+binder 4870:4870 <> h:30
+R4933:4935 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4910:4927 UMSTFormal.Urge.HistoryFunctor <> evaluateTransition def
+R4929:4932 UMSTFormal.Urge.HistoryFunctor <> step:29 var
+R4936:4952 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R4979:4996 UMSTFormal.Urge.HistoryFunctor <> evaluateTransition def
+prf 5037:5092 <> evaluateTransition_rejects_physics_green_without_witness
+R5106:5123 UMSTFormal.Urge.HistoryFunctor <> RepoTransitionStep rec
+binder 5099:5102 <> step:31
+R5178:5180 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5136:5159 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R5162:5171 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R5173:5176 UMSTFormal.Urge.HistoryFunctor <> step:31 var
+R5181:5184 Corelib.Init.Datatypes <> true constr
+binder 5131:5132 <> hg:32
+R5235:5237 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5197:5216 UMSTFormal.Urge.HistoryFunctor <> repo_witness_present proj
+R5219:5228 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R5230:5233 UMSTFormal.Urge.HistoryFunctor <> step:31 var
+R5238:5242 Corelib.Init.Datatypes <> false constr
+binder 5192:5193 <> hw:33
+R5278:5280 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5255:5272 UMSTFormal.Urge.HistoryFunctor <> repo_invents_green proj
+R5274:5277 UMSTFormal.Urge.HistoryFunctor <> step:31 var
+R5281:5285 Corelib.Init.Datatypes <> false constr
+binder 5250:5251 <> hi:34
+R5315:5317 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5292:5309 UMSTFormal.Urge.HistoryFunctor <> evaluateTransition def
+R5311:5314 UMSTFormal.Urge.HistoryFunctor <> step:31 var
+R5318:5334 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R5361:5378 UMSTFormal.Urge.HistoryFunctor <> evaluateTransition def
+prf 5437:5479 <> evaluateTransition_rejects_drops_provenance
+R5489:5506 UMSTFormal.Urge.HistoryFunctor <> RepoTransitionStep rec
+binder 5482:5485 <> step:35
+R5545:5547 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5519:5539 UMSTFormal.Urge.HistoryFunctor <> repo_drops_provenance proj
+R5541:5544 UMSTFormal.Urge.HistoryFunctor <> step:35 var
+R5548:5551 Corelib.Init.Datatypes <> true constr
+binder 5514:5515 <> hd:36
+R5583:5585 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5560:5577 UMSTFormal.Urge.HistoryFunctor <> repo_invents_green proj
+R5579:5582 UMSTFormal.Urge.HistoryFunctor <> step:35 var
+R5586:5590 Corelib.Init.Datatypes <> false constr
+binder 5555:5556 <> hi:37
+R5645:5647 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5603:5626 UMSTFormal.Urge.HistoryFunctor <> repo_physics_green_claim proj
+R5629:5638 UMSTFormal.Urge.HistoryFunctor <> repo_after proj
+R5640:5643 UMSTFormal.Urge.HistoryFunctor <> step:35 var
+R5648:5652 Corelib.Init.Datatypes <> false constr
+binder 5598:5599 <> hn:38
+R5682:5684 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5659:5676 UMSTFormal.Urge.HistoryFunctor <> evaluateTransition def
+R5678:5681 UMSTFormal.Urge.HistoryFunctor <> step:35 var
+R5685:5701 UMSTFormal.Urge.HistoryFunctor <> transition_reject constr
+R5728:5745 UMSTFormal.Urge.HistoryFunctor <> evaluateTransition def
+prf 5804:5837 <> provenancedOkStep_evaluates_accept
+R5879:5881 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5843:5860 UMSTFormal.Urge.HistoryFunctor <> evaluateTransition def
+R5862:5878 UMSTFormal.Urge.HistoryFunctor <> provenancedOkStep def
+R5882:5898 UMSTFormal.Urge.HistoryFunctor <> transition_accept constr
+def 6165:6176 <> fixtureState
+R6180:6197 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R6207:6213 UMSTFormal.Concrete.Gate <> density proj
+R6207:6213 UMSTFormal.Concrete.Gate <> density proj
+R6207:6213 UMSTFormal.Concrete.Gate <> density proj
+R6233:6243 UMSTFormal.Concrete.Gate <> free_energy proj
+R6233:6243 UMSTFormal.Concrete.Gate <> free_energy proj
+R6256:6264 UMSTFormal.Concrete.Gate <> hydration proj
+R6256:6264 UMSTFormal.Concrete.Gate <> hydration proj
+R6277:6284 UMSTFormal.Concrete.Gate <> strength proj
+R6277:6284 UMSTFormal.Concrete.Gate <> strength proj
+R6222:6224 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 6307:6323 <> fixtureCommitHash
+R6327:6329 Corelib.Init.Datatypes <> nat ind
+def 6350:6363 <> fixturePayload
+R6367:6380 UMSTFormal.Urge.HistoryFunctor <> RawCommitBytes def
+R6385:6387 Corelib.Init.Datatypes <> nil constr
+def 6402:6417 <> fixtureRawCommit
+R6421:6432 UMSTFormal.Urge.HistoryFunctor <> RawGitCommit rec
+R6442:6451 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R6442:6451 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R6442:6451 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R6475:6481 UMSTFormal.Urge.HistoryFunctor <> payload proj
+R6475:6481 UMSTFormal.Urge.HistoryFunctor <> payload proj
+R6456:6472 UMSTFormal.Urge.HistoryFunctor <> fixtureCommitHash def
+R6486:6499 UMSTFormal.Urge.HistoryFunctor <> fixturePayload def
+def 6517:6535 <> fixtureTypedHistory
+R6539:6550 UMSTFormal.Urge.HistoryFunctor <> TypedHistory rec
+R6560:6573 UMSTFormal.Urge.HistoryFunctor <> typed_snapshot proj
+R6560:6573 UMSTFormal.Urge.HistoryFunctor <> typed_snapshot proj
+R6560:6573 UMSTFormal.Urge.HistoryFunctor <> typed_snapshot proj
+R6676:6698 UMSTFormal.Urge.HistoryFunctor <> typed_provenance_intact proj
+R6676:6698 UMSTFormal.Urge.HistoryFunctor <> typed_provenance_intact proj
+R6588:6604 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R6588:6604 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R6588:6604 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R6638:6649 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R6638:6649 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R6609:6625 UMSTFormal.Urge.HistoryFunctor <> fixtureCommitHash def
+R6654:6665 UMSTFormal.Urge.HistoryFunctor <> fixtureState def
+R6703:6706 Corelib.Init.Datatypes <> true constr
+def 6724:6736 <> catalogDecode
+R6743:6754 UMSTFormal.Urge.HistoryFunctor <> RawGitCommit rec
+binder 6739:6739 <> c:39
+R6759:6764 Corelib.Init.Datatypes <> option ind
+R6766:6777 UMSTFormal.Urge.HistoryFunctor <> TypedHistory rec
+R6787:6793 Stdlib.Arith.PeanoNat Nat eqb def
+R6796:6805 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R6807:6807 UMSTFormal.Urge.HistoryFunctor <> c:39 var
+R6810:6826 UMSTFormal.Urge.HistoryFunctor <> fixtureCommitHash def
+R6873:6876 Corelib.Init.Datatypes <> None constr
+R6837:6840 Corelib.Init.Datatypes <> Some constr
+R6842:6860 UMSTFormal.Urge.HistoryFunctor <> fixtureTypedHistory def
+prf 6888:6908 <> catalogDecode_fixture
+R6944:6946 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6914:6926 UMSTFormal.Urge.HistoryFunctor <> catalogDecode def
+R6928:6943 UMSTFormal.Urge.HistoryFunctor <> fixtureRawCommit def
+R6947:6950 Corelib.Init.Datatypes <> Some constr
+R6952:6970 UMSTFormal.Urge.HistoryFunctor <> fixtureTypedHistory def
+R6989:7001 UMSTFormal.Urge.HistoryFunctor <> catalogDecode def
+R7004:7019 UMSTFormal.Urge.HistoryFunctor <> fixtureRawCommit def
+R7022:7038 UMSTFormal.Urge.HistoryFunctor <> fixtureCommitHash def
+R7041:7059 UMSTFormal.Urge.HistoryFunctor <> fixtureTypedHistory def
+R7072:7083 Stdlib.Arith.PeanoNat Nat eqb_refl thm
+R7072:7083 Stdlib.Arith.PeanoNat Nat eqb_refl thm
+R7072:7083 Stdlib.Arith.PeanoNat Nat eqb_refl thm
+prf 7113:7142 <> catalogDecode_preserveCommitId
+R7149:7160 UMSTFormal.Urge.HistoryFunctor <> RawGitCommit rec
+binder 7145:7145 <> c:40
+R7168:7179 UMSTFormal.Urge.HistoryFunctor <> TypedHistory rec
+binder 7164:7164 <> h:41
+R7207:7209 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7192:7204 UMSTFormal.Urge.HistoryFunctor <> catalogDecode def
+R7206:7206 UMSTFormal.Urge.HistoryFunctor <> c:40 var
+R7210:7213 Corelib.Init.Datatypes <> Some constr
+R7215:7215 UMSTFormal.Urge.HistoryFunctor <> h:41 var
+binder 7187:7188 <> hd:42
+R7234:7236 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7222:7231 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R7233:7233 UMSTFormal.Urge.HistoryFunctor <> c:40 var
+R7237:7253 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R7256:7269 UMSTFormal.Urge.HistoryFunctor <> typed_snapshot proj
+R7271:7271 UMSTFormal.Urge.HistoryFunctor <> h:41 var
+R7299:7311 UMSTFormal.Urge.HistoryFunctor <> catalogDecode def
+R7332:7338 Stdlib.Arith.PeanoNat Nat eqb def
+R7341:7350 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R7355:7371 UMSTFormal.Urge.HistoryFunctor <> fixtureCommitHash def
+R7332:7338 Stdlib.Arith.PeanoNat Nat eqb def
+R7341:7350 UMSTFormal.Urge.HistoryFunctor <> commitHash proj
+R7355:7371 UMSTFormal.Urge.HistoryFunctor <> fixtureCommitHash def
+R7392:7401 Stdlib.Arith.PeanoNat Nat eqb_eq thm
+R7392:7401 Stdlib.Arith.PeanoNat Nat eqb_eq thm
+R7455:7473 UMSTFormal.Urge.HistoryFunctor <> fixtureTypedHistory def
+def 7531:7551 <> catalogHistoryFunctor
+R7555:7578 UMSTFormal.Urge.HistoryFunctor <> AdmissibleHistoryFunctor rec
+R7588:7601 UMSTFormal.Urge.HistoryFunctor <> history_decode proj
+R7588:7601 UMSTFormal.Urge.HistoryFunctor <> history_decode proj
+R7588:7601 UMSTFormal.Urge.HistoryFunctor <> history_decode proj
+R7626:7651 UMSTFormal.Urge.HistoryFunctor <> history_preserve_commit_id proj
+R7626:7651 UMSTFormal.Urge.HistoryFunctor <> history_preserve_commit_id proj
+R7606:7618 UMSTFormal.Urge.HistoryFunctor <> catalogDecode def
+R7656:7685 UMSTFormal.Urge.HistoryFunctor <> catalogDecode_preserveCommitId thm
+prf 7700:7721 <> catalog_decode_fixture
+R7780:7782 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7727:7740 UMSTFormal.Urge.HistoryFunctor <> history_decode proj
+R7742:7762 UMSTFormal.Urge.HistoryFunctor <> catalogHistoryFunctor def
+R7764:7779 UMSTFormal.Urge.HistoryFunctor <> fixtureRawCommit def
+R7783:7786 Corelib.Init.Datatypes <> Some constr
+R7788:7806 UMSTFormal.Urge.HistoryFunctor <> fixtureTypedHistory def
+R7824:7844 UMSTFormal.Urge.HistoryFunctor <> catalogDecode_fixture thm
+R7824:7844 UMSTFormal.Urge.HistoryFunctor <> catalogDecode_fixture thm
+prf 8083:8112 <> preservationProp_from_landauer
+R8119:8139 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 8115:8115 <> b:43
+R8153:8166 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8169:8187 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8189:8189 UMSTFormal.Urge.HistoryFunctor <> b:43 var
+binder 8147:8149 <> hSL:44
+R8197:8212 UMSTFormal.Urge.HistoryFunctor <> preservationProp def
+R8215:8233 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8235:8235 UMSTFormal.Urge.HistoryFunctor <> b:43 var
+R8281:8298 UMSTFormal.Urge.HistoryFunctor <> gateAdmissibleHead def
+R8308:8330 UMSTFormal.Urge.AdmitKleisli <> history_gate_admissible proj
+R8333:8351 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8308:8330 UMSTFormal.Urge.AdmitKleisli <> history_gate_admissible proj
+R8333:8351 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+prf 8372:8402 <> admissible_preserves_second_law
+R8409:8425 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 8405:8405 <> t:45
+R8437:8463 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition def
+R8465:8465 UMSTFormal.Urge.HistoryFunctor <> t:45 var
+binder 8433:8433 <> h:46
+R8470:8483 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8485:8485 UMSTFormal.Urge.HistoryFunctor <> t:45 var
+prf 8520:8544 <> historyFunctor_noNewAxiom
+R8551:8571 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 8547:8547 <> b:47
+R8585:8598 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8601:8619 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8621:8621 UMSTFormal.Urge.HistoryFunctor <> b:47 var
+binder 8579:8581 <> hSL:48
+R8629:8644 UMSTFormal.Urge.HistoryFunctor <> preservationProp def
+R8647:8665 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8667:8667 UMSTFormal.Urge.HistoryFunctor <> b:47 var
+R8687:8716 UMSTFormal.Urge.HistoryFunctor <> preservationProp_from_landauer thm
+R8687:8716 UMSTFormal.Urge.HistoryFunctor <> preservationProp_from_landauer thm
+def 9051:9070 <> historyFunctorSelect
+R9079:9096 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9073:9075 <> src:49
+R9117:9120 Corelib.Init.Datatypes <> list ind
+R9123:9139 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9141:9143 UMSTFormal.Urge.HistoryFunctor <> src:49 var
+binder 9104:9113 <> successors:50
+R9172:9174 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9151:9167 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9169:9171 UMSTFormal.Urge.HistoryFunctor <> src:49 var
+R9175:9192 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R9199:9218 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R9220:9222 UMSTFormal.Urge.HistoryFunctor <> src:49 var
+R9224:9233 UMSTFormal.Urge.HistoryFunctor <> successors:50 var
+prf 9245:9285 <> historyFunctorSelect_eq_excitement_select
+R9298:9315 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9292:9294 <> src:51
+R9336:9339 Corelib.Init.Datatypes <> list ind
+R9342:9358 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9360:9362 UMSTFormal.Urge.HistoryFunctor <> src:51 var
+binder 9323:9332 <> successors:52
+R9405:9407 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9370:9389 UMSTFormal.Urge.HistoryFunctor <> historyFunctorSelect def
+R9391:9393 UMSTFormal.Urge.HistoryFunctor <> src:51 var
+R9395:9404 UMSTFormal.Urge.HistoryFunctor <> successors:52 var
+R9408:9424 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9426:9428 UMSTFormal.Urge.HistoryFunctor <> src:51 var
+R9430:9439 UMSTFormal.Urge.HistoryFunctor <> successors:52 var
+R9458:9477 UMSTFormal.Urge.HistoryFunctor <> historyFunctorSelect def
+R9489:9529 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select_eq_excitement_select thm
+R9489:9529 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select_eq_excitement_select thm
+prf 9562:9598 <> historyFunctorSelect_eq_urge_recovery
+R9611:9628 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9605:9607 <> src:53
+R9638:9657 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R9659:9661 UMSTFormal.Urge.HistoryFunctor <> src:53 var
+binder 9632:9634 <> ctx:54
+R9722:9726 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9668:9687 UMSTFormal.Urge.HistoryFunctor <> historyFunctorSelect def
+R9689:9691 UMSTFormal.Urge.HistoryFunctor <> src:53 var
+R9694:9712 UMSTFormal.Urge.ExcitementImport <> recovery_successors proj
+R9714:9716 UMSTFormal.Urge.HistoryFunctor <> src:53 var
+R9718:9720 UMSTFormal.Urge.HistoryFunctor <> ctx:54 var
+R9727:9739 UMSTFormal.Urge.ExcitementImport <> urge_recovery def
+R9741:9743 UMSTFormal.Urge.HistoryFunctor <> src:53 var
+R9745:9747 UMSTFormal.Urge.HistoryFunctor <> ctx:54 var
+R9766:9785 UMSTFormal.Urge.HistoryFunctor <> historyFunctorSelect def
+R9797:9833 UMSTFormal.Urge.ExcitementImport <> urge_recovery_eq_urge_recovery_select thm
+R9797:9833 UMSTFormal.Urge.ExcitementImport <> urge_recovery_eq_urge_recovery_select thm
+prf 9859:9888 <> historyFunctor_no_local_argmin
+R9901:9918 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9895:9897 <> src:55
+R9939:9942 Corelib.Init.Datatypes <> list ind
+R9945:9961 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9963:9965 UMSTFormal.Urge.HistoryFunctor <> src:55 var
+binder 9926:9935 <> successors:56
+R10008:10010 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9973:9992 UMSTFormal.Urge.HistoryFunctor <> historyFunctorSelect def
+R9994:9996 UMSTFormal.Urge.HistoryFunctor <> src:55 var
+R9998:10007 UMSTFormal.Urge.HistoryFunctor <> successors:56 var
+R10011:10027 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10029:10031 UMSTFormal.Urge.HistoryFunctor <> src:55 var
+R10033:10042 UMSTFormal.Urge.HistoryFunctor <> successors:56 var
+R10061:10101 UMSTFormal.Urge.HistoryFunctor <> historyFunctorSelect_eq_excitement_select thm
+R10061:10101 UMSTFormal.Urge.HistoryFunctor <> historyFunctorSelect_eq_excitement_select thm
+def 10358:10373 <> urgePhysicsGreen
+R10377:10380 Corelib.Init.Datatypes <> bool ind
+R10385:10389 Corelib.Init.Datatypes <> false constr
+prf 10399:10419 <> urgePhysicsGreenFalse
+R10439:10441 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10423:10438 UMSTFormal.Urge.HistoryFunctor <> urgePhysicsGreen def
+R10442:10446 Corelib.Init.Datatypes <> false constr
+def 10486:10514 <> historyFunctorProductionWired
+R10518:10521 Corelib.Init.Datatypes <> bool ind
+R10526:10530 Corelib.Init.Datatypes <> false constr
+prf 10540:10573 <> historyFunctorProductionWiredFalse
+R10608:10610 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10579:10607 UMSTFormal.Urge.HistoryFunctor <> historyFunctorProductionWired def
+R10611:10615 Corelib.Init.Datatypes <> false constr
+prf 10652:10678 <> historyFunctorModuleWitness
+R10682:10685 Corelib.Init.Logic <> True ind
+R10701:10701 Corelib.Init.Logic <> I constr
+R10701:10701 Corelib.Init.Logic <> I constr

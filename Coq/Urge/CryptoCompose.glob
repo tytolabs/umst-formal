@@ -1,0 +1,512 @@
+DIGEST 2059ab6d78c1f0bd27466baab8dc8049
+FUMSTFormal.Urge.CryptoCompose
+R1056:1060 Stdlib.Arith.Arith <> <> lib
+R1062:1065 Stdlib.Lists.List <> <> lib
+R1067:1070 Stdlib.Bool.Bool <> <> lib
+R1072:1077 Stdlib.QArith.QArith <> <> lib
+R1079:1084 Stdlib.Strings.String <> <> lib
+R1102:1116 UMSTFormal.Gate <> <> lib
+R1134:1161 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1179:1210 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1594:1614 <> crypto_identity_class
+constr 1623:1647 <> cic_content_addressed_rid
+constr 1653:1673 <> cic_decentralized_did
+constr 1679:1699 <> cic_host_id_surrogate
+scheme 1594:1614 <> crypto_identity_class_rect
+scheme 1594:1614 <> crypto_identity_class_ind
+scheme 1594:1614 <> crypto_identity_class_rec
+scheme 1594:1614 <> crypto_identity_class_sind
+def 1778:1803 <> identity_content_addressed
+R1810:1830 UMSTFormal.Urge.CryptoCompose <> crypto_identity_class ind
+binder 1806:1806 <> c:3
+R1835:1838 Corelib.Init.Datatypes <> bool ind
+R1851:1851 UMSTFormal.Urge.CryptoCompose <> c:3 var
+R1862:1886 UMSTFormal.Urge.CryptoCompose <> cic_content_addressed_rid constr
+R1890:1910 UMSTFormal.Urge.CryptoCompose <> cic_decentralized_did constr
+R1915:1918 Corelib.Init.Datatypes <> true constr
+R1915:1918 Corelib.Init.Datatypes <> true constr
+R1924:1944 UMSTFormal.Urge.CryptoCompose <> cic_host_id_surrogate constr
+R1949:1953 Corelib.Init.Datatypes <> false constr
+rec 2033:2049 <> crypto_ucrs_stamp
+proj 2064:2078 <> crypto_ucrs_seq
+proj 2089:2110 <> crypto_ucrs_wall_has_t
+R2082:2084 Corelib.Init.Datatypes <> nat ind
+R2114:2117 Corelib.Init.Datatypes <> bool ind
+rec 2200:2220 <> crypto_threshold_cert
+proj 2235:2257 <> crypto_threshold_quorum
+proj 2268:2289 <> crypto_threshold_valid
+proj 2300:2319 <> crypto_threshold_met
+R2261:2263 Corelib.Init.Datatypes <> nat ind
+R2293:2295 Corelib.Init.Datatypes <> nat ind
+R2323:2326 Corelib.Init.Datatypes <> bool ind
+rec 2413:2430 <> crypto_ssot_digest
+proj 2445:2465 <> crypto_digest_hex_len
+proj 2476:2498 <> crypto_digest_hex_valid
+R2469:2471 Corelib.Init.Datatypes <> nat ind
+R2502:2505 Corelib.Init.Datatypes <> bool ind
+rec 2595:2617 <> crypto_compose_snapshot
+proj 2632:2649 <> crypto_snapshot_id
+proj 2660:2679 <> crypto_snapshot_head
+proj 2705:2724 <> crypto_snapshot_ucrs
+proj 2749:2773 <> crypto_snapshot_threshold
+proj 2802:2828 <> crypto_snapshot_ssot_digest
+proj 2854:2875 <> crypto_snapshot_signed
+proj 2887:2910 <> crypto_snapshot_identity
+R2653:2655 Corelib.Init.Datatypes <> nat ind
+R2683:2700 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R2728:2744 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_stamp rec
+R2777:2797 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_cert rec
+R2832:2849 UMSTFormal.Urge.CryptoCompose <> crypto_ssot_digest rec
+R2879:2882 Corelib.Init.Datatypes <> bool ind
+R2914:2934 UMSTFormal.Urge.CryptoCompose <> crypto_identity_class ind
+rec 3018:3039 <> crypto_compose_witness
+proj 3054:3072 <> crypto_witness_ucrs
+proj 3097:3120 <> crypto_witness_threshold
+proj 3149:3173 <> crypto_witness_ssot_valid
+R3076:3092 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_stamp rec
+R3124:3144 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_cert rec
+R3177:3180 Corelib.Init.Datatypes <> bool ind
+rec 3280:3302 <> crypto_compose_morphism
+proj 3317:3336 <> crypto_morphism_from
+proj 3367:3393 <> crypto_morphism_to_identity
+proj 3422:3444 <> crypto_morphism_witness
+proj 3474:3508 <> crypto_morphism_excitement_selected
+R3340:3362 UMSTFormal.Urge.CryptoCompose <> crypto_compose_snapshot rec
+R3397:3417 UMSTFormal.Urge.CryptoCompose <> crypto_identity_class ind
+R3448:3469 UMSTFormal.Urge.CryptoCompose <> crypto_compose_witness rec
+R3512:3515 Corelib.Init.Datatypes <> bool ind
+ind 3611:3632 <> crypto_compose_refusal
+constr 3641:3668 <> ccr_egoff_copy_paste_refused
+constr 3694:3710 <> ccr_gate_rejected
+constr 3728:3750 <> ccr_unsigned_transition
+constr 3776:3793 <> ccr_host_id_as_rid
+constr 3815:3833 <> ccr_below_threshold
+constr 3859:3881 <> ccr_invalid_ssot_digest
+constr 3907:3933 <> ccr_identity_class_mismatch
+R3685:3687 Corelib.Init.Datatypes <> nat ind
+binder 3671:3681 <> snapshot_id:34
+R3719:3721 Corelib.Init.Datatypes <> nat ind
+binder 3713:3715 <> seq:35
+R3767:3769 Corelib.Init.Datatypes <> nat ind
+binder 3753:3763 <> snapshot_id:36
+R3806:3808 Corelib.Init.Datatypes <> nat ind
+binder 3796:3802 <> host_id:37
+R3850:3852 Corelib.Init.Datatypes <> nat ind
+binder 3836:3846 <> snapshot_id:38
+R3898:3900 Corelib.Init.Datatypes <> nat ind
+binder 3884:3894 <> snapshot_id:39
+scheme 3611:3632 <> crypto_compose_refusal_rect
+scheme 3611:3632 <> crypto_compose_refusal_ind
+scheme 3611:3632 <> crypto_compose_refusal_rec
+scheme 3611:3632 <> crypto_compose_refusal_sind
+ind 3999:4020 <> crypto_compose_verdict
+constr 4029:4043 <> ccv_morphism_ok
+constr 4049:4076 <> ccv_egoff_copy_paste_refused
+constr 4082:4097 <> ccv_inadmissible
+scheme 3999:4020 <> crypto_compose_verdict_rect
+scheme 3999:4020 <> crypto_compose_verdict_ind
+scheme 3999:4020 <> crypto_compose_verdict_rec
+scheme 3999:4020 <> crypto_compose_verdict_sind
+rec 4385:4413 <> crypto_admissibility_conjunct
+proj 4428:4446 <> crypto_conj_gate_ok
+proj 4458:4482 <> crypto_conj_threshold_met
+proj 4494:4525 <> crypto_conj_excitement_preserves
+R4450:4453 Corelib.Init.Datatypes <> bool ind
+R4486:4489 Corelib.Init.Datatypes <> bool ind
+R4529:4532 Corelib.Init.Datatypes <> bool ind
+def 4625:4646 <> crypto_conjunct_admits
+R4653:4681 UMSTFormal.Urge.CryptoCompose <> crypto_admissibility_conjunct rec
+binder 4649:4649 <> c:46
+R4686:4689 Corelib.Init.Datatypes <> bool ind
+R4750:4755 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4717:4722 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4696:4714 UMSTFormal.Urge.CryptoCompose <> crypto_conj_gate_ok proj
+R4716:4716 UMSTFormal.Urge.CryptoCompose <> c:46 var
+R4723:4747 UMSTFormal.Urge.CryptoCompose <> crypto_conj_threshold_met proj
+R4749:4749 UMSTFormal.Urge.CryptoCompose <> c:46 var
+R4756:4787 UMSTFormal.Urge.CryptoCompose <> crypto_conj_excitement_preserves proj
+R4789:4789 UMSTFormal.Urge.CryptoCompose <> c:46 var
+def 4879:4911 <> evaluate_crypto_compose_operation
+R4936:4939 Corelib.Init.Datatypes <> bool ind
+binder 4914:4932 <> is_egoff_copy_paste:47
+R4948:4969 UMSTFormal.Urge.CryptoCompose <> crypto_compose_verdict ind
+R4979:4997 UMSTFormal.Urge.CryptoCompose <> is_egoff_copy_paste:47 var
+R5038:5052 UMSTFormal.Urge.CryptoCompose <> ccv_morphism_ok constr
+R5004:5031 UMSTFormal.Urge.CryptoCompose <> ccv_egoff_copy_paste_refused constr
+def 5142:5164 <> refuse_egoff_copy_paste
+R5181:5183 Corelib.Init.Datatypes <> nat ind
+binder 5167:5177 <> snapshot_id:48
+R5188:5209 UMSTFormal.Urge.CryptoCompose <> crypto_compose_refusal ind
+R5216:5243 UMSTFormal.Urge.CryptoCompose <> ccr_egoff_copy_paste_refused constr
+R5245:5255 UMSTFormal.Urge.CryptoCompose <> snapshot_id:48 var
+def 5341:5361 <> refuse_host_id_as_rid
+R5374:5376 Corelib.Init.Datatypes <> nat ind
+binder 5364:5370 <> host_id:49
+R5381:5402 UMSTFormal.Urge.CryptoCompose <> crypto_compose_refusal ind
+R5409:5426 UMSTFormal.Urge.CryptoCompose <> ccr_host_id_as_rid constr
+R5428:5434 UMSTFormal.Urge.CryptoCompose <> host_id:49 var
+def 5502:5527 <> refuse_unsigned_transition
+R5544:5546 Corelib.Init.Datatypes <> nat ind
+binder 5530:5540 <> snapshot_id:50
+R5551:5572 UMSTFormal.Urge.CryptoCompose <> crypto_compose_refusal ind
+R5579:5601 UMSTFormal.Urge.CryptoCompose <> ccr_unsigned_transition constr
+R5603:5613 UMSTFormal.Urge.CryptoCompose <> snapshot_id:50 var
+def 5715:5742 <> witness_from_crypto_snapshot
+R5749:5771 UMSTFormal.Urge.CryptoCompose <> crypto_compose_snapshot rec
+binder 5745:5745 <> s:51
+R5780:5801 UMSTFormal.Urge.CryptoCompose <> crypto_compose_witness rec
+R5811:5829 UMSTFormal.Urge.CryptoCompose <> crypto_witness_ucrs proj
+R5811:5829 UMSTFormal.Urge.CryptoCompose <> crypto_witness_ucrs proj
+R5811:5829 UMSTFormal.Urge.CryptoCompose <> crypto_witness_ucrs proj
+R5863:5886 UMSTFormal.Urge.CryptoCompose <> crypto_witness_threshold proj
+R5863:5886 UMSTFormal.Urge.CryptoCompose <> crypto_witness_threshold proj
+R5925:5949 UMSTFormal.Urge.CryptoCompose <> crypto_witness_ssot_valid proj
+R5925:5949 UMSTFormal.Urge.CryptoCompose <> crypto_witness_ssot_valid proj
+R5834:5853 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ucrs proj
+R5855:5855 UMSTFormal.Urge.CryptoCompose <> s:51 var
+R5891:5915 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_threshold proj
+R5917:5917 UMSTFormal.Urge.CryptoCompose <> s:51 var
+R5961:5983 UMSTFormal.Urge.CryptoCompose <> crypto_digest_hex_valid proj
+R5986:6012 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ssot_digest proj
+R6014:6014 UMSTFormal.Urge.CryptoCompose <> s:51 var
+def 6114:6142 <> apply_crypto_compose_morphism
+R6160:6182 UMSTFormal.Urge.CryptoCompose <> crypto_compose_snapshot rec
+binder 6149:6156 <> snapshot:52
+R6204:6224 UMSTFormal.Urge.CryptoCompose <> crypto_identity_class ind
+binder 6190:6200 <> to_identity:53
+R6243:6271 UMSTFormal.Urge.CryptoCompose <> crypto_admissibility_conjunct rec
+binder 6232:6239 <> conjunct:54
+R6301:6304 Corelib.Init.Datatypes <> bool ind
+binder 6279:6297 <> excitement_selected:55
+R6336:6338 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6313:6335 UMSTFormal.Urge.CryptoCompose <> crypto_compose_morphism rec
+R6339:6360 UMSTFormal.Urge.CryptoCompose <> crypto_compose_refusal ind
+R6370:6373 Corelib.Init.Datatypes <> negb def
+R6376:6397 UMSTFormal.Urge.CryptoCompose <> crypto_conjunct_admits def
+R6399:6406 UMSTFormal.Urge.CryptoCompose <> conjunct:54 var
+R6502:6505 Corelib.Init.Datatypes <> negb def
+R6508:6527 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_met proj
+R6530:6554 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_threshold proj
+R6556:6563 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R6642:6645 Corelib.Init.Datatypes <> negb def
+R6648:6670 UMSTFormal.Urge.CryptoCompose <> crypto_digest_hex_valid proj
+R6673:6699 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ssot_digest proj
+R6701:6708 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R6791:6794 Corelib.Init.Datatypes <> negb def
+R6797:6818 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_signed proj
+R6820:6827 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R6909:6912 Corelib.Init.Datatypes <> negb def
+R6914:6932 UMSTFormal.Urge.CryptoCompose <> excitement_selected:55 var
+R7014:7016 Corelib.Init.Datatypes <> inl constr
+R7027:7046 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_from proj
+R7027:7046 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_from proj
+R7027:7046 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_from proj
+R7070:7096 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_to_identity proj
+R7070:7096 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_to_identity proj
+R7123:7145 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_witness proj
+R7123:7145 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_witness proj
+R7198:7232 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_excitement_selected proj
+R7198:7232 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_excitement_selected proj
+R7051:7058 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R7101:7111 UMSTFormal.Urge.CryptoCompose <> to_identity:53 var
+R7150:7177 UMSTFormal.Urge.CryptoCompose <> witness_from_crypto_snapshot def
+R7179:7186 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R7237:7255 UMSTFormal.Urge.CryptoCompose <> excitement_selected:55 var
+R6943:6945 Corelib.Init.Datatypes <> inr constr
+R6948:6970 UMSTFormal.Urge.CryptoCompose <> ccr_unsigned_transition constr
+R6973:6990 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R6992:6999 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R6839:6841 Corelib.Init.Datatypes <> inr constr
+R6844:6866 UMSTFormal.Urge.CryptoCompose <> ccr_unsigned_transition constr
+R6869:6886 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R6888:6895 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R6721:6723 Corelib.Init.Datatypes <> inr constr
+R6726:6748 UMSTFormal.Urge.CryptoCompose <> ccr_invalid_ssot_digest constr
+R6751:6768 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R6770:6777 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R6576:6578 Corelib.Init.Datatypes <> inr constr
+R6581:6599 UMSTFormal.Urge.CryptoCompose <> ccr_below_threshold constr
+R6602:6619 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R6621:6628 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+R6418:6420 Corelib.Init.Datatypes <> inr constr
+R6423:6439 UMSTFormal.Urge.CryptoCompose <> ccr_gate_rejected constr
+R6442:6456 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_seq proj
+R6459:6478 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ucrs proj
+R6480:6487 UMSTFormal.Urge.CryptoCompose <> snapshot:52 var
+prf 7268:7306 <> crypto_compose_egoff_copy_paste_refused
+R7327:7329 Corelib.Init.Datatypes <> nat ind
+binder 7313:7323 <> snapshot_id:56
+R7374:7376 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7336:7368 UMSTFormal.Urge.CryptoCompose <> evaluate_crypto_compose_operation def
+R7370:7373 Corelib.Init.Datatypes <> true constr
+R7377:7404 UMSTFormal.Urge.CryptoCompose <> ccv_egoff_copy_paste_refused constr
+prf 7441:7486 <> crypto_compose_morphism_ok_when_not_copy_paste
+R7531:7533 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7492:7524 UMSTFormal.Urge.CryptoCompose <> evaluate_crypto_compose_operation def
+R7526:7530 Corelib.Init.Datatypes <> false constr
+R7534:7548 UMSTFormal.Urge.CryptoCompose <> ccv_morphism_ok constr
+prf 7585:7616 <> refuse_egoff_copy_paste_positive
+R7633:7635 Corelib.Init.Datatypes <> nat ind
+binder 7619:7629 <> snapshot_id:57
+R7677:7679 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7642:7664 UMSTFormal.Urge.CryptoCompose <> refuse_egoff_copy_paste def
+R7666:7676 UMSTFormal.Urge.CryptoCompose <> snapshot_id:57 var
+R7680:7707 UMSTFormal.Urge.CryptoCompose <> ccr_egoff_copy_paste_refused constr
+R7709:7719 UMSTFormal.Urge.CryptoCompose <> snapshot_id:57 var
+prf 7756:7785 <> refuse_host_id_as_rid_positive
+R7798:7800 Corelib.Init.Datatypes <> nat ind
+binder 7788:7794 <> host_id:58
+R7836:7838 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7807:7827 UMSTFormal.Urge.CryptoCompose <> refuse_host_id_as_rid def
+R7829:7835 UMSTFormal.Urge.CryptoCompose <> host_id:58 var
+R7839:7856 UMSTFormal.Urge.CryptoCompose <> ccr_host_id_as_rid constr
+R7858:7864 UMSTFormal.Urge.CryptoCompose <> host_id:58 var
+prf 7901:7935 <> refuse_unsigned_transition_positive
+R7952:7954 Corelib.Init.Datatypes <> nat ind
+binder 7938:7948 <> snapshot_id:59
+R7999:8001 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7961:7986 UMSTFormal.Urge.CryptoCompose <> refuse_unsigned_transition def
+R7988:7998 UMSTFormal.Urge.CryptoCompose <> snapshot_id:59 var
+R8002:8024 UMSTFormal.Urge.CryptoCompose <> ccr_unsigned_transition constr
+R8026:8036 UMSTFormal.Urge.CryptoCompose <> snapshot_id:59 var
+rec 8364:8381 <> crypto_compose_ctx
+proj 8423:8447 <> crypto_compose_successors
+R8390:8407 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8384:8386 <> src:60
+R8451:8454 Corelib.Init.Datatypes <> list ind
+R8457:8473 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8475:8477 UMSTFormal.Urge.CryptoCompose <> src:60 var
+def 8570:8590 <> crypto_compose_select
+R8599:8616 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8593:8595 <> src:63
+R8630:8647 UMSTFormal.Urge.CryptoCompose <> crypto_compose_ctx rec
+R8649:8651 UMSTFormal.Urge.CryptoCompose <> src:63 var
+binder 8624:8626 <> ctx:64
+R8679:8681 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8658:8674 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8676:8678 UMSTFormal.Urge.CryptoCompose <> src:63 var
+R8682:8699 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R8706:8725 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R8727:8729 UMSTFormal.Urge.CryptoCompose <> src:63 var
+R8732:8756 UMSTFormal.Urge.CryptoCompose <> crypto_compose_successors proj
+R8758:8760 UMSTFormal.Urge.CryptoCompose <> src:63 var
+R8762:8764 UMSTFormal.Urge.CryptoCompose <> ctx:64 var
+prf 8777:8818 <> crypto_compose_select_eq_excitement_select
+R8831:8848 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8825:8827 <> src:65
+R8858:8875 UMSTFormal.Urge.CryptoCompose <> crypto_compose_ctx rec
+R8877:8879 UMSTFormal.Urge.CryptoCompose <> src:65 var
+binder 8852:8854 <> ctx:66
+R8915:8919 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8886:8906 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select def
+R8908:8910 UMSTFormal.Urge.CryptoCompose <> src:65 var
+R8912:8914 UMSTFormal.Urge.CryptoCompose <> ctx:66 var
+R8920:8936 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8938:8940 UMSTFormal.Urge.CryptoCompose <> src:65 var
+R8943:8967 UMSTFormal.Urge.CryptoCompose <> crypto_compose_successors proj
+R8969:8971 UMSTFormal.Urge.CryptoCompose <> src:65 var
+R8973:8975 UMSTFormal.Urge.CryptoCompose <> ctx:66 var
+R8995:9015 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select def
+R9018:9037 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 9069:9113 <> crypto_compose_select_eq_urge_recovery_select
+R9126:9143 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9120:9122 <> src:67
+R9153:9170 UMSTFormal.Urge.CryptoCompose <> crypto_compose_ctx rec
+R9172:9174 UMSTFormal.Urge.CryptoCompose <> src:67 var
+binder 9147:9149 <> ctx:68
+R9210:9214 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9181:9201 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select def
+R9203:9205 UMSTFormal.Urge.CryptoCompose <> src:67 var
+R9207:9209 UMSTFormal.Urge.CryptoCompose <> ctx:68 var
+R9215:9234 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R9236:9238 UMSTFormal.Urge.CryptoCompose <> src:67 var
+R9241:9265 UMSTFormal.Urge.CryptoCompose <> crypto_compose_successors proj
+R9267:9269 UMSTFormal.Urge.CryptoCompose <> src:67 var
+R9271:9273 UMSTFormal.Urge.CryptoCompose <> ctx:68 var
+prf 9313:9342 <> crypto_compose_no_local_argmin
+R9355:9372 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9349:9351 <> src:69
+R9382:9399 UMSTFormal.Urge.CryptoCompose <> crypto_compose_ctx rec
+R9401:9403 UMSTFormal.Urge.CryptoCompose <> src:69 var
+binder 9376:9378 <> ctx:70
+R9439:9443 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9410:9430 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select def
+R9432:9434 UMSTFormal.Urge.CryptoCompose <> src:69 var
+R9436:9438 UMSTFormal.Urge.CryptoCompose <> ctx:70 var
+R9444:9460 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9462:9464 UMSTFormal.Urge.CryptoCompose <> src:69 var
+R9467:9491 UMSTFormal.Urge.CryptoCompose <> crypto_compose_successors proj
+R9493:9495 UMSTFormal.Urge.CryptoCompose <> src:69 var
+R9497:9499 UMSTFormal.Urge.CryptoCompose <> ctx:70 var
+R9519:9560 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select_eq_excitement_select thm
+R9519:9560 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select_eq_excitement_select thm
+prf 9584:9603 <> crypto_compose_empty
+R9612:9629 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9606:9608 <> src:71
+R9643:9660 UMSTFormal.Urge.CryptoCompose <> crypto_compose_ctx rec
+R9662:9664 UMSTFormal.Urge.CryptoCompose <> src:71 var
+binder 9637:9639 <> ctx:72
+R9712:9714 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9679:9703 UMSTFormal.Urge.CryptoCompose <> crypto_compose_successors proj
+R9705:9707 UMSTFormal.Urge.CryptoCompose <> src:71 var
+R9709:9711 UMSTFormal.Urge.CryptoCompose <> ctx:72 var
+R9715:9717 Corelib.Init.Datatypes <> nil constr
+binder 9672:9675 <> Hnil:73
+R9753:9755 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9724:9744 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select def
+R9746:9748 UMSTFormal.Urge.CryptoCompose <> src:71 var
+R9750:9752 UMSTFormal.Urge.CryptoCompose <> ctx:72 var
+R9756:9758 Corelib.Init.Datatypes <> inr constr
+R9760:9776 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R9795:9815 UMSTFormal.Urge.CryptoCompose <> crypto_compose_select def
+R9818:9837 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 10108:10135 <> crypto_compose_fixture_state
+R10139:10156 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R10166:10172 UMSTFormal.Concrete.Gate <> density proj
+R10166:10172 UMSTFormal.Concrete.Gate <> density proj
+R10166:10172 UMSTFormal.Concrete.Gate <> density proj
+R10192:10202 UMSTFormal.Concrete.Gate <> free_energy proj
+R10192:10202 UMSTFormal.Concrete.Gate <> free_energy proj
+R10215:10223 UMSTFormal.Concrete.Gate <> hydration proj
+R10215:10223 UMSTFormal.Concrete.Gate <> hydration proj
+R10236:10243 UMSTFormal.Concrete.Gate <> strength proj
+R10236:10243 UMSTFormal.Concrete.Gate <> strength proj
+R10181:10183 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 10266:10292 <> crypto_compose_fixture_ucrs
+R10296:10312 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_stamp rec
+R10322:10336 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_seq proj
+R10322:10336 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_seq proj
+R10322:10336 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_seq proj
+R10349:10370 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_wall_has_t proj
+R10349:10370 UMSTFormal.Urge.CryptoCompose <> crypto_ucrs_wall_has_t proj
+R10375:10378 Corelib.Init.Datatypes <> true constr
+def 10396:10427 <> crypto_compose_fixture_threshold
+R10431:10451 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_cert rec
+R10461:10483 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_quorum proj
+R10461:10483 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_quorum proj
+R10461:10483 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_quorum proj
+R10496:10517 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_valid proj
+R10496:10517 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_valid proj
+R10530:10549 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_met proj
+R10530:10549 UMSTFormal.Urge.CryptoCompose <> crypto_threshold_met proj
+R10554:10557 Corelib.Init.Datatypes <> true constr
+def 10575:10601 <> crypto_compose_fixture_ssot
+R10605:10622 UMSTFormal.Urge.CryptoCompose <> crypto_ssot_digest rec
+R10632:10652 UMSTFormal.Urge.CryptoCompose <> crypto_digest_hex_len proj
+R10632:10652 UMSTFormal.Urge.CryptoCompose <> crypto_digest_hex_len proj
+R10632:10652 UMSTFormal.Urge.CryptoCompose <> crypto_digest_hex_len proj
+R10666:10688 UMSTFormal.Urge.CryptoCompose <> crypto_digest_hex_valid proj
+R10666:10688 UMSTFormal.Urge.CryptoCompose <> crypto_digest_hex_valid proj
+R10693:10696 Corelib.Init.Datatypes <> true constr
+def 10714:10744 <> crypto_compose_fixture_snapshot
+R10748:10770 UMSTFormal.Urge.CryptoCompose <> crypto_compose_snapshot rec
+R10780:10797 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R10780:10797 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R10780:10797 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R10810:10829 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_head proj
+R10810:10829 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_head proj
+R10869:10888 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ucrs proj
+R10869:10888 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ucrs proj
+R10927:10951 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_threshold proj
+R10927:10951 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_threshold proj
+R10995:11021 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ssot_digest proj
+R10995:11021 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_ssot_digest proj
+R11060:11081 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_signed proj
+R11060:11081 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_signed proj
+R11097:11120 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_identity proj
+R11097:11120 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_identity proj
+R10834:10861 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_state def
+R10893:10919 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_ucrs def
+R10956:10987 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_threshold def
+R11026:11052 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_ssot def
+R11086:11089 Corelib.Init.Datatypes <> true constr
+R11125:11149 UMSTFormal.Urge.CryptoCompose <> cic_content_addressed_rid constr
+def 11167:11197 <> crypto_compose_fixture_conjunct
+R11201:11229 UMSTFormal.Urge.CryptoCompose <> crypto_admissibility_conjunct rec
+R11239:11257 UMSTFormal.Urge.CryptoCompose <> crypto_conj_gate_ok proj
+R11239:11257 UMSTFormal.Urge.CryptoCompose <> crypto_conj_gate_ok proj
+R11239:11257 UMSTFormal.Urge.CryptoCompose <> crypto_conj_gate_ok proj
+R11273:11297 UMSTFormal.Urge.CryptoCompose <> crypto_conj_threshold_met proj
+R11273:11297 UMSTFormal.Urge.CryptoCompose <> crypto_conj_threshold_met proj
+R11313:11344 UMSTFormal.Urge.CryptoCompose <> crypto_conj_excitement_preserves proj
+R11313:11344 UMSTFormal.Urge.CryptoCompose <> crypto_conj_excitement_preserves proj
+R11262:11265 Corelib.Init.Datatypes <> true constr
+R11302:11305 Corelib.Init.Datatypes <> true constr
+R11349:11352 Corelib.Init.Datatypes <> true constr
+prf 11367:11413 <> crypto_compose_fixture_egoff_copy_paste_refused
+R11495:11499 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11419:11441 UMSTFormal.Urge.CryptoCompose <> refuse_egoff_copy_paste def
+R11444:11461 UMSTFormal.Urge.CryptoCompose <> crypto_snapshot_id proj
+R11463:11493 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_snapshot def
+R11500:11527 UMSTFormal.Urge.CryptoCompose <> ccr_egoff_copy_paste_refused constr
+prf 11568:11607 <> crypto_compose_fixture_apply_morphism_ok
+R11741:11745 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11613:11641 UMSTFormal.Urge.CryptoCompose <> apply_crypto_compose_morphism def
+R11647:11677 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_snapshot def
+R11679:11699 UMSTFormal.Urge.CryptoCompose <> cic_decentralized_did constr
+R11705:11735 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_conjunct def
+R11737:11740 Corelib.Init.Datatypes <> true constr
+R11746:11748 Corelib.Init.Datatypes <> inl constr
+R11759:11778 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_from proj
+R11759:11778 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_from proj
+R11759:11778 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_from proj
+R11825:11851 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_to_identity proj
+R11825:11851 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_to_identity proj
+R11888:11910 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_witness proj
+R11888:11910 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_witness proj
+R11997:12031 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_excitement_selected proj
+R11997:12031 UMSTFormal.Urge.CryptoCompose <> crypto_morphism_excitement_selected proj
+R11783:11813 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_snapshot def
+R11856:11876 UMSTFormal.Urge.CryptoCompose <> cic_decentralized_did constr
+R11926:11953 UMSTFormal.Urge.CryptoCompose <> witness_from_crypto_snapshot def
+R11955:11985 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_snapshot def
+R12036:12039 Corelib.Init.Datatypes <> true constr
+prf 12081:12121 <> crypto_compose_content_addressed_identity
+R12179:12181 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12127:12152 UMSTFormal.Urge.CryptoCompose <> identity_content_addressed def
+R12154:12178 UMSTFormal.Urge.CryptoCompose <> cic_content_addressed_rid constr
+R12182:12185 Corelib.Init.Datatypes <> true constr
+prf 12224:12264 <> crypto_compose_decentralized_did_identity
+R12318:12320 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12270:12295 UMSTFormal.Urge.CryptoCompose <> identity_content_addressed def
+R12297:12317 UMSTFormal.Urge.CryptoCompose <> cic_decentralized_did constr
+R12321:12324 Corelib.Init.Datatypes <> true constr
+prf 12363:12406 <> crypto_compose_host_id_not_content_addressed
+R12460:12462 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12412:12437 UMSTFormal.Urge.CryptoCompose <> identity_content_addressed def
+R12439:12459 UMSTFormal.Urge.CryptoCompose <> cic_host_id_surrogate constr
+R12463:12467 Corelib.Init.Datatypes <> false constr
+prf 12506:12550 <> crypto_compose_fixture_witness_preserves_ucrs
+R12638:12642 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12556:12574 UMSTFormal.Urge.CryptoCompose <> crypto_witness_ucrs proj
+R12577:12604 UMSTFormal.Urge.CryptoCompose <> witness_from_crypto_snapshot def
+R12606:12636 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_snapshot def
+R12643:12669 UMSTFormal.Urge.CryptoCompose <> crypto_compose_fixture_ucrs def
+def 12932:12959 <> crypto_compose_physics_green
+R12963:12966 Corelib.Init.Datatypes <> bool ind
+R12971:12975 Corelib.Init.Datatypes <> false constr
+prf 12985:13018 <> crypto_compose_physics_green_false
+R13052:13054 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13024:13051 UMSTFormal.Urge.CryptoCompose <> crypto_compose_physics_green def
+R13055:13059 Corelib.Init.Datatypes <> false constr
+def 13099:13129 <> crypto_compose_production_wired
+R13133:13136 Corelib.Init.Datatypes <> bool ind
+R13141:13145 Corelib.Init.Datatypes <> false constr
+prf 13155:13191 <> crypto_compose_production_wired_false
+R13228:13230 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13197:13227 UMSTFormal.Urge.CryptoCompose <> crypto_compose_production_wired def
+R13231:13235 Corelib.Init.Datatypes <> false constr
+prf 13272:13300 <> crypto_compose_module_witness
+R13304:13307 Corelib.Init.Logic <> True ind
+R13323:13323 Corelib.Init.Logic <> I constr
+R13323:13323 Corelib.Init.Logic <> I constr
+prf 13340:13366 <> crypto_compose_no_new_axiom
+R13370:13373 Corelib.Init.Logic <> True ind
+R13389:13389 Corelib.Init.Logic <> I constr
+R13389:13389 Corelib.Init.Logic <> I constr
+prf 13406:13446 <> crypto_compose_positive_refuse_not_silent
+R13490:13493 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R13452:13484 UMSTFormal.Urge.CryptoCompose <> evaluate_crypto_compose_operation def
+R13486:13489 Corelib.Init.Datatypes <> true constr
+R13494:13508 UMSTFormal.Urge.CryptoCompose <> ccv_morphism_ok constr
+R13527:13559 UMSTFormal.Urge.CryptoCompose <> evaluate_crypto_compose_operation def

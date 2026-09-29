@@ -1,0 +1,22 @@
+DIGEST 9e85e665b1a2d2e2b25466795d4c1487
+FUMSTFormal.MeasurementCost
+R675:679 Stdlib.Reals.Reals <> <> lib
+R681:683 Stdlib.micromega.Lra <> <> lib
+R685:689 Stdlib.setoid_ring.Field <> <> lib
+R707:739 UMSTFormal.LandauerEinsteinBridge <> <> lib
+def 1060:1086 <> measurementEnergyLowerBound
+R1101:1101 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1089:1089 <> T:1
+binder 1091:1097 <> MI_bits:2
+R1106:1106 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1120:1122 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1113:1119 UMSTFormal.MeasurementCost <> MI_bits:2 var
+R1123:1136 UMSTFormal.LandauerEinsteinBridge <> E_Landauer_bit def
+R1138:1138 UMSTFormal.MeasurementCost <> T:1 var
+prf 1280:1300 <> zero_info_zero_energy
+R1307:1307 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1303:1303 <> T:3
+R1345:1347 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1314:1340 UMSTFormal.MeasurementCost <> measurementEnergyLowerBound def
+R1342:1342 UMSTFormal.MeasurementCost <> T:3 var
+R1367:1393 UMSTFormal.MeasurementCost <> measurementEnergyLowerBound def

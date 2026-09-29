@@ -1,0 +1,524 @@
+DIGEST 4b5e06a38358102d539b832cfeedfa16
+FUMSTFormal.Urge.CarrierProduct
+R991:995 Stdlib.Reals.Reals <> <> lib
+R997:1001 Stdlib.Arith.Arith <> <> lib
+R1003:1006 Stdlib.Lists.List <> <> lib
+R1008:1013 Stdlib.QArith.QArith <> <> lib
+R1031:1058 UMSTFormal.Urge.AdmitKleisli <> <> lib
+ind 1427:1435 <> StampTier
+constr 1450:1464 <> stamp_wall_only
+constr 1470:1488 <> stamp_wall_plus_seq
+scheme 1427:1435 <> StampTier_rect
+scheme 1427:1435 <> StampTier_ind
+scheme 1427:1435 <> StampTier_rec
+scheme 1427:1435 <> StampTier_sind
+rec 1579:1587 <> UcrsStamp
+proj 1602:1623 <> stamp_observed_at_wall
+proj 1634:1647 <> stamp_ucrs_seq
+proj 1665:1674 <> stamp_tier
+R1627:1629 Corelib.Init.Datatypes <> nat ind
+R1651:1656 Corelib.Init.Datatypes <> option ind
+R1658:1660 Corelib.Init.Datatypes <> nat ind
+R1678:1686 UMSTFormal.Urge.CarrierProduct <> StampTier ind
+def 1765:1777 <> wallOnlyStamp
+R1787:1789 Corelib.Init.Datatypes <> nat ind
+binder 1780:1783 <> wall:7
+R1794:1802 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+R1812:1833 UMSTFormal.Urge.CarrierProduct <> stamp_observed_at_wall proj
+R1812:1833 UMSTFormal.Urge.CarrierProduct <> stamp_observed_at_wall proj
+R1812:1833 UMSTFormal.Urge.CarrierProduct <> stamp_observed_at_wall proj
+R1849:1862 UMSTFormal.Urge.CarrierProduct <> stamp_ucrs_seq proj
+R1849:1862 UMSTFormal.Urge.CarrierProduct <> stamp_ucrs_seq proj
+R1878:1887 UMSTFormal.Urge.CarrierProduct <> stamp_tier proj
+R1878:1887 UMSTFormal.Urge.CarrierProduct <> stamp_tier proj
+R1838:1841 UMSTFormal.Urge.CarrierProduct <> wall:7 var
+R1867:1870 Corelib.Init.Datatypes <> None constr
+R1892:1906 UMSTFormal.Urge.CarrierProduct <> stamp_wall_only constr
+def 1983:1998 <> wallPlusSeqStamp
+R2012:2014 Corelib.Init.Datatypes <> nat ind
+binder 2001:2004 <> wall:8
+binder 2006:2008 <> seq:9
+R2019:2027 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+R2037:2058 UMSTFormal.Urge.CarrierProduct <> stamp_observed_at_wall proj
+R2037:2058 UMSTFormal.Urge.CarrierProduct <> stamp_observed_at_wall proj
+R2037:2058 UMSTFormal.Urge.CarrierProduct <> stamp_observed_at_wall proj
+R2074:2087 UMSTFormal.Urge.CarrierProduct <> stamp_ucrs_seq proj
+R2074:2087 UMSTFormal.Urge.CarrierProduct <> stamp_ucrs_seq proj
+R2107:2116 UMSTFormal.Urge.CarrierProduct <> stamp_tier proj
+R2107:2116 UMSTFormal.Urge.CarrierProduct <> stamp_tier proj
+R2063:2066 UMSTFormal.Urge.CarrierProduct <> wall:8 var
+R2092:2095 Corelib.Init.Datatypes <> Some constr
+R2097:2099 UMSTFormal.Urge.CarrierProduct <> seq:9 var
+R2121:2139 UMSTFormal.Urge.CarrierProduct <> stamp_wall_plus_seq constr
+rec 2232:2238 <> SdfFRep
+proj 2253:2272 <> sdf_canonical_digest
+proj 2283:2296 <> sdf_frep_grain
+R2276:2278 Corelib.Init.Datatypes <> nat ind
+R2300:2302 Corelib.Init.Datatypes <> nat ind
+rec 2389:2396 <> ExactAlg
+proj 2411:2425 <> exact_alg_value
+proj 2434:2449 <> exact_alg_op_tag
+R2429:2429 Stdlib.QArith.QArith_base <> Q rec
+R2453:2455 Corelib.Init.Datatypes <> nat ind
+rec 2545:2560 <> InvariantWitness
+proj 2575:2591 <> witness_satisfied
+proj 2603:2618 <> witness_margin_h
+R2595:2598 Corelib.Init.Datatypes <> bool ind
+R2622:2622 Stdlib.QArith.QArith_base <> Q rec
+def 2712:2722 <> witnessProp
+R2729:2744 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+binder 2725:2725 <> w:19
+R2762:2778 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R2780:2780 UMSTFormal.Urge.CarrierProduct <> w:19 var
+R2797:2801 Corelib.Init.Logic <> False ind
+R2787:2790 Corelib.Init.Logic <> True ind
+def 2873:2888 <> satisfiedWitness
+R2892:2907 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+R2917:2933 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R2917:2933 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R2917:2933 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R2949:2964 UMSTFormal.Urge.CarrierProduct <> witness_margin_h proj
+R2949:2964 UMSTFormal.Urge.CarrierProduct <> witness_margin_h proj
+R2938:2941 Corelib.Init.Datatypes <> true constr
+def 3060:3074 <> rejectedWitness
+R3078:3093 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+R3103:3119 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R3103:3119 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R3103:3119 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R3136:3151 UMSTFormal.Urge.CarrierProduct <> witness_margin_h proj
+R3136:3151 UMSTFormal.Urge.CarrierProduct <> witness_margin_h proj
+R3124:3128 Corelib.Init.Datatypes <> false constr
+rec 3462:3475 <> HistoryCarrier
+proj 3490:3501 <> carrier_umst
+proj 3524:3536 <> carrier_stamp
+proj 3553:3568 <> carrier_sdf_frep
+proj 3583:3599 <> carrier_exact_alg
+proj 3615:3629 <> carrier_witness
+R3505:3519 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+R3540:3548 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+R3572:3578 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+R3603:3610 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+R3633:3648 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+def 3665:3672 <> umstProj
+R3679:3692 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 3675:3675 <> c:26
+R3697:3711 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+R3718:3729 UMSTFormal.Urge.CarrierProduct <> carrier_umst proj
+R3731:3731 UMSTFormal.Urge.CarrierProduct <> c:26 var
+def 3746:3754 <> stampProj
+R3761:3774 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 3757:3757 <> c:27
+R3779:3787 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+R3794:3806 UMSTFormal.Urge.CarrierProduct <> carrier_stamp proj
+R3808:3808 UMSTFormal.Urge.CarrierProduct <> c:27 var
+def 3823:3833 <> sdfFRepProj
+R3840:3853 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 3836:3836 <> c:28
+R3858:3864 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+R3871:3886 UMSTFormal.Urge.CarrierProduct <> carrier_sdf_frep proj
+R3888:3888 UMSTFormal.Urge.CarrierProduct <> c:28 var
+def 3903:3914 <> exactAlgProj
+R3921:3934 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 3917:3917 <> c:29
+R3939:3946 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+R3953:3969 UMSTFormal.Urge.CarrierProduct <> carrier_exact_alg proj
+R3971:3971 UMSTFormal.Urge.CarrierProduct <> c:29 var
+def 3986:3996 <> witnessProj
+R4003:4016 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 3999:3999 <> c:30
+R4021:4036 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+R4043:4057 UMSTFormal.Urge.CarrierProduct <> carrier_witness proj
+R4059:4059 UMSTFormal.Urge.CarrierProduct <> c:30 var
+def 4145:4153 <> carrierMk
+R4160:4174 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 4156:4156 <> h:31
+R4182:4190 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 4178:4178 <> s:32
+R4198:4204 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+binder 4194:4194 <> d:33
+R4216:4223 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+binder 4212:4212 <> a:34
+R4231:4246 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+binder 4227:4227 <> w:35
+R4251:4264 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+R4274:4285 UMSTFormal.Urge.CarrierProduct <> carrier_umst proj
+R4274:4285 UMSTFormal.Urge.CarrierProduct <> carrier_umst proj
+R4274:4285 UMSTFormal.Urge.CarrierProduct <> carrier_umst proj
+R4298:4310 UMSTFormal.Urge.CarrierProduct <> carrier_stamp proj
+R4298:4310 UMSTFormal.Urge.CarrierProduct <> carrier_stamp proj
+R4323:4338 UMSTFormal.Urge.CarrierProduct <> carrier_sdf_frep proj
+R4323:4338 UMSTFormal.Urge.CarrierProduct <> carrier_sdf_frep proj
+R4351:4367 UMSTFormal.Urge.CarrierProduct <> carrier_exact_alg proj
+R4351:4367 UMSTFormal.Urge.CarrierProduct <> carrier_exact_alg proj
+R4380:4394 UMSTFormal.Urge.CarrierProduct <> carrier_witness proj
+R4380:4394 UMSTFormal.Urge.CarrierProduct <> carrier_witness proj
+R4290:4290 UMSTFormal.Urge.CarrierProduct <> h:31 var
+R4315:4315 UMSTFormal.Urge.CarrierProduct <> s:32 var
+R4343:4343 UMSTFormal.Urge.CarrierProduct <> d:33 var
+R4372:4372 UMSTFormal.Urge.CarrierProduct <> a:34 var
+R4399:4399 UMSTFormal.Urge.CarrierProduct <> w:35 var
+prf 4412:4429 <> carrierMk_umstProj
+R4436:4450 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 4432:4432 <> h:36
+R4458:4466 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 4454:4454 <> s:37
+R4474:4480 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+binder 4470:4470 <> d:38
+R4492:4499 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+binder 4488:4488 <> a:39
+R4507:4522 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+binder 4503:4503 <> w:40
+R4559:4561 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4529:4536 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R4539:4547 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R4549:4549 UMSTFormal.Urge.CarrierProduct <> h:36 var
+R4551:4551 UMSTFormal.Urge.CarrierProduct <> s:37 var
+R4553:4553 UMSTFormal.Urge.CarrierProduct <> d:38 var
+R4555:4555 UMSTFormal.Urge.CarrierProduct <> a:39 var
+R4557:4557 UMSTFormal.Urge.CarrierProduct <> w:40 var
+R4562:4562 UMSTFormal.Urge.CarrierProduct <> h:36 var
+prf 4597:4615 <> carrierMk_stampProj
+R4622:4636 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 4618:4618 <> h:41
+R4644:4652 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 4640:4640 <> s:42
+R4660:4666 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+binder 4656:4656 <> d:43
+R4678:4685 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+binder 4674:4674 <> a:44
+R4693:4708 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+binder 4689:4689 <> w:45
+R4746:4748 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4715:4723 UMSTFormal.Urge.CarrierProduct <> stampProj def
+R4726:4734 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R4736:4736 UMSTFormal.Urge.CarrierProduct <> h:41 var
+R4738:4738 UMSTFormal.Urge.CarrierProduct <> s:42 var
+R4740:4740 UMSTFormal.Urge.CarrierProduct <> d:43 var
+R4742:4742 UMSTFormal.Urge.CarrierProduct <> a:44 var
+R4744:4744 UMSTFormal.Urge.CarrierProduct <> w:45 var
+R4749:4749 UMSTFormal.Urge.CarrierProduct <> s:42 var
+prf 4784:4804 <> carrierMk_sdfFRepProj
+R4811:4825 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 4807:4807 <> h:46
+R4833:4841 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 4829:4829 <> s:47
+R4849:4855 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+binder 4845:4845 <> d:48
+R4867:4874 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+binder 4863:4863 <> a:49
+R4882:4897 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+binder 4878:4878 <> w:50
+R4937:4939 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4904:4914 UMSTFormal.Urge.CarrierProduct <> sdfFRepProj def
+R4917:4925 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R4927:4927 UMSTFormal.Urge.CarrierProduct <> h:46 var
+R4929:4929 UMSTFormal.Urge.CarrierProduct <> s:47 var
+R4931:4931 UMSTFormal.Urge.CarrierProduct <> d:48 var
+R4933:4933 UMSTFormal.Urge.CarrierProduct <> a:49 var
+R4935:4935 UMSTFormal.Urge.CarrierProduct <> w:50 var
+R4940:4940 UMSTFormal.Urge.CarrierProduct <> d:48 var
+prf 4975:4996 <> carrierMk_exactAlgProj
+R5003:5017 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 4999:4999 <> h:51
+R5025:5033 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 5021:5021 <> s:52
+R5041:5047 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+binder 5037:5037 <> d:53
+R5059:5066 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+binder 5055:5055 <> a:54
+R5074:5089 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+binder 5070:5070 <> w:55
+R5130:5132 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5096:5107 UMSTFormal.Urge.CarrierProduct <> exactAlgProj def
+R5110:5118 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R5120:5120 UMSTFormal.Urge.CarrierProduct <> h:51 var
+R5122:5122 UMSTFormal.Urge.CarrierProduct <> s:52 var
+R5124:5124 UMSTFormal.Urge.CarrierProduct <> d:53 var
+R5126:5126 UMSTFormal.Urge.CarrierProduct <> a:54 var
+R5128:5128 UMSTFormal.Urge.CarrierProduct <> w:55 var
+R5133:5133 UMSTFormal.Urge.CarrierProduct <> a:54 var
+prf 5168:5188 <> carrierMk_witnessProj
+R5195:5209 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 5191:5191 <> h:56
+R5217:5225 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 5213:5213 <> s:57
+R5233:5239 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+binder 5229:5229 <> d:58
+R5251:5258 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+binder 5247:5247 <> a:59
+R5266:5281 UMSTFormal.Urge.CarrierProduct <> InvariantWitness rec
+binder 5262:5262 <> w:60
+R5321:5323 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5288:5298 UMSTFormal.Urge.CarrierProduct <> witnessProj def
+R5301:5309 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R5311:5311 UMSTFormal.Urge.CarrierProduct <> h:56 var
+R5313:5313 UMSTFormal.Urge.CarrierProduct <> s:57 var
+R5315:5315 UMSTFormal.Urge.CarrierProduct <> d:58 var
+R5317:5317 UMSTFormal.Urge.CarrierProduct <> a:59 var
+R5319:5319 UMSTFormal.Urge.CarrierProduct <> w:60 var
+R5324:5324 UMSTFormal.Urge.CarrierProduct <> w:60 var
+def 5664:5680 <> carrierWellFormed
+R5687:5700 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 5683:5683 <> c:61
+R5761:5766 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R5717:5719 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R5720:5741 UMSTFormal.Urge.CarrierProduct <> stamp_observed_at_wall proj
+R5744:5752 UMSTFormal.Urge.CarrierProduct <> stampProj def
+R5754:5754 UMSTFormal.Urge.CarrierProduct <> c:61 var
+R5769:5772 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R5773:5788 UMSTFormal.Urge.CarrierProduct <> witness_margin_h proj
+R5791:5801 UMSTFormal.Urge.CarrierProduct <> witnessProj def
+R5803:5803 UMSTFormal.Urge.CarrierProduct <> c:61 var
+def 5904:5914 <> extendStamp
+R5925:5933 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 5917:5921 <> prior:62
+R5948:5950 Corelib.Init.Datatypes <> nat ind
+binder 5937:5944 <> postWall:63
+R5955:5963 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+R5976:5989 UMSTFormal.Urge.CarrierProduct <> stamp_ucrs_seq proj
+R5991:5995 UMSTFormal.Urge.CarrierProduct <> prior:62 var
+R6006:6009 Corelib.Init.Datatypes <> None constr
+R6014:6026 UMSTFormal.Urge.CarrierProduct <> wallOnlyStamp def
+R6028:6035 UMSTFormal.Urge.CarrierProduct <> postWall:63 var
+R6041:6044 Corelib.Init.Datatypes <> Some constr
+R6053:6068 UMSTFormal.Urge.CarrierProduct <> wallPlusSeqStamp def
+R6070:6077 UMSTFormal.Urge.CarrierProduct <> postWall:63 var
+prf 6097:6121 <> extendStamp_preserves_seq
+R6132:6140 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+binder 6124:6128 <> prior:64
+R6155:6157 Corelib.Init.Datatypes <> nat ind
+binder 6144:6151 <> postWall:65
+R6207:6209 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6164:6177 UMSTFormal.Urge.CarrierProduct <> stamp_ucrs_seq proj
+R6180:6190 UMSTFormal.Urge.CarrierProduct <> extendStamp def
+R6192:6196 UMSTFormal.Urge.CarrierProduct <> prior:64 var
+R6198:6205 UMSTFormal.Urge.CarrierProduct <> postWall:65 var
+R6210:6223 UMSTFormal.Urge.CarrierProduct <> stamp_ucrs_seq proj
+R6225:6229 UMSTFormal.Urge.CarrierProduct <> prior:64 var
+R6285:6295 UMSTFormal.Urge.CarrierProduct <> extendStamp def
+R6298:6310 UMSTFormal.Urge.CarrierProduct <> wallOnlyStamp def
+R6313:6328 UMSTFormal.Urge.CarrierProduct <> wallPlusSeqStamp def
+def 6457:6478 <> carrierAlongTransition
+R6485:6501 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 6481:6481 <> t:66
+R6513:6526 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 6505:6509 <> prior:67
+R6577:6593 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6543:6559 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R6562:6569 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R6571:6575 UMSTFormal.Urge.CarrierProduct <> prior:67 var
+R6594:6610 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R6613:6625 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R6627:6627 UMSTFormal.Urge.CarrierProduct <> t:66 var
+binder 6534:6539 <> hPrior:68
+R6647:6649 Corelib.Init.Datatypes <> nat ind
+binder 6636:6643 <> postWall:69
+R6654:6667 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+R6674:6682 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R6685:6696 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R6698:6698 UMSTFormal.Urge.CarrierProduct <> t:66 var
+R6706:6716 UMSTFormal.Urge.CarrierProduct <> extendStamp def
+R6719:6727 UMSTFormal.Urge.CarrierProduct <> stampProj def
+R6729:6733 UMSTFormal.Urge.CarrierProduct <> prior:67 var
+R6736:6743 UMSTFormal.Urge.CarrierProduct <> postWall:69 var
+R6751:6761 UMSTFormal.Urge.CarrierProduct <> sdfFRepProj def
+R6763:6767 UMSTFormal.Urge.CarrierProduct <> prior:67 var
+R6775:6786 UMSTFormal.Urge.CarrierProduct <> exactAlgProj def
+R6788:6792 UMSTFormal.Urge.CarrierProduct <> prior:67 var
+R6800:6810 UMSTFormal.Urge.CarrierProduct <> witnessProj def
+R6812:6816 UMSTFormal.Urge.CarrierProduct <> prior:67 var
+prf 6827:6862 <> carrierAlongTransition_preserves_sdf
+R6869:6885 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 6865:6865 <> t:70
+R6901:6914 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 6893:6897 <> prior:71
+R6965:6981 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6931:6947 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R6950:6957 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R6959:6963 UMSTFormal.Urge.CarrierProduct <> prior:71 var
+R6982:6998 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R7001:7013 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R7015:7015 UMSTFormal.Urge.CarrierProduct <> t:70 var
+binder 6922:6927 <> hPrior:72
+R7035:7037 Corelib.Init.Datatypes <> nat ind
+binder 7024:7031 <> postWall:73
+R7104:7108 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7044:7054 UMSTFormal.Urge.CarrierProduct <> sdfFRepProj def
+R7057:7078 UMSTFormal.Urge.CarrierProduct <> carrierAlongTransition def
+R7080:7080 UMSTFormal.Urge.CarrierProduct <> t:70 var
+R7082:7086 UMSTFormal.Urge.CarrierProduct <> prior:71 var
+R7088:7093 UMSTFormal.Urge.CarrierProduct <> hPrior:72 var
+R7095:7102 UMSTFormal.Urge.CarrierProduct <> postWall:73 var
+R7109:7119 UMSTFormal.Urge.CarrierProduct <> sdfFRepProj def
+R7121:7125 UMSTFormal.Urge.CarrierProduct <> prior:71 var
+prf 7160:7200 <> carrierAlongTransition_preserves_exactAlg
+R7207:7223 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 7203:7203 <> t:74
+R7239:7252 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 7231:7235 <> prior:75
+R7303:7319 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7269:7285 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R7288:7295 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R7297:7301 UMSTFormal.Urge.CarrierProduct <> prior:75 var
+R7320:7336 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R7339:7351 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R7353:7353 UMSTFormal.Urge.CarrierProduct <> t:74 var
+binder 7260:7265 <> hPrior:76
+R7373:7375 Corelib.Init.Datatypes <> nat ind
+binder 7362:7369 <> postWall:77
+R7443:7447 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7382:7393 UMSTFormal.Urge.CarrierProduct <> exactAlgProj def
+R7396:7417 UMSTFormal.Urge.CarrierProduct <> carrierAlongTransition def
+R7419:7419 UMSTFormal.Urge.CarrierProduct <> t:74 var
+R7421:7425 UMSTFormal.Urge.CarrierProduct <> prior:75 var
+R7427:7432 UMSTFormal.Urge.CarrierProduct <> hPrior:76 var
+R7434:7441 UMSTFormal.Urge.CarrierProduct <> postWall:77 var
+R7448:7459 UMSTFormal.Urge.CarrierProduct <> exactAlgProj def
+R7461:7465 UMSTFormal.Urge.CarrierProduct <> prior:75 var
+def 7812:7830 <> carrierFromLandauer
+R7837:7857 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 7833:7833 <> b:78
+R7869:7882 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 7861:7865 <> prior:79
+R7933:7949 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7899:7915 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R7918:7925 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R7927:7931 UMSTFormal.Urge.CarrierProduct <> prior:79 var
+R7950:7966 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R7969:7981 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R7984:8002 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8004:8004 UMSTFormal.Urge.CarrierProduct <> b:78 var
+binder 7890:7895 <> hPrior:80
+R8025:8027 Corelib.Init.Datatypes <> nat ind
+binder 8014:8021 <> postWall:81
+R8037:8050 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8053:8071 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8073:8073 UMSTFormal.Urge.CarrierProduct <> b:78 var
+binder 8031:8033 <> Hsl:82
+R8083:8096 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+R8103:8111 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R8114:8125 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R8128:8146 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8148:8148 UMSTFormal.Urge.CarrierProduct <> b:78 var
+R8157:8167 UMSTFormal.Urge.CarrierProduct <> extendStamp def
+R8170:8178 UMSTFormal.Urge.CarrierProduct <> stampProj def
+R8180:8184 UMSTFormal.Urge.CarrierProduct <> prior:79 var
+R8187:8194 UMSTFormal.Urge.CarrierProduct <> postWall:81 var
+R8202:8212 UMSTFormal.Urge.CarrierProduct <> sdfFRepProj def
+R8214:8218 UMSTFormal.Urge.CarrierProduct <> prior:79 var
+R8226:8237 UMSTFormal.Urge.CarrierProduct <> exactAlgProj def
+R8239:8243 UMSTFormal.Urge.CarrierProduct <> prior:79 var
+R8250:8265 UMSTFormal.Urge.CarrierProduct <> satisfiedWitness def
+prf 8277:8310 <> carrierFromLandauer_admitSecondLaw
+R8317:8337 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 8313:8313 <> b:83
+R8353:8366 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 8345:8349 <> prior:84
+R8417:8433 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8383:8399 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R8402:8409 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R8411:8415 UMSTFormal.Urge.CarrierProduct <> prior:84 var
+R8434:8450 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R8453:8465 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R8468:8486 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8488:8488 UMSTFormal.Urge.CarrierProduct <> b:83 var
+binder 8374:8379 <> hPrior:85
+R8509:8511 Corelib.Init.Datatypes <> nat ind
+binder 8498:8505 <> postWall:86
+R8521:8534 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8537:8555 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8557:8557 UMSTFormal.Urge.CarrierProduct <> b:83 var
+binder 8515:8517 <> Hsl:87
+R8565:8578 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8581:8599 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8601:8601 UMSTFormal.Urge.CarrierProduct <> b:83 var
+prf 8639:8675 <> carrierFromLandauer_witness_satisfied
+R8682:8702 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 8678:8678 <> b:88
+R8718:8731 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 8710:8714 <> prior:89
+R8782:8798 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8748:8764 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R8767:8774 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R8776:8780 UMSTFormal.Urge.CarrierProduct <> prior:89 var
+R8799:8815 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R8818:8830 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R8833:8851 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8853:8853 UMSTFormal.Urge.CarrierProduct <> b:88 var
+binder 8739:8744 <> hPrior:90
+R8874:8876 Corelib.Init.Datatypes <> nat ind
+binder 8863:8870 <> postWall:91
+R8886:8899 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8902:8920 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8922:8922 UMSTFormal.Urge.CarrierProduct <> b:88 var
+binder 8880:8882 <> Hsl:92
+R9015:9017 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8930:8946 UMSTFormal.Urge.CarrierProduct <> witness_satisfied proj
+R8953:8963 UMSTFormal.Urge.CarrierProduct <> witnessProj def
+R8966:8984 UMSTFormal.Urge.CarrierProduct <> carrierFromLandauer def
+R8986:8986 UMSTFormal.Urge.CarrierProduct <> b:88 var
+R8988:8992 UMSTFormal.Urge.CarrierProduct <> prior:89 var
+R8994:8999 UMSTFormal.Urge.CarrierProduct <> hPrior:90 var
+R9001:9008 UMSTFormal.Urge.CarrierProduct <> postWall:91 var
+R9010:9012 UMSTFormal.Urge.CarrierProduct <> Hsl:92 var
+R9018:9021 Corelib.Init.Datatypes <> true constr
+def 9358:9370 <> carrierSelect
+R9377:9390 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 9373:9373 <> c:93
+R9406:9409 Corelib.Init.Datatypes <> list ind
+R9412:9428 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9431:9442 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R9445:9452 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R9454:9454 UMSTFormal.Urge.CarrierProduct <> c:93 var
+binder 9398:9402 <> cands:94
+R9509:9511 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9464:9480 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9483:9494 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R9497:9504 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R9506:9506 UMSTFormal.Urge.CarrierProduct <> c:93 var
+R9512:9529 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R9536:9552 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9555:9566 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R9569:9576 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R9578:9578 UMSTFormal.Urge.CarrierProduct <> c:93 var
+R9582:9586 UMSTFormal.Urge.CarrierProduct <> cands:94 var
+prf 9598:9631 <> carrierSelect_eq_excitement_select
+R9638:9651 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 9634:9634 <> c:95
+R9667:9670 Corelib.Init.Datatypes <> list ind
+R9673:9689 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9692:9703 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R9706:9713 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R9715:9715 UMSTFormal.Urge.CarrierProduct <> c:95 var
+binder 9659:9663 <> cands:96
+R9746:9750 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9725:9737 UMSTFormal.Urge.CarrierProduct <> carrierSelect def
+R9739:9739 UMSTFormal.Urge.CarrierProduct <> c:95 var
+R9741:9745 UMSTFormal.Urge.CarrierProduct <> cands:96 var
+R9751:9767 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9770:9781 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R9784:9791 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R9793:9793 UMSTFormal.Urge.CarrierProduct <> c:95 var
+R9797:9801 UMSTFormal.Urge.CarrierProduct <> cands:96 var
+def 10063:10091 <> carrier_product_physics_green
+R10095:10098 Corelib.Init.Datatypes <> bool ind
+R10103:10107 Corelib.Init.Datatypes <> false constr
+prf 10117:10151 <> carrier_product_physics_green_false
+R10186:10188 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10157:10185 UMSTFormal.Urge.CarrierProduct <> carrier_product_physics_green def
+R10189:10193 Corelib.Init.Datatypes <> false constr
+def 10233:10264 <> carrier_product_production_wired
+R10268:10271 Corelib.Init.Datatypes <> bool ind
+R10276:10280 Corelib.Init.Datatypes <> false constr
+prf 10290:10327 <> carrier_product_production_wired_false
+R10365:10367 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10333:10364 UMSTFormal.Urge.CarrierProduct <> carrier_product_production_wired def
+R10368:10372 Corelib.Init.Datatypes <> false constr
+prf 10409:10438 <> carrier_product_module_witness
+R10442:10445 Corelib.Init.Logic <> True ind
+R10461:10461 Corelib.Init.Logic <> I constr
+R10461:10461 Corelib.Init.Logic <> I constr
+prf 10478:10505 <> carrier_product_no_new_axiom
+R10509:10512 Corelib.Init.Logic <> True ind
+R10528:10528 Corelib.Init.Logic <> I constr
+R10528:10528 Corelib.Init.Logic <> I constr

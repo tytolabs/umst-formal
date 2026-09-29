@@ -1,0 +1,489 @@
+DIGEST fe09079c728c11d18afcd06b4eb2e69c
+FUMSTFormal.Urge.GeometricMemory
+R981:985 Stdlib.Arith.Arith <> <> lib
+R987:990 Stdlib.Lists.List <> <> lib
+R992:995 Stdlib.Bool.Bool <> <> lib
+R1013:1027 UMSTFormal.Gate <> <> lib
+R1045:1072 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1090:1121 UMSTFormal.Urge.ExcitementImport <> <> lib
+rec 1442:1456 <> sdf_fingerprint
+proj 1471:1483 <> sdf_fp_digest
+proj 1494:1505 <> sdf_fp_grain
+R1487:1489 Corelib.Init.Datatypes <> nat ind
+R1509:1511 Corelib.Init.Datatypes <> nat ind
+rec 1594:1619 <> history_geometric_identity
+proj 1634:1652 <> geom_id_fingerprint
+proj 1675:1697 <> geom_id_resolution_bits
+R1656:1670 UMSTFormal.Urge.GeometricMemory <> sdf_fingerprint rec
+R1701:1703 Corelib.Init.Datatypes <> nat ind
+rec 1787:1805 <> history_object_geom
+proj 1820:1832 <> hist_geom_seq
+proj 1843:1860 <> hist_geom_identity
+proj 1894:1915 <> hist_geom_field_digest
+R1836:1838 Corelib.Init.Datatypes <> nat ind
+R1864:1889 UMSTFormal.Urge.GeometricMemory <> history_geometric_identity rec
+R1919:1921 Corelib.Init.Datatypes <> nat ind
+rec 2007:2030 <> geometric_memory_witness
+proj 2045:2068 <> geom_witness_fingerprint
+proj 2091:2118 <> geom_witness_resolution_bits
+proj 2129:2154 <> geom_witness_sdf_canonical
+R2072:2086 UMSTFormal.Urge.GeometricMemory <> sdf_fingerprint rec
+R2122:2124 Corelib.Init.Datatypes <> nat ind
+R2158:2161 Corelib.Init.Datatypes <> bool ind
+rec 2249:2273 <> geometric_memory_morphism
+proj 2288:2305 <> geom_morphism_from
+proj 2332:2351 <> geom_morphism_to_seq
+proj 2362:2382 <> geom_morphism_witness
+proj 2414:2446 <> geom_morphism_excitement_selected
+R2309:2327 UMSTFormal.Urge.GeometricMemory <> history_object_geom rec
+R2355:2357 Corelib.Init.Datatypes <> nat ind
+R2386:2409 UMSTFormal.Urge.GeometricMemory <> geometric_memory_witness rec
+R2450:2453 Corelib.Init.Datatypes <> bool ind
+ind 2552:2575 <> geometric_memory_refusal
+constr 2584:2608 <> gmr_host_id_not_geometric
+constr 2630:2652 <> gmr_payload_without_sdf
+constr 2674:2690 <> gmr_gate_rejected
+constr 2708:2728 <> gmr_identity_mismatch
+R2621:2623 Corelib.Init.Datatypes <> nat ind
+binder 2611:2617 <> host_id:22
+R2665:2667 Corelib.Init.Datatypes <> nat ind
+binder 2655:2661 <> payload:23
+R2699:2701 Corelib.Init.Datatypes <> nat ind
+binder 2693:2695 <> seq:24
+R2758:2760 Corelib.Init.Datatypes <> nat ind
+binder 2731:2741 <> left_digest:25
+binder 2743:2754 <> right_digest:26
+scheme 2552:2575 <> geometric_memory_refusal_rect
+scheme 2552:2575 <> geometric_memory_refusal_ind
+scheme 2552:2575 <> geometric_memory_refusal_rec
+scheme 2552:2575 <> geometric_memory_refusal_sind
+ind 2831:2854 <> geometric_memory_verdict
+constr 2863:2877 <> gmv_identity_ok
+constr 2883:2901 <> gmv_host_id_refused
+constr 2907:2930 <> gmv_payload_only_refused
+constr 2936:2951 <> gmv_inadmissible
+scheme 2831:2854 <> geometric_memory_verdict_rect
+scheme 2831:2854 <> geometric_memory_verdict_ind
+scheme 2831:2854 <> geometric_memory_verdict_rec
+scheme 2831:2854 <> geometric_memory_verdict_sind
+rec 3238:3269 <> geometric_admissibility_conjunct
+proj 3284:3300 <> geom_conj_gate_ok
+proj 3312:3334 <> geom_conj_sdf_canonical
+proj 3346:3375 <> geom_conj_excitement_preserves
+R3304:3307 Corelib.Init.Datatypes <> bool ind
+R3338:3341 Corelib.Init.Datatypes <> bool ind
+R3379:3382 Corelib.Init.Datatypes <> bool ind
+def 3479:3503 <> geometric_conjunct_admits
+R3510:3541 UMSTFormal.Urge.GeometricMemory <> geometric_admissibility_conjunct rec
+binder 3506:3506 <> c:33
+R3546:3549 Corelib.Init.Datatypes <> bool ind
+R3606:3611 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3575:3580 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3556:3572 UMSTFormal.Urge.GeometricMemory <> geom_conj_gate_ok proj
+R3574:3574 UMSTFormal.Urge.GeometricMemory <> c:33 var
+R3581:3603 UMSTFormal.Urge.GeometricMemory <> geom_conj_sdf_canonical proj
+R3605:3605 UMSTFormal.Urge.GeometricMemory <> c:33 var
+R3612:3641 UMSTFormal.Urge.GeometricMemory <> geom_conj_excitement_preserves proj
+R3643:3643 UMSTFormal.Urge.GeometricMemory <> c:33 var
+def 3722:3746 <> evaluate_host_id_identity
+R3763:3766 Corelib.Init.Datatypes <> bool ind
+binder 3749:3759 <> use_host_id:34
+R3775:3798 UMSTFormal.Urge.GeometricMemory <> geometric_memory_verdict ind
+R3808:3818 UMSTFormal.Urge.GeometricMemory <> use_host_id:34 var
+R3850:3864 UMSTFormal.Urge.GeometricMemory <> gmv_identity_ok constr
+R3825:3843 UMSTFormal.Urge.GeometricMemory <> gmv_host_id_refused constr
+def 3935:3964 <> evaluate_payload_only_identity
+R3982:3985 Corelib.Init.Datatypes <> bool ind
+binder 3967:3978 <> payload_only:35
+R3994:4017 UMSTFormal.Urge.GeometricMemory <> geometric_memory_verdict ind
+R4027:4038 UMSTFormal.Urge.GeometricMemory <> payload_only:35 var
+R4075:4089 UMSTFormal.Urge.GeometricMemory <> gmv_identity_ok constr
+R4045:4068 UMSTFormal.Urge.GeometricMemory <> gmv_payload_only_refused constr
+def 4170:4192 <> refuse_host_id_identity
+R4205:4207 Corelib.Init.Datatypes <> nat ind
+binder 4195:4201 <> host_id:36
+R4212:4235 UMSTFormal.Urge.GeometricMemory <> geometric_memory_refusal ind
+R4242:4266 UMSTFormal.Urge.GeometricMemory <> gmr_host_id_not_geometric constr
+R4268:4274 UMSTFormal.Urge.GeometricMemory <> host_id:36 var
+def 4363:4390 <> refuse_payload_only_identity
+R4403:4405 Corelib.Init.Datatypes <> nat ind
+binder 4393:4399 <> payload:37
+R4410:4433 UMSTFormal.Urge.GeometricMemory <> geometric_memory_refusal ind
+R4440:4462 UMSTFormal.Urge.GeometricMemory <> gmr_payload_without_sdf constr
+R4464:4470 UMSTFormal.Urge.GeometricMemory <> payload:37 var
+def 4562:4587 <> geometric_identity_matches
+R4603:4621 UMSTFormal.Urge.GeometricMemory <> history_object_geom rec
+binder 4590:4593 <> left:38
+binder 4595:4599 <> right:39
+R4626:4629 Corelib.Init.Datatypes <> bool ind
+R4932:4937 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4782:4787 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4636:4642 Stdlib.Arith.PeanoNat Nat eqb def
+R4645:4657 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R4660:4678 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R4681:4698 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R4700:4703 UMSTFormal.Urge.GeometricMemory <> left:38 var
+R4719:4731 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R4734:4752 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R4755:4772 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R4774:4778 UMSTFormal.Urge.GeometricMemory <> right:39 var
+R4788:4794 Stdlib.Arith.PeanoNat Nat eqb def
+R4797:4808 UMSTFormal.Urge.GeometricMemory <> sdf_fp_grain proj
+R4811:4829 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R4832:4849 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R4851:4854 UMSTFormal.Urge.GeometricMemory <> left:38 var
+R4870:4881 UMSTFormal.Urge.GeometricMemory <> sdf_fp_grain proj
+R4884:4902 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R4905:4922 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R4924:4928 UMSTFormal.Urge.GeometricMemory <> right:39 var
+R4938:4944 Stdlib.Arith.PeanoNat Nat eqb def
+R4947:4969 UMSTFormal.Urge.GeometricMemory <> geom_id_resolution_bits proj
+R4972:4989 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R4991:4994 UMSTFormal.Urge.GeometricMemory <> left:38 var
+R5009:5031 UMSTFormal.Urge.GeometricMemory <> geom_id_resolution_bits proj
+R5034:5051 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R5053:5057 UMSTFormal.Urge.GeometricMemory <> right:39 var
+def 5159:5185 <> witness_from_history_object
+R5192:5210 UMSTFormal.Urge.GeometricMemory <> history_object_geom rec
+binder 5188:5188 <> o:40
+R5219:5242 UMSTFormal.Urge.GeometricMemory <> geometric_memory_witness rec
+R5252:5275 UMSTFormal.Urge.GeometricMemory <> geom_witness_fingerprint proj
+R5252:5275 UMSTFormal.Urge.GeometricMemory <> geom_witness_fingerprint proj
+R5252:5275 UMSTFormal.Urge.GeometricMemory <> geom_witness_fingerprint proj
+R5329:5356 UMSTFormal.Urge.GeometricMemory <> geom_witness_resolution_bits proj
+R5329:5356 UMSTFormal.Urge.GeometricMemory <> geom_witness_resolution_bits proj
+R5414:5439 UMSTFormal.Urge.GeometricMemory <> geom_witness_sdf_canonical proj
+R5414:5439 UMSTFormal.Urge.GeometricMemory <> geom_witness_sdf_canonical proj
+R5280:5298 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R5301:5318 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R5320:5320 UMSTFormal.Urge.GeometricMemory <> o:40 var
+R5361:5383 UMSTFormal.Urge.GeometricMemory <> geom_id_resolution_bits proj
+R5386:5403 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R5405:5405 UMSTFormal.Urge.GeometricMemory <> o:40 var
+R5444:5447 Corelib.Init.Datatypes <> true constr
+def 5548:5578 <> apply_geometric_memory_morphism
+R5591:5609 UMSTFormal.Urge.GeometricMemory <> history_object_geom rec
+binder 5585:5587 <> obj:41
+R5626:5628 Corelib.Init.Datatypes <> nat ind
+binder 5617:5622 <> to_seq:42
+R5647:5678 UMSTFormal.Urge.GeometricMemory <> geometric_admissibility_conjunct rec
+binder 5636:5643 <> conjunct:43
+R5708:5711 Corelib.Init.Datatypes <> bool ind
+binder 5686:5704 <> excitement_selected:44
+R5745:5747 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5720:5744 UMSTFormal.Urge.GeometricMemory <> geometric_memory_morphism rec
+R5748:5771 UMSTFormal.Urge.GeometricMemory <> geometric_memory_refusal ind
+R5781:5784 Corelib.Init.Datatypes <> negb def
+R5787:5811 UMSTFormal.Urge.GeometricMemory <> geometric_conjunct_admits def
+R5813:5820 UMSTFormal.Urge.GeometricMemory <> conjunct:43 var
+R5886:5889 Corelib.Init.Datatypes <> negb def
+R5892:5917 UMSTFormal.Urge.GeometricMemory <> geom_witness_sdf_canonical proj
+R5920:5946 UMSTFormal.Urge.GeometricMemory <> witness_from_history_object def
+R5948:5950 UMSTFormal.Urge.GeometricMemory <> obj:41 var
+R6032:6035 Corelib.Init.Datatypes <> negb def
+R6037:6055 UMSTFormal.Urge.GeometricMemory <> excitement_selected:44 var
+R6253:6255 Corelib.Init.Datatypes <> inl constr
+R6266:6283 UMSTFormal.Urge.GeometricMemory <> geom_morphism_from proj
+R6266:6283 UMSTFormal.Urge.GeometricMemory <> geom_morphism_from proj
+R6266:6283 UMSTFormal.Urge.GeometricMemory <> geom_morphism_from proj
+R6302:6321 UMSTFormal.Urge.GeometricMemory <> geom_morphism_to_seq proj
+R6302:6321 UMSTFormal.Urge.GeometricMemory <> geom_morphism_to_seq proj
+R6343:6363 UMSTFormal.Urge.GeometricMemory <> geom_morphism_witness proj
+R6343:6363 UMSTFormal.Urge.GeometricMemory <> geom_morphism_witness proj
+R6410:6442 UMSTFormal.Urge.GeometricMemory <> geom_morphism_excitement_selected proj
+R6410:6442 UMSTFormal.Urge.GeometricMemory <> geom_morphism_excitement_selected proj
+R6288:6290 UMSTFormal.Urge.GeometricMemory <> obj:41 var
+R6326:6331 UMSTFormal.Urge.GeometricMemory <> to_seq:42 var
+R6368:6394 UMSTFormal.Urge.GeometricMemory <> witness_from_history_object def
+R6396:6398 UMSTFormal.Urge.GeometricMemory <> obj:41 var
+R6447:6465 UMSTFormal.Urge.GeometricMemory <> excitement_selected:44 var
+R6066:6068 Corelib.Init.Datatypes <> inr constr
+R6071:6091 UMSTFormal.Urge.GeometricMemory <> gmr_identity_mismatch constr
+R6105:6117 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R6120:6138 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R6141:6158 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R6160:6162 UMSTFormal.Urge.GeometricMemory <> obj:41 var
+R6179:6191 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R6194:6212 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R6215:6232 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R6234:6236 UMSTFormal.Urge.GeometricMemory <> obj:41 var
+R5963:5965 Corelib.Init.Datatypes <> inr constr
+R5968:5990 UMSTFormal.Urge.GeometricMemory <> gmr_payload_without_sdf constr
+R5993:6014 UMSTFormal.Urge.GeometricMemory <> hist_geom_field_digest proj
+R6016:6018 UMSTFormal.Urge.GeometricMemory <> obj:41 var
+R5832:5834 Corelib.Init.Datatypes <> inr constr
+R5837:5853 UMSTFormal.Urge.GeometricMemory <> gmr_gate_rejected constr
+R5856:5868 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R5870:5872 UMSTFormal.Urge.GeometricMemory <> obj:41 var
+prf 6478:6509 <> geometric_memory_host_id_refused
+R6522:6524 Corelib.Init.Datatypes <> nat ind
+binder 6512:6518 <> host_id:45
+R6561:6563 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6531:6555 UMSTFormal.Urge.GeometricMemory <> evaluate_host_id_identity def
+R6557:6560 Corelib.Init.Datatypes <> true constr
+R6564:6582 UMSTFormal.Urge.GeometricMemory <> gmv_host_id_refused constr
+prf 6619:6663 <> geometric_memory_identity_ok_when_not_host_id
+R6700:6702 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6669:6693 UMSTFormal.Urge.GeometricMemory <> evaluate_host_id_identity def
+R6695:6699 Corelib.Init.Datatypes <> false constr
+R6703:6717 UMSTFormal.Urge.GeometricMemory <> gmv_identity_ok constr
+prf 6754:6790 <> geometric_memory_payload_only_refused
+R6803:6805 Corelib.Init.Datatypes <> nat ind
+binder 6793:6799 <> payload:46
+R6847:6849 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6812:6841 UMSTFormal.Urge.GeometricMemory <> evaluate_payload_only_identity def
+R6843:6846 Corelib.Init.Datatypes <> true constr
+R6850:6873 UMSTFormal.Urge.GeometricMemory <> gmv_payload_only_refused constr
+prf 6910:6941 <> refuse_host_id_identity_positive
+R6954:6956 Corelib.Init.Datatypes <> nat ind
+binder 6944:6950 <> host_id:47
+R6994:6996 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6963:6985 UMSTFormal.Urge.GeometricMemory <> refuse_host_id_identity def
+R6987:6993 UMSTFormal.Urge.GeometricMemory <> host_id:47 var
+R6997:7021 UMSTFormal.Urge.GeometricMemory <> gmr_host_id_not_geometric constr
+R7023:7029 UMSTFormal.Urge.GeometricMemory <> host_id:47 var
+prf 7066:7102 <> refuse_payload_only_identity_positive
+R7115:7117 Corelib.Init.Datatypes <> nat ind
+binder 7105:7111 <> payload:48
+R7160:7162 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7124:7151 UMSTFormal.Urge.GeometricMemory <> refuse_payload_only_identity def
+R7153:7159 UMSTFormal.Urge.GeometricMemory <> payload:48 var
+R7163:7185 UMSTFormal.Urge.GeometricMemory <> gmr_payload_without_sdf constr
+R7187:7193 UMSTFormal.Urge.GeometricMemory <> payload:48 var
+rec 7524:7543 <> geometric_memory_ctx
+proj 7585:7611 <> geometric_memory_successors
+R7552:7569 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7546:7548 <> src:49
+R7615:7618 Corelib.Init.Datatypes <> list ind
+R7621:7637 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7639:7641 UMSTFormal.Urge.GeometricMemory <> src:49 var
+def 7746:7768 <> geometric_memory_select
+R7777:7794 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7771:7773 <> src:52
+R7808:7827 UMSTFormal.Urge.GeometricMemory <> geometric_memory_ctx rec
+R7829:7831 UMSTFormal.Urge.GeometricMemory <> src:52 var
+binder 7802:7804 <> ctx:53
+R7859:7861 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7838:7854 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7856:7858 UMSTFormal.Urge.GeometricMemory <> src:52 var
+R7862:7879 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R7886:7905 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R7907:7909 UMSTFormal.Urge.GeometricMemory <> src:52 var
+R7912:7938 UMSTFormal.Urge.GeometricMemory <> geometric_memory_successors proj
+R7940:7942 UMSTFormal.Urge.GeometricMemory <> src:52 var
+R7944:7946 UMSTFormal.Urge.GeometricMemory <> ctx:53 var
+prf 7959:8002 <> geometric_memory_select_eq_excitement_select
+R8015:8032 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8009:8011 <> src:54
+R8042:8061 UMSTFormal.Urge.GeometricMemory <> geometric_memory_ctx rec
+R8063:8065 UMSTFormal.Urge.GeometricMemory <> src:54 var
+binder 8036:8038 <> ctx:55
+R8103:8107 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8072:8094 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select def
+R8096:8098 UMSTFormal.Urge.GeometricMemory <> src:54 var
+R8100:8102 UMSTFormal.Urge.GeometricMemory <> ctx:55 var
+R8108:8124 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8126:8128 UMSTFormal.Urge.GeometricMemory <> src:54 var
+R8131:8157 UMSTFormal.Urge.GeometricMemory <> geometric_memory_successors proj
+R8159:8161 UMSTFormal.Urge.GeometricMemory <> src:54 var
+R8163:8165 UMSTFormal.Urge.GeometricMemory <> ctx:55 var
+R8185:8207 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select def
+R8210:8229 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 8261:8307 <> geometric_memory_select_eq_urge_recovery_select
+R8320:8337 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8314:8316 <> src:56
+R8347:8366 UMSTFormal.Urge.GeometricMemory <> geometric_memory_ctx rec
+R8368:8370 UMSTFormal.Urge.GeometricMemory <> src:56 var
+binder 8341:8343 <> ctx:57
+R8408:8412 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8377:8399 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select def
+R8401:8403 UMSTFormal.Urge.GeometricMemory <> src:56 var
+R8405:8407 UMSTFormal.Urge.GeometricMemory <> ctx:57 var
+R8413:8432 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R8434:8436 UMSTFormal.Urge.GeometricMemory <> src:56 var
+R8439:8465 UMSTFormal.Urge.GeometricMemory <> geometric_memory_successors proj
+R8467:8469 UMSTFormal.Urge.GeometricMemory <> src:56 var
+R8471:8473 UMSTFormal.Urge.GeometricMemory <> ctx:57 var
+prf 8513:8544 <> geometric_memory_no_local_argmin
+R8557:8574 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8551:8553 <> src:58
+R8584:8603 UMSTFormal.Urge.GeometricMemory <> geometric_memory_ctx rec
+R8605:8607 UMSTFormal.Urge.GeometricMemory <> src:58 var
+binder 8578:8580 <> ctx:59
+R8645:8649 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8614:8636 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select def
+R8638:8640 UMSTFormal.Urge.GeometricMemory <> src:58 var
+R8642:8644 UMSTFormal.Urge.GeometricMemory <> ctx:59 var
+R8650:8666 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8668:8670 UMSTFormal.Urge.GeometricMemory <> src:58 var
+R8673:8699 UMSTFormal.Urge.GeometricMemory <> geometric_memory_successors proj
+R8701:8703 UMSTFormal.Urge.GeometricMemory <> src:58 var
+R8705:8707 UMSTFormal.Urge.GeometricMemory <> ctx:59 var
+R8727:8770 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select_eq_excitement_select thm
+R8727:8770 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select_eq_excitement_select thm
+prf 8794:8815 <> geometric_memory_empty
+R8824:8841 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8818:8820 <> src:60
+R8855:8874 UMSTFormal.Urge.GeometricMemory <> geometric_memory_ctx rec
+R8876:8878 UMSTFormal.Urge.GeometricMemory <> src:60 var
+binder 8849:8851 <> ctx:61
+R8928:8930 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8893:8919 UMSTFormal.Urge.GeometricMemory <> geometric_memory_successors proj
+R8921:8923 UMSTFormal.Urge.GeometricMemory <> src:60 var
+R8925:8927 UMSTFormal.Urge.GeometricMemory <> ctx:61 var
+R8931:8933 Corelib.Init.Datatypes <> nil constr
+binder 8886:8889 <> Hnil:62
+R8971:8973 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8940:8962 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select def
+R8964:8966 UMSTFormal.Urge.GeometricMemory <> src:60 var
+R8968:8970 UMSTFormal.Urge.GeometricMemory <> ctx:61 var
+R8974:8976 Corelib.Init.Datatypes <> inr constr
+R8978:8994 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R9013:9035 UMSTFormal.Urge.GeometricMemory <> geometric_memory_select def
+R9038:9057 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 9327:9355 <> geometric_fixture_fingerprint
+R9359:9373 UMSTFormal.Urge.GeometricMemory <> sdf_fingerprint rec
+R9383:9395 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R9383:9395 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R9383:9395 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R9409:9420 UMSTFormal.Urge.GeometricMemory <> sdf_fp_grain proj
+R9409:9420 UMSTFormal.Urge.GeometricMemory <> sdf_fp_grain proj
+def 9443:9468 <> geometric_fixture_identity
+R9472:9497 UMSTFormal.Urge.GeometricMemory <> history_geometric_identity rec
+R9507:9525 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R9507:9525 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R9507:9525 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R9566:9588 UMSTFormal.Urge.GeometricMemory <> geom_id_resolution_bits proj
+R9566:9588 UMSTFormal.Urge.GeometricMemory <> geom_id_resolution_bits proj
+R9530:9558 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_fingerprint def
+def 9611:9634 <> geometric_fixture_object
+R9638:9656 UMSTFormal.Urge.GeometricMemory <> history_object_geom rec
+R9666:9678 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R9666:9678 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R9666:9678 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R9691:9708 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R9691:9708 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R9746:9767 UMSTFormal.Urge.GeometricMemory <> hist_geom_field_digest proj
+R9746:9767 UMSTFormal.Urge.GeometricMemory <> hist_geom_field_digest proj
+R9713:9738 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_identity def
+def 9791:9828 <> geometric_fixture_object_same_identity
+R9832:9850 UMSTFormal.Urge.GeometricMemory <> history_object_geom rec
+R9860:9872 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R9860:9872 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R9860:9872 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R9886:9903 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R9886:9903 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R9941:9962 UMSTFormal.Urge.GeometricMemory <> hist_geom_field_digest proj
+R9941:9962 UMSTFormal.Urge.GeometricMemory <> hist_geom_field_digest proj
+R9908:9933 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_identity def
+def 9986:10018 <> geometric_fixture_object_distinct
+R10022:10040 UMSTFormal.Urge.GeometricMemory <> history_object_geom rec
+R10050:10062 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R10050:10062 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R10050:10062 UMSTFormal.Urge.GeometricMemory <> hist_geom_seq proj
+R10075:10092 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R10075:10092 UMSTFormal.Urge.GeometricMemory <> hist_geom_identity proj
+R10223:10244 UMSTFormal.Urge.GeometricMemory <> hist_geom_field_digest proj
+R10223:10244 UMSTFormal.Urge.GeometricMemory <> hist_geom_field_digest proj
+R10107:10125 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R10107:10125 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R10107:10125 UMSTFormal.Urge.GeometricMemory <> geom_id_fingerprint proj
+R10185:10207 UMSTFormal.Urge.GeometricMemory <> geom_id_resolution_bits proj
+R10185:10207 UMSTFormal.Urge.GeometricMemory <> geom_id_resolution_bits proj
+R10133:10145 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R10133:10145 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R10133:10145 UMSTFormal.Urge.GeometricMemory <> sdf_fp_digest proj
+R10153:10164 UMSTFormal.Urge.GeometricMemory <> sdf_fp_grain proj
+R10153:10164 UMSTFormal.Urge.GeometricMemory <> sdf_fp_grain proj
+def 10267:10292 <> geometric_fixture_conjunct
+R10296:10327 UMSTFormal.Urge.GeometricMemory <> geometric_admissibility_conjunct rec
+R10337:10353 UMSTFormal.Urge.GeometricMemory <> geom_conj_gate_ok proj
+R10337:10353 UMSTFormal.Urge.GeometricMemory <> geom_conj_gate_ok proj
+R10337:10353 UMSTFormal.Urge.GeometricMemory <> geom_conj_gate_ok proj
+R10369:10391 UMSTFormal.Urge.GeometricMemory <> geom_conj_sdf_canonical proj
+R10369:10391 UMSTFormal.Urge.GeometricMemory <> geom_conj_sdf_canonical proj
+R10407:10436 UMSTFormal.Urge.GeometricMemory <> geom_conj_excitement_preserves proj
+R10407:10436 UMSTFormal.Urge.GeometricMemory <> geom_conj_excitement_preserves proj
+R10358:10361 Corelib.Init.Datatypes <> true constr
+R10396:10399 Corelib.Init.Datatypes <> true constr
+R10441:10444 Corelib.Init.Datatypes <> true constr
+prf 10459:10491 <> geometric_fixture_host_id_refused
+R10527:10529 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10497:10519 UMSTFormal.Urge.GeometricMemory <> refuse_host_id_identity def
+R10530:10554 UMSTFormal.Urge.GeometricMemory <> gmr_host_id_not_geometric constr
+prf 10600:10637 <> geometric_fixture_payload_only_refused
+R10674:10676 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10643:10670 UMSTFormal.Urge.GeometricMemory <> refuse_payload_only_identity def
+R10677:10699 UMSTFormal.Urge.GeometricMemory <> gmr_payload_without_sdf constr
+prf 10741:10775 <> geometric_fixture_apply_morphism_ok
+R10875:10879 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10781:10811 UMSTFormal.Urge.GeometricMemory <> apply_geometric_memory_morphism def
+R10817:10840 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object def
+R10844:10869 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_conjunct def
+R10871:10874 Corelib.Init.Datatypes <> true constr
+R10880:10882 Corelib.Init.Datatypes <> inl constr
+R10893:10910 UMSTFormal.Urge.GeometricMemory <> geom_morphism_from proj
+R10893:10910 UMSTFormal.Urge.GeometricMemory <> geom_morphism_from proj
+R10893:10910 UMSTFormal.Urge.GeometricMemory <> geom_morphism_from proj
+R10950:10969 UMSTFormal.Urge.GeometricMemory <> geom_morphism_to_seq proj
+R10950:10969 UMSTFormal.Urge.GeometricMemory <> geom_morphism_to_seq proj
+R10986:11006 UMSTFormal.Urge.GeometricMemory <> geom_morphism_witness proj
+R10986:11006 UMSTFormal.Urge.GeometricMemory <> geom_morphism_witness proj
+R11074:11106 UMSTFormal.Urge.GeometricMemory <> geom_morphism_excitement_selected proj
+R11074:11106 UMSTFormal.Urge.GeometricMemory <> geom_morphism_excitement_selected proj
+R10915:10938 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object def
+R11011:11037 UMSTFormal.Urge.GeometricMemory <> witness_from_history_object def
+R11039:11062 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object def
+R11111:11114 Corelib.Init.Datatypes <> true constr
+prf 11156:11190 <> geometric_fixture_matching_identity
+R11290:11292 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11196:11221 UMSTFormal.Urge.GeometricMemory <> geometric_identity_matches def
+R11227:11250 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object def
+R11252:11289 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object_same_identity def
+R11293:11296 Corelib.Init.Datatypes <> true constr
+prf 11335:11369 <> geometric_fixture_distinct_identity
+R11464:11466 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11375:11400 UMSTFormal.Urge.GeometricMemory <> geometric_identity_matches def
+R11406:11429 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object def
+R11431:11463 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object_distinct def
+R11467:11471 Corelib.Init.Datatypes <> false constr
+prf 11510:11556 <> geometric_fixture_witness_preserves_fingerprint
+R11641:11645 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11562:11585 UMSTFormal.Urge.GeometricMemory <> geom_witness_fingerprint proj
+R11588:11614 UMSTFormal.Urge.GeometricMemory <> witness_from_history_object def
+R11616:11639 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_object def
+R11646:11674 UMSTFormal.Urge.GeometricMemory <> geometric_fixture_fingerprint def
+def 11937:11966 <> geometric_memory_physics_green
+R11970:11973 Corelib.Init.Datatypes <> bool ind
+R11978:11982 Corelib.Init.Datatypes <> false constr
+prf 11992:12027 <> geometric_memory_physics_green_false
+R12063:12065 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12033:12062 UMSTFormal.Urge.GeometricMemory <> geometric_memory_physics_green def
+R12066:12070 Corelib.Init.Datatypes <> false constr
+def 12110:12142 <> geometric_memory_production_wired
+R12146:12149 Corelib.Init.Datatypes <> bool ind
+R12154:12158 Corelib.Init.Datatypes <> false constr
+prf 12168:12206 <> geometric_memory_production_wired_false
+R12245:12247 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12212:12244 UMSTFormal.Urge.GeometricMemory <> geometric_memory_production_wired def
+R12248:12252 Corelib.Init.Datatypes <> false constr
+prf 12289:12319 <> geometric_memory_module_witness
+R12323:12326 Corelib.Init.Logic <> True ind
+R12342:12342 Corelib.Init.Logic <> I constr
+R12342:12342 Corelib.Init.Logic <> I constr
+prf 12359:12387 <> geometric_memory_no_new_axiom
+R12391:12394 Corelib.Init.Logic <> True ind
+R12410:12410 Corelib.Init.Logic <> I constr
+R12410:12410 Corelib.Init.Logic <> I constr
+prf 12427:12457 <> geometric_memory_host_id_not_ok
+R12493:12496 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R12463:12487 UMSTFormal.Urge.GeometricMemory <> evaluate_host_id_identity def
+R12489:12492 Corelib.Init.Datatypes <> true constr
+R12497:12511 UMSTFormal.Urge.GeometricMemory <> gmv_identity_ok constr
+R12530:12554 UMSTFormal.Urge.GeometricMemory <> evaluate_host_id_identity def
+prf 12587:12622 <> geometric_memory_payload_only_not_ok
+R12663:12666 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R12628:12657 UMSTFormal.Urge.GeometricMemory <> evaluate_payload_only_identity def
+R12659:12662 Corelib.Init.Datatypes <> true constr
+R12667:12681 UMSTFormal.Urge.GeometricMemory <> gmv_identity_ok constr
+R12700:12729 UMSTFormal.Urge.GeometricMemory <> evaluate_payload_only_identity def

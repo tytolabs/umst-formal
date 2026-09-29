@@ -1,0 +1,348 @@
+DIGEST 870d6f5970f7a14e5da5d0ffcd452d8c
+FUMSTFormal.Chem.KleisliInteract
+R1132:1136 Stdlib.Arith.Arith <> <> lib
+R1138:1151 Stdlib.Arith.PeanoNat <> <> lib
+R1153:1156 Stdlib.Bool.Bool <> <> lib
+R1158:1161 Stdlib.Lists.List <> <> lib
+R1163:1167 Stdlib.Reals.Reals <> <> lib
+R1169:1174 Stdlib.QArith.QArith <> <> lib
+R1176:1178 Stdlib.micromega.Lia <> <> lib
+R1196:1220 UMSTFormal.Chem.SecondLaw <> <> lib
+R1238:1265 UMSTFormal.Chem.Conservation <> <> lib
+R1283:1303 UMSTFormal.InfoTheory <> <> lib
+ind 1604:1613 <> element_id
+constr 1629:1634 <> elem_H
+constr 1640:1645 <> elem_O
+constr 1651:1657 <> elem_Ca
+constr 1663:1669 <> elem_Si
+scheme 1604:1613 <> element_id_rect
+scheme 1604:1613 <> element_id_ind
+scheme 1604:1613 <> element_id_rec
+scheme 1604:1613 <> element_id_sind
+def 1684:1697 <> element_id_beq
+R1706:1715 UMSTFormal.Chem.KleisliInteract <> element_id ind
+binder 1700:1700 <> a:3
+binder 1702:1702 <> b:4
+R1720:1723 Corelib.Init.Datatypes <> bool ind
+R1739:1739 UMSTFormal.Chem.KleisliInteract <> b:4 var
+R1736:1736 UMSTFormal.Chem.KleisliInteract <> a:3 var
+R1750:1755 UMSTFormal.Chem.KleisliInteract <> elem_H constr
+R1758:1763 UMSTFormal.Chem.KleisliInteract <> elem_H constr
+R1767:1772 UMSTFormal.Chem.KleisliInteract <> elem_O constr
+R1775:1780 UMSTFormal.Chem.KleisliInteract <> elem_O constr
+R1784:1790 UMSTFormal.Chem.KleisliInteract <> elem_Ca constr
+R1793:1799 UMSTFormal.Chem.KleisliInteract <> elem_Ca constr
+R1803:1809 UMSTFormal.Chem.KleisliInteract <> elem_Si constr
+R1812:1818 UMSTFormal.Chem.KleisliInteract <> elem_Si constr
+R1823:1826 Corelib.Init.Datatypes <> true constr
+R1823:1826 Corelib.Init.Datatypes <> true constr
+R1823:1826 Corelib.Init.Datatypes <> true constr
+R1823:1826 Corelib.Init.Datatypes <> true constr
+R1840:1844 Corelib.Init.Datatypes <> false constr
+prf 1860:1882 <> element_id_beq_true_iff
+R1901:1910 UMSTFormal.Chem.KleisliInteract <> element_id ind
+binder 1895:1895 <> a:7
+binder 1897:1897 <> b:8
+R1938:1942 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R1931:1933 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1913:1926 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R1928:1928 UMSTFormal.Chem.KleisliInteract <> a:7 var
+R1930:1930 UMSTFormal.Chem.KleisliInteract <> b:8 var
+R1934:1937 Corelib.Init.Datatypes <> true constr
+R1944:1946 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1943:1943 UMSTFormal.Chem.KleisliInteract <> a:7 var
+R1947:1947 UMSTFormal.Chem.KleisliInteract <> b:8 var
+prf 2066:2089 <> element_id_beq_false_iff
+R2108:2117 UMSTFormal.Chem.KleisliInteract <> element_id ind
+binder 2102:2102 <> a:9
+binder 2104:2104 <> b:10
+R2146:2150 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R2138:2140 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2120:2133 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R2135:2135 UMSTFormal.Chem.KleisliInteract <> a:9 var
+R2137:2137 UMSTFormal.Chem.KleisliInteract <> b:10 var
+R2141:2145 Corelib.Init.Datatypes <> false constr
+R2152:2155 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R2151:2151 UMSTFormal.Chem.KleisliInteract <> a:9 var
+R2156:2156 UMSTFormal.Chem.KleisliInteract <> b:10 var
+prf 2305:2323 <> element_id_beq_refl
+R2330:2339 UMSTFormal.Chem.KleisliInteract <> element_id ind
+binder 2326:2326 <> e:11
+R2362:2364 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2344:2357 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R2359:2359 UMSTFormal.Chem.KleisliInteract <> e:11 var
+R2361:2361 UMSTFormal.Chem.KleisliInteract <> e:11 var
+R2365:2368 Corelib.Init.Datatypes <> true constr
+rec 2637:2649 <> interact_step
+proj 2665:2677 <> interact_from
+proj 2695:2705 <> interact_to
+proj 2723:2734 <> interact_tag
+R2681:2690 UMSTFormal.Chem.KleisliInteract <> element_id ind
+R2709:2718 UMSTFormal.Chem.KleisliInteract <> element_id ind
+R2738:2740 Corelib.Init.Datatypes <> nat ind
+def 2757:2773 <> interact_identity
+R2780:2789 UMSTFormal.Chem.KleisliInteract <> element_id ind
+binder 2776:2776 <> e:16
+R2794:2806 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+R2816:2828 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R2816:2828 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R2816:2828 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R2836:2846 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R2836:2846 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R2854:2865 UMSTFormal.Chem.KleisliInteract <> interact_tag proj
+R2854:2865 UMSTFormal.Chem.KleisliInteract <> interact_tag proj
+R2833:2833 UMSTFormal.Chem.KleisliInteract <> e:16 var
+R2851:2851 UMSTFormal.Chem.KleisliInteract <> e:16 var
+def 2888:2903 <> interact_compose
+R2919:2931 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+binder 2906:2909 <> left:17
+binder 2911:2915 <> right:18
+R2936:2941 Corelib.Init.Datatypes <> option ind
+R2943:2955 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+R2965:2978 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R2986:2996 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R2980:2983 UMSTFormal.Chem.KleisliInteract <> left:17 var
+R3006:3018 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R2999:3003 UMSTFormal.Chem.KleisliInteract <> right:18 var
+R3210:3213 Corelib.Init.Datatypes <> None constr
+R3030:3033 Corelib.Init.Datatypes <> Some constr
+R3038:3050 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3038:3050 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3038:3050 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3089:3099 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R3089:3099 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R3137:3148 UMSTFormal.Chem.KleisliInteract <> interact_tag proj
+R3137:3148 UMSTFormal.Chem.KleisliInteract <> interact_tag proj
+R3061:3073 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3055:3058 UMSTFormal.Chem.KleisliInteract <> left:17 var
+R3111:3121 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R3104:3108 UMSTFormal.Chem.KleisliInteract <> right:18 var
+R3195:3197 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R3172:3174 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R3159:3170 UMSTFormal.Chem.KleisliInteract <> interact_tag proj
+R3153:3156 UMSTFormal.Chem.KleisliInteract <> left:17 var
+R3182:3193 UMSTFormal.Chem.KleisliInteract <> interact_tag proj
+R3175:3179 UMSTFormal.Chem.KleisliInteract <> right:18 var
+prf 3446:3472 <> kleisli_left_unit_endpoints
+R3490:3502 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+binder 3486:3486 <> f:19
+binder 3515:3515 <> g:20
+R3583:3588 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3574:3576 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3518:3533 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R3536:3552 UMSTFormal.Chem.KleisliInteract <> interact_identity def
+R3557:3569 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3554:3554 UMSTFormal.Chem.KleisliInteract <> f:19 var
+R3573:3573 UMSTFormal.Chem.KleisliInteract <> f:19 var
+R3577:3580 Corelib.Init.Datatypes <> Some constr
+R3582:3582 UMSTFormal.Chem.KleisliInteract <> g:20 var
+R3626:3631 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3606:3608 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3592:3604 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3589:3589 UMSTFormal.Chem.KleisliInteract <> g:20 var
+R3612:3624 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3609:3609 UMSTFormal.Chem.KleisliInteract <> f:19 var
+R3647:3649 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3635:3645 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R3632:3632 UMSTFormal.Chem.KleisliInteract <> g:20 var
+R3653:3663 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R3650:3650 UMSTFormal.Chem.KleisliInteract <> f:19 var
+R3699:3714 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R3717:3733 UMSTFormal.Chem.KleisliInteract <> interact_identity def
+R3751:3769 UMSTFormal.Chem.KleisliInteract <> element_id_beq_refl thm
+R3751:3769 UMSTFormal.Chem.KleisliInteract <> element_id_beq_refl thm
+R3751:3769 UMSTFormal.Chem.KleisliInteract <> element_id_beq_refl thm
+prf 3831:3858 <> kleisli_right_unit_endpoints
+R3876:3888 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+binder 3872:3872 <> f:21
+binder 3901:3901 <> g:22
+R3967:3972 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3958:3960 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3904:3919 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R3921:3921 UMSTFormal.Chem.KleisliInteract <> f:21 var
+R3924:3940 UMSTFormal.Chem.KleisliInteract <> interact_identity def
+R3945:3955 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R3942:3942 UMSTFormal.Chem.KleisliInteract <> f:21 var
+R3961:3964 Corelib.Init.Datatypes <> Some constr
+R3966:3966 UMSTFormal.Chem.KleisliInteract <> g:22 var
+R4010:4015 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3990:3992 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3976:3988 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3973:3973 UMSTFormal.Chem.KleisliInteract <> g:22 var
+R3996:4008 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R3993:3993 UMSTFormal.Chem.KleisliInteract <> f:21 var
+R4031:4033 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4019:4029 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4016:4016 UMSTFormal.Chem.KleisliInteract <> g:22 var
+R4037:4047 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4034:4034 UMSTFormal.Chem.KleisliInteract <> f:21 var
+R4083:4098 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R4101:4117 UMSTFormal.Chem.KleisliInteract <> interact_identity def
+R4135:4153 UMSTFormal.Chem.KleisliInteract <> element_id_beq_refl thm
+R4135:4153 UMSTFormal.Chem.KleisliInteract <> element_id_beq_refl thm
+R4135:4153 UMSTFormal.Chem.KleisliInteract <> element_id_beq_refl thm
+prf 4215:4235 <> kleisli_associativity
+R4263:4275 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+binder 4249:4249 <> f:23
+binder 4251:4251 <> g:24
+binder 4253:4253 <> h:25
+binder 4255:4256 <> fg:26
+binder 4258:4259 <> gh:27
+R4312:4317 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4294:4296 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4281:4291 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4293:4293 UMSTFormal.Chem.KleisliInteract <> f:23 var
+R4297:4309 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R4311:4311 UMSTFormal.Chem.KleisliInteract <> g:24 var
+R4349:4354 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4331:4333 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4318:4328 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4330:4330 UMSTFormal.Chem.KleisliInteract <> g:24 var
+R4334:4346 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R4348:4348 UMSTFormal.Chem.KleisliInteract <> h:25 var
+R4385:4390 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4375:4377 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4355:4370 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R4372:4372 UMSTFormal.Chem.KleisliInteract <> f:23 var
+R4374:4374 UMSTFormal.Chem.KleisliInteract <> g:24 var
+R4378:4381 Corelib.Init.Datatypes <> Some constr
+R4383:4384 UMSTFormal.Chem.KleisliInteract <> fg:26 var
+R4421:4426 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4411:4413 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4391:4406 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R4408:4408 UMSTFormal.Chem.KleisliInteract <> g:24 var
+R4410:4410 UMSTFormal.Chem.KleisliInteract <> h:25 var
+R4414:4417 Corelib.Init.Datatypes <> Some constr
+R4419:4420 UMSTFormal.Chem.KleisliInteract <> gh:27 var
+R4448:4450 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4427:4442 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R4444:4445 UMSTFormal.Chem.KleisliInteract <> fg:26 var
+R4447:4447 UMSTFormal.Chem.KleisliInteract <> h:25 var
+R4451:4466 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R4468:4468 UMSTFormal.Chem.KleisliInteract <> f:23 var
+R4470:4471 UMSTFormal.Chem.KleisliInteract <> gh:27 var
+R4590:4592 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4542:4555 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R4558:4568 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4574:4586 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R4593:4596 Corelib.Init.Datatypes <> true constr
+R4613:4635 UMSTFormal.Chem.KleisliInteract <> element_id_beq_true_iff thm
+R4590:4592 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4542:4555 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R4558:4568 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4574:4586 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R4593:4596 Corelib.Init.Datatypes <> true constr
+R4613:4635 UMSTFormal.Chem.KleisliInteract <> element_id_beq_true_iff thm
+R4715:4717 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4667:4680 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R4683:4693 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4699:4711 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R4718:4721 Corelib.Init.Datatypes <> true constr
+R4738:4760 UMSTFormal.Chem.KleisliInteract <> element_id_beq_true_iff thm
+R4715:4717 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4667:4680 UMSTFormal.Chem.KleisliInteract <> element_id_beq def
+R4683:4693 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R4699:4711 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R4718:4721 Corelib.Init.Datatypes <> true constr
+R4738:4760 UMSTFormal.Chem.KleisliInteract <> element_id_beq_true_iff thm
+R4784:4799 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R4958:4964 Corelib.Init.Logic <> f_equal thm
+R4958:4964 Corelib.Init.Logic <> f_equal thm
+prf 4997:5029 <> kleisli_coherence_units_endpoints
+R5047:5059 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+binder 5043:5043 <> f:28
+R5069:5081 UMSTFormal.Chem.KleisliInteract <> interact_step rec
+binder 5063:5063 <> g:29
+binder 5065:5065 <> h:30
+R5152:5157 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R5143:5145 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5087:5102 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R5105:5121 UMSTFormal.Chem.KleisliInteract <> interact_identity def
+R5126:5138 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R5123:5123 UMSTFormal.Chem.KleisliInteract <> f:28 var
+R5142:5142 UMSTFormal.Chem.KleisliInteract <> f:28 var
+R5146:5149 Corelib.Init.Datatypes <> Some constr
+R5151:5151 UMSTFormal.Chem.KleisliInteract <> g:29 var
+R5221:5226 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R5212:5214 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5158:5173 UMSTFormal.Chem.KleisliInteract <> interact_compose def
+R5175:5175 UMSTFormal.Chem.KleisliInteract <> f:28 var
+R5178:5194 UMSTFormal.Chem.KleisliInteract <> interact_identity def
+R5199:5209 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R5196:5196 UMSTFormal.Chem.KleisliInteract <> f:28 var
+R5215:5218 Corelib.Init.Datatypes <> Some constr
+R5220:5220 UMSTFormal.Chem.KleisliInteract <> h:30 var
+R5264:5269 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R5244:5246 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5230:5242 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R5227:5227 UMSTFormal.Chem.KleisliInteract <> g:29 var
+R5250:5262 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R5247:5247 UMSTFormal.Chem.KleisliInteract <> h:30 var
+R5285:5287 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5273:5283 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R5270:5270 UMSTFormal.Chem.KleisliInteract <> g:29 var
+R5291:5301 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R5288:5288 UMSTFormal.Chem.KleisliInteract <> h:30 var
+R5355:5381 UMSTFormal.Chem.KleisliInteract <> kleisli_left_unit_endpoints thm
+R5355:5381 UMSTFormal.Chem.KleisliInteract <> kleisli_left_unit_endpoints thm
+R5422:5449 UMSTFormal.Chem.KleisliInteract <> kleisli_right_unit_endpoints thm
+R5422:5449 UMSTFormal.Chem.KleisliInteract <> kleisli_right_unit_endpoints thm
+R5504:5516 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R5504:5516 UMSTFormal.Chem.KleisliInteract <> interact_from proj
+R5575:5585 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+R5575:5585 UMSTFormal.Chem.KleisliInteract <> interact_to proj
+def 5894:5911 <> chem_physics_green
+R5915:5918 Corelib.Init.Datatypes <> bool ind
+R5923:5927 Corelib.Init.Datatypes <> false constr
+prf 5937:5960 <> chem_physics_green_false
+R5982:5984 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5964:5981 UMSTFormal.Chem.KleisliInteract <> chem_physics_green def
+R5985:5989 Corelib.Init.Datatypes <> false constr
+def 6029:6061 <> kleisli_interact_production_wired
+R6065:6068 Corelib.Init.Datatypes <> bool ind
+R6073:6077 Corelib.Init.Datatypes <> false constr
+prf 6087:6125 <> kleisli_interact_production_wired_false
+R6164:6166 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6131:6163 UMSTFormal.Chem.KleisliInteract <> kleisli_interact_production_wired def
+R6167:6171 Corelib.Init.Datatypes <> false constr
+prf 6206:6232 <> interact_landauer_floor_pos
+R6239:6239 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6235:6235 <> T:31
+R6251:6254 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R6247:6249 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6250:6250 UMSTFormal.Chem.KleisliInteract <> T:31 var
+R6256:6258 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6259:6277 UMSTFormal.Chem.SecondLaw <> chem_landauer_floor def
+R6279:6279 UMSTFormal.Chem.KleisliInteract <> T:31 var
+R6311:6333 UMSTFormal.Chem.SecondLaw <> chem_landauer_floor_pos thm
+R6311:6333 UMSTFormal.Chem.SecondLaw <> chem_landauer_floor_pos thm
+prf 6354:6384 <> interact_measurement_floor_zero
+R6391:6391 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6387:6387 <> T:32
+R6424:6426 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6398:6419 UMSTFormal.Chem.SecondLaw <> chem_measurement_floor def
+R6421:6421 UMSTFormal.Chem.KleisliInteract <> T:32 var
+R6446:6472 UMSTFormal.Chem.SecondLaw <> chem_measurement_floor_zero thm
+R6446:6472 UMSTFormal.Chem.SecondLaw <> chem_measurement_floor_zero thm
+prf 6517:6545 <> interact_joint_mass_conserved
+R6554:6557 Corelib.Init.Datatypes <> list ind
+R6559:6559 Stdlib.QArith.QArith_base <> Q rec
+binder 6548:6548 <> p:33
+binder 6550:6550 <> q:34
+R6587:6592 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R6566:6584 UMSTFormal.Chem.Conservation <> species_composition def
+R6586:6586 UMSTFormal.Chem.KleisliInteract <> p:33 var
+R6614:6619 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R6593:6611 UMSTFormal.Chem.Conservation <> species_composition def
+R6613:6613 UMSTFormal.Chem.KleisliInteract <> q:34 var
+R6648:6651 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R6620:6627 UMSTFormal.InfoTheory <> sum_flat def
+R6630:6642 UMSTFormal.InfoTheory <> product_joint def
+R6644:6644 UMSTFormal.Chem.KleisliInteract <> p:33 var
+R6646:6646 UMSTFormal.Chem.KleisliInteract <> q:34 var
+R6687:6711 UMSTFormal.Chem.Conservation <> chem_joint_mass_conserved thm
+R6687:6711 UMSTFormal.Chem.Conservation <> chem_joint_mass_conserved thm
+prf 6737:6767 <> kleisli_interact_module_witness
+R6771:6774 Corelib.Init.Logic <> True ind
+R6790:6790 Corelib.Init.Logic <> I constr
+R6790:6790 Corelib.Init.Logic <> I constr

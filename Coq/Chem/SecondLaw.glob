@@ -1,0 +1,66 @@
+DIGEST c1b5a88332700a70654910c9db48c68a
+FUMSTFormal.Chem.SecondLaw
+R602:606 Stdlib.Reals.Reals <> <> lib
+R624:656 UMSTFormal.LandauerEinsteinBridge <> <> lib
+R674:699 UMSTFormal.MeasurementCost <> <> lib
+def 814:832 <> chem_landauer_floor
+R839:839 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 835:835 <> T:1
+R844:844 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R849:862 UMSTFormal.LandauerEinsteinBridge <> E_Landauer_bit def
+R864:864 UMSTFormal.Chem.SecondLaw <> T:1 var
+def 949:970 <> chem_measurement_floor
+R985:985 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 973:973 <> T:2
+binder 975:981 <> MI_bits:3
+R990:990 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R997:1023 UMSTFormal.MeasurementCost <> measurementEnergyLowerBound def
+R1025:1025 UMSTFormal.Chem.SecondLaw <> T:2 var
+R1027:1033 UMSTFormal.Chem.SecondLaw <> MI_bits:3 var
+prf 1043:1065 <> chem_landauer_floor_pos
+R1072:1072 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1068:1068 <> T:4
+R1084:1087 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1080:1082 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1083:1083 UMSTFormal.Chem.SecondLaw <> T:4 var
+R1089:1091 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1092:1110 UMSTFormal.Chem.SecondLaw <> chem_landauer_floor def
+R1112:1112 UMSTFormal.Chem.SecondLaw <> T:4 var
+R1144:1162 UMSTFormal.Chem.SecondLaw <> chem_landauer_floor def
+R1174:1191 UMSTFormal.LandauerEinsteinBridge <> E_Landauer_bit_pos thm
+R1174:1191 UMSTFormal.LandauerEinsteinBridge <> E_Landauer_bit_pos thm
+prf 1212:1238 <> chem_measurement_floor_zero
+R1245:1245 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1241:1241 <> T:5
+R1278:1280 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1252:1273 UMSTFormal.Chem.SecondLaw <> chem_measurement_floor def
+R1275:1275 UMSTFormal.Chem.SecondLaw <> T:5 var
+R1300:1321 UMSTFormal.Chem.SecondLaw <> chem_measurement_floor def
+R1333:1353 UMSTFormal.MeasurementCost <> zero_info_zero_energy thm
+R1333:1353 UMSTFormal.MeasurementCost <> zero_info_zero_energy thm
+prf 1371:1398 <> chem_measurement_floor_scale
+R1407:1407 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1401:1401 <> T:6
+binder 1403:1403 <> k:7
+R1440:1442 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1414:1435 UMSTFormal.Chem.SecondLaw <> chem_measurement_floor def
+R1437:1437 UMSTFormal.Chem.SecondLaw <> T:6 var
+R1439:1439 UMSTFormal.Chem.SecondLaw <> k:7 var
+R1444:1446 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1443:1443 UMSTFormal.Chem.SecondLaw <> k:7 var
+R1447:1465 UMSTFormal.Chem.SecondLaw <> chem_landauer_floor def
+R1467:1467 UMSTFormal.Chem.SecondLaw <> T:6 var
+R1486:1507 UMSTFormal.Chem.SecondLaw <> chem_measurement_floor def
+R1510:1528 UMSTFormal.Chem.SecondLaw <> chem_landauer_floor def
+R1531:1557 UMSTFormal.MeasurementCost <> measurementEnergyLowerBound def
+prf 1580:1606 <> chem_landauer_mass_positive
+R1613:1613 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1609:1609 <> T:8
+R1625:1628 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1621:1623 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1624:1624 UMSTFormal.Chem.SecondLaw <> T:8 var
+R1630:1632 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1633:1649 UMSTFormal.LandauerEinsteinBridge <> m_mass_equivalent def
+R1651:1651 UMSTFormal.Chem.SecondLaw <> T:8 var
+R1683:1703 UMSTFormal.LandauerEinsteinBridge <> m_mass_equivalent_pos thm
+R1683:1703 UMSTFormal.LandauerEinsteinBridge <> m_mass_equivalent_pos thm

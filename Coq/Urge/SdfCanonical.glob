@@ -1,0 +1,722 @@
+DIGEST 0811fc20f3f5bed7ca745c0c81d225f0
+FUMSTFormal.Urge.SdfCanonical
+R980:984 Stdlib.Arith.Arith <> <> lib
+R986:989 Stdlib.Lists.List <> <> lib
+R991:994 Stdlib.Bool.Bool <> <> lib
+R1012:1026 UMSTFormal.Gate <> <> lib
+R1044:1071 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1089:1120 UMSTFormal.Urge.ExcitementImport <> <> lib
+R1154:1166 Stdlib.Lists.List ListNotations <> mod
+rec 1487:1500 <> history_action
+proj 1515:1534 <> history_action_bytes
+proj 1550:1577 <> history_action_canonicalized
+proj 1589:1613 <> history_action_content_id
+R1538:1541 Corelib.Init.Datatypes <> list ind
+R1543:1545 Corelib.Init.Datatypes <> nat ind
+R1581:1584 Corelib.Init.Datatypes <> bool ind
+R1617:1619 Corelib.Init.Datatypes <> nat ind
+rec 1713:1728 <> history_identity
+proj 1743:1765 <> history_identity_action
+proj 1787:1813 <> history_identity_content_id
+R1769:1782 UMSTFormal.Urge.SdfCanonical <> history_action rec
+R1817:1819 Corelib.Init.Datatypes <> nat ind
+rec 1901:1921 <> sdf_canonical_witness
+proj 1936:1962 <> sdf_canonical_witness_bytes
+proj 1978:2009 <> sdf_canonical_witness_content_id
+proj 2020:2054 <> sdf_canonical_witness_canonicalized
+R1966:1969 Corelib.Init.Datatypes <> list ind
+R1971:1973 Corelib.Init.Datatypes <> nat ind
+R2013:2015 Corelib.Init.Datatypes <> nat ind
+R2058:2061 Corelib.Init.Datatypes <> bool ind
+rec 2146:2167 <> sdf_canonical_morphism
+proj 2182:2208 <> sdf_canonical_morphism_from
+proj 2232:2267 <> sdf_canonical_morphism_to_content_id
+proj 2278:2307 <> sdf_canonical_morphism_witness
+proj 2336:2377 <> sdf_canonical_morphism_excitement_selected
+R2212:2227 UMSTFormal.Urge.SdfCanonical <> history_identity rec
+R2271:2273 Corelib.Init.Datatypes <> nat ind
+R2311:2331 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness rec
+R2381:2384 Corelib.Init.Datatypes <> bool ind
+ind 2470:2483 <> behavior_equiv
+constr 2492:2505 <> bev_equivalent
+constr 2511:2522 <> bev_distinct
+scheme 2470:2483 <> behavior_equiv_rect
+scheme 2470:2483 <> behavior_equiv_ind
+scheme 2470:2483 <> behavior_equiv_rec
+scheme 2470:2483 <> behavior_equiv_sind
+ind 2616:2636 <> sdf_canonical_refusal
+constr 2645:2670 <> scr_canonical_sdf_mismatch
+constr 2701:2734 <> scr_alias_without_canonicalization
+constr 2756:2791 <> scr_invented_equiv_without_canonical
+constr 2816:2832 <> scr_second_argmin
+constr 2838:2854 <> scr_gate_rejected
+R2692:2694 Corelib.Init.Datatypes <> nat ind
+binder 2673:2679 <> left_id:21
+binder 2681:2688 <> right_id:22
+R2747:2749 Corelib.Init.Datatypes <> nat ind
+binder 2737:2743 <> payload:23
+R2807:2809 Corelib.Init.Datatypes <> nat ind
+binder 2794:2803 <> content_id:24
+R2863:2865 Corelib.Init.Datatypes <> nat ind
+binder 2857:2859 <> seq:25
+scheme 2616:2636 <> sdf_canonical_refusal_rect
+scheme 2616:2636 <> sdf_canonical_refusal_ind
+scheme 2616:2636 <> sdf_canonical_refusal_rec
+scheme 2616:2636 <> sdf_canonical_refusal_sind
+ind 2937:2957 <> sdf_canonical_verdict
+constr 2966:2977 <> scv_admitted
+constr 2983:2999 <> scv_alias_refused
+constr 3005:3030 <> scv_invented_equiv_refused
+constr 3036:3051 <> scv_inadmissible
+scheme 2937:2957 <> sdf_canonical_verdict_rect
+scheme 2937:2957 <> sdf_canonical_verdict_ind
+scheme 2937:2957 <> sdf_canonical_verdict_rec
+scheme 2937:2957 <> sdf_canonical_verdict_sind
+def 3368:3380 <> canonical_sdf
+R3387:3400 UMSTFormal.Urge.SdfCanonical <> history_action rec
+binder 3383:3383 <> a:28
+R3405:3408 Corelib.Init.Datatypes <> list ind
+R3410:3412 Corelib.Init.Datatypes <> nat ind
+R3419:3438 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R3440:3440 UMSTFormal.Urge.SdfCanonical <> a:28 var
+def 3507:3514 <> list_eqb
+R3525:3528 Corelib.Init.Datatypes <> list ind
+R3530:3532 Corelib.Init.Datatypes <> nat ind
+binder 3517:3518 <> xs:29
+binder 3520:3521 <> ys:30
+R3537:3540 Corelib.Init.Datatypes <> bool ind
+R3557:3558 UMSTFormal.Urge.SdfCanonical <> ys:30 var
+R3553:3554 UMSTFormal.Urge.SdfCanonical <> xs:29 var
+R3569:3571 Corelib.Init.Datatypes <> nil constr
+R3574:3576 Corelib.Init.Datatypes <> nil constr
+R3581:3584 Corelib.Init.Datatypes <> true constr
+R3591:3594 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3600:3603 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3621:3624 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3610:3616 Stdlib.Arith.PeanoNat Nat eqb def
+R3625:3632 UMSTFormal.Urge.SdfCanonical <> list_eqb:31 def
+R3652:3656 Corelib.Init.Datatypes <> false constr
+prf 3672:3684 <> list_eqb_self
+R3692:3695 Corelib.Init.Datatypes <> list ind
+R3697:3699 Corelib.Init.Datatypes <> nat ind
+binder 3687:3688 <> xs:34
+R3718:3720 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3704:3711 UMSTFormal.Urge.SdfCanonical <> list_eqb def
+R3713:3714 UMSTFormal.Urge.SdfCanonical <> xs:34 var
+R3716:3717 UMSTFormal.Urge.SdfCanonical <> xs:34 var
+R3721:3724 Corelib.Init.Datatypes <> true constr
+R3804:3815 Stdlib.Arith.PeanoNat Nat eqb_refl thm
+R3804:3815 Stdlib.Arith.PeanoNat Nat eqb_refl thm
+R3804:3815 Stdlib.Arith.PeanoNat Nat eqb_refl thm
+def 3904:3921 <> history_content_id
+R3928:3941 UMSTFormal.Urge.SdfCanonical <> history_action rec
+binder 3924:3924 <> a:35
+R3946:3948 Corelib.Init.Datatypes <> nat ind
+R3955:3979 UMSTFormal.Urge.SdfCanonical <> history_action_content_id proj
+R3981:3981 UMSTFormal.Urge.SdfCanonical <> a:35 var
+def 4053:4069 <> behavior_equiv_of
+R4085:4098 UMSTFormal.Urge.SdfCanonical <> history_action rec
+binder 4072:4075 <> left:36
+binder 4077:4081 <> right:37
+R4103:4116 UMSTFormal.Urge.SdfCanonical <> behavior_equiv ind
+R4126:4133 UMSTFormal.Urge.SdfCanonical <> list_eqb def
+R4136:4148 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R4150:4153 UMSTFormal.Urge.SdfCanonical <> left:36 var
+R4157:4169 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R4171:4175 UMSTFormal.Urge.SdfCanonical <> right:37 var
+R4213:4224 UMSTFormal.Urge.SdfCanonical <> bev_distinct constr
+R4187:4200 UMSTFormal.Urge.SdfCanonical <> bev_equivalent constr
+rec 4290:4325 <> sdf_canonical_admissibility_conjunct
+proj 4340:4365 <> sdf_canonical_conj_gate_ok
+proj 4377:4408 <> sdf_canonical_conj_canonicalized
+proj 4420:4458 <> sdf_canonical_conj_excitement_preserves
+R4369:4372 Corelib.Init.Datatypes <> bool ind
+R4412:4415 Corelib.Init.Datatypes <> bool ind
+R4462:4465 Corelib.Init.Datatypes <> bool ind
+def 4562:4590 <> sdf_canonical_conjunct_admits
+R4597:4632 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_admissibility_conjunct rec
+binder 4593:4593 <> c:42
+R4637:4640 Corelib.Init.Datatypes <> bool ind
+R4715:4720 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4675:4680 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4647:4672 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_gate_ok proj
+R4674:4674 UMSTFormal.Urge.SdfCanonical <> c:42 var
+R4681:4712 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_canonicalized proj
+R4714:4714 UMSTFormal.Urge.SdfCanonical <> c:42 var
+R4721:4759 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_excitement_preserves proj
+R4761:4761 UMSTFormal.Urge.SdfCanonical <> c:42 var
+def 4840:4878 <> evaluate_alias_without_canonicalization
+R4894:4897 Corelib.Init.Datatypes <> bool ind
+binder 4881:4890 <> alias_only:43
+R4906:4926 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_verdict ind
+R4936:4945 UMSTFormal.Urge.SdfCanonical <> alias_only:43 var
+R4975:4986 UMSTFormal.Urge.SdfCanonical <> scv_admitted constr
+R4952:4968 UMSTFormal.Urge.SdfCanonical <> scv_alias_refused constr
+def 5075:5115 <> evaluate_invented_equiv_without_canonical
+R5129:5132 Corelib.Init.Datatypes <> bool ind
+binder 5118:5125 <> invented:44
+R5141:5161 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_verdict ind
+R5171:5178 UMSTFormal.Urge.SdfCanonical <> invented:44 var
+R5217:5228 UMSTFormal.Urge.SdfCanonical <> scv_admitted constr
+R5185:5210 UMSTFormal.Urge.SdfCanonical <> scv_invented_equiv_refused constr
+def 5305:5341 <> refuse_alias_without_canonicalization
+R5354:5356 Corelib.Init.Datatypes <> nat ind
+binder 5344:5350 <> payload:45
+R5365:5385 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_refusal ind
+R5392:5425 UMSTFormal.Urge.SdfCanonical <> scr_alias_without_canonicalization constr
+R5427:5433 UMSTFormal.Urge.SdfCanonical <> payload:45 var
+def 5530:5568 <> refuse_invented_equiv_without_canonical
+R5584:5586 Corelib.Init.Datatypes <> nat ind
+binder 5571:5580 <> content_id:46
+R5595:5615 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_refusal ind
+R5622:5657 UMSTFormal.Urge.SdfCanonical <> scr_invented_equiv_without_canonical constr
+R5659:5668 UMSTFormal.Urge.SdfCanonical <> content_id:46 var
+def 5767:5795 <> refuse_second_argmin_selector
+R5799:5819 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_refusal ind
+R5826:5842 UMSTFormal.Urge.SdfCanonical <> scr_second_argmin constr
+def 5944:5972 <> witness_from_history_identity
+R5979:5994 UMSTFormal.Urge.SdfCanonical <> history_identity rec
+binder 5975:5975 <> h:47
+R6003:6023 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness rec
+R6033:6059 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_bytes proj
+R6033:6059 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_bytes proj
+R6033:6059 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_bytes proj
+R6119:6150 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_content_id proj
+R6119:6150 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_content_id proj
+R6191:6225 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_canonicalized proj
+R6191:6225 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_canonicalized proj
+R6071:6083 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R6086:6108 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R6110:6110 UMSTFormal.Urge.SdfCanonical <> h:47 var
+R6155:6181 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R6183:6183 UMSTFormal.Urge.SdfCanonical <> h:47 var
+R6237:6264 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R6267:6289 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R6291:6291 UMSTFormal.Urge.SdfCanonical <> h:47 var
+def 6407:6427 <> sdf_canonical_theorem
+R6443:6456 UMSTFormal.Urge.SdfCanonical <> history_action rec
+binder 6430:6433 <> left:48
+binder 6435:6439 <> right:49
+R6479:6481 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6465:6478 UMSTFormal.Urge.SdfCanonical <> behavior_equiv ind
+R6482:6502 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_refusal ind
+R6512:6515 Corelib.Init.Datatypes <> negb def
+R6518:6545 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R6547:6550 UMSTFormal.Urge.SdfCanonical <> left:48 var
+R6615:6618 Corelib.Init.Datatypes <> negb def
+R6621:6648 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R6650:6654 UMSTFormal.Urge.SdfCanonical <> right:49 var
+R6719:6726 UMSTFormal.Urge.SdfCanonical <> list_eqb def
+R6729:6741 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R6743:6746 UMSTFormal.Urge.SdfCanonical <> left:48 var
+R6750:6762 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R6764:6768 UMSTFormal.Urge.SdfCanonical <> right:49 var
+R6810:6812 Corelib.Init.Datatypes <> inr constr
+R6815:6840 UMSTFormal.Urge.SdfCanonical <> scr_canonical_sdf_mismatch constr
+R6854:6871 UMSTFormal.Urge.SdfCanonical <> history_content_id def
+R6873:6876 UMSTFormal.Urge.SdfCanonical <> left:48 var
+R6880:6897 UMSTFormal.Urge.SdfCanonical <> history_content_id def
+R6899:6903 UMSTFormal.Urge.SdfCanonical <> right:49 var
+R6780:6782 Corelib.Init.Datatypes <> inl constr
+R6784:6797 UMSTFormal.Urge.SdfCanonical <> bev_equivalent constr
+R6666:6668 Corelib.Init.Datatypes <> inr constr
+R6671:6704 UMSTFormal.Urge.SdfCanonical <> scr_alias_without_canonicalization constr
+R6562:6564 Corelib.Init.Datatypes <> inr constr
+R6567:6600 UMSTFormal.Urge.SdfCanonical <> scr_alias_without_canonicalization constr
+def 6992:7013 <> admit_history_identity
+R7033:7048 UMSTFormal.Urge.SdfCanonical <> history_identity rec
+binder 7020:7023 <> left:50
+binder 7025:7029 <> right:51
+R7067:7102 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_admissibility_conjunct rec
+binder 7056:7063 <> conjunct:52
+R7130:7132 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7109:7129 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_verdict ind
+R7133:7153 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_refusal ind
+R7163:7166 Corelib.Init.Datatypes <> negb def
+R7169:7197 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conjunct_admits def
+R7199:7206 UMSTFormal.Urge.SdfCanonical <> conjunct:52 var
+R7261:7281 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_theorem def
+R7296:7318 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R7320:7323 UMSTFormal.Urge.SdfCanonical <> left:50 var
+R7327:7349 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R7351:7355 UMSTFormal.Urge.SdfCanonical <> right:51 var
+R7369:7371 Corelib.Init.Datatypes <> inl constr
+R7373:7386 UMSTFormal.Urge.SdfCanonical <> bev_equivalent constr
+R7402:7405 Corelib.Init.Datatypes <> negb def
+R7408:7414 Stdlib.Arith.PeanoNat Nat eqb def
+R7417:7443 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R7445:7448 UMSTFormal.Urge.SdfCanonical <> left:50 var
+R7477:7494 UMSTFormal.Urge.SdfCanonical <> history_content_id def
+R7497:7519 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R7521:7524 UMSTFormal.Urge.SdfCanonical <> left:50 var
+R7638:7641 Corelib.Init.Datatypes <> negb def
+R7644:7650 Stdlib.Arith.PeanoNat Nat eqb def
+R7653:7679 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R7681:7685 UMSTFormal.Urge.SdfCanonical <> right:51 var
+R7718:7735 UMSTFormal.Urge.SdfCanonical <> history_content_id def
+R7738:7760 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R7762:7766 UMSTFormal.Urge.SdfCanonical <> right:51 var
+R7881:7884 Corelib.Init.Datatypes <> negb def
+R7887:7893 Stdlib.Arith.PeanoNat Nat eqb def
+R7896:7922 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R7924:7927 UMSTFormal.Urge.SdfCanonical <> left:50 var
+R7961:7987 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R7989:7993 UMSTFormal.Urge.SdfCanonical <> right:51 var
+R8173:8175 Corelib.Init.Datatypes <> inl constr
+R8177:8188 UMSTFormal.Urge.SdfCanonical <> scv_admitted constr
+R8012:8014 Corelib.Init.Datatypes <> inr constr
+R8017:8042 UMSTFormal.Urge.SdfCanonical <> scr_canonical_sdf_mismatch constr
+R8062:8088 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R8090:8093 UMSTFormal.Urge.SdfCanonical <> left:50 var
+R8114:8140 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R8142:8146 UMSTFormal.Urge.SdfCanonical <> right:51 var
+R7786:7788 Corelib.Init.Datatypes <> inr constr
+R7791:7826 UMSTFormal.Urge.SdfCanonical <> scr_invented_equiv_without_canonical constr
+R7829:7855 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R7857:7861 UMSTFormal.Urge.SdfCanonical <> right:51 var
+R7544:7546 Corelib.Init.Datatypes <> inr constr
+R7549:7584 UMSTFormal.Urge.SdfCanonical <> scr_invented_equiv_without_canonical constr
+R7587:7613 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R7615:7618 UMSTFormal.Urge.SdfCanonical <> left:50 var
+R8196:8198 Corelib.Init.Datatypes <> inl constr
+R8200:8211 UMSTFormal.Urge.SdfCanonical <> bev_distinct constr
+R8224:8226 Corelib.Init.Datatypes <> inr constr
+R8229:8254 UMSTFormal.Urge.SdfCanonical <> scr_canonical_sdf_mismatch constr
+R8272:8289 UMSTFormal.Urge.SdfCanonical <> history_content_id def
+R8292:8314 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R8316:8319 UMSTFormal.Urge.SdfCanonical <> left:50 var
+R8339:8356 UMSTFormal.Urge.SdfCanonical <> history_content_id def
+R8359:8381 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R8383:8387 UMSTFormal.Urge.SdfCanonical <> right:51 var
+R8398:8400 Corelib.Init.Datatypes <> inr constr
+R8407:8409 Corelib.Init.Datatypes <> inr constr
+R7218:7220 Corelib.Init.Datatypes <> inr constr
+R7223:7239 UMSTFormal.Urge.SdfCanonical <> scr_gate_rejected constr
+def 8514:8541 <> apply_sdf_canonical_morphism
+R8559:8574 UMSTFormal.Urge.SdfCanonical <> history_identity rec
+binder 8548:8555 <> identity:53
+R8598:8600 Corelib.Init.Datatypes <> nat ind
+binder 8582:8594 <> to_content_id:54
+R8619:8654 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_admissibility_conjunct rec
+binder 8608:8615 <> conjunct:55
+R8684:8687 Corelib.Init.Datatypes <> bool ind
+binder 8662:8680 <> excitement_selected:56
+R8718:8720 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8696:8717 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism rec
+R8721:8741 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_refusal ind
+R8751:8754 Corelib.Init.Datatypes <> negb def
+R8757:8785 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conjunct_admits def
+R8787:8794 UMSTFormal.Urge.SdfCanonical <> conjunct:55 var
+R8879:8882 Corelib.Init.Datatypes <> negb def
+R8885:8912 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R8915:8937 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R8939:8946 UMSTFormal.Urge.SdfCanonical <> identity:53 var
+R9049:9052 Corelib.Init.Datatypes <> negb def
+R9054:9072 UMSTFormal.Urge.SdfCanonical <> excitement_selected:56 var
+R9191:9193 Corelib.Init.Datatypes <> inl constr
+R9204:9230 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_from proj
+R9204:9230 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_from proj
+R9204:9230 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_from proj
+R9254:9289 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_to_content_id proj
+R9254:9289 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_to_content_id proj
+R9318:9347 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_witness proj
+R9318:9347 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_witness proj
+R9401:9442 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_excitement_selected proj
+R9401:9442 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_excitement_selected proj
+R9235:9242 UMSTFormal.Urge.SdfCanonical <> identity:53 var
+R9294:9306 UMSTFormal.Urge.SdfCanonical <> to_content_id:54 var
+R9352:9380 UMSTFormal.Urge.SdfCanonical <> witness_from_history_identity def
+R9382:9389 UMSTFormal.Urge.SdfCanonical <> identity:53 var
+R9447:9465 UMSTFormal.Urge.SdfCanonical <> excitement_selected:56 var
+R9083:9085 Corelib.Init.Datatypes <> inr constr
+R9088:9113 UMSTFormal.Urge.SdfCanonical <> scr_canonical_sdf_mismatch constr
+R9127:9153 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R9155:9162 UMSTFormal.Urge.SdfCanonical <> identity:53 var
+R9165:9177 UMSTFormal.Urge.SdfCanonical <> to_content_id:54 var
+R8959:8961 Corelib.Init.Datatypes <> inr constr
+R8964:8997 UMSTFormal.Urge.SdfCanonical <> scr_alias_without_canonicalization constr
+R9000:9026 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R9028:9035 UMSTFormal.Urge.SdfCanonical <> identity:53 var
+R8806:8808 Corelib.Init.Datatypes <> inr constr
+R8811:8827 UMSTFormal.Urge.SdfCanonical <> scr_gate_rejected constr
+R8830:8856 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R8858:8865 UMSTFormal.Urge.SdfCanonical <> identity:53 var
+prf 9478:9504 <> sdf_canonical_alias_refused
+R9554:9556 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9510:9548 UMSTFormal.Urge.SdfCanonical <> evaluate_alias_without_canonicalization def
+R9550:9553 Corelib.Init.Datatypes <> true constr
+R9557:9573 UMSTFormal.Urge.SdfCanonical <> scv_alias_refused constr
+prf 9610:9646 <> sdf_canonical_admitted_when_not_alias
+R9697:9699 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9652:9690 UMSTFormal.Urge.SdfCanonical <> evaluate_alias_without_canonicalization def
+R9692:9696 Corelib.Init.Datatypes <> false constr
+R9700:9711 UMSTFormal.Urge.SdfCanonical <> scv_admitted constr
+prf 9748:9783 <> sdf_canonical_invented_equiv_refused
+R9835:9837 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9789:9829 UMSTFormal.Urge.SdfCanonical <> evaluate_invented_equiv_without_canonical def
+R9831:9834 Corelib.Init.Datatypes <> true constr
+R9838:9863 UMSTFormal.Urge.SdfCanonical <> scv_invented_equiv_refused constr
+prf 9900:9945 <> refuse_alias_without_canonicalization_positive
+R9958:9960 Corelib.Init.Datatypes <> nat ind
+binder 9948:9954 <> payload:57
+R10012:10016 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9967:10003 UMSTFormal.Urge.SdfCanonical <> refuse_alias_without_canonicalization def
+R10005:10011 UMSTFormal.Urge.SdfCanonical <> payload:57 var
+R10017:10050 UMSTFormal.Urge.SdfCanonical <> scr_alias_without_canonicalization constr
+R10052:10058 UMSTFormal.Urge.SdfCanonical <> payload:57 var
+prf 10095:10132 <> refuse_second_argmin_selector_positive
+R10167:10169 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10138:10166 UMSTFormal.Urge.SdfCanonical <> refuse_second_argmin_selector def
+R10170:10186 UMSTFormal.Urge.SdfCanonical <> scr_second_argmin constr
+ind 10528:10563 <> sdf_canonical_excitement_compose_pin
+constr 10572:10600 <> sccp_import_select_excitement
+constr 10606:10631 <> sccp_second_argmin_refused
+scheme 10528:10563 <> sdf_canonical_excitement_compose_pin_rect
+scheme 10528:10563 <> sdf_canonical_excitement_compose_pin_ind
+scheme 10528:10563 <> sdf_canonical_excitement_compose_pin_rec
+scheme 10528:10563 <> sdf_canonical_excitement_compose_pin_sind
+rec 10711:10727 <> sdf_canonical_ctx
+proj 10769:10792 <> sdf_canonical_successors
+R10736:10753 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10730:10732 <> src:60
+R10796:10799 Corelib.Init.Datatypes <> list ind
+R10802:10818 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10820:10822 UMSTFormal.Urge.SdfCanonical <> src:60 var
+def 10920:10950 <> sdf_canonical_excitement_select
+R10959:10976 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10953:10955 <> src:63
+R10992:10995 Corelib.Init.Datatypes <> list ind
+R10998:11014 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11016:11018 UMSTFormal.Urge.SdfCanonical <> src:63 var
+binder 10984:10988 <> cands:64
+R11033:11068 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_excitement_compose_pin ind
+binder 11027:11029 <> pin:65
+R11096:11098 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R11075:11091 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11093:11095 UMSTFormal.Urge.SdfCanonical <> src:63 var
+R11099:11116 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R11129:11131 UMSTFormal.Urge.SdfCanonical <> pin:65 var
+R11142:11170 UMSTFormal.Urge.SdfCanonical <> sccp_import_select_excitement constr
+R11175:11191 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11193:11195 UMSTFormal.Urge.SdfCanonical <> src:63 var
+R11197:11201 UMSTFormal.Urge.SdfCanonical <> cands:64 var
+R11207:11232 UMSTFormal.Urge.SdfCanonical <> sccp_second_argmin_refused constr
+R11237:11239 Corelib.Init.Datatypes <> inr constr
+R11241:11260 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+def 11365:11384 <> sdf_canonical_select
+R11393:11410 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11387:11389 <> src:67
+R11424:11440 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_ctx rec
+R11442:11444 UMSTFormal.Urge.SdfCanonical <> src:67 var
+binder 11418:11420 <> ctx:68
+R11472:11474 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R11451:11467 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11469:11471 UMSTFormal.Urge.SdfCanonical <> src:67 var
+R11475:11492 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R11499:11518 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R11520:11522 UMSTFormal.Urge.SdfCanonical <> src:67 var
+R11525:11548 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_successors proj
+R11550:11552 UMSTFormal.Urge.SdfCanonical <> src:67 var
+R11554:11556 UMSTFormal.Urge.SdfCanonical <> ctx:68 var
+prf 11569:11620 <> sdf_canonical_excitement_select_eq_excitement_select
+R11633:11650 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11627:11629 <> src:69
+R11666:11669 Corelib.Init.Datatypes <> list ind
+R11672:11688 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11690:11692 UMSTFormal.Urge.SdfCanonical <> src:69 var
+binder 11658:11662 <> cands:70
+R11771:11775 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11700:11730 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_excitement_select def
+R11732:11734 UMSTFormal.Urge.SdfCanonical <> src:69 var
+R11736:11740 UMSTFormal.Urge.SdfCanonical <> cands:70 var
+R11742:11770 UMSTFormal.Urge.SdfCanonical <> sccp_import_select_excitement constr
+R11776:11792 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11794:11796 UMSTFormal.Urge.SdfCanonical <> src:69 var
+R11798:11802 UMSTFormal.Urge.SdfCanonical <> cands:70 var
+prf 11841:11881 <> sdf_canonical_select_eq_excitement_select
+R11894:11911 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11888:11890 <> src:71
+R11921:11937 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_ctx rec
+R11939:11941 UMSTFormal.Urge.SdfCanonical <> src:71 var
+binder 11915:11917 <> ctx:72
+R11976:11980 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11948:11967 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select def
+R11969:11971 UMSTFormal.Urge.SdfCanonical <> src:71 var
+R11973:11975 UMSTFormal.Urge.SdfCanonical <> ctx:72 var
+R11981:11997 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11999:12001 UMSTFormal.Urge.SdfCanonical <> src:71 var
+R12004:12027 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_successors proj
+R12029:12031 UMSTFormal.Urge.SdfCanonical <> src:71 var
+R12033:12035 UMSTFormal.Urge.SdfCanonical <> ctx:72 var
+R12055:12074 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select def
+R12077:12096 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 12128:12171 <> sdf_canonical_select_eq_urge_recovery_select
+R12184:12201 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12178:12180 <> src:73
+R12211:12227 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_ctx rec
+R12229:12231 UMSTFormal.Urge.SdfCanonical <> src:73 var
+binder 12205:12207 <> ctx:74
+R12266:12270 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12238:12257 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select def
+R12259:12261 UMSTFormal.Urge.SdfCanonical <> src:73 var
+R12263:12265 UMSTFormal.Urge.SdfCanonical <> ctx:74 var
+R12271:12290 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R12292:12294 UMSTFormal.Urge.SdfCanonical <> src:73 var
+R12297:12320 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_successors proj
+R12322:12324 UMSTFormal.Urge.SdfCanonical <> src:73 var
+R12326:12328 UMSTFormal.Urge.SdfCanonical <> ctx:74 var
+prf 12368:12396 <> sdf_canonical_no_local_argmin
+R12409:12426 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12403:12405 <> src:75
+R12436:12452 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_ctx rec
+R12454:12456 UMSTFormal.Urge.SdfCanonical <> src:75 var
+binder 12430:12432 <> ctx:76
+R12491:12495 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12463:12482 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select def
+R12484:12486 UMSTFormal.Urge.SdfCanonical <> src:75 var
+R12488:12490 UMSTFormal.Urge.SdfCanonical <> ctx:76 var
+R12496:12512 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R12514:12516 UMSTFormal.Urge.SdfCanonical <> src:75 var
+R12519:12542 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_successors proj
+R12544:12546 UMSTFormal.Urge.SdfCanonical <> src:75 var
+R12548:12550 UMSTFormal.Urge.SdfCanonical <> ctx:76 var
+R12570:12610 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select_eq_excitement_select thm
+R12570:12610 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select_eq_excitement_select thm
+prf 12636:12688 <> sdf_canonical_excitement_select_refuses_second_argmin
+R12701:12718 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12695:12697 <> src:77
+R12734:12737 Corelib.Init.Datatypes <> list ind
+R12740:12756 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R12758:12760 UMSTFormal.Urge.SdfCanonical <> src:77 var
+binder 12726:12730 <> cands:78
+R12836:12840 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12768:12798 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_excitement_select def
+R12800:12802 UMSTFormal.Urge.SdfCanonical <> src:77 var
+R12804:12808 UMSTFormal.Urge.SdfCanonical <> cands:78 var
+R12810:12835 UMSTFormal.Urge.SdfCanonical <> sccp_second_argmin_refused constr
+R12841:12843 Corelib.Init.Datatypes <> inr constr
+R12845:12864 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 12901:12919 <> sdf_canonical_empty
+R12928:12945 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12922:12924 <> src:79
+R12959:12975 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_ctx rec
+R12977:12979 UMSTFormal.Urge.SdfCanonical <> src:79 var
+binder 12953:12955 <> ctx:80
+R13026:13028 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12994:13017 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_successors proj
+R13019:13021 UMSTFormal.Urge.SdfCanonical <> src:79 var
+R13023:13025 UMSTFormal.Urge.SdfCanonical <> ctx:80 var
+R13029:13031 Corelib.Init.Datatypes <> nil constr
+binder 12987:12990 <> Hnil:81
+R13066:13068 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13038:13057 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select def
+R13059:13061 UMSTFormal.Urge.SdfCanonical <> src:79 var
+R13063:13065 UMSTFormal.Urge.SdfCanonical <> ctx:80 var
+R13069:13071 Corelib.Init.Datatypes <> inr constr
+R13073:13089 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R13108:13127 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_select def
+R13130:13149 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 13420:13446 <> sdf_canonical_fixture_bytes
+R13450:13453 Corelib.Init.Datatypes <> list ind
+R13455:13457 Corelib.Init.Datatypes <> nat ind
+R13464:13464 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13468:13469 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13473:13474 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13478:13479 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13482:13483 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13487:13488 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13491:13492 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13495:13496 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13499:13500 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13504:13505 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13508:13509 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13513:13514 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13518:13518 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 13533:13564 <> sdf_canonical_fixture_content_id
+R13568:13570 Corelib.Init.Datatypes <> nat ind
+def 13594:13621 <> sdf_canonical_fixture_action
+R13625:13638 UMSTFormal.Urge.SdfCanonical <> history_action rec
+R13648:13667 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R13648:13667 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R13648:13667 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R13706:13733 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R13706:13733 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R13749:13773 UMSTFormal.Urge.SdfCanonical <> history_action_content_id proj
+R13749:13773 UMSTFormal.Urge.SdfCanonical <> history_action_content_id proj
+R13672:13698 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_bytes def
+R13738:13741 Corelib.Init.Datatypes <> true constr
+R13778:13809 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_content_id def
+def 13827:13856 <> sdf_canonical_fixture_identity
+R13860:13875 UMSTFormal.Urge.SdfCanonical <> history_identity rec
+R13885:13907 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R13885:13907 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R13885:13907 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R13947:13973 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R13947:13973 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R13912:13939 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_action def
+R13978:14009 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_content_id def
+def 14027:14061 <> sdf_canonical_fixture_identity_same
+R14065:14080 UMSTFormal.Urge.SdfCanonical <> history_identity rec
+R14090:14112 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R14090:14112 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R14090:14112 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R14152:14178 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R14152:14178 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R14117:14144 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_action def
+R14183:14214 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_content_id def
+def 14232:14268 <> sdf_canonical_fixture_action_distinct
+R14272:14285 UMSTFormal.Urge.SdfCanonical <> history_action rec
+R14295:14314 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R14295:14314 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R14295:14314 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R14388:14415 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R14388:14415 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R14431:14455 UMSTFormal.Urge.SdfCanonical <> history_action_content_id proj
+R14431:14455 UMSTFormal.Urge.SdfCanonical <> history_action_content_id proj
+R14319:14319 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14323:14324 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14328:14329 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14333:14334 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14337:14338 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14342:14343 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14346:14347 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14350:14351 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14355:14356 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14360:14361 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14365:14366 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14370:14371 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14375:14376 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14380:14380 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14420:14423 Corelib.Init.Datatypes <> true constr
+def 14482:14520 <> sdf_canonical_fixture_identity_distinct
+R14524:14539 UMSTFormal.Urge.SdfCanonical <> history_identity rec
+R14549:14571 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R14549:14571 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R14549:14571 UMSTFormal.Urge.SdfCanonical <> history_identity_action proj
+R14620:14646 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R14620:14646 UMSTFormal.Urge.SdfCanonical <> history_identity_content_id proj
+R14576:14612 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_action_distinct def
+def 14673:14706 <> sdf_canonical_fixture_action_alias
+R14710:14723 UMSTFormal.Urge.SdfCanonical <> history_action rec
+R14733:14752 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R14733:14752 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R14733:14752 UMSTFormal.Urge.SdfCanonical <> history_action_bytes proj
+R14791:14818 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R14791:14818 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R14835:14859 UMSTFormal.Urge.SdfCanonical <> history_action_content_id proj
+R14835:14859 UMSTFormal.Urge.SdfCanonical <> history_action_content_id proj
+R14757:14783 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_bytes def
+R14823:14827 Corelib.Init.Datatypes <> false constr
+R14864:14895 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_content_id def
+def 14913:14942 <> sdf_canonical_fixture_conjunct
+R14946:14981 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_admissibility_conjunct rec
+R14991:15016 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_gate_ok proj
+R14991:15016 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_gate_ok proj
+R14991:15016 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_gate_ok proj
+R15032:15063 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_canonicalized proj
+R15032:15063 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_canonicalized proj
+R15079:15117 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_excitement_preserves proj
+R15079:15117 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_conj_excitement_preserves proj
+R15021:15024 Corelib.Init.Datatypes <> true constr
+R15068:15071 Corelib.Init.Datatypes <> true constr
+R15122:15125 Corelib.Init.Datatypes <> true constr
+prf 15140:15177 <> sdf_canonical_fixture_canonical_sdf_id
+R15225:15227 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15183:15195 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R15197:15224 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_action def
+R15228:15254 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_bytes def
+prf 15293:15333 <> sdf_canonical_fixture_byte_equal_admitted
+R15467:15471 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15339:15360 UMSTFormal.Urge.SdfCanonical <> admit_history_identity def
+R15366:15395 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_identity def
+R15397:15431 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_identity_same def
+R15437:15466 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_conjunct def
+R15472:15474 Corelib.Init.Datatypes <> inl constr
+R15476:15487 UMSTFormal.Urge.SdfCanonical <> scv_admitted constr
+prf 15526:15560 <> sdf_canonical_fixture_alias_refused
+R15606:15610 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15566:15602 UMSTFormal.Urge.SdfCanonical <> refuse_alias_without_canonicalization def
+R15611:15644 UMSTFormal.Urge.SdfCanonical <> scr_alias_without_canonicalization constr
+prf 15686:15724 <> sdf_canonical_fixture_apply_morphism_ok
+R15866:15870 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15730:15757 UMSTFormal.Urge.SdfCanonical <> apply_sdf_canonical_morphism def
+R15763:15792 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_identity def
+R15794:15825 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_content_id def
+R15831:15860 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_conjunct def
+R15862:15865 Corelib.Init.Datatypes <> true constr
+R15871:15873 Corelib.Init.Datatypes <> inl constr
+R15884:15910 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_from proj
+R15884:15910 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_from proj
+R15884:15910 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_from proj
+R15956:15991 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_to_content_id proj
+R15956:15991 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_to_content_id proj
+R16039:16068 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_witness proj
+R16039:16068 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_witness proj
+R16155:16196 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_excitement_selected proj
+R16155:16196 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_morphism_excitement_selected proj
+R15915:15944 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_identity def
+R15996:16027 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_content_id def
+R16084:16112 UMSTFormal.Urge.SdfCanonical <> witness_from_history_identity def
+R16114:16143 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_identity def
+R16201:16204 Corelib.Init.Datatypes <> true constr
+prf 16246:16290 <> sdf_canonical_fixture_witness_preserves_bytes
+R16390:16394 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16296:16322 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_witness_bytes proj
+R16329:16357 UMSTFormal.Urge.SdfCanonical <> witness_from_history_identity def
+R16359:16388 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_identity def
+R16395:16421 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_fixture_bytes def
+prf 16460:16490 <> sdf_canonical_theorem_tautology
+R16501:16514 UMSTFormal.Urge.SdfCanonical <> history_action rec
+binder 16497:16497 <> a:82
+R16561:16563 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16531:16558 UMSTFormal.Urge.SdfCanonical <> history_action_canonicalized proj
+R16560:16560 UMSTFormal.Urge.SdfCanonical <> a:82 var
+R16564:16567 Corelib.Init.Datatypes <> true constr
+binder 16522:16527 <> Hcanon:83
+R16599:16601 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16574:16594 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_theorem def
+R16596:16596 UMSTFormal.Urge.SdfCanonical <> a:82 var
+R16598:16598 UMSTFormal.Urge.SdfCanonical <> a:82 var
+R16602:16604 Corelib.Init.Datatypes <> inl constr
+R16606:16619 UMSTFormal.Urge.SdfCanonical <> bev_equivalent constr
+R16638:16658 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_theorem def
+R16681:16693 UMSTFormal.Urge.SdfCanonical <> list_eqb_self thm
+R16696:16708 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R16681:16693 UMSTFormal.Urge.SdfCanonical <> list_eqb_self thm
+R16696:16708 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+R16681:16693 UMSTFormal.Urge.SdfCanonical <> list_eqb_self thm
+R16696:16708 UMSTFormal.Urge.SdfCanonical <> canonical_sdf def
+prf 16744:16775 <> sdf_canonical_alias_not_admitted
+R16825:16828 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R16781:16819 UMSTFormal.Urge.SdfCanonical <> evaluate_alias_without_canonicalization def
+R16821:16824 Corelib.Init.Datatypes <> true constr
+R16829:16840 UMSTFormal.Urge.SdfCanonical <> scv_admitted constr
+R16859:16897 UMSTFormal.Urge.SdfCanonical <> evaluate_alias_without_canonicalization def
+def 17154:17180 <> sdf_canonical_physics_green
+R17184:17187 Corelib.Init.Datatypes <> bool ind
+R17192:17196 Corelib.Init.Datatypes <> false constr
+prf 17206:17238 <> sdf_canonical_physics_green_false
+R17271:17273 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17244:17270 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_physics_green def
+R17274:17278 Corelib.Init.Datatypes <> false constr
+def 17318:17347 <> sdf_canonical_production_wired
+R17351:17354 Corelib.Init.Datatypes <> bool ind
+R17359:17363 Corelib.Init.Datatypes <> false constr
+prf 17373:17408 <> sdf_canonical_production_wired_false
+R17444:17446 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17414:17443 UMSTFormal.Urge.SdfCanonical <> sdf_canonical_production_wired def
+R17447:17451 Corelib.Init.Datatypes <> false constr
+prf 17488:17515 <> sdf_canonical_module_witness
+R17519:17522 Corelib.Init.Logic <> True ind
+R17538:17538 Corelib.Init.Logic <> I constr
+R17538:17538 Corelib.Init.Logic <> I constr
+prf 17555:17580 <> sdf_canonical_no_new_axiom
+R17584:17587 Corelib.Init.Logic <> True ind
+R17603:17603 Corelib.Init.Logic <> I constr
+R17603:17603 Corelib.Init.Logic <> I constr
+prf 17620:17659 <> sdf_canonical_positive_refuse_not_silent
+R17711:17714 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R17665:17705 UMSTFormal.Urge.SdfCanonical <> evaluate_invented_equiv_without_canonical def
+R17707:17710 Corelib.Init.Datatypes <> true constr
+R17715:17726 UMSTFormal.Urge.SdfCanonical <> scv_admitted constr
+R17745:17785 UMSTFormal.Urge.SdfCanonical <> evaluate_invented_equiv_without_canonical def

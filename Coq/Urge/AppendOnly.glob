@@ -1,0 +1,265 @@
+DIGEST 8ea6a8a40d93263dfe8ad68826479639
+FUMSTFormal.Urge.AppendOnly
+R975:979 Stdlib.Arith.Arith <> <> lib
+R981:984 Stdlib.Lists.List <> <> lib
+R986:988 Stdlib.micromega.Lia <> <> lib
+R1006:1020 UMSTFormal.Gate <> <> lib
+R1038:1065 UMSTFormal.Urge.AdmitKleisli <> <> lib
+def 1381:1400 <> appendOnlyCommitMove
+R1407:1423 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 1403:1403 <> t:1
+R1474:1479 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R1439:1455 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R1458:1470 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R1472:1472 UMSTFormal.Urge.AppendOnly <> t:1 var
+R1480:1496 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R1499:1510 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R1512:1512 UMSTFormal.Urge.AppendOnly <> t:1 var
+def 1602:1620 <> appendOnlyInvariant
+R1627:1643 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 1623:1623 <> t:2
+R1658:1677 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R1679:1679 UMSTFormal.Urge.AppendOnly <> t:2 var
+def 1764:1776 <> silentRewrite
+R1783:1799 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 1779:1779 <> t:3
+R1849:1855 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R1815:1831 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R1834:1845 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R1847:1847 UMSTFormal.Urge.AppendOnly <> t:3 var
+R1856:1872 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R1875:1887 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R1889:1889 UMSTFormal.Urge.AppendOnly <> t:3 var
+prf 1972:1991 <> silentRewriteRefused
+R1998:2014 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 1994:1994 <> t:4
+R2026:2045 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R2047:2047 UMSTFormal.Urge.AppendOnly <> t:4 var
+binder 2022:2022 <> h:5
+R2054:2055 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R2056:2068 UMSTFormal.Urge.AppendOnly <> silentRewrite def
+R2070:2070 UMSTFormal.Urge.AppendOnly <> t:4 var
+R2089:2108 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R2111:2123 UMSTFormal.Urge.AppendOnly <> silentRewrite def
+prf 2214:2241 <> appendOnly_not_silentRewrite
+R2248:2264 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 2244:2244 <> t:6
+R2293:2297 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R2271:2290 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R2292:2292 UMSTFormal.Urge.AppendOnly <> t:6 var
+R2298:2299 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R2300:2312 UMSTFormal.Urge.AppendOnly <> silentRewrite def
+R2314:2314 UMSTFormal.Urge.AppendOnly <> t:6 var
+R2344:2363 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm
+R2344:2363 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm
+R2397:2416 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R2419:2431 UMSTFormal.Urge.AppendOnly <> silentRewrite def
+def 2538:2565 <> appendOnlyAdmittedTransition
+R2572:2588 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 2568:2568 <> t:7
+R2632:2635 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R2603:2629 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition def
+R2631:2631 UMSTFormal.Urge.AppendOnly <> t:7 var
+R2636:2654 UMSTFormal.Urge.AppendOnly <> appendOnlyInvariant def
+R2656:2656 UMSTFormal.Urge.AppendOnly <> t:7 var
+def 2741:2762 <> appendOnlyHistoryChain
+R2770:2773 Corelib.Init.Datatypes <> list ind
+R2775:2791 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 2765:2766 <> ts:8
+binder 2813:2813 <> t:9
+R2823:2826 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2816:2817 Stdlib.Lists.List <> In def
+R2821:2822 UMSTFormal.Urge.AppendOnly <> ts:8 var
+R2819:2819 UMSTFormal.Urge.AppendOnly <> t:9 var
+R2827:2846 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R2848:2848 UMSTFormal.Urge.AppendOnly <> t:9 var
+prf 2937:2979 <> appendOnlyHistoryChain_refusesSilentRewrite
+R2991:2994 Corelib.Init.Datatypes <> list ind
+R2996:3012 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 2986:2987 <> ts:10
+R3020:3041 UMSTFormal.Urge.AppendOnly <> appendOnlyHistoryChain def
+R3043:3044 UMSTFormal.Urge.AppendOnly <> ts:10 var
+binder 3016:3016 <> h:11
+R3056:3072 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 3052:3052 <> t:12
+R3081:3082 Stdlib.Lists.List <> In def
+R3086:3087 UMSTFormal.Urge.AppendOnly <> ts:10 var
+R3084:3084 UMSTFormal.Urge.AppendOnly <> t:12 var
+binder 3076:3077 <> ht:13
+R3094:3095 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R3096:3108 UMSTFormal.Urge.AppendOnly <> silentRewrite def
+R3110:3110 UMSTFormal.Urge.AppendOnly <> t:12 var
+R3129:3148 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm
+R3129:3148 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm
+def 3489:3506 <> recoveryAppendOnly
+R3522:3536 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 3509:3513 <> prior:14
+binder 3515:3518 <> post:15
+R3575:3577 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R3552:3568 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R3570:3574 UMSTFormal.Urge.AppendOnly <> prior:14 var
+R3578:3594 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R3596:3599 UMSTFormal.Urge.AppendOnly <> post:15 var
+def 3690:3711 <> silentRewriteSnapshots
+R3727:3741 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 3714:3718 <> prior:16
+binder 3720:3723 <> post:17
+R3779:3782 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R3757:3773 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R3775:3778 UMSTFormal.Urge.AppendOnly <> post:17 var
+R3783:3799 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R3801:3805 UMSTFormal.Urge.AppendOnly <> prior:16 var
+prf 3887:3925 <> recoveryAppendOnly_refusesSilentRewrite
+R3945:3959 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+binder 3932:3936 <> prior:18
+binder 3938:3941 <> post:19
+R3967:3984 UMSTFormal.Urge.AppendOnly <> recoveryAppendOnly def
+R3986:3990 UMSTFormal.Urge.AppendOnly <> prior:18 var
+R3992:3995 UMSTFormal.Urge.AppendOnly <> post:19 var
+binder 3963:3963 <> h:20
+R4002:4003 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R4004:4025 UMSTFormal.Urge.AppendOnly <> silentRewriteSnapshots def
+R4027:4031 UMSTFormal.Urge.AppendOnly <> prior:18 var
+R4033:4036 UMSTFormal.Urge.AppendOnly <> post:19 var
+R4055:4072 UMSTFormal.Urge.AppendOnly <> recoveryAppendOnly def
+R4075:4096 UMSTFormal.Urge.AppendOnly <> silentRewriteSnapshots def
+def 4230:4247 <> selfHealAppendOnly
+R4254:4270 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 4250:4250 <> t:21
+R4285:4302 UMSTFormal.Urge.AppendOnly <> recoveryAppendOnly def
+R4305:4317 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R4319:4319 UMSTFormal.Urge.AppendOnly <> t:21 var
+R4323:4334 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R4336:4336 UMSTFormal.Urge.AppendOnly <> t:21 var
+prf 4349:4389 <> selfHealAppendOnly_eq_appendOnlyInvariant
+R4396:4412 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 4392:4392 <> t:22
+R4439:4441 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4419:4436 UMSTFormal.Urge.AppendOnly <> selfHealAppendOnly def
+R4438:4438 UMSTFormal.Urge.AppendOnly <> t:22 var
+R4442:4460 UMSTFormal.Urge.AppendOnly <> appendOnlyInvariant def
+R4462:4462 UMSTFormal.Urge.AppendOnly <> t:22 var
+prf 4566:4591 <> selfHeal_not_silentRewrite
+R4598:4614 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 4594:4594 <> t:23
+R4626:4643 UMSTFormal.Urge.AppendOnly <> selfHealAppendOnly def
+R4645:4645 UMSTFormal.Urge.AppendOnly <> t:23 var
+binder 4622:4622 <> h:24
+R4652:4653 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R4654:4675 UMSTFormal.Urge.AppendOnly <> silentRewriteSnapshots def
+R4678:4690 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R4692:4692 UMSTFormal.Urge.AppendOnly <> t:23 var
+R4696:4707 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R4709:4709 UMSTFormal.Urge.AppendOnly <> t:23 var
+R4729:4767 UMSTFormal.Urge.AppendOnly <> recoveryAppendOnly_refusesSilentRewrite thm
+R4781:4793 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R4799:4810 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R4729:4767 UMSTFormal.Urge.AppendOnly <> recoveryAppendOnly_refusesSilentRewrite thm
+R4781:4793 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R4799:4810 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+prf 5116:5147 <> appendOnlyAdmitted_from_landauer
+R5154:5174 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 5150:5150 <> b:25
+R5192:5211 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R5214:5232 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R5234:5234 UMSTFormal.Urge.AppendOnly <> b:25 var
+binder 5182:5188 <> hAppend:26
+R5249:5262 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R5265:5283 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R5285:5285 UMSTFormal.Urge.AppendOnly <> b:25 var
+binder 5243:5245 <> hSL:27
+R5293:5320 UMSTFormal.Urge.AppendOnly <> appendOnlyAdmittedTransition def
+R5323:5341 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R5343:5343 UMSTFormal.Urge.AppendOnly <> b:25 var
+R5374:5421 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition_from_landauer_bridge thm
+R5374:5421 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition_from_landauer_bridge thm
+prf 5537:5570 <> silentRewriteRefused_from_landauer
+R5577:5597 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 5573:5573 <> b:28
+R5615:5634 UMSTFormal.Urge.AppendOnly <> appendOnlyCommitMove def
+R5637:5655 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R5657:5657 UMSTFormal.Urge.AppendOnly <> b:28 var
+binder 5605:5611 <> hAppend:29
+R5673:5686 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R5689:5707 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R5709:5709 UMSTFormal.Urge.AppendOnly <> b:28 var
+binder 5666:5669 <> _hSL:30
+R5717:5718 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R5719:5731 UMSTFormal.Urge.AppendOnly <> silentRewrite def
+R5734:5752 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R5754:5754 UMSTFormal.Urge.AppendOnly <> b:28 var
+R5774:5793 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm
+R5796:5814 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R5774:5793 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm
+R5796:5814 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+def 6147:6170 <> appendOnlyRecoverySelect
+R6179:6196 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6173:6175 <> src:31
+R6212:6215 Corelib.Init.Datatypes <> list ind
+R6218:6234 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R6236:6238 UMSTFormal.Urge.AppendOnly <> src:31 var
+binder 6204:6208 <> cands:32
+R6267:6269 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6246:6262 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R6264:6266 UMSTFormal.Urge.AppendOnly <> src:31 var
+R6270:6287 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R6294:6310 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R6312:6314 UMSTFormal.Urge.AppendOnly <> src:31 var
+R6316:6320 UMSTFormal.Urge.AppendOnly <> cands:32 var
+prf 6332:6376 <> appendOnlyRecoverySelect_eq_excitement_select
+R6389:6406 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6383:6385 <> src:33
+R6422:6425 Corelib.Init.Datatypes <> list ind
+R6428:6444 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R6446:6448 UMSTFormal.Urge.AppendOnly <> src:33 var
+binder 6414:6418 <> cands:34
+R6490:6492 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6456:6479 UMSTFormal.Urge.AppendOnly <> appendOnlyRecoverySelect def
+R6481:6483 UMSTFormal.Urge.AppendOnly <> src:33 var
+R6485:6489 UMSTFormal.Urge.AppendOnly <> cands:34 var
+R6493:6509 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R6511:6513 UMSTFormal.Urge.AppendOnly <> src:33 var
+R6515:6519 UMSTFormal.Urge.AppendOnly <> cands:34 var
+prf 6556:6595 <> appendOnlyRecoverySelect_no_local_argmin
+R6608:6625 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6602:6604 <> src:35
+R6641:6644 Corelib.Init.Datatypes <> list ind
+R6647:6663 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R6665:6667 UMSTFormal.Urge.AppendOnly <> src:35 var
+binder 6633:6637 <> cands:36
+R6709:6711 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6675:6698 UMSTFormal.Urge.AppendOnly <> appendOnlyRecoverySelect def
+R6700:6702 UMSTFormal.Urge.AppendOnly <> src:35 var
+R6704:6708 UMSTFormal.Urge.AppendOnly <> cands:36 var
+R6712:6729 UMSTFormal.Urge.AdmitKleisli <> admitHistorySelect def
+R6731:6733 UMSTFormal.Urge.AppendOnly <> src:35 var
+R6735:6739 UMSTFormal.Urge.AppendOnly <> cands:36 var
+def 7000:7024 <> append_only_physics_green
+R7028:7031 Corelib.Init.Datatypes <> bool ind
+R7036:7040 Corelib.Init.Datatypes <> false constr
+prf 7050:7080 <> append_only_physics_green_false
+R7111:7113 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7086:7110 UMSTFormal.Urge.AppendOnly <> append_only_physics_green def
+R7114:7118 Corelib.Init.Datatypes <> false constr
+def 7158:7182 <> appendOnlyProductionWired
+R7186:7189 Corelib.Init.Datatypes <> bool ind
+R7194:7198 Corelib.Init.Datatypes <> false constr
+prf 7208:7237 <> appendOnlyProductionWiredFalse
+R7268:7270 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7243:7267 UMSTFormal.Urge.AppendOnly <> appendOnlyProductionWired def
+R7271:7275 Corelib.Init.Datatypes <> false constr
+prf 7312:7334 <> appendOnlyModuleWitness
+R7338:7341 Corelib.Init.Logic <> True ind
+R7357:7357 Corelib.Init.Logic <> I constr
+R7357:7357 Corelib.Init.Logic <> I constr
+prf 7460:7491 <> appendOnly_silentRewrite_refused
+R7498:7514 UMSTFormal.Urge.AdmitKleisli <> HistoryTransition rec
+binder 7494:7494 <> t:37
+R7526:7544 UMSTFormal.Urge.AppendOnly <> appendOnlyInvariant def
+R7546:7546 UMSTFormal.Urge.AppendOnly <> t:37 var
+binder 7522:7522 <> h:38
+R7553:7554 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R7555:7567 UMSTFormal.Urge.AppendOnly <> silentRewrite def
+R7569:7569 UMSTFormal.Urge.AppendOnly <> t:37 var
+R7588:7607 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm
+R7588:7607 UMSTFormal.Urge.AppendOnly <> silentRewriteRefused thm

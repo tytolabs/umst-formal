@@ -1,0 +1,895 @@
+DIGEST 2aa89a8496738d4156e06914bfb174a1
+FUMSTFormal.Urge.ClosedLoopWitness
+R904:908 Stdlib.Arith.Arith <> <> lib
+R910:913 Stdlib.Lists.List <> <> lib
+R915:918 Stdlib.Bool.Bool <> <> lib
+R920:925 Stdlib.QArith.QArith <> <> lib
+R943:957 UMSTFormal.Gate <> <> lib
+R975:999 UMSTFormal.Constitutional <> <> lib
+R1017:1044 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1062:1093 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1474:1492 <> closed_loop_residue
+constr 1501:1517 <> clr_no_candidates
+constr 1523:1542 <> clr_all_inadmissible
+constr 1548:1570 <> clr_all_excluded_by_cbf
+constr 1576:1598 <> clr_all_excluded_by_dec
+constr 1604:1624 <> clr_untagged_constant
+constr 1630:1654 <> clr_no_strict_improvement
+scheme 1474:1492 <> closed_loop_residue_rect
+scheme 1474:1492 <> closed_loop_residue_ind
+scheme 1474:1492 <> closed_loop_residue_rec
+scheme 1474:1492 <> closed_loop_residue_sind
+rec 1734:1759 <> closed_loop_residue_counts
+proj 1774:1791 <> clrc_no_candidates
+proj 1802:1822 <> clrc_all_inadmissible
+proj 1833:1856 <> clrc_all_excluded_by_cbf
+proj 1867:1890 <> clrc_all_excluded_by_dec
+proj 1901:1922 <> clrc_untagged_constant
+proj 1933:1958 <> clrc_no_strict_improvement
+R1795:1797 Corelib.Init.Datatypes <> nat ind
+R1826:1828 Corelib.Init.Datatypes <> nat ind
+R1860:1862 Corelib.Init.Datatypes <> nat ind
+R1894:1896 Corelib.Init.Datatypes <> nat ind
+R1926:1928 Corelib.Init.Datatypes <> nat ind
+R1962:1964 Corelib.Init.Datatypes <> nat ind
+def 1981:2012 <> empty_closed_loop_residue_counts
+R2016:2041 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts rec
+R2051:2068 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R2051:2068 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R2051:2068 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R2081:2101 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R2081:2101 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R2114:2137 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R2114:2137 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R2150:2173 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R2150:2173 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R2186:2207 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R2186:2207 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R2220:2245 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R2220:2245 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+def 2268:2299 <> closed_loop_residue_counts_total
+R2306:2331 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts rec
+binder 2302:2302 <> c:10
+R2336:2338 Corelib.Init.Datatypes <> nat ind
+R2484:2488 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2455:2459 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2424:2428 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2393:2397 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2365:2369 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R2345:2362 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R2364:2364 UMSTFormal.Urge.ClosedLoopWitness <> c:10 var
+R2370:2390 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R2392:2392 UMSTFormal.Urge.ClosedLoopWitness <> c:10 var
+R2398:2421 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R2423:2423 UMSTFormal.Urge.ClosedLoopWitness <> c:10 var
+R2429:2452 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R2454:2454 UMSTFormal.Urge.ClosedLoopWitness <> c:10 var
+R2460:2481 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R2483:2483 UMSTFormal.Urge.ClosedLoopWitness <> c:10 var
+R2489:2514 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R2516:2516 UMSTFormal.Urge.ClosedLoopWitness <> c:10 var
+def 2531:2558 <> closed_loop_residue_count_of
+R2569:2594 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts rec
+binder 2565:2565 <> c:11
+R2602:2620 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue ind
+binder 2598:2598 <> r:12
+R2625:2627 Corelib.Init.Datatypes <> nat ind
+R2640:2640 UMSTFormal.Urge.ClosedLoopWitness <> r:12 var
+R2651:2667 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_candidates constr
+R2672:2689 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R2691:2691 UMSTFormal.Urge.ClosedLoopWitness <> c:11 var
+R2697:2716 UMSTFormal.Urge.ClosedLoopWitness <> clr_all_inadmissible constr
+R2721:2741 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R2743:2743 UMSTFormal.Urge.ClosedLoopWitness <> c:11 var
+R2749:2771 UMSTFormal.Urge.ClosedLoopWitness <> clr_all_excluded_by_cbf constr
+R2776:2799 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R2801:2801 UMSTFormal.Urge.ClosedLoopWitness <> c:11 var
+R2807:2829 UMSTFormal.Urge.ClosedLoopWitness <> clr_all_excluded_by_dec constr
+R2834:2857 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R2859:2859 UMSTFormal.Urge.ClosedLoopWitness <> c:11 var
+R2865:2885 UMSTFormal.Urge.ClosedLoopWitness <> clr_untagged_constant constr
+R2890:2911 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R2913:2913 UMSTFormal.Urge.ClosedLoopWitness <> c:11 var
+R2919:2943 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_strict_improvement constr
+R2948:2973 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R2975:2975 UMSTFormal.Urge.ClosedLoopWitness <> c:11 var
+def 2996:3030 <> increment_closed_loop_residue_count
+R3046:3071 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts rec
+binder 3037:3042 <> counts:14
+R3079:3097 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue ind
+binder 3075:3075 <> r:15
+R3106:3131 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts rec
+R3144:3144 UMSTFormal.Urge.ClosedLoopWitness <> r:15 var
+R3155:3171 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_candidates constr
+R3185:3202 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3185:3202 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3185:3202 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3247:3267 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R3247:3267 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R3311:3334 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R3311:3334 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R3381:3404 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R3381:3404 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R3451:3472 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R3451:3472 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R3517:3542 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R3517:3542 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R3207:3207 Corelib.Init.Datatypes <> S constr
+R3210:3227 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3229:3234 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3272:3292 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R3294:3299 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3339:3362 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R3364:3369 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3409:3432 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R3434:3439 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3477:3498 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R3500:3505 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3547:3572 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R3574:3579 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3588:3607 UMSTFormal.Urge.ClosedLoopWitness <> clr_all_inadmissible constr
+R3621:3638 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3621:3638 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3621:3638 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3679:3699 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R3679:3699 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R3747:3770 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R3747:3770 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R3817:3840 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R3817:3840 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R3887:3908 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R3887:3908 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R3953:3978 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R3953:3978 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R3643:3660 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R3662:3667 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3704:3704 Corelib.Init.Datatypes <> S constr
+R3707:3727 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R3729:3734 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3775:3798 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R3800:3805 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3845:3868 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R3870:3875 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3913:3934 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R3936:3941 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R3983:4008 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4010:4015 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4024:4046 UMSTFormal.Urge.ClosedLoopWitness <> clr_all_excluded_by_cbf constr
+R4060:4077 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4060:4077 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4060:4077 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4118:4138 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R4118:4138 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R4182:4205 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R4182:4205 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R4256:4279 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R4256:4279 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R4326:4347 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R4326:4347 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R4392:4417 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4392:4417 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4082:4099 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4101:4106 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4143:4163 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R4165:4170 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4210:4210 Corelib.Init.Datatypes <> S constr
+R4213:4236 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R4238:4243 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4284:4307 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R4309:4314 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4352:4373 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R4375:4380 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4422:4447 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4449:4454 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4463:4485 UMSTFormal.Urge.ClosedLoopWitness <> clr_all_excluded_by_dec constr
+R4499:4516 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4499:4516 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4499:4516 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4557:4577 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R4557:4577 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R4621:4644 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R4621:4644 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R4691:4714 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R4691:4714 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R4765:4786 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R4765:4786 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R4831:4856 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4831:4856 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4521:4538 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4540:4545 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4582:4602 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R4604:4609 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4649:4672 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R4674:4679 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4719:4719 Corelib.Init.Datatypes <> S constr
+R4722:4745 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R4747:4752 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4791:4812 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R4814:4819 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4861:4886 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4888:4893 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R4902:4922 UMSTFormal.Urge.ClosedLoopWitness <> clr_untagged_constant constr
+R4936:4953 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4936:4953 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4936:4953 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4994:5014 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R4994:5014 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R5058:5081 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R5058:5081 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R5128:5151 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R5128:5151 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R5198:5219 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R5198:5219 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R5268:5293 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R5268:5293 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R4958:4975 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R4977:4982 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5019:5039 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R5041:5046 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5086:5109 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R5111:5116 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5156:5179 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R5181:5186 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5224:5224 Corelib.Init.Datatypes <> S constr
+R5227:5248 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R5250:5255 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5298:5323 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R5325:5330 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5339:5363 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_strict_improvement constr
+R5377:5394 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R5377:5394 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R5377:5394 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R5435:5455 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R5435:5455 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R5499:5522 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R5499:5522 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R5569:5592 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R5569:5592 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R5639:5660 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R5639:5660 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R5705:5730 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R5705:5730 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R5399:5416 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_candidates proj
+R5418:5423 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5460:5480 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_inadmissible proj
+R5482:5487 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5527:5550 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_cbf proj
+R5552:5557 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5597:5620 UMSTFormal.Urge.ClosedLoopWitness <> clrc_all_excluded_by_dec proj
+R5622:5627 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5665:5686 UMSTFormal.Urge.ClosedLoopWitness <> clrc_untagged_constant proj
+R5688:5693 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+R5735:5735 Corelib.Init.Datatypes <> S constr
+R5738:5763 UMSTFormal.Urge.ClosedLoopWitness <> clrc_no_strict_improvement proj
+R5765:5770 UMSTFormal.Urge.ClosedLoopWitness <> counts:14 var
+def 5863:5884 <> map_excitement_residue
+R5891:5908 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+binder 5887:5887 <> r:17
+R5913:5931 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue ind
+R5944:5944 UMSTFormal.Urge.ClosedLoopWitness <> r:17 var
+R5955:5971 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R5976:5992 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_candidates constr
+R5998:6017 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+R6022:6041 UMSTFormal.Urge.ClosedLoopWitness <> clr_all_inadmissible constr
+R6047:6071 UMSTFormal.Urge.AdmitKleisli <> exc_no_strict_improvement constr
+R6076:6100 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_strict_improvement constr
+rec 6188:6215 <> closed_loop_observed_delta_f
+proj 6230:6237 <> clod_src
+proj 6246:6258 <> clod_observed
+R6241:6241 Stdlib.QArith.QArith_base <> Q rec
+R6262:6262 Stdlib.QArith.QArith_base <> Q rec
+def 6279:6312 <> closed_loop_observed_delta_f_delta
+R6319:6346 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_observed_delta_f rec
+binder 6315:6315 <> d:22
+R6351:6351 Stdlib.QArith.QArith_base <> Q rec
+R6358:6363 Stdlib.QArith.QArith_base <> Qminus def
+R6366:6378 UMSTFormal.Urge.ClosedLoopWitness <> clod_observed proj
+R6380:6380 UMSTFormal.Urge.ClosedLoopWitness <> d:22 var
+R6384:6391 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R6393:6393 UMSTFormal.Urge.ClosedLoopWitness <> d:22 var
+def 6409:6444 <> closed_loop_observed_delta_f_compute
+R6462:6462 Stdlib.QArith.QArith_base <> Q rec
+binder 6447:6449 <> src:23
+binder 6451:6458 <> observed:24
+R6467:6467 Stdlib.QArith.QArith_base <> Q rec
+R6474:6479 Stdlib.QArith.QArith_base <> Qminus def
+R6481:6488 UMSTFormal.Urge.ClosedLoopWitness <> observed:24 var
+R6490:6492 UMSTFormal.Urge.ClosedLoopWitness <> src:23 var
+prf 6502:6546 <> closed_loop_observed_delta_f_delta_eq_compute
+R6557:6584 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_observed_delta_f rec
+binder 6553:6553 <> d:25
+R6627:6631 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6591:6624 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_observed_delta_f_delta def
+R6626:6626 UMSTFormal.Urge.ClosedLoopWitness <> d:25 var
+R6632:6667 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_observed_delta_f_compute def
+R6670:6677 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R6679:6679 UMSTFormal.Urge.ClosedLoopWitness <> d:25 var
+R6683:6695 UMSTFormal.Urge.ClosedLoopWitness <> clod_observed proj
+R6697:6697 UMSTFormal.Urge.ClosedLoopWitness <> d:25 var
+rec 6812:6824 <> messy_witness
+proj 6839:6847 <> mw_counts
+proj 6881:6899 <> mw_observed_delta_f
+R6851:6876 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts rec
+R6903:6906 Corelib.Init.Datatypes <> list ind
+R6908:6935 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_observed_delta_f rec
+def 6952:6970 <> empty_messy_witness
+R6974:6986 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+R6996:7004 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R6996:7004 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R6996:7004 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7048:7066 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7048:7066 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7009:7040 UMSTFormal.Urge.ClosedLoopWitness <> empty_closed_loop_residue_counts def
+R7071:7073 Corelib.Init.Datatypes <> nil constr
+def 7091:7114 <> add_messy_observed_delta
+R7121:7133 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+binder 7117:7117 <> w:29
+R7145:7172 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_observed_delta_f rec
+binder 7141:7141 <> d:30
+R7177:7189 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+R7199:7207 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7199:7207 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7199:7207 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7230:7248 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7230:7248 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7212:7220 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7222:7222 UMSTFormal.Urge.ClosedLoopWitness <> w:29 var
+R7254:7257 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7253:7253 UMSTFormal.Urge.ClosedLoopWitness <> d:30 var
+R7258:7276 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7278:7278 UMSTFormal.Urge.ClosedLoopWitness <> w:29 var
+def 7296:7315 <> record_messy_residue
+R7322:7334 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+binder 7318:7318 <> w:31
+R7342:7360 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue ind
+binder 7338:7338 <> r:32
+R7369:7381 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+R7391:7399 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7391:7399 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7391:7399 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7462:7480 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7462:7480 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7404:7438 UMSTFormal.Urge.ClosedLoopWitness <> increment_closed_loop_residue_count def
+R7441:7449 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R7451:7451 UMSTFormal.Urge.ClosedLoopWitness <> w:31 var
+R7454:7454 UMSTFormal.Urge.ClosedLoopWitness <> r:32 var
+R7485:7503 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R7505:7505 UMSTFormal.Urge.ClosedLoopWitness <> w:31 var
+def 7523:7548 <> record_messy_admit_residue
+R7555:7567 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+binder 7551:7551 <> w:33
+R7579:7596 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+binder 7575:7575 <> r:34
+R7601:7613 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+R7620:7639 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_residue def
+R7641:7641 UMSTFormal.Urge.ClosedLoopWitness <> w:33 var
+R7644:7665 UMSTFormal.Urge.ClosedLoopWitness <> map_excitement_residue def
+R7667:7667 UMSTFormal.Urge.ClosedLoopWitness <> r:34 var
+rec 7744:7772 <> excitement_occupancy_feedback
+proj 7787:7803 <> eof_residue_total
+proj 7814:7830 <> eof_delta_f_steps
+proj 7841:7863 <> eof_occupancy_surrogate
+R7807:7809 Corelib.Init.Datatypes <> nat ind
+R7834:7836 Corelib.Init.Datatypes <> nat ind
+R7867:7869 Corelib.Init.Datatypes <> nat ind
+def 7886:7907 <> occupancy_from_witness
+R7914:7926 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+binder 7910:7910 <> w:39
+R7935:7963 UMSTFormal.Urge.ClosedLoopWitness <> excitement_occupancy_feedback rec
+R7991:8022 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts_total def
+R8025:8033 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R8035:8035 UMSTFormal.Urge.ClosedLoopWitness <> w:39 var
+binder 7974:7986 <> residue_total:40
+R8064:8074 Stdlib.Lists.List <> length abbrev
+R8077:8095 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R8097:8097 UMSTFormal.Urge.ClosedLoopWitness <> w:39 var
+binder 8047:8059 <> delta_f_steps:41
+R8108:8124 UMSTFormal.Urge.ClosedLoopWitness <> eof_residue_total proj
+R8108:8124 UMSTFormal.Urge.ClosedLoopWitness <> eof_residue_total proj
+R8108:8124 UMSTFormal.Urge.ClosedLoopWitness <> eof_residue_total proj
+R8149:8165 UMSTFormal.Urge.ClosedLoopWitness <> eof_delta_f_steps proj
+R8149:8165 UMSTFormal.Urge.ClosedLoopWitness <> eof_delta_f_steps proj
+R8190:8212 UMSTFormal.Urge.ClosedLoopWitness <> eof_occupancy_surrogate proj
+R8190:8212 UMSTFormal.Urge.ClosedLoopWitness <> eof_occupancy_surrogate proj
+R8129:8141 UMSTFormal.Urge.ClosedLoopWitness <> residue_total:40 var
+R8170:8182 UMSTFormal.Urge.ClosedLoopWitness <> delta_f_steps:41 var
+R8237:8239 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R8230:8232 Corelib.Init.Peano <> ::nat_scope:x_'*'_x not
+R8217:8229 UMSTFormal.Urge.ClosedLoopWitness <> residue_total:40 var
+R8240:8252 UMSTFormal.Urge.ClosedLoopWitness <> delta_f_steps:41 var
+ind 8491:8509 <> closed_loop_refusal
+constr 8518:8541 <> clref_excitement_residue
+constr 8572:8590 <> clref_second_argmin
+constr 8596:8612 <> clref_f64_delta_f
+constr 8618:8642 <> clref_open_loop_isolation
+R8548:8565 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+binder 8544:8544 <> r:44
+scheme 8491:8509 <> closed_loop_refusal_rect
+scheme 8491:8509 <> closed_loop_refusal_ind
+scheme 8491:8509 <> closed_loop_refusal_rec
+scheme 8491:8509 <> closed_loop_refusal_sind
+ind 8656:8679 <> closed_loop_step_verdict
+constr 8688:8700 <> clsv_accepted
+constr 8749:8760 <> clsv_refused
+R8714:8742 UMSTFormal.Urge.ClosedLoopWitness <> excitement_occupancy_feedback rec
+binder 8703:8710 <> feedback:47
+R8773:8791 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_refusal ind
+binder 8763:8769 <> refusal:48
+scheme 8656:8679 <> closed_loop_step_verdict_rect
+scheme 8656:8679 <> closed_loop_step_verdict_ind
+scheme 8656:8679 <> closed_loop_step_verdict_rec
+scheme 8656:8679 <> closed_loop_step_verdict_sind
+def 8807:8838 <> refuse_closed_loop_second_argmin
+R8853:8855 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8844:8852 Corelib.Init.Datatypes <> Empty_set ind
+R8856:8874 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_refusal ind
+R8879:8881 Corelib.Init.Datatypes <> inr constr
+R8883:8901 UMSTFormal.Urge.ClosedLoopWitness <> clref_second_argmin constr
+def 8916:8945 <> refuse_closed_loop_f64_delta_f
+R8960:8962 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8951:8959 Corelib.Init.Datatypes <> Empty_set ind
+R8963:8981 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_refusal ind
+R8986:8988 Corelib.Init.Datatypes <> inr constr
+R8990:9006 UMSTFormal.Urge.ClosedLoopWitness <> clref_f64_delta_f constr
+def 9021:9058 <> refuse_closed_loop_open_loop_isolation
+R9073:9075 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9064:9072 Corelib.Init.Datatypes <> Empty_set ind
+R9076:9094 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_refusal ind
+R9099:9101 Corelib.Init.Datatypes <> inr constr
+R9103:9127 UMSTFormal.Urge.ClosedLoopWitness <> clref_open_loop_isolation constr
+def 9215:9232 <> strict_improvement
+R9241:9258 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9235:9237 <> src:49
+R9270:9286 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9288:9290 UMSTFormal.Urge.ClosedLoopWitness <> src:49 var
+binder 9266:9266 <> c:50
+R9295:9298 Corelib.Init.Datatypes <> bool ind
+R9362:9367 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9305:9312 Stdlib.QArith.QArith_base <> Qle_bool def
+R9315:9325 UMSTFormal.Concrete.Gate <> free_energy proj
+R9328:9335 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R9337:9339 UMSTFormal.Urge.ClosedLoopWitness <> src:49 var
+R9341:9341 UMSTFormal.Urge.ClosedLoopWitness <> c:50 var
+R9346:9356 UMSTFormal.Concrete.Gate <> free_energy proj
+R9358:9360 UMSTFormal.Urge.ClosedLoopWitness <> src:49 var
+R9368:9371 Corelib.Init.Datatypes <> negb def
+R9374:9381 Stdlib.QArith.QArith_base <> Qle_bool def
+R9384:9394 UMSTFormal.Concrete.Gate <> free_energy proj
+R9396:9398 UMSTFormal.Urge.ClosedLoopWitness <> src:49 var
+R9402:9412 UMSTFormal.Concrete.Gate <> free_energy proj
+R9415:9422 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R9424:9426 UMSTFormal.Urge.ClosedLoopWitness <> src:49 var
+R9428:9428 UMSTFormal.Urge.ClosedLoopWitness <> c:50 var
+def 9446:9474 <> strict_improvement_successors
+R9483:9500 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9477:9479 <> src:51
+R9521:9524 Corelib.Init.Datatypes <> list ind
+R9527:9543 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9545:9547 UMSTFormal.Urge.ClosedLoopWitness <> src:51 var
+binder 9508:9517 <> successors:52
+R9555:9558 Corelib.Init.Datatypes <> list ind
+R9561:9577 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9579:9581 UMSTFormal.Urge.ClosedLoopWitness <> src:51 var
+R9589:9594 Stdlib.Lists.List <> filter def
+R9621:9630 UMSTFormal.Urge.ClosedLoopWitness <> successors:52 var
+R9597:9614 UMSTFormal.Urge.ClosedLoopWitness <> strict_improvement def
+R9616:9618 UMSTFormal.Urge.ClosedLoopWitness <> src:51 var
+rec 9936:9950 <> closed_loop_ctx
+proj 9992:10013 <> closed_loop_successors
+R9959:9976 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9953:9955 <> src:53
+R10017:10020 Corelib.Init.Datatypes <> list ind
+R10023:10039 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10041:10043 UMSTFormal.Urge.ClosedLoopWitness <> src:53 var
+def 10143:10160 <> closed_loop_select
+R10169:10186 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10163:10165 <> src:56
+R10200:10214 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_ctx rec
+R10216:10218 UMSTFormal.Urge.ClosedLoopWitness <> src:56 var
+binder 10194:10196 <> ctx:57
+R10246:10248 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R10225:10241 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10243:10245 UMSTFormal.Urge.ClosedLoopWitness <> src:56 var
+R10249:10266 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10273:10292 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10294:10296 UMSTFormal.Urge.ClosedLoopWitness <> src:56 var
+R10299:10320 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_successors proj
+R10322:10324 UMSTFormal.Urge.ClosedLoopWitness <> src:56 var
+R10326:10328 UMSTFormal.Urge.ClosedLoopWitness <> ctx:57 var
+def 10344:10366 <> closed_loop_select_list
+R10375:10392 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10369:10371 <> src:58
+R10413:10416 Corelib.Init.Datatypes <> list ind
+R10419:10435 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10437:10439 UMSTFormal.Urge.ClosedLoopWitness <> src:58 var
+binder 10400:10409 <> successors:59
+R10468:10470 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R10447:10463 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10465:10467 UMSTFormal.Urge.ClosedLoopWitness <> src:58 var
+R10471:10488 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10495:10514 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10516:10518 UMSTFormal.Urge.ClosedLoopWitness <> src:58 var
+R10520:10529 UMSTFormal.Urge.ClosedLoopWitness <> successors:59 var
+prf 10541:10579 <> closed_loop_select_eq_excitement_select
+R10592:10609 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10586:10588 <> src:60
+R10619:10633 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_ctx rec
+R10635:10637 UMSTFormal.Urge.ClosedLoopWitness <> src:60 var
+binder 10613:10615 <> ctx:61
+R10670:10674 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10644:10661 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select def
+R10663:10665 UMSTFormal.Urge.ClosedLoopWitness <> src:60 var
+R10667:10669 UMSTFormal.Urge.ClosedLoopWitness <> ctx:61 var
+R10675:10691 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10693:10695 UMSTFormal.Urge.ClosedLoopWitness <> src:60 var
+R10698:10719 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_successors proj
+R10721:10723 UMSTFormal.Urge.ClosedLoopWitness <> src:60 var
+R10725:10727 UMSTFormal.Urge.ClosedLoopWitness <> ctx:61 var
+R10747:10764 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select def
+R10767:10786 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 10818:10859 <> closed_loop_select_eq_urge_recovery_select
+R10872:10889 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10866:10868 <> src:62
+R10899:10913 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_ctx rec
+R10915:10917 UMSTFormal.Urge.ClosedLoopWitness <> src:62 var
+binder 10893:10895 <> ctx:63
+R10950:10954 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10924:10941 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select def
+R10943:10945 UMSTFormal.Urge.ClosedLoopWitness <> src:62 var
+R10947:10949 UMSTFormal.Urge.ClosedLoopWitness <> ctx:63 var
+R10955:10974 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10976:10978 UMSTFormal.Urge.ClosedLoopWitness <> src:62 var
+R10981:11002 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_successors proj
+R11004:11006 UMSTFormal.Urge.ClosedLoopWitness <> src:62 var
+R11008:11010 UMSTFormal.Urge.ClosedLoopWitness <> ctx:63 var
+prf 11050:11076 <> closed_loop_no_local_argmin
+R11089:11106 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11083:11085 <> src:64
+R11116:11130 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_ctx rec
+R11132:11134 UMSTFormal.Urge.ClosedLoopWitness <> src:64 var
+binder 11110:11112 <> ctx:65
+R11167:11171 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11141:11158 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select def
+R11160:11162 UMSTFormal.Urge.ClosedLoopWitness <> src:64 var
+R11164:11166 UMSTFormal.Urge.ClosedLoopWitness <> ctx:65 var
+R11172:11188 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11190:11192 UMSTFormal.Urge.ClosedLoopWitness <> src:64 var
+R11195:11216 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_successors proj
+R11218:11220 UMSTFormal.Urge.ClosedLoopWitness <> src:64 var
+R11222:11224 UMSTFormal.Urge.ClosedLoopWitness <> ctx:65 var
+R11244:11282 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select_eq_excitement_select thm
+R11244:11282 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select_eq_excitement_select thm
+prf 11306:11322 <> closed_loop_empty
+R11331:11348 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11325:11327 <> src:66
+R11362:11376 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_ctx rec
+R11378:11380 UMSTFormal.Urge.ClosedLoopWitness <> src:66 var
+binder 11356:11358 <> ctx:67
+R11425:11427 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11395:11416 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_successors proj
+R11418:11420 UMSTFormal.Urge.ClosedLoopWitness <> src:66 var
+R11422:11424 UMSTFormal.Urge.ClosedLoopWitness <> ctx:67 var
+R11428:11430 Corelib.Init.Datatypes <> nil constr
+binder 11388:11391 <> Hnil:68
+R11463:11465 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11437:11454 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select def
+R11456:11458 UMSTFormal.Urge.ClosedLoopWitness <> src:66 var
+R11460:11462 UMSTFormal.Urge.ClosedLoopWitness <> ctx:67 var
+R11466:11468 Corelib.Init.Datatypes <> inr constr
+R11470:11486 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R11505:11522 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select def
+R11525:11544 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 11669:11692 <> witness_closed_loop_step
+R11699:11711 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+binder 11695:11695 <> w:69
+R11725:11742 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11719:11721 <> src:70
+R11763:11766 Corelib.Init.Datatypes <> list ind
+R11769:11785 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11787:11789 UMSTFormal.Urge.ClosedLoopWitness <> src:70 var
+binder 11750:11759 <> successors:71
+R11810:11812 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R11797:11809 UMSTFormal.Urge.ClosedLoopWitness <> messy_witness rec
+R11813:11836 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_step_verdict ind
+R11849:11858 UMSTFormal.Urge.ClosedLoopWitness <> successors:71 var
+R11869:11871 Corelib.Init.Datatypes <> nil constr
+R11888:11910 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select_list def
+R11912:11914 UMSTFormal.Urge.ClosedLoopWitness <> src:70 var
+R11916:11918 Corelib.Init.Datatypes <> nil constr
+R11933:11935 Corelib.Init.Datatypes <> inl constr
+R11942:11942 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11944:11945 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12003:12003 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11943:11943 UMSTFormal.Urge.ClosedLoopWitness <> w:69 var
+R11946:11957 UMSTFormal.Urge.ClosedLoopWitness <> clsv_refused constr
+R11960:11983 UMSTFormal.Urge.ClosedLoopWitness <> clref_excitement_residue constr
+R11985:12001 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R12013:12015 Corelib.Init.Datatypes <> inr constr
+R12032:12032 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12063:12075 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12117:12117 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12033:12058 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_admit_residue def
+R12060:12060 UMSTFormal.Urge.ClosedLoopWitness <> w:69 var
+R12076:12087 UMSTFormal.Urge.ClosedLoopWitness <> clsv_refused constr
+R12090:12113 UMSTFormal.Urge.ClosedLoopWitness <> clref_excitement_residue constr
+R12134:12137 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12155:12183 UMSTFormal.Urge.ClosedLoopWitness <> strict_improvement_successors def
+R12185:12187 UMSTFormal.Urge.ClosedLoopWitness <> src:70 var
+R12189:12198 UMSTFormal.Urge.ClosedLoopWitness <> successors:71 var
+R12213:12215 Corelib.Init.Datatypes <> nil constr
+R12230:12230 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12285:12297 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12363:12363 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12231:12256 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_admit_residue def
+R12258:12258 UMSTFormal.Urge.ClosedLoopWitness <> w:69 var
+R12260:12284 UMSTFormal.Urge.AdmitKleisli <> exc_no_strict_improvement constr
+R12298:12309 UMSTFormal.Urge.ClosedLoopWitness <> clsv_refused constr
+R12312:12335 UMSTFormal.Urge.ClosedLoopWitness <> clref_excitement_residue constr
+R12337:12361 UMSTFormal.Urge.AdmitKleisli <> exc_no_strict_improvement constr
+R12411:12433 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select_list def
+R12435:12437 UMSTFormal.Urge.ClosedLoopWitness <> src:70 var
+R12462:12464 Corelib.Init.Datatypes <> inl constr
+R12517:12524 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R12517:12524 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R12517:12524 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R12565:12577 UMSTFormal.Urge.ClosedLoopWitness <> clod_observed proj
+R12565:12577 UMSTFormal.Urge.ClosedLoopWitness <> clod_observed proj
+R12529:12539 UMSTFormal.Concrete.Gate <> free_energy proj
+R12541:12543 UMSTFormal.Urge.ClosedLoopWitness <> src:70 var
+R12582:12592 UMSTFormal.Concrete.Gate <> free_energy proj
+R12595:12602 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R12604:12606 UMSTFormal.Urge.ClosedLoopWitness <> src:70 var
+binder 12489:12493 <> delta:73
+R12641:12664 UMSTFormal.Urge.ClosedLoopWitness <> add_messy_observed_delta def
+R12666:12666 UMSTFormal.Urge.ClosedLoopWitness <> w:69 var
+R12668:12672 UMSTFormal.Urge.ClosedLoopWitness <> delta:73 var
+binder 12635:12636 <> w':74
+R12691:12691 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12694:12695 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12737:12737 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12692:12693 UMSTFormal.Urge.ClosedLoopWitness <> w':74 var
+R12696:12708 UMSTFormal.Urge.ClosedLoopWitness <> clsv_accepted constr
+R12711:12732 UMSTFormal.Urge.ClosedLoopWitness <> occupancy_from_witness def
+R12734:12735 UMSTFormal.Urge.ClosedLoopWitness <> w':74 var
+R12751:12753 Corelib.Init.Datatypes <> inr constr
+R12774:12774 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12805:12821 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12863:12863 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12775:12800 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_admit_residue def
+R12802:12802 UMSTFormal.Urge.ClosedLoopWitness <> w:69 var
+R12822:12833 UMSTFormal.Urge.ClosedLoopWitness <> clsv_refused constr
+R12836:12859 UMSTFormal.Urge.ClosedLoopWitness <> clref_excitement_residue constr
+def 13130:13159 <> closed_loop_fixture_accept_src
+R13163:13180 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R13190:13196 UMSTFormal.Concrete.Gate <> density proj
+R13190:13196 UMSTFormal.Concrete.Gate <> density proj
+R13190:13196 UMSTFormal.Concrete.Gate <> density proj
+R13216:13226 UMSTFormal.Concrete.Gate <> free_energy proj
+R13216:13226 UMSTFormal.Concrete.Gate <> free_energy proj
+R13244:13252 UMSTFormal.Concrete.Gate <> hydration proj
+R13244:13252 UMSTFormal.Concrete.Gate <> hydration proj
+R13265:13272 UMSTFormal.Concrete.Gate <> strength proj
+R13265:13272 UMSTFormal.Concrete.Gate <> strength proj
+R13205:13207 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R13233:13235 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 13295:13324 <> closed_loop_fixture_accept_tgt
+R13328:13345 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R13355:13361 UMSTFormal.Concrete.Gate <> density proj
+R13355:13361 UMSTFormal.Concrete.Gate <> density proj
+R13355:13361 UMSTFormal.Concrete.Gate <> density proj
+R13381:13391 UMSTFormal.Concrete.Gate <> free_energy proj
+R13381:13391 UMSTFormal.Concrete.Gate <> free_energy proj
+R13408:13416 UMSTFormal.Concrete.Gate <> hydration proj
+R13408:13416 UMSTFormal.Concrete.Gate <> hydration proj
+R13429:13436 UMSTFormal.Concrete.Gate <> strength proj
+R13429:13436 UMSTFormal.Concrete.Gate <> strength proj
+R13370:13372 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R13397:13399 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+prf 13454:13490 <> closed_loop_fixture_accept_admissible
+R13496:13505 UMSTFormal.Concrete.Gate <> admissible def
+R13507:13536 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_src def
+R13538:13567 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_tgt def
+R13585:13600 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+R13585:13600 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+R13612:13621 UMSTFormal.Concrete.Gate <> gate_check def
+R13624:13653 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_src def
+R13656:13685 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_tgt def
+def 13729:13764 <> closed_loop_fixture_accept_candidate
+R13770:13786 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R13788:13817 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_src def
+R13827:13833 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13827:13833 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13827:13833 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13846:13853 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R13846:13853 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R13895:13909 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R13895:13909 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R13858:13887 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_tgt def
+R13914:13950 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_admissible thm
+def 13968:13997 <> closed_loop_fixture_refuse_src
+R14001:14018 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R14028:14034 UMSTFormal.Concrete.Gate <> density proj
+R14028:14034 UMSTFormal.Concrete.Gate <> density proj
+R14028:14034 UMSTFormal.Concrete.Gate <> density proj
+R14054:14064 UMSTFormal.Concrete.Gate <> free_energy proj
+R14054:14064 UMSTFormal.Concrete.Gate <> free_energy proj
+R14081:14089 UMSTFormal.Concrete.Gate <> hydration proj
+R14081:14089 UMSTFormal.Concrete.Gate <> hydration proj
+R14102:14109 UMSTFormal.Concrete.Gate <> strength proj
+R14102:14109 UMSTFormal.Concrete.Gate <> strength proj
+R14043:14045 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R14070:14072 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 14132:14161 <> closed_loop_fixture_refuse_tgt
+R14165:14182 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R14189:14218 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_src def
+prf 14228:14264 <> closed_loop_fixture_refuse_admissible
+R14270:14279 UMSTFormal.Concrete.Gate <> admissible def
+R14281:14310 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_src def
+R14312:14341 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_tgt def
+R14360:14374 UMSTFormal.Constitutional <> admissible_refl thm
+R14376:14405 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_src def
+R14360:14374 UMSTFormal.Constitutional <> admissible_refl thm
+R14376:14405 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_src def
+def 14426:14461 <> closed_loop_fixture_refuse_candidate
+R14467:14483 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R14485:14514 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_src def
+R14524:14530 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R14524:14530 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R14524:14530 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R14543:14550 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R14543:14550 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R14592:14606 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R14592:14606 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R14555:14584 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_tgt def
+R14611:14647 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_admissible thm
+prf 14662:14701 <> closed_loop_fixture_accept_records_delta
+R14725:14748 UMSTFormal.Urge.ClosedLoopWitness <> witness_closed_loop_step def
+R14750:14768 UMSTFormal.Urge.ClosedLoopWitness <> empty_messy_witness def
+R14770:14799 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_src def
+R14844:14847 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14808:14843 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_candidate def
+R14848:14850 Corelib.Init.Datatypes <> nil constr
+binder 14712:14712 <> w:75
+binder 14715:14715 <> v:76
+R14864:14864 UMSTFormal.Urge.ClosedLoopWitness <> v:76 var
+R14875:14887 UMSTFormal.Urge.ClosedLoopWitness <> clsv_accepted constr
+R14929:14938 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14921:14923 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14901:14917 UMSTFormal.Urge.ClosedLoopWitness <> eof_delta_f_steps proj
+R14967:14976 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14959:14961 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14939:14955 UMSTFormal.Urge.ClosedLoopWitness <> eof_residue_total proj
+R15012:15014 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14977:14987 Stdlib.Lists.List <> length abbrev
+R14990:15008 UMSTFormal.Urge.ClosedLoopWitness <> mw_observed_delta_f proj
+R15010:15010 UMSTFormal.Urge.ClosedLoopWitness <> w:75 var
+R15025:15036 UMSTFormal.Urge.ClosedLoopWitness <> clsv_refused constr
+R15043:15047 Corelib.Init.Logic <> False ind
+R15072:15095 UMSTFormal.Urge.ClosedLoopWitness <> witness_closed_loop_step def
+R15098:15120 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select_list def
+R15123:15142 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 15201:15240 <> closed_loop_fixture_refuse_no_candidates
+R15264:15287 UMSTFormal.Urge.ClosedLoopWitness <> witness_closed_loop_step def
+R15289:15307 UMSTFormal.Urge.ClosedLoopWitness <> empty_messy_witness def
+R15309:15338 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_accept_src def
+R15340:15342 Corelib.Init.Datatypes <> nil constr
+binder 15251:15251 <> w:78
+binder 15254:15254 <> v:79
+R15410:15415 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R15350:15352 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15349:15349 UMSTFormal.Urge.ClosedLoopWitness <> v:79 var
+R15353:15364 UMSTFormal.Urge.ClosedLoopWitness <> clsv_refused constr
+R15367:15390 UMSTFormal.Urge.ClosedLoopWitness <> clref_excitement_residue constr
+R15392:15408 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R15476:15478 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15416:15443 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_count_of def
+R15446:15454 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R15456:15456 UMSTFormal.Urge.ClosedLoopWitness <> w:78 var
+R15459:15475 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_candidates constr
+R15502:15525 UMSTFormal.Urge.ClosedLoopWitness <> witness_closed_loop_step def
+R15528:15550 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_select_list def
+R15553:15572 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 15620:15667 <> closed_loop_fixture_refuse_no_strict_improvement
+R15691:15714 UMSTFormal.Urge.ClosedLoopWitness <> witness_closed_loop_step def
+R15716:15734 UMSTFormal.Urge.ClosedLoopWitness <> empty_messy_witness def
+R15736:15765 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_src def
+R15810:15813 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15774:15809 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_fixture_refuse_candidate def
+R15814:15816 Corelib.Init.Datatypes <> nil constr
+binder 15678:15678 <> w:80
+binder 15681:15681 <> v:81
+R15893:15898 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R15825:15827 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15824:15824 UMSTFormal.Urge.ClosedLoopWitness <> v:81 var
+R15828:15839 UMSTFormal.Urge.ClosedLoopWitness <> clsv_refused constr
+R15842:15865 UMSTFormal.Urge.ClosedLoopWitness <> clref_excitement_residue constr
+R15867:15891 UMSTFormal.Urge.AdmitKleisli <> exc_no_strict_improvement constr
+R15967:15969 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15899:15926 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_count_of def
+R15929:15937 UMSTFormal.Urge.ClosedLoopWitness <> mw_counts proj
+R15939:15939 UMSTFormal.Urge.ClosedLoopWitness <> w:80 var
+R15942:15966 UMSTFormal.Urge.ClosedLoopWitness <> clr_no_strict_improvement constr
+R15993:16016 UMSTFormal.Urge.ClosedLoopWitness <> witness_closed_loop_step def
+prf 16064:16102 <> closed_loop_occupancy_surrogate_fixture
+R16121:16146 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_admit_residue def
+R16155:16180 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_admit_residue def
+R16182:16200 UMSTFormal.Urge.ClosedLoopWitness <> empty_messy_witness def
+R16202:16218 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R16227:16251 UMSTFormal.Urge.AdmitKleisli <> exc_no_strict_improvement constr
+binder 16112:16112 <> w:82
+R16272:16295 UMSTFormal.Urge.ClosedLoopWitness <> add_messy_observed_delta def
+R16297:16297 UMSTFormal.Urge.ClosedLoopWitness <> w:82 var
+R16308:16315 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R16308:16315 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R16308:16315 UMSTFormal.Urge.ClosedLoopWitness <> clod_src proj
+R16328:16340 UMSTFormal.Urge.ClosedLoopWitness <> clod_observed proj
+R16328:16340 UMSTFormal.Urge.ClosedLoopWitness <> clod_observed proj
+R16322:16324 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R16346:16348 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+binder 16262:16263 <> w':83
+R16410:16412 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16359:16381 UMSTFormal.Urge.ClosedLoopWitness <> eof_occupancy_surrogate proj
+R16384:16405 UMSTFormal.Urge.ClosedLoopWitness <> occupancy_from_witness def
+R16407:16408 UMSTFormal.Urge.ClosedLoopWitness <> w':83 var
+R16439:16460 UMSTFormal.Urge.ClosedLoopWitness <> occupancy_from_witness def
+R16463:16488 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_admit_residue def
+R16491:16510 UMSTFormal.Urge.ClosedLoopWitness <> record_messy_residue def
+R16517:16551 UMSTFormal.Urge.ClosedLoopWitness <> increment_closed_loop_residue_count def
+R16554:16575 UMSTFormal.Urge.ClosedLoopWitness <> map_excitement_residue def
+R16582:16613 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_residue_counts_total def
+R16616:16639 UMSTFormal.Urge.ClosedLoopWitness <> add_messy_observed_delta def
+prf 16680:16720 <> closed_loop_refuse_second_argmin_positive
+R16758:16760 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16726:16757 UMSTFormal.Urge.ClosedLoopWitness <> refuse_closed_loop_second_argmin def
+R16761:16763 Corelib.Init.Datatypes <> inr constr
+R16765:16783 UMSTFormal.Urge.ClosedLoopWitness <> clref_second_argmin constr
+prf 16822:16860 <> closed_loop_refuse_f64_delta_f_positive
+R16896:16898 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16866:16895 UMSTFormal.Urge.ClosedLoopWitness <> refuse_closed_loop_f64_delta_f def
+R16899:16901 Corelib.Init.Datatypes <> inr constr
+R16903:16919 UMSTFormal.Urge.ClosedLoopWitness <> clref_f64_delta_f constr
+prf 16958:17004 <> closed_loop_refuse_open_loop_isolation_positive
+R17048:17050 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17010:17047 UMSTFormal.Urge.ClosedLoopWitness <> refuse_closed_loop_open_loop_isolation def
+R17051:17053 Corelib.Init.Datatypes <> inr constr
+R17055:17079 UMSTFormal.Urge.ClosedLoopWitness <> clref_open_loop_isolation constr
+prf 17118:17161 <> closed_loop_observed_delta_f_compute_fixture
+R17220:17222 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17167:17202 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_observed_delta_f_compute def
+R17207:17209 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R17215:17217 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R17223:17223 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R17229:17233 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R17240:17240 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R17225:17227 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R17236:17238 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 17503:17535 <> closed_loop_witness_physics_green
+R17539:17542 Corelib.Init.Datatypes <> bool ind
+R17547:17551 Corelib.Init.Datatypes <> false constr
+prf 17561:17599 <> closed_loop_witness_physics_green_false
+R17638:17640 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17605:17637 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_witness_physics_green def
+R17641:17645 Corelib.Init.Datatypes <> false constr
+def 17685:17720 <> closed_loop_witness_production_wired
+R17724:17727 Corelib.Init.Datatypes <> bool ind
+R17732:17736 Corelib.Init.Datatypes <> false constr
+prf 17746:17787 <> closed_loop_witness_production_wired_false
+R17829:17831 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17793:17828 UMSTFormal.Urge.ClosedLoopWitness <> closed_loop_witness_production_wired def
+R17832:17836 Corelib.Init.Datatypes <> false constr
+prf 17873:17906 <> closed_loop_witness_module_witness
+R17910:17913 Corelib.Init.Logic <> True ind
+R17929:17929 Corelib.Init.Logic <> I constr
+R17929:17929 Corelib.Init.Logic <> I constr
+prf 17946:17977 <> closed_loop_witness_no_new_axiom
+R17981:17984 Corelib.Init.Logic <> True ind
+R18000:18000 Corelib.Init.Logic <> I constr
+R18000:18000 Corelib.Init.Logic <> I constr
+prf 18017:18054 <> closed_loop_positive_refuse_not_silent
+R18071:18079 Corelib.Init.Datatypes <> Empty_set ind
+binder 18067:18067 <> x:84
+R18114:18117 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R18082:18113 UMSTFormal.Urge.ClosedLoopWitness <> refuse_closed_loop_second_argmin def
+R18118:18120 Corelib.Init.Datatypes <> inl constr
+R18122:18122 UMSTFormal.Urge.ClosedLoopWitness <> x:84 var
+R18151:18182 UMSTFormal.Urge.ClosedLoopWitness <> refuse_closed_loop_second_argmin def

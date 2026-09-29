@@ -1,0 +1,207 @@
+DIGEST 72fab5d20ec0cb5d8e5361f1c56562fe
+FUMSTFormal.Urge.Reconcile
+R316:320 Stdlib.Arith.Arith <> <> lib
+R322:325 Stdlib.Lists.List <> <> lib
+R327:330 Stdlib.Bool.Bool <> <> lib
+R348:373 UMSTFormal.Urge.AppendOnly <> <> lib
+rec 408:411 <> Head
+proj 425:431 <> head_id
+proj 440:450 <> head_digest
+R435:437 Corelib.Init.Datatypes <> nat ind
+R454:456 Corelib.Init.Datatypes <> nat ind
+rec 469:480 <> StateSummary
+proj 497:501 <> heads
+R505:508 Corelib.Init.Datatypes <> list ind
+R510:513 UMSTFormal.Urge.Reconcile <> Head rec
+def 530:539 <> advertises
+R546:557 UMSTFormal.Urge.Reconcile <> StateSummary rec
+binder 542:542 <> s:6
+R566:568 Corelib.Init.Datatypes <> nat ind
+binder 561:562 <> id:7
+R583:589 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R591:592 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 590:590 <> h:8
+R607:610 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R593:594 Stdlib.Lists.List <> In def
+R599:603 UMSTFormal.Urge.Reconcile <> heads proj
+R605:605 UMSTFormal.Urge.Reconcile <> s:6 var
+R596:596 UMSTFormal.Urge.Reconcile <> h:8 var
+R620:622 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R611:617 UMSTFormal.Urge.Reconcile <> head_id proj
+R619:619 UMSTFormal.Urge.Reconcile <> h:8 var
+R623:624 UMSTFormal.Urge.Reconcile <> id:7 var
+def 639:651 <> digests_agree
+R660:671 UMSTFormal.Urge.Reconcile <> StateSummary rec
+binder 654:654 <> L:9
+binder 656:656 <> R:10
+R680:682 Corelib.Init.Datatypes <> nat ind
+binder 675:676 <> id:11
+binder 704:705 <> hL:12
+binder 707:708 <> hR:13
+R730:733 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R715:716 Stdlib.Lists.List <> In def
+R722:726 UMSTFormal.Urge.Reconcile <> heads proj
+R728:728 UMSTFormal.Urge.Reconcile <> L:9 var
+R718:719 UMSTFormal.Urge.Reconcile <> hL:12 var
+R749:756 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R734:735 Stdlib.Lists.List <> In def
+R741:745 UMSTFormal.Urge.Reconcile <> heads proj
+R747:747 UMSTFormal.Urge.Reconcile <> R:10 var
+R737:738 UMSTFormal.Urge.Reconcile <> hR:13 var
+R772:775 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R767:769 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R757:763 UMSTFormal.Urge.Reconcile <> head_id proj
+R765:766 UMSTFormal.Urge.Reconcile <> hL:12 var
+R770:771 UMSTFormal.Urge.Reconcile <> id:11 var
+R791:798 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R786:788 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R776:782 UMSTFormal.Urge.Reconcile <> head_id proj
+R784:785 UMSTFormal.Urge.Reconcile <> hR:13 var
+R789:790 UMSTFormal.Urge.Reconcile <> id:11 var
+R813:815 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R799:809 UMSTFormal.Urge.Reconcile <> head_digest proj
+R811:812 UMSTFormal.Urge.Reconcile <> hL:12 var
+R816:826 UMSTFormal.Urge.Reconcile <> head_digest proj
+R828:829 UMSTFormal.Urge.Reconcile <> hR:13 var
+def 844:851 <> in_union
+R860:871 UMSTFormal.Urge.Reconcile <> StateSummary rec
+binder 854:854 <> L:14
+binder 856:856 <> R:15
+R880:882 Corelib.Init.Datatypes <> nat ind
+binder 875:876 <> id:16
+R912:915 Corelib.Init.Logic <> ::type_scope:x_'\/'_x not
+R897:906 UMSTFormal.Urge.Reconcile <> advertises def
+R908:908 UMSTFormal.Urge.Reconcile <> L:14 var
+R910:911 UMSTFormal.Urge.Reconcile <> id:16 var
+R916:925 UMSTFormal.Urge.Reconcile <> advertises def
+R927:927 UMSTFormal.Urge.Reconcile <> R:15 var
+R929:930 UMSTFormal.Urge.Reconcile <> id:16 var
+def 1022:1037 <> union_preserving
+R1046:1057 UMSTFormal.Urge.Reconcile <> StateSummary rec
+binder 1040:1040 <> L:17
+binder 1042:1042 <> R:18
+R1072:1072 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1118:1125 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1171:1171 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 1080:1081 <> id:19
+R1099:1102 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1084:1093 UMSTFormal.Urge.Reconcile <> advertises def
+R1095:1095 UMSTFormal.Urge.Reconcile <> L:17 var
+R1097:1098 UMSTFormal.Urge.Reconcile <> id:19 var
+R1103:1110 UMSTFormal.Urge.Reconcile <> in_union def
+R1112:1112 UMSTFormal.Urge.Reconcile <> L:17 var
+R1114:1114 UMSTFormal.Urge.Reconcile <> R:18 var
+R1116:1117 UMSTFormal.Urge.Reconcile <> id:19 var
+binder 1133:1134 <> id:20
+R1152:1155 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1137:1146 UMSTFormal.Urge.Reconcile <> advertises def
+R1148:1148 UMSTFormal.Urge.Reconcile <> R:18 var
+R1150:1151 UMSTFormal.Urge.Reconcile <> id:20 var
+R1156:1163 UMSTFormal.Urge.Reconcile <> in_union def
+R1165:1165 UMSTFormal.Urge.Reconcile <> L:17 var
+R1167:1167 UMSTFormal.Urge.Reconcile <> R:18 var
+R1169:1170 UMSTFormal.Urge.Reconcile <> id:20 var
+prf 1181:1204 <> union_preserving_trivial
+binder 1217:1217 <> L:21
+binder 1219:1219 <> R:22
+R1222:1237 UMSTFormal.Urge.Reconcile <> union_preserving def
+R1239:1239 UMSTFormal.Urge.Reconcile <> L:21 var
+R1241:1241 UMSTFormal.Urge.Reconcile <> R:22 var
+def 1430:1445 <> content_conflict
+R1454:1465 UMSTFormal.Urge.Reconcile <> StateSummary rec
+binder 1448:1448 <> L:23
+binder 1450:1450 <> R:24
+R1474:1476 Corelib.Init.Datatypes <> nat ind
+binder 1469:1470 <> id:25
+R1491:1497 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1503:1508 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1498:1499 <> hL:26
+binder 1501:1502 <> hR:27
+R1524:1527 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1509:1510 Stdlib.Lists.List <> In def
+R1516:1520 UMSTFormal.Urge.Reconcile <> heads proj
+R1522:1522 UMSTFormal.Urge.Reconcile <> L:23 var
+R1512:1513 UMSTFormal.Urge.Reconcile <> hL:26 var
+R1543:1550 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1528:1529 Stdlib.Lists.List <> In def
+R1535:1539 UMSTFormal.Urge.Reconcile <> heads proj
+R1541:1541 UMSTFormal.Urge.Reconcile <> R:24 var
+R1531:1532 UMSTFormal.Urge.Reconcile <> hR:27 var
+R1566:1569 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1561:1563 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1551:1557 UMSTFormal.Urge.Reconcile <> head_id proj
+R1559:1560 UMSTFormal.Urge.Reconcile <> hL:26 var
+R1564:1565 UMSTFormal.Urge.Reconcile <> id:25 var
+R1585:1592 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1580:1582 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1570:1576 UMSTFormal.Urge.Reconcile <> head_id proj
+R1578:1579 UMSTFormal.Urge.Reconcile <> hR:27 var
+R1583:1584 UMSTFormal.Urge.Reconcile <> id:25 var
+R1607:1610 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R1593:1603 UMSTFormal.Urge.Reconcile <> head_digest proj
+R1605:1606 UMSTFormal.Urge.Reconcile <> hL:26 var
+R1611:1621 UMSTFormal.Urge.Reconcile <> head_digest proj
+R1623:1624 UMSTFormal.Urge.Reconcile <> hR:27 var
+def 1639:1658 <> reconcile_admissible
+R1667:1678 UMSTFormal.Urge.Reconcile <> StateSummary rec
+binder 1661:1661 <> L:28
+binder 1663:1663 <> R:29
+binder 1700:1701 <> id:30
+R1719:1722 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1704:1713 UMSTFormal.Urge.Reconcile <> advertises def
+R1715:1715 UMSTFormal.Urge.Reconcile <> L:28 var
+R1717:1718 UMSTFormal.Urge.Reconcile <> id:30 var
+R1738:1741 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1723:1732 UMSTFormal.Urge.Reconcile <> advertises def
+R1734:1734 UMSTFormal.Urge.Reconcile <> R:29 var
+R1736:1737 UMSTFormal.Urge.Reconcile <> id:30 var
+R1742:1754 UMSTFormal.Urge.Reconcile <> digests_agree def
+R1756:1756 UMSTFormal.Urge.Reconcile <> L:28 var
+R1758:1758 UMSTFormal.Urge.Reconcile <> R:29 var
+R1760:1761 UMSTFormal.Urge.Reconcile <> id:30 var
+prf 1771:1801 <> content_conflict_not_admissible
+binder 1814:1814 <> L:31
+binder 1816:1816 <> R:32
+binder 1818:1819 <> id:33
+R1849:1852 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1826:1841 UMSTFormal.Urge.Reconcile <> content_conflict def
+R1843:1843 UMSTFormal.Urge.Reconcile <> L:31 var
+R1845:1845 UMSTFormal.Urge.Reconcile <> R:32 var
+R1847:1848 UMSTFormal.Urge.Reconcile <> id:33 var
+R1853:1854 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R1855:1874 UMSTFormal.Urge.Reconcile <> reconcile_admissible def
+R1876:1876 UMSTFormal.Urge.Reconcile <> L:31 var
+R1878:1878 UMSTFormal.Urge.Reconcile <> R:32 var
+R1988:1997 UMSTFormal.Urge.Reconcile <> advertises def
+R1988:1997 UMSTFormal.Urge.Reconcile <> advertises def
+R2073:2082 UMSTFormal.Urge.Reconcile <> advertises def
+R2073:2082 UMSTFormal.Urge.Reconcile <> advertises def
+def 2232:2254 <> reconcile_physics_green
+R2258:2261 Corelib.Init.Datatypes <> bool ind
+R2266:2270 Corelib.Init.Datatypes <> false constr
+prf 2280:2308 <> reconcile_physics_green_false
+R2335:2337 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2312:2334 UMSTFormal.Urge.Reconcile <> reconcile_physics_green def
+R2338:2342 Corelib.Init.Datatypes <> false constr
+def 2456:2464 <> fixture_L
+R2468:2479 UMSTFormal.Urge.Reconcile <> StateSummary rec
+R2486:2494 UMSTFormal.Urge.Reconcile <> mkSummary constr
+R2508:2511 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2497:2502 UMSTFormal.Urge.Reconcile <> mkHead constr
+R2523:2526 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2512:2517 UMSTFormal.Urge.Reconcile <> mkHead constr
+R2527:2529 Corelib.Init.Datatypes <> nil constr
+def 2545:2553 <> fixture_R
+R2557:2568 UMSTFormal.Urge.Reconcile <> StateSummary rec
+R2575:2583 UMSTFormal.Urge.Reconcile <> mkSummary constr
+R2597:2600 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2586:2591 UMSTFormal.Urge.Reconcile <> mkHead constr
+R2612:2615 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2601:2606 UMSTFormal.Urge.Reconcile <> mkHead constr
+R2616:2618 Corelib.Init.Datatypes <> nil constr
+prf 2629:2652 <> fixture_union_preserving
+R2656:2671 UMSTFormal.Urge.Reconcile <> union_preserving def
+R2673:2681 UMSTFormal.Urge.Reconcile <> fixture_L def
+R2683:2691 UMSTFormal.Urge.Reconcile <> fixture_R def
+R2707:2730 UMSTFormal.Urge.Reconcile <> union_preserving_trivial thm
+R2707:2730 UMSTFormal.Urge.Reconcile <> union_preserving_trivial thm

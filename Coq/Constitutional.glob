@@ -1,0 +1,769 @@
+DIGEST f19448744602364f49af1ae2d9f8eaa7
+FUMSTFormal.Constitutional
+R2167:2172 Stdlib.QArith.QArith <> <> lib
+R2202:2207 Stdlib.QArith.Qfield <> <> lib
+R2237:2242 Stdlib.Setoids.Setoid <> <> lib
+R2272:2277 Stdlib.ZArith.ZArith <> <> lib
+R2307:2310 Stdlib.Bool.Bool <> <> lib
+R2340:2343 Stdlib.Lists.List <> <> lib
+R2373:2375 Stdlib.micromega.Lia <> <> lib
+R2385:2397 Stdlib.Lists.List ListNotations <> mod
+R2416:2430 UMSTFormal.Gate <> <> lib
+ind 3110:3126 <> ConstitutionalSeq
+constr 3169:3173 <> CSNil
+constr 3203:3207 <> CSOne
+constr 3248:3253 <> CSCons
+R3153:3156 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3130:3133 Corelib.Init.Datatypes <> list ind
+R3135:3152 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R3178:3194 UMSTFormal.Constitutional <> ConstitutionalSeq:1 ind
+R3196:3197 Stdlib.Lists.List ListNotations ::list_scope:'['_']' not
+binder 3219:3219 <> s:3
+R3222:3238 UMSTFormal.Constitutional <> ConstitutionalSeq:1 ind
+R3240:3240 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3242:3242 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3241:3241 UMSTFormal.Constitutional <> s:3 var
+binder 3264:3265 <> s1:4
+binder 3267:3268 <> s2:5
+binder 3270:3273 <> rest:6
+R3314:3332 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3307:3309 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3291:3300 UMSTFormal.Concrete.Gate <> gate_check def
+R3302:3303 UMSTFormal.Constitutional <> s1:4 var
+R3305:3306 UMSTFormal.Constitutional <> s2:5 var
+R3310:3313 Corelib.Init.Datatypes <> true constr
+R3363:3381 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3333:3349 UMSTFormal.Constitutional <> ConstitutionalSeq:1 ind
+R3354:3357 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3352:3353 UMSTFormal.Constitutional <> s2:5 var
+R3358:3361 UMSTFormal.Constitutional <> rest:6 var
+R3382:3398 UMSTFormal.Constitutional <> ConstitutionalSeq:1 ind
+R3403:3406 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3401:3402 UMSTFormal.Constitutional <> s1:4 var
+R3409:3412 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3407:3408 UMSTFormal.Constitutional <> s2:5 var
+R3413:3416 UMSTFormal.Constitutional <> rest:6 var
+scheme 3110:3126 <> ConstitutionalSeq_ind
+scheme 3110:3126 <> ConstitutionalSeq_sind
+prf 4319:4335 <> subject_reduction
+R4357:4374 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 4349:4350 <> s1:7
+binder 4352:4353 <> s2:8
+R4385:4388 Corelib.Init.Datatypes <> list ind
+R4390:4407 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 4378:4381 <> rest:9
+R4449:4454 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4413:4429 UMSTFormal.Constitutional <> ConstitutionalSeq ind
+R4434:4437 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4432:4433 UMSTFormal.Constitutional <> s1:7 var
+R4440:4443 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4438:4439 UMSTFormal.Constitutional <> s2:8 var
+R4444:4447 UMSTFormal.Constitutional <> rest:9 var
+R4455:4471 UMSTFormal.Constitutional <> ConstitutionalSeq ind
+R4476:4479 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4474:4475 UMSTFormal.Constitutional <> s2:8 var
+R4480:4483 UMSTFormal.Constitutional <> rest:9 var
+prf 5152:5172 <> kleisli_admissibility
+R5192:5195 Corelib.Init.Datatypes <> list ind
+R5197:5214 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 5186:5188 <> seq:10
+R5241:5246 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R5220:5236 UMSTFormal.Constitutional <> ConstitutionalSeq ind
+R5238:5240 UMSTFormal.Constitutional <> seq:10 var
+R5263:5280 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 5255:5256 <> s1:11
+binder 5258:5259 <> s2:12
+R5288:5290 Corelib.Init.Datatypes <> nat ind
+binder 5284:5284 <> i:13
+R5321:5326 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R5311:5313 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5296:5304 Stdlib.Lists.List <> nth_error def
+R5310:5310 UMSTFormal.Constitutional <> i:13 var
+R5306:5308 UMSTFormal.Constitutional <> seq:10 var
+R5314:5317 Corelib.Init.Datatypes <> Some constr
+R5319:5320 UMSTFormal.Constitutional <> s1:11 var
+R5356:5361 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R5346:5348 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5327:5335 Stdlib.Lists.List <> nth_error def
+R5342:5342 Corelib.Init.Datatypes <> S constr
+R5344:5344 UMSTFormal.Constitutional <> i:13 var
+R5337:5339 UMSTFormal.Constitutional <> seq:10 var
+R5349:5352 Corelib.Init.Datatypes <> Some constr
+R5354:5355 UMSTFormal.Constitutional <> s2:12 var
+R5362:5371 UMSTFormal.Concrete.Gate <> admissible def
+R5373:5374 UMSTFormal.Constitutional <> s1:11 var
+R5376:5377 UMSTFormal.Constitutional <> s2:12 var
+R5857:5872 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+R5857:5872 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+prf 6418:6444 <> sequential_composition_safe
+R6469:6486 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6458:6459 <> s0:14
+binder 6461:6462 <> s1:15
+binder 6464:6465 <> s2:16
+R6522:6527 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R6492:6508 UMSTFormal.Constitutional <> ConstitutionalSeq ind
+R6510:6510 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6513:6514 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6517:6518 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6521:6521 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6511:6512 UMSTFormal.Constitutional <> s0:14 var
+R6515:6516 UMSTFormal.Constitutional <> s1:15 var
+R6519:6520 UMSTFormal.Constitutional <> s2:16 var
+R6544:6547 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R6528:6537 UMSTFormal.Concrete.Gate <> admissible def
+R6539:6540 UMSTFormal.Constitutional <> s0:14 var
+R6542:6543 UMSTFormal.Constitutional <> s1:15 var
+R6548:6557 UMSTFormal.Concrete.Gate <> admissible def
+R6559:6560 UMSTFormal.Constitutional <> s1:15 var
+R6562:6563 UMSTFormal.Constitutional <> s2:16 var
+R6617:6637 UMSTFormal.Constitutional <> kleisli_admissibility thm
+R6639:6639 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6642:6643 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6646:6647 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6650:6650 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6665:6671 Corelib.Init.Logic <> eq_refl constr
+R6673:6679 Corelib.Init.Logic <> eq_refl constr
+R6617:6637 UMSTFormal.Constitutional <> kleisli_admissibility thm
+R6639:6639 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6642:6643 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6646:6647 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6650:6650 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6665:6671 Corelib.Init.Logic <> eq_refl constr
+R6673:6679 Corelib.Init.Logic <> eq_refl constr
+R6694:6714 UMSTFormal.Constitutional <> kleisli_admissibility thm
+R6716:6716 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6719:6720 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6723:6724 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6727:6727 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6742:6748 Corelib.Init.Logic <> eq_refl constr
+R6750:6756 Corelib.Init.Logic <> eq_refl constr
+R6694:6714 UMSTFormal.Constitutional <> kleisli_admissibility thm
+R6716:6716 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6719:6720 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6723:6724 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6727:6727 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6742:6748 Corelib.Init.Logic <> eq_refl constr
+R6750:6756 Corelib.Init.Logic <> eq_refl constr
+prf 7734:7751 <> zero_le_delta_mass
+R7756:7759 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7760:7769 UMSTFormal.Core.Gate <> delta_mass def
+R7788:7797 UMSTFormal.Core.Gate <> delta_mass def
+R7800:7802 Stdlib.QArith.QArith_base <> Qle def
+prf 7932:7950 <> Qminus_self_le_zero
+R7965:7965 Stdlib.QArith.QArith_base <> Q rec
+binder 7961:7961 <> x:17
+R7973:7976 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7969:7971 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R7968:7968 UMSTFormal.Constitutional <> x:17 var
+R7972:7972 UMSTFormal.Constitutional <> x:17 var
+R8007:8011 Corelib.Init.Logic <> proj2 thm
+R8014:8021 Stdlib.QArith.QArith_base <> Qle_lteq thm
+R8007:8011 Corelib.Init.Logic <> proj2 thm
+R8014:8021 Stdlib.QArith.QArith_base <> Qle_lteq thm
+prf 8104:8118 <> admissible_refl
+R8136:8153 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8132:8132 <> s:18
+R8159:8168 UMSTFormal.Concrete.Gate <> admissible def
+R8170:8170 UMSTFormal.Constitutional <> s:18 var
+R8172:8172 UMSTFormal.Constitutional <> s:18 var
+R8202:8211 UMSTFormal.Concrete.Gate <> admissible def
+R8224:8227 Corelib.Init.Logic <> conj constr
+R8232:8235 Corelib.Init.Logic <> conj constr
+R8240:8243 Corelib.Init.Logic <> conj constr
+R8259:8262 Corelib.Init.Logic <> conj constr
+R8278:8285 Stdlib.QArith.QArith_base <> Qle_refl thm
+R8265:8272 Stdlib.QArith.QArith_base <> Qle_refl thm
+R8246:8253 Stdlib.QArith.QArith_base <> Qle_refl thm
+R8224:8227 Corelib.Init.Logic <> conj constr
+R8232:8235 Corelib.Init.Logic <> conj constr
+R8240:8243 Corelib.Init.Logic <> conj constr
+R8259:8262 Corelib.Init.Logic <> conj constr
+R8278:8285 Stdlib.QArith.QArith_base <> Qle_refl thm
+R8265:8272 Stdlib.QArith.QArith_base <> Qle_refl thm
+R8246:8253 Stdlib.QArith.QArith_base <> Qle_refl thm
+R8333:8333 Stdlib.QArith.QArith_base <> Q rec
+R8308:8316 Stdlib.QArith.QArith_base <> Qle_trans thm
+R8333:8333 Stdlib.QArith.QArith_base <> Q rec
+R8308:8316 Stdlib.QArith.QArith_base <> Qle_trans thm
+R8333:8333 Stdlib.QArith.QArith_base <> Q rec
+R8308:8316 Stdlib.QArith.QArith_base <> Qle_trans thm
+R8348:8366 UMSTFormal.Constitutional <> Qminus_self_le_zero thm
+R8369:8375 UMSTFormal.Concrete.Gate <> density proj
+R8348:8366 UMSTFormal.Constitutional <> Qminus_self_le_zero thm
+R8369:8375 UMSTFormal.Concrete.Gate <> density proj
+R8392:8409 UMSTFormal.Constitutional <> zero_le_delta_mass thm
+R8392:8409 UMSTFormal.Constitutional <> zero_le_delta_mass thm
+R8423:8441 UMSTFormal.Constitutional <> Qminus_self_le_zero thm
+R8444:8450 UMSTFormal.Concrete.Gate <> density proj
+R8423:8441 UMSTFormal.Constitutional <> Qminus_self_le_zero thm
+R8444:8450 UMSTFormal.Concrete.Gate <> density proj
+R8467:8484 UMSTFormal.Constitutional <> zero_le_delta_mass thm
+R8467:8484 UMSTFormal.Constitutional <> zero_le_delta_mass thm
+prf 8499:8513 <> gate_check_refl
+R8531:8548 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8527:8527 <> s:19
+R8568:8570 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8554:8563 UMSTFormal.Concrete.Gate <> gate_check def
+R8565:8565 UMSTFormal.Constitutional <> s:19 var
+R8567:8567 UMSTFormal.Constitutional <> s:19 var
+R8571:8574 Corelib.Init.Datatypes <> true constr
+R8604:8622 UMSTFormal.Concrete.Gate <> gate_check_complete thm
+R8629:8643 UMSTFormal.Constitutional <> admissible_refl thm
+R8604:8622 UMSTFormal.Concrete.Gate <> gate_check_complete thm
+R8629:8643 UMSTFormal.Constitutional <> admissible_refl thm
+prf 9223:9250 <> admissible_iff_admissible_N1
+R9272:9289 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9261:9263 <> old:20
+binder 9265:9268 <> new_:21
+R9313:9317 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R9294:9303 UMSTFormal.Concrete.Gate <> admissible def
+R9305:9307 UMSTFormal.Constitutional <> old:20 var
+R9309:9312 UMSTFormal.Constitutional <> new_:21 var
+R9318:9329 UMSTFormal.Concrete.Gate <> admissible_N def
+R9333:9335 UMSTFormal.Constitutional <> old:20 var
+R9337:9340 UMSTFormal.Constitutional <> new_:21 var
+R9388:9419 UMSTFormal.Concrete.Gate <> admissible_implies_admissible_N1 thm
+R9388:9419 UMSTFormal.Concrete.Gate <> admissible_implies_admissible_N1 thm
+R9477:9486 UMSTFormal.Concrete.Gate <> admissible def
+R9501:9504 Corelib.Init.Logic <> conj constr
+R9509:9512 Corelib.Init.Logic <> conj constr
+R9517:9520 Corelib.Init.Logic <> conj constr
+R9529:9532 Corelib.Init.Logic <> conj constr
+R9501:9504 Corelib.Init.Logic <> conj constr
+R9509:9512 Corelib.Init.Logic <> conj constr
+R9517:9520 Corelib.Init.Logic <> conj constr
+R9529:9532 Corelib.Init.Logic <> conj constr
+R9602:9605 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R9589:9591 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9568:9575 Stdlib.QArith.QArith_base <> inject_Z def
+R9578:9585 Stdlib.ZArith.BinInt Z of_nat def
+R9592:9601 UMSTFormal.Core.Gate <> delta_mass def
+R9606:9615 UMSTFormal.Core.Gate <> delta_mass def
+R9602:9605 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R9589:9591 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9568:9575 Stdlib.QArith.QArith_base <> inject_Z def
+R9578:9585 Stdlib.ZArith.BinInt Z of_nat def
+R9592:9601 UMSTFormal.Core.Gate <> delta_mass def
+R9606:9615 UMSTFormal.Core.Gate <> delta_mass def
+R9723:9726 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R9710:9712 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9689:9696 Stdlib.QArith.QArith_base <> inject_Z def
+R9699:9706 Stdlib.ZArith.BinInt Z of_nat def
+R9713:9722 UMSTFormal.Core.Gate <> delta_mass def
+R9727:9736 UMSTFormal.Core.Gate <> delta_mass def
+R9723:9726 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R9710:9712 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9689:9696 Stdlib.QArith.QArith_base <> inject_Z def
+R9699:9706 Stdlib.ZArith.BinInt Z of_nat def
+R9713:9722 UMSTFormal.Core.Gate <> delta_mass def
+R9727:9736 UMSTFormal.Core.Gate <> delta_mass def
+prf 9803:9826 <> inject_mass_triangle_rhs
+R9835:9837 Corelib.Init.Datatypes <> nat ind
+binder 9829:9829 <> m:22
+binder 9831:9831 <> n:23
+R9915:9920 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R9878:9880 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R9865:9867 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9844:9851 Stdlib.QArith.QArith_base <> inject_Z def
+R9854:9861 Stdlib.ZArith.BinInt Z of_nat def
+R9863:9863 UMSTFormal.Constitutional <> m:22 var
+R9868:9877 UMSTFormal.Core.Gate <> delta_mass def
+R9902:9904 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9881:9888 Stdlib.QArith.QArith_base <> inject_Z def
+R9891:9898 Stdlib.ZArith.BinInt Z of_nat def
+R9900:9900 UMSTFormal.Constitutional <> n:23 var
+R9905:9914 UMSTFormal.Core.Gate <> delta_mass def
+R9948:9950 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9921:9928 Stdlib.QArith.QArith_base <> inject_Z def
+R9931:9938 Stdlib.ZArith.BinInt Z of_nat def
+R9942:9944 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R9941:9941 UMSTFormal.Constitutional <> m:22 var
+R9945:9945 UMSTFormal.Constitutional <> n:23 var
+R9951:9960 UMSTFormal.Core.Gate <> delta_mass def
+R10028:10049 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R10015:10017 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9988:9995 Stdlib.QArith.QArith_base <> inject_Z def
+R9998:10005 Stdlib.ZArith.BinInt Z of_nat def
+R10009:10011 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R10018:10027 UMSTFormal.Core.Gate <> delta_mass def
+R10084:10086 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10071:10073 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10050:10057 Stdlib.QArith.QArith_base <> inject_Z def
+R10060:10067 Stdlib.ZArith.BinInt Z of_nat def
+R10074:10083 UMSTFormal.Core.Gate <> delta_mass def
+R10108:10110 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10087:10094 Stdlib.QArith.QArith_base <> inject_Z def
+R10097:10104 Stdlib.ZArith.BinInt Z of_nat def
+R10111:10120 UMSTFormal.Core.Gate <> delta_mass def
+R10028:10049 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R10015:10017 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R9988:9995 Stdlib.QArith.QArith_base <> inject_Z def
+R9998:10005 Stdlib.ZArith.BinInt Z of_nat def
+R10009:10011 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R10018:10027 UMSTFormal.Core.Gate <> delta_mass def
+R10084:10086 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10071:10073 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10050:10057 Stdlib.QArith.QArith_base <> inject_Z def
+R10060:10067 Stdlib.ZArith.BinInt Z of_nat def
+R10074:10083 UMSTFormal.Core.Gate <> delta_mass def
+R10108:10110 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10087:10094 Stdlib.QArith.QArith_base <> inject_Z def
+R10097:10104 Stdlib.ZArith.BinInt Z of_nat def
+R10111:10120 UMSTFormal.Core.Gate <> delta_mass def
+R10136:10148 Stdlib.ZArith.Znat Nat2Z inj_add thm
+R10136:10148 Stdlib.ZArith.Znat Nat2Z inj_add thm
+R10136:10148 Stdlib.ZArith.Znat Nat2Z inj_add thm
+R10159:10171 Stdlib.QArith.QArith_base <> inject_Z_plus thm
+R10159:10171 Stdlib.QArith.QArith_base <> inject_Z_plus thm
+R10159:10171 Stdlib.QArith.QArith_base <> inject_Z_plus thm
+R10210:10217 Stdlib.QArith.QArith_base <> Qle_refl thm
+R10210:10217 Stdlib.QArith.QArith_base <> Qle_refl thm
+prf 10307:10326 <> admissible_N_compose
+R10344:10346 Corelib.Init.Datatypes <> nat ind
+binder 10338:10338 <> m:24
+binder 10340:10340 <> n:25
+R10361:10378 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10350:10350 <> s:26
+binder 10352:10353 <> s':27
+binder 10355:10357 <> s'':28
+R10403:10408 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R10384:10395 UMSTFormal.Concrete.Gate <> admissible_N def
+R10397:10397 UMSTFormal.Constitutional <> m:24 var
+R10399:10399 UMSTFormal.Constitutional <> s:26 var
+R10401:10402 UMSTFormal.Constitutional <> s':27 var
+R10430:10435 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R10409:10420 UMSTFormal.Concrete.Gate <> admissible_N def
+R10422:10422 UMSTFormal.Constitutional <> n:25 var
+R10424:10425 UMSTFormal.Constitutional <> s':27 var
+R10427:10429 UMSTFormal.Constitutional <> s'':28 var
+R10436:10447 UMSTFormal.Concrete.Gate <> admissible_N def
+R10451:10453 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R10450:10450 UMSTFormal.Constitutional <> m:24 var
+R10454:10454 UMSTFormal.Constitutional <> n:25 var
+R10457:10457 UMSTFormal.Constitutional <> s:26 var
+R10459:10461 UMSTFormal.Constitutional <> s'':28 var
+R10602:10605 Corelib.Init.Logic <> conj constr
+R10610:10613 Corelib.Init.Logic <> conj constr
+R10618:10621 Corelib.Init.Logic <> conj constr
+R10626:10629 Corelib.Init.Logic <> conj constr
+R10602:10605 Corelib.Init.Logic <> conj constr
+R10610:10613 Corelib.Init.Logic <> conj constr
+R10618:10621 Corelib.Init.Logic <> conj constr
+R10626:10629 Corelib.Init.Logic <> conj constr
+R10680:10697 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R10668:10670 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10657:10663 UMSTFormal.Concrete.Gate <> density proj
+R10671:10677 UMSTFormal.Concrete.Gate <> density proj
+R10698:10698 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10723:10727 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10750:10750 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10710:10712 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10699:10705 UMSTFormal.Concrete.Gate <> density proj
+R10713:10719 UMSTFormal.Concrete.Gate <> density proj
+R10738:10740 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10728:10734 UMSTFormal.Concrete.Gate <> density proj
+R10741:10747 UMSTFormal.Concrete.Gate <> density proj
+R10680:10697 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R10668:10670 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10657:10663 UMSTFormal.Concrete.Gate <> density proj
+R10671:10677 UMSTFormal.Concrete.Gate <> density proj
+R10698:10698 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10723:10727 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10750:10750 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10710:10712 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10699:10705 UMSTFormal.Concrete.Gate <> density proj
+R10713:10719 UMSTFormal.Concrete.Gate <> density proj
+R10738:10740 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10728:10734 UMSTFormal.Concrete.Gate <> density proj
+R10741:10747 UMSTFormal.Concrete.Gate <> density proj
+R10836:10859 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R10783:10783 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10808:10812 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10835:10835 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10795:10797 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10784:10790 UMSTFormal.Concrete.Gate <> density proj
+R10798:10804 UMSTFormal.Concrete.Gate <> density proj
+R10823:10825 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10813:10819 UMSTFormal.Concrete.Gate <> density proj
+R10826:10832 UMSTFormal.Concrete.Gate <> density proj
+R10860:10860 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10883:10887 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10912:10912 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10871:10873 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10861:10867 UMSTFormal.Concrete.Gate <> density proj
+R10874:10880 UMSTFormal.Concrete.Gate <> density proj
+R10899:10901 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10888:10894 UMSTFormal.Concrete.Gate <> density proj
+R10902:10908 UMSTFormal.Concrete.Gate <> density proj
+R10836:10859 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R10783:10783 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10808:10812 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10835:10835 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10795:10797 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10784:10790 UMSTFormal.Concrete.Gate <> density proj
+R10798:10804 UMSTFormal.Concrete.Gate <> density proj
+R10823:10825 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10813:10819 UMSTFormal.Concrete.Gate <> density proj
+R10826:10832 UMSTFormal.Concrete.Gate <> density proj
+R10860:10860 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10883:10887 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10912:10912 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10871:10873 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10861:10867 UMSTFormal.Concrete.Gate <> density proj
+R10874:10880 UMSTFormal.Concrete.Gate <> density proj
+R10899:10901 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R10888:10894 UMSTFormal.Concrete.Gate <> density proj
+R10902:10908 UMSTFormal.Concrete.Gate <> density proj
+R10989:10991 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10976:10978 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10955:10962 Stdlib.QArith.QArith_base <> inject_Z def
+R10965:10972 Stdlib.ZArith.BinInt Z of_nat def
+R10979:10988 UMSTFormal.Core.Gate <> delta_mass def
+R11013:11015 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10992:10999 Stdlib.QArith.QArith_base <> inject_Z def
+R11002:11009 Stdlib.ZArith.BinInt Z of_nat def
+R11016:11025 UMSTFormal.Core.Gate <> delta_mass def
+R10934:10942 Stdlib.QArith.QArith_base <> Qle_trans thm
+R10989:10991 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R10976:10978 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10955:10962 Stdlib.QArith.QArith_base <> inject_Z def
+R10965:10972 Stdlib.ZArith.BinInt Z of_nat def
+R10979:10988 UMSTFormal.Core.Gate <> delta_mass def
+R11013:11015 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R10992:10999 Stdlib.QArith.QArith_base <> inject_Z def
+R11002:11009 Stdlib.ZArith.BinInt Z of_nat def
+R11016:11025 UMSTFormal.Core.Gate <> delta_mass def
+R10934:10942 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11062:11062 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11085:11089 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11114:11114 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11073:11075 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11063:11069 UMSTFormal.Concrete.Gate <> density proj
+R11076:11082 UMSTFormal.Concrete.Gate <> density proj
+R11101:11103 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11090:11096 UMSTFormal.Concrete.Gate <> density proj
+R11104:11110 UMSTFormal.Concrete.Gate <> density proj
+R11041:11049 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11062:11062 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11085:11089 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11114:11114 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11073:11075 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11063:11069 UMSTFormal.Concrete.Gate <> density proj
+R11076:11082 UMSTFormal.Concrete.Gate <> density proj
+R11101:11103 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11090:11096 UMSTFormal.Concrete.Gate <> density proj
+R11104:11110 UMSTFormal.Concrete.Gate <> density proj
+R11041:11049 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11153:11153 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11178:11182 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11205:11205 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11165:11167 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11154:11160 UMSTFormal.Concrete.Gate <> density proj
+R11168:11174 UMSTFormal.Concrete.Gate <> density proj
+R11193:11195 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11183:11189 UMSTFormal.Concrete.Gate <> density proj
+R11196:11202 UMSTFormal.Concrete.Gate <> density proj
+R11132:11140 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11153:11153 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11178:11182 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11205:11205 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11165:11167 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11154:11160 UMSTFormal.Concrete.Gate <> density proj
+R11168:11174 UMSTFormal.Concrete.Gate <> density proj
+R11193:11195 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11183:11189 UMSTFormal.Concrete.Gate <> density proj
+R11196:11202 UMSTFormal.Concrete.Gate <> density proj
+R11132:11140 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11238:11245 Stdlib.QArith.QArith_base <> Qle_refl thm
+R11238:11245 Stdlib.QArith.QArith_base <> Qle_refl thm
+R11287:11294 Stdlib.QArith.QArith_base <> Qle_refl thm
+R11287:11294 Stdlib.QArith.QArith_base <> Qle_refl thm
+R11311:11325 Stdlib.QArith.QArith_base <> Qplus_le_compat thm
+R11311:11325 Stdlib.QArith.QArith_base <> Qplus_le_compat thm
+R11366:11389 UMSTFormal.Constitutional <> inject_mass_triangle_rhs thm
+R11366:11389 UMSTFormal.Constitutional <> inject_mass_triangle_rhs thm
+R11437:11454 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R11423:11425 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11414:11420 UMSTFormal.Concrete.Gate <> density proj
+R11426:11432 UMSTFormal.Concrete.Gate <> density proj
+R11455:11455 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11478:11482 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11507:11507 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11465:11467 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11456:11462 UMSTFormal.Concrete.Gate <> density proj
+R11468:11474 UMSTFormal.Concrete.Gate <> density proj
+R11493:11495 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11483:11489 UMSTFormal.Concrete.Gate <> density proj
+R11496:11502 UMSTFormal.Concrete.Gate <> density proj
+R11437:11454 Stdlib.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R11423:11425 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11414:11420 UMSTFormal.Concrete.Gate <> density proj
+R11426:11432 UMSTFormal.Concrete.Gate <> density proj
+R11455:11455 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11478:11482 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11507:11507 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11465:11467 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11456:11462 UMSTFormal.Concrete.Gate <> density proj
+R11468:11474 UMSTFormal.Concrete.Gate <> density proj
+R11493:11495 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11483:11489 UMSTFormal.Concrete.Gate <> density proj
+R11496:11502 UMSTFormal.Concrete.Gate <> density proj
+R11551:11551 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11574:11578 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11603:11603 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11561:11563 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11552:11558 UMSTFormal.Concrete.Gate <> density proj
+R11564:11570 UMSTFormal.Concrete.Gate <> density proj
+R11589:11591 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11579:11585 UMSTFormal.Concrete.Gate <> density proj
+R11592:11598 UMSTFormal.Concrete.Gate <> density proj
+R11530:11538 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11551:11551 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11574:11578 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11603:11603 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11561:11563 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11552:11558 UMSTFormal.Concrete.Gate <> density proj
+R11564:11570 UMSTFormal.Concrete.Gate <> density proj
+R11589:11591 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R11579:11585 UMSTFormal.Concrete.Gate <> density proj
+R11592:11598 UMSTFormal.Concrete.Gate <> density proj
+R11530:11538 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11631:11638 Stdlib.QArith.QArith_base <> Qle_refl thm
+R11631:11638 Stdlib.QArith.QArith_base <> Qle_refl thm
+R11708:11710 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11695:11697 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R11674:11681 Stdlib.QArith.QArith_base <> inject_Z def
+R11684:11691 Stdlib.ZArith.BinInt Z of_nat def
+R11698:11707 UMSTFormal.Core.Gate <> delta_mass def
+R11732:11734 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R11711:11718 Stdlib.QArith.QArith_base <> inject_Z def
+R11721:11728 Stdlib.ZArith.BinInt Z of_nat def
+R11735:11744 UMSTFormal.Core.Gate <> delta_mass def
+R11653:11661 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11708:11710 Stdlib.QArith.QArith_base <> ::Q_scope:x_'+'_x not
+R11695:11697 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R11674:11681 Stdlib.QArith.QArith_base <> inject_Z def
+R11684:11691 Stdlib.ZArith.BinInt Z of_nat def
+R11698:11707 UMSTFormal.Core.Gate <> delta_mass def
+R11732:11734 Stdlib.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R11711:11718 Stdlib.QArith.QArith_base <> inject_Z def
+R11721:11728 Stdlib.ZArith.BinInt Z of_nat def
+R11735:11744 UMSTFormal.Core.Gate <> delta_mass def
+R11653:11661 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11762:11776 Stdlib.QArith.QArith_base <> Qplus_le_compat thm
+R11762:11776 Stdlib.QArith.QArith_base <> Qplus_le_compat thm
+R11819:11842 UMSTFormal.Constitutional <> inject_mass_triangle_rhs thm
+R11819:11842 UMSTFormal.Constitutional <> inject_mass_triangle_rhs thm
+R11881:11891 UMSTFormal.Concrete.Gate <> free_energy proj
+R11860:11868 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11881:11891 UMSTFormal.Concrete.Gate <> free_energy proj
+R11860:11868 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11941:11949 UMSTFormal.Concrete.Gate <> hydration proj
+R11920:11928 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11941:11949 UMSTFormal.Concrete.Gate <> hydration proj
+R11920:11928 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11999:12006 UMSTFormal.Concrete.Gate <> strength proj
+R11978:11986 Stdlib.QArith.QArith_base <> Qle_trans thm
+R11999:12006 UMSTFormal.Concrete.Gate <> strength proj
+R11978:11986 Stdlib.QArith.QArith_base <> Qle_trans thm
+def 12789:12800 <> KleisliArrow
+R12823:12826 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R12805:12822 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R12827:12832 Corelib.Init.Datatypes <> option ind
+R12834:12851 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+def 12970:12978 <> WellTyped
+R12985:12996 UMSTFormal.Constitutional <> KleisliArrow def
+binder 12981:12981 <> f:29
+R13026:13043 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 13019:13019 <> s:30
+binder 13021:13022 <> s':31
+R13062:13067 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R13052:13054 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13049:13049 UMSTFormal.Constitutional <> f:29 var
+R13051:13051 UMSTFormal.Constitutional <> s:30 var
+R13055:13058 Corelib.Init.Datatypes <> Some constr
+R13060:13061 UMSTFormal.Constitutional <> s':31 var
+R13068:13077 UMSTFormal.Concrete.Gate <> admissible def
+R13079:13079 UMSTFormal.Constitutional <> s:30 var
+R13081:13082 UMSTFormal.Constitutional <> s':31 var
+def 13216:13230 <> make_gate_arrow
+R13261:13264 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R13243:13260 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R13265:13282 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 13233:13239 <> propose:32
+R13289:13300 UMSTFormal.Constitutional <> KleisliArrow def
+binder 13311:13311 <> s:33
+R13330:13336 UMSTFormal.Constitutional <> propose:32 var
+R13338:13338 UMSTFormal.Constitutional <> s:33 var
+binder 13324:13325 <> s':34
+R13350:13359 UMSTFormal.Concrete.Gate <> gate_check def
+R13361:13361 UMSTFormal.Constitutional <> s:33 var
+R13363:13364 UMSTFormal.Constitutional <> s':34 var
+R13384:13387 Corelib.Init.Datatypes <> None constr
+R13371:13374 Corelib.Init.Datatypes <> Some constr
+R13376:13377 UMSTFormal.Constitutional <> s':34 var
+prf 13445:13465 <> gate_arrow_well_typed
+R13507:13510 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R13489:13506 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R13511:13528 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 13479:13485 <> propose:35
+R13534:13542 UMSTFormal.Constitutional <> WellTyped def
+R13545:13559 UMSTFormal.Constitutional <> make_gate_arrow def
+R13561:13567 UMSTFormal.Constitutional <> propose:35 var
+R13612:13626 UMSTFormal.Constitutional <> make_gate_arrow def
+R13646:13655 UMSTFormal.Concrete.Gate <> gate_check def
+R13646:13655 UMSTFormal.Concrete.Gate <> gate_check def
+R13703:13705 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13703:13705 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13768:13783 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+R13768:13783 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+def 13971:13985 <> kleisli_compose
+R13994:14005 UMSTFormal.Constitutional <> KleisliArrow def
+binder 13988:13988 <> f:36
+binder 13990:13990 <> g:37
+R14010:14021 UMSTFormal.Constitutional <> KleisliArrow def
+binder 14032:14032 <> s:38
+R14047:14047 UMSTFormal.Constitutional <> f:36 var
+R14049:14049 UMSTFormal.Constitutional <> s:38 var
+R14062:14065 Corelib.Init.Datatypes <> None constr
+R14073:14076 Corelib.Init.Datatypes <> None constr
+R14084:14087 Corelib.Init.Datatypes <> Some constr
+R14095:14095 UMSTFormal.Constitutional <> g:37 var
+def 14151:14162 <> well_typed_N
+R14169:14171 Corelib.Init.Datatypes <> nat ind
+binder 14165:14165 <> n:39
+R14179:14190 UMSTFormal.Constitutional <> KleisliArrow def
+binder 14175:14175 <> f:40
+R14220:14237 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 14213:14213 <> s:41
+binder 14215:14216 <> s':42
+R14254:14257 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R14244:14246 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14241:14241 UMSTFormal.Constitutional <> f:40 var
+R14243:14243 UMSTFormal.Constitutional <> s:41 var
+R14247:14250 Corelib.Init.Datatypes <> Some constr
+R14252:14253 UMSTFormal.Constitutional <> s':42 var
+R14258:14269 UMSTFormal.Concrete.Gate <> admissible_N def
+R14271:14271 UMSTFormal.Constitutional <> n:39 var
+R14273:14273 UMSTFormal.Constitutional <> s:41 var
+R14275:14276 UMSTFormal.Constitutional <> s':42 var
+prf 14633:14658 <> kleisli_compose_well_typed
+R14678:14689 UMSTFormal.Constitutional <> KleisliArrow def
+binder 14672:14672 <> f:43
+binder 14674:14674 <> g:44
+R14706:14711 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R14695:14703 UMSTFormal.Constitutional <> WellTyped def
+R14705:14705 UMSTFormal.Constitutional <> f:43 var
+R14723:14728 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R14712:14720 UMSTFormal.Constitutional <> WellTyped def
+R14722:14722 UMSTFormal.Constitutional <> g:44 var
+R14729:14740 UMSTFormal.Constitutional <> well_typed_N def
+R14745:14759 UMSTFormal.Constitutional <> kleisli_compose def
+R14761:14761 UMSTFormal.Constitutional <> f:43 var
+R14763:14763 UMSTFormal.Constitutional <> g:44 var
+R14815:14829 UMSTFormal.Constitutional <> kleisli_compose def
+R14888:14907 UMSTFormal.Constitutional <> admissible_N_compose thm
+R14888:14907 UMSTFormal.Constitutional <> admissible_N_compose thm
+R14937:14941 Corelib.Init.Logic <> proj1 thm
+R14944:14971 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+R14937:14941 Corelib.Init.Logic <> proj1 thm
+R14944:14971 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+R15021:15025 Corelib.Init.Logic <> proj1 thm
+R15028:15055 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+R15021:15025 Corelib.Init.Logic <> proj1 thm
+R15028:15055 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+prf 15246:15273 <> kleisli_compose_well_typed_N
+R15282:15284 Corelib.Init.Datatypes <> nat ind
+binder 15276:15276 <> m:45
+binder 15278:15278 <> n:46
+R15294:15305 UMSTFormal.Constitutional <> KleisliArrow def
+binder 15288:15288 <> f:47
+binder 15290:15290 <> g:48
+R15328:15333 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R15312:15323 UMSTFormal.Constitutional <> well_typed_N def
+R15325:15325 UMSTFormal.Constitutional <> m:45 var
+R15327:15327 UMSTFormal.Constitutional <> f:47 var
+R15350:15355 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R15334:15345 UMSTFormal.Constitutional <> well_typed_N def
+R15347:15347 UMSTFormal.Constitutional <> n:46 var
+R15349:15349 UMSTFormal.Constitutional <> g:48 var
+R15356:15367 UMSTFormal.Constitutional <> well_typed_N def
+R15371:15373 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R15370:15370 UMSTFormal.Constitutional <> m:45 var
+R15374:15374 UMSTFormal.Constitutional <> n:46 var
+R15378:15392 UMSTFormal.Constitutional <> kleisli_compose def
+R15394:15394 UMSTFormal.Constitutional <> f:47 var
+R15396:15396 UMSTFormal.Constitutional <> g:48 var
+R15444:15458 UMSTFormal.Constitutional <> kleisli_compose def
+R15517:15536 UMSTFormal.Constitutional <> admissible_N_compose thm
+R15517:15536 UMSTFormal.Constitutional <> admissible_N_compose thm
+def 15769:15780 <> kleisli_fold
+R15792:15795 Corelib.Init.Datatypes <> list ind
+R15797:15808 UMSTFormal.Constitutional <> KleisliArrow def
+binder 15783:15788 <> arrows:49
+R15813:15824 UMSTFormal.Constitutional <> KleisliArrow def
+R15837:15842 UMSTFormal.Constitutional <> arrows:49 var
+R15853:15854 Stdlib.Lists.List ListNotations ::list_scope:'['_']' not
+binder 15869:15869 <> s:52
+R15874:15877 Corelib.Init.Datatypes <> Some constr
+R15879:15879 UMSTFormal.Constitutional <> s:52 var
+R15885:15885 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R15887:15887 Stdlib.Lists.List ListNotations ::list_scope:'['_x_']' not
+R15904:15907 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15916:15930 UMSTFormal.Constitutional <> kleisli_compose def
+R15935:15946 UMSTFormal.Constitutional <> kleisli_fold:50 def
+def 15973:15984 <> AllWellTyped
+R15996:15999 Corelib.Init.Datatypes <> list ind
+R16001:16012 UMSTFormal.Constitutional <> KleisliArrow def
+binder 15987:15992 <> arrows:53
+R16027:16032 Corelib.Lists.ListDef <> Forall ind
+R16044:16049 UMSTFormal.Constitutional <> arrows:53 var
+R16034:16042 UMSTFormal.Constitutional <> WellTyped def
+prf 16410:16434 <> kleisli_fold_well_typed_N
+R16457:16460 Corelib.Init.Datatypes <> list ind
+R16462:16473 UMSTFormal.Constitutional <> KleisliArrow def
+binder 16448:16453 <> arrows:54
+R16498:16503 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R16479:16490 UMSTFormal.Constitutional <> AllWellTyped def
+R16492:16497 UMSTFormal.Constitutional <> arrows:54 var
+R16504:16515 UMSTFormal.Constitutional <> well_typed_N def
+R16518:16523 Corelib.Init.Datatypes <> length def
+R16525:16530 UMSTFormal.Constitutional <> arrows:54 var
+R16534:16545 UMSTFormal.Constitutional <> kleisli_fold def
+R16547:16552 UMSTFormal.Constitutional <> arrows:54 var
+R16747:16763 UMSTFormal.Concrete.Gate <> admissible_N_refl thm
+R16747:16763 UMSTFormal.Concrete.Gate <> admissible_N_refl thm
+R16896:16900 Corelib.Init.Logic <> proj1 thm
+R16903:16930 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+R16896:16900 Corelib.Init.Logic <> proj1 thm
+R16903:16930 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+R16953:16962 Stdlib.Lists.List <> Forall_inv thm
+R16953:16962 Stdlib.Lists.List <> Forall_inv thm
+R17063:17090 UMSTFormal.Constitutional <> kleisli_compose_well_typed_N thm
+R17095:17100 Corelib.Init.Datatypes <> length def
+R17104:17107 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17063:17090 UMSTFormal.Constitutional <> kleisli_compose_well_typed_N thm
+R17095:17100 Corelib.Init.Datatypes <> length def
+R17104:17107 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17158:17162 Corelib.Init.Logic <> proj1 thm
+R17165:17192 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+R17158:17162 Corelib.Init.Logic <> proj1 thm
+R17165:17192 UMSTFormal.Constitutional <> admissible_iff_admissible_N1 thm
+R17217:17226 Stdlib.Lists.List <> Forall_inv thm
+R17217:17226 Stdlib.Lists.List <> Forall_inv thm
+R17277:17291 Stdlib.Lists.List <> Forall_inv_tail thm
+R17277:17291 Stdlib.Lists.List <> Forall_inv_tail thm
+prf 17348:17370 <> kleisli_fold_well_typed
+R17393:17396 Corelib.Init.Datatypes <> list ind
+R17398:17409 UMSTFormal.Constitutional <> KleisliArrow def
+binder 17384:17389 <> arrows:55
+R17434:17439 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R17415:17426 UMSTFormal.Constitutional <> AllWellTyped def
+R17428:17433 UMSTFormal.Constitutional <> arrows:55 var
+R17440:17451 UMSTFormal.Constitutional <> well_typed_N def
+R17454:17459 Corelib.Init.Datatypes <> length def
+R17461:17466 UMSTFormal.Constitutional <> arrows:55 var
+R17470:17481 UMSTFormal.Constitutional <> kleisli_fold def
+R17483:17488 UMSTFormal.Constitutional <> arrows:55 var
+R17513:17537 UMSTFormal.Constitutional <> kleisli_fold_well_typed_N thm
+R17513:17537 UMSTFormal.Constitutional <> kleisli_fold_well_typed_N thm

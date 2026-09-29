@@ -1,0 +1,531 @@
+DIGEST ad1fc4dbded1d4048a4345fe56e98044
+FUMSTFormal.Urge.OccupancyNotForge
+R911:915 Stdlib.Arith.Arith <> <> lib
+R917:920 Stdlib.Lists.List <> <> lib
+R922:925 Stdlib.Bool.Bool <> <> lib
+R927:932 Stdlib.Strings.String <> <> lib
+R934:939 Stdlib.QArith.QArith <> <> lib
+R957:971 UMSTFormal.Gate <> <> lib
+R989:1013 UMSTFormal.Constitutional <> <> lib
+R1031:1058 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1076:1107 UMSTFormal.Urge.ExcitementImport <> <> lib
+rec 1488:1501 <> occupancy_name
+proj 1516:1534 <> occupancy_surrogate
+R1538:1540 Corelib.Init.Datatypes <> nat ind
+rec 1639:1648 <> forge_name
+proj 1663:1677 <> forge_surrogate
+R1681:1683 Corelib.Init.Datatypes <> nat ind
+rec 1777:1785 <> meta_name
+proj 1800:1813 <> meta_surrogate
+R1817:1819 Corelib.Init.Datatypes <> nat ind
+rec 1908:1917 <> padma_name
+proj 1932:1946 <> padma_surrogate
+R1950:1952 Corelib.Init.Datatypes <> nat ind
+ind 2048:2064 <> urge_unfused_name
+constr 2073:2084 <> un_occupancy
+constr 2111:2118 <> un_forge
+constr 2141:2147 <> un_meta
+constr 2169:2176 <> un_padma
+R2091:2104 UMSTFormal.Urge.OccupancyNotForge <> occupancy_name rec
+binder 2087:2087 <> o:11
+R2125:2134 UMSTFormal.Urge.OccupancyNotForge <> forge_name rec
+binder 2121:2121 <> f:12
+R2154:2162 UMSTFormal.Urge.OccupancyNotForge <> meta_name rec
+binder 2150:2150 <> m:13
+R2183:2192 UMSTFormal.Urge.OccupancyNotForge <> padma_name rec
+binder 2179:2179 <> p:14
+scheme 2048:2064 <> urge_unfused_name_rect
+scheme 2048:2064 <> urge_unfused_name_ind
+scheme 2048:2064 <> urge_unfused_name_rec
+scheme 2048:2064 <> urge_unfused_name_sind
+def 2284:2296 <> urge_name_tag
+R2303:2319 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+binder 2299:2299 <> n:15
+R2324:2326 Corelib.Init.Datatypes <> nat ind
+R2339:2339 UMSTFormal.Urge.OccupancyNotForge <> n:15 var
+R2350:2361 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R2374:2381 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R2394:2400 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R2413:2420 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+def 2514:2531 <> classify_urge_name
+R2538:2554 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+binder 2534:2534 <> n:17
+R2559:2575 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+R2580:2580 UMSTFormal.Urge.OccupancyNotForge <> n:17 var
+ind 2673:2686 <> fusion_refused
+constr 2695:2713 <> onf_occupancy_forge
+constr 2719:2736 <> onf_occupancy_meta
+constr 2742:2760 <> onf_occupancy_padma
+constr 2766:2779 <> onf_forge_meta
+constr 2785:2799 <> onf_forge_padma
+constr 2805:2818 <> onf_meta_padma
+constr 2824:2844 <> onf_same_discriminant
+scheme 2673:2686 <> fusion_refused_rect
+scheme 2673:2686 <> fusion_refused_ind
+scheme 2673:2686 <> fusion_refused_rec
+scheme 2673:2686 <> fusion_refused_sind
+ind 2907:2933 <> occupancy_not_forge_verdict
+constr 2942:2956 <> onfv_unfused_ok
+constr 2962:2980 <> onfv_fusion_refused
+scheme 2907:2933 <> occupancy_not_forge_verdict_rect
+scheme 2907:2933 <> occupancy_not_forge_verdict_ind
+scheme 2907:2933 <> occupancy_not_forge_verdict_rec
+scheme 2907:2933 <> occupancy_not_forge_verdict_sind
+rec 3270:3297 <> occupancy_not_forge_conjunct
+proj 3312:3339 <> onf_conj_four_names_distinct
+proj 3351:3373 <> onf_conj_fusion_refused
+proj 3385:3413 <> onf_conj_excitement_preserves
+R3343:3346 Corelib.Init.Datatypes <> bool ind
+R3377:3380 Corelib.Init.Datatypes <> bool ind
+R3417:3420 Corelib.Init.Datatypes <> bool ind
+def 3533:3551 <> onf_conjunct_admits
+R3558:3585 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_conjunct rec
+binder 3554:3554 <> c:26
+R3590:3593 Corelib.Init.Datatypes <> bool ind
+R3661:3666 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3630:3635 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3600:3627 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_four_names_distinct proj
+R3629:3629 UMSTFormal.Urge.OccupancyNotForge <> c:26 var
+R3636:3658 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_fusion_refused proj
+R3660:3660 UMSTFormal.Urge.OccupancyNotForge <> c:26 var
+R3667:3695 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_excitement_preserves proj
+R3697:3697 UMSTFormal.Urge.OccupancyNotForge <> c:26 var
+def 3777:3796 <> evaluate_name_fusion
+R3815:3818 Corelib.Init.Datatypes <> bool ind
+binder 3799:3811 <> attempt_merge:27
+R3827:3853 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_verdict ind
+R3863:3875 UMSTFormal.Urge.OccupancyNotForge <> attempt_merge:27 var
+R3907:3921 UMSTFormal.Urge.OccupancyNotForge <> onfv_unfused_ok constr
+R3882:3900 UMSTFormal.Urge.OccupancyNotForge <> onfv_fusion_refused constr
+def 4024:4032 <> try_merge
+R4041:4057 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+binder 4035:4035 <> a:28
+binder 4037:4037 <> b:29
+R4066:4068 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R4062:4065 Corelib.Init.Datatypes <> unit ind
+R4069:4082 UMSTFormal.Urge.OccupancyNotForge <> fusion_refused ind
+R4098:4098 UMSTFormal.Urge.OccupancyNotForge <> b:29 var
+R4095:4095 UMSTFormal.Urge.OccupancyNotForge <> a:28 var
+R4109:4120 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R4125:4132 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R4139:4141 Corelib.Init.Datatypes <> inr constr
+R4143:4161 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_forge constr
+R4167:4174 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R4179:4190 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R4197:4199 Corelib.Init.Datatypes <> inr constr
+R4201:4219 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_forge constr
+R4225:4236 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R4241:4247 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R4254:4256 Corelib.Init.Datatypes <> inr constr
+R4258:4275 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_meta constr
+R4281:4287 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R4292:4303 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R4310:4312 Corelib.Init.Datatypes <> inr constr
+R4314:4331 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_meta constr
+R4337:4348 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R4353:4360 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R4367:4369 Corelib.Init.Datatypes <> inr constr
+R4371:4389 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_padma constr
+R4395:4402 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R4407:4418 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R4425:4427 Corelib.Init.Datatypes <> inr constr
+R4429:4447 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_padma constr
+R4453:4460 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R4465:4471 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R4478:4480 Corelib.Init.Datatypes <> inr constr
+R4482:4495 UMSTFormal.Urge.OccupancyNotForge <> onf_forge_meta constr
+R4501:4507 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R4512:4519 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R4526:4528 Corelib.Init.Datatypes <> inr constr
+R4530:4543 UMSTFormal.Urge.OccupancyNotForge <> onf_forge_meta constr
+R4549:4556 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R4561:4568 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R4575:4577 Corelib.Init.Datatypes <> inr constr
+R4579:4593 UMSTFormal.Urge.OccupancyNotForge <> onf_forge_padma constr
+R4599:4606 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R4611:4618 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R4625:4627 Corelib.Init.Datatypes <> inr constr
+R4629:4643 UMSTFormal.Urge.OccupancyNotForge <> onf_forge_padma constr
+R4649:4655 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R4660:4667 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R4674:4676 Corelib.Init.Datatypes <> inr constr
+R4678:4691 UMSTFormal.Urge.OccupancyNotForge <> onf_meta_padma constr
+R4697:4704 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R4709:4715 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R4722:4724 Corelib.Init.Datatypes <> inr constr
+R4726:4739 UMSTFormal.Urge.OccupancyNotForge <> onf_meta_padma constr
+R4753:4755 Corelib.Init.Datatypes <> inr constr
+R4757:4777 UMSTFormal.Urge.OccupancyNotForge <> onf_same_discriminant constr
+def 4865:4889 <> refuse_occupancy_as_forge
+R4897:4910 UMSTFormal.Urge.OccupancyNotForge <> occupancy_name rec
+binder 4892:4893 <> _o:32
+R4929:4931 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R4919:4928 UMSTFormal.Urge.OccupancyNotForge <> forge_name rec
+R4932:4945 UMSTFormal.Urge.OccupancyNotForge <> fusion_refused ind
+R4952:4954 Corelib.Init.Datatypes <> inr constr
+R4956:4974 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_forge constr
+def 5051:5070 <> refuse_forge_as_meta
+R5078:5087 UMSTFormal.Urge.OccupancyNotForge <> forge_name rec
+binder 5073:5074 <> _f:33
+R5105:5107 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5096:5104 UMSTFormal.Urge.OccupancyNotForge <> meta_name rec
+R5108:5121 UMSTFormal.Urge.OccupancyNotForge <> fusion_refused ind
+R5128:5130 Corelib.Init.Datatypes <> inr constr
+R5132:5145 UMSTFormal.Urge.OccupancyNotForge <> onf_forge_meta constr
+def 5222:5241 <> refuse_meta_as_padma
+R5249:5257 UMSTFormal.Urge.OccupancyNotForge <> meta_name rec
+binder 5244:5245 <> _m:34
+R5276:5278 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5266:5275 UMSTFormal.Urge.OccupancyNotForge <> padma_name rec
+R5279:5292 UMSTFormal.Urge.OccupancyNotForge <> fusion_refused ind
+R5299:5301 Corelib.Init.Datatypes <> inr constr
+R5303:5316 UMSTFormal.Urge.OccupancyNotForge <> onf_meta_padma constr
+def 5398:5422 <> refuse_padma_as_occupancy
+R5430:5439 UMSTFormal.Urge.OccupancyNotForge <> padma_name rec
+binder 5425:5426 <> _p:35
+R5462:5464 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5448:5461 UMSTFormal.Urge.OccupancyNotForge <> occupancy_name rec
+R5465:5478 UMSTFormal.Urge.OccupancyNotForge <> fusion_refused ind
+R5485:5487 Corelib.Init.Datatypes <> inr constr
+R5489:5507 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_padma constr
+prf 5517:5557 <> evaluate_name_fusion_refused_when_attempt
+R5588:5590 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5563:5582 UMSTFormal.Urge.OccupancyNotForge <> evaluate_name_fusion def
+R5584:5587 Corelib.Init.Datatypes <> true constr
+R5591:5609 UMSTFormal.Urge.OccupancyNotForge <> onfv_fusion_refused constr
+prf 5646:5678 <> evaluate_name_fusion_ok_when_hold
+R5710:5712 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5684:5703 UMSTFormal.Urge.OccupancyNotForge <> evaluate_name_fusion def
+R5705:5709 Corelib.Init.Datatypes <> false constr
+R5713:5727 UMSTFormal.Urge.OccupancyNotForge <> onfv_unfused_ok constr
+prf 5764:5796 <> try_merge_occupancy_forge_refused
+R5807:5820 UMSTFormal.Urge.OccupancyNotForge <> occupancy_name rec
+binder 5803:5803 <> o:36
+R5828:5837 UMSTFormal.Urge.OccupancyNotForge <> forge_name rec
+binder 5824:5824 <> f:37
+R5883:5885 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5844:5852 UMSTFormal.Urge.OccupancyNotForge <> try_merge def
+R5855:5866 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R5868:5868 UMSTFormal.Urge.OccupancyNotForge <> o:36 var
+R5872:5879 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R5881:5881 UMSTFormal.Urge.OccupancyNotForge <> f:37 var
+R5886:5888 Corelib.Init.Datatypes <> inr constr
+R5890:5908 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_forge constr
+prf 5945:5977 <> try_merge_padma_occupancy_refused
+R5988:5997 UMSTFormal.Urge.OccupancyNotForge <> padma_name rec
+binder 5984:5984 <> p:38
+R6005:6018 UMSTFormal.Urge.OccupancyNotForge <> occupancy_name rec
+binder 6001:6001 <> o:39
+R6064:6066 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6025:6033 UMSTFormal.Urge.OccupancyNotForge <> try_merge def
+R6036:6043 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R6045:6045 UMSTFormal.Urge.OccupancyNotForge <> p:38 var
+R6049:6060 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R6062:6062 UMSTFormal.Urge.OccupancyNotForge <> o:39 var
+R6067:6069 Corelib.Init.Datatypes <> inr constr
+R6071:6089 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_padma constr
+prf 6126:6159 <> refuse_occupancy_as_forge_positive
+R6166:6179 UMSTFormal.Urge.OccupancyNotForge <> occupancy_name rec
+binder 6162:6162 <> o:40
+R6213:6215 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6186:6210 UMSTFormal.Urge.OccupancyNotForge <> refuse_occupancy_as_forge def
+R6212:6212 UMSTFormal.Urge.OccupancyNotForge <> o:40 var
+R6216:6218 Corelib.Init.Datatypes <> inr constr
+R6220:6238 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_forge constr
+prf 6275:6303 <> refuse_meta_as_padma_positive
+R6310:6318 UMSTFormal.Urge.OccupancyNotForge <> meta_name rec
+binder 6306:6306 <> m:41
+R6347:6349 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6325:6344 UMSTFormal.Urge.OccupancyNotForge <> refuse_meta_as_padma def
+R6346:6346 UMSTFormal.Urge.OccupancyNotForge <> m:41 var
+R6350:6352 Corelib.Init.Datatypes <> inr constr
+R6354:6367 UMSTFormal.Urge.OccupancyNotForge <> onf_meta_padma constr
+rec 6701:6723 <> occupancy_not_forge_ctx
+proj 6765:6794 <> occupancy_not_forge_successors
+R6732:6749 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6726:6728 <> src:42
+R6798:6801 Corelib.Init.Datatypes <> list ind
+R6804:6820 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R6822:6824 UMSTFormal.Urge.OccupancyNotForge <> src:42 var
+def 6940:6965 <> occupancy_not_forge_select
+R6974:6991 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6968:6970 <> src:45
+R7005:7027 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_ctx rec
+R7029:7031 UMSTFormal.Urge.OccupancyNotForge <> src:45 var
+binder 6999:7001 <> ctx:46
+R7059:7061 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7038:7054 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7056:7058 UMSTFormal.Urge.OccupancyNotForge <> src:45 var
+R7062:7079 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R7086:7105 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R7107:7109 UMSTFormal.Urge.OccupancyNotForge <> src:45 var
+R7112:7141 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R7143:7145 UMSTFormal.Urge.OccupancyNotForge <> src:45 var
+R7147:7149 UMSTFormal.Urge.OccupancyNotForge <> ctx:46 var
+prf 7162:7208 <> occupancy_not_forge_select_eq_excitement_select
+R7221:7238 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7215:7217 <> src:47
+R7248:7270 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_ctx rec
+R7272:7274 UMSTFormal.Urge.OccupancyNotForge <> src:47 var
+binder 7242:7244 <> ctx:48
+R7315:7319 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7281:7306 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select def
+R7308:7310 UMSTFormal.Urge.OccupancyNotForge <> src:47 var
+R7312:7314 UMSTFormal.Urge.OccupancyNotForge <> ctx:48 var
+R7320:7336 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R7338:7340 UMSTFormal.Urge.OccupancyNotForge <> src:47 var
+R7343:7372 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R7374:7376 UMSTFormal.Urge.OccupancyNotForge <> src:47 var
+R7378:7380 UMSTFormal.Urge.OccupancyNotForge <> ctx:48 var
+R7400:7425 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select def
+R7428:7447 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 7479:7528 <> occupancy_not_forge_select_eq_urge_recovery_select
+R7541:7558 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7535:7537 <> src:49
+R7568:7590 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_ctx rec
+R7592:7594 UMSTFormal.Urge.OccupancyNotForge <> src:49 var
+binder 7562:7564 <> ctx:50
+R7635:7639 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7601:7626 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select def
+R7628:7630 UMSTFormal.Urge.OccupancyNotForge <> src:49 var
+R7632:7634 UMSTFormal.Urge.OccupancyNotForge <> ctx:50 var
+R7640:7659 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R7661:7663 UMSTFormal.Urge.OccupancyNotForge <> src:49 var
+R7666:7695 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R7697:7699 UMSTFormal.Urge.OccupancyNotForge <> src:49 var
+R7701:7703 UMSTFormal.Urge.OccupancyNotForge <> ctx:50 var
+prf 7743:7777 <> occupancy_not_forge_no_local_argmin
+R7790:7807 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7784:7786 <> src:51
+R7817:7839 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_ctx rec
+R7841:7843 UMSTFormal.Urge.OccupancyNotForge <> src:51 var
+binder 7811:7813 <> ctx:52
+R7884:7888 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7850:7875 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select def
+R7877:7879 UMSTFormal.Urge.OccupancyNotForge <> src:51 var
+R7881:7883 UMSTFormal.Urge.OccupancyNotForge <> ctx:52 var
+R7889:7905 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R7907:7909 UMSTFormal.Urge.OccupancyNotForge <> src:51 var
+R7912:7941 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R7943:7945 UMSTFormal.Urge.OccupancyNotForge <> src:51 var
+R7947:7949 UMSTFormal.Urge.OccupancyNotForge <> ctx:52 var
+R7969:8015 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select_eq_excitement_select thm
+R7969:8015 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select_eq_excitement_select thm
+prf 8039:8063 <> occupancy_not_forge_empty
+R8072:8089 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8066:8068 <> src:53
+R8103:8125 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_ctx rec
+R8127:8129 UMSTFormal.Urge.OccupancyNotForge <> src:53 var
+binder 8097:8099 <> ctx:54
+R8182:8184 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8144:8173 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R8175:8177 UMSTFormal.Urge.OccupancyNotForge <> src:53 var
+R8179:8181 UMSTFormal.Urge.OccupancyNotForge <> ctx:54 var
+R8185:8187 Corelib.Init.Datatypes <> nil constr
+binder 8137:8140 <> Hnil:55
+R8228:8230 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8194:8219 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select def
+R8221:8223 UMSTFormal.Urge.OccupancyNotForge <> src:53 var
+R8225:8227 UMSTFormal.Urge.OccupancyNotForge <> ctx:54 var
+R8231:8233 Corelib.Init.Datatypes <> inr constr
+R8235:8251 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R8270:8295 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select def
+R8298:8317 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 8590:8610 <> onf_fixture_occupancy
+R8614:8627 UMSTFormal.Urge.OccupancyNotForge <> occupancy_name rec
+R8637:8655 UMSTFormal.Urge.OccupancyNotForge <> occupancy_surrogate proj
+R8637:8655 UMSTFormal.Urge.OccupancyNotForge <> occupancy_surrogate proj
+R8637:8655 UMSTFormal.Urge.OccupancyNotForge <> occupancy_surrogate proj
+def 8678:8694 <> onf_fixture_forge
+R8698:8707 UMSTFormal.Urge.OccupancyNotForge <> forge_name rec
+R8717:8731 UMSTFormal.Urge.OccupancyNotForge <> forge_surrogate proj
+R8717:8731 UMSTFormal.Urge.OccupancyNotForge <> forge_surrogate proj
+R8717:8731 UMSTFormal.Urge.OccupancyNotForge <> forge_surrogate proj
+def 8754:8769 <> onf_fixture_meta
+R8773:8781 UMSTFormal.Urge.OccupancyNotForge <> meta_name rec
+R8791:8804 UMSTFormal.Urge.OccupancyNotForge <> meta_surrogate proj
+R8791:8804 UMSTFormal.Urge.OccupancyNotForge <> meta_surrogate proj
+R8791:8804 UMSTFormal.Urge.OccupancyNotForge <> meta_surrogate proj
+def 8827:8843 <> onf_fixture_padma
+R8847:8856 UMSTFormal.Urge.OccupancyNotForge <> padma_name rec
+R8866:8880 UMSTFormal.Urge.OccupancyNotForge <> padma_surrogate proj
+R8866:8880 UMSTFormal.Urge.OccupancyNotForge <> padma_surrogate proj
+R8866:8880 UMSTFormal.Urge.OccupancyNotForge <> padma_surrogate proj
+def 8903:8922 <> onf_fixture_occ_name
+R8926:8942 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+R8949:8960 UMSTFormal.Urge.OccupancyNotForge <> un_occupancy constr
+R8962:8982 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_occupancy def
+def 8997:9018 <> onf_fixture_forge_name
+R9022:9038 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+R9045:9052 UMSTFormal.Urge.OccupancyNotForge <> un_forge constr
+R9054:9070 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_forge def
+def 9085:9105 <> onf_fixture_meta_name
+R9109:9125 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+R9132:9138 UMSTFormal.Urge.OccupancyNotForge <> un_meta constr
+R9140:9155 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_meta def
+def 9170:9191 <> onf_fixture_padma_name
+R9195:9211 UMSTFormal.Urge.OccupancyNotForge <> urge_unfused_name ind
+R9218:9225 UMSTFormal.Urge.OccupancyNotForge <> un_padma constr
+R9227:9243 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma def
+def 9258:9277 <> onf_fixture_conjunct
+R9281:9308 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_conjunct rec
+R9318:9345 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_four_names_distinct proj
+R9318:9345 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_four_names_distinct proj
+R9318:9345 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_four_names_distinct proj
+R9361:9383 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_fusion_refused proj
+R9361:9383 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_fusion_refused proj
+R9399:9427 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_excitement_preserves proj
+R9399:9427 UMSTFormal.Urge.OccupancyNotForge <> onf_conj_excitement_preserves proj
+R9350:9353 Corelib.Init.Datatypes <> true constr
+R9388:9391 Corelib.Init.Datatypes <> true constr
+R9432:9435 Corelib.Init.Datatypes <> true constr
+prf 9450:9479 <> onf_fixture_four_tags_distinct
+R9559:9564 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R9519:9522 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R9485:9497 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9499:9518 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_occ_name def
+R9523:9535 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9537:9558 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_forge_name def
+R9640:9645 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R9601:9604 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R9565:9577 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9579:9600 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_forge_name def
+R9605:9617 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9619:9639 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_meta_name def
+R9721:9726 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R9681:9684 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R9646:9658 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9660:9680 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_meta_name def
+R9685:9697 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9699:9720 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_name def
+R9763:9766 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R9727:9739 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9741:9762 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_name def
+R9767:9779 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9781:9800 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_occ_name def
+R9819:9831 UMSTFormal.Urge.OccupancyNotForge <> urge_name_tag def
+R9834:9853 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_occ_name def
+R9856:9877 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_forge_name def
+R9884:9904 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_meta_name def
+R9907:9928 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_name def
+prf 9975:10015 <> onf_fixture_occupancy_forge_merge_refused
+R10074:10078 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10021:10029 UMSTFormal.Urge.OccupancyNotForge <> try_merge def
+R10031:10050 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_occ_name def
+R10052:10073 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_forge_name def
+R10079:10081 Corelib.Init.Datatypes <> inr constr
+R10083:10101 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_forge constr
+prf 10140:10180 <> onf_fixture_padma_occupancy_merge_refused
+R10239:10243 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10186:10194 UMSTFormal.Urge.OccupancyNotForge <> try_merge def
+R10196:10217 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_name def
+R10219:10238 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_occ_name def
+R10244:10246 Corelib.Init.Datatypes <> inr constr
+R10248:10266 UMSTFormal.Urge.OccupancyNotForge <> onf_occupancy_padma constr
+prf 10305:10339 <> onf_fixture_evaluate_fusion_refused
+R10370:10372 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10345:10364 UMSTFormal.Urge.OccupancyNotForge <> evaluate_name_fusion def
+R10366:10369 Corelib.Init.Datatypes <> true constr
+R10373:10391 UMSTFormal.Urge.OccupancyNotForge <> onfv_fusion_refused constr
+prf 10430:10456 <> onf_fixture_conjunct_admits
+R10502:10504 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10462:10480 UMSTFormal.Urge.OccupancyNotForge <> onf_conjunct_admits def
+R10482:10501 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_conjunct def
+R10505:10508 Corelib.Init.Datatypes <> true constr
+def 10550:10566 <> onf_fixture_state
+R10570:10587 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R10597:10603 UMSTFormal.Concrete.Gate <> density proj
+R10597:10603 UMSTFormal.Concrete.Gate <> density proj
+R10597:10603 UMSTFormal.Concrete.Gate <> density proj
+R10623:10633 UMSTFormal.Concrete.Gate <> free_energy proj
+R10623:10633 UMSTFormal.Concrete.Gate <> free_energy proj
+R10646:10654 UMSTFormal.Concrete.Gate <> hydration proj
+R10646:10654 UMSTFormal.Concrete.Gate <> hydration proj
+R10667:10674 UMSTFormal.Concrete.Gate <> strength proj
+R10667:10674 UMSTFormal.Concrete.Gate <> strength proj
+R10612:10614 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 10697:10717 <> onf_fixture_candidate
+R10721:10737 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10739:10755 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+R10765:10771 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R10765:10771 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R10765:10771 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R10785:10792 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R10785:10792 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R10821:10835 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R10821:10835 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R10797:10813 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+R10840:10854 UMSTFormal.Constitutional <> admissible_refl thm
+R10856:10872 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+def 10890:10904 <> onf_fixture_ctx
+R10908:10930 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_ctx rec
+R10932:10948 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+R10958:10987 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R10958:10987 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R10958:10987 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_successors proj
+R11020:11023 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10999:11019 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_candidate def
+R11024:11026 Corelib.Init.Datatypes <> nil constr
+prf 11041:11072 <> onf_fixture_select_eq_excitement
+R11138:11142 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11078:11103 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select def
+R11105:11121 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+R11123:11137 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_ctx def
+R11143:11159 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11161:11177 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+R11205:11208 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R11184:11204 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_candidate def
+R11209:11211 Corelib.Init.Datatypes <> nil constr
+R11231:11277 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select_eq_excitement_select thm
+R11290:11306 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+R11308:11322 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_ctx def
+R11231:11277 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_select_eq_excitement_select thm
+R11290:11306 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_state def
+R11308:11322 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_ctx def
+def 11564:11596 <> occupancy_not_forge_physics_green
+R11600:11603 Corelib.Init.Datatypes <> bool ind
+R11608:11612 Corelib.Init.Datatypes <> false constr
+prf 11622:11660 <> occupancy_not_forge_physics_green_false
+R11699:11701 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11666:11698 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_physics_green def
+R11702:11706 Corelib.Init.Datatypes <> false constr
+def 11746:11781 <> occupancy_not_forge_production_wired
+R11785:11788 Corelib.Init.Datatypes <> bool ind
+R11793:11797 Corelib.Init.Datatypes <> false constr
+prf 11807:11848 <> occupancy_not_forge_production_wired_false
+R11890:11892 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11854:11889 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_production_wired def
+R11893:11897 Corelib.Init.Datatypes <> false constr
+def 11937:11962 <> occupancy_not_forge_marker
+R11966:11971 Stdlib.Strings.String <> string ind
+prf 12029:12063 <> occupancy_not_forge_marker_nonempty
+R12128:12130 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12069:12072 Corelib.Init.Datatypes <> negb def
+R12075:12081 Stdlib.Arith.PeanoNat Nat eqb def
+R12084:12096 Stdlib.Strings.String <> length def
+R12098:12123 UMSTFormal.Urge.OccupancyNotForge <> occupancy_not_forge_marker def
+R12131:12134 Corelib.Init.Datatypes <> true constr
+prf 12173:12206 <> occupancy_not_forge_module_witness
+R12210:12213 Corelib.Init.Logic <> True ind
+R12229:12229 Corelib.Init.Logic <> I constr
+R12229:12229 Corelib.Init.Logic <> I constr
+prf 12246:12277 <> occupancy_not_forge_no_new_axiom
+R12281:12284 Corelib.Init.Logic <> True ind
+R12300:12300 Corelib.Init.Logic <> I constr
+R12300:12300 Corelib.Init.Logic <> I constr
+prf 12317:12362 <> occupancy_not_forge_positive_refuse_not_silent
+R12393:12396 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R12368:12387 UMSTFormal.Urge.OccupancyNotForge <> evaluate_name_fusion def
+R12389:12392 Corelib.Init.Datatypes <> true constr
+R12397:12411 UMSTFormal.Urge.OccupancyNotForge <> onfv_unfused_ok constr
+R12430:12449 UMSTFormal.Urge.OccupancyNotForge <> evaluate_name_fusion def
+prf 12482:12520 <> occupancy_not_forge_padma_not_occupancy
+R12579:12584 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R12526:12534 UMSTFormal.Urge.OccupancyNotForge <> try_merge def
+R12536:12557 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_name def
+R12559:12578 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_occ_name def
+R12585:12587 Corelib.Init.Datatypes <> inl constr
+R12589:12590 Corelib.Init.Datatypes <> tt constr
+R12610:12650 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_occupancy_merge_refused thm
+R12610:12650 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_occupancy_merge_refused thm
+R12610:12650 UMSTFormal.Urge.OccupancyNotForge <> onf_fixture_padma_occupancy_merge_refused thm

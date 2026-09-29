@@ -1,0 +1,377 @@
+DIGEST bbeb258e260c80326073f25183ccf3b9
+FUMSTFormal.Urge.FastPathAdmit
+R984:988 Stdlib.Arith.Arith <> <> lib
+R990:993 Stdlib.Bool.Bool <> <> lib
+R995:997 Stdlib.micromega.Lia <> <> lib
+R1039:1053 UMSTFormal.Gate <> <> lib
+R1071:1098 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1116:1147 UMSTFormal.Urge.ExcitementImport <> <> lib
+def 1460:1481 <> local_commit_budget_ms
+R1485:1487 Corelib.Init.Datatypes <> nat ind
+def 1590:1613 <> merge_recovery_budget_ms
+R1617:1619 Corelib.Init.Datatypes <> nat ind
+ind 1862:1871 <> admit_path
+constr 1880:1900 <> admit_path_fast_local
+constr 1906:1935 <> admit_path_full_merge_recovery
+scheme 1862:1871 <> admit_path_rect
+scheme 1862:1871 <> admit_path_ind
+scheme 1862:1871 <> admit_path_rec
+scheme 1862:1871 <> admit_path_sind
+def 2025:2044 <> admit_path_budget_ms
+R2051:2060 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+binder 2047:2047 <> p:3
+R2065:2067 Corelib.Init.Datatypes <> nat ind
+R2080:2080 UMSTFormal.Urge.FastPathAdmit <> p:3 var
+R2091:2111 UMSTFormal.Urge.FastPathAdmit <> admit_path_fast_local constr
+R2116:2137 UMSTFormal.Urge.FastPathAdmit <> local_commit_budget_ms def
+R2143:2172 UMSTFormal.Urge.FastPathAdmit <> admit_path_full_merge_recovery constr
+R2177:2200 UMSTFormal.Urge.FastPathAdmit <> merge_recovery_budget_ms def
+prf 2216:2243 <> admit_path_fast_local_budget
+R2291:2293 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2249:2268 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R2270:2290 UMSTFormal.Urge.FastPathAdmit <> admit_path_fast_local constr
+R2294:2315 UMSTFormal.Urge.FastPathAdmit <> local_commit_budget_ms def
+prf 2350:2381 <> admit_path_merge_recovery_budget
+R2438:2440 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2387:2406 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R2408:2437 UMSTFormal.Urge.FastPathAdmit <> admit_path_full_merge_recovery constr
+R2441:2464 UMSTFormal.Urge.FastPathAdmit <> merge_recovery_budget_ms def
+rec 2795:2813 <> fast_path_candidate
+proj 2828:2845 <> fp_is_local_append
+proj 2857:2885 <> fp_requires_whole_tree_rescan
+proj 2897:2919 <> fp_is_merge_or_recovery
+R2849:2852 Corelib.Init.Datatypes <> bool ind
+R2889:2892 Corelib.Init.Datatypes <> bool ind
+R2923:2926 Corelib.Init.Datatypes <> bool ind
+def 3030:3049 <> fast_path_admit_pred
+R3056:3074 UMSTFormal.Urge.FastPathAdmit <> fast_path_candidate rec
+binder 3052:3052 <> c:9
+R3079:3082 Corelib.Init.Datatypes <> bool ind
+R3166:3188 UMSTFormal.Urge.FastPathAdmit <> fp_is_merge_or_recovery proj
+R3190:3190 UMSTFormal.Urge.FastPathAdmit <> c:9 var
+R3125:3153 UMSTFormal.Urge.FastPathAdmit <> fp_requires_whole_tree_rescan proj
+R3155:3155 UMSTFormal.Urge.FastPathAdmit <> c:9 var
+R3095:3112 UMSTFormal.Urge.FastPathAdmit <> fp_is_local_append proj
+R3114:3114 UMSTFormal.Urge.FastPathAdmit <> c:9 var
+R3201:3204 Corelib.Init.Datatypes <> true constr
+R3207:3211 Corelib.Init.Datatypes <> false constr
+R3214:3218 Corelib.Init.Datatypes <> false constr
+R3223:3226 Corelib.Init.Datatypes <> true constr
+R3243:3247 Corelib.Init.Datatypes <> false constr
+ind 3267:3289 <> fast_path_admit_refusal
+constr 3298:3324 <> fp_refuse_whole_tree_rescan
+constr 3330:3363 <> fp_refuse_merge_recovery_slow_path
+constr 3369:3400 <> fp_refuse_wall_clock_sla_theater
+constr 3406:3430 <> fp_refuse_budget_exceeded
+R3458:3460 Corelib.Init.Datatypes <> nat ind
+binder 3433:3444 <> estimated_ms:12
+binder 3446:3454 <> budget_ms:13
+scheme 3267:3289 <> fast_path_admit_refusal_rect
+scheme 3267:3289 <> fast_path_admit_refusal_ind
+scheme 3267:3289 <> fast_path_admit_refusal_rec
+scheme 3267:3289 <> fast_path_admit_refusal_sind
+def 3568:3586 <> classify_admit_path
+R3593:3611 UMSTFormal.Urge.FastPathAdmit <> fast_path_candidate rec
+binder 3589:3589 <> c:14
+R3628:3630 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R3618:3627 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+R3631:3653 UMSTFormal.Urge.FastPathAdmit <> fast_path_admit_refusal ind
+R3663:3691 UMSTFormal.Urge.FastPathAdmit <> fp_requires_whole_tree_rescan proj
+R3693:3693 UMSTFormal.Urge.FastPathAdmit <> c:14 var
+R3746:3768 UMSTFormal.Urge.FastPathAdmit <> fp_is_merge_or_recovery proj
+R3770:3770 UMSTFormal.Urge.FastPathAdmit <> c:14 var
+R3830:3849 UMSTFormal.Urge.FastPathAdmit <> fast_path_admit_pred def
+R3851:3851 UMSTFormal.Urge.FastPathAdmit <> c:14 var
+R3899:3901 Corelib.Init.Datatypes <> inr constr
+R3904:3928 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_budget_exceeded constr
+R3931:3931 Corelib.Init.Datatypes <> S constr
+R3933:3954 UMSTFormal.Urge.FastPathAdmit <> local_commit_budget_ms def
+R3992:4013 UMSTFormal.Urge.FastPathAdmit <> local_commit_budget_ms def
+R3862:3864 Corelib.Init.Datatypes <> inl constr
+R3866:3886 UMSTFormal.Urge.FastPathAdmit <> admit_path_fast_local constr
+R3781:3783 Corelib.Init.Datatypes <> inr constr
+R3785:3818 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_merge_recovery_slow_path constr
+R3704:3706 Corelib.Init.Datatypes <> inr constr
+R3708:3734 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_whole_tree_rescan constr
+prf 4024:4053 <> classify_admit_path_fast_local
+R4064:4082 UMSTFormal.Urge.FastPathAdmit <> fast_path_candidate rec
+binder 4060:4060 <> c:15
+R4121:4123 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4101:4118 UMSTFormal.Urge.FastPathAdmit <> fp_is_local_append proj
+R4120:4120 UMSTFormal.Urge.FastPathAdmit <> c:15 var
+R4124:4127 Corelib.Init.Datatypes <> true constr
+binder 4090:4097 <> h_append:16
+R4177:4179 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4146:4174 UMSTFormal.Urge.FastPathAdmit <> fp_requires_whole_tree_rescan proj
+R4176:4176 UMSTFormal.Urge.FastPathAdmit <> c:15 var
+R4180:4184 Corelib.Init.Datatypes <> false constr
+binder 4135:4142 <> h_rescan:17
+R4227:4229 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4202:4224 UMSTFormal.Urge.FastPathAdmit <> fp_is_merge_or_recovery proj
+R4226:4226 UMSTFormal.Urge.FastPathAdmit <> c:15 var
+R4230:4234 Corelib.Init.Datatypes <> false constr
+binder 4192:4198 <> h_merge:18
+R4262:4264 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4241:4259 UMSTFormal.Urge.FastPathAdmit <> classify_admit_path def
+R4261:4261 UMSTFormal.Urge.FastPathAdmit <> c:15 var
+R4265:4267 Corelib.Init.Datatypes <> inl constr
+R4269:4289 UMSTFormal.Urge.FastPathAdmit <> admit_path_fast_local constr
+R4308:4326 UMSTFormal.Urge.FastPathAdmit <> classify_admit_path def
+R4329:4348 UMSTFormal.Urge.FastPathAdmit <> fast_path_admit_pred def
+prf 4417:4453 <> classify_admit_path_whole_tree_rescan
+R4464:4482 UMSTFormal.Urge.FastPathAdmit <> fast_path_candidate rec
+binder 4460:4460 <> c:19
+R4525:4527 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4494:4522 UMSTFormal.Urge.FastPathAdmit <> fp_requires_whole_tree_rescan proj
+R4524:4524 UMSTFormal.Urge.FastPathAdmit <> c:19 var
+R4528:4531 Corelib.Init.Datatypes <> true constr
+binder 4490:4490 <> h:20
+R4559:4561 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4538:4556 UMSTFormal.Urge.FastPathAdmit <> classify_admit_path def
+R4558:4558 UMSTFormal.Urge.FastPathAdmit <> c:19 var
+R4562:4564 Corelib.Init.Datatypes <> inr constr
+R4566:4592 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_whole_tree_rescan constr
+R4611:4629 UMSTFormal.Urge.FastPathAdmit <> classify_admit_path def
+prf 4670:4703 <> classify_admit_path_merge_recovery
+R4714:4732 UMSTFormal.Urge.FastPathAdmit <> fast_path_candidate rec
+binder 4710:4710 <> c:21
+R4782:4784 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4751:4779 UMSTFormal.Urge.FastPathAdmit <> fp_requires_whole_tree_rescan proj
+R4781:4781 UMSTFormal.Urge.FastPathAdmit <> c:21 var
+R4785:4789 Corelib.Init.Datatypes <> false constr
+binder 4740:4747 <> h_rescan:22
+R4832:4834 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4807:4829 UMSTFormal.Urge.FastPathAdmit <> fp_is_merge_or_recovery proj
+R4831:4831 UMSTFormal.Urge.FastPathAdmit <> c:21 var
+R4835:4838 Corelib.Init.Datatypes <> true constr
+binder 4797:4803 <> h_merge:23
+R4866:4868 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4845:4863 UMSTFormal.Urge.FastPathAdmit <> classify_admit_path def
+R4865:4865 UMSTFormal.Urge.FastPathAdmit <> c:21 var
+R4869:4871 Corelib.Init.Datatypes <> inr constr
+R4873:4906 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_merge_recovery_slow_path constr
+R4925:4943 UMSTFormal.Urge.FastPathAdmit <> classify_admit_path def
+def 5094:5122 <> refuse_wall_clock_sla_theater
+R5137:5139 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5128:5136 Corelib.Init.Datatypes <> Empty_set ind
+R5140:5162 UMSTFormal.Urge.FastPathAdmit <> fast_path_admit_refusal ind
+R5169:5171 Corelib.Init.Datatypes <> inr constr
+R5173:5204 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_wall_clock_sla_theater constr
+rec 5436:5457 <> latency_budget_witness
+proj 5472:5478 <> lb_path
+proj 5496:5507 <> lb_budget_ms
+proj 5518:5535 <> lb_typed_predicate
+R5482:5491 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+R5511:5513 Corelib.Init.Datatypes <> nat ind
+R5539:5542 Corelib.Init.Datatypes <> bool ind
+def 5559:5576 <> budget_witness_for
+R5583:5592 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+binder 5579:5579 <> p:28
+R5597:5618 UMSTFormal.Urge.FastPathAdmit <> latency_budget_witness rec
+R5628:5634 UMSTFormal.Urge.FastPathAdmit <> lb_path proj
+R5628:5634 UMSTFormal.Urge.FastPathAdmit <> lb_path proj
+R5628:5634 UMSTFormal.Urge.FastPathAdmit <> lb_path proj
+R5647:5658 UMSTFormal.Urge.FastPathAdmit <> lb_budget_ms proj
+R5647:5658 UMSTFormal.Urge.FastPathAdmit <> lb_budget_ms proj
+R5692:5709 UMSTFormal.Urge.FastPathAdmit <> lb_typed_predicate proj
+R5692:5709 UMSTFormal.Urge.FastPathAdmit <> lb_typed_predicate proj
+R5639:5639 UMSTFormal.Urge.FastPathAdmit <> p:28 var
+R5663:5682 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R5684:5684 UMSTFormal.Urge.FastPathAdmit <> p:28 var
+R5714:5717 Corelib.Init.Datatypes <> true constr
+prf 5730:5753 <> budget_witness_for_typed
+R5760:5769 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+binder 5756:5756 <> p:29
+R5817:5819 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5776:5793 UMSTFormal.Urge.FastPathAdmit <> lb_typed_predicate proj
+R5796:5813 UMSTFormal.Urge.FastPathAdmit <> budget_witness_for def
+R5815:5815 UMSTFormal.Urge.FastPathAdmit <> p:29 var
+R5820:5823 Corelib.Init.Datatypes <> true constr
+prf 5858:5882 <> budget_witness_for_budget
+R5889:5898 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+binder 5885:5885 <> p:30
+R5940:5942 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5905:5916 UMSTFormal.Urge.FastPathAdmit <> lb_budget_ms proj
+R5919:5936 UMSTFormal.Urge.FastPathAdmit <> budget_witness_for def
+R5938:5938 UMSTFormal.Urge.FastPathAdmit <> p:30 var
+R5943:5962 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R5964:5964 UMSTFormal.Urge.FastPathAdmit <> p:30 var
+def 6087:6104 <> check_typed_budget
+R6111:6120 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+binder 6107:6107 <> p:31
+R6139:6141 Corelib.Init.Datatypes <> nat ind
+binder 6124:6135 <> estimated_ms:32
+R6170:6172 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6148:6169 UMSTFormal.Urge.FastPathAdmit <> latency_budget_witness rec
+R6173:6195 UMSTFormal.Urge.FastPathAdmit <> fast_path_admit_refusal ind
+R6219:6238 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R6240:6240 UMSTFormal.Urge.FastPathAdmit <> p:31 var
+binder 6206:6214 <> budget_ms:33
+R6262:6266 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R6250:6261 UMSTFormal.Urge.FastPathAdmit <> estimated_ms:32 var
+R6267:6275 UMSTFormal.Urge.FastPathAdmit <> budget_ms:33 var
+R6324:6326 Corelib.Init.Datatypes <> inr constr
+R6329:6353 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_budget_exceeded constr
+R6355:6366 UMSTFormal.Urge.FastPathAdmit <> estimated_ms:32 var
+R6368:6376 UMSTFormal.Urge.FastPathAdmit <> budget_ms:33 var
+R6286:6288 Corelib.Init.Datatypes <> inl constr
+R6291:6308 UMSTFormal.Urge.FastPathAdmit <> budget_witness_for def
+R6310:6310 UMSTFormal.Urge.FastPathAdmit <> p:31 var
+prf 6387:6407 <> check_typed_budget_ok
+R6414:6423 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+binder 6410:6410 <> p:34
+R6442:6444 Corelib.Init.Datatypes <> nat ind
+binder 6427:6438 <> estimated_ms:35
+R6468:6471 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R6456:6467 UMSTFormal.Urge.FastPathAdmit <> estimated_ms:35 var
+R6472:6491 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R6493:6493 UMSTFormal.Urge.FastPathAdmit <> p:34 var
+binder 6452:6452 <> h:36
+R6533:6535 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6500:6517 UMSTFormal.Urge.FastPathAdmit <> check_typed_budget def
+R6519:6519 UMSTFormal.Urge.FastPathAdmit <> p:34 var
+R6521:6532 UMSTFormal.Urge.FastPathAdmit <> estimated_ms:35 var
+R6536:6538 Corelib.Init.Datatypes <> inl constr
+R6541:6558 UMSTFormal.Urge.FastPathAdmit <> budget_witness_for def
+R6560:6560 UMSTFormal.Urge.FastPathAdmit <> p:34 var
+R6580:6597 UMSTFormal.Urge.FastPathAdmit <> check_typed_budget def
+R6624:6628 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R6629:6648 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R6624:6628 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R6629:6648 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R6688:6697 Stdlib.Arith.PeanoNat Nat leb_gt thm
+R6688:6697 Stdlib.Arith.PeanoNat Nat leb_gt thm
+prf 6723:6749 <> check_typed_budget_exceeded
+R6756:6765 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+binder 6752:6752 <> p:37
+R6784:6786 Corelib.Init.Datatypes <> nat ind
+binder 6769:6780 <> estimated_ms:38
+R6820:6822 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R6798:6817 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R6819:6819 UMSTFormal.Urge.FastPathAdmit <> p:37 var
+R6823:6834 UMSTFormal.Urge.FastPathAdmit <> estimated_ms:38 var
+binder 6794:6794 <> h:39
+R6874:6878 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6841:6858 UMSTFormal.Urge.FastPathAdmit <> check_typed_budget def
+R6860:6860 UMSTFormal.Urge.FastPathAdmit <> p:37 var
+R6862:6873 UMSTFormal.Urge.FastPathAdmit <> estimated_ms:38 var
+R6879:6881 Corelib.Init.Datatypes <> inr constr
+R6884:6908 UMSTFormal.Urge.FastPathAdmit <> fp_refuse_budget_exceeded constr
+R6910:6921 UMSTFormal.Urge.FastPathAdmit <> estimated_ms:38 var
+R6924:6943 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R6945:6945 UMSTFormal.Urge.FastPathAdmit <> p:37 var
+R6966:6983 UMSTFormal.Urge.FastPathAdmit <> check_typed_budget def
+R7010:7014 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R7015:7034 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R7010:7014 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R7015:7034 UMSTFormal.Urge.FastPathAdmit <> admit_path_budget_ms def
+R7057:7066 Stdlib.Arith.PeanoNat Nat leb_le thm
+R7057:7066 Stdlib.Arith.PeanoNat Nat leb_le thm
+def 7423:7440 <> slow_path_recovery
+R7449:7466 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7443:7445 <> src:40
+R7478:7497 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R7499:7501 UMSTFormal.Urge.FastPathAdmit <> src:40 var
+binder 7472:7474 <> ctx:41
+R7529:7531 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7508:7524 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7526:7528 UMSTFormal.Urge.FastPathAdmit <> src:40 var
+R7532:7549 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R7556:7568 UMSTFormal.Urge.ExcitementImport <> urge_recovery def
+R7570:7572 UMSTFormal.Urge.FastPathAdmit <> src:40 var
+R7574:7576 UMSTFormal.Urge.FastPathAdmit <> ctx:41 var
+prf 7588:7622 <> slow_path_recovery_eq_urge_recovery
+R7642:7659 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7636:7638 <> src:42
+R7669:7688 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R7690:7692 UMSTFormal.Urge.FastPathAdmit <> src:42 var
+binder 7663:7665 <> ctx:43
+R7724:7726 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7698:7715 UMSTFormal.Urge.FastPathAdmit <> slow_path_recovery def
+R7717:7719 UMSTFormal.Urge.FastPathAdmit <> src:42 var
+R7721:7723 UMSTFormal.Urge.FastPathAdmit <> ctx:43 var
+R7727:7739 UMSTFormal.Urge.ExcitementImport <> urge_recovery def
+R7741:7743 UMSTFormal.Urge.FastPathAdmit <> src:42 var
+R7745:7747 UMSTFormal.Urge.FastPathAdmit <> ctx:43 var
+prf 7794:7832 <> slow_path_recovery_eq_excitement_select
+R7852:7869 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7846:7848 <> src:44
+R7879:7898 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R7900:7902 UMSTFormal.Urge.FastPathAdmit <> src:44 var
+binder 7873:7875 <> ctx:45
+R7934:7938 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7908:7925 UMSTFormal.Urge.FastPathAdmit <> slow_path_recovery def
+R7927:7929 UMSTFormal.Urge.FastPathAdmit <> src:44 var
+R7931:7933 UMSTFormal.Urge.FastPathAdmit <> ctx:45 var
+R7939:7955 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R7957:7959 UMSTFormal.Urge.FastPathAdmit <> src:44 var
+R7962:7980 UMSTFormal.Urge.ExcitementImport <> recovery_successors proj
+R7982:7984 UMSTFormal.Urge.FastPathAdmit <> src:44 var
+R7986:7988 UMSTFormal.Urge.FastPathAdmit <> ctx:45 var
+R8026:8043 UMSTFormal.Urge.FastPathAdmit <> slow_path_recovery def
+R8046:8058 UMSTFormal.Urge.ExcitementImport <> urge_recovery def
+prf 8090:8124 <> slow_path_recovery_no_second_argmin
+R8144:8161 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8138:8140 <> src:46
+R8171:8190 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R8192:8194 UMSTFormal.Urge.FastPathAdmit <> src:46 var
+binder 8165:8167 <> ctx:47
+R8226:8230 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8200:8217 UMSTFormal.Urge.FastPathAdmit <> slow_path_recovery def
+R8219:8221 UMSTFormal.Urge.FastPathAdmit <> src:46 var
+R8223:8225 UMSTFormal.Urge.FastPathAdmit <> ctx:47 var
+R8231:8247 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8249:8251 UMSTFormal.Urge.FastPathAdmit <> src:46 var
+R8254:8272 UMSTFormal.Urge.ExcitementImport <> recovery_successors proj
+R8274:8276 UMSTFormal.Urge.FastPathAdmit <> src:46 var
+R8278:8280 UMSTFormal.Urge.FastPathAdmit <> ctx:47 var
+R8307:8345 UMSTFormal.Urge.FastPathAdmit <> slow_path_recovery_eq_excitement_select thm
+R8307:8345 UMSTFormal.Urge.FastPathAdmit <> slow_path_recovery_eq_excitement_select thm
+def 8429:8446 <> classify_slow_path
+R8453:8471 UMSTFormal.Urge.FastPathAdmit <> fast_path_candidate rec
+binder 8449:8449 <> c:48
+R8488:8490 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8478:8487 UMSTFormal.Urge.FastPathAdmit <> admit_path ind
+R8491:8513 UMSTFormal.Urge.FastPathAdmit <> fast_path_admit_refusal ind
+R8523:8545 UMSTFormal.Urge.FastPathAdmit <> fp_is_merge_or_recovery proj
+R8547:8547 UMSTFormal.Urge.FastPathAdmit <> c:48 var
+R8604:8622 UMSTFormal.Urge.FastPathAdmit <> classify_admit_path def
+R8624:8624 UMSTFormal.Urge.FastPathAdmit <> c:48 var
+R8558:8560 Corelib.Init.Datatypes <> inl constr
+R8562:8591 UMSTFormal.Urge.FastPathAdmit <> admit_path_full_merge_recovery constr
+prf 8634:8666 <> classify_slow_path_merge_recovery
+R8677:8695 UMSTFormal.Urge.FastPathAdmit <> fast_path_candidate rec
+binder 8673:8673 <> c:49
+R8732:8734 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8707:8729 UMSTFormal.Urge.FastPathAdmit <> fp_is_merge_or_recovery proj
+R8731:8731 UMSTFormal.Urge.FastPathAdmit <> c:49 var
+R8735:8738 Corelib.Init.Datatypes <> true constr
+binder 8703:8703 <> h:50
+R8765:8767 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8745:8762 UMSTFormal.Urge.FastPathAdmit <> classify_slow_path def
+R8764:8764 UMSTFormal.Urge.FastPathAdmit <> c:49 var
+R8768:8770 Corelib.Init.Datatypes <> inl constr
+R8772:8801 UMSTFormal.Urge.FastPathAdmit <> admit_path_full_merge_recovery constr
+R8820:8837 UMSTFormal.Urge.FastPathAdmit <> classify_slow_path def
+def 9102:9124 <> fast_path_physics_green
+R9128:9131 Corelib.Init.Datatypes <> bool ind
+R9136:9140 Corelib.Init.Datatypes <> false constr
+prf 9150:9178 <> fast_path_physics_green_false
+R9205:9207 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9182:9204 UMSTFormal.Urge.FastPathAdmit <> fast_path_physics_green def
+R9208:9212 Corelib.Init.Datatypes <> false constr
+def 9252:9277 <> fast_path_production_wired
+R9281:9284 Corelib.Init.Datatypes <> bool ind
+R9289:9293 Corelib.Init.Datatypes <> false constr
+prf 9303:9334 <> fast_path_production_wired_false
+R9364:9366 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9338:9363 UMSTFormal.Urge.FastPathAdmit <> fast_path_production_wired def
+R9367:9371 Corelib.Init.Datatypes <> false constr
+prf 9408:9437 <> fast_path_admit_module_witness
+R9441:9444 Corelib.Init.Logic <> True ind
+R9460:9460 Corelib.Init.Logic <> I constr
+R9460:9460 Corelib.Init.Logic <> I constr
+prf 9477:9504 <> fast_path_admit_no_new_axiom
+R9508:9511 Corelib.Init.Logic <> True ind
+R9527:9527 Corelib.Init.Logic <> I constr
+R9527:9527 Corelib.Init.Logic <> I constr

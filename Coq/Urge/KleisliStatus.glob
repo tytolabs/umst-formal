@@ -1,0 +1,447 @@
+DIGEST 38f27777f9edbee04fc819af82675c73
+FUMSTFormal.Urge.KleisliStatus
+R982:986 Stdlib.Arith.Arith <> <> lib
+R988:991 Stdlib.Lists.List <> <> lib
+R993:996 Stdlib.Bool.Bool <> <> lib
+R1014:1028 UMSTFormal.Gate <> <> lib
+R1046:1073 UMSTFormal.Urge.AdmitKleisli <> <> lib
+ind 1414:1433 <> status_replica_class
+constr 1442:1450 <> src_node0
+constr 1456:1464 <> src_node1
+constr 1470:1495 <> src_forgejo_primary_mirror
+constr 1501:1516 <> src_offline_luks
+scheme 1414:1433 <> status_replica_class_rect
+scheme 1414:1433 <> status_replica_class_ind
+scheme 1414:1433 <> status_replica_class_rec
+scheme 1414:1433 <> status_replica_class_sind
+ind 1600:1622 <> verb_column_requirement
+constr 1631:1646 <> vcr_not_required
+constr 1652:1663 <> vcr_required
+scheme 1600:1622 <> verb_column_requirement_rect
+scheme 1600:1622 <> verb_column_requirement_ind
+scheme 1600:1622 <> verb_column_requirement_rec
+scheme 1600:1622 <> verb_column_requirement_sind
+ind 1763:1779 <> kleisli_gate_kind
+constr 1788:1812 <> kgk_frugal_mi_observation
+constr 1818:1851 <> kgk_gate_check_before_sync_inbound
+constr 1857:1885 <> kgk_outbound_tick_if_admitted
+scheme 1763:1779 <> kleisli_gate_kind_rect
+scheme 1763:1779 <> kleisli_gate_kind_ind
+scheme 1763:1779 <> kleisli_gate_kind_rec
+scheme 1763:1779 <> kleisli_gate_kind_sind
+ind 1943:1959 <> entity_check_kind
+constr 1968:1984 <> eck_replica_class
+constr 1990:2005 <> eck_remote_class
+scheme 1943:1959 <> entity_check_kind_rect
+scheme 1943:1959 <> entity_check_kind_ind
+scheme 1943:1959 <> entity_check_kind_rec
+scheme 1943:1959 <> entity_check_kind_sind
+rec 2078:2094 <> operator_verb_row
+proj 2109:2119 <> verb_status
+proj 2131:2147 <> verb_kleisli_gate
+proj 2172:2186 <> verb_merge_safe
+proj 2217:2231 <> verb_excitement
+proj 2262:2278 <> verb_entity_check
+R2123:2126 Corelib.Init.Datatypes <> bool ind
+R2151:2167 UMSTFormal.Urge.KleisliStatus <> kleisli_gate_kind ind
+R2190:2212 UMSTFormal.Urge.KleisliStatus <> verb_column_requirement ind
+R2235:2257 UMSTFormal.Urge.KleisliStatus <> verb_column_requirement ind
+R2282:2298 UMSTFormal.Urge.KleisliStatus <> entity_check_kind ind
+rec 2379:2399 <> frugal_mi_observation
+proj 2414:2429 <> fmi_witness_bits
+proj 2440:2458 <> fmi_frugal_cap_bits
+R2433:2435 Corelib.Init.Datatypes <> nat ind
+R2462:2464 Corelib.Init.Datatypes <> nat ind
+ind 2530:2551 <> frugal_mi_gate_verdict
+constr 2560:2569 <> fmig_admit
+constr 2575:2597 <> fmig_refuse_exceeds_cap
+constr 2603:2630 <> fmig_refuse_zero_observation
+scheme 2530:2551 <> frugal_mi_gate_verdict_rect
+scheme 2530:2551 <> frugal_mi_gate_verdict_ind
+scheme 2530:2551 <> frugal_mi_gate_verdict_rec
+scheme 2530:2551 <> frugal_mi_gate_verdict_sind
+rec 2729:2746 <> status_observation
+proj 2761:2774 <> status_replica
+proj 2802:2825 <> status_observation_probe
+proj 2854:2872 <> status_gate_verdict
+R2778:2797 UMSTFormal.Urge.KleisliStatus <> status_replica_class ind
+R2829:2849 UMSTFormal.Urge.KleisliStatus <> frugal_mi_observation rec
+R2876:2897 UMSTFormal.Urge.KleisliStatus <> frugal_mi_gate_verdict ind
+ind 2984:3003 <> status_gate_mismatch
+constr 3012:3037 <> sgm_sync_inbound_on_status
+constr 3043:3069 <> sgm_outbound_tick_on_status
+constr 3075:3098 <> sgm_merge_safe_on_status
+constr 3104:3127 <> sgm_excitement_on_status
+constr 3133:3158 <> sgm_remote_class_on_status
+scheme 2984:3003 <> status_gate_mismatch_rect
+scheme 2984:3003 <> status_gate_mismatch_ind
+scheme 2984:3003 <> status_gate_mismatch_rec
+scheme 2984:3003 <> status_gate_mismatch_sind
+ind 3227:3244 <> status_arrow_error
+constr 3253:3273 <> sae_frugal_mi_refused
+constr 3308:3324 <> sae_gate_mismatch
+R3280:3301 UMSTFormal.Urge.KleisliStatus <> frugal_mi_gate_verdict ind
+binder 3276:3276 <> v:28
+R3331:3350 UMSTFormal.Urge.KleisliStatus <> status_gate_mismatch ind
+binder 3327:3327 <> m:29
+scheme 3227:3244 <> status_arrow_error_rect
+scheme 3227:3244 <> status_arrow_error_ind
+scheme 3227:3244 <> status_arrow_error_rec
+scheme 3227:3244 <> status_arrow_error_sind
+def 3637:3651 <> status_verb_row
+R3655:3671 UMSTFormal.Urge.KleisliStatus <> operator_verb_row rec
+R3681:3691 UMSTFormal.Urge.KleisliStatus <> verb_status proj
+R3681:3691 UMSTFormal.Urge.KleisliStatus <> verb_status proj
+R3681:3691 UMSTFormal.Urge.KleisliStatus <> verb_status proj
+R3707:3723 UMSTFormal.Urge.KleisliStatus <> verb_kleisli_gate proj
+R3707:3723 UMSTFormal.Urge.KleisliStatus <> verb_kleisli_gate proj
+R3760:3774 UMSTFormal.Urge.KleisliStatus <> verb_merge_safe proj
+R3760:3774 UMSTFormal.Urge.KleisliStatus <> verb_merge_safe proj
+R3802:3816 UMSTFormal.Urge.KleisliStatus <> verb_excitement proj
+R3802:3816 UMSTFormal.Urge.KleisliStatus <> verb_excitement proj
+R3844:3860 UMSTFormal.Urge.KleisliStatus <> verb_entity_check proj
+R3844:3860 UMSTFormal.Urge.KleisliStatus <> verb_entity_check proj
+R3696:3699 Corelib.Init.Datatypes <> true constr
+R3728:3752 UMSTFormal.Urge.KleisliStatus <> kgk_frugal_mi_observation constr
+R3779:3794 UMSTFormal.Urge.KleisliStatus <> vcr_not_required constr
+R3821:3836 UMSTFormal.Urge.KleisliStatus <> vcr_not_required constr
+R3865:3881 UMSTFormal.Urge.KleisliStatus <> eck_replica_class constr
+def 3965:3987 <> evaluate_frugal_mi_gate
+R3996:4016 UMSTFormal.Urge.KleisliStatus <> frugal_mi_observation rec
+binder 3990:3992 <> obs:30
+R4025:4046 UMSTFormal.Urge.KleisliStatus <> frugal_mi_gate_verdict ind
+R4056:4056 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4085:4090 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4116:4116 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4080:4083 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R4057:4075 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+R4077:4079 UMSTFormal.Urge.KleisliStatus <> obs:30 var
+R4092:4095 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R4096:4111 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R4113:4115 UMSTFormal.Urge.KleisliStatus <> obs:30 var
+R4161:4161 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4190:4195 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4221:4221 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4163:4166 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R4167:4185 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+R4187:4189 UMSTFormal.Urge.KleisliStatus <> obs:30 var
+R4216:4219 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R4196:4211 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R4213:4215 UMSTFormal.Urge.KleisliStatus <> obs:30 var
+R4294:4297 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R4271:4289 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+R4291:4293 UMSTFormal.Urge.KleisliStatus <> obs:30 var
+R4298:4313 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R4315:4317 UMSTFormal.Urge.KleisliStatus <> obs:30 var
+R4363:4372 UMSTFormal.Urge.KleisliStatus <> fmig_admit constr
+R4328:4350 UMSTFormal.Urge.KleisliStatus <> fmig_refuse_exceeds_cap constr
+R4232:4259 UMSTFormal.Urge.KleisliStatus <> fmig_refuse_zero_observation constr
+R4127:4149 UMSTFormal.Urge.KleisliStatus <> fmig_refuse_exceeds_cap constr
+def 4469:4495 <> status_replica_class_admits
+R4502:4521 UMSTFormal.Urge.KleisliStatus <> status_replica_class ind
+binder 4498:4498 <> c:31
+R4526:4529 Corelib.Init.Datatypes <> bool ind
+R4542:4542 UMSTFormal.Urge.KleisliStatus <> c:31 var
+R4553:4561 UMSTFormal.Urge.KleisliStatus <> src_node0 constr
+R4565:4573 UMSTFormal.Urge.KleisliStatus <> src_node1 constr
+R4577:4602 UMSTFormal.Urge.KleisliStatus <> src_forgejo_primary_mirror constr
+R4606:4621 UMSTFormal.Urge.KleisliStatus <> src_offline_luks constr
+R4626:4629 Corelib.Init.Datatypes <> true constr
+R4626:4629 Corelib.Init.Datatypes <> true constr
+R4626:4629 Corelib.Init.Datatypes <> true constr
+R4626:4629 Corelib.Init.Datatypes <> true constr
+def 4716:4742 <> kleisli_gate_matches_status
+R4749:4765 UMSTFormal.Urge.KleisliStatus <> kleisli_gate_kind ind
+binder 4745:4745 <> g:33
+R4770:4773 Corelib.Init.Datatypes <> bool ind
+R4786:4786 UMSTFormal.Urge.KleisliStatus <> g:33 var
+R4797:4821 UMSTFormal.Urge.KleisliStatus <> kgk_frugal_mi_observation constr
+R4826:4829 Corelib.Init.Datatypes <> true constr
+R4835:4868 UMSTFormal.Urge.KleisliStatus <> kgk_gate_check_before_sync_inbound constr
+R4872:4900 UMSTFormal.Urge.KleisliStatus <> kgk_outbound_tick_if_admitted constr
+R4905:4909 Corelib.Init.Datatypes <> false constr
+R4905:4909 Corelib.Init.Datatypes <> false constr
+def 5020:5043 <> run_status_kleisli_arrow
+R5060:5079 UMSTFormal.Urge.KleisliStatus <> status_replica_class ind
+binder 5050:5056 <> replica:35
+R5093:5113 UMSTFormal.Urge.KleisliStatus <> frugal_mi_observation rec
+binder 5087:5089 <> obs:36
+R5140:5142 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5122:5139 UMSTFormal.Urge.KleisliStatus <> status_observation rec
+R5143:5160 UMSTFormal.Urge.KleisliStatus <> status_arrow_error ind
+R5170:5173 Corelib.Init.Datatypes <> negb def
+R5176:5202 UMSTFormal.Urge.KleisliStatus <> status_replica_class_admits def
+R5204:5210 UMSTFormal.Urge.KleisliStatus <> replica:35 var
+R5299:5321 UMSTFormal.Urge.KleisliStatus <> evaluate_frugal_mi_gate def
+R5323:5325 UMSTFormal.Urge.KleisliStatus <> obs:36 var
+binder 5288:5294 <> verdict:37
+R5340:5346 UMSTFormal.Urge.KleisliStatus <> verdict:37 var
+R5359:5368 UMSTFormal.Urge.KleisliStatus <> fmig_admit constr
+R5381:5383 Corelib.Init.Datatypes <> inl constr
+R5398:5411 UMSTFormal.Urge.KleisliStatus <> status_replica proj
+R5398:5411 UMSTFormal.Urge.KleisliStatus <> status_replica proj
+R5398:5411 UMSTFormal.Urge.KleisliStatus <> status_replica proj
+R5438:5461 UMSTFormal.Urge.KleisliStatus <> status_observation_probe proj
+R5438:5461 UMSTFormal.Urge.KleisliStatus <> status_observation_probe proj
+R5484:5502 UMSTFormal.Urge.KleisliStatus <> status_gate_verdict proj
+R5484:5502 UMSTFormal.Urge.KleisliStatus <> status_gate_verdict proj
+R5416:5422 UMSTFormal.Urge.KleisliStatus <> replica:35 var
+R5466:5468 UMSTFormal.Urge.KleisliStatus <> obs:36 var
+R5507:5513 UMSTFormal.Urge.KleisliStatus <> verdict:37 var
+R5529:5531 Corelib.Init.Datatypes <> inr constr
+R5534:5554 UMSTFormal.Urge.KleisliStatus <> sae_frugal_mi_refused constr
+R5222:5224 Corelib.Init.Datatypes <> inr constr
+R5227:5243 UMSTFormal.Urge.KleisliStatus <> sae_gate_mismatch constr
+R5245:5270 UMSTFormal.Urge.KleisliStatus <> sgm_remote_class_on_status constr
+def 5651:5676 <> refuse_sync_gate_on_status
+R5680:5699 UMSTFormal.Urge.KleisliStatus <> status_gate_mismatch ind
+R5706:5731 UMSTFormal.Urge.KleisliStatus <> sgm_sync_inbound_on_status constr
+def 5818:5847 <> refuse_outbound_tick_on_status
+R5851:5870 UMSTFormal.Urge.KleisliStatus <> status_gate_mismatch ind
+R5877:5903 UMSTFormal.Urge.KleisliStatus <> sgm_outbound_tick_on_status constr
+def 5989:6015 <> refuse_merge_safe_on_status
+R6019:6038 UMSTFormal.Urge.KleisliStatus <> status_gate_mismatch ind
+R6045:6068 UMSTFormal.Urge.KleisliStatus <> sgm_merge_safe_on_status constr
+def 6154:6180 <> refuse_excitement_on_status
+R6184:6203 UMSTFormal.Urge.KleisliStatus <> status_gate_mismatch ind
+R6210:6233 UMSTFormal.Urge.KleisliStatus <> sgm_excitement_on_status constr
+def 6321:6349 <> refuse_remote_class_on_status
+R6353:6372 UMSTFormal.Urge.KleisliStatus <> status_gate_mismatch ind
+R6379:6404 UMSTFormal.Urge.KleisliStatus <> sgm_remote_class_on_status constr
+prf 6414:6452 <> status_verb_row_excitement_not_required
+R6489:6491 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6458:6472 UMSTFormal.Urge.KleisliStatus <> verb_excitement proj
+R6474:6488 UMSTFormal.Urge.KleisliStatus <> status_verb_row def
+R6492:6507 UMSTFormal.Urge.KleisliStatus <> vcr_not_required constr
+prf 6544:6582 <> status_verb_row_merge_safe_not_required
+R6619:6621 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6588:6602 UMSTFormal.Urge.KleisliStatus <> verb_merge_safe proj
+R6604:6618 UMSTFormal.Urge.KleisliStatus <> status_verb_row def
+R6622:6637 UMSTFormal.Urge.KleisliStatus <> vcr_not_required constr
+prf 6674:6703 <> status_verb_row_frugal_mi_gate
+R6742:6744 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6709:6725 UMSTFormal.Urge.KleisliStatus <> verb_kleisli_gate proj
+R6727:6741 UMSTFormal.Urge.KleisliStatus <> status_verb_row def
+R6745:6769 UMSTFormal.Urge.KleisliStatus <> kgk_frugal_mi_observation constr
+prf 6806:6839 <> kleisli_gate_matches_status_frugal
+R6898:6900 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6845:6871 UMSTFormal.Urge.KleisliStatus <> kleisli_gate_matches_status def
+R6873:6897 UMSTFormal.Urge.KleisliStatus <> kgk_frugal_mi_observation constr
+R6901:6904 Corelib.Init.Datatypes <> true constr
+prf 6941:6978 <> kleisli_gate_matches_status_sync_false
+R7046:7048 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6984:7010 UMSTFormal.Urge.KleisliStatus <> kleisli_gate_matches_status def
+R7012:7045 UMSTFormal.Urge.KleisliStatus <> kgk_gate_check_before_sync_inbound constr
+R7049:7053 Corelib.Init.Datatypes <> false constr
+ind 7390:7418 <> status_excitement_compose_pin
+constr 7427:7455 <> secp_import_select_excitement
+constr 7461:7486 <> secp_second_argmin_refused
+scheme 7390:7418 <> status_excitement_compose_pin_rect
+scheme 7390:7418 <> status_excitement_compose_pin_ind
+scheme 7390:7418 <> status_excitement_compose_pin_rec
+scheme 7390:7418 <> status_excitement_compose_pin_sind
+def 7574:7597 <> status_excitement_select
+R7606:7623 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7600:7602 <> src:41
+R7639:7642 Corelib.Init.Datatypes <> list ind
+R7645:7661 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7663:7665 UMSTFormal.Urge.KleisliStatus <> src:41 var
+binder 7631:7635 <> cands:42
+R7680:7708 UMSTFormal.Urge.KleisliStatus <> status_excitement_compose_pin ind
+binder 7674:7676 <> pin:43
+R7736:7738 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7715:7731 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7733:7735 UMSTFormal.Urge.KleisliStatus <> src:41 var
+R7739:7756 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R7769:7771 UMSTFormal.Urge.KleisliStatus <> pin:43 var
+R7782:7810 UMSTFormal.Urge.KleisliStatus <> secp_import_select_excitement constr
+R7815:7831 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R7833:7835 UMSTFormal.Urge.KleisliStatus <> src:41 var
+R7837:7841 UMSTFormal.Urge.KleisliStatus <> cands:42 var
+R7847:7872 UMSTFormal.Urge.KleisliStatus <> secp_second_argmin_refused constr
+R7877:7879 Corelib.Init.Datatypes <> inr constr
+R7881:7900 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 7918:7962 <> status_excitement_select_eq_excitement_select
+R7975:7992 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7969:7971 <> src:45
+R8008:8011 Corelib.Init.Datatypes <> list ind
+R8014:8030 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8032:8034 UMSTFormal.Urge.KleisliStatus <> src:45 var
+binder 8000:8004 <> cands:46
+R8106:8110 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8042:8065 UMSTFormal.Urge.KleisliStatus <> status_excitement_select def
+R8067:8069 UMSTFormal.Urge.KleisliStatus <> src:45 var
+R8071:8075 UMSTFormal.Urge.KleisliStatus <> cands:46 var
+R8077:8105 UMSTFormal.Urge.KleisliStatus <> secp_import_select_excitement constr
+R8111:8127 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8129:8131 UMSTFormal.Urge.KleisliStatus <> src:45 var
+R8133:8137 UMSTFormal.Urge.KleisliStatus <> cands:46 var
+prf 8176:8221 <> status_excitement_select_refuses_second_argmin
+R8234:8251 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8228:8230 <> src:47
+R8267:8270 Corelib.Init.Datatypes <> list ind
+R8273:8289 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8291:8293 UMSTFormal.Urge.KleisliStatus <> src:47 var
+binder 8259:8263 <> cands:48
+R8362:8366 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8301:8324 UMSTFormal.Urge.KleisliStatus <> status_excitement_select def
+R8326:8328 UMSTFormal.Urge.KleisliStatus <> src:47 var
+R8330:8334 UMSTFormal.Urge.KleisliStatus <> cands:48 var
+R8336:8361 UMSTFormal.Urge.KleisliStatus <> secp_second_argmin_refused constr
+R8367:8369 Corelib.Init.Datatypes <> inr constr
+R8371:8390 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 8429:8450 <> status_no_local_argmin
+R8463:8480 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8457:8459 <> src:49
+R8496:8499 Corelib.Init.Datatypes <> list ind
+R8502:8518 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8520:8522 UMSTFormal.Urge.KleisliStatus <> src:49 var
+binder 8488:8492 <> cands:50
+R8594:8598 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8530:8553 UMSTFormal.Urge.KleisliStatus <> status_excitement_select def
+R8555:8557 UMSTFormal.Urge.KleisliStatus <> src:49 var
+R8559:8563 UMSTFormal.Urge.KleisliStatus <> cands:50 var
+R8565:8593 UMSTFormal.Urge.KleisliStatus <> secp_import_select_excitement constr
+R8599:8615 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8617:8619 UMSTFormal.Urge.KleisliStatus <> src:49 var
+R8621:8625 UMSTFormal.Urge.KleisliStatus <> cands:50 var
+R8644:8688 UMSTFormal.Urge.KleisliStatus <> status_excitement_select_eq_excitement_select thm
+R8644:8688 UMSTFormal.Urge.KleisliStatus <> status_excitement_select_eq_excitement_select thm
+prf 8714:8736 <> status_excitement_empty
+R8745:8762 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8739:8741 <> src:51
+R8778:8781 Corelib.Init.Datatypes <> list ind
+R8784:8800 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8802:8804 UMSTFormal.Urge.KleisliStatus <> src:51 var
+binder 8770:8774 <> cands:52
+R8825:8827 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8820:8824 UMSTFormal.Urge.KleisliStatus <> cands:52 var
+R8828:8830 Corelib.Init.Datatypes <> nil constr
+binder 8813:8816 <> Hnil:53
+R8901:8905 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8837:8860 UMSTFormal.Urge.KleisliStatus <> status_excitement_select def
+R8862:8864 UMSTFormal.Urge.KleisliStatus <> src:51 var
+R8866:8870 UMSTFormal.Urge.KleisliStatus <> cands:52 var
+R8872:8900 UMSTFormal.Urge.KleisliStatus <> secp_import_select_excitement constr
+R8906:8908 Corelib.Init.Datatypes <> inr constr
+R8910:8926 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R8945:8968 UMSTFormal.Urge.KleisliStatus <> status_excitement_select def
+R8971:8987 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+def 9258:9281 <> status_fixture_obs_admit
+R9285:9305 UMSTFormal.Urge.KleisliStatus <> frugal_mi_observation rec
+R9315:9330 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9315:9330 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9315:9330 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9338:9356 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+R9338:9356 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+def 9379:9407 <> status_fixture_obs_refuse_cap
+R9411:9431 UMSTFormal.Urge.KleisliStatus <> frugal_mi_observation rec
+R9441:9456 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9441:9456 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9441:9456 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9465:9483 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+R9465:9483 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+def 9506:9535 <> status_fixture_obs_refuse_zero
+R9539:9559 UMSTFormal.Urge.KleisliStatus <> frugal_mi_observation rec
+R9569:9584 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9569:9584 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9569:9584 UMSTFormal.Urge.KleisliStatus <> fmi_witness_bits proj
+R9592:9610 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+R9592:9610 UMSTFormal.Urge.KleisliStatus <> fmi_frugal_cap_bits proj
+prf 9630:9660 <> status_fixture_frugal_mi_admits
+R9714:9716 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9666:9688 UMSTFormal.Urge.KleisliStatus <> evaluate_frugal_mi_gate def
+R9690:9713 UMSTFormal.Urge.KleisliStatus <> status_fixture_obs_admit def
+R9717:9726 UMSTFormal.Urge.KleisliStatus <> fmig_admit constr
+prf 9765:9800 <> status_fixture_frugal_mi_refuses_cap
+R9859:9863 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9806:9828 UMSTFormal.Urge.KleisliStatus <> evaluate_frugal_mi_gate def
+R9830:9858 UMSTFormal.Urge.KleisliStatus <> status_fixture_obs_refuse_cap def
+R9864:9886 UMSTFormal.Urge.KleisliStatus <> fmig_refuse_exceeds_cap constr
+prf 9925:9961 <> status_fixture_frugal_mi_refuses_zero
+R10021:10025 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9967:9989 UMSTFormal.Urge.KleisliStatus <> evaluate_frugal_mi_gate def
+R9991:10020 UMSTFormal.Urge.KleisliStatus <> status_fixture_obs_refuse_zero def
+R10026:10053 UMSTFormal.Urge.KleisliStatus <> fmig_refuse_zero_observation constr
+prf 10092:10114 <> status_fixture_arrow_ok
+R10179:10183 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10120:10143 UMSTFormal.Urge.KleisliStatus <> run_status_kleisli_arrow def
+R10145:10153 UMSTFormal.Urge.KleisliStatus <> src_node0 constr
+R10155:10178 UMSTFormal.Urge.KleisliStatus <> status_fixture_obs_admit def
+R10184:10186 Corelib.Init.Datatypes <> inl constr
+R10195:10208 UMSTFormal.Urge.KleisliStatus <> status_replica proj
+R10195:10208 UMSTFormal.Urge.KleisliStatus <> status_replica proj
+R10195:10208 UMSTFormal.Urge.KleisliStatus <> status_replica proj
+R10231:10254 UMSTFormal.Urge.KleisliStatus <> status_observation_probe proj
+R10231:10254 UMSTFormal.Urge.KleisliStatus <> status_observation_probe proj
+R10292:10310 UMSTFormal.Urge.KleisliStatus <> status_gate_verdict proj
+R10292:10310 UMSTFormal.Urge.KleisliStatus <> status_gate_verdict proj
+R10213:10221 UMSTFormal.Urge.KleisliStatus <> src_node0 constr
+R10259:10282 UMSTFormal.Urge.KleisliStatus <> status_fixture_obs_admit def
+R10315:10324 UMSTFormal.Urge.KleisliStatus <> fmig_admit constr
+prf 10366:10397 <> status_fixture_arrow_refuses_cap
+R10467:10471 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10403:10426 UMSTFormal.Urge.KleisliStatus <> run_status_kleisli_arrow def
+R10428:10436 UMSTFormal.Urge.KleisliStatus <> src_node1 constr
+R10438:10466 UMSTFormal.Urge.KleisliStatus <> status_fixture_obs_refuse_cap def
+R10472:10474 Corelib.Init.Datatypes <> inr constr
+R10477:10497 UMSTFormal.Urge.KleisliStatus <> sae_frugal_mi_refused constr
+R10499:10521 UMSTFormal.Urge.KleisliStatus <> fmig_refuse_exceeds_cap constr
+prf 10561:10592 <> status_positive_refuse_sync_gate
+R10624:10626 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10598:10623 UMSTFormal.Urge.KleisliStatus <> refuse_sync_gate_on_status def
+R10627:10652 UMSTFormal.Urge.KleisliStatus <> sgm_sync_inbound_on_status constr
+prf 10691:10723 <> status_positive_refuse_merge_safe
+R10756:10758 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10729:10755 UMSTFormal.Urge.KleisliStatus <> refuse_merge_safe_on_status def
+R10759:10782 UMSTFormal.Urge.KleisliStatus <> sgm_merge_safe_on_status constr
+prf 10821:10853 <> status_positive_refuse_excitement
+R10886:10888 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10859:10885 UMSTFormal.Urge.KleisliStatus <> refuse_excitement_on_status def
+R10889:10912 UMSTFormal.Urge.KleisliStatus <> sgm_excitement_on_status constr
+prf 10951:10986 <> status_positive_refuse_outbound_tick
+R11022:11024 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10992:11021 UMSTFormal.Urge.KleisliStatus <> refuse_outbound_tick_on_status def
+R11025:11051 UMSTFormal.Urge.KleisliStatus <> sgm_outbound_tick_on_status constr
+prf 11090:11122 <> status_positive_refuse_not_silent
+R11154:11157 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R11128:11153 UMSTFormal.Urge.KleisliStatus <> refuse_sync_gate_on_status def
+R11158:11181 UMSTFormal.Urge.KleisliStatus <> sgm_merge_safe_on_status constr
+def 11445:11472 <> kleisli_status_physics_green
+R11476:11479 Corelib.Init.Datatypes <> bool ind
+R11484:11488 Corelib.Init.Datatypes <> false constr
+prf 11498:11531 <> kleisli_status_physics_green_false
+R11565:11567 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11537:11564 UMSTFormal.Urge.KleisliStatus <> kleisli_status_physics_green def
+R11568:11572 Corelib.Init.Datatypes <> false constr
+def 11612:11642 <> kleisli_status_production_wired
+R11646:11649 Corelib.Init.Datatypes <> bool ind
+R11654:11658 Corelib.Init.Datatypes <> false constr
+prf 11668:11704 <> kleisli_status_production_wired_false
+R11741:11743 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11710:11740 UMSTFormal.Urge.KleisliStatus <> kleisli_status_production_wired def
+R11744:11748 Corelib.Init.Datatypes <> false constr
+prf 11785:11813 <> kleisli_status_module_witness
+R11817:11820 Corelib.Init.Logic <> True ind
+R11836:11836 Corelib.Init.Logic <> I constr
+R11836:11836 Corelib.Init.Logic <> I constr
+prf 11853:11879 <> kleisli_status_no_new_axiom
+R11883:11886 Corelib.Init.Logic <> True ind
+R11902:11902 Corelib.Init.Logic <> I constr
+R11902:11902 Corelib.Init.Logic <> I constr
+prf 11919:11958 <> kleisli_status_positive_refuse_aggregate
+R12019:12024 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R11990:11992 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11964:11989 UMSTFormal.Urge.KleisliStatus <> refuse_sync_gate_on_status def
+R11993:12018 UMSTFormal.Urge.KleisliStatus <> sgm_sync_inbound_on_status constr
+R12079:12084 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R12052:12054 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12025:12051 UMSTFormal.Urge.KleisliStatus <> refuse_merge_safe_on_status def
+R12055:12078 UMSTFormal.Urge.KleisliStatus <> sgm_merge_safe_on_status constr
+R12139:12144 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R12112:12114 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12085:12111 UMSTFormal.Urge.KleisliStatus <> refuse_excitement_on_status def
+R12115:12138 UMSTFormal.Urge.KleisliStatus <> sgm_excitement_on_status constr
+R12175:12177 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12145:12174 UMSTFormal.Urge.KleisliStatus <> refuse_outbound_tick_on_status def
+R12178:12204 UMSTFormal.Urge.KleisliStatus <> sgm_outbound_tick_on_status constr

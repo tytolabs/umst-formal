@@ -1,0 +1,756 @@
+DIGEST 3b5080766c4af53ed4b38d5e6f5d1622
+FUMSTFormal.Urge.KleisliRecover
+R1060:1064 Stdlib.Arith.Arith <> <> lib
+R1066:1069 Stdlib.Lists.List <> <> lib
+R1071:1074 Stdlib.Bool.Bool <> <> lib
+R1076:1081 Stdlib.QArith.QArith <> <> lib
+R1099:1113 UMSTFormal.Gate <> <> lib
+R1131:1158 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1176:1207 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1560:1580 <> recover_operator_verb
+constr 1589:1599 <> rov_recover
+scheme 1560:1580 <> recover_operator_verb_rect
+scheme 1560:1580 <> recover_operator_verb_ind
+scheme 1560:1580 <> recover_operator_verb_rec
+scheme 1560:1580 <> recover_operator_verb_sind
+ind 1679:1698 <> network_egress_class
+constr 1707:1722 <> nec_egress_empty
+constr 1728:1746 <> nec_tailscale_admin
+constr 1752:1765 <> nec_undeclared
+scheme 1679:1698 <> network_egress_class_rect
+scheme 1679:1698 <> network_egress_class_ind
+scheme 1679:1698 <> network_egress_class_rec
+scheme 1679:1698 <> network_egress_class_sind
+def 1840:1860 <> network_egress_admits
+R1867:1886 UMSTFormal.Urge.KleisliRecover <> network_egress_class ind
+binder 1863:1863 <> c:5
+R1891:1894 Corelib.Init.Datatypes <> bool ind
+R1907:1907 UMSTFormal.Urge.KleisliRecover <> c:5 var
+R1918:1933 UMSTFormal.Urge.KleisliRecover <> nec_egress_empty constr
+R1937:1955 UMSTFormal.Urge.KleisliRecover <> nec_tailscale_admin constr
+R1960:1963 Corelib.Init.Datatypes <> true constr
+R1960:1963 Corelib.Init.Datatypes <> true constr
+R1969:1982 UMSTFormal.Urge.KleisliRecover <> nec_undeclared constr
+R1987:1991 Corelib.Init.Datatypes <> false constr
+ind 2087:2107 <> recover_replica_class
+constr 2116:2132 <> rrc_forge_primary
+constr 2138:2155 <> rrc_darwin_scratch
+constr 2161:2176 <> rrc_offline_luks
+scheme 2087:2107 <> recover_replica_class_rect
+scheme 2087:2107 <> recover_replica_class_ind
+scheme 2087:2107 <> recover_replica_class_rec
+scheme 2087:2107 <> recover_replica_class_sind
+def 2263:2282 <> replica_egress_empty
+R2289:2309 UMSTFormal.Urge.KleisliRecover <> recover_replica_class ind
+binder 2285:2285 <> c:9
+R2314:2317 Corelib.Init.Datatypes <> bool ind
+R2330:2330 UMSTFormal.Urge.KleisliRecover <> c:9 var
+R2341:2356 UMSTFormal.Urge.KleisliRecover <> rrc_offline_luks constr
+R2360:2377 UMSTFormal.Urge.KleisliRecover <> rrc_darwin_scratch constr
+R2382:2385 Corelib.Init.Datatypes <> true constr
+R2382:2385 Corelib.Init.Datatypes <> true constr
+R2391:2407 UMSTFormal.Urge.KleisliRecover <> rrc_forge_primary constr
+R2412:2416 Corelib.Init.Datatypes <> false constr
+def 2503:2525 <> classify_network_egress
+R2532:2552 UMSTFormal.Urge.KleisliRecover <> recover_replica_class ind
+binder 2528:2528 <> c:11
+R2561:2580 UMSTFormal.Urge.KleisliRecover <> network_egress_class ind
+R2590:2609 UMSTFormal.Urge.KleisliRecover <> replica_egress_empty def
+R2611:2611 UMSTFormal.Urge.KleisliRecover <> c:11 var
+R2640:2658 UMSTFormal.Urge.KleisliRecover <> nec_tailscale_admin constr
+R2618:2633 UMSTFormal.Urge.KleisliRecover <> nec_egress_empty constr
+rec 2743:2768 <> recover_merge_safe_witness
+proj 2783:2789 <> rmsw_ok
+R2793:2796 Corelib.Init.Datatypes <> bool ind
+def 2813:2837 <> recover_merge_safe_admits
+R2844:2869 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe_witness rec
+binder 2840:2840 <> w:14
+R2874:2877 Corelib.Init.Datatypes <> bool ind
+R2884:2890 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R2892:2892 UMSTFormal.Urge.KleisliRecover <> w:14 var
+rec 2957:2974 <> recover_ucrs_stamp
+proj 2989:3004 <> recover_ucrs_seq
+proj 3015:3037 <> recover_ucrs_wall_has_t
+R3008:3010 Corelib.Init.Datatypes <> nat ind
+R3041:3044 Corelib.Init.Datatypes <> bool ind
+rec 3132:3156 <> recover_recovery_snapshot
+proj 3171:3189 <> recover_snapshot_id
+proj 3200:3220 <> recover_snapshot_head
+proj 3246:3266 <> recover_snapshot_ucrs
+proj 3292:3318 <> recover_snapshot_merge_safe
+proj 3352:3385 <> recover_snapshot_provenance_intact
+proj 3397:3420 <> recover_snapshot_replica
+R3193:3195 Corelib.Init.Datatypes <> nat ind
+R3224:3241 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R3270:3287 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_stamp rec
+R3322:3347 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe_witness rec
+R3389:3392 Corelib.Init.Datatypes <> bool ind
+R3424:3444 UMSTFormal.Urge.KleisliRecover <> recover_replica_class ind
+rec 3523:3546 <> recover_recovery_witness
+proj 3561:3580 <> recover_witness_ucrs
+proj 3606:3631 <> recover_witness_merge_safe
+proj 3665:3697 <> recover_witness_provenance_intact
+R3584:3601 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_stamp rec
+R3635:3660 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe_witness rec
+R3701:3704 Corelib.Init.Datatypes <> bool ind
+ind 3796:3812 <> kleisli_gate_kind
+constr 3821:3841 <> kgk_excitement_argmin
+constr 3847:3880 <> kgk_gate_check_before_sync_inbound
+constr 3886:3910 <> kgk_frugal_mi_observation
+scheme 3796:3812 <> kleisli_gate_kind_rect
+scheme 3796:3812 <> kleisli_gate_kind_ind
+scheme 3796:3812 <> kleisli_gate_kind_rec
+scheme 3796:3812 <> kleisli_gate_kind_sind
+rec 3987:4007 <> recover_kleisli_arrow
+proj 4022:4033 <> recover_verb
+proj 4062:4079 <> recover_merge_safe
+proj 4113:4126 <> recover_egress
+proj 4154:4169 <> recover_snapshot
+R4037:4057 UMSTFormal.Urge.KleisliRecover <> recover_operator_verb ind
+R4083:4108 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe_witness rec
+R4130:4149 UMSTFormal.Urge.KleisliRecover <> network_egress_class ind
+R4173:4197 UMSTFormal.Urge.KleisliRecover <> recover_recovery_snapshot rec
+rec 4290:4314 <> recover_recovery_morphism
+proj 4329:4349 <> recover_morphism_from
+proj 4382:4408 <> recover_morphism_to_replica
+proj 4437:4460 <> recover_morphism_witness
+proj 4492:4527 <> recover_morphism_excitement_selected
+R4353:4377 UMSTFormal.Urge.KleisliRecover <> recover_recovery_snapshot rec
+R4412:4432 UMSTFormal.Urge.KleisliRecover <> recover_replica_class ind
+R4464:4487 UMSTFormal.Urge.KleisliRecover <> recover_recovery_witness rec
+R4531:4534 Corelib.Init.Datatypes <> bool ind
+ind 4583:4597 <> recover_verdict
+constr 4606:4616 <> rv_admitted
+constr 4622:4642 <> rv_merge_safe_refused
+constr 4648:4672 <> rv_network_egress_refused
+constr 4678:4701 <> rv_rsync_theater_refused
+constr 4707:4733 <> rv_production_wired_refused
+constr 4739:4759 <> rv_excitement_residue
+scheme 4583:4597 <> recover_verdict_rect
+scheme 4583:4597 <> recover_verdict_ind
+scheme 4583:4597 <> recover_verdict_rec
+scheme 4583:4597 <> recover_verdict_sind
+ind 4846:4860 <> recover_refusal
+constr 4869:4889 <> rr_merge_safe_refused
+constr 4895:4919 <> rr_network_egress_refused
+constr 4952:4975 <> rr_rsync_theater_refused
+constr 5001:5016 <> rr_gate_rejected
+constr 5034:5051 <> rr_provenance_loss
+constr 5077:5103 <> rr_production_wired_refused
+constr 5109:5132 <> rr_second_argmin_refused
+constr 5138:5150 <> rr_wrong_gate
+R4926:4945 UMSTFormal.Urge.KleisliRecover <> network_egress_class ind
+binder 4922:4922 <> c:45
+R4992:4994 Corelib.Init.Datatypes <> nat ind
+binder 4978:4988 <> snapshot_id:46
+R5025:5027 Corelib.Init.Datatypes <> nat ind
+binder 5019:5021 <> seq:47
+R5068:5070 Corelib.Init.Datatypes <> nat ind
+binder 5054:5064 <> snapshot_id:48
+R5157:5173 UMSTFormal.Urge.KleisliRecover <> kleisli_gate_kind ind
+binder 5153:5153 <> g:49
+scheme 4846:4860 <> recover_refusal_rect
+scheme 4846:4860 <> recover_refusal_ind
+scheme 4846:4860 <> recover_refusal_rec
+scheme 4846:4860 <> recover_refusal_sind
+rec 5464:5493 <> recover_admissibility_conjunct
+proj 5508:5527 <> recover_conj_gate_ok
+proj 5539:5561 <> recover_conj_merge_safe
+proj 5573:5605 <> recover_conj_excitement_preserves
+proj 5617:5638 <> recover_conj_egress_ok
+R5531:5534 Corelib.Init.Datatypes <> bool ind
+R5565:5568 Corelib.Init.Datatypes <> bool ind
+R5609:5612 Corelib.Init.Datatypes <> bool ind
+R5642:5645 Corelib.Init.Datatypes <> bool ind
+def 5662:5684 <> recover_conjunct_admits
+R5691:5720 UMSTFormal.Urge.KleisliRecover <> recover_admissibility_conjunct rec
+binder 5687:5687 <> c:55
+R5725:5728 Corelib.Init.Datatypes <> bool ind
+R5829:5834 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5788:5793 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5757:5762 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5735:5754 UMSTFormal.Urge.KleisliRecover <> recover_conj_gate_ok proj
+R5756:5756 UMSTFormal.Urge.KleisliRecover <> c:55 var
+R5763:5785 UMSTFormal.Urge.KleisliRecover <> recover_conj_merge_safe proj
+R5787:5787 UMSTFormal.Urge.KleisliRecover <> c:55 var
+R5794:5826 UMSTFormal.Urge.KleisliRecover <> recover_conj_excitement_preserves proj
+R5828:5828 UMSTFormal.Urge.KleisliRecover <> c:55 var
+R5835:5856 UMSTFormal.Urge.KleisliRecover <> recover_conj_egress_ok proj
+R5858:5858 UMSTFormal.Urge.KleisliRecover <> c:55 var
+ind 5941:5963 <> recover_operation_class
+constr 5972:5989 <> roc_typed_morphism
+constr 5995:6011 <> roc_rsync_theater
+scheme 5941:5963 <> recover_operation_class_rect
+scheme 5941:5963 <> recover_operation_class_ind
+scheme 5941:5963 <> recover_operation_class_rec
+scheme 5941:5963 <> recover_operation_class_sind
+def 6026:6051 <> evaluate_recover_operation
+R6059:6081 UMSTFormal.Urge.KleisliRecover <> recover_operation_class ind
+binder 6054:6055 <> op:58
+R6090:6104 UMSTFormal.Urge.KleisliRecover <> recover_verdict ind
+R6117:6118 UMSTFormal.Urge.KleisliRecover <> op:58 var
+R6129:6145 UMSTFormal.Urge.KleisliRecover <> roc_rsync_theater constr
+R6150:6173 UMSTFormal.Urge.KleisliRecover <> rv_rsync_theater_refused constr
+R6179:6196 UMSTFormal.Urge.KleisliRecover <> roc_typed_morphism constr
+R6201:6211 UMSTFormal.Urge.KleisliRecover <> rv_admitted constr
+def 6317:6336 <> refuse_rsync_theater
+R6353:6355 Corelib.Init.Datatypes <> nat ind
+binder 6339:6349 <> snapshot_id:60
+R6360:6374 UMSTFormal.Urge.KleisliRecover <> recover_refusal ind
+R6381:6404 UMSTFormal.Urge.KleisliRecover <> rr_rsync_theater_refused constr
+R6406:6416 UMSTFormal.Urge.KleisliRecover <> snapshot_id:60 var
+def 6518:6538 <> witness_from_snapshot
+R6545:6569 UMSTFormal.Urge.KleisliRecover <> recover_recovery_snapshot rec
+binder 6541:6541 <> s:61
+R6578:6601 UMSTFormal.Urge.KleisliRecover <> recover_recovery_witness rec
+R6611:6630 UMSTFormal.Urge.KleisliRecover <> recover_witness_ucrs proj
+R6611:6630 UMSTFormal.Urge.KleisliRecover <> recover_witness_ucrs proj
+R6611:6630 UMSTFormal.Urge.KleisliRecover <> recover_witness_ucrs proj
+R6665:6690 UMSTFormal.Urge.KleisliRecover <> recover_witness_merge_safe proj
+R6665:6690 UMSTFormal.Urge.KleisliRecover <> recover_witness_merge_safe proj
+R6731:6763 UMSTFormal.Urge.KleisliRecover <> recover_witness_provenance_intact proj
+R6731:6763 UMSTFormal.Urge.KleisliRecover <> recover_witness_provenance_intact proj
+R6635:6655 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_ucrs proj
+R6657:6657 UMSTFormal.Urge.KleisliRecover <> s:61 var
+R6695:6721 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_merge_safe proj
+R6723:6723 UMSTFormal.Urge.KleisliRecover <> s:61 var
+R6768:6801 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_provenance_intact proj
+R6803:6803 UMSTFormal.Urge.KleisliRecover <> s:61 var
+def 6902:6925 <> recover_arrow_admissible
+R6932:6952 UMSTFormal.Urge.KleisliRecover <> recover_kleisli_arrow rec
+binder 6928:6928 <> a:62
+R6957:6960 Corelib.Init.Datatypes <> bool ind
+R7015:7020 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6967:6991 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe_admits def
+R6994:7011 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R7013:7013 UMSTFormal.Urge.KleisliRecover <> a:62 var
+R7021:7041 UMSTFormal.Urge.KleisliRecover <> network_egress_admits def
+R7044:7057 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R7059:7059 UMSTFormal.Urge.KleisliRecover <> a:62 var
+def 7155:7178 <> evaluate_recover_kleisli
+R7185:7205 UMSTFormal.Urge.KleisliRecover <> recover_kleisli_arrow rec
+binder 7181:7181 <> a:63
+R7229:7231 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7214:7228 UMSTFormal.Urge.KleisliRecover <> recover_verdict ind
+R7232:7246 UMSTFormal.Urge.KleisliRecover <> recover_refusal ind
+R7256:7259 Corelib.Init.Datatypes <> negb def
+R7262:7286 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe_admits def
+R7289:7306 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R7308:7308 UMSTFormal.Urge.KleisliRecover <> a:63 var
+R7357:7360 Corelib.Init.Datatypes <> negb def
+R7363:7383 UMSTFormal.Urge.KleisliRecover <> network_egress_admits def
+R7386:7399 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R7401:7401 UMSTFormal.Urge.KleisliRecover <> a:63 var
+R7476:7478 Corelib.Init.Datatypes <> inl constr
+R7480:7490 UMSTFormal.Urge.KleisliRecover <> rv_admitted constr
+R7414:7416 Corelib.Init.Datatypes <> inr constr
+R7419:7443 UMSTFormal.Urge.KleisliRecover <> rr_network_egress_refused constr
+R7446:7459 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R7461:7461 UMSTFormal.Urge.KleisliRecover <> a:63 var
+R7321:7323 Corelib.Init.Datatypes <> inr constr
+R7325:7345 UMSTFormal.Urge.KleisliRecover <> rr_merge_safe_refused constr
+def 7580:7610 <> apply_recover_recovery_morphism
+R7628:7652 UMSTFormal.Urge.KleisliRecover <> recover_recovery_snapshot rec
+binder 7617:7624 <> snapshot:64
+R7673:7693 UMSTFormal.Urge.KleisliRecover <> recover_replica_class ind
+binder 7660:7669 <> to_replica:65
+R7712:7741 UMSTFormal.Urge.KleisliRecover <> recover_admissibility_conjunct rec
+binder 7701:7708 <> conjunct:66
+R7771:7774 Corelib.Init.Datatypes <> bool ind
+binder 7749:7767 <> excitement_selected:67
+R7808:7810 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7783:7807 UMSTFormal.Urge.KleisliRecover <> recover_recovery_morphism rec
+R7811:7825 UMSTFormal.Urge.KleisliRecover <> recover_refusal ind
+R7835:7838 Corelib.Init.Datatypes <> negb def
+R7841:7863 UMSTFormal.Urge.KleisliRecover <> recover_conjunct_admits def
+R7865:7872 UMSTFormal.Urge.KleisliRecover <> conjunct:66 var
+R7969:7972 Corelib.Init.Datatypes <> negb def
+R7975:7981 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R7984:8010 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_merge_safe proj
+R8012:8019 UMSTFormal.Urge.KleisliRecover <> snapshot:64 var
+R8068:8071 Corelib.Init.Datatypes <> negb def
+R8074:8107 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_provenance_intact proj
+R8109:8116 UMSTFormal.Urge.KleisliRecover <> snapshot:64 var
+R8194:8197 Corelib.Init.Datatypes <> negb def
+R8199:8217 UMSTFormal.Urge.KleisliRecover <> excitement_selected:67 var
+R8295:8297 Corelib.Init.Datatypes <> inl constr
+R8308:8328 UMSTFormal.Urge.KleisliRecover <> recover_morphism_from proj
+R8308:8328 UMSTFormal.Urge.KleisliRecover <> recover_morphism_from proj
+R8308:8328 UMSTFormal.Urge.KleisliRecover <> recover_morphism_from proj
+R8352:8378 UMSTFormal.Urge.KleisliRecover <> recover_morphism_to_replica proj
+R8352:8378 UMSTFormal.Urge.KleisliRecover <> recover_morphism_to_replica proj
+R8404:8427 UMSTFormal.Urge.KleisliRecover <> recover_morphism_witness proj
+R8404:8427 UMSTFormal.Urge.KleisliRecover <> recover_morphism_witness proj
+R8473:8508 UMSTFormal.Urge.KleisliRecover <> recover_morphism_excitement_selected proj
+R8473:8508 UMSTFormal.Urge.KleisliRecover <> recover_morphism_excitement_selected proj
+R8333:8340 UMSTFormal.Urge.KleisliRecover <> snapshot:64 var
+R8383:8392 UMSTFormal.Urge.KleisliRecover <> to_replica:65 var
+R8432:8452 UMSTFormal.Urge.KleisliRecover <> witness_from_snapshot def
+R8454:8461 UMSTFormal.Urge.KleisliRecover <> snapshot:64 var
+R8513:8531 UMSTFormal.Urge.KleisliRecover <> excitement_selected:67 var
+R8228:8230 Corelib.Init.Datatypes <> inr constr
+R8233:8250 UMSTFormal.Urge.KleisliRecover <> rr_provenance_loss constr
+R8253:8271 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_id proj
+R8273:8280 UMSTFormal.Urge.KleisliRecover <> snapshot:64 var
+R8128:8130 Corelib.Init.Datatypes <> inr constr
+R8133:8150 UMSTFormal.Urge.KleisliRecover <> rr_provenance_loss constr
+R8153:8171 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_id proj
+R8173:8180 UMSTFormal.Urge.KleisliRecover <> snapshot:64 var
+R8032:8034 Corelib.Init.Datatypes <> inr constr
+R8036:8056 UMSTFormal.Urge.KleisliRecover <> rr_merge_safe_refused constr
+R7884:7886 Corelib.Init.Datatypes <> inr constr
+R7889:7904 UMSTFormal.Urge.KleisliRecover <> rr_gate_rejected constr
+R7907:7922 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_seq proj
+R7925:7945 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_ucrs proj
+R7947:7954 UMSTFormal.Urge.KleisliRecover <> snapshot:64 var
+def 8620:8650 <> refuse_production_wired_recover
+R8654:8668 UMSTFormal.Urge.KleisliRecover <> recover_refusal ind
+R8675:8701 UMSTFormal.Urge.KleisliRecover <> rr_production_wired_refused constr
+def 8786:8813 <> refuse_second_argmin_recover
+R8817:8831 UMSTFormal.Urge.KleisliRecover <> recover_refusal ind
+R8838:8861 UMSTFormal.Urge.KleisliRecover <> rr_second_argmin_refused constr
+def 8948:8974 <> refuse_sync_gate_on_recover
+R8978:8992 UMSTFormal.Urge.KleisliRecover <> recover_refusal ind
+R8999:9011 UMSTFormal.Urge.KleisliRecover <> rr_wrong_gate constr
+R9013:9046 UMSTFormal.Urge.KleisliRecover <> kgk_gate_check_before_sync_inbound constr
+def 9142:9168 <> refuse_frugal_mi_on_recover
+R9172:9186 UMSTFormal.Urge.KleisliRecover <> recover_refusal ind
+R9193:9205 UMSTFormal.Urge.KleisliRecover <> rr_wrong_gate constr
+R9207:9231 UMSTFormal.Urge.KleisliRecover <> kgk_frugal_mi_observation constr
+def 9313:9340 <> kleisli_gate_matches_recover
+R9347:9363 UMSTFormal.Urge.KleisliRecover <> kleisli_gate_kind ind
+binder 9343:9343 <> g:68
+R9368:9371 Corelib.Init.Datatypes <> bool ind
+R9384:9384 UMSTFormal.Urge.KleisliRecover <> g:68 var
+R9395:9415 UMSTFormal.Urge.KleisliRecover <> kgk_excitement_argmin constr
+R9420:9423 Corelib.Init.Datatypes <> true constr
+R9434:9438 Corelib.Init.Datatypes <> false constr
+rec 9508:9523 <> recover_verb_row
+proj 9538:9545 <> rvr_verb
+proj 9574:9589 <> rvr_kleisli_gate
+proj 9614:9636 <> rvr_merge_safe_required
+proj 9648:9670 <> rvr_excitement_required
+proj 9682:9704 <> rvr_entity_check_egress
+R9549:9569 UMSTFormal.Urge.KleisliRecover <> recover_operator_verb ind
+R9593:9609 UMSTFormal.Urge.KleisliRecover <> kleisli_gate_kind ind
+R9640:9643 Corelib.Init.Datatypes <> bool ind
+R9674:9677 Corelib.Init.Datatypes <> bool ind
+R9708:9711 Corelib.Init.Datatypes <> bool ind
+def 9728:9747 <> recover_verb_row_pin
+R9751:9766 UMSTFormal.Urge.KleisliRecover <> recover_verb_row rec
+R9776:9783 UMSTFormal.Urge.KleisliRecover <> rvr_verb proj
+R9776:9783 UMSTFormal.Urge.KleisliRecover <> rvr_verb proj
+R9776:9783 UMSTFormal.Urge.KleisliRecover <> rvr_verb proj
+R9806:9821 UMSTFormal.Urge.KleisliRecover <> rvr_kleisli_gate proj
+R9806:9821 UMSTFormal.Urge.KleisliRecover <> rvr_kleisli_gate proj
+R9854:9876 UMSTFormal.Urge.KleisliRecover <> rvr_merge_safe_required proj
+R9854:9876 UMSTFormal.Urge.KleisliRecover <> rvr_merge_safe_required proj
+R9892:9914 UMSTFormal.Urge.KleisliRecover <> rvr_excitement_required proj
+R9892:9914 UMSTFormal.Urge.KleisliRecover <> rvr_excitement_required proj
+R9930:9952 UMSTFormal.Urge.KleisliRecover <> rvr_entity_check_egress proj
+R9930:9952 UMSTFormal.Urge.KleisliRecover <> rvr_entity_check_egress proj
+R9788:9798 UMSTFormal.Urge.KleisliRecover <> rov_recover constr
+R9826:9846 UMSTFormal.Urge.KleisliRecover <> kgk_excitement_argmin constr
+R9881:9884 Corelib.Init.Datatypes <> true constr
+R9919:9922 Corelib.Init.Datatypes <> true constr
+R9957:9960 Corelib.Init.Datatypes <> true constr
+prf 9973:10008 <> recover_verb_row_merge_safe_required
+R10058:10060 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10014:10036 UMSTFormal.Urge.KleisliRecover <> rvr_merge_safe_required proj
+R10038:10057 UMSTFormal.Urge.KleisliRecover <> recover_verb_row_pin def
+R10061:10064 Corelib.Init.Datatypes <> true constr
+prf 10099:10134 <> recover_verb_row_excitement_required
+R10184:10186 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10140:10162 UMSTFormal.Urge.KleisliRecover <> rvr_excitement_required proj
+R10164:10183 UMSTFormal.Urge.KleisliRecover <> recover_verb_row_pin def
+R10187:10190 Corelib.Init.Datatypes <> true constr
+prf 10225:10260 <> recover_verb_row_entity_check_egress
+R10310:10312 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10266:10288 UMSTFormal.Urge.KleisliRecover <> rvr_entity_check_egress proj
+R10290:10309 UMSTFormal.Urge.KleisliRecover <> recover_verb_row_pin def
+R10313:10316 Corelib.Init.Datatypes <> true constr
+prf 10351:10389 <> kleisli_gate_matches_recover_excitement
+R10445:10447 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10395:10422 UMSTFormal.Urge.KleisliRecover <> kleisli_gate_matches_recover def
+R10424:10444 UMSTFormal.Urge.KleisliRecover <> kgk_excitement_argmin constr
+R10448:10451 Corelib.Init.Datatypes <> true constr
+prf 10486:10534 <> kleisli_gate_matches_recover_rejects_inbound_sync
+R10603:10605 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10540:10567 UMSTFormal.Urge.KleisliRecover <> kleisli_gate_matches_recover def
+R10569:10602 UMSTFormal.Urge.KleisliRecover <> kgk_gate_check_before_sync_inbound constr
+R10606:10610 Corelib.Init.Datatypes <> false constr
+rec 10930:10940 <> recover_ctx
+proj 10982:10999 <> recover_successors
+R10949:10966 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10943:10945 <> src:76
+R11003:11006 Corelib.Init.Datatypes <> list ind
+R11009:11025 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11027:11029 UMSTFormal.Urge.KleisliRecover <> src:76 var
+def 11115:11128 <> recover_select
+R11137:11154 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11131:11133 <> src:79
+R11168:11178 UMSTFormal.Urge.KleisliRecover <> recover_ctx rec
+R11180:11182 UMSTFormal.Urge.KleisliRecover <> src:79 var
+binder 11162:11164 <> ctx:80
+R11210:11212 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R11189:11205 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11207:11209 UMSTFormal.Urge.KleisliRecover <> src:79 var
+R11213:11230 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R11237:11256 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R11258:11260 UMSTFormal.Urge.KleisliRecover <> src:79 var
+R11263:11280 UMSTFormal.Urge.KleisliRecover <> recover_successors proj
+R11282:11284 UMSTFormal.Urge.KleisliRecover <> src:79 var
+R11286:11288 UMSTFormal.Urge.KleisliRecover <> ctx:80 var
+prf 11301:11335 <> recover_select_eq_excitement_select
+R11348:11365 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11342:11344 <> src:81
+R11375:11385 UMSTFormal.Urge.KleisliRecover <> recover_ctx rec
+R11387:11389 UMSTFormal.Urge.KleisliRecover <> src:81 var
+binder 11369:11371 <> ctx:82
+R11418:11422 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11396:11409 UMSTFormal.Urge.KleisliRecover <> recover_select def
+R11411:11413 UMSTFormal.Urge.KleisliRecover <> src:81 var
+R11415:11417 UMSTFormal.Urge.KleisliRecover <> ctx:82 var
+R11423:11439 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11441:11443 UMSTFormal.Urge.KleisliRecover <> src:81 var
+R11446:11463 UMSTFormal.Urge.KleisliRecover <> recover_successors proj
+R11465:11467 UMSTFormal.Urge.KleisliRecover <> src:81 var
+R11469:11471 UMSTFormal.Urge.KleisliRecover <> ctx:82 var
+R11491:11504 UMSTFormal.Urge.KleisliRecover <> recover_select def
+R11507:11526 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 11558:11595 <> recover_select_eq_urge_recovery_select
+R11608:11625 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11602:11604 <> src:83
+R11635:11645 UMSTFormal.Urge.KleisliRecover <> recover_ctx rec
+R11647:11649 UMSTFormal.Urge.KleisliRecover <> src:83 var
+binder 11629:11631 <> ctx:84
+R11678:11682 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11656:11669 UMSTFormal.Urge.KleisliRecover <> recover_select def
+R11671:11673 UMSTFormal.Urge.KleisliRecover <> src:83 var
+R11675:11677 UMSTFormal.Urge.KleisliRecover <> ctx:84 var
+R11683:11702 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R11704:11706 UMSTFormal.Urge.KleisliRecover <> src:83 var
+R11709:11726 UMSTFormal.Urge.KleisliRecover <> recover_successors proj
+R11728:11730 UMSTFormal.Urge.KleisliRecover <> src:83 var
+R11732:11734 UMSTFormal.Urge.KleisliRecover <> ctx:84 var
+prf 11774:11796 <> recover_no_local_argmin
+R11809:11826 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11803:11805 <> src:85
+R11836:11846 UMSTFormal.Urge.KleisliRecover <> recover_ctx rec
+R11848:11850 UMSTFormal.Urge.KleisliRecover <> src:85 var
+binder 11830:11832 <> ctx:86
+R11879:11883 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11857:11870 UMSTFormal.Urge.KleisliRecover <> recover_select def
+R11872:11874 UMSTFormal.Urge.KleisliRecover <> src:85 var
+R11876:11878 UMSTFormal.Urge.KleisliRecover <> ctx:86 var
+R11884:11900 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11902:11904 UMSTFormal.Urge.KleisliRecover <> src:85 var
+R11907:11924 UMSTFormal.Urge.KleisliRecover <> recover_successors proj
+R11926:11928 UMSTFormal.Urge.KleisliRecover <> src:85 var
+R11930:11932 UMSTFormal.Urge.KleisliRecover <> ctx:86 var
+R11952:11986 UMSTFormal.Urge.KleisliRecover <> recover_select_eq_excitement_select thm
+R11952:11986 UMSTFormal.Urge.KleisliRecover <> recover_select_eq_excitement_select thm
+prf 12010:12029 <> recover_select_empty
+R12038:12055 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12032:12034 <> src:87
+R12069:12079 UMSTFormal.Urge.KleisliRecover <> recover_ctx rec
+R12081:12083 UMSTFormal.Urge.KleisliRecover <> src:87 var
+binder 12063:12065 <> ctx:88
+R12124:12126 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12098:12115 UMSTFormal.Urge.KleisliRecover <> recover_successors proj
+R12117:12119 UMSTFormal.Urge.KleisliRecover <> src:87 var
+R12121:12123 UMSTFormal.Urge.KleisliRecover <> ctx:88 var
+R12127:12129 Corelib.Init.Datatypes <> nil constr
+binder 12091:12094 <> Hnil:89
+R12158:12160 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12136:12149 UMSTFormal.Urge.KleisliRecover <> recover_select def
+R12151:12153 UMSTFormal.Urge.KleisliRecover <> src:87 var
+R12155:12157 UMSTFormal.Urge.KleisliRecover <> ctx:88 var
+R12161:12163 Corelib.Init.Datatypes <> inr constr
+R12165:12181 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R12200:12213 UMSTFormal.Urge.KleisliRecover <> recover_select def
+R12216:12235 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+ind 12361:12382 <> recover_excitement_pin
+constr 12391:12418 <> rep_import_select_excitement
+constr 12424:12448 <> rep_second_argmin_refused
+scheme 12361:12382 <> recover_excitement_pin_rect
+scheme 12361:12382 <> recover_excitement_pin_ind
+scheme 12361:12382 <> recover_excitement_pin_rec
+scheme 12361:12382 <> recover_excitement_pin_sind
+def 12463:12487 <> recover_excitement_select
+R12496:12513 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12490:12492 <> src:92
+R12529:12532 Corelib.Init.Datatypes <> list ind
+R12535:12551 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R12553:12555 UMSTFormal.Urge.KleisliRecover <> src:92 var
+binder 12521:12525 <> cands:93
+R12570:12591 UMSTFormal.Urge.KleisliRecover <> recover_excitement_pin ind
+binder 12564:12566 <> pin:94
+R12619:12621 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R12598:12614 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R12616:12618 UMSTFormal.Urge.KleisliRecover <> src:92 var
+R12622:12639 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R12652:12654 UMSTFormal.Urge.KleisliRecover <> pin:94 var
+R12665:12692 UMSTFormal.Urge.KleisliRecover <> rep_import_select_excitement constr
+R12697:12713 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R12715:12717 UMSTFormal.Urge.KleisliRecover <> src:92 var
+R12719:12723 UMSTFormal.Urge.KleisliRecover <> cands:93 var
+R12729:12753 UMSTFormal.Urge.KleisliRecover <> rep_second_argmin_refused constr
+R12758:12760 Corelib.Init.Datatypes <> inr constr
+R12762:12781 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 12799:12844 <> recover_excitement_select_eq_excitement_select
+R12857:12874 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12851:12853 <> src:96
+R12890:12893 Corelib.Init.Datatypes <> list ind
+R12896:12912 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R12914:12916 UMSTFormal.Urge.KleisliRecover <> src:96 var
+binder 12882:12886 <> cands:97
+R12988:12992 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12924:12948 UMSTFormal.Urge.KleisliRecover <> recover_excitement_select def
+R12950:12952 UMSTFormal.Urge.KleisliRecover <> src:96 var
+R12954:12958 UMSTFormal.Urge.KleisliRecover <> cands:97 var
+R12960:12987 UMSTFormal.Urge.KleisliRecover <> rep_import_select_excitement constr
+R12993:13009 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R13011:13013 UMSTFormal.Urge.KleisliRecover <> src:96 var
+R13015:13019 UMSTFormal.Urge.KleisliRecover <> cands:97 var
+prf 13058:13104 <> recover_excitement_select_refuses_second_argmin
+R13117:13134 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 13111:13113 <> src:98
+R13150:13153 Corelib.Init.Datatypes <> list ind
+R13156:13172 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R13174:13176 UMSTFormal.Urge.KleisliRecover <> src:98 var
+binder 13142:13146 <> cands:99
+R13245:13249 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13184:13208 UMSTFormal.Urge.KleisliRecover <> recover_excitement_select def
+R13210:13212 UMSTFormal.Urge.KleisliRecover <> src:98 var
+R13214:13218 UMSTFormal.Urge.KleisliRecover <> cands:99 var
+R13220:13244 UMSTFormal.Urge.KleisliRecover <> rep_second_argmin_refused constr
+R13250:13252 Corelib.Init.Datatypes <> inr constr
+R13254:13273 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+def 13537:13557 <> recover_fixture_state
+R13561:13578 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R13588:13594 UMSTFormal.Concrete.Gate <> density proj
+R13588:13594 UMSTFormal.Concrete.Gate <> density proj
+R13588:13594 UMSTFormal.Concrete.Gate <> density proj
+R13614:13624 UMSTFormal.Concrete.Gate <> free_energy proj
+R13614:13624 UMSTFormal.Concrete.Gate <> free_energy proj
+R13637:13645 UMSTFormal.Concrete.Gate <> hydration proj
+R13637:13645 UMSTFormal.Concrete.Gate <> hydration proj
+R13658:13665 UMSTFormal.Concrete.Gate <> strength proj
+R13658:13665 UMSTFormal.Concrete.Gate <> strength proj
+R13603:13605 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 13688:13707 <> recover_fixture_ucrs
+R13711:13728 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_stamp rec
+R13738:13753 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_seq proj
+R13738:13753 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_seq proj
+R13738:13753 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_seq proj
+R13766:13788 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_wall_has_t proj
+R13766:13788 UMSTFormal.Urge.KleisliRecover <> recover_ucrs_wall_has_t proj
+R13793:13796 Corelib.Init.Datatypes <> true constr
+def 13814:13839 <> recover_fixture_merge_safe
+R13843:13868 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe_witness rec
+R13878:13884 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R13878:13884 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R13878:13884 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R13889:13892 Corelib.Init.Datatypes <> true constr
+def 13910:13933 <> recover_fixture_snapshot
+R13937:13961 UMSTFormal.Urge.KleisliRecover <> recover_recovery_snapshot rec
+R13971:13989 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_id proj
+R13971:13989 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_id proj
+R13971:13989 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_id proj
+R14002:14022 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_head proj
+R14002:14022 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_head proj
+R14055:14075 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_ucrs proj
+R14055:14075 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_ucrs proj
+R14107:14133 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_merge_safe proj
+R14107:14133 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_merge_safe proj
+R14171:14204 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_provenance_intact proj
+R14171:14204 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_provenance_intact proj
+R14220:14243 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_replica proj
+R14220:14243 UMSTFormal.Urge.KleisliRecover <> recover_snapshot_replica proj
+R14027:14047 UMSTFormal.Urge.KleisliRecover <> recover_fixture_state def
+R14080:14099 UMSTFormal.Urge.KleisliRecover <> recover_fixture_ucrs def
+R14138:14163 UMSTFormal.Urge.KleisliRecover <> recover_fixture_merge_safe def
+R14209:14212 Corelib.Init.Datatypes <> true constr
+R14248:14264 UMSTFormal.Urge.KleisliRecover <> rrc_forge_primary constr
+def 14282:14305 <> recover_fixture_conjunct
+R14309:14338 UMSTFormal.Urge.KleisliRecover <> recover_admissibility_conjunct rec
+R14348:14367 UMSTFormal.Urge.KleisliRecover <> recover_conj_gate_ok proj
+R14348:14367 UMSTFormal.Urge.KleisliRecover <> recover_conj_gate_ok proj
+R14348:14367 UMSTFormal.Urge.KleisliRecover <> recover_conj_gate_ok proj
+R14383:14405 UMSTFormal.Urge.KleisliRecover <> recover_conj_merge_safe proj
+R14383:14405 UMSTFormal.Urge.KleisliRecover <> recover_conj_merge_safe proj
+R14421:14453 UMSTFormal.Urge.KleisliRecover <> recover_conj_excitement_preserves proj
+R14421:14453 UMSTFormal.Urge.KleisliRecover <> recover_conj_excitement_preserves proj
+R14469:14490 UMSTFormal.Urge.KleisliRecover <> recover_conj_egress_ok proj
+R14469:14490 UMSTFormal.Urge.KleisliRecover <> recover_conj_egress_ok proj
+R14372:14375 Corelib.Init.Datatypes <> true constr
+R14410:14413 Corelib.Init.Datatypes <> true constr
+R14458:14461 Corelib.Init.Datatypes <> true constr
+R14495:14498 Corelib.Init.Datatypes <> true constr
+def 14516:14545 <> recover_fixture_admitted_arrow
+R14549:14569 UMSTFormal.Urge.KleisliRecover <> recover_kleisli_arrow rec
+R14579:14590 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R14579:14590 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R14579:14590 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R14613:14630 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R14613:14630 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R14668:14681 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R14668:14681 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R14712:14727 UMSTFormal.Urge.KleisliRecover <> recover_snapshot proj
+R14712:14727 UMSTFormal.Urge.KleisliRecover <> recover_snapshot proj
+R14595:14605 UMSTFormal.Urge.KleisliRecover <> rov_recover constr
+R14635:14660 UMSTFormal.Urge.KleisliRecover <> recover_fixture_merge_safe def
+R14686:14704 UMSTFormal.Urge.KleisliRecover <> nec_tailscale_admin constr
+R14732:14755 UMSTFormal.Urge.KleisliRecover <> recover_fixture_snapshot def
+def 14773:14804 <> recover_fixture_merge_fail_arrow
+R14808:14828 UMSTFormal.Urge.KleisliRecover <> recover_kleisli_arrow rec
+R14838:14849 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R14838:14849 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R14838:14849 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R14872:14889 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R14872:14889 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R14923:14936 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R14923:14936 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R14964:14979 UMSTFormal.Urge.KleisliRecover <> recover_snapshot proj
+R14964:14979 UMSTFormal.Urge.KleisliRecover <> recover_snapshot proj
+R14854:14864 UMSTFormal.Urge.KleisliRecover <> rov_recover constr
+R14897:14903 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R14897:14903 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R14897:14903 UMSTFormal.Urge.KleisliRecover <> rmsw_ok proj
+R14908:14912 Corelib.Init.Datatypes <> false constr
+R14941:14956 UMSTFormal.Urge.KleisliRecover <> nec_egress_empty constr
+R14984:15007 UMSTFormal.Urge.KleisliRecover <> recover_fixture_snapshot def
+def 15025:15057 <> recover_fixture_egress_fail_arrow
+R15061:15081 UMSTFormal.Urge.KleisliRecover <> recover_kleisli_arrow rec
+R15091:15102 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R15091:15102 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R15091:15102 UMSTFormal.Urge.KleisliRecover <> recover_verb proj
+R15125:15142 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R15125:15142 UMSTFormal.Urge.KleisliRecover <> recover_merge_safe proj
+R15180:15193 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R15180:15193 UMSTFormal.Urge.KleisliRecover <> recover_egress proj
+R15219:15234 UMSTFormal.Urge.KleisliRecover <> recover_snapshot proj
+R15219:15234 UMSTFormal.Urge.KleisliRecover <> recover_snapshot proj
+R15107:15117 UMSTFormal.Urge.KleisliRecover <> rov_recover constr
+R15147:15172 UMSTFormal.Urge.KleisliRecover <> recover_fixture_merge_safe def
+R15198:15211 UMSTFormal.Urge.KleisliRecover <> nec_undeclared constr
+R15239:15262 UMSTFormal.Urge.KleisliRecover <> recover_fixture_snapshot def
+prf 15277:15313 <> recover_fixture_rsync_theater_refused
+R15363:15365 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15319:15344 UMSTFormal.Urge.KleisliRecover <> evaluate_recover_operation def
+R15346:15362 UMSTFormal.Urge.KleisliRecover <> roc_rsync_theater constr
+R15366:15389 UMSTFormal.Urge.KleisliRecover <> rv_rsync_theater_refused constr
+prf 15428:15460 <> recover_fixture_apply_morphism_ok
+R15573:15577 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15466:15496 UMSTFormal.Urge.KleisliRecover <> apply_recover_recovery_morphism def
+R15502:15525 UMSTFormal.Urge.KleisliRecover <> recover_fixture_snapshot def
+R15527:15542 UMSTFormal.Urge.KleisliRecover <> rrc_offline_luks constr
+R15544:15567 UMSTFormal.Urge.KleisliRecover <> recover_fixture_conjunct def
+R15569:15572 Corelib.Init.Datatypes <> true constr
+R15578:15580 Corelib.Init.Datatypes <> inl constr
+R15591:15611 UMSTFormal.Urge.KleisliRecover <> recover_morphism_from proj
+R15591:15611 UMSTFormal.Urge.KleisliRecover <> recover_morphism_from proj
+R15591:15611 UMSTFormal.Urge.KleisliRecover <> recover_morphism_from proj
+R15651:15677 UMSTFormal.Urge.KleisliRecover <> recover_morphism_to_replica proj
+R15651:15677 UMSTFormal.Urge.KleisliRecover <> recover_morphism_to_replica proj
+R15709:15732 UMSTFormal.Urge.KleisliRecover <> recover_morphism_witness proj
+R15709:15732 UMSTFormal.Urge.KleisliRecover <> recover_morphism_witness proj
+R15794:15829 UMSTFormal.Urge.KleisliRecover <> recover_morphism_excitement_selected proj
+R15794:15829 UMSTFormal.Urge.KleisliRecover <> recover_morphism_excitement_selected proj
+R15616:15639 UMSTFormal.Urge.KleisliRecover <> recover_fixture_snapshot def
+R15682:15697 UMSTFormal.Urge.KleisliRecover <> rrc_offline_luks constr
+R15737:15757 UMSTFormal.Urge.KleisliRecover <> witness_from_snapshot def
+R15759:15782 UMSTFormal.Urge.KleisliRecover <> recover_fixture_snapshot def
+R15834:15837 Corelib.Init.Datatypes <> true constr
+prf 15879:15905 <> recover_fixture_admitted_ok
+R15966:15968 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15911:15934 UMSTFormal.Urge.KleisliRecover <> evaluate_recover_kleisli def
+R15936:15965 UMSTFormal.Urge.KleisliRecover <> recover_fixture_admitted_arrow def
+R15969:15971 Corelib.Init.Datatypes <> inl constr
+R15973:15983 UMSTFormal.Urge.KleisliRecover <> rv_admitted constr
+prf 16022:16055 <> recover_fixture_merge_safe_refused
+R16118:16122 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16061:16084 UMSTFormal.Urge.KleisliRecover <> evaluate_recover_kleisli def
+R16086:16117 UMSTFormal.Urge.KleisliRecover <> recover_fixture_merge_fail_arrow def
+R16123:16125 Corelib.Init.Datatypes <> inr constr
+R16127:16147 UMSTFormal.Urge.KleisliRecover <> rr_merge_safe_refused constr
+prf 16186:16215 <> recover_fixture_egress_refused
+R16279:16283 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16221:16244 UMSTFormal.Urge.KleisliRecover <> evaluate_recover_kleisli def
+R16246:16278 UMSTFormal.Urge.KleisliRecover <> recover_fixture_egress_fail_arrow def
+R16284:16286 Corelib.Init.Datatypes <> inr constr
+R16289:16313 UMSTFormal.Urge.KleisliRecover <> rr_network_egress_refused constr
+R16315:16328 UMSTFormal.Urge.KleisliRecover <> nec_undeclared constr
+prf 16368:16400 <> recover_offline_luks_egress_empty
+R16443:16445 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16406:16425 UMSTFormal.Urge.KleisliRecover <> replica_egress_empty def
+R16427:16442 UMSTFormal.Urge.KleisliRecover <> rrc_offline_luks constr
+R16446:16449 Corelib.Init.Datatypes <> true constr
+prf 16488:16522 <> recover_darwin_scratch_egress_empty
+R16567:16569 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16528:16547 UMSTFormal.Urge.KleisliRecover <> replica_egress_empty def
+R16549:16566 UMSTFormal.Urge.KleisliRecover <> rrc_darwin_scratch constr
+R16570:16573 Corelib.Init.Datatypes <> true constr
+prf 16612:16648 <> recover_forge_primary_egress_nonempty
+R16692:16694 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16654:16673 UMSTFormal.Urge.KleisliRecover <> replica_egress_empty def
+R16675:16691 UMSTFormal.Urge.KleisliRecover <> rrc_forge_primary constr
+R16695:16699 Corelib.Init.Datatypes <> false constr
+prf 16738:16773 <> recover_classify_offline_luks_egress
+R16819:16821 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16779:16801 UMSTFormal.Urge.KleisliRecover <> classify_network_egress def
+R16803:16818 UMSTFormal.Urge.KleisliRecover <> rrc_offline_luks constr
+R16822:16837 UMSTFormal.Urge.KleisliRecover <> nec_egress_empty constr
+prf 16876:16913 <> recover_fixture_witness_preserves_ucrs
+R16988:16992 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16919:16938 UMSTFormal.Urge.KleisliRecover <> recover_witness_ucrs proj
+R16941:16961 UMSTFormal.Urge.KleisliRecover <> witness_from_snapshot def
+R16963:16986 UMSTFormal.Urge.KleisliRecover <> recover_fixture_snapshot def
+R16993:17012 UMSTFormal.Urge.KleisliRecover <> recover_fixture_ucrs def
+prf 17051:17091 <> recover_fixture_refuse_sync_gate_positive
+R17124:17126 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17097:17123 UMSTFormal.Urge.KleisliRecover <> refuse_sync_gate_on_recover def
+R17127:17139 UMSTFormal.Urge.KleisliRecover <> rr_wrong_gate constr
+R17141:17174 UMSTFormal.Urge.KleisliRecover <> kgk_gate_check_before_sync_inbound constr
+prf 17213:17253 <> recover_fixture_refuse_frugal_mi_positive
+R17286:17288 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17259:17285 UMSTFormal.Urge.KleisliRecover <> refuse_frugal_mi_on_recover def
+R17289:17301 UMSTFormal.Urge.KleisliRecover <> rr_wrong_gate constr
+R17303:17327 UMSTFormal.Urge.KleisliRecover <> kgk_frugal_mi_observation constr
+def 17590:17618 <> kleisli_recover_physics_green
+R17622:17625 Corelib.Init.Datatypes <> bool ind
+R17630:17634 Corelib.Init.Datatypes <> false constr
+prf 17644:17678 <> kleisli_recover_physics_green_false
+R17713:17715 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17684:17712 UMSTFormal.Urge.KleisliRecover <> kleisli_recover_physics_green def
+R17716:17720 Corelib.Init.Datatypes <> false constr
+def 17760:17791 <> kleisli_recover_production_wired
+R17795:17798 Corelib.Init.Datatypes <> bool ind
+R17803:17807 Corelib.Init.Datatypes <> false constr
+prf 17817:17854 <> kleisli_recover_production_wired_false
+R17892:17894 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17860:17891 UMSTFormal.Urge.KleisliRecover <> kleisli_recover_production_wired def
+R17895:17899 Corelib.Init.Datatypes <> false constr
+prf 17936:17965 <> kleisli_recover_module_witness
+R17969:17972 Corelib.Init.Logic <> True ind
+R17988:17988 Corelib.Init.Logic <> I constr
+R17988:17988 Corelib.Init.Logic <> I constr
+prf 18005:18032 <> kleisli_recover_no_new_axiom
+R18036:18039 Corelib.Init.Logic <> True ind
+R18055:18055 Corelib.Init.Logic <> I constr
+R18055:18055 Corelib.Init.Logic <> I constr
+prf 18072:18113 <> kleisli_recover_positive_refuse_not_silent
+R18163:18166 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R18119:18144 UMSTFormal.Urge.KleisliRecover <> evaluate_recover_operation def
+R18146:18162 UMSTFormal.Urge.KleisliRecover <> roc_rsync_theater constr
+R18167:18177 UMSTFormal.Urge.KleisliRecover <> rv_admitted constr
+R18196:18221 UMSTFormal.Urge.KleisliRecover <> evaluate_recover_operation def
+prf 18254:18301 <> kleisli_recover_production_wired_refuse_positive
+R18338:18340 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R18307:18337 UMSTFormal.Urge.KleisliRecover <> refuse_production_wired_recover def
+R18341:18367 UMSTFormal.Urge.KleisliRecover <> rr_production_wired_refused constr
+prf 18406:18450 <> kleisli_recover_second_argmin_refuse_positive
+R18484:18486 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R18456:18483 UMSTFormal.Urge.KleisliRecover <> refuse_second_argmin_recover def
+R18487:18510 UMSTFormal.Urge.KleisliRecover <> rr_second_argmin_refused constr

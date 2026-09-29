@@ -1,0 +1,86 @@
+DIGEST 2fa69e5ac10319458d56c91b2abee95d
+FUMSTFormal.Urge.Transport
+R243:247 Stdlib.Arith.Arith <> <> lib
+R249:252 Stdlib.Lists.List <> <> lib
+R254:257 Stdlib.Bool.Bool <> <> lib
+R275:300 UMSTFormal.Urge.AppendOnly <> <> lib
+ind 314:322 <> Transport
+constr 331:336 <> TLocal
+constr 340:343 <> TGit
+constr 347:351 <> TMesh
+constr 355:361 <> TRemote
+constr 365:372 <> TOffline
+scheme 314:322 <> Transport_rect
+scheme 314:322 <> Transport_ind
+scheme 314:322 <> Transport_rec
+scheme 314:322 <> Transport_sind
+def 387:395 <> can_carry
+R402:410 UMSTFormal.Urge.Transport <> Transport ind
+binder 398:398 <> t:3
+R415:418 Corelib.Init.Datatypes <> bool ind
+R431:431 UMSTFormal.Urge.Transport <> t:3 var
+R442:449 UMSTFormal.Urge.Transport <> TOffline constr
+R454:458 Corelib.Init.Datatypes <> false constr
+R469:472 Corelib.Init.Datatypes <> true constr
+ind 492:505 <> TransportError
+constr 510:527 <> OfflineCannotCarry
+scheme 492:505 <> TransportError_rect
+scheme 492:505 <> TransportError_ind
+scheme 492:505 <> TransportError_rec
+scheme 492:505 <> TransportError_sind
+def 542:552 <> admit_carry
+R559:567 UMSTFormal.Urge.Transport <> Transport ind
+binder 555:555 <> t:7
+R572:577 Corelib.Init.Datatypes <> option ind
+R579:592 UMSTFormal.Urge.Transport <> TransportError ind
+R602:610 UMSTFormal.Urge.Transport <> can_carry def
+R612:612 UMSTFormal.Urge.Transport <> t:7 var
+R629:632 Corelib.Init.Datatypes <> Some constr
+R634:651 UMSTFormal.Urge.Transport <> OfflineCannotCarry constr
+R619:622 Corelib.Init.Datatypes <> None constr
+prf 661:675 <> local_can_carry
+R695:697 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R679:687 UMSTFormal.Urge.Transport <> can_carry def
+R689:694 UMSTFormal.Urge.Transport <> TLocal constr
+R698:701 Corelib.Init.Datatypes <> true constr
+prf 736:755 <> offline_cannot_carry
+R777:779 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R759:767 UMSTFormal.Urge.Transport <> can_carry def
+R769:776 UMSTFormal.Urge.Transport <> TOffline constr
+R780:784 Corelib.Init.Datatypes <> false constr
+prf 819:839 <> admit_offline_refuses
+R863:865 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R843:853 UMSTFormal.Urge.Transport <> admit_carry def
+R855:862 UMSTFormal.Urge.Transport <> TOffline constr
+R866:869 Corelib.Init.Datatypes <> Some constr
+R871:888 UMSTFormal.Urge.Transport <> OfflineCannotCarry constr
+prf 923:936 <> admit_local_ok
+R958:960 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R940:950 UMSTFormal.Urge.Transport <> admit_carry def
+R952:957 UMSTFormal.Urge.Transport <> TLocal constr
+R961:964 Corelib.Init.Datatypes <> None constr
+def 1004:1014 <> channel_set
+R1018:1021 Corelib.Init.Datatypes <> list ind
+R1023:1031 UMSTFormal.Urge.Transport <> Transport ind
+R1044:1047 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1038:1043 UMSTFormal.Urge.Transport <> TLocal constr
+R1052:1055 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1048:1051 UMSTFormal.Urge.Transport <> TGit constr
+R1061:1064 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1056:1060 UMSTFormal.Urge.Transport <> TMesh constr
+R1072:1075 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1065:1071 UMSTFormal.Urge.Transport <> TRemote constr
+R1084:1087 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1076:1083 UMSTFormal.Urge.Transport <> TOffline constr
+R1088:1090 Corelib.Init.Datatypes <> nil constr
+prf 1100:1114 <> channel_set_len
+R1136:1138 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1118:1123 Corelib.Init.Datatypes <> length def
+R1125:1135 UMSTFormal.Urge.Transport <> channel_set def
+def 1179:1201 <> transport_physics_green
+R1205:1208 Corelib.Init.Datatypes <> bool ind
+R1213:1217 Corelib.Init.Datatypes <> false constr
+prf 1227:1255 <> transport_physics_green_false
+R1282:1284 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1259:1281 UMSTFormal.Urge.Transport <> transport_physics_green def
+R1285:1289 Corelib.Init.Datatypes <> false constr

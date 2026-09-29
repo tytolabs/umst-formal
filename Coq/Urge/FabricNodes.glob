@@ -1,0 +1,724 @@
+DIGEST 42e34786f5d59de03d7565347a8c2ddc
+FUMSTFormal.Urge.FabricNodes
+R980:984 Stdlib.Arith.Arith <> <> lib
+R986:989 Stdlib.Lists.List <> <> lib
+R991:994 Stdlib.Bool.Bool <> <> lib
+R996:1001 Stdlib.QArith.QArith <> <> lib
+R1019:1033 UMSTFormal.Gate <> <> lib
+R1051:1078 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1096:1127 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1485:1504 <> fabric_replica_class
+constr 1513:1531 <> frc_node0_dev_clone
+constr 1537:1555 <> frc_node1_dev_clone
+constr 1561:1586 <> frc_forgejo_primary_mirror
+constr 1592:1609 <> frc_darwin_scratch
+constr 1615:1630 <> frc_offline_luks
+constr 1636:1655 <> frc_customer_compose
+scheme 1485:1504 <> fabric_replica_class_rect
+scheme 1485:1504 <> fabric_replica_class_ind
+scheme 1485:1504 <> fabric_replica_class_rec
+scheme 1485:1504 <> fabric_replica_class_sind
+ind 1726:1741 <> fabric_authority
+constr 1750:1764 <> fa_working_copy
+constr 1770:1788 <> fa_canonical_remote
+constr 1794:1809 <> fa_scratch_plane
+constr 1815:1830 <> fa_disaster_copy
+constr 1836:1854 <> fa_customer_on_site
+scheme 1726:1741 <> fabric_authority_rect
+scheme 1726:1741 <> fabric_authority_ind
+scheme 1726:1741 <> fabric_authority_rec
+scheme 1726:1741 <> fabric_authority_sind
+def 1941:1967 <> fabric_replica_egress_empty
+R1974:1993 UMSTFormal.Urge.FabricNodes <> fabric_replica_class ind
+binder 1970:1970 <> c:5
+R1998:2001 Corelib.Init.Datatypes <> bool ind
+R2014:2014 UMSTFormal.Urge.FabricNodes <> c:5 var
+R2025:2042 UMSTFormal.Urge.FabricNodes <> frc_darwin_scratch constr
+R2046:2061 UMSTFormal.Urge.FabricNodes <> frc_offline_luks constr
+R2066:2069 Corelib.Init.Datatypes <> true constr
+R2066:2069 Corelib.Init.Datatypes <> true constr
+R2075:2093 UMSTFormal.Urge.FabricNodes <> frc_node0_dev_clone constr
+R2097:2115 UMSTFormal.Urge.FabricNodes <> frc_node1_dev_clone constr
+R2121:2146 UMSTFormal.Urge.FabricNodes <> frc_forgejo_primary_mirror constr
+R2150:2169 UMSTFormal.Urge.FabricNodes <> frc_customer_compose constr
+R2174:2178 Corelib.Init.Datatypes <> false constr
+R2174:2178 Corelib.Init.Datatypes <> false constr
+R2174:2178 Corelib.Init.Datatypes <> false constr
+R2174:2178 Corelib.Init.Datatypes <> false constr
+def 2274:2300 <> fabric_replica_from_node_id
+R2313:2315 Corelib.Init.Datatypes <> nat ind
+binder 2303:2309 <> node_id:7
+R2324:2329 Corelib.Init.Datatypes <> option ind
+R2331:2350 UMSTFormal.Urge.FabricNodes <> fabric_replica_class ind
+R2363:2369 UMSTFormal.Urge.FabricNodes <> node_id:7 var
+R2380:2380 Corelib.Init.Datatypes <> O constr
+R2385:2388 Corelib.Init.Datatypes <> Some constr
+R2390:2408 UMSTFormal.Urge.FabricNodes <> frc_node0_dev_clone constr
+R2414:2414 Corelib.Init.Datatypes <> S constr
+R2416:2416 Corelib.Init.Datatypes <> O constr
+R2421:2424 Corelib.Init.Datatypes <> Some constr
+R2426:2444 UMSTFormal.Urge.FabricNodes <> frc_node1_dev_clone constr
+R2455:2458 Corelib.Init.Datatypes <> None constr
+def 2531:2549 <> fabric_authority_of
+R2556:2575 UMSTFormal.Urge.FabricNodes <> fabric_replica_class ind
+binder 2552:2552 <> c:9
+R2580:2595 UMSTFormal.Urge.FabricNodes <> fabric_authority ind
+R2608:2608 UMSTFormal.Urge.FabricNodes <> c:9 var
+R2619:2637 UMSTFormal.Urge.FabricNodes <> frc_node0_dev_clone constr
+R2641:2659 UMSTFormal.Urge.FabricNodes <> frc_node1_dev_clone constr
+R2664:2678 UMSTFormal.Urge.FabricNodes <> fa_working_copy constr
+R2664:2678 UMSTFormal.Urge.FabricNodes <> fa_working_copy constr
+R2684:2709 UMSTFormal.Urge.FabricNodes <> frc_forgejo_primary_mirror constr
+R2714:2732 UMSTFormal.Urge.FabricNodes <> fa_canonical_remote constr
+R2738:2755 UMSTFormal.Urge.FabricNodes <> frc_darwin_scratch constr
+R2760:2775 UMSTFormal.Urge.FabricNodes <> fa_scratch_plane constr
+R2781:2796 UMSTFormal.Urge.FabricNodes <> frc_offline_luks constr
+R2801:2816 UMSTFormal.Urge.FabricNodes <> fa_disaster_copy constr
+R2822:2841 UMSTFormal.Urge.FabricNodes <> frc_customer_compose constr
+R2846:2864 UMSTFormal.Urge.FabricNodes <> fa_customer_on_site constr
+def 2967:2991 <> fabric_nodes_schema_valid
+R3006:3009 Corelib.Init.Datatypes <> bool ind
+binder 2994:3002 <> schema_ok:11
+R3014:3017 Corelib.Init.Datatypes <> bool ind
+R3022:3030 UMSTFormal.Urge.FabricNodes <> schema_ok:11 var
+rec 3102:3118 <> fabric_ucrs_stamp
+proj 3133:3147 <> fabric_ucrs_seq
+proj 3158:3179 <> fabric_ucrs_wall_has_t
+R3151:3153 Corelib.Init.Datatypes <> nat ind
+R3183:3186 Corelib.Init.Datatypes <> bool ind
+rec 3282:3303 <> fabric_merge_safe_cert
+proj 3318:3334 <> fabric_merge_safe
+R3338:3341 Corelib.Init.Datatypes <> bool ind
+rec 3441:3455 <> fabric_node_pin
+proj 3470:3487 <> fabric_pin_step_id
+proj 3498:3515 <> fabric_pin_node_id
+proj 3526:3545 <> fabric_pin_schema_ok
+proj 3557:3581 <> fabric_pin_byzantine_mesh
+proj 3593:3625 <> fabric_pin_claims_forgejo_running
+proj 3637:3651 <> fabric_pin_ucrs
+proj 3676:3696 <> fabric_pin_merge_safe
+proj 3726:3753 <> fabric_pin_provenance_intact
+R3491:3493 Corelib.Init.Datatypes <> nat ind
+R3519:3521 Corelib.Init.Datatypes <> nat ind
+R3549:3552 Corelib.Init.Datatypes <> bool ind
+R3585:3588 Corelib.Init.Datatypes <> bool ind
+R3629:3632 Corelib.Init.Datatypes <> bool ind
+R3655:3671 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_stamp rec
+R3700:3721 UMSTFormal.Urge.FabricNodes <> fabric_merge_safe_cert rec
+R3757:3760 Corelib.Init.Datatypes <> bool ind
+rec 3840:3858 <> fabric_node_witness
+proj 3873:3891 <> fabric_witness_ucrs
+proj 3916:3940 <> fabric_witness_merge_safe
+proj 3970:4001 <> fabric_witness_provenance_intact
+R3895:3911 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_stamp rec
+R3944:3965 UMSTFormal.Urge.FabricNodes <> fabric_merge_safe_cert rec
+R4005:4008 Corelib.Init.Datatypes <> bool ind
+rec 4112:4131 <> fabric_node_morphism
+proj 4146:4165 <> fabric_morphism_from
+proj 4188:4213 <> fabric_morphism_to_replica
+proj 4241:4263 <> fabric_morphism_witness
+proj 4290:4324 <> fabric_morphism_excitement_selected
+R4169:4183 UMSTFormal.Urge.FabricNodes <> fabric_node_pin rec
+R4217:4236 UMSTFormal.Urge.FabricNodes <> fabric_replica_class ind
+R4267:4285 UMSTFormal.Urge.FabricNodes <> fabric_node_witness rec
+R4328:4331 Corelib.Init.Datatypes <> bool ind
+ind 4424:4443 <> fabric_nodes_refusal
+constr 4452:4475 <> fnr_byzantine_mesh_claim
+constr 4481:4505 <> fnr_forgejo_install_claim
+constr 4511:4536 <> fnr_unknown_fabric_node_id
+constr 4558:4576 <> fnr_schema_mismatch
+constr 4582:4598 <> fnr_second_argmin
+constr 4604:4623 <> fnr_production_wired
+constr 4629:4645 <> fnr_gate_rejected
+constr 4663:4678 <> fnr_merge_unsafe
+constr 4700:4718 <> fnr_provenance_loss
+constr 4740:4765 <> fnr_replica_class_mismatch
+R4549:4551 Corelib.Init.Datatypes <> nat ind
+binder 4539:4545 <> node_id:37
+R4654:4656 Corelib.Init.Datatypes <> nat ind
+binder 4648:4650 <> seq:38
+R4691:4693 Corelib.Init.Datatypes <> nat ind
+binder 4681:4687 <> step_id:39
+R4731:4733 Corelib.Init.Datatypes <> nat ind
+binder 4721:4727 <> step_id:40
+scheme 4424:4443 <> fabric_nodes_refusal_rect
+scheme 4424:4443 <> fabric_nodes_refusal_ind
+scheme 4424:4443 <> fabric_nodes_refusal_rec
+scheme 4424:4443 <> fabric_nodes_refusal_sind
+ind 4828:4847 <> fabric_nodes_verdict
+constr 4856:4865 <> fnv_pin_ok
+constr 4871:4896 <> fnv_byzantine_mesh_refused
+constr 4902:4928 <> fnv_forgejo_install_refused
+constr 4934:4949 <> fnv_inadmissible
+scheme 4828:4847 <> fabric_nodes_verdict_rect
+scheme 4828:4847 <> fabric_nodes_verdict_ind
+scheme 4828:4847 <> fabric_nodes_verdict_rec
+scheme 4828:4847 <> fabric_nodes_verdict_sind
+rec 5237:5265 <> fabric_admissibility_conjunct
+proj 5280:5298 <> fabric_conj_gate_ok
+proj 5310:5331 <> fabric_conj_merge_safe
+proj 5343:5374 <> fabric_conj_excitement_preserves
+R5302:5305 Corelib.Init.Datatypes <> bool ind
+R5335:5338 Corelib.Init.Datatypes <> bool ind
+R5378:5381 Corelib.Init.Datatypes <> bool ind
+def 5474:5495 <> fabric_conjunct_admits
+R5502:5530 UMSTFormal.Urge.FabricNodes <> fabric_admissibility_conjunct rec
+binder 5498:5498 <> c:47
+R5535:5538 Corelib.Init.Datatypes <> bool ind
+R5596:5601 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5566:5571 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5545:5563 UMSTFormal.Urge.FabricNodes <> fabric_conj_gate_ok proj
+R5565:5565 UMSTFormal.Urge.FabricNodes <> c:47 var
+R5572:5593 UMSTFormal.Urge.FabricNodes <> fabric_conj_merge_safe proj
+R5595:5595 UMSTFormal.Urge.FabricNodes <> c:47 var
+R5602:5633 UMSTFormal.Urge.FabricNodes <> fabric_conj_excitement_preserves proj
+R5635:5635 UMSTFormal.Urge.FabricNodes <> c:47 var
+def 5736:5766 <> evaluate_fabric_nodes_operation
+R5813:5816 Corelib.Init.Datatypes <> bool ind
+binder 5773:5786 <> byzantine_mesh:48
+binder 5788:5809 <> claims_forgejo_running:49
+R5825:5844 UMSTFormal.Urge.FabricNodes <> fabric_nodes_verdict ind
+R5854:5867 UMSTFormal.Urge.FabricNodes <> byzantine_mesh:48 var
+R5911:5932 UMSTFormal.Urge.FabricNodes <> claims_forgejo_running:49 var
+R5974:5983 UMSTFormal.Urge.FabricNodes <> fnv_pin_ok constr
+R5939:5965 UMSTFormal.Urge.FabricNodes <> fnv_forgejo_install_refused constr
+R5874:5899 UMSTFormal.Urge.FabricNodes <> fnv_byzantine_mesh_refused constr
+def 6076:6102 <> refuse_byzantine_mesh_claim
+R6106:6125 UMSTFormal.Urge.FabricNodes <> fabric_nodes_refusal ind
+R6132:6155 UMSTFormal.Urge.FabricNodes <> fnr_byzantine_mesh_claim constr
+def 6258:6285 <> refuse_forgejo_install_claim
+R6289:6308 UMSTFormal.Urge.FabricNodes <> fabric_nodes_refusal ind
+R6315:6339 UMSTFormal.Urge.FabricNodes <> fnr_forgejo_install_claim constr
+def 6418:6446 <> refuse_second_argmin_selector
+R6450:6469 UMSTFormal.Urge.FabricNodes <> fabric_nodes_refusal ind
+R6476:6492 UMSTFormal.Urge.FabricNodes <> fnr_second_argmin constr
+def 6594:6614 <> admit_fabric_node_pin
+R6623:6637 UMSTFormal.Urge.FabricNodes <> fabric_node_pin rec
+binder 6617:6619 <> pin:50
+R6650:6652 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6646:6649 Corelib.Init.Datatypes <> unit ind
+R6653:6672 UMSTFormal.Urge.FabricNodes <> fabric_nodes_refusal ind
+R6682:6706 UMSTFormal.Urge.FabricNodes <> fabric_pin_byzantine_mesh proj
+R6708:6710 UMSTFormal.Urge.FabricNodes <> pin:50 var
+R6756:6788 UMSTFormal.Urge.FabricNodes <> fabric_pin_claims_forgejo_running proj
+R6790:6792 UMSTFormal.Urge.FabricNodes <> pin:50 var
+R6839:6842 Corelib.Init.Datatypes <> negb def
+R6845:6869 UMSTFormal.Urge.FabricNodes <> fabric_nodes_schema_valid def
+R6872:6891 UMSTFormal.Urge.FabricNodes <> fabric_pin_schema_ok proj
+R6893:6895 UMSTFormal.Urge.FabricNodes <> pin:50 var
+R6949:6975 UMSTFormal.Urge.FabricNodes <> fabric_replica_from_node_id def
+R6978:6995 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R6997:6999 UMSTFormal.Urge.FabricNodes <> pin:50 var
+R7013:7016 Corelib.Init.Datatypes <> None constr
+R7021:7023 Corelib.Init.Datatypes <> inr constr
+R7026:7051 UMSTFormal.Urge.FabricNodes <> fnr_unknown_fabric_node_id constr
+R7054:7071 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R7073:7075 UMSTFormal.Urge.FabricNodes <> pin:50 var
+R7085:7088 Corelib.Init.Datatypes <> Some constr
+R7095:7097 Corelib.Init.Datatypes <> inl constr
+R7099:7100 Corelib.Init.Datatypes <> tt constr
+R6908:6910 Corelib.Init.Datatypes <> inr constr
+R6912:6930 UMSTFormal.Urge.FabricNodes <> fnr_schema_mismatch constr
+R6799:6801 Corelib.Init.Datatypes <> inr constr
+R6803:6827 UMSTFormal.Urge.FabricNodes <> fnr_forgejo_install_claim constr
+R6717:6719 Corelib.Init.Datatypes <> inr constr
+R6721:6744 UMSTFormal.Urge.FabricNodes <> fnr_byzantine_mesh_claim constr
+def 7205:7227 <> witness_from_fabric_pin
+R7234:7248 UMSTFormal.Urge.FabricNodes <> fabric_node_pin rec
+binder 7230:7230 <> p:51
+R7253:7271 UMSTFormal.Urge.FabricNodes <> fabric_node_witness rec
+R7281:7299 UMSTFormal.Urge.FabricNodes <> fabric_witness_ucrs proj
+R7281:7299 UMSTFormal.Urge.FabricNodes <> fabric_witness_ucrs proj
+R7281:7299 UMSTFormal.Urge.FabricNodes <> fabric_witness_ucrs proj
+R7328:7352 UMSTFormal.Urge.FabricNodes <> fabric_witness_merge_safe proj
+R7328:7352 UMSTFormal.Urge.FabricNodes <> fabric_witness_merge_safe proj
+R7387:7418 UMSTFormal.Urge.FabricNodes <> fabric_witness_provenance_intact proj
+R7387:7418 UMSTFormal.Urge.FabricNodes <> fabric_witness_provenance_intact proj
+R7304:7318 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R7320:7320 UMSTFormal.Urge.FabricNodes <> p:51 var
+R7357:7377 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R7379:7379 UMSTFormal.Urge.FabricNodes <> p:51 var
+R7423:7450 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R7452:7452 UMSTFormal.Urge.FabricNodes <> p:51 var
+def 7566:7591 <> apply_fabric_node_morphism
+R7604:7618 UMSTFormal.Urge.FabricNodes <> fabric_node_pin rec
+binder 7598:7600 <> pin:52
+R7639:7658 UMSTFormal.Urge.FabricNodes <> fabric_replica_class ind
+binder 7626:7635 <> to_replica:53
+R7677:7705 UMSTFormal.Urge.FabricNodes <> fabric_admissibility_conjunct rec
+binder 7666:7673 <> conjunct:54
+R7735:7738 Corelib.Init.Datatypes <> bool ind
+binder 7713:7731 <> excitement_selected:55
+R7767:7769 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7747:7766 UMSTFormal.Urge.FabricNodes <> fabric_node_morphism rec
+R7770:7789 UMSTFormal.Urge.FabricNodes <> fabric_nodes_refusal ind
+R7802:7822 UMSTFormal.Urge.FabricNodes <> admit_fabric_node_pin def
+R7824:7826 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R7837:7839 Corelib.Init.Datatypes <> inr constr
+R7846:7848 Corelib.Init.Datatypes <> inr constr
+R7856:7858 Corelib.Init.Datatypes <> inl constr
+R7872:7875 Corelib.Init.Datatypes <> negb def
+R7878:7899 UMSTFormal.Urge.FabricNodes <> fabric_conjunct_admits def
+R7901:7908 UMSTFormal.Urge.FabricNodes <> conjunct:54 var
+R7998:8001 Corelib.Init.Datatypes <> negb def
+R8004:8020 UMSTFormal.Urge.FabricNodes <> fabric_merge_safe proj
+R8023:8043 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R8045:8047 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R8122:8125 Corelib.Init.Datatypes <> negb def
+R8128:8155 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R8157:8159 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R8236:8239 Corelib.Init.Datatypes <> negb def
+R8241:8259 UMSTFormal.Urge.FabricNodes <> excitement_selected:55 var
+R8338:8340 Corelib.Init.Datatypes <> inl constr
+R8353:8372 UMSTFormal.Urge.FabricNodes <> fabric_morphism_from proj
+R8353:8372 UMSTFormal.Urge.FabricNodes <> fabric_morphism_from proj
+R8353:8372 UMSTFormal.Urge.FabricNodes <> fabric_morphism_from proj
+R8393:8418 UMSTFormal.Urge.FabricNodes <> fabric_morphism_to_replica proj
+R8393:8418 UMSTFormal.Urge.FabricNodes <> fabric_morphism_to_replica proj
+R8446:8468 UMSTFormal.Urge.FabricNodes <> fabric_morphism_witness proj
+R8446:8468 UMSTFormal.Urge.FabricNodes <> fabric_morphism_witness proj
+R8513:8547 UMSTFormal.Urge.FabricNodes <> fabric_morphism_excitement_selected proj
+R8513:8547 UMSTFormal.Urge.FabricNodes <> fabric_morphism_excitement_selected proj
+R8377:8379 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R8423:8432 UMSTFormal.Urge.FabricNodes <> to_replica:53 var
+R8473:8495 UMSTFormal.Urge.FabricNodes <> witness_from_fabric_pin def
+R8497:8499 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R8552:8570 UMSTFormal.Urge.FabricNodes <> excitement_selected:55 var
+R8272:8274 Corelib.Init.Datatypes <> inr constr
+R8277:8295 UMSTFormal.Urge.FabricNodes <> fnr_provenance_loss constr
+R8298:8315 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R8317:8319 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R8173:8175 Corelib.Init.Datatypes <> inr constr
+R8178:8196 UMSTFormal.Urge.FabricNodes <> fnr_provenance_loss constr
+R8199:8216 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R8218:8220 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R8062:8064 Corelib.Init.Datatypes <> inr constr
+R8067:8082 UMSTFormal.Urge.FabricNodes <> fnr_merge_unsafe constr
+R8085:8102 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R8104:8106 UMSTFormal.Urge.FabricNodes <> pin:52 var
+R7922:7924 Corelib.Init.Datatypes <> inr constr
+R7927:7943 UMSTFormal.Urge.FabricNodes <> fnr_gate_rejected constr
+R7946:7960 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_seq proj
+R7963:7977 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R7979:7981 UMSTFormal.Urge.FabricNodes <> pin:52 var
+prf 8589:8623 <> fabric_nodes_byzantine_mesh_refused
+R8671:8673 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8629:8659 UMSTFormal.Urge.FabricNodes <> evaluate_fabric_nodes_operation def
+R8661:8664 Corelib.Init.Datatypes <> true constr
+R8666:8670 Corelib.Init.Datatypes <> false constr
+R8674:8699 UMSTFormal.Urge.FabricNodes <> fnv_byzantine_mesh_refused constr
+prf 8736:8771 <> fabric_nodes_forgejo_install_refused
+R8819:8821 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8777:8807 UMSTFormal.Urge.FabricNodes <> evaluate_fabric_nodes_operation def
+R8809:8813 Corelib.Init.Datatypes <> false constr
+R8815:8818 Corelib.Init.Datatypes <> true constr
+R8822:8848 UMSTFormal.Urge.FabricNodes <> fnv_forgejo_install_refused constr
+prf 8885:8915 <> fabric_nodes_pin_ok_when_honest
+R8964:8966 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8921:8951 UMSTFormal.Urge.FabricNodes <> evaluate_fabric_nodes_operation def
+R8953:8957 Corelib.Init.Datatypes <> false constr
+R8959:8963 Corelib.Init.Datatypes <> false constr
+R8967:8976 UMSTFormal.Urge.FabricNodes <> fnv_pin_ok constr
+prf 9013:9048 <> refuse_byzantine_mesh_claim_positive
+R9081:9083 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9054:9080 UMSTFormal.Urge.FabricNodes <> refuse_byzantine_mesh_claim def
+R9084:9107 UMSTFormal.Urge.FabricNodes <> fnr_byzantine_mesh_claim constr
+prf 9144:9180 <> refuse_forgejo_install_claim_positive
+R9214:9216 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9186:9213 UMSTFormal.Urge.FabricNodes <> refuse_forgejo_install_claim def
+R9217:9241 UMSTFormal.Urge.FabricNodes <> fnr_forgejo_install_claim constr
+prf 9278:9315 <> refuse_second_argmin_selector_positive
+R9350:9352 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9321:9349 UMSTFormal.Urge.FabricNodes <> refuse_second_argmin_selector def
+R9353:9369 UMSTFormal.Urge.FabricNodes <> fnr_second_argmin constr
+rec 9703:9718 <> fabric_nodes_ctx
+proj 9760:9782 <> fabric_nodes_successors
+R9727:9744 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9721:9723 <> src:56
+R9786:9789 Corelib.Init.Datatypes <> list ind
+R9792:9808 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9810:9812 UMSTFormal.Urge.FabricNodes <> src:56 var
+def 9912:9930 <> fabric_nodes_select
+R9939:9956 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9933:9935 <> src:59
+R9970:9985 UMSTFormal.Urge.FabricNodes <> fabric_nodes_ctx rec
+R9987:9989 UMSTFormal.Urge.FabricNodes <> src:59 var
+binder 9964:9966 <> ctx:60
+R10017:10019 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9996:10012 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10014:10016 UMSTFormal.Urge.FabricNodes <> src:59 var
+R10020:10037 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10044:10063 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10065:10067 UMSTFormal.Urge.FabricNodes <> src:59 var
+R10070:10092 UMSTFormal.Urge.FabricNodes <> fabric_nodes_successors proj
+R10094:10096 UMSTFormal.Urge.FabricNodes <> src:59 var
+R10098:10100 UMSTFormal.Urge.FabricNodes <> ctx:60 var
+prf 10113:10152 <> fabric_nodes_select_eq_excitement_select
+R10165:10182 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10159:10161 <> src:61
+R10192:10207 UMSTFormal.Urge.FabricNodes <> fabric_nodes_ctx rec
+R10209:10211 UMSTFormal.Urge.FabricNodes <> src:61 var
+binder 10186:10188 <> ctx:62
+R10245:10249 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10218:10236 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select def
+R10238:10240 UMSTFormal.Urge.FabricNodes <> src:61 var
+R10242:10244 UMSTFormal.Urge.FabricNodes <> ctx:62 var
+R10250:10266 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10268:10270 UMSTFormal.Urge.FabricNodes <> src:61 var
+R10273:10295 UMSTFormal.Urge.FabricNodes <> fabric_nodes_successors proj
+R10297:10299 UMSTFormal.Urge.FabricNodes <> src:61 var
+R10301:10303 UMSTFormal.Urge.FabricNodes <> ctx:62 var
+R10323:10341 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select def
+R10344:10363 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 10395:10437 <> fabric_nodes_select_eq_urge_recovery_select
+R10450:10467 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10444:10446 <> src:63
+R10477:10492 UMSTFormal.Urge.FabricNodes <> fabric_nodes_ctx rec
+R10494:10496 UMSTFormal.Urge.FabricNodes <> src:63 var
+binder 10471:10473 <> ctx:64
+R10530:10534 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10503:10521 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select def
+R10523:10525 UMSTFormal.Urge.FabricNodes <> src:63 var
+R10527:10529 UMSTFormal.Urge.FabricNodes <> ctx:64 var
+R10535:10554 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10556:10558 UMSTFormal.Urge.FabricNodes <> src:63 var
+R10561:10583 UMSTFormal.Urge.FabricNodes <> fabric_nodes_successors proj
+R10585:10587 UMSTFormal.Urge.FabricNodes <> src:63 var
+R10589:10591 UMSTFormal.Urge.FabricNodes <> ctx:64 var
+prf 10631:10658 <> fabric_nodes_no_local_argmin
+R10671:10688 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10665:10667 <> src:65
+R10698:10713 UMSTFormal.Urge.FabricNodes <> fabric_nodes_ctx rec
+R10715:10717 UMSTFormal.Urge.FabricNodes <> src:65 var
+binder 10692:10694 <> ctx:66
+R10751:10755 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10724:10742 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select def
+R10744:10746 UMSTFormal.Urge.FabricNodes <> src:65 var
+R10748:10750 UMSTFormal.Urge.FabricNodes <> ctx:66 var
+R10756:10772 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10774:10776 UMSTFormal.Urge.FabricNodes <> src:65 var
+R10779:10801 UMSTFormal.Urge.FabricNodes <> fabric_nodes_successors proj
+R10803:10805 UMSTFormal.Urge.FabricNodes <> src:65 var
+R10807:10809 UMSTFormal.Urge.FabricNodes <> ctx:66 var
+R10829:10868 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select_eq_excitement_select thm
+R10829:10868 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select_eq_excitement_select thm
+prf 10892:10909 <> fabric_nodes_empty
+R10918:10935 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10912:10914 <> src:67
+R10949:10964 UMSTFormal.Urge.FabricNodes <> fabric_nodes_ctx rec
+R10966:10968 UMSTFormal.Urge.FabricNodes <> src:67 var
+binder 10943:10945 <> ctx:68
+R11014:11016 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10983:11005 UMSTFormal.Urge.FabricNodes <> fabric_nodes_successors proj
+R11007:11009 UMSTFormal.Urge.FabricNodes <> src:67 var
+R11011:11013 UMSTFormal.Urge.FabricNodes <> ctx:68 var
+R11017:11019 Corelib.Init.Datatypes <> nil constr
+binder 10976:10979 <> Hnil:69
+R11053:11055 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11026:11044 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select def
+R11046:11048 UMSTFormal.Urge.FabricNodes <> src:67 var
+R11050:11052 UMSTFormal.Urge.FabricNodes <> ctx:68 var
+R11056:11058 Corelib.Init.Datatypes <> inr constr
+R11060:11076 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R11095:11113 UMSTFormal.Urge.FabricNodes <> fabric_nodes_select def
+R11116:11135 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+ind 11266:11294 <> fabric_excitement_compose_pin
+constr 11303:11330 <> fep_import_select_excitement
+constr 11336:11360 <> fep_second_argmin_refused
+scheme 11266:11294 <> fabric_excitement_compose_pin_rect
+scheme 11266:11294 <> fabric_excitement_compose_pin_ind
+scheme 11266:11294 <> fabric_excitement_compose_pin_rec
+scheme 11266:11294 <> fabric_excitement_compose_pin_sind
+def 11375:11398 <> fabric_excitement_select
+R11407:11424 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11401:11403 <> src:72
+R11440:11443 Corelib.Init.Datatypes <> list ind
+R11446:11462 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11464:11466 UMSTFormal.Urge.FabricNodes <> src:72 var
+binder 11432:11436 <> cands:73
+R11481:11509 UMSTFormal.Urge.FabricNodes <> fabric_excitement_compose_pin ind
+binder 11475:11477 <> pin:74
+R11558:11560 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R11537:11539 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R11516:11532 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11534:11536 UMSTFormal.Urge.FabricNodes <> src:72 var
+R11540:11557 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R11561:11580 UMSTFormal.Urge.FabricNodes <> fabric_nodes_refusal ind
+R11593:11595 UMSTFormal.Urge.FabricNodes <> pin:74 var
+R11606:11633 UMSTFormal.Urge.FabricNodes <> fep_import_select_excitement constr
+R11653:11669 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11671:11673 UMSTFormal.Urge.FabricNodes <> src:72 var
+R11675:11679 UMSTFormal.Urge.FabricNodes <> cands:73 var
+binder 11648:11648 <> r:76
+R11696:11696 UMSTFormal.Urge.FabricNodes <> r:76 var
+R11711:11713 Corelib.Init.Datatypes <> inl constr
+R11720:11722 Corelib.Init.Datatypes <> inl constr
+R11725:11727 Corelib.Init.Datatypes <> inl constr
+R11740:11742 Corelib.Init.Datatypes <> inr constr
+R11749:11751 Corelib.Init.Datatypes <> inl constr
+R11754:11756 Corelib.Init.Datatypes <> inr constr
+R11775:11799 UMSTFormal.Urge.FabricNodes <> fep_second_argmin_refused constr
+R11804:11806 Corelib.Init.Datatypes <> inr constr
+R11808:11824 UMSTFormal.Urge.FabricNodes <> fnr_second_argmin constr
+prf 11842:11886 <> fabric_excitement_select_eq_excitement_select
+R11899:11916 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11893:11895 <> src:78
+R11932:11935 Corelib.Init.Datatypes <> list ind
+R11938:11954 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11956:11958 UMSTFormal.Urge.FabricNodes <> src:78 var
+binder 11924:11928 <> cands:79
+R12029:12033 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11966:11989 UMSTFormal.Urge.FabricNodes <> fabric_excitement_select def
+R11991:11993 UMSTFormal.Urge.FabricNodes <> src:78 var
+R11995:11999 UMSTFormal.Urge.FabricNodes <> cands:79 var
+R12001:12028 UMSTFormal.Urge.FabricNodes <> fep_import_select_excitement constr
+R12040:12056 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R12058:12060 UMSTFormal.Urge.FabricNodes <> src:78 var
+R12062:12066 UMSTFormal.Urge.FabricNodes <> cands:79 var
+R12077:12079 Corelib.Init.Datatypes <> inl constr
+R12086:12088 Corelib.Init.Datatypes <> inl constr
+R12091:12093 Corelib.Init.Datatypes <> inl constr
+R12102:12104 Corelib.Init.Datatypes <> inr constr
+R12111:12113 Corelib.Init.Datatypes <> inl constr
+R12116:12118 Corelib.Init.Datatypes <> inr constr
+R12154:12177 UMSTFormal.Urge.FabricNodes <> fabric_excitement_select def
+R12192:12208 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R12192:12208 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+prf 12249:12294 <> fabric_excitement_select_refuses_second_argmin
+R12307:12324 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 12301:12303 <> src:80
+R12340:12343 Corelib.Init.Datatypes <> list ind
+R12346:12362 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R12364:12366 UMSTFormal.Urge.FabricNodes <> src:80 var
+binder 12332:12336 <> cands:81
+R12434:12438 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12374:12397 UMSTFormal.Urge.FabricNodes <> fabric_excitement_select def
+R12399:12401 UMSTFormal.Urge.FabricNodes <> src:80 var
+R12403:12407 UMSTFormal.Urge.FabricNodes <> cands:81 var
+R12409:12433 UMSTFormal.Urge.FabricNodes <> fep_second_argmin_refused constr
+R12439:12441 Corelib.Init.Datatypes <> inr constr
+R12443:12459 UMSTFormal.Urge.FabricNodes <> fnr_second_argmin constr
+def 12723:12742 <> fabric_fixture_state
+R12746:12763 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R12773:12779 UMSTFormal.Concrete.Gate <> density proj
+R12773:12779 UMSTFormal.Concrete.Gate <> density proj
+R12773:12779 UMSTFormal.Concrete.Gate <> density proj
+R12799:12809 UMSTFormal.Concrete.Gate <> free_energy proj
+R12799:12809 UMSTFormal.Concrete.Gate <> free_energy proj
+R12822:12830 UMSTFormal.Concrete.Gate <> hydration proj
+R12822:12830 UMSTFormal.Concrete.Gate <> hydration proj
+R12843:12850 UMSTFormal.Concrete.Gate <> strength proj
+R12843:12850 UMSTFormal.Concrete.Gate <> strength proj
+R12788:12790 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 12873:12891 <> fabric_fixture_ucrs
+R12895:12911 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_stamp rec
+R12921:12935 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_seq proj
+R12921:12935 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_seq proj
+R12921:12935 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_seq proj
+R12952:12973 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_wall_has_t proj
+R12952:12973 UMSTFormal.Urge.FabricNodes <> fabric_ucrs_wall_has_t proj
+R12978:12981 Corelib.Init.Datatypes <> true constr
+def 12999:13023 <> fabric_fixture_merge_safe
+R13027:13048 UMSTFormal.Urge.FabricNodes <> fabric_merge_safe_cert rec
+R13058:13074 UMSTFormal.Urge.FabricNodes <> fabric_merge_safe proj
+R13058:13074 UMSTFormal.Urge.FabricNodes <> fabric_merge_safe proj
+R13058:13074 UMSTFormal.Urge.FabricNodes <> fabric_merge_safe proj
+R13079:13082 Corelib.Init.Datatypes <> true constr
+def 13100:13123 <> fabric_fixture_node0_pin
+R13127:13141 UMSTFormal.Urge.FabricNodes <> fabric_node_pin rec
+R13151:13168 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R13151:13168 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R13151:13168 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R13185:13202 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R13185:13202 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R13219:13238 UMSTFormal.Urge.FabricNodes <> fabric_pin_schema_ok proj
+R13219:13238 UMSTFormal.Urge.FabricNodes <> fabric_pin_schema_ok proj
+R13254:13278 UMSTFormal.Urge.FabricNodes <> fabric_pin_byzantine_mesh proj
+R13254:13278 UMSTFormal.Urge.FabricNodes <> fabric_pin_byzantine_mesh proj
+R13295:13327 UMSTFormal.Urge.FabricNodes <> fabric_pin_claims_forgejo_running proj
+R13295:13327 UMSTFormal.Urge.FabricNodes <> fabric_pin_claims_forgejo_running proj
+R13344:13358 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R13344:13358 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R13389:13409 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R13389:13409 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R13446:13473 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R13446:13473 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R13243:13246 Corelib.Init.Datatypes <> true constr
+R13283:13287 Corelib.Init.Datatypes <> false constr
+R13332:13336 Corelib.Init.Datatypes <> false constr
+R13363:13381 UMSTFormal.Urge.FabricNodes <> fabric_fixture_ucrs def
+R13414:13438 UMSTFormal.Urge.FabricNodes <> fabric_fixture_merge_safe def
+R13478:13481 Corelib.Init.Datatypes <> true constr
+def 13499:13521 <> fabric_fixture_conjunct
+R13525:13553 UMSTFormal.Urge.FabricNodes <> fabric_admissibility_conjunct rec
+R13563:13581 UMSTFormal.Urge.FabricNodes <> fabric_conj_gate_ok proj
+R13563:13581 UMSTFormal.Urge.FabricNodes <> fabric_conj_gate_ok proj
+R13563:13581 UMSTFormal.Urge.FabricNodes <> fabric_conj_gate_ok proj
+R13597:13618 UMSTFormal.Urge.FabricNodes <> fabric_conj_merge_safe proj
+R13597:13618 UMSTFormal.Urge.FabricNodes <> fabric_conj_merge_safe proj
+R13634:13665 UMSTFormal.Urge.FabricNodes <> fabric_conj_excitement_preserves proj
+R13634:13665 UMSTFormal.Urge.FabricNodes <> fabric_conj_excitement_preserves proj
+R13586:13589 Corelib.Init.Datatypes <> true constr
+R13623:13626 Corelib.Init.Datatypes <> true constr
+R13670:13673 Corelib.Init.Datatypes <> true constr
+prf 13688:13716 <> fabric_fixture_admit_node0_ok
+R13768:13770 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13722:13742 UMSTFormal.Urge.FabricNodes <> admit_fabric_node_pin def
+R13744:13767 UMSTFormal.Urge.FabricNodes <> fabric_fixture_node0_pin def
+R13771:13773 Corelib.Init.Datatypes <> inl constr
+R13775:13776 Corelib.Init.Datatypes <> tt constr
+prf 13815:13846 <> fabric_fixture_apply_morphism_ok
+R13956:13960 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13852:13877 UMSTFormal.Urge.FabricNodes <> apply_fabric_node_morphism def
+R13883:13906 UMSTFormal.Urge.FabricNodes <> fabric_fixture_node0_pin def
+R13908:13926 UMSTFormal.Urge.FabricNodes <> frc_node0_dev_clone constr
+R13928:13950 UMSTFormal.Urge.FabricNodes <> fabric_fixture_conjunct def
+R13952:13955 Corelib.Init.Datatypes <> true constr
+R13961:13963 Corelib.Init.Datatypes <> inl constr
+R13974:13993 UMSTFormal.Urge.FabricNodes <> fabric_morphism_from proj
+R13974:13993 UMSTFormal.Urge.FabricNodes <> fabric_morphism_from proj
+R13974:13993 UMSTFormal.Urge.FabricNodes <> fabric_morphism_from proj
+R14033:14058 UMSTFormal.Urge.FabricNodes <> fabric_morphism_to_replica proj
+R14033:14058 UMSTFormal.Urge.FabricNodes <> fabric_morphism_to_replica proj
+R14093:14115 UMSTFormal.Urge.FabricNodes <> fabric_morphism_witness proj
+R14093:14115 UMSTFormal.Urge.FabricNodes <> fabric_morphism_witness proj
+R14179:14213 UMSTFormal.Urge.FabricNodes <> fabric_morphism_excitement_selected proj
+R14179:14213 UMSTFormal.Urge.FabricNodes <> fabric_morphism_excitement_selected proj
+R13998:14021 UMSTFormal.Urge.FabricNodes <> fabric_fixture_node0_pin def
+R14063:14081 UMSTFormal.Urge.FabricNodes <> frc_node0_dev_clone constr
+R14120:14142 UMSTFormal.Urge.FabricNodes <> witness_from_fabric_pin def
+R14144:14167 UMSTFormal.Urge.FabricNodes <> fabric_fixture_node0_pin def
+R14218:14221 Corelib.Init.Datatypes <> true constr
+prf 14263:14292 <> fabric_node0_maps_to_dev_clone
+R14331:14333 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14298:14324 UMSTFormal.Urge.FabricNodes <> fabric_replica_from_node_id def
+R14334:14337 Corelib.Init.Datatypes <> Some constr
+R14339:14357 UMSTFormal.Urge.FabricNodes <> frc_node0_dev_clone constr
+prf 14396:14425 <> fabric_node1_maps_to_dev_clone
+R14464:14466 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14431:14457 UMSTFormal.Urge.FabricNodes <> fabric_replica_from_node_id def
+R14467:14470 Corelib.Init.Datatypes <> Some constr
+R14472:14490 UMSTFormal.Urge.FabricNodes <> frc_node1_dev_clone constr
+prf 14529:14558 <> fabric_unknown_node_id_refused
+R14598:14600 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14564:14590 UMSTFormal.Urge.FabricNodes <> fabric_replica_from_node_id def
+R14601:14604 Corelib.Init.Datatypes <> None constr
+prf 14643:14674 <> fabric_offline_luks_egress_empty
+R14724:14726 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14680:14706 UMSTFormal.Urge.FabricNodes <> fabric_replica_egress_empty def
+R14708:14723 UMSTFormal.Urge.FabricNodes <> frc_offline_luks constr
+R14727:14730 Corelib.Init.Datatypes <> true constr
+prf 14769:14802 <> fabric_darwin_scratch_egress_empty
+R14854:14856 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14808:14834 UMSTFormal.Urge.FabricNodes <> fabric_replica_egress_empty def
+R14836:14853 UMSTFormal.Urge.FabricNodes <> frc_darwin_scratch constr
+R14857:14860 Corelib.Init.Datatypes <> true constr
+prf 14899:14936 <> fabric_forgejo_primary_egress_nonempty
+R14996:14998 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14942:14968 UMSTFormal.Urge.FabricNodes <> fabric_replica_egress_empty def
+R14970:14995 UMSTFormal.Urge.FabricNodes <> frc_forgejo_primary_mirror constr
+R14999:15003 Corelib.Init.Datatypes <> false constr
+prf 15042:15078 <> fabric_fixture_witness_preserves_ucrs
+R15154:15158 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15084:15102 UMSTFormal.Urge.FabricNodes <> fabric_witness_ucrs proj
+R15105:15127 UMSTFormal.Urge.FabricNodes <> witness_from_fabric_pin def
+R15129:15152 UMSTFormal.Urge.FabricNodes <> fabric_fixture_node0_pin def
+R15159:15177 UMSTFormal.Urge.FabricNodes <> fabric_fixture_ucrs def
+def 15219:15246 <> fabric_fixture_byzantine_pin
+R15250:15264 UMSTFormal.Urge.FabricNodes <> fabric_node_pin rec
+R15274:15291 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R15274:15291 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R15274:15291 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R15308:15325 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R15308:15325 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R15342:15361 UMSTFormal.Urge.FabricNodes <> fabric_pin_schema_ok proj
+R15342:15361 UMSTFormal.Urge.FabricNodes <> fabric_pin_schema_ok proj
+R15377:15401 UMSTFormal.Urge.FabricNodes <> fabric_pin_byzantine_mesh proj
+R15377:15401 UMSTFormal.Urge.FabricNodes <> fabric_pin_byzantine_mesh proj
+R15417:15449 UMSTFormal.Urge.FabricNodes <> fabric_pin_claims_forgejo_running proj
+R15417:15449 UMSTFormal.Urge.FabricNodes <> fabric_pin_claims_forgejo_running proj
+R15466:15480 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R15466:15480 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R15511:15531 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R15511:15531 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R15568:15595 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R15568:15595 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R15366:15369 Corelib.Init.Datatypes <> true constr
+R15406:15409 Corelib.Init.Datatypes <> true constr
+R15454:15458 Corelib.Init.Datatypes <> false constr
+R15485:15503 UMSTFormal.Urge.FabricNodes <> fabric_fixture_ucrs def
+R15536:15560 UMSTFormal.Urge.FabricNodes <> fabric_fixture_merge_safe def
+R15600:15603 Corelib.Init.Datatypes <> true constr
+def 15621:15646 <> fabric_fixture_forgejo_pin
+R15650:15664 UMSTFormal.Urge.FabricNodes <> fabric_node_pin rec
+R15674:15691 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R15674:15691 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R15674:15691 UMSTFormal.Urge.FabricNodes <> fabric_pin_step_id proj
+R15708:15725 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R15708:15725 UMSTFormal.Urge.FabricNodes <> fabric_pin_node_id proj
+R15742:15761 UMSTFormal.Urge.FabricNodes <> fabric_pin_schema_ok proj
+R15742:15761 UMSTFormal.Urge.FabricNodes <> fabric_pin_schema_ok proj
+R15777:15801 UMSTFormal.Urge.FabricNodes <> fabric_pin_byzantine_mesh proj
+R15777:15801 UMSTFormal.Urge.FabricNodes <> fabric_pin_byzantine_mesh proj
+R15818:15850 UMSTFormal.Urge.FabricNodes <> fabric_pin_claims_forgejo_running proj
+R15818:15850 UMSTFormal.Urge.FabricNodes <> fabric_pin_claims_forgejo_running proj
+R15866:15880 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R15866:15880 UMSTFormal.Urge.FabricNodes <> fabric_pin_ucrs proj
+R15911:15931 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R15911:15931 UMSTFormal.Urge.FabricNodes <> fabric_pin_merge_safe proj
+R15968:15995 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R15968:15995 UMSTFormal.Urge.FabricNodes <> fabric_pin_provenance_intact proj
+R15766:15769 Corelib.Init.Datatypes <> true constr
+R15806:15810 Corelib.Init.Datatypes <> false constr
+R15855:15858 Corelib.Init.Datatypes <> true constr
+R15885:15903 UMSTFormal.Urge.FabricNodes <> fabric_fixture_ucrs def
+R15936:15960 UMSTFormal.Urge.FabricNodes <> fabric_fixture_merge_safe def
+R16000:16003 Corelib.Init.Datatypes <> true constr
+prf 16018:16049 <> fabric_fixture_byzantine_refused
+R16105:16107 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16055:16075 UMSTFormal.Urge.FabricNodes <> admit_fabric_node_pin def
+R16077:16104 UMSTFormal.Urge.FabricNodes <> fabric_fixture_byzantine_pin def
+R16108:16110 Corelib.Init.Datatypes <> inr constr
+R16112:16135 UMSTFormal.Urge.FabricNodes <> fnr_byzantine_mesh_claim constr
+prf 16174:16203 <> fabric_fixture_forgejo_refused
+R16257:16259 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16209:16229 UMSTFormal.Urge.FabricNodes <> admit_fabric_node_pin def
+R16231:16256 UMSTFormal.Urge.FabricNodes <> fabric_fixture_forgejo_pin def
+R16260:16262 Corelib.Init.Datatypes <> inr constr
+R16264:16288 UMSTFormal.Urge.FabricNodes <> fnr_forgejo_install_claim constr
+def 16551:16576 <> fabric_nodes_physics_green
+R16580:16583 Corelib.Init.Datatypes <> bool ind
+R16588:16592 Corelib.Init.Datatypes <> false constr
+prf 16602:16633 <> fabric_nodes_physics_green_false
+R16665:16667 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16639:16664 UMSTFormal.Urge.FabricNodes <> fabric_nodes_physics_green def
+R16668:16672 Corelib.Init.Datatypes <> false constr
+def 16712:16740 <> fabric_nodes_production_wired
+R16744:16747 Corelib.Init.Datatypes <> bool ind
+R16752:16756 Corelib.Init.Datatypes <> false constr
+prf 16766:16800 <> fabric_nodes_production_wired_false
+R16835:16837 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16806:16834 UMSTFormal.Urge.FabricNodes <> fabric_nodes_production_wired def
+R16838:16842 Corelib.Init.Datatypes <> false constr
+prf 16879:16905 <> fabric_nodes_module_witness
+R16909:16912 Corelib.Init.Logic <> True ind
+R16928:16928 Corelib.Init.Logic <> I constr
+R16928:16928 Corelib.Init.Logic <> I constr
+prf 16945:16969 <> fabric_nodes_no_new_axiom
+R16973:16976 Corelib.Init.Logic <> True ind
+R16992:16992 Corelib.Init.Logic <> I constr
+R16992:16992 Corelib.Init.Logic <> I constr
+prf 17009:17047 <> fabric_nodes_positive_refuse_not_silent
+R17095:17098 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R17053:17083 UMSTFormal.Urge.FabricNodes <> evaluate_fabric_nodes_operation def
+R17085:17088 Corelib.Init.Datatypes <> true constr
+R17090:17094 Corelib.Init.Datatypes <> false constr
+R17099:17108 UMSTFormal.Urge.FabricNodes <> fnv_pin_ok constr
+R17127:17157 UMSTFormal.Urge.FabricNodes <> evaluate_fabric_nodes_operation def
+prf 17190:17227 <> fabric_nodes_forgejo_refuse_not_silent
+R17275:17278 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R17233:17263 UMSTFormal.Urge.FabricNodes <> evaluate_fabric_nodes_operation def
+R17265:17269 Corelib.Init.Datatypes <> false constr
+R17271:17274 Corelib.Init.Datatypes <> true constr
+R17279:17288 UMSTFormal.Urge.FabricNodes <> fnv_pin_ok constr
+R17307:17337 UMSTFormal.Urge.FabricNodes <> evaluate_fabric_nodes_operation def

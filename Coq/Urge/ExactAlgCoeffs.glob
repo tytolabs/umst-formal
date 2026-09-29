@@ -1,0 +1,587 @@
+DIGEST 95bf77f9befb6392472844803b6157ce
+FUMSTFormal.Urge.ExactAlgCoeffs
+R907:911 Stdlib.Arith.Arith <> <> lib
+R913:916 Stdlib.Lists.List <> <> lib
+R918:921 Stdlib.Bool.Bool <> <> lib
+R923:928 Stdlib.ZArith.ZArith <> <> lib
+R930:935 Stdlib.QArith.QArith <> <> lib
+R953:967 UMSTFormal.Gate <> <> lib
+R985:1012 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1030:1061 UMSTFormal.Urge.ExcitementImport <> <> lib
+R1079:1108 UMSTFormal.Urge.CarrierProduct <> <> lib
+rec 1463:1477 <> exact_alg_coeff
+proj 1492:1498 <> eac_num
+proj 1507:1513 <> eac_den
+proj 1524:1533 <> eac_op_tag
+R1502:1502 Corelib.Numbers.BinNums <> Z ind
+R1517:1519 Corelib.Init.Datatypes <> nat ind
+R1537:1539 Corelib.Init.Datatypes <> nat ind
+rec 1623:1646 <> carrier_exact_alg_coeffs
+proj 1661:1675 <> ceac_content_id
+proj 1686:1695 <> ceac_coeff
+R1679:1681 Corelib.Init.Datatypes <> nat ind
+R1699:1713 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff rec
+rec 1802:1824 <> exact_alg_coeff_witness
+proj 1839:1853 <> eacw_content_id
+proj 1864:1873 <> eacw_value
+proj 1882:1892 <> eacw_op_tag
+R1857:1859 Corelib.Init.Datatypes <> nat ind
+R1877:1877 Stdlib.QArith.QArith_base <> Q rec
+R1896:1898 Corelib.Init.Datatypes <> nat ind
+rec 1990:2013 <> exact_alg_coeff_morphism
+proj 2028:2036 <> eacm_from
+proj 2068:2082 <> eacm_to_carrier
+proj 2104:2115 <> eacm_witness
+proj 2146:2169 <> eacm_excitement_selected
+R2040:2063 UMSTFormal.Urge.ExactAlgCoeffs <> carrier_exact_alg_coeffs rec
+R2086:2099 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+R2119:2141 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_witness rec
+R2173:2176 Corelib.Init.Datatypes <> bool ind
+ind 2270:2286 <> float_carrier_tag
+constr 2291:2303 <> float_theater
+scheme 2270:2286 <> float_carrier_tag_rect
+scheme 2270:2286 <> float_carrier_tag_ind
+scheme 2270:2286 <> float_carrier_tag_rec
+scheme 2270:2286 <> float_carrier_tag_sind
+ind 2404:2427 <> exact_alg_coeffs_refusal
+constr 2436:2460 <> eacr_f64_identity_theater
+constr 2466:2486 <> eacr_zero_denominator
+constr 2492:2512 <> eacr_exact_alg_absent
+constr 2518:2535 <> eacr_second_argmin
+constr 2541:2558 <> eacr_gate_rejected
+R2567:2569 Corelib.Init.Datatypes <> nat ind
+binder 2561:2563 <> seq:21
+scheme 2404:2427 <> exact_alg_coeffs_refusal_rect
+scheme 2404:2427 <> exact_alg_coeffs_refusal_ind
+scheme 2404:2427 <> exact_alg_coeffs_refusal_rec
+scheme 2404:2427 <> exact_alg_coeffs_refusal_sind
+ind 2649:2672 <> exact_alg_coeffs_verdict
+constr 2681:2693 <> eacv_admitted
+constr 2699:2722 <> eacv_f64_theater_refused
+constr 2728:2748 <> eacv_zero_den_refused
+constr 2754:2770 <> eacv_inadmissible
+scheme 2649:2672 <> exact_alg_coeffs_verdict_rect
+scheme 2649:2672 <> exact_alg_coeffs_verdict_ind
+scheme 2649:2672 <> exact_alg_coeffs_verdict_rec
+scheme 2649:2672 <> exact_alg_coeffs_verdict_sind
+def 2852:2872 <> exact_alg_coeff_value
+R2879:2893 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff rec
+binder 2875:2875 <> c:24
+R2898:2898 Stdlib.QArith.QArith_base <> Q rec
+R2915:2918 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2941:2941 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R2906:2912 UMSTFormal.Urge.ExactAlgCoeffs <> eac_num proj
+R2914:2914 UMSTFormal.Urge.ExactAlgCoeffs <> c:24 var
+R2919:2928 Stdlib.PArith.BinPos Pos of_nat def
+R2931:2937 UMSTFormal.Urge.ExactAlgCoeffs <> eac_den proj
+R2939:2939 UMSTFormal.Urge.ExactAlgCoeffs <> c:24 var
+def 3036:3062 <> exact_alg_coeff_den_nonzero
+R3069:3083 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff rec
+binder 3065:3065 <> c:25
+R3088:3091 Corelib.Init.Datatypes <> bool ind
+R3098:3101 Corelib.Init.Datatypes <> negb def
+R3114:3117 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3105:3111 UMSTFormal.Urge.ExactAlgCoeffs <> eac_den proj
+R3113:3113 UMSTFormal.Urge.ExactAlgCoeffs <> c:25 var
+def 3198:3224 <> exact_alg_coeff_to_exactAlg
+R3231:3245 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff rec
+binder 3227:3227 <> c:26
+R3250:3257 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+R3267:3281 UMSTFormal.Urge.CarrierProduct <> exact_alg_value proj
+R3267:3281 UMSTFormal.Urge.CarrierProduct <> exact_alg_value proj
+R3267:3281 UMSTFormal.Urge.CarrierProduct <> exact_alg_value proj
+R3316:3331 UMSTFormal.Urge.CarrierProduct <> exact_alg_op_tag proj
+R3316:3331 UMSTFormal.Urge.CarrierProduct <> exact_alg_op_tag proj
+R3286:3306 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_value def
+R3308:3308 UMSTFormal.Urge.ExactAlgCoeffs <> c:26 var
+R3336:3345 UMSTFormal.Urge.ExactAlgCoeffs <> eac_op_tag proj
+R3347:3347 UMSTFormal.Urge.ExactAlgCoeffs <> c:26 var
+def 3449:3470 <> attach_exact_alg_coeff
+R3483:3496 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 3473:3479 <> carrier:27
+R3508:3522 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff rec
+binder 3500:3504 <> coeff:28
+R3531:3544 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+R3551:3559 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R3562:3569 UMSTFormal.Urge.CarrierProduct <> umstProj def
+R3571:3577 UMSTFormal.Urge.ExactAlgCoeffs <> carrier:27 var
+R3581:3589 UMSTFormal.Urge.CarrierProduct <> stampProj def
+R3591:3597 UMSTFormal.Urge.ExactAlgCoeffs <> carrier:27 var
+R3601:3611 UMSTFormal.Urge.CarrierProduct <> sdfFRepProj def
+R3613:3619 UMSTFormal.Urge.ExactAlgCoeffs <> carrier:27 var
+R3627:3653 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_to_exactAlg def
+R3655:3659 UMSTFormal.Urge.ExactAlgCoeffs <> coeff:28 var
+R3663:3673 UMSTFormal.Urge.CarrierProduct <> witnessProj def
+R3675:3681 UMSTFormal.Urge.ExactAlgCoeffs <> carrier:27 var
+rec 3968:4005 <> exact_alg_coeff_admissibility_conjunct
+proj 4020:4036 <> eacc_conj_gate_ok
+proj 4048:4068 <> eacc_conj_den_nonzero
+proj 4080:4109 <> eacc_conj_excitement_preserves
+R4040:4043 Corelib.Init.Datatypes <> bool ind
+R4072:4075 Corelib.Init.Datatypes <> bool ind
+R4113:4116 Corelib.Init.Datatypes <> bool ind
+def 4207:4237 <> exact_alg_coeff_conjunct_admits
+R4244:4281 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_admissibility_conjunct rec
+binder 4240:4240 <> c:33
+R4290:4293 Corelib.Init.Datatypes <> bool ind
+R4348:4353 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4319:4324 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4300:4316 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_gate_ok proj
+R4318:4318 UMSTFormal.Urge.ExactAlgCoeffs <> c:33 var
+R4325:4345 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_den_nonzero proj
+R4347:4347 UMSTFormal.Urge.ExactAlgCoeffs <> c:33 var
+R4354:4383 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_excitement_preserves proj
+R4385:4385 UMSTFormal.Urge.ExactAlgCoeffs <> c:33 var
+def 4459:4487 <> evaluate_f64_identity_theater
+R4507:4510 Corelib.Init.Datatypes <> bool ind
+binder 4490:4503 <> is_f64_theater:34
+R4519:4542 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_verdict ind
+R4552:4565 UMSTFormal.Urge.ExactAlgCoeffs <> is_f64_theater:34 var
+R4602:4614 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_admitted constr
+R4572:4595 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_f64_theater_refused constr
+def 4684:4708 <> evaluate_zero_denominator
+R4725:4728 Corelib.Init.Datatypes <> bool ind
+binder 4711:4721 <> is_zero_den:35
+R4737:4760 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_verdict ind
+R4770:4780 UMSTFormal.Urge.ExactAlgCoeffs <> is_zero_den:35 var
+R4814:4826 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_admitted constr
+R4787:4807 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_zero_den_refused constr
+def 4919:4945 <> refuse_f64_identity_theater
+R4952:4968 UMSTFormal.Urge.ExactAlgCoeffs <> float_carrier_tag ind
+R4977:5000 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_refusal ind
+R5007:5031 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_f64_identity_theater constr
+def 5107:5129 <> refuse_zero_denominator
+R5133:5156 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_refusal ind
+R5163:5183 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_zero_denominator constr
+def 5255:5277 <> refuse_exact_alg_absent
+R5281:5304 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_refusal ind
+R5311:5331 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_exact_alg_absent constr
+def 5430:5458 <> refuse_second_argmin_selector
+R5462:5485 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_refusal ind
+R5492:5509 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_second_argmin constr
+def 5581:5607 <> witness_from_carrier_coeffs
+R5614:5637 UMSTFormal.Urge.ExactAlgCoeffs <> carrier_exact_alg_coeffs rec
+binder 5610:5610 <> c:36
+R5646:5668 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_witness rec
+R5678:5692 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_content_id proj
+R5678:5692 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_content_id proj
+R5678:5692 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_content_id proj
+R5721:5730 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_value proj
+R5721:5730 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_value proj
+R5778:5788 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_op_tag proj
+R5778:5788 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_op_tag proj
+R5697:5711 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_content_id proj
+R5713:5713 UMSTFormal.Urge.ExactAlgCoeffs <> c:36 var
+R5735:5755 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_value def
+R5758:5767 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R5769:5769 UMSTFormal.Urge.ExactAlgCoeffs <> c:36 var
+R5793:5802 UMSTFormal.Urge.ExactAlgCoeffs <> eac_op_tag proj
+R5805:5814 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R5816:5816 UMSTFormal.Urge.ExactAlgCoeffs <> c:36 var
+def 5922:5944 <> admit_carrier_exact_alg
+R5951:5974 UMSTFormal.Urge.ExactAlgCoeffs <> carrier_exact_alg_coeffs rec
+binder 5947:5947 <> c:37
+R6007:6009 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5983:6006 UMSTFormal.Urge.ExactAlgCoeffs <> carrier_exact_alg_coeffs rec
+R6010:6033 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_refusal ind
+R6043:6069 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_den_nonzero def
+R6072:6081 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R6083:6083 UMSTFormal.Urge.ExactAlgCoeffs <> c:37 var
+R6104:6106 Corelib.Init.Datatypes <> inr constr
+R6108:6128 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_zero_denominator constr
+R6091:6093 Corelib.Init.Datatypes <> inl constr
+R6095:6095 UMSTFormal.Urge.ExactAlgCoeffs <> c:37 var
+def 6230:6259 <> apply_exact_alg_coeff_morphism
+R6275:6298 UMSTFormal.Urge.ExactAlgCoeffs <> carrier_exact_alg_coeffs rec
+binder 6266:6271 <> coeffs:38
+R6316:6329 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+binder 6306:6312 <> carrier:39
+R6348:6385 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_admissibility_conjunct rec
+binder 6337:6344 <> conjunct:40
+R6415:6418 Corelib.Init.Datatypes <> bool ind
+binder 6393:6411 <> excitement_selected:41
+R6451:6453 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6427:6450 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_morphism rec
+R6454:6477 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_refusal ind
+R6487:6490 Corelib.Init.Datatypes <> negb def
+R6493:6523 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_conjunct_admits def
+R6525:6532 UMSTFormal.Urge.ExactAlgCoeffs <> conjunct:40 var
+R6588:6610 UMSTFormal.Urge.ExactAlgCoeffs <> admit_carrier_exact_alg def
+R6612:6617 UMSTFormal.Urge.ExactAlgCoeffs <> coeffs:38 var
+R6630:6632 Corelib.Init.Datatypes <> inr constr
+R6639:6641 Corelib.Init.Datatypes <> inr constr
+R6651:6653 Corelib.Init.Datatypes <> inl constr
+R6678:6681 Corelib.Init.Datatypes <> negb def
+R6683:6701 UMSTFormal.Urge.ExactAlgCoeffs <> excitement_selected:41 var
+R6767:6769 Corelib.Init.Datatypes <> inl constr
+R6786:6794 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_from proj
+R6786:6794 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_from proj
+R6786:6794 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_from proj
+R6824:6838 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_to_carrier proj
+R6824:6838 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_to_carrier proj
+R6929:6940 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_witness proj
+R6929:6940 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_witness proj
+R6998:7021 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_excitement_selected proj
+R6998:7021 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_excitement_selected proj
+R6860:6881 UMSTFormal.Urge.ExactAlgCoeffs <> attach_exact_alg_coeff def
+R6883:6889 UMSTFormal.Urge.ExactAlgCoeffs <> carrier:39 var
+R6892:6901 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R6945:6971 UMSTFormal.Urge.ExactAlgCoeffs <> witness_from_carrier_coeffs def
+R7026:7044 UMSTFormal.Urge.ExactAlgCoeffs <> excitement_selected:41 var
+R6718:6720 Corelib.Init.Datatypes <> inr constr
+R6722:6742 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_exact_alg_absent constr
+R6544:6546 Corelib.Init.Datatypes <> inr constr
+R6549:6566 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_gate_rejected constr
+prf 7065:7099 <> exact_alg_coeff_f64_theater_refused
+R7146:7148 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7105:7131 UMSTFormal.Urge.ExactAlgCoeffs <> refuse_f64_identity_theater def
+R7133:7145 UMSTFormal.Urge.ExactAlgCoeffs <> float_theater constr
+R7149:7173 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_f64_identity_theater constr
+prf 7217:7248 <> exact_alg_coeff_zero_den_refused
+R7277:7279 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7254:7276 UMSTFormal.Urge.ExactAlgCoeffs <> refuse_zero_denominator def
+R7280:7300 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_zero_denominator constr
+prf 7344:7383 <> exact_alg_coeff_exact_alg_absent_refused
+R7412:7414 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7389:7411 UMSTFormal.Urge.ExactAlgCoeffs <> refuse_exact_alg_absent def
+R7415:7435 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_exact_alg_absent constr
+prf 7479:7516 <> refuse_second_argmin_selector_positive
+R7551:7553 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7522:7550 UMSTFormal.Urge.ExactAlgCoeffs <> refuse_second_argmin_selector def
+R7554:7571 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_second_argmin constr
+ind 7919:7956 <> exact_alg_coeff_excitement_compose_pin
+constr 7965:7994 <> eacep_import_select_excitement
+constr 8000:8026 <> eacep_second_argmin_refused
+scheme 7919:7956 <> exact_alg_coeff_excitement_compose_pin_rect
+scheme 7919:7956 <> exact_alg_coeff_excitement_compose_pin_ind
+scheme 7919:7956 <> exact_alg_coeff_excitement_compose_pin_rec
+scheme 7919:7956 <> exact_alg_coeff_excitement_compose_pin_sind
+rec 8114:8132 <> exact_alg_coeff_ctx
+proj 8174:8199 <> exact_alg_coeff_successors
+R8141:8158 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8135:8137 <> src:44
+R8203:8206 Corelib.Init.Datatypes <> list ind
+R8209:8225 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8227:8229 UMSTFormal.Urge.ExactAlgCoeffs <> src:44 var
+def 8334:8366 <> exact_alg_coeff_excitement_select
+R8375:8392 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8369:8371 <> src:47
+R8408:8411 Corelib.Init.Datatypes <> list ind
+R8414:8430 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8432:8434 UMSTFormal.Urge.ExactAlgCoeffs <> src:47 var
+binder 8400:8404 <> cands:48
+R8449:8486 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_excitement_compose_pin ind
+binder 8443:8445 <> pin:49
+R8514:8516 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8493:8509 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8511:8513 UMSTFormal.Urge.ExactAlgCoeffs <> src:47 var
+R8517:8534 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R8547:8549 UMSTFormal.Urge.ExactAlgCoeffs <> pin:49 var
+R8560:8589 UMSTFormal.Urge.ExactAlgCoeffs <> eacep_import_select_excitement constr
+R8594:8610 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8612:8614 UMSTFormal.Urge.ExactAlgCoeffs <> src:47 var
+R8616:8620 UMSTFormal.Urge.ExactAlgCoeffs <> cands:48 var
+R8626:8652 UMSTFormal.Urge.ExactAlgCoeffs <> eacep_second_argmin_refused constr
+R8657:8659 Corelib.Init.Datatypes <> inr constr
+R8661:8680 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+def 8792:8813 <> exact_alg_coeff_select
+R8822:8839 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8816:8818 <> src:51
+R8853:8871 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_ctx rec
+R8873:8875 UMSTFormal.Urge.ExactAlgCoeffs <> src:51 var
+binder 8847:8849 <> ctx:52
+R8903:8905 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8882:8898 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8900:8902 UMSTFormal.Urge.ExactAlgCoeffs <> src:51 var
+R8906:8923 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R8930:8949 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R8951:8953 UMSTFormal.Urge.ExactAlgCoeffs <> src:51 var
+R8956:8981 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_successors proj
+R8983:8985 UMSTFormal.Urge.ExactAlgCoeffs <> src:51 var
+R8987:8989 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:52 var
+prf 9002:9055 <> exact_alg_coeff_excitement_select_eq_excitement_select
+R9068:9085 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9062:9064 <> src:53
+R9101:9104 Corelib.Init.Datatypes <> list ind
+R9107:9123 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9125:9127 UMSTFormal.Urge.ExactAlgCoeffs <> src:53 var
+binder 9093:9097 <> cands:54
+R9209:9213 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9135:9167 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_excitement_select def
+R9169:9171 UMSTFormal.Urge.ExactAlgCoeffs <> src:53 var
+R9173:9177 UMSTFormal.Urge.ExactAlgCoeffs <> cands:54 var
+R9179:9208 UMSTFormal.Urge.ExactAlgCoeffs <> eacep_import_select_excitement constr
+R9214:9230 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9232:9234 UMSTFormal.Urge.ExactAlgCoeffs <> src:53 var
+R9236:9240 UMSTFormal.Urge.ExactAlgCoeffs <> cands:54 var
+prf 9286:9328 <> exact_alg_coeff_select_eq_excitement_select
+R9341:9358 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9335:9337 <> src:55
+R9368:9386 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_ctx rec
+R9388:9390 UMSTFormal.Urge.ExactAlgCoeffs <> src:55 var
+binder 9362:9364 <> ctx:56
+R9427:9431 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9397:9418 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select def
+R9420:9422 UMSTFormal.Urge.ExactAlgCoeffs <> src:55 var
+R9424:9426 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:56 var
+R9432:9448 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9450:9452 UMSTFormal.Urge.ExactAlgCoeffs <> src:55 var
+R9455:9480 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_successors proj
+R9482:9484 UMSTFormal.Urge.ExactAlgCoeffs <> src:55 var
+R9486:9488 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:56 var
+R9508:9529 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select def
+R9532:9551 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 9583:9628 <> exact_alg_coeff_select_eq_urge_recovery_select
+R9641:9658 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9635:9637 <> src:57
+R9668:9686 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_ctx rec
+R9688:9690 UMSTFormal.Urge.ExactAlgCoeffs <> src:57 var
+binder 9662:9664 <> ctx:58
+R9727:9731 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9697:9718 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select def
+R9720:9722 UMSTFormal.Urge.ExactAlgCoeffs <> src:57 var
+R9724:9726 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:58 var
+R9732:9751 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R9753:9755 UMSTFormal.Urge.ExactAlgCoeffs <> src:57 var
+R9758:9783 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_successors proj
+R9785:9787 UMSTFormal.Urge.ExactAlgCoeffs <> src:57 var
+R9789:9791 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:58 var
+prf 9838:9868 <> exact_alg_coeff_no_local_argmin
+R9881:9898 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9875:9877 <> src:59
+R9908:9926 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_ctx rec
+R9928:9930 UMSTFormal.Urge.ExactAlgCoeffs <> src:59 var
+binder 9902:9904 <> ctx:60
+R9967:9971 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9937:9958 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select def
+R9960:9962 UMSTFormal.Urge.ExactAlgCoeffs <> src:59 var
+R9964:9966 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:60 var
+R9972:9988 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9990:9992 UMSTFormal.Urge.ExactAlgCoeffs <> src:59 var
+R9995:10020 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_successors proj
+R10022:10024 UMSTFormal.Urge.ExactAlgCoeffs <> src:59 var
+R10026:10028 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:60 var
+R10048:10090 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select_eq_excitement_select thm
+R10048:10090 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select_eq_excitement_select thm
+prf 10116:10170 <> exact_alg_coeff_excitement_select_refuses_second_argmin
+R10183:10200 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10177:10179 <> src:61
+R10216:10219 Corelib.Init.Datatypes <> list ind
+R10222:10238 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10240:10242 UMSTFormal.Urge.ExactAlgCoeffs <> src:61 var
+binder 10208:10212 <> cands:62
+R10321:10325 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10250:10282 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_excitement_select def
+R10284:10286 UMSTFormal.Urge.ExactAlgCoeffs <> src:61 var
+R10288:10292 UMSTFormal.Urge.ExactAlgCoeffs <> cands:62 var
+R10294:10320 UMSTFormal.Urge.ExactAlgCoeffs <> eacep_second_argmin_refused constr
+R10326:10328 Corelib.Init.Datatypes <> inr constr
+R10330:10349 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 10393:10413 <> exact_alg_coeff_empty
+R10422:10439 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10416:10418 <> src:63
+R10453:10471 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_ctx rec
+R10473:10475 UMSTFormal.Urge.ExactAlgCoeffs <> src:63 var
+binder 10447:10449 <> ctx:64
+R10524:10526 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10490:10515 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_successors proj
+R10517:10519 UMSTFormal.Urge.ExactAlgCoeffs <> src:63 var
+R10521:10523 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:64 var
+R10527:10529 Corelib.Init.Datatypes <> nil constr
+binder 10483:10486 <> Hnil:65
+R10566:10568 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10536:10557 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select def
+R10559:10561 UMSTFormal.Urge.ExactAlgCoeffs <> src:63 var
+R10563:10565 UMSTFormal.Urge.ExactAlgCoeffs <> ctx:64 var
+R10569:10571 Corelib.Init.Datatypes <> inr constr
+R10573:10589 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R10608:10629 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_select def
+R10632:10651 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 10922:10944 <> exact_alg_fixture_coeff
+R10948:10962 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff rec
+R10972:10978 UMSTFormal.Urge.ExactAlgCoeffs <> eac_num proj
+R10972:10978 UMSTFormal.Urge.ExactAlgCoeffs <> eac_num proj
+R10972:10978 UMSTFormal.Urge.ExactAlgCoeffs <> eac_num proj
+R10993:10999 UMSTFormal.Urge.ExactAlgCoeffs <> eac_den proj
+R10993:10999 UMSTFormal.Urge.ExactAlgCoeffs <> eac_den proj
+R11012:11021 UMSTFormal.Urge.ExactAlgCoeffs <> eac_op_tag proj
+R11012:11021 UMSTFormal.Urge.ExactAlgCoeffs <> eac_op_tag proj
+def 11044:11069 <> exact_alg_fixture_zero_den
+R11073:11087 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff rec
+R11097:11103 UMSTFormal.Urge.ExactAlgCoeffs <> eac_num proj
+R11097:11103 UMSTFormal.Urge.ExactAlgCoeffs <> eac_num proj
+R11097:11103 UMSTFormal.Urge.ExactAlgCoeffs <> eac_num proj
+R11118:11124 UMSTFormal.Urge.ExactAlgCoeffs <> eac_den proj
+R11118:11124 UMSTFormal.Urge.ExactAlgCoeffs <> eac_den proj
+R11137:11146 UMSTFormal.Urge.ExactAlgCoeffs <> eac_op_tag proj
+R11137:11146 UMSTFormal.Urge.ExactAlgCoeffs <> eac_op_tag proj
+def 11169:11200 <> exact_alg_fixture_carrier_coeffs
+R11204:11227 UMSTFormal.Urge.ExactAlgCoeffs <> carrier_exact_alg_coeffs rec
+R11237:11251 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_content_id proj
+R11237:11251 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_content_id proj
+R11237:11251 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_content_id proj
+R11264:11273 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R11264:11273 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R11278:11300 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_coeff def
+def 11318:11350 <> exact_alg_fixture_zero_den_coeffs
+R11354:11377 UMSTFormal.Urge.ExactAlgCoeffs <> carrier_exact_alg_coeffs rec
+R11387:11401 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_content_id proj
+R11387:11401 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_content_id proj
+R11387:11401 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_content_id proj
+R11414:11423 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R11414:11423 UMSTFormal.Urge.ExactAlgCoeffs <> ceac_coeff proj
+R11428:11453 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_zero_den def
+def 11471:11493 <> exact_alg_fixture_state
+R11497:11514 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R11524:11530 UMSTFormal.Concrete.Gate <> density proj
+R11524:11530 UMSTFormal.Concrete.Gate <> density proj
+R11524:11530 UMSTFormal.Concrete.Gate <> density proj
+R11550:11560 UMSTFormal.Concrete.Gate <> free_energy proj
+R11550:11560 UMSTFormal.Concrete.Gate <> free_energy proj
+R11573:11581 UMSTFormal.Concrete.Gate <> hydration proj
+R11573:11581 UMSTFormal.Concrete.Gate <> hydration proj
+R11594:11601 UMSTFormal.Concrete.Gate <> strength proj
+R11594:11601 UMSTFormal.Concrete.Gate <> strength proj
+R11539:11541 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 11624:11649 <> exact_alg_fixture_snapshot
+R11653:11667 UMSTFormal.Urge.AdmitKleisli <> HistorySnapshot rec
+R11677:11693 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R11677:11693 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R11677:11693 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R11706:11717 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R11706:11717 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R11722:11744 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_state def
+def 11762:11784 <> exact_alg_fixture_stamp
+R11788:11796 UMSTFormal.Urge.CarrierProduct <> UcrsStamp rec
+R11803:11815 UMSTFormal.Urge.CarrierProduct <> wallOnlyStamp def
+def 11833:11853 <> exact_alg_fixture_sdf
+R11857:11863 UMSTFormal.Urge.CarrierProduct <> SdfFRep rec
+R11873:11892 UMSTFormal.Urge.CarrierProduct <> sdf_canonical_digest proj
+R11873:11892 UMSTFormal.Urge.CarrierProduct <> sdf_canonical_digest proj
+R11873:11892 UMSTFormal.Urge.CarrierProduct <> sdf_canonical_digest proj
+R11908:11921 UMSTFormal.Urge.CarrierProduct <> sdf_frep_grain proj
+R11908:11921 UMSTFormal.Urge.CarrierProduct <> sdf_frep_grain proj
+def 11944:11970 <> exact_alg_fixture_exact_alg
+R11974:11981 UMSTFormal.Urge.CarrierProduct <> ExactAlg rec
+R11988:12014 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_to_exactAlg def
+R12016:12038 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_coeff def
+def 12053:12077 <> exact_alg_fixture_carrier
+R12081:12094 UMSTFormal.Urge.CarrierProduct <> HistoryCarrier rec
+R12101:12109 UMSTFormal.Urge.CarrierProduct <> carrierMk def
+R12111:12136 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_snapshot def
+R12138:12160 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_stamp def
+R12166:12186 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_sdf def
+R12188:12214 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_exact_alg def
+R12216:12231 UMSTFormal.Urge.CarrierProduct <> satisfiedWitness def
+def 12246:12271 <> exact_alg_fixture_conjunct
+R12275:12312 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_admissibility_conjunct rec
+R12322:12338 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_gate_ok proj
+R12322:12338 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_gate_ok proj
+R12322:12338 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_gate_ok proj
+R12354:12374 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_den_nonzero proj
+R12354:12374 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_den_nonzero proj
+R12390:12419 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_excitement_preserves proj
+R12390:12419 UMSTFormal.Urge.ExactAlgCoeffs <> eacc_conj_excitement_preserves proj
+R12343:12346 Corelib.Init.Datatypes <> true constr
+R12379:12382 Corelib.Init.Datatypes <> true constr
+R12424:12427 Corelib.Init.Datatypes <> true constr
+prf 12442:12467 <> exact_alg_fixture_admit_ok
+R12529:12533 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12473:12495 UMSTFormal.Urge.ExactAlgCoeffs <> admit_carrier_exact_alg def
+R12497:12528 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier_coeffs def
+R12534:12536 Corelib.Init.Datatypes <> inl constr
+R12538:12569 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier_coeffs def
+R12588:12610 UMSTFormal.Urge.ExactAlgCoeffs <> admit_carrier_exact_alg def
+R12613:12639 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_den_nonzero def
+prf 12678:12711 <> exact_alg_fixture_zero_den_refused
+R12774:12778 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12717:12739 UMSTFormal.Urge.ExactAlgCoeffs <> admit_carrier_exact_alg def
+R12741:12773 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_zero_den_coeffs def
+R12779:12781 Corelib.Init.Datatypes <> inr constr
+R12783:12803 UMSTFormal.Urge.ExactAlgCoeffs <> eacr_zero_denominator constr
+R12822:12844 UMSTFormal.Urge.ExactAlgCoeffs <> admit_carrier_exact_alg def
+R12847:12873 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_den_nonzero def
+prf 12912:12948 <> exact_alg_fixture_f64_theater_refused
+R12988:12990 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12954:12982 UMSTFormal.Urge.ExactAlgCoeffs <> evaluate_f64_identity_theater def
+R12984:12987 Corelib.Init.Datatypes <> true constr
+R12991:13014 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_f64_theater_refused constr
+prf 13060:13094 <> exact_alg_fixture_apply_morphism_ok
+R13229:13233 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13100:13129 UMSTFormal.Urge.ExactAlgCoeffs <> apply_exact_alg_coeff_morphism def
+R13135:13166 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier_coeffs def
+R13168:13192 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier def
+R13198:13223 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_conjunct def
+R13225:13228 Corelib.Init.Datatypes <> true constr
+R13234:13236 Corelib.Init.Datatypes <> inl constr
+R13247:13255 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_from proj
+R13247:13255 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_from proj
+R13247:13255 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_from proj
+R13303:13317 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_to_carrier proj
+R13303:13317 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_to_carrier proj
+R13416:13427 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_witness proj
+R13416:13427 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_witness proj
+R13503:13526 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_excitement_selected proj
+R13503:13526 UMSTFormal.Urge.ExactAlgCoeffs <> eacm_excitement_selected proj
+R13260:13291 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier_coeffs def
+R13333:13354 UMSTFormal.Urge.ExactAlgCoeffs <> attach_exact_alg_coeff def
+R13356:13380 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier def
+R13382:13404 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_coeff def
+R13432:13458 UMSTFormal.Urge.ExactAlgCoeffs <> witness_from_carrier_coeffs def
+R13460:13491 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier_coeffs def
+R13531:13534 Corelib.Init.Datatypes <> true constr
+prf 13583:13623 <> exact_alg_fixture_witness_preserves_value
+R13702:13706 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13629:13638 UMSTFormal.Urge.ExactAlgCoeffs <> eacw_value proj
+R13641:13667 UMSTFormal.Urge.ExactAlgCoeffs <> witness_from_carrier_coeffs def
+R13669:13700 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier_coeffs def
+R13707:13727 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_value def
+R13729:13751 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_coeff def
+prf 13797:13839 <> exact_alg_fixture_attach_preserves_exactAlg
+R13936:13940 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13845:13856 UMSTFormal.Urge.CarrierProduct <> exactAlgProj def
+R13863:13884 UMSTFormal.Urge.ExactAlgCoeffs <> attach_exact_alg_coeff def
+R13886:13910 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_carrier def
+R13912:13934 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_coeff def
+R13941:13967 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_fixture_exact_alg def
+prf 14013:14052 <> exact_alg_coeff_f64_theater_not_admitted
+R14092:14095 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R14058:14086 UMSTFormal.Urge.ExactAlgCoeffs <> evaluate_f64_identity_theater def
+R14088:14091 Corelib.Init.Datatypes <> true constr
+R14096:14108 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_admitted constr
+R14127:14155 UMSTFormal.Urge.ExactAlgCoeffs <> evaluate_f64_identity_theater def
+prf 14188:14224 <> exact_alg_coeff_zero_den_not_admitted
+R14260:14263 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R14230:14254 UMSTFormal.Urge.ExactAlgCoeffs <> evaluate_zero_denominator def
+R14256:14259 Corelib.Init.Datatypes <> true constr
+R14264:14276 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_admitted constr
+R14295:14319 UMSTFormal.Urge.ExactAlgCoeffs <> evaluate_zero_denominator def
+def 14577:14606 <> exact_alg_coeffs_physics_green
+R14610:14613 Corelib.Init.Datatypes <> bool ind
+R14618:14622 Corelib.Init.Datatypes <> false constr
+prf 14632:14667 <> exact_alg_coeffs_physics_green_false
+R14703:14705 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14673:14702 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_physics_green def
+R14706:14710 Corelib.Init.Datatypes <> false constr
+def 14750:14782 <> exact_alg_coeffs_production_wired
+R14786:14789 Corelib.Init.Datatypes <> bool ind
+R14794:14798 Corelib.Init.Datatypes <> false constr
+prf 14808:14846 <> exact_alg_coeffs_production_wired_false
+R14885:14887 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14852:14884 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeffs_production_wired def
+R14888:14892 Corelib.Init.Datatypes <> false constr
+prf 14929:14959 <> exact_alg_coeffs_module_witness
+R14963:14966 Corelib.Init.Logic <> True ind
+R14982:14982 Corelib.Init.Logic <> I constr
+R14982:14982 Corelib.Init.Logic <> I constr
+prf 14999:15027 <> exact_alg_coeffs_no_new_axiom
+R15031:15034 Corelib.Init.Logic <> True ind
+R15050:15050 Corelib.Init.Logic <> I constr
+R15050:15050 Corelib.Init.Logic <> I constr
+prf 15067:15109 <> exact_alg_coeffs_positive_refuse_not_silent
+R15149:15152 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R15115:15143 UMSTFormal.Urge.ExactAlgCoeffs <> evaluate_f64_identity_theater def
+R15145:15148 Corelib.Init.Datatypes <> true constr
+R15153:15165 UMSTFormal.Urge.ExactAlgCoeffs <> eacv_admitted constr
+R15183:15222 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_f64_theater_not_admitted thm
+R15183:15222 UMSTFormal.Urge.ExactAlgCoeffs <> exact_alg_coeff_f64_theater_not_admitted thm

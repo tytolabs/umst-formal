@@ -1,0 +1,554 @@
+DIGEST dc7b66711bd2e65c2d242f3dba138fea
+FUMSTFormal.Urge.SignedPropagate
+R981:985 Stdlib.Arith.Arith <> <> lib
+R987:990 Stdlib.Lists.List <> <> lib
+R992:995 Stdlib.Bool.Bool <> <> lib
+R997:1002 Stdlib.QArith.QArith <> <> lib
+R1004:1009 Stdlib.ZArith.ZArith <> <> lib
+R1027:1041 UMSTFormal.Gate <> <> lib
+R1059:1086 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1104:1135 UMSTFormal.Urge.ExcitementImport <> <> lib
+rec 1515:1541 <> signed_propagate_wall_stamp
+proj 1556:1570 <> signed_wall_seq
+proj 1581:1597 <> signed_wall_has_t
+R1574:1576 Corelib.Init.Datatypes <> nat ind
+R1601:1604 Corelib.Init.Datatypes <> bool ind
+rec 1677:1704 <> signed_stamped_witness_state
+proj 1719:1730 <> signed_value
+proj 1739:1750 <> signed_stamp
+proj 1785:1803 <> signed_witness_bits
+R1734:1734 Corelib.Numbers.BinNums <> Z ind
+R1754:1780 UMSTFormal.Urge.SignedPropagate <> signed_propagate_wall_stamp rec
+R1807:1809 Corelib.Init.Datatypes <> nat ind
+rec 1900:1922 <> signed_propagation_step
+proj 1937:1948 <> signed_delta
+proj 1957:1973 <> signed_post_stamp
+proj 2008:2031 <> signed_post_witness_bits
+R1952:1952 Corelib.Numbers.BinNums <> Z ind
+R1977:2003 UMSTFormal.Urge.SignedPropagate <> signed_propagate_wall_stamp rec
+R2035:2037 Corelib.Init.Datatypes <> nat ind
+rec 2116:2139 <> signed_propagate_witness
+proj 2154:2173 <> signed_witness_stamp
+proj 2208:2232 <> signed_witness_bit_budget
+R2177:2203 UMSTFormal.Urge.SignedPropagate <> signed_propagate_wall_stamp rec
+R2236:2238 Corelib.Init.Datatypes <> nat ind
+rec 2339:2363 <> signed_propagate_morphism
+proj 2378:2397 <> signed_morphism_from
+proj 2433:2450 <> signed_morphism_to
+proj 2486:2508 <> signed_morphism_witness
+proj 2540:2574 <> signed_morphism_excitement_selected
+R2401:2428 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+R2454:2481 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+R2512:2535 UMSTFormal.Urge.SignedPropagate <> signed_propagate_witness rec
+R2578:2581 Corelib.Init.Datatypes <> bool ind
+ind 2674:2697 <> signed_propagate_refusal
+constr 2706:2728 <> spr_prior_stamp_invalid
+constr 2746:2767 <> spr_post_stamp_invalid
+constr 2785:2816 <> spr_unsigned_propagation_refused
+constr 2822:2840 <> spr_witness_dropped
+constr 2865:2883 <> spr_signed_overflow
+constr 2889:2905 <> spr_gate_rejected
+R2737:2739 Corelib.Init.Datatypes <> nat ind
+binder 2731:2733 <> seq:22
+R2776:2778 Corelib.Init.Datatypes <> nat ind
+binder 2770:2772 <> seq:23
+R2856:2858 Corelib.Init.Datatypes <> nat ind
+binder 2843:2847 <> prior:24
+binder 2849:2852 <> post:25
+R2914:2916 Corelib.Init.Datatypes <> nat ind
+binder 2908:2910 <> seq:26
+scheme 2674:2697 <> signed_propagate_refusal_rect
+scheme 2674:2697 <> signed_propagate_refusal_ind
+scheme 2674:2697 <> signed_propagate_refusal_rec
+scheme 2674:2697 <> signed_propagate_refusal_sind
+ind 2980:3003 <> signed_propagate_verdict
+constr 3012:3026 <> spv_morphism_ok
+constr 3032:3063 <> spv_unsigned_propagation_refused
+constr 3069:3084 <> spv_inadmissible
+scheme 2980:3003 <> signed_propagate_verdict_rect
+scheme 2980:3003 <> signed_propagate_verdict_ind
+scheme 2980:3003 <> signed_propagate_verdict_rec
+scheme 2980:3003 <> signed_propagate_verdict_sind
+rec 3370:3398 <> signed_admissibility_conjunct
+proj 3413:3431 <> signed_conj_gate_ok
+proj 3443:3462 <> signed_conj_stamp_ok
+proj 3474:3500 <> signed_conj_witness_present
+proj 3512:3543 <> signed_conj_excitement_preserves
+R3435:3438 Corelib.Init.Datatypes <> bool ind
+R3466:3469 Corelib.Init.Datatypes <> bool ind
+R3504:3507 Corelib.Init.Datatypes <> bool ind
+R3547:3550 Corelib.Init.Datatypes <> bool ind
+def 3625:3637 <> wall_stamp_ok
+R3644:3670 UMSTFormal.Urge.SignedPropagate <> signed_propagate_wall_stamp rec
+binder 3640:3640 <> s:34
+R3675:3678 Corelib.Init.Datatypes <> bool ind
+R3685:3701 UMSTFormal.Urge.SignedPropagate <> signed_wall_has_t proj
+R3703:3703 UMSTFormal.Urge.SignedPropagate <> s:34 var
+def 3785:3799 <> witness_present
+R3807:3834 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+binder 3802:3803 <> st:35
+R3839:3842 Corelib.Init.Datatypes <> bool ind
+R3849:3855 Stdlib.Arith.PeanoNat Nat ltb def
+R3860:3878 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R3880:3881 UMSTFormal.Urge.SignedPropagate <> st:35 var
+def 3981:4002 <> signed_conjunct_admits
+R4009:4037 UMSTFormal.Urge.SignedPropagate <> signed_admissibility_conjunct rec
+binder 4005:4005 <> c:36
+R4042:4045 Corelib.Init.Datatypes <> bool ind
+R4136:4141 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4101:4106 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4073:4078 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4052:4070 UMSTFormal.Urge.SignedPropagate <> signed_conj_gate_ok proj
+R4072:4072 UMSTFormal.Urge.SignedPropagate <> c:36 var
+R4079:4098 UMSTFormal.Urge.SignedPropagate <> signed_conj_stamp_ok proj
+R4100:4100 UMSTFormal.Urge.SignedPropagate <> c:36 var
+R4107:4133 UMSTFormal.Urge.SignedPropagate <> signed_conj_witness_present proj
+R4135:4135 UMSTFormal.Urge.SignedPropagate <> c:36 var
+R4142:4173 UMSTFormal.Urge.SignedPropagate <> signed_conj_excitement_preserves proj
+R4175:4175 UMSTFormal.Urge.SignedPropagate <> c:36 var
+def 4263:4297 <> evaluate_signed_propagate_operation
+R4320:4323 Corelib.Init.Datatypes <> bool ind
+binder 4300:4316 <> is_unsigned_carry:37
+R4332:4355 UMSTFormal.Urge.SignedPropagate <> signed_propagate_verdict ind
+R4365:4381 UMSTFormal.Urge.SignedPropagate <> is_unsigned_carry:37 var
+R4426:4440 UMSTFormal.Urge.SignedPropagate <> spv_morphism_ok constr
+R4388:4419 UMSTFormal.Urge.SignedPropagate <> spv_unsigned_propagation_refused constr
+def 4538:4564 <> refuse_unsigned_propagation
+R4568:4591 UMSTFormal.Urge.SignedPropagate <> signed_propagate_refusal ind
+R4598:4629 UMSTFormal.Urge.SignedPropagate <> spr_unsigned_propagation_refused constr
+def 4729:4753 <> witness_from_signed_state
+R4761:4788 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+binder 4756:4757 <> st:38
+R4797:4820 UMSTFormal.Urge.SignedPropagate <> signed_propagate_witness rec
+R4830:4849 UMSTFormal.Urge.SignedPropagate <> signed_witness_stamp proj
+R4830:4849 UMSTFormal.Urge.SignedPropagate <> signed_witness_stamp proj
+R4830:4849 UMSTFormal.Urge.SignedPropagate <> signed_witness_stamp proj
+R4876:4900 UMSTFormal.Urge.SignedPropagate <> signed_witness_bit_budget proj
+R4876:4900 UMSTFormal.Urge.SignedPropagate <> signed_witness_bit_budget proj
+R4854:4865 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R4867:4868 UMSTFormal.Urge.SignedPropagate <> st:38 var
+R4905:4923 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R4925:4926 UMSTFormal.Urge.SignedPropagate <> st:38 var
+def 5008:5020 <> signed_add_ok
+R5037:5037 Corelib.Numbers.BinNums <> Z ind
+binder 5023:5027 <> prior:39
+binder 5029:5033 <> delta:40
+R5042:5045 Corelib.Init.Datatypes <> bool ind
+R5071:5073 Stdlib.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R5066:5070 UMSTFormal.Urge.SignedPropagate <> prior:39 var
+R5074:5078 UMSTFormal.Urge.SignedPropagate <> delta:40 var
+binder 5056:5061 <> result:41
+R5085:5085 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5105:5110 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5129:5129 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5092:5096 Stdlib.ZArith.BinInt <> ::Z_scope:x_'>=?'_x not
+R5086:5091 UMSTFormal.Urge.SignedPropagate <> result:41 var
+R5117:5121 Stdlib.ZArith.BinInt <> ::Z_scope:x_'<=?'_x not
+R5111:5116 UMSTFormal.Urge.SignedPropagate <> result:41 var
+def 5221:5242 <> propagate_signed_state
+R5257:5284 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+binder 5249:5253 <> prior:42
+R5299:5321 UMSTFormal.Urge.SignedPropagate <> signed_propagation_step rec
+binder 5292:5295 <> step:43
+R5340:5368 UMSTFormal.Urge.SignedPropagate <> signed_admissibility_conjunct rec
+binder 5329:5336 <> conjunct:44
+R5398:5401 Corelib.Init.Datatypes <> bool ind
+binder 5376:5394 <> excitement_selected:45
+R5438:5440 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5410:5437 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+R5441:5464 UMSTFormal.Urge.SignedPropagate <> signed_propagate_refusal ind
+R5474:5477 Corelib.Init.Datatypes <> negb def
+R5480:5492 UMSTFormal.Urge.SignedPropagate <> wall_stamp_ok def
+R5495:5506 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R5508:5512 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+R5604:5607 Corelib.Init.Datatypes <> negb def
+R5610:5624 UMSTFormal.Urge.SignedPropagate <> witness_present def
+R5626:5630 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+R5689:5692 Corelib.Init.Datatypes <> negb def
+R5695:5707 UMSTFormal.Urge.SignedPropagate <> wall_stamp_ok def
+R5710:5726 UMSTFormal.Urge.SignedPropagate <> signed_post_stamp proj
+R5728:5731 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R5826:5832 Stdlib.Arith.PeanoNat Nat ltb def
+R5835:5858 UMSTFormal.Urge.SignedPropagate <> signed_post_witness_bits proj
+R5860:5863 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R5867:5885 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R5887:5891 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+R6029:6032 Corelib.Init.Datatypes <> negb def
+R6035:6047 UMSTFormal.Urge.SignedPropagate <> signed_add_ok def
+R6050:6061 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R6063:6067 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+R6071:6082 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R6084:6087 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R6134:6137 Corelib.Init.Datatypes <> negb def
+R6140:6161 UMSTFormal.Urge.SignedPropagate <> signed_conjunct_admits def
+R6163:6170 UMSTFormal.Urge.SignedPropagate <> conjunct:44 var
+R6255:6258 Corelib.Init.Datatypes <> negb def
+R6260:6278 UMSTFormal.Urge.SignedPropagate <> excitement_selected:45 var
+R6337:6339 Corelib.Init.Datatypes <> inl constr
+R6350:6361 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R6350:6361 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R6350:6361 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R6415:6426 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R6415:6426 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R6464:6482 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R6464:6482 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R6384:6386 Stdlib.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R6366:6377 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R6379:6383 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+R6387:6398 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R6400:6403 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R6431:6447 UMSTFormal.Urge.SignedPropagate <> signed_post_stamp proj
+R6449:6452 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R6487:6510 UMSTFormal.Urge.SignedPropagate <> signed_post_witness_bits proj
+R6512:6515 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R6289:6291 Corelib.Init.Datatypes <> inr constr
+R6293:6324 UMSTFormal.Urge.SignedPropagate <> spr_unsigned_propagation_refused constr
+R6182:6184 Corelib.Init.Datatypes <> inr constr
+R6187:6203 UMSTFormal.Urge.SignedPropagate <> spr_gate_rejected constr
+R6206:6220 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R6223:6234 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R6236:6240 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+R6100:6102 Corelib.Init.Datatypes <> inr constr
+R6104:6122 UMSTFormal.Urge.SignedPropagate <> spr_signed_overflow constr
+R5903:5905 Corelib.Init.Datatypes <> inr constr
+R5908:5926 UMSTFormal.Urge.SignedPropagate <> spr_witness_dropped constr
+R5929:5947 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R5949:5953 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+R5987:6010 UMSTFormal.Urge.SignedPropagate <> signed_post_witness_bits proj
+R6012:6015 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R5744:5746 Corelib.Init.Datatypes <> inr constr
+R5749:5770 UMSTFormal.Urge.SignedPropagate <> spr_post_stamp_invalid constr
+R5773:5787 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R5790:5806 UMSTFormal.Urge.SignedPropagate <> signed_post_stamp proj
+R5808:5811 UMSTFormal.Urge.SignedPropagate <> step:43 var
+R5642:5644 Corelib.Init.Datatypes <> inr constr
+R5646:5677 UMSTFormal.Urge.SignedPropagate <> spr_unsigned_propagation_refused constr
+R5525:5527 Corelib.Init.Datatypes <> inr constr
+R5530:5552 UMSTFormal.Urge.SignedPropagate <> spr_prior_stamp_invalid constr
+R5555:5569 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R5572:5583 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R5585:5589 UMSTFormal.Urge.SignedPropagate <> prior:42 var
+def 6610:6640 <> apply_signed_propagate_morphism
+R6655:6682 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+binder 6647:6651 <> prior:46
+R6697:6719 UMSTFormal.Urge.SignedPropagate <> signed_propagation_step rec
+binder 6690:6693 <> step:47
+R6738:6766 UMSTFormal.Urge.SignedPropagate <> signed_admissibility_conjunct rec
+binder 6727:6734 <> conjunct:48
+R6796:6799 Corelib.Init.Datatypes <> bool ind
+binder 6774:6792 <> excitement_selected:49
+R6833:6835 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6808:6832 UMSTFormal.Urge.SignedPropagate <> signed_propagate_morphism rec
+R6836:6859 UMSTFormal.Urge.SignedPropagate <> signed_propagate_refusal ind
+R6872:6893 UMSTFormal.Urge.SignedPropagate <> propagate_signed_state def
+R6895:6899 UMSTFormal.Urge.SignedPropagate <> prior:46 var
+R6901:6904 UMSTFormal.Urge.SignedPropagate <> step:47 var
+R6906:6913 UMSTFormal.Urge.SignedPropagate <> conjunct:48 var
+R6915:6933 UMSTFormal.Urge.SignedPropagate <> excitement_selected:49 var
+R6944:6946 Corelib.Init.Datatypes <> inl constr
+R6962:6964 Corelib.Init.Datatypes <> inl constr
+R6977:6996 UMSTFormal.Urge.SignedPropagate <> signed_morphism_from proj
+R6977:6996 UMSTFormal.Urge.SignedPropagate <> signed_morphism_from proj
+R6977:6996 UMSTFormal.Urge.SignedPropagate <> signed_morphism_from proj
+R7019:7036 UMSTFormal.Urge.SignedPropagate <> signed_morphism_to proj
+R7019:7036 UMSTFormal.Urge.SignedPropagate <> signed_morphism_to proj
+R7058:7080 UMSTFormal.Urge.SignedPropagate <> signed_morphism_witness proj
+R7058:7080 UMSTFormal.Urge.SignedPropagate <> signed_morphism_witness proj
+R7129:7163 UMSTFormal.Urge.SignedPropagate <> signed_morphism_excitement_selected proj
+R7129:7163 UMSTFormal.Urge.SignedPropagate <> signed_morphism_excitement_selected proj
+R7001:7005 UMSTFormal.Urge.SignedPropagate <> prior:46 var
+R7085:7109 UMSTFormal.Urge.SignedPropagate <> witness_from_signed_state def
+R7111:7115 UMSTFormal.Urge.SignedPropagate <> prior:46 var
+R7168:7186 UMSTFormal.Urge.SignedPropagate <> excitement_selected:49 var
+R7195:7197 Corelib.Init.Datatypes <> inr constr
+R7204:7206 Corelib.Init.Datatypes <> inr constr
+prf 7224:7256 <> signed_propagate_unsigned_refused
+R7283:7286 Corelib.Init.Datatypes <> bool ind
+binder 7263:7279 <> is_unsigned_carry:50
+R7317:7322 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R7310:7312 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7293:7309 UMSTFormal.Urge.SignedPropagate <> is_unsigned_carry:50 var
+R7313:7316 Corelib.Init.Datatypes <> true constr
+R7376:7380 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7323:7357 UMSTFormal.Urge.SignedPropagate <> evaluate_signed_propagate_operation def
+R7359:7375 UMSTFormal.Urge.SignedPropagate <> is_unsigned_carry:50 var
+R7381:7412 UMSTFormal.Urge.SignedPropagate <> spv_unsigned_propagation_refused constr
+R7441:7475 UMSTFormal.Urge.SignedPropagate <> evaluate_signed_propagate_operation def
+prf 7514:7559 <> signed_propagate_morphism_ok_when_not_unsigned
+R7606:7608 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7565:7599 UMSTFormal.Urge.SignedPropagate <> evaluate_signed_propagate_operation def
+R7601:7605 Corelib.Init.Datatypes <> false constr
+R7609:7623 UMSTFormal.Urge.SignedPropagate <> spv_morphism_ok constr
+prf 7660:7695 <> refuse_unsigned_propagation_positive
+R7728:7730 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7701:7727 UMSTFormal.Urge.SignedPropagate <> refuse_unsigned_propagation def
+R7731:7762 UMSTFormal.Urge.SignedPropagate <> spr_unsigned_propagation_refused constr
+rec 8095:8114 <> signed_propagate_ctx
+proj 8156:8182 <> signed_propagate_successors
+R8123:8140 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8117:8119 <> src:51
+R8186:8189 Corelib.Init.Datatypes <> list ind
+R8192:8208 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8210:8212 UMSTFormal.Urge.SignedPropagate <> src:51 var
+def 8309:8331 <> signed_propagate_select
+R8340:8357 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8334:8336 <> src:54
+R8371:8390 UMSTFormal.Urge.SignedPropagate <> signed_propagate_ctx rec
+R8392:8394 UMSTFormal.Urge.SignedPropagate <> src:54 var
+binder 8365:8367 <> ctx:55
+R8422:8424 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8401:8417 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8419:8421 UMSTFormal.Urge.SignedPropagate <> src:54 var
+R8425:8442 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R8449:8468 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R8470:8472 UMSTFormal.Urge.SignedPropagate <> src:54 var
+R8475:8501 UMSTFormal.Urge.SignedPropagate <> signed_propagate_successors proj
+R8503:8505 UMSTFormal.Urge.SignedPropagate <> src:54 var
+R8507:8509 UMSTFormal.Urge.SignedPropagate <> ctx:55 var
+prf 8522:8565 <> signed_propagate_select_eq_excitement_select
+R8578:8595 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8572:8574 <> src:56
+R8605:8624 UMSTFormal.Urge.SignedPropagate <> signed_propagate_ctx rec
+R8626:8628 UMSTFormal.Urge.SignedPropagate <> src:56 var
+binder 8599:8601 <> ctx:57
+R8666:8670 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8635:8657 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select def
+R8659:8661 UMSTFormal.Urge.SignedPropagate <> src:56 var
+R8663:8665 UMSTFormal.Urge.SignedPropagate <> ctx:57 var
+R8671:8687 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8689:8691 UMSTFormal.Urge.SignedPropagate <> src:56 var
+R8694:8720 UMSTFormal.Urge.SignedPropagate <> signed_propagate_successors proj
+R8722:8724 UMSTFormal.Urge.SignedPropagate <> src:56 var
+R8726:8728 UMSTFormal.Urge.SignedPropagate <> ctx:57 var
+R8748:8770 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select def
+R8773:8792 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 8824:8870 <> signed_propagate_select_eq_urge_recovery_select
+R8883:8900 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8877:8879 <> src:58
+R8910:8929 UMSTFormal.Urge.SignedPropagate <> signed_propagate_ctx rec
+R8931:8933 UMSTFormal.Urge.SignedPropagate <> src:58 var
+binder 8904:8906 <> ctx:59
+R8971:8975 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8940:8962 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select def
+R8964:8966 UMSTFormal.Urge.SignedPropagate <> src:58 var
+R8968:8970 UMSTFormal.Urge.SignedPropagate <> ctx:59 var
+R8976:8995 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R8997:8999 UMSTFormal.Urge.SignedPropagate <> src:58 var
+R9002:9028 UMSTFormal.Urge.SignedPropagate <> signed_propagate_successors proj
+R9030:9032 UMSTFormal.Urge.SignedPropagate <> src:58 var
+R9034:9036 UMSTFormal.Urge.SignedPropagate <> ctx:59 var
+prf 9076:9107 <> signed_propagate_no_local_argmin
+R9120:9137 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9114:9116 <> src:60
+R9147:9166 UMSTFormal.Urge.SignedPropagate <> signed_propagate_ctx rec
+R9168:9170 UMSTFormal.Urge.SignedPropagate <> src:60 var
+binder 9141:9143 <> ctx:61
+R9208:9212 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9177:9199 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select def
+R9201:9203 UMSTFormal.Urge.SignedPropagate <> src:60 var
+R9205:9207 UMSTFormal.Urge.SignedPropagate <> ctx:61 var
+R9213:9229 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9231:9233 UMSTFormal.Urge.SignedPropagate <> src:60 var
+R9236:9262 UMSTFormal.Urge.SignedPropagate <> signed_propagate_successors proj
+R9264:9266 UMSTFormal.Urge.SignedPropagate <> src:60 var
+R9268:9270 UMSTFormal.Urge.SignedPropagate <> ctx:61 var
+R9290:9333 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select_eq_excitement_select thm
+R9290:9333 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select_eq_excitement_select thm
+prf 9357:9378 <> signed_propagate_empty
+R9387:9404 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9381:9383 <> src:62
+R9418:9437 UMSTFormal.Urge.SignedPropagate <> signed_propagate_ctx rec
+R9439:9441 UMSTFormal.Urge.SignedPropagate <> src:62 var
+binder 9412:9414 <> ctx:63
+R9491:9493 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9456:9482 UMSTFormal.Urge.SignedPropagate <> signed_propagate_successors proj
+R9484:9486 UMSTFormal.Urge.SignedPropagate <> src:62 var
+R9488:9490 UMSTFormal.Urge.SignedPropagate <> ctx:63 var
+R9494:9496 Corelib.Init.Datatypes <> nil constr
+binder 9449:9452 <> Hnil:64
+R9534:9536 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9503:9525 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select def
+R9527:9529 UMSTFormal.Urge.SignedPropagate <> src:62 var
+R9531:9533 UMSTFormal.Urge.SignedPropagate <> ctx:63 var
+R9537:9539 Corelib.Init.Datatypes <> inr constr
+R9541:9557 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R9576:9598 UMSTFormal.Urge.SignedPropagate <> signed_propagate_select def
+R9601:9620 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 9891:9910 <> signed_fixture_stamp
+R9914:9940 UMSTFormal.Urge.SignedPropagate <> signed_propagate_wall_stamp rec
+R9950:9964 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R9950:9964 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R9950:9964 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R9977:9993 UMSTFormal.Urge.SignedPropagate <> signed_wall_has_t proj
+R9977:9993 UMSTFormal.Urge.SignedPropagate <> signed_wall_has_t proj
+R9998:10001 Corelib.Init.Datatypes <> true constr
+def 10019:10043 <> signed_fixture_post_stamp
+R10047:10073 UMSTFormal.Urge.SignedPropagate <> signed_propagate_wall_stamp rec
+R10083:10097 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R10083:10097 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R10083:10097 UMSTFormal.Urge.SignedPropagate <> signed_wall_seq proj
+R10110:10126 UMSTFormal.Urge.SignedPropagate <> signed_wall_has_t proj
+R10110:10126 UMSTFormal.Urge.SignedPropagate <> signed_wall_has_t proj
+R10131:10134 Corelib.Init.Datatypes <> true constr
+def 10152:10171 <> signed_fixture_state
+R10175:10202 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+R10212:10223 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R10212:10223 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R10212:10223 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R10237:10248 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R10237:10248 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R10280:10298 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R10280:10298 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R10253:10272 UMSTFormal.Urge.SignedPropagate <> signed_fixture_stamp def
+def 10321:10339 <> signed_fixture_step
+R10343:10365 UMSTFormal.Urge.SignedPropagate <> signed_propagation_step rec
+R10375:10386 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R10375:10386 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R10375:10386 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R10399:10415 UMSTFormal.Urge.SignedPropagate <> signed_post_stamp proj
+R10399:10415 UMSTFormal.Urge.SignedPropagate <> signed_post_stamp proj
+R10452:10475 UMSTFormal.Urge.SignedPropagate <> signed_post_witness_bits proj
+R10452:10475 UMSTFormal.Urge.SignedPropagate <> signed_post_witness_bits proj
+R10420:10444 UMSTFormal.Urge.SignedPropagate <> signed_fixture_post_stamp def
+def 10498:10520 <> signed_fixture_conjunct
+R10524:10552 UMSTFormal.Urge.SignedPropagate <> signed_admissibility_conjunct rec
+R10562:10580 UMSTFormal.Urge.SignedPropagate <> signed_conj_gate_ok proj
+R10562:10580 UMSTFormal.Urge.SignedPropagate <> signed_conj_gate_ok proj
+R10562:10580 UMSTFormal.Urge.SignedPropagate <> signed_conj_gate_ok proj
+R10596:10615 UMSTFormal.Urge.SignedPropagate <> signed_conj_stamp_ok proj
+R10596:10615 UMSTFormal.Urge.SignedPropagate <> signed_conj_stamp_ok proj
+R10631:10657 UMSTFormal.Urge.SignedPropagate <> signed_conj_witness_present proj
+R10631:10657 UMSTFormal.Urge.SignedPropagate <> signed_conj_witness_present proj
+R10673:10704 UMSTFormal.Urge.SignedPropagate <> signed_conj_excitement_preserves proj
+R10673:10704 UMSTFormal.Urge.SignedPropagate <> signed_conj_excitement_preserves proj
+R10585:10588 Corelib.Init.Datatypes <> true constr
+R10620:10623 Corelib.Init.Datatypes <> true constr
+R10662:10665 Corelib.Init.Datatypes <> true constr
+R10709:10712 Corelib.Init.Datatypes <> true constr
+def 10730:10754 <> signed_fixture_post_state
+R10758:10785 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+R10795:10806 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R10795:10806 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R10795:10806 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R10820:10831 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R10820:10831 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R10868:10886 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R10868:10886 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R10836:10860 UMSTFormal.Urge.SignedPropagate <> signed_fixture_post_stamp def
+prf 10906:10936 <> signed_fixture_unsigned_refused
+R10969:10971 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10942:10968 UMSTFormal.Urge.SignedPropagate <> refuse_unsigned_propagation def
+R10972:11003 UMSTFormal.Urge.SignedPropagate <> spr_unsigned_propagation_refused constr
+prf 11042:11068 <> signed_fixture_propagate_ok
+R11170:11174 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11074:11095 UMSTFormal.Urge.SignedPropagate <> propagate_signed_state def
+R11101:11120 UMSTFormal.Urge.SignedPropagate <> signed_fixture_state def
+R11122:11140 UMSTFormal.Urge.SignedPropagate <> signed_fixture_step def
+R11142:11164 UMSTFormal.Urge.SignedPropagate <> signed_fixture_conjunct def
+R11166:11169 Corelib.Init.Datatypes <> true constr
+R11175:11177 Corelib.Init.Datatypes <> inl constr
+R11179:11203 UMSTFormal.Urge.SignedPropagate <> signed_fixture_post_state def
+prf 11242:11273 <> signed_fixture_apply_morphism_ok
+R11384:11388 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11279:11309 UMSTFormal.Urge.SignedPropagate <> apply_signed_propagate_morphism def
+R11315:11334 UMSTFormal.Urge.SignedPropagate <> signed_fixture_state def
+R11336:11354 UMSTFormal.Urge.SignedPropagate <> signed_fixture_step def
+R11356:11378 UMSTFormal.Urge.SignedPropagate <> signed_fixture_conjunct def
+R11380:11383 Corelib.Init.Datatypes <> true constr
+R11389:11391 Corelib.Init.Datatypes <> inl constr
+R11402:11421 UMSTFormal.Urge.SignedPropagate <> signed_morphism_from proj
+R11402:11421 UMSTFormal.Urge.SignedPropagate <> signed_morphism_from proj
+R11402:11421 UMSTFormal.Urge.SignedPropagate <> signed_morphism_from proj
+R11457:11474 UMSTFormal.Urge.SignedPropagate <> signed_morphism_to proj
+R11457:11474 UMSTFormal.Urge.SignedPropagate <> signed_morphism_to proj
+R11515:11537 UMSTFormal.Urge.SignedPropagate <> signed_morphism_witness proj
+R11515:11537 UMSTFormal.Urge.SignedPropagate <> signed_morphism_witness proj
+R11599:11633 UMSTFormal.Urge.SignedPropagate <> signed_morphism_excitement_selected proj
+R11599:11633 UMSTFormal.Urge.SignedPropagate <> signed_morphism_excitement_selected proj
+R11426:11445 UMSTFormal.Urge.SignedPropagate <> signed_fixture_state def
+R11479:11503 UMSTFormal.Urge.SignedPropagate <> signed_fixture_post_state def
+R11542:11566 UMSTFormal.Urge.SignedPropagate <> witness_from_signed_state def
+R11568:11587 UMSTFormal.Urge.SignedPropagate <> signed_fixture_state def
+R11638:11641 Corelib.Init.Datatypes <> true constr
+def 11686:11714 <> signed_fixture_unsigned_state
+R11718:11745 UMSTFormal.Urge.SignedPropagate <> signed_stamped_witness_state rec
+R11755:11766 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R11755:11766 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R11755:11766 UMSTFormal.Urge.SignedPropagate <> signed_value proj
+R11779:11790 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R11779:11790 UMSTFormal.Urge.SignedPropagate <> signed_stamp proj
+R11822:11840 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R11822:11840 UMSTFormal.Urge.SignedPropagate <> signed_witness_bits proj
+R11795:11814 UMSTFormal.Urge.SignedPropagate <> signed_fixture_stamp def
+prf 11860:11902 <> signed_fixture_unsigned_propagation_refused
+R12013:12017 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11908:11929 UMSTFormal.Urge.SignedPropagate <> propagate_signed_state def
+R11935:11963 UMSTFormal.Urge.SignedPropagate <> signed_fixture_unsigned_state def
+R11965:11983 UMSTFormal.Urge.SignedPropagate <> signed_fixture_step def
+R11985:12007 UMSTFormal.Urge.SignedPropagate <> signed_fixture_conjunct def
+R12009:12012 Corelib.Init.Datatypes <> true constr
+R12018:12020 Corelib.Init.Datatypes <> inr constr
+R12022:12053 UMSTFormal.Urge.SignedPropagate <> spr_unsigned_propagation_refused constr
+def 12095:12126 <> signed_fixture_witness_drop_step
+R12130:12152 UMSTFormal.Urge.SignedPropagate <> signed_propagation_step rec
+R12162:12173 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R12162:12173 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R12162:12173 UMSTFormal.Urge.SignedPropagate <> signed_delta proj
+R12186:12202 UMSTFormal.Urge.SignedPropagate <> signed_post_stamp proj
+R12186:12202 UMSTFormal.Urge.SignedPropagate <> signed_post_stamp proj
+R12239:12262 UMSTFormal.Urge.SignedPropagate <> signed_post_witness_bits proj
+R12239:12262 UMSTFormal.Urge.SignedPropagate <> signed_post_witness_bits proj
+R12207:12231 UMSTFormal.Urge.SignedPropagate <> signed_fixture_post_stamp def
+prf 12282:12316 <> signed_fixture_witness_drop_refused
+R12435:12439 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12322:12343 UMSTFormal.Urge.SignedPropagate <> propagate_signed_state def
+R12349:12368 UMSTFormal.Urge.SignedPropagate <> signed_fixture_state def
+R12370:12401 UMSTFormal.Urge.SignedPropagate <> signed_fixture_witness_drop_step def
+R12407:12429 UMSTFormal.Urge.SignedPropagate <> signed_fixture_conjunct def
+R12431:12434 Corelib.Init.Datatypes <> true constr
+R12440:12442 Corelib.Init.Datatypes <> inr constr
+R12445:12463 UMSTFormal.Urge.SignedPropagate <> spr_witness_dropped constr
+prf 12507:12544 <> signed_fixture_witness_preserves_stamp
+R12619:12623 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12550:12569 UMSTFormal.Urge.SignedPropagate <> signed_witness_stamp proj
+R12572:12596 UMSTFormal.Urge.SignedPropagate <> witness_from_signed_state def
+R12598:12617 UMSTFormal.Urge.SignedPropagate <> signed_fixture_state def
+R12624:12643 UMSTFormal.Urge.SignedPropagate <> signed_fixture_stamp def
+prf 12682:12709 <> signed_fixture_wall_stamp_ok
+R12749:12751 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12715:12727 UMSTFormal.Urge.SignedPropagate <> wall_stamp_ok def
+R12729:12748 UMSTFormal.Urge.SignedPropagate <> signed_fixture_stamp def
+R12752:12755 Corelib.Init.Datatypes <> true constr
+prf 12794:12823 <> signed_fixture_witness_present
+R12865:12867 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12829:12843 UMSTFormal.Urge.SignedPropagate <> witness_present def
+R12845:12864 UMSTFormal.Urge.SignedPropagate <> signed_fixture_state def
+R12868:12871 Corelib.Init.Datatypes <> true constr
+def 13134:13163 <> signed_propagate_physics_green
+R13167:13170 Corelib.Init.Datatypes <> bool ind
+R13175:13179 Corelib.Init.Datatypes <> false constr
+prf 13189:13224 <> signed_propagate_physics_green_false
+R13260:13262 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13230:13259 UMSTFormal.Urge.SignedPropagate <> signed_propagate_physics_green def
+R13263:13267 Corelib.Init.Datatypes <> false constr
+def 13307:13339 <> signed_propagate_production_wired
+R13343:13346 Corelib.Init.Datatypes <> bool ind
+R13351:13355 Corelib.Init.Datatypes <> false constr
+prf 13365:13403 <> signed_propagate_production_wired_false
+R13442:13444 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13409:13441 UMSTFormal.Urge.SignedPropagate <> signed_propagate_production_wired def
+R13445:13449 Corelib.Init.Datatypes <> false constr
+prf 13486:13516 <> signed_propagate_module_witness
+R13520:13523 Corelib.Init.Logic <> True ind
+R13539:13539 Corelib.Init.Logic <> I constr
+R13539:13539 Corelib.Init.Logic <> I constr
+prf 13556:13584 <> signed_propagate_no_new_axiom
+R13588:13591 Corelib.Init.Logic <> True ind
+R13607:13607 Corelib.Init.Logic <> I constr
+R13607:13607 Corelib.Init.Logic <> I constr
+prf 13624:13666 <> signed_propagate_positive_refuse_not_silent
+R13712:13715 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R13672:13706 UMSTFormal.Urge.SignedPropagate <> evaluate_signed_propagate_operation def
+R13708:13711 Corelib.Init.Datatypes <> true constr
+R13716:13730 UMSTFormal.Urge.SignedPropagate <> spv_morphism_ok constr
+R13749:13783 UMSTFormal.Urge.SignedPropagate <> evaluate_signed_propagate_operation def

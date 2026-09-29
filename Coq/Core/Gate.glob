@@ -1,0 +1,77 @@
+DIGEST e655874f7e55e249d42f8e284601b3d4
+FUMSTFormal.Core.Gate
+R375:380 Stdlib.QArith.QArith <> <> lib
+R410:415 Stdlib.QArith.Qfield <> <> lib
+def 534:543 <> delta_mass
+R547:547 Stdlib.QArith.QArith_base <> Q rec
+R555:557 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 642:656 <> core_admissible
+R693:693 Stdlib.QArith.QArith_base <> Q rec
+binder 659:665 <> rho_old:1
+binder 667:673 <> rho_new:2
+binder 675:681 <> psi_old:3
+binder 683:689 <> psi_new:4
+R708:708 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R740:746 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R726:729 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R716:718 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R709:715 UMSTFormal.Core.Gate <> rho_new:2 var
+R719:725 UMSTFormal.Core.Gate <> rho_old:1 var
+R730:739 UMSTFormal.Core.Gate <> delta_mass def
+R747:747 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R779:786 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R805:805 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R765:768 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R755:757 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R748:754 UMSTFormal.Core.Gate <> rho_old:1 var
+R758:764 UMSTFormal.Core.Gate <> rho_new:2 var
+R769:778 UMSTFormal.Core.Gate <> delta_mass def
+R794:797 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R787:793 UMSTFormal.Core.Gate <> psi_new:4 var
+R798:804 UMSTFormal.Core.Gate <> psi_old:3 var
+def 820:833 <> core_mass_cond
+R854:854 Stdlib.QArith.QArith_base <> Q rec
+binder 836:842 <> rho_old:5
+binder 844:850 <> rho_new:6
+R869:869 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R901:908 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R940:940 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R887:890 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R877:879 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R870:876 UMSTFormal.Core.Gate <> rho_new:6 var
+R880:886 UMSTFormal.Core.Gate <> rho_old:5 var
+R891:900 UMSTFormal.Core.Gate <> delta_mass def
+R926:929 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R916:918 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R909:915 UMSTFormal.Core.Gate <> rho_old:5 var
+R919:925 UMSTFormal.Core.Gate <> rho_new:6 var
+R930:939 UMSTFormal.Core.Gate <> delta_mass def
+def 955:970 <> core_dissip_cond
+R991:991 Stdlib.QArith.QArith_base <> Q rec
+binder 973:979 <> psi_old:7
+binder 981:987 <> psi_new:8
+R1013:1016 Stdlib.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R1006:1012 UMSTFormal.Core.Gate <> psi_new:8 var
+R1017:1023 UMSTFormal.Core.Gate <> psi_old:7 var
+prf 1033:1063 <> core_admissible_iff_mass_dissip
+R1110:1110 Stdlib.QArith.QArith_base <> Q rec
+binder 1076:1082 <> rho_old:9
+binder 1084:1090 <> rho_new:10
+binder 1092:1098 <> psi_old:11
+binder 1100:1106 <> psi_new:12
+R1162:1168 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R1115:1129 UMSTFormal.Core.Gate <> core_admissible def
+R1131:1137 UMSTFormal.Core.Gate <> rho_old:9 var
+R1139:1145 UMSTFormal.Core.Gate <> rho_new:10 var
+R1147:1153 UMSTFormal.Core.Gate <> psi_old:11 var
+R1155:1161 UMSTFormal.Core.Gate <> psi_new:12 var
+R1199:1202 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1169:1182 UMSTFormal.Core.Gate <> core_mass_cond def
+R1184:1190 UMSTFormal.Core.Gate <> rho_old:9 var
+R1192:1198 UMSTFormal.Core.Gate <> rho_new:10 var
+R1203:1218 UMSTFormal.Core.Gate <> core_dissip_cond def
+R1220:1226 UMSTFormal.Core.Gate <> psi_old:11 var
+R1228:1234 UMSTFormal.Core.Gate <> psi_new:12 var
+R1261:1275 UMSTFormal.Core.Gate <> core_admissible def
+R1278:1291 UMSTFormal.Core.Gate <> core_mass_cond def
+R1294:1309 UMSTFormal.Core.Gate <> core_dissip_cond def

@@ -1,0 +1,152 @@
+DIGEST 5bd32388ab7a011f74f2cff7cb348e30
+FUMSTFormal.Urge.ExcitementImport
+R902:906 Stdlib.Arith.Arith <> <> lib
+R908:911 Stdlib.Lists.List <> <> lib
+R929:943 UMSTFormal.Gate <> <> lib
+R961:988 UMSTFormal.Urge.AdmitKleisli <> <> lib
+rec 1298:1317 <> history_recovery_ctx
+proj 1359:1377 <> recovery_successors
+R1326:1343 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 1320:1322 <> src:1
+R1381:1384 Corelib.Init.Datatypes <> list ind
+R1387:1403 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R1405:1407 UMSTFormal.Urge.ExcitementImport <> src:1 var
+def 1729:1741 <> urge_recovery
+R1750:1767 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 1744:1746 <> src:4
+R1779:1798 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R1800:1802 UMSTFormal.Urge.ExcitementImport <> src:4 var
+binder 1773:1775 <> ctx:5
+R1830:1832 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R1809:1825 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R1827:1829 UMSTFormal.Urge.ExcitementImport <> src:4 var
+R1833:1850 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R1857:1873 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R1875:1877 UMSTFormal.Urge.ExcitementImport <> src:4 var
+R1880:1898 UMSTFormal.Urge.ExcitementImport <> recovery_successors proj
+R1900:1902 UMSTFormal.Urge.ExcitementImport <> src:4 var
+R1904:1906 UMSTFormal.Urge.ExcitementImport <> ctx:5 var
+def 2002:2021 <> urge_recovery_select
+R2030:2047 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 2024:2026 <> src:6
+R2066:2069 Corelib.Init.Datatypes <> list ind
+R2072:2088 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R2090:2092 UMSTFormal.Urge.ExcitementImport <> src:6 var
+binder 2053:2062 <> successors:7
+R2121:2123 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R2100:2116 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R2118:2120 UMSTFormal.Urge.ExcitementImport <> src:6 var
+R2124:2141 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R2148:2164 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R2166:2168 UMSTFormal.Urge.ExcitementImport <> src:6 var
+R2170:2179 UMSTFormal.Urge.ExcitementImport <> successors:7 var
+prf 2257:2290 <> urge_recovery_eq_excitement_select
+R2310:2327 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 2304:2306 <> src:8
+R2337:2356 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R2358:2360 UMSTFormal.Urge.ExcitementImport <> src:8 var
+binder 2331:2333 <> ctx:9
+R2387:2391 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2366:2378 UMSTFormal.Urge.ExcitementImport <> urge_recovery def
+R2380:2382 UMSTFormal.Urge.ExcitementImport <> src:8 var
+R2384:2386 UMSTFormal.Urge.ExcitementImport <> ctx:9 var
+R2392:2408 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R2410:2412 UMSTFormal.Urge.ExcitementImport <> src:8 var
+R2415:2433 UMSTFormal.Urge.ExcitementImport <> recovery_successors proj
+R2435:2437 UMSTFormal.Urge.ExcitementImport <> src:8 var
+R2439:2441 UMSTFormal.Urge.ExcitementImport <> ctx:9 var
+prf 2489:2529 <> urge_recovery_select_eq_excitement_select
+R2549:2566 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 2543:2545 <> src:10
+R2592:2595 Corelib.Init.Datatypes <> list ind
+R2598:2614 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R2616:2618 UMSTFormal.Urge.ExcitementImport <> src:10 var
+binder 2579:2588 <> successors:11
+R2660:2662 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2625:2644 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R2646:2648 UMSTFormal.Urge.ExcitementImport <> src:10 var
+R2650:2659 UMSTFormal.Urge.ExcitementImport <> successors:11 var
+R2663:2679 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R2681:2683 UMSTFormal.Urge.ExcitementImport <> src:10 var
+R2685:2694 UMSTFormal.Urge.ExcitementImport <> successors:11 var
+prf 2800:2836 <> urge_recovery_eq_urge_recovery_select
+R2856:2873 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 2850:2852 <> src:12
+R2883:2902 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R2904:2906 UMSTFormal.Urge.ExcitementImport <> src:12 var
+binder 2877:2879 <> ctx:13
+R2933:2937 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2912:2924 UMSTFormal.Urge.ExcitementImport <> urge_recovery def
+R2926:2928 UMSTFormal.Urge.ExcitementImport <> src:12 var
+R2930:2932 UMSTFormal.Urge.ExcitementImport <> ctx:13 var
+R2938:2957 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R2959:2961 UMSTFormal.Urge.ExcitementImport <> src:12 var
+R2964:2982 UMSTFormal.Urge.ExcitementImport <> recovery_successors proj
+R2984:2986 UMSTFormal.Urge.ExcitementImport <> src:12 var
+R2988:2990 UMSTFormal.Urge.ExcitementImport <> ctx:13 var
+prf 3341:3359 <> urge_recovery_empty
+R3368:3385 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 3362:3364 <> src:14
+R3420:3422 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3392:3411 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R3413:3415 UMSTFormal.Urge.ExcitementImport <> src:14 var
+R3417:3419 Corelib.Init.Datatypes <> nil constr
+R3423:3425 Corelib.Init.Datatypes <> inr constr
+R3427:3443 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+prf 3573:3596 <> urge_recovery_admissible
+R3605:3622 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 3599:3601 <> src:15
+R3641:3644 Corelib.Init.Datatypes <> list ind
+R3647:3663 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R3665:3667 UMSTFormal.Urge.ExcitementImport <> src:15 var
+binder 3628:3637 <> successors:16
+R3678:3694 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R3696:3698 UMSTFormal.Urge.ExcitementImport <> src:15 var
+binder 3674:3674 <> c:17
+R3743:3745 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3708:3727 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R3729:3731 UMSTFormal.Urge.ExcitementImport <> src:15 var
+R3733:3742 UMSTFormal.Urge.ExcitementImport <> successors:16 var
+R3746:3748 Corelib.Init.Datatypes <> inl constr
+R3750:3750 UMSTFormal.Urge.ExcitementImport <> c:17 var
+binder 3704:3704 <> H:18
+R3757:3766 UMSTFormal.Concrete.Gate <> admissible def
+R3768:3770 UMSTFormal.Urge.ExcitementImport <> src:15 var
+R3773:3780 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R3782:3784 UMSTFormal.Urge.ExcitementImport <> src:15 var
+R3786:3786 UMSTFormal.Urge.ExcitementImport <> c:17 var
+R3912:3926 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R3912:3926 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+def 4226:4254 <> urge_excitement_physics_green
+R4258:4261 Corelib.Init.Datatypes <> bool ind
+R4266:4270 Corelib.Init.Datatypes <> false constr
+prf 4280:4314 <> urge_excitement_physics_green_false
+R4349:4351 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4320:4348 UMSTFormal.Urge.ExcitementImport <> urge_excitement_physics_green def
+R4352:4356 Corelib.Init.Datatypes <> false constr
+def 4452:4485 <> excitement_import_production_wired
+R4489:4492 Corelib.Init.Datatypes <> bool ind
+R4497:4501 Corelib.Init.Datatypes <> false constr
+prf 4511:4550 <> excitement_import_production_wired_false
+R4590:4592 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4556:4589 UMSTFormal.Urge.ExcitementImport <> excitement_import_production_wired def
+R4593:4597 Corelib.Init.Datatypes <> false constr
+prf 4701:4732 <> excitement_import_module_witness
+R4736:4739 Corelib.Init.Logic <> True ind
+R4755:4755 Corelib.Init.Logic <> I constr
+R4755:4755 Corelib.Init.Logic <> I constr
+prf 4851:4879 <> urge_recovery_no_local_argmin
+R4899:4916 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 4893:4895 <> src:19
+R4926:4945 UMSTFormal.Urge.ExcitementImport <> history_recovery_ctx rec
+R4947:4949 UMSTFormal.Urge.ExcitementImport <> src:19 var
+binder 4920:4922 <> ctx:20
+R4976:4980 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4955:4967 UMSTFormal.Urge.ExcitementImport <> urge_recovery def
+R4969:4971 UMSTFormal.Urge.ExcitementImport <> src:19 var
+R4973:4975 UMSTFormal.Urge.ExcitementImport <> ctx:20 var
+R4981:4997 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R4999:5001 UMSTFormal.Urge.ExcitementImport <> src:19 var
+R5004:5022 UMSTFormal.Urge.ExcitementImport <> recovery_successors proj
+R5024:5026 UMSTFormal.Urge.ExcitementImport <> src:19 var
+R5028:5030 UMSTFormal.Urge.ExcitementImport <> ctx:20 var

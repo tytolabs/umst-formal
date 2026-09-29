@@ -1,0 +1,548 @@
+DIGEST fb9b63212d96b23cbcfd800a8d807142
+FUMSTFormal.Urge.KleisliFetch
+R911:915 Stdlib.Arith.Arith <> <> lib
+R917:920 Stdlib.Lists.List <> <> lib
+R922:925 Stdlib.Bool.Bool <> <> lib
+R927:932 Stdlib.Strings.String <> <> lib
+R934:939 Stdlib.QArith.QArith <> <> lib
+R957:971 UMSTFormal.Gate <> <> lib
+R989:1016 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1034:1063 UMSTFormal.Urge.GateBeforeSync <> <> lib
+ind 1439:1457 <> fetch_operator_verb
+constr 1466:1474 <> fov_fetch
+scheme 1439:1457 <> fetch_operator_verb_rect
+scheme 1439:1457 <> fetch_operator_verb_ind
+scheme 1439:1457 <> fetch_operator_verb_rec
+scheme 1439:1457 <> fetch_operator_verb_sind
+ind 1548:1565 <> fetch_remote_class
+constr 1574:1590 <> frc_entity_remote
+constr 1596:1615 <> frc_refused_upstream
+constr 1621:1636 <> frc_unclassified
+scheme 1548:1565 <> fetch_remote_class_rect
+scheme 1548:1565 <> fetch_remote_class_ind
+scheme 1548:1565 <> fetch_remote_class_rec
+scheme 1548:1565 <> fetch_remote_class_sind
+def 1707:1729 <> fetch_remote_admissible
+R1736:1753 UMSTFormal.Urge.KleisliFetch <> fetch_remote_class ind
+binder 1732:1732 <> c:5
+R1758:1761 Corelib.Init.Datatypes <> bool ind
+R1774:1774 UMSTFormal.Urge.KleisliFetch <> c:5 var
+R1785:1801 UMSTFormal.Urge.KleisliFetch <> frc_entity_remote constr
+R1806:1809 Corelib.Init.Datatypes <> true constr
+R1815:1834 UMSTFormal.Urge.KleisliFetch <> frc_refused_upstream constr
+R1838:1853 UMSTFormal.Urge.KleisliFetch <> frc_unclassified constr
+R1858:1862 Corelib.Init.Datatypes <> false constr
+R1858:1862 Corelib.Init.Datatypes <> false constr
+ind 1961:1978 <> fetch_inbound_gate
+constr 1987:1998 <> fig_admitted
+constr 2004:2014 <> fig_refused
+constr 2020:2039 <> fig_bypass_attempted
+scheme 1961:1978 <> fetch_inbound_gate_rect
+scheme 1961:1978 <> fetch_inbound_gate_ind
+scheme 1961:1978 <> fetch_inbound_gate_rec
+scheme 1961:1978 <> fetch_inbound_gate_sind
+def 2105:2121 <> fetch_gate_admits
+R2128:2145 UMSTFormal.Urge.KleisliFetch <> fetch_inbound_gate ind
+binder 2124:2124 <> g:9
+R2150:2153 Corelib.Init.Datatypes <> bool ind
+R2166:2166 UMSTFormal.Urge.KleisliFetch <> g:9 var
+R2177:2188 UMSTFormal.Urge.KleisliFetch <> fig_admitted constr
+R2193:2196 Corelib.Init.Datatypes <> true constr
+R2202:2212 UMSTFormal.Urge.KleisliFetch <> fig_refused constr
+R2216:2235 UMSTFormal.Urge.KleisliFetch <> fig_bypass_attempted constr
+R2240:2244 Corelib.Init.Datatypes <> false constr
+R2240:2244 Corelib.Init.Datatypes <> false constr
+def 2337:2357 <> classify_fetch_remote
+R2367:2372 Stdlib.Strings.String <> string ind
+binder 2360:2363 <> host:11
+R2377:2394 UMSTFormal.Urge.KleisliFetch <> fetch_remote_class ind
+R2404:2413 Stdlib.Strings.String <> eqb def
+R2415:2418 UMSTFormal.Urge.KleisliFetch <> host:11 var
+R2468:2477 Stdlib.Strings.String <> eqb def
+R2479:2482 UMSTFormal.Urge.KleisliFetch <> host:11 var
+R2533:2542 Stdlib.Strings.String <> eqb def
+R2544:2547 UMSTFormal.Urge.KleisliFetch <> host:11 var
+R2605:2614 Stdlib.Strings.String <> eqb def
+R2616:2619 UMSTFormal.Urge.KleisliFetch <> host:11 var
+R2653:2668 UMSTFormal.Urge.KleisliFetch <> frc_unclassified constr
+R2629:2644 UMSTFormal.Urge.KleisliFetch <> frc_unclassified constr
+R2574:2593 UMSTFormal.Urge.KleisliFetch <> frc_refused_upstream constr
+R2502:2521 UMSTFormal.Urge.KleisliFetch <> frc_refused_upstream constr
+R2440:2456 UMSTFormal.Urge.KleisliFetch <> frc_entity_remote constr
+rec 2735:2753 <> fetch_kleisli_arrow
+proj 2768:2777 <> fetch_verb
+proj 2804:2813 <> fetch_gate
+proj 2839:2850 <> fetch_remote
+proj 2876:2893 <> fetch_object_count
+R2781:2799 UMSTFormal.Urge.KleisliFetch <> fetch_operator_verb ind
+R2817:2834 UMSTFormal.Urge.KleisliFetch <> fetch_inbound_gate ind
+R2854:2871 UMSTFormal.Urge.KleisliFetch <> fetch_remote_class ind
+R2897:2899 Corelib.Init.Datatypes <> nat ind
+ind 2996:3008 <> fetch_verdict
+constr 3017:3027 <> fv_admitted
+constr 3033:3047 <> fv_gate_refused
+constr 3053:3075 <> fv_remote_class_refused
+constr 3081:3107 <> fv_production_wired_refused
+constr 3113:3134 <> fv_gate_bypass_refused
+scheme 2996:3008 <> fetch_verdict_rect
+scheme 2996:3008 <> fetch_verdict_ind
+scheme 2996:3008 <> fetch_verdict_rec
+scheme 2996:3008 <> fetch_verdict_sind
+ind 3219:3229 <> fetch_error
+constr 3238:3252 <> fe_gate_refused
+constr 3258:3280 <> fe_remote_class_refused
+constr 3311:3337 <> fe_production_wired_refused
+constr 3343:3364 <> fe_gate_bypass_refused
+R3287:3304 UMSTFormal.Urge.KleisliFetch <> fetch_remote_class ind
+binder 3283:3283 <> c:21
+scheme 3219:3229 <> fetch_error_rect
+scheme 3219:3229 <> fetch_error_ind
+scheme 3219:3229 <> fetch_error_rec
+scheme 3219:3229 <> fetch_error_sind
+def 3670:3691 <> evaluate_fetch_kleisli
+R3702:3720 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+binder 3694:3698 <> arrow:22
+R3742:3744 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R3729:3741 UMSTFormal.Urge.KleisliFetch <> fetch_verdict ind
+R3745:3755 UMSTFormal.Urge.KleisliFetch <> fetch_error ind
+R3765:3781 UMSTFormal.Urge.KleisliFetch <> fetch_gate_admits def
+R3784:3793 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R3795:3799 UMSTFormal.Urge.KleisliFetch <> arrow:22 var
+R3972:3981 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R3983:3987 UMSTFormal.Urge.KleisliFetch <> arrow:22 var
+R4003:4022 UMSTFormal.Urge.KleisliFetch <> fig_bypass_attempted constr
+R4027:4030 Corelib.Init.Datatypes <> true constr
+R4046:4050 Corelib.Init.Datatypes <> false constr
+R4116:4118 Corelib.Init.Datatypes <> inr constr
+R4120:4134 UMSTFormal.Urge.KleisliFetch <> fe_gate_refused constr
+R4074:4076 Corelib.Init.Datatypes <> inr constr
+R4078:4099 UMSTFormal.Urge.KleisliFetch <> fe_gate_bypass_refused constr
+R3814:3836 UMSTFormal.Urge.KleisliFetch <> fetch_remote_admissible def
+R3839:3850 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R3852:3856 UMSTFormal.Urge.KleisliFetch <> arrow:22 var
+R3901:3903 Corelib.Init.Datatypes <> inr constr
+R3906:3928 UMSTFormal.Urge.KleisliFetch <> fe_remote_class_refused constr
+R3931:3942 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R3944:3948 UMSTFormal.Urge.KleisliFetch <> arrow:22 var
+R3870:3872 Corelib.Init.Datatypes <> inl constr
+R3874:3884 UMSTFormal.Urge.KleisliFetch <> fv_admitted constr
+def 4218:4246 <> refuse_production_wired_fetch
+R4250:4260 UMSTFormal.Urge.KleisliFetch <> fetch_error ind
+R4267:4293 UMSTFormal.Urge.KleisliFetch <> fe_production_wired_refused constr
+def 4362:4385 <> refuse_gate_bypass_fetch
+R4389:4399 UMSTFormal.Urge.KleisliFetch <> fetch_error ind
+R4406:4427 UMSTFormal.Urge.KleisliFetch <> fe_gate_bypass_refused constr
+def 4514:4542 <> fetch_kleisli_arrow_from_host
+R4556:4573 UMSTFormal.Urge.KleisliFetch <> fetch_inbound_gate ind
+binder 4549:4552 <> gate:23
+R4591:4596 Stdlib.Strings.String <> string ind
+binder 4577:4587 <> remote_host:24
+R4619:4621 Corelib.Init.Datatypes <> nat ind
+binder 4604:4615 <> object_count:25
+R4626:4644 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+R4654:4663 UMSTFormal.Urge.KleisliFetch <> fetch_verb proj
+R4654:4663 UMSTFormal.Urge.KleisliFetch <> fetch_verb proj
+R4654:4663 UMSTFormal.Urge.KleisliFetch <> fetch_verb proj
+R4684:4693 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R4684:4693 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R4709:4720 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R4709:4720 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R4765:4782 UMSTFormal.Urge.KleisliFetch <> fetch_object_count proj
+R4765:4782 UMSTFormal.Urge.KleisliFetch <> fetch_object_count proj
+R4668:4676 UMSTFormal.Urge.KleisliFetch <> fov_fetch constr
+R4698:4701 UMSTFormal.Urge.KleisliFetch <> gate:23 var
+R4725:4745 UMSTFormal.Urge.KleisliFetch <> classify_fetch_remote def
+R4747:4757 UMSTFormal.Urge.KleisliFetch <> remote_host:24 var
+R4787:4798 UMSTFormal.Urge.KleisliFetch <> object_count:25 var
+def 4895:4918 <> fetch_kleisli_admissible
+R4929:4947 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+binder 4921:4925 <> arrow:26
+R4952:4955 Corelib.Init.Datatypes <> bool ind
+R4998:5003 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4962:4978 UMSTFormal.Urge.KleisliFetch <> fetch_gate_admits def
+R4981:4990 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R4992:4996 UMSTFormal.Urge.KleisliFetch <> arrow:26 var
+R5004:5026 UMSTFormal.Urge.KleisliFetch <> fetch_remote_admissible def
+R5029:5040 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R5042:5046 UMSTFormal.Urge.KleisliFetch <> arrow:26 var
+prf 5057:5085 <> fetch_kleisli_admissible_spec
+R5096:5114 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+binder 5088:5092 <> arrow:27
+R5158:5164 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R5151:5153 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5121:5144 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_admissible def
+R5146:5150 UMSTFormal.Urge.KleisliFetch <> arrow:27 var
+R5154:5157 Corelib.Init.Datatypes <> true constr
+R5193:5195 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5165:5186 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R5188:5192 UMSTFormal.Urge.KleisliFetch <> arrow:27 var
+R5196:5198 Corelib.Init.Datatypes <> inl constr
+R5200:5210 UMSTFormal.Urge.KleisliFetch <> fv_admitted constr
+R5229:5252 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_admissible def
+R5255:5276 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R5291:5307 UMSTFormal.Urge.KleisliFetch <> fetch_gate_admits def
+R5310:5319 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R5351:5373 UMSTFormal.Urge.KleisliFetch <> fetch_remote_admissible def
+R5376:5387 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R5291:5307 UMSTFormal.Urge.KleisliFetch <> fetch_gate_admits def
+R5310:5319 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R5351:5373 UMSTFormal.Urge.KleisliFetch <> fetch_remote_admissible def
+R5376:5387 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R5351:5373 UMSTFormal.Urge.KleisliFetch <> fetch_remote_admissible def
+R5376:5387 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R5485:5494 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R5485:5494 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R5545:5554 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R5545:5554 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+prf 5603:5629 <> evaluate_fetch_gate_refused
+R5640:5658 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+binder 5632:5636 <> arrow:28
+R5687:5689 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5671:5680 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R5682:5686 UMSTFormal.Urge.KleisliFetch <> arrow:28 var
+R5690:5700 UMSTFormal.Urge.KleisliFetch <> fig_refused constr
+binder 5666:5667 <> Hg:29
+R5735:5737 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5707:5728 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R5730:5734 UMSTFormal.Urge.KleisliFetch <> arrow:28 var
+R5738:5740 Corelib.Init.Datatypes <> inr constr
+R5742:5756 UMSTFormal.Urge.KleisliFetch <> fe_gate_refused constr
+R5775:5796 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+prf 5838:5866 <> evaluate_fetch_remote_refused
+R5877:5895 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+binder 5869:5873 <> arrow:30
+R5924:5926 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5908:5917 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R5919:5923 UMSTFormal.Urge.KleisliFetch <> arrow:30 var
+R5927:5938 UMSTFormal.Urge.KleisliFetch <> fig_admitted constr
+binder 5903:5904 <> Hg:31
+R5969:5971 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5951:5962 UMSTFormal.Urge.KleisliFetch <> fetch_remote proj
+R5964:5968 UMSTFormal.Urge.KleisliFetch <> arrow:30 var
+R5972:5991 UMSTFormal.Urge.KleisliFetch <> frc_refused_upstream constr
+binder 5946:5947 <> Hr:32
+R6026:6030 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5998:6019 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R6021:6025 UMSTFormal.Urge.KleisliFetch <> arrow:30 var
+R6031:6033 Corelib.Init.Datatypes <> inr constr
+R6036:6058 UMSTFormal.Urge.KleisliFetch <> fe_remote_class_refused constr
+R6060:6079 UMSTFormal.Urge.KleisliFetch <> frc_refused_upstream constr
+R6099:6120 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+prf 6166:6199 <> evaluate_fetch_gate_bypass_refused
+R6210:6228 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+binder 6202:6206 <> arrow:33
+R6257:6259 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6241:6250 UMSTFormal.Urge.KleisliFetch <> fetch_gate proj
+R6252:6256 UMSTFormal.Urge.KleisliFetch <> arrow:33 var
+R6260:6279 UMSTFormal.Urge.KleisliFetch <> fig_bypass_attempted constr
+binder 6236:6237 <> Hg:34
+R6314:6316 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6286:6307 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R6309:6313 UMSTFormal.Urge.KleisliFetch <> arrow:33 var
+R6317:6319 Corelib.Init.Datatypes <> inr constr
+R6321:6342 UMSTFormal.Urge.KleisliFetch <> fe_gate_bypass_refused constr
+R6361:6382 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+def 6732:6759 <> fetch_gate_check_before_sync
+R6779:6796 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6766:6770 <> prior:35
+binder 6772:6775 <> post:36
+R6801:6804 Corelib.Init.Datatypes <> bool ind
+R6811:6820 UMSTFormal.Concrete.Gate <> gate_check def
+R6822:6826 UMSTFormal.Urge.KleisliFetch <> prior:35 var
+R6828:6831 UMSTFormal.Urge.KleisliFetch <> post:36 var
+prf 6843:6876 <> fetch_gate_check_before_sync_sound
+R6896:6913 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6883:6887 <> prior:37
+binder 6889:6892 <> post:38
+R6965:6967 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6926:6953 UMSTFormal.Urge.KleisliFetch <> fetch_gate_check_before_sync def
+R6955:6959 UMSTFormal.Urge.KleisliFetch <> prior:37 var
+R6961:6964 UMSTFormal.Urge.KleisliFetch <> post:38 var
+R6968:6971 Corelib.Init.Datatypes <> true constr
+binder 6921:6922 <> Hg:39
+R6978:6987 UMSTFormal.Concrete.Gate <> admissible def
+R6989:6993 UMSTFormal.Urge.KleisliFetch <> prior:37 var
+R6995:6998 UMSTFormal.Urge.KleisliFetch <> post:38 var
+R7017:7044 UMSTFormal.Urge.KleisliFetch <> fetch_gate_check_before_sync def
+R7055:7070 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+R7055:7070 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+prf 7097:7132 <> fetch_gate_check_before_sync_eq_tick
+R7143:7157 UMSTFormal.Urge.GateBeforeSync <> HistorySyncTick rec
+binder 7139:7139 <> h:40
+R7291:7295 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7164:7191 UMSTFormal.Urge.KleisliFetch <> fetch_gate_check_before_sync def
+R7198:7209 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R7212:7224 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R7227:7236 UMSTFormal.Urge.GateBeforeSync <> transition proj
+R7238:7238 UMSTFormal.Urge.KleisliFetch <> h:40 var
+R7248:7259 UMSTFormal.Urge.AdmitKleisli <> history_head proj
+R7262:7273 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R7276:7285 UMSTFormal.Urge.GateBeforeSync <> transition proj
+R7287:7287 UMSTFormal.Urge.KleisliFetch <> h:40 var
+R7296:7314 UMSTFormal.Urge.GateBeforeSync <> gateCheckBeforeSync def
+R7316:7316 UMSTFormal.Urge.KleisliFetch <> h:40 var
+R7335:7362 UMSTFormal.Urge.KleisliFetch <> fetch_gate_check_before_sync def
+R7365:7383 UMSTFormal.Urge.GateBeforeSync <> gateCheckBeforeSync def
+def 7472:7499 <> fetch_inbound_gate_from_sync
+R7506:7520 UMSTFormal.Urge.GateBeforeSync <> HistorySyncTick rec
+binder 7502:7502 <> h:41
+R7525:7542 UMSTFormal.Urge.KleisliFetch <> fetch_inbound_gate ind
+R7552:7570 UMSTFormal.Urge.GateBeforeSync <> gateCheckBeforeSync def
+R7572:7572 UMSTFormal.Urge.KleisliFetch <> h:41 var
+R7597:7607 UMSTFormal.Urge.KleisliFetch <> fig_refused constr
+R7579:7590 UMSTFormal.Urge.KleisliFetch <> fig_admitted constr
+prf 7617:7653 <> fetch_inbound_gate_from_sync_admitted
+R7664:7678 UMSTFormal.Urge.GateBeforeSync <> HistorySyncTick rec
+binder 7660:7660 <> h:42
+R7708:7710 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7687:7705 UMSTFormal.Urge.GateBeforeSync <> gateCheckBeforeSync def
+R7707:7707 UMSTFormal.Urge.KleisliFetch <> h:42 var
+R7711:7714 Corelib.Init.Datatypes <> true constr
+binder 7682:7683 <> Hg:43
+R7751:7753 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7721:7748 UMSTFormal.Urge.KleisliFetch <> fetch_inbound_gate_from_sync def
+R7750:7750 UMSTFormal.Urge.KleisliFetch <> h:42 var
+R7754:7765 UMSTFormal.Urge.KleisliFetch <> fig_admitted constr
+R7784:7811 UMSTFormal.Urge.KleisliFetch <> fetch_inbound_gate_from_sync def
+rec 8135:8143 <> fetch_ctx
+proj 8185:8200 <> fetch_successors
+R8152:8169 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8146:8148 <> src:44
+R8204:8207 Corelib.Init.Datatypes <> list ind
+R8210:8226 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8228:8230 UMSTFormal.Urge.KleisliFetch <> src:44 var
+def 8308:8319 <> fetch_select
+R8328:8345 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8322:8324 <> src:47
+R8359:8367 UMSTFormal.Urge.KleisliFetch <> fetch_ctx rec
+R8369:8371 UMSTFormal.Urge.KleisliFetch <> src:47 var
+binder 8353:8355 <> ctx:48
+R8399:8401 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8378:8394 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8396:8398 UMSTFormal.Urge.KleisliFetch <> src:47 var
+R8402:8419 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R8426:8442 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8444:8446 UMSTFormal.Urge.KleisliFetch <> src:47 var
+R8449:8464 UMSTFormal.Urge.KleisliFetch <> fetch_successors proj
+R8466:8468 UMSTFormal.Urge.KleisliFetch <> src:47 var
+R8470:8472 UMSTFormal.Urge.KleisliFetch <> ctx:48 var
+prf 8485:8517 <> fetch_select_eq_excitement_select
+R8530:8547 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8524:8526 <> src:49
+R8557:8565 UMSTFormal.Urge.KleisliFetch <> fetch_ctx rec
+R8567:8569 UMSTFormal.Urge.KleisliFetch <> src:49 var
+binder 8551:8553 <> ctx:50
+R8596:8600 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8576:8587 UMSTFormal.Urge.KleisliFetch <> fetch_select def
+R8589:8591 UMSTFormal.Urge.KleisliFetch <> src:49 var
+R8593:8595 UMSTFormal.Urge.KleisliFetch <> ctx:50 var
+R8601:8617 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8619:8621 UMSTFormal.Urge.KleisliFetch <> src:49 var
+R8624:8639 UMSTFormal.Urge.KleisliFetch <> fetch_successors proj
+R8641:8643 UMSTFormal.Urge.KleisliFetch <> src:49 var
+R8645:8647 UMSTFormal.Urge.KleisliFetch <> ctx:50 var
+prf 8687:8722 <> fetch_select_eq_admit_history_select
+R8735:8752 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8729:8731 <> src:51
+R8762:8770 UMSTFormal.Urge.KleisliFetch <> fetch_ctx rec
+R8772:8774 UMSTFormal.Urge.KleisliFetch <> src:51 var
+binder 8756:8758 <> ctx:52
+R8801:8805 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8781:8792 UMSTFormal.Urge.KleisliFetch <> fetch_select def
+R8794:8796 UMSTFormal.Urge.KleisliFetch <> src:51 var
+R8798:8800 UMSTFormal.Urge.KleisliFetch <> ctx:52 var
+R8806:8823 UMSTFormal.Urge.AdmitKleisli <> admitHistorySelect def
+R8825:8827 UMSTFormal.Urge.KleisliFetch <> src:51 var
+R8830:8845 UMSTFormal.Urge.KleisliFetch <> fetch_successors proj
+R8847:8849 UMSTFormal.Urge.KleisliFetch <> src:51 var
+R8851:8853 UMSTFormal.Urge.KleisliFetch <> ctx:52 var
+R8873:8884 UMSTFormal.Urge.KleisliFetch <> fetch_select def
+R8887:8904 UMSTFormal.Urge.AdmitKleisli <> admitHistorySelect def
+prf 8936:8956 <> fetch_no_local_argmin
+R8969:8986 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8963:8965 <> src:53
+R8996:9004 UMSTFormal.Urge.KleisliFetch <> fetch_ctx rec
+R9006:9008 UMSTFormal.Urge.KleisliFetch <> src:53 var
+binder 8990:8992 <> ctx:54
+R9035:9039 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9015:9026 UMSTFormal.Urge.KleisliFetch <> fetch_select def
+R9028:9030 UMSTFormal.Urge.KleisliFetch <> src:53 var
+R9032:9034 UMSTFormal.Urge.KleisliFetch <> ctx:54 var
+R9040:9056 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9058:9060 UMSTFormal.Urge.KleisliFetch <> src:53 var
+R9063:9078 UMSTFormal.Urge.KleisliFetch <> fetch_successors proj
+R9080:9082 UMSTFormal.Urge.KleisliFetch <> src:53 var
+R9084:9086 UMSTFormal.Urge.KleisliFetch <> ctx:54 var
+R9106:9138 UMSTFormal.Urge.KleisliFetch <> fetch_select_eq_excitement_select thm
+R9106:9138 UMSTFormal.Urge.KleisliFetch <> fetch_select_eq_excitement_select thm
+prf 9162:9179 <> fetch_select_empty
+R9188:9205 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9182:9184 <> src:55
+R9219:9227 UMSTFormal.Urge.KleisliFetch <> fetch_ctx rec
+R9229:9231 UMSTFormal.Urge.KleisliFetch <> src:55 var
+binder 9213:9215 <> ctx:56
+R9270:9272 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9246:9261 UMSTFormal.Urge.KleisliFetch <> fetch_successors proj
+R9263:9265 UMSTFormal.Urge.KleisliFetch <> src:55 var
+R9267:9269 UMSTFormal.Urge.KleisliFetch <> ctx:56 var
+R9273:9275 Corelib.Init.Datatypes <> nil constr
+binder 9239:9242 <> Hnil:57
+R9302:9304 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9282:9293 UMSTFormal.Urge.KleisliFetch <> fetch_select def
+R9295:9297 UMSTFormal.Urge.KleisliFetch <> src:55 var
+R9299:9301 UMSTFormal.Urge.KleisliFetch <> ctx:56 var
+R9305:9307 Corelib.Init.Datatypes <> inr constr
+R9309:9325 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R9344:9355 UMSTFormal.Urge.KleisliFetch <> fetch_select def
+ind 9479:9498 <> fetch_excitement_pin
+constr 9507:9534 <> fep_import_select_excitement
+constr 9540:9564 <> fep_second_argmin_refused
+scheme 9479:9498 <> fetch_excitement_pin_rect
+scheme 9479:9498 <> fetch_excitement_pin_ind
+scheme 9479:9498 <> fetch_excitement_pin_rec
+scheme 9479:9498 <> fetch_excitement_pin_sind
+def 9579:9601 <> fetch_excitement_select
+R9610:9627 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9604:9606 <> src:60
+R9643:9646 Corelib.Init.Datatypes <> list ind
+R9649:9665 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9667:9669 UMSTFormal.Urge.KleisliFetch <> src:60 var
+binder 9635:9639 <> cands:61
+R9684:9703 UMSTFormal.Urge.KleisliFetch <> fetch_excitement_pin ind
+binder 9678:9680 <> pin:62
+R9731:9733 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9710:9726 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9728:9730 UMSTFormal.Urge.KleisliFetch <> src:60 var
+R9734:9751 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R9764:9766 UMSTFormal.Urge.KleisliFetch <> pin:62 var
+R9777:9804 UMSTFormal.Urge.KleisliFetch <> fep_import_select_excitement constr
+R9809:9825 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9827:9829 UMSTFormal.Urge.KleisliFetch <> src:60 var
+R9831:9835 UMSTFormal.Urge.KleisliFetch <> cands:61 var
+R9841:9865 UMSTFormal.Urge.KleisliFetch <> fep_second_argmin_refused constr
+R9870:9872 Corelib.Init.Datatypes <> inr constr
+R9874:9893 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 9911:9954 <> fetch_excitement_select_eq_excitement_select
+R9967:9984 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9961:9963 <> src:64
+R10000:10003 Corelib.Init.Datatypes <> list ind
+R10006:10022 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10024:10026 UMSTFormal.Urge.KleisliFetch <> src:64 var
+binder 9992:9996 <> cands:65
+R10096:10100 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10034:10056 UMSTFormal.Urge.KleisliFetch <> fetch_excitement_select def
+R10058:10060 UMSTFormal.Urge.KleisliFetch <> src:64 var
+R10062:10066 UMSTFormal.Urge.KleisliFetch <> cands:65 var
+R10068:10095 UMSTFormal.Urge.KleisliFetch <> fep_import_select_excitement constr
+R10101:10117 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10119:10121 UMSTFormal.Urge.KleisliFetch <> src:64 var
+R10123:10127 UMSTFormal.Urge.KleisliFetch <> cands:65 var
+prf 10166:10210 <> fetch_excitement_select_refuses_second_argmin
+R10223:10240 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10217:10219 <> src:66
+R10256:10259 Corelib.Init.Datatypes <> list ind
+R10262:10278 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10280:10282 UMSTFormal.Urge.KleisliFetch <> src:66 var
+binder 10248:10252 <> cands:67
+R10349:10353 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10290:10312 UMSTFormal.Urge.KleisliFetch <> fetch_excitement_select def
+R10314:10316 UMSTFormal.Urge.KleisliFetch <> src:66 var
+R10318:10322 UMSTFormal.Urge.KleisliFetch <> cands:67 var
+R10324:10348 UMSTFormal.Urge.KleisliFetch <> fep_second_argmin_refused constr
+R10354:10356 Corelib.Init.Datatypes <> inr constr
+R10358:10377 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+def 10641:10659 <> fetch_fixture_state
+R10663:10680 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R10690:10696 UMSTFormal.Concrete.Gate <> density proj
+R10690:10696 UMSTFormal.Concrete.Gate <> density proj
+R10690:10696 UMSTFormal.Concrete.Gate <> density proj
+R10716:10726 UMSTFormal.Concrete.Gate <> free_energy proj
+R10716:10726 UMSTFormal.Concrete.Gate <> free_energy proj
+R10739:10747 UMSTFormal.Concrete.Gate <> hydration proj
+R10739:10747 UMSTFormal.Concrete.Gate <> hydration proj
+R10760:10767 UMSTFormal.Concrete.Gate <> strength proj
+R10760:10767 UMSTFormal.Concrete.Gate <> strength proj
+R10705:10707 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 10790:10817 <> fetch_fixture_admitted_arrow
+R10821:10839 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+R10846:10874 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow_from_host def
+R10876:10887 UMSTFormal.Urge.KleisliFetch <> fig_admitted constr
+def 10919:10950 <> fetch_fixture_gate_refused_arrow
+R10954:10972 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+R10979:11007 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow_from_host def
+R11009:11019 UMSTFormal.Urge.KleisliFetch <> fig_refused constr
+def 11051:11084 <> fetch_fixture_remote_refused_arrow
+R11088:11106 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow rec
+R11113:11141 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_arrow_from_host def
+R11143:11154 UMSTFormal.Urge.KleisliFetch <> fig_admitted constr
+prf 11181:11205 <> fetch_fixture_admitted_ok
+R11262:11264 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11211:11232 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R11234:11261 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_admitted_arrow def
+R11265:11267 Corelib.Init.Datatypes <> inl constr
+R11269:11279 UMSTFormal.Urge.KleisliFetch <> fv_admitted constr
+prf 11318:11343 <> fetch_fixture_gate_refused
+R11404:11406 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11349:11370 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R11372:11403 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_gate_refused_arrow def
+R11407:11409 Corelib.Init.Datatypes <> inr constr
+R11411:11425 UMSTFormal.Urge.KleisliFetch <> fe_gate_refused constr
+prf 11464:11491 <> fetch_fixture_remote_refused
+R11554:11558 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11497:11518 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R11520:11553 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_remote_refused_arrow def
+R11559:11561 Corelib.Init.Datatypes <> inr constr
+R11564:11586 UMSTFormal.Urge.KleisliFetch <> fe_remote_class_refused constr
+R11588:11607 UMSTFormal.Urge.KleisliFetch <> frc_refused_upstream constr
+prf 11647:11681 <> fetch_fixture_classify_forge_entity
+R11723:11725 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11687:11707 UMSTFormal.Urge.KleisliFetch <> classify_fetch_remote def
+R11726:11742 UMSTFormal.Urge.KleisliFetch <> frc_entity_remote constr
+prf 11781:11817 <> fetch_fixture_classify_github_refused
+R11857:11859 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11823:11843 UMSTFormal.Urge.KleisliFetch <> classify_fetch_remote def
+R11860:11879 UMSTFormal.Urge.KleisliFetch <> frc_refused_upstream constr
+prf 11918:11954 <> fetch_fixture_production_wired_refuse
+R11989:11991 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11960:11988 UMSTFormal.Urge.KleisliFetch <> refuse_production_wired_fetch def
+R11992:12018 UMSTFormal.Urge.KleisliFetch <> fe_production_wired_refused constr
+prf 12057:12088 <> fetch_fixture_gate_bypass_refuse
+R12118:12120 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12094:12117 UMSTFormal.Urge.KleisliFetch <> refuse_gate_bypass_fetch def
+R12121:12142 UMSTFormal.Urge.KleisliFetch <> fe_gate_bypass_refused constr
+prf 12181:12212 <> fetch_fixture_kleisli_admissible
+R12271:12273 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12218:12241 UMSTFormal.Urge.KleisliFetch <> fetch_kleisli_admissible def
+R12243:12270 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_admitted_arrow def
+R12274:12277 Corelib.Init.Datatypes <> true constr
+def 12540:12566 <> kleisli_fetch_physics_green
+R12570:12573 Corelib.Init.Datatypes <> bool ind
+R12578:12582 Corelib.Init.Datatypes <> false constr
+prf 12592:12624 <> kleisli_fetch_physics_green_false
+R12657:12659 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12630:12656 UMSTFormal.Urge.KleisliFetch <> kleisli_fetch_physics_green def
+R12660:12664 Corelib.Init.Datatypes <> false constr
+def 12704:12733 <> kleisli_fetch_production_wired
+R12737:12740 Corelib.Init.Datatypes <> bool ind
+R12745:12749 Corelib.Init.Datatypes <> false constr
+prf 12759:12794 <> kleisli_fetch_production_wired_false
+R12830:12832 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12800:12829 UMSTFormal.Urge.KleisliFetch <> kleisli_fetch_production_wired def
+R12833:12837 Corelib.Init.Datatypes <> false constr
+prf 12874:12901 <> kleisli_fetch_module_witness
+R12905:12908 Corelib.Init.Logic <> True ind
+R12924:12924 Corelib.Init.Logic <> I constr
+R12924:12924 Corelib.Init.Logic <> I constr
+prf 12941:12966 <> kleisli_fetch_no_new_axiom
+R12970:12973 Corelib.Init.Logic <> True ind
+R12989:12989 Corelib.Init.Logic <> I constr
+R12989:12989 Corelib.Init.Logic <> I constr
+prf 13006:13045 <> kleisli_fetch_positive_refuse_not_silent
+R13106:13111 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R13051:13072 UMSTFormal.Urge.KleisliFetch <> evaluate_fetch_kleisli def
+R13074:13105 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_gate_refused_arrow def
+R13112:13114 Corelib.Init.Datatypes <> inl constr
+R13116:13126 UMSTFormal.Urge.KleisliFetch <> fv_admitted constr
+R13146:13171 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_gate_refused thm
+R13146:13171 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_gate_refused thm
+R13146:13171 UMSTFormal.Urge.KleisliFetch <> fetch_fixture_gate_refused thm

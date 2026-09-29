@@ -1,0 +1,442 @@
+DIGEST e0f36504a4c3c5280cacb6fef2724df2
+FUMSTFormal.Urge.BackupRecovery
+R907:911 Stdlib.Arith.Arith <> <> lib
+R913:916 Stdlib.Lists.List <> <> lib
+R918:921 Stdlib.Bool.Bool <> <> lib
+R923:928 Stdlib.QArith.QArith <> <> lib
+R946:960 UMSTFormal.Gate <> <> lib
+R978:1005 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1023:1054 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1407:1426 <> backup_replica_class
+constr 1435:1451 <> brc_forge_primary
+constr 1457:1474 <> brc_darwin_scratch
+constr 1480:1495 <> brc_offline_luks
+scheme 1407:1426 <> backup_replica_class_rect
+scheme 1407:1426 <> backup_replica_class_ind
+scheme 1407:1426 <> backup_replica_class_rec
+scheme 1407:1426 <> backup_replica_class_sind
+def 1582:1601 <> replica_egress_empty
+R1608:1627 UMSTFormal.Urge.BackupRecovery <> backup_replica_class ind
+binder 1604:1604 <> c:3
+R1632:1635 Corelib.Init.Datatypes <> bool ind
+R1648:1648 UMSTFormal.Urge.BackupRecovery <> c:3 var
+R1659:1674 UMSTFormal.Urge.BackupRecovery <> brc_offline_luks constr
+R1678:1695 UMSTFormal.Urge.BackupRecovery <> brc_darwin_scratch constr
+R1700:1703 Corelib.Init.Datatypes <> true constr
+R1700:1703 Corelib.Init.Datatypes <> true constr
+R1709:1725 UMSTFormal.Urge.BackupRecovery <> brc_forge_primary constr
+R1730:1734 Corelib.Init.Datatypes <> false constr
+rec 1805:1821 <> backup_ucrs_stamp
+proj 1836:1850 <> backup_ucrs_seq
+proj 1861:1882 <> backup_ucrs_wall_has_t
+R1854:1856 Corelib.Init.Datatypes <> nat ind
+R1886:1889 Corelib.Init.Datatypes <> bool ind
+rec 1990:2011 <> backup_merge_safe_cert
+proj 2026:2042 <> backup_merge_safe
+R2046:2049 Corelib.Init.Datatypes <> bool ind
+rec 2137:2160 <> backup_recovery_snapshot
+proj 2175:2192 <> backup_snapshot_id
+proj 2203:2222 <> backup_snapshot_head
+proj 2248:2267 <> backup_snapshot_ucrs
+proj 2292:2317 <> backup_snapshot_merge_safe
+proj 2347:2379 <> backup_snapshot_provenance_intact
+proj 2391:2413 <> backup_snapshot_replica
+R2196:2198 Corelib.Init.Datatypes <> nat ind
+R2226:2243 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R2271:2287 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_stamp rec
+R2321:2342 UMSTFormal.Urge.BackupRecovery <> backup_merge_safe_cert rec
+R2383:2386 Corelib.Init.Datatypes <> bool ind
+R2417:2436 UMSTFormal.Urge.BackupRecovery <> backup_replica_class ind
+rec 2515:2537 <> backup_recovery_witness
+proj 2552:2570 <> backup_witness_ucrs
+proj 2595:2619 <> backup_witness_merge_safe
+proj 2649:2680 <> backup_witness_provenance_intact
+R2574:2590 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_stamp rec
+R2623:2644 UMSTFormal.Urge.BackupRecovery <> backup_merge_safe_cert rec
+R2684:2687 Corelib.Init.Datatypes <> bool ind
+rec 2780:2803 <> backup_recovery_morphism
+proj 2818:2837 <> backup_morphism_from
+proj 2869:2894 <> backup_morphism_to_replica
+proj 2922:2944 <> backup_morphism_witness
+proj 2975:3009 <> backup_morphism_excitement_selected
+R2841:2864 UMSTFormal.Urge.BackupRecovery <> backup_recovery_snapshot rec
+R2898:2917 UMSTFormal.Urge.BackupRecovery <> backup_replica_class ind
+R2948:2970 UMSTFormal.Urge.BackupRecovery <> backup_recovery_witness rec
+R3013:3016 Corelib.Init.Datatypes <> bool ind
+ind 3106:3128 <> backup_recovery_refusal
+constr 3137:3161 <> brr_rsync_theater_refused
+constr 3187:3203 <> brr_gate_rejected
+constr 3221:3236 <> brr_merge_unsafe
+constr 3262:3280 <> brr_provenance_loss
+constr 3306:3331 <> brr_replica_class_mismatch
+R3178:3180 Corelib.Init.Datatypes <> nat ind
+binder 3164:3174 <> snapshot_id:28
+R3212:3214 Corelib.Init.Datatypes <> nat ind
+binder 3206:3208 <> seq:29
+R3253:3255 Corelib.Init.Datatypes <> nat ind
+binder 3239:3249 <> snapshot_id:30
+R3297:3299 Corelib.Init.Datatypes <> nat ind
+binder 3283:3293 <> snapshot_id:31
+scheme 3106:3128 <> backup_recovery_refusal_rect
+scheme 3106:3128 <> backup_recovery_refusal_ind
+scheme 3106:3128 <> backup_recovery_refusal_rec
+scheme 3106:3128 <> backup_recovery_refusal_sind
+ind 3391:3413 <> backup_recovery_verdict
+constr 3422:3436 <> brv_morphism_ok
+constr 3442:3466 <> brv_rsync_theater_refused
+constr 3472:3487 <> brv_inadmissible
+scheme 3391:3413 <> backup_recovery_verdict_rect
+scheme 3391:3413 <> backup_recovery_verdict_ind
+scheme 3391:3413 <> backup_recovery_verdict_rec
+scheme 3391:3413 <> backup_recovery_verdict_sind
+rec 3775:3803 <> backup_admissibility_conjunct
+proj 3818:3836 <> backup_conj_gate_ok
+proj 3848:3869 <> backup_conj_merge_safe
+proj 3881:3912 <> backup_conj_excitement_preserves
+R3840:3843 Corelib.Init.Datatypes <> bool ind
+R3873:3876 Corelib.Init.Datatypes <> bool ind
+R3916:3919 Corelib.Init.Datatypes <> bool ind
+def 4012:4033 <> backup_conjunct_admits
+R4040:4068 UMSTFormal.Urge.BackupRecovery <> backup_admissibility_conjunct rec
+binder 4036:4036 <> c:38
+R4073:4076 Corelib.Init.Datatypes <> bool ind
+R4134:4139 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4104:4109 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4083:4101 UMSTFormal.Urge.BackupRecovery <> backup_conj_gate_ok proj
+R4103:4103 UMSTFormal.Urge.BackupRecovery <> c:38 var
+R4110:4131 UMSTFormal.Urge.BackupRecovery <> backup_conj_merge_safe proj
+R4133:4133 UMSTFormal.Urge.BackupRecovery <> c:38 var
+R4140:4171 UMSTFormal.Urge.BackupRecovery <> backup_conj_excitement_preserves proj
+R4173:4173 UMSTFormal.Urge.BackupRecovery <> c:38 var
+def 4257:4290 <> evaluate_backup_recovery_operation
+R4312:4315 Corelib.Init.Datatypes <> bool ind
+binder 4293:4308 <> is_rsync_theater:39
+R4324:4346 UMSTFormal.Urge.BackupRecovery <> backup_recovery_verdict ind
+R4356:4371 UMSTFormal.Urge.BackupRecovery <> is_rsync_theater:39 var
+R4409:4423 UMSTFormal.Urge.BackupRecovery <> brv_morphism_ok constr
+R4378:4402 UMSTFormal.Urge.BackupRecovery <> brv_rsync_theater_refused constr
+def 4531:4550 <> refuse_rsync_theater
+R4567:4569 Corelib.Init.Datatypes <> nat ind
+binder 4553:4563 <> snapshot_id:40
+R4574:4596 UMSTFormal.Urge.BackupRecovery <> backup_recovery_refusal ind
+R4603:4627 UMSTFormal.Urge.BackupRecovery <> brr_rsync_theater_refused constr
+R4629:4639 UMSTFormal.Urge.BackupRecovery <> snapshot_id:40 var
+def 4741:4761 <> witness_from_snapshot
+R4768:4791 UMSTFormal.Urge.BackupRecovery <> backup_recovery_snapshot rec
+binder 4764:4764 <> s:41
+R4800:4822 UMSTFormal.Urge.BackupRecovery <> backup_recovery_witness rec
+R4832:4850 UMSTFormal.Urge.BackupRecovery <> backup_witness_ucrs proj
+R4832:4850 UMSTFormal.Urge.BackupRecovery <> backup_witness_ucrs proj
+R4832:4850 UMSTFormal.Urge.BackupRecovery <> backup_witness_ucrs proj
+R4884:4908 UMSTFormal.Urge.BackupRecovery <> backup_witness_merge_safe proj
+R4884:4908 UMSTFormal.Urge.BackupRecovery <> backup_witness_merge_safe proj
+R4948:4979 UMSTFormal.Urge.BackupRecovery <> backup_witness_provenance_intact proj
+R4948:4979 UMSTFormal.Urge.BackupRecovery <> backup_witness_provenance_intact proj
+R4855:4874 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_ucrs proj
+R4876:4876 UMSTFormal.Urge.BackupRecovery <> s:41 var
+R4913:4938 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_merge_safe proj
+R4940:4940 UMSTFormal.Urge.BackupRecovery <> s:41 var
+R4984:5016 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_provenance_intact proj
+R5018:5018 UMSTFormal.Urge.BackupRecovery <> s:41 var
+def 5129:5158 <> apply_backup_recovery_morphism
+R5176:5199 UMSTFormal.Urge.BackupRecovery <> backup_recovery_snapshot rec
+binder 5165:5172 <> snapshot:42
+R5220:5239 UMSTFormal.Urge.BackupRecovery <> backup_replica_class ind
+binder 5207:5216 <> to_replica:43
+R5258:5286 UMSTFormal.Urge.BackupRecovery <> backup_admissibility_conjunct rec
+binder 5247:5254 <> conjunct:44
+R5316:5319 Corelib.Init.Datatypes <> bool ind
+binder 5294:5312 <> excitement_selected:45
+R5352:5354 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5328:5351 UMSTFormal.Urge.BackupRecovery <> backup_recovery_morphism rec
+R5355:5377 UMSTFormal.Urge.BackupRecovery <> backup_recovery_refusal ind
+R5387:5390 Corelib.Init.Datatypes <> negb def
+R5393:5414 UMSTFormal.Urge.BackupRecovery <> backup_conjunct_admits def
+R5416:5423 UMSTFormal.Urge.BackupRecovery <> conjunct:44 var
+R5519:5522 Corelib.Init.Datatypes <> negb def
+R5525:5541 UMSTFormal.Urge.BackupRecovery <> backup_merge_safe proj
+R5544:5569 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_merge_safe proj
+R5571:5578 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+R5654:5657 Corelib.Init.Datatypes <> negb def
+R5660:5692 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_provenance_intact proj
+R5694:5701 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+R5779:5782 Corelib.Init.Datatypes <> negb def
+R5784:5802 UMSTFormal.Urge.BackupRecovery <> excitement_selected:45 var
+R5880:5882 Corelib.Init.Datatypes <> inl constr
+R5893:5912 UMSTFormal.Urge.BackupRecovery <> backup_morphism_from proj
+R5893:5912 UMSTFormal.Urge.BackupRecovery <> backup_morphism_from proj
+R5893:5912 UMSTFormal.Urge.BackupRecovery <> backup_morphism_from proj
+R5936:5961 UMSTFormal.Urge.BackupRecovery <> backup_morphism_to_replica proj
+R5936:5961 UMSTFormal.Urge.BackupRecovery <> backup_morphism_to_replica proj
+R5987:6009 UMSTFormal.Urge.BackupRecovery <> backup_morphism_witness proj
+R5987:6009 UMSTFormal.Urge.BackupRecovery <> backup_morphism_witness proj
+R6055:6089 UMSTFormal.Urge.BackupRecovery <> backup_morphism_excitement_selected proj
+R6055:6089 UMSTFormal.Urge.BackupRecovery <> backup_morphism_excitement_selected proj
+R5917:5924 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+R5966:5975 UMSTFormal.Urge.BackupRecovery <> to_replica:43 var
+R6014:6034 UMSTFormal.Urge.BackupRecovery <> witness_from_snapshot def
+R6036:6043 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+R6094:6112 UMSTFormal.Urge.BackupRecovery <> excitement_selected:45 var
+R5813:5815 Corelib.Init.Datatypes <> inr constr
+R5818:5836 UMSTFormal.Urge.BackupRecovery <> brr_provenance_loss constr
+R5839:5856 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_id proj
+R5858:5865 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+R5713:5715 Corelib.Init.Datatypes <> inr constr
+R5718:5736 UMSTFormal.Urge.BackupRecovery <> brr_provenance_loss constr
+R5739:5756 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_id proj
+R5758:5765 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+R5591:5593 Corelib.Init.Datatypes <> inr constr
+R5596:5611 UMSTFormal.Urge.BackupRecovery <> brr_merge_unsafe constr
+R5614:5631 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_id proj
+R5633:5640 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+R5435:5437 Corelib.Init.Datatypes <> inr constr
+R5440:5456 UMSTFormal.Urge.BackupRecovery <> brr_gate_rejected constr
+R5459:5473 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_seq proj
+R5476:5495 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_ucrs proj
+R5497:5504 UMSTFormal.Urge.BackupRecovery <> snapshot:42 var
+prf 6125:6161 <> backup_recovery_rsync_theater_refused
+R6182:6184 Corelib.Init.Datatypes <> nat ind
+binder 6168:6178 <> snapshot_id:46
+R6230:6232 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6191:6224 UMSTFormal.Urge.BackupRecovery <> evaluate_backup_recovery_operation def
+R6226:6229 Corelib.Init.Datatypes <> true constr
+R6233:6257 UMSTFormal.Urge.BackupRecovery <> brv_rsync_theater_refused constr
+prf 6294:6335 <> backup_recovery_morphism_ok_when_not_rsync
+R6381:6383 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6341:6374 UMSTFormal.Urge.BackupRecovery <> evaluate_backup_recovery_operation def
+R6376:6380 Corelib.Init.Datatypes <> false constr
+R6384:6398 UMSTFormal.Urge.BackupRecovery <> brv_morphism_ok constr
+prf 6435:6463 <> refuse_rsync_theater_positive
+R6480:6482 Corelib.Init.Datatypes <> nat ind
+binder 6466:6476 <> snapshot_id:47
+R6521:6523 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6489:6508 UMSTFormal.Urge.BackupRecovery <> refuse_rsync_theater def
+R6510:6520 UMSTFormal.Urge.BackupRecovery <> snapshot_id:47 var
+R6524:6548 UMSTFormal.Urge.BackupRecovery <> brr_rsync_theater_refused constr
+R6550:6560 UMSTFormal.Urge.BackupRecovery <> snapshot_id:47 var
+rec 6889:6907 <> backup_recovery_ctx
+proj 6949:6974 <> backup_recovery_successors
+R6916:6933 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 6910:6912 <> src:48
+R6978:6981 Corelib.Init.Datatypes <> list ind
+R6984:7000 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7002:7004 UMSTFormal.Urge.BackupRecovery <> src:48 var
+def 7098:7119 <> backup_recovery_select
+R7128:7145 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7122:7124 <> src:51
+R7159:7177 UMSTFormal.Urge.BackupRecovery <> backup_recovery_ctx rec
+R7179:7181 UMSTFormal.Urge.BackupRecovery <> src:51 var
+binder 7153:7155 <> ctx:52
+R7209:7211 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7188:7204 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7206:7208 UMSTFormal.Urge.BackupRecovery <> src:51 var
+R7212:7229 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R7236:7255 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R7257:7259 UMSTFormal.Urge.BackupRecovery <> src:51 var
+R7262:7287 UMSTFormal.Urge.BackupRecovery <> backup_recovery_successors proj
+R7289:7291 UMSTFormal.Urge.BackupRecovery <> src:51 var
+R7293:7295 UMSTFormal.Urge.BackupRecovery <> ctx:52 var
+prf 7308:7350 <> backup_recovery_select_eq_excitement_select
+R7363:7380 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7357:7359 <> src:53
+R7390:7408 UMSTFormal.Urge.BackupRecovery <> backup_recovery_ctx rec
+R7410:7412 UMSTFormal.Urge.BackupRecovery <> src:53 var
+binder 7384:7386 <> ctx:54
+R7449:7453 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7419:7440 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select def
+R7442:7444 UMSTFormal.Urge.BackupRecovery <> src:53 var
+R7446:7448 UMSTFormal.Urge.BackupRecovery <> ctx:54 var
+R7454:7470 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R7472:7474 UMSTFormal.Urge.BackupRecovery <> src:53 var
+R7477:7502 UMSTFormal.Urge.BackupRecovery <> backup_recovery_successors proj
+R7504:7506 UMSTFormal.Urge.BackupRecovery <> src:53 var
+R7508:7510 UMSTFormal.Urge.BackupRecovery <> ctx:54 var
+R7530:7551 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select def
+R7554:7573 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 7605:7650 <> backup_recovery_select_eq_urge_recovery_select
+R7663:7680 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7657:7659 <> src:55
+R7690:7708 UMSTFormal.Urge.BackupRecovery <> backup_recovery_ctx rec
+R7710:7712 UMSTFormal.Urge.BackupRecovery <> src:55 var
+binder 7684:7686 <> ctx:56
+R7749:7753 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7719:7740 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select def
+R7742:7744 UMSTFormal.Urge.BackupRecovery <> src:55 var
+R7746:7748 UMSTFormal.Urge.BackupRecovery <> ctx:56 var
+R7754:7773 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R7775:7777 UMSTFormal.Urge.BackupRecovery <> src:55 var
+R7780:7805 UMSTFormal.Urge.BackupRecovery <> backup_recovery_successors proj
+R7807:7809 UMSTFormal.Urge.BackupRecovery <> src:55 var
+R7811:7813 UMSTFormal.Urge.BackupRecovery <> ctx:56 var
+prf 7853:7883 <> backup_recovery_no_local_argmin
+R7896:7913 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7890:7892 <> src:57
+R7923:7941 UMSTFormal.Urge.BackupRecovery <> backup_recovery_ctx rec
+R7943:7945 UMSTFormal.Urge.BackupRecovery <> src:57 var
+binder 7917:7919 <> ctx:58
+R7982:7986 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7952:7973 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select def
+R7975:7977 UMSTFormal.Urge.BackupRecovery <> src:57 var
+R7979:7981 UMSTFormal.Urge.BackupRecovery <> ctx:58 var
+R7987:8003 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8005:8007 UMSTFormal.Urge.BackupRecovery <> src:57 var
+R8010:8035 UMSTFormal.Urge.BackupRecovery <> backup_recovery_successors proj
+R8037:8039 UMSTFormal.Urge.BackupRecovery <> src:57 var
+R8041:8043 UMSTFormal.Urge.BackupRecovery <> ctx:58 var
+R8063:8105 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select_eq_excitement_select thm
+R8063:8105 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select_eq_excitement_select thm
+prf 8129:8149 <> backup_recovery_empty
+R8158:8175 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8152:8154 <> src:59
+R8189:8207 UMSTFormal.Urge.BackupRecovery <> backup_recovery_ctx rec
+R8209:8211 UMSTFormal.Urge.BackupRecovery <> src:59 var
+binder 8183:8185 <> ctx:60
+R8260:8262 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8226:8251 UMSTFormal.Urge.BackupRecovery <> backup_recovery_successors proj
+R8253:8255 UMSTFormal.Urge.BackupRecovery <> src:59 var
+R8257:8259 UMSTFormal.Urge.BackupRecovery <> ctx:60 var
+R8263:8265 Corelib.Init.Datatypes <> nil constr
+binder 8219:8222 <> Hnil:61
+R8302:8304 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8272:8293 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select def
+R8295:8297 UMSTFormal.Urge.BackupRecovery <> src:59 var
+R8299:8301 UMSTFormal.Urge.BackupRecovery <> ctx:60 var
+R8305:8307 Corelib.Init.Datatypes <> inr constr
+R8309:8325 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R8344:8365 UMSTFormal.Urge.BackupRecovery <> backup_recovery_select def
+R8368:8387 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 8658:8677 <> backup_fixture_state
+R8681:8698 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R8708:8714 UMSTFormal.Concrete.Gate <> density proj
+R8708:8714 UMSTFormal.Concrete.Gate <> density proj
+R8708:8714 UMSTFormal.Concrete.Gate <> density proj
+R8734:8744 UMSTFormal.Concrete.Gate <> free_energy proj
+R8734:8744 UMSTFormal.Concrete.Gate <> free_energy proj
+R8757:8765 UMSTFormal.Concrete.Gate <> hydration proj
+R8757:8765 UMSTFormal.Concrete.Gate <> hydration proj
+R8778:8785 UMSTFormal.Concrete.Gate <> strength proj
+R8778:8785 UMSTFormal.Concrete.Gate <> strength proj
+R8723:8725 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 8808:8826 <> backup_fixture_ucrs
+R8830:8846 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_stamp rec
+R8856:8870 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_seq proj
+R8856:8870 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_seq proj
+R8856:8870 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_seq proj
+R8883:8904 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_wall_has_t proj
+R8883:8904 UMSTFormal.Urge.BackupRecovery <> backup_ucrs_wall_has_t proj
+R8909:8912 Corelib.Init.Datatypes <> true constr
+def 8930:8954 <> backup_fixture_merge_safe
+R8958:8979 UMSTFormal.Urge.BackupRecovery <> backup_merge_safe_cert rec
+R8989:9005 UMSTFormal.Urge.BackupRecovery <> backup_merge_safe proj
+R8989:9005 UMSTFormal.Urge.BackupRecovery <> backup_merge_safe proj
+R8989:9005 UMSTFormal.Urge.BackupRecovery <> backup_merge_safe proj
+R9010:9013 Corelib.Init.Datatypes <> true constr
+def 9031:9053 <> backup_fixture_snapshot
+R9057:9080 UMSTFormal.Urge.BackupRecovery <> backup_recovery_snapshot rec
+R9090:9107 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_id proj
+R9090:9107 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_id proj
+R9090:9107 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_id proj
+R9120:9139 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_head proj
+R9120:9139 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_head proj
+R9171:9190 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_ucrs proj
+R9171:9190 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_ucrs proj
+R9221:9246 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_merge_safe proj
+R9221:9246 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_merge_safe proj
+R9283:9315 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_provenance_intact proj
+R9283:9315 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_provenance_intact proj
+R9331:9353 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_replica proj
+R9331:9353 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_replica proj
+R9144:9163 UMSTFormal.Urge.BackupRecovery <> backup_fixture_state def
+R9195:9213 UMSTFormal.Urge.BackupRecovery <> backup_fixture_ucrs def
+R9251:9275 UMSTFormal.Urge.BackupRecovery <> backup_fixture_merge_safe def
+R9320:9323 Corelib.Init.Datatypes <> true constr
+R9358:9374 UMSTFormal.Urge.BackupRecovery <> brc_forge_primary constr
+def 9392:9414 <> backup_fixture_conjunct
+R9418:9446 UMSTFormal.Urge.BackupRecovery <> backup_admissibility_conjunct rec
+R9456:9474 UMSTFormal.Urge.BackupRecovery <> backup_conj_gate_ok proj
+R9456:9474 UMSTFormal.Urge.BackupRecovery <> backup_conj_gate_ok proj
+R9456:9474 UMSTFormal.Urge.BackupRecovery <> backup_conj_gate_ok proj
+R9490:9511 UMSTFormal.Urge.BackupRecovery <> backup_conj_merge_safe proj
+R9490:9511 UMSTFormal.Urge.BackupRecovery <> backup_conj_merge_safe proj
+R9527:9558 UMSTFormal.Urge.BackupRecovery <> backup_conj_excitement_preserves proj
+R9527:9558 UMSTFormal.Urge.BackupRecovery <> backup_conj_excitement_preserves proj
+R9479:9482 Corelib.Init.Datatypes <> true constr
+R9516:9519 Corelib.Init.Datatypes <> true constr
+R9563:9566 Corelib.Init.Datatypes <> true constr
+prf 9581:9616 <> backup_fixture_rsync_theater_refused
+R9687:9691 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9622:9641 UMSTFormal.Urge.BackupRecovery <> refuse_rsync_theater def
+R9644:9661 UMSTFormal.Urge.BackupRecovery <> backup_snapshot_id proj
+R9663:9685 UMSTFormal.Urge.BackupRecovery <> backup_fixture_snapshot def
+R9692:9716 UMSTFormal.Urge.BackupRecovery <> brr_rsync_theater_refused constr
+prf 9757:9788 <> backup_fixture_apply_morphism_ok
+R9898:9902 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9794:9823 UMSTFormal.Urge.BackupRecovery <> apply_backup_recovery_morphism def
+R9829:9851 UMSTFormal.Urge.BackupRecovery <> backup_fixture_snapshot def
+R9853:9868 UMSTFormal.Urge.BackupRecovery <> brc_offline_luks constr
+R9870:9892 UMSTFormal.Urge.BackupRecovery <> backup_fixture_conjunct def
+R9894:9897 Corelib.Init.Datatypes <> true constr
+R9903:9905 Corelib.Init.Datatypes <> inl constr
+R9916:9935 UMSTFormal.Urge.BackupRecovery <> backup_morphism_from proj
+R9916:9935 UMSTFormal.Urge.BackupRecovery <> backup_morphism_from proj
+R9916:9935 UMSTFormal.Urge.BackupRecovery <> backup_morphism_from proj
+R9974:9999 UMSTFormal.Urge.BackupRecovery <> backup_morphism_to_replica proj
+R9974:9999 UMSTFormal.Urge.BackupRecovery <> backup_morphism_to_replica proj
+R10031:10053 UMSTFormal.Urge.BackupRecovery <> backup_morphism_witness proj
+R10031:10053 UMSTFormal.Urge.BackupRecovery <> backup_morphism_witness proj
+R10114:10148 UMSTFormal.Urge.BackupRecovery <> backup_morphism_excitement_selected proj
+R10114:10148 UMSTFormal.Urge.BackupRecovery <> backup_morphism_excitement_selected proj
+R9940:9962 UMSTFormal.Urge.BackupRecovery <> backup_fixture_snapshot def
+R10004:10019 UMSTFormal.Urge.BackupRecovery <> brc_offline_luks constr
+R10058:10078 UMSTFormal.Urge.BackupRecovery <> witness_from_snapshot def
+R10080:10102 UMSTFormal.Urge.BackupRecovery <> backup_fixture_snapshot def
+R10153:10156 Corelib.Init.Datatypes <> true constr
+prf 10198:10229 <> backup_offline_luks_egress_empty
+R10272:10274 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10235:10254 UMSTFormal.Urge.BackupRecovery <> replica_egress_empty def
+R10256:10271 UMSTFormal.Urge.BackupRecovery <> brc_offline_luks constr
+R10275:10278 Corelib.Init.Datatypes <> true constr
+prf 10317:10350 <> backup_darwin_scratch_egress_empty
+R10395:10397 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10356:10375 UMSTFormal.Urge.BackupRecovery <> replica_egress_empty def
+R10377:10394 UMSTFormal.Urge.BackupRecovery <> brc_darwin_scratch constr
+R10398:10401 Corelib.Init.Datatypes <> true constr
+prf 10440:10475 <> backup_forge_primary_egress_nonempty
+R10519:10521 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10481:10500 UMSTFormal.Urge.BackupRecovery <> replica_egress_empty def
+R10502:10518 UMSTFormal.Urge.BackupRecovery <> brc_forge_primary constr
+R10522:10526 Corelib.Init.Datatypes <> false constr
+prf 10565:10601 <> backup_fixture_witness_preserves_ucrs
+R10674:10678 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10607:10625 UMSTFormal.Urge.BackupRecovery <> backup_witness_ucrs proj
+R10628:10648 UMSTFormal.Urge.BackupRecovery <> witness_from_snapshot def
+R10650:10672 UMSTFormal.Urge.BackupRecovery <> backup_fixture_snapshot def
+R10679:10697 UMSTFormal.Urge.BackupRecovery <> backup_fixture_ucrs def
+def 10960:10988 <> backup_recovery_physics_green
+R10992:10995 Corelib.Init.Datatypes <> bool ind
+R11000:11004 Corelib.Init.Datatypes <> false constr
+prf 11014:11048 <> backup_recovery_physics_green_false
+R11083:11085 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11054:11082 UMSTFormal.Urge.BackupRecovery <> backup_recovery_physics_green def
+R11086:11090 Corelib.Init.Datatypes <> false constr
+def 11130:11161 <> backup_recovery_production_wired
+R11165:11168 Corelib.Init.Datatypes <> bool ind
+R11173:11177 Corelib.Init.Datatypes <> false constr
+prf 11187:11224 <> backup_recovery_production_wired_false
+R11262:11264 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11230:11261 UMSTFormal.Urge.BackupRecovery <> backup_recovery_production_wired def
+R11265:11269 Corelib.Init.Datatypes <> false constr
+prf 11306:11335 <> backup_recovery_module_witness
+R11339:11342 Corelib.Init.Logic <> True ind
+R11358:11358 Corelib.Init.Logic <> I constr
+R11358:11358 Corelib.Init.Logic <> I constr
+prf 11375:11402 <> backup_recovery_no_new_axiom
+R11406:11409 Corelib.Init.Logic <> True ind
+R11425:11425 Corelib.Init.Logic <> I constr
+R11425:11425 Corelib.Init.Logic <> I constr
+prf 11442:11483 <> backup_recovery_positive_refuse_not_silent
+R11528:11531 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R11489:11522 UMSTFormal.Urge.BackupRecovery <> evaluate_backup_recovery_operation def
+R11524:11527 Corelib.Init.Datatypes <> true constr
+R11532:11546 UMSTFormal.Urge.BackupRecovery <> brv_morphism_ok constr
+R11565:11598 UMSTFormal.Urge.BackupRecovery <> evaluate_backup_recovery_operation def

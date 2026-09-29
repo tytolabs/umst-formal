@@ -1,0 +1,464 @@
+DIGEST 0c1b8b95c5b3618bfb5cfe6300bc60f0
+FUMSTFormal.Urge.CompactionComposite
+R1130:1134 Stdlib.Arith.Arith <> <> lib
+R1136:1139 Stdlib.Lists.List <> <> lib
+R1141:1144 Stdlib.Bool.Bool <> <> lib
+R1162:1176 UMSTFormal.Gate <> <> lib
+R1194:1221 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1239:1272 UMSTFormal.Urge.ProvenancePreserve <> <> lib
+rec 1628:1649 <> DerivationChainWitness
+proj 1664:1679 <> derivation_chain
+R1683:1686 Corelib.Init.Datatypes <> list ind
+R1688:1690 Corelib.Init.Datatypes <> nat ind
+def 1772:1784 <> retains_chain
+R1791:1812 UMSTFormal.Urge.CompactionComposite <> DerivationChainWitness rec
+binder 1787:1787 <> w:3
+R1817:1820 Corelib.Init.Datatypes <> bool ind
+R1833:1848 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R1850:1850 UMSTFormal.Urge.CompactionComposite <> w:3 var
+R1861:1863 Corelib.Init.Datatypes <> nil constr
+R1868:1872 Corelib.Init.Datatypes <> false constr
+R1879:1882 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1888:1891 Corelib.Init.Datatypes <> true constr
+prf 1907:1928 <> retains_chain_nonempty
+R1935:1956 UMSTFormal.Urge.CompactionComposite <> DerivationChainWitness rec
+binder 1931:1931 <> w:4
+R1985:1989 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R1978:1980 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1963:1975 UMSTFormal.Urge.CompactionComposite <> retains_chain def
+R1977:1977 UMSTFormal.Urge.CompactionComposite <> w:4 var
+R1981:1984 Corelib.Init.Datatypes <> true constr
+R2008:2011 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R1990:2005 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R2007:2007 UMSTFormal.Urge.CompactionComposite <> w:4 var
+R2012:2014 Corelib.Init.Datatypes <> nil constr
+R2033:2045 UMSTFormal.Urge.CompactionComposite <> retains_chain def
+R2085:2100 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R2085:2100 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R2198:2213 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R2198:2213 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+rec 2364:2379 <> MiPaymentWitness
+proj 2394:2409 <> mi_required_bits
+proj 2420:2431 <> mi_paid_bits
+R2413:2415 Corelib.Init.Datatypes <> nat ind
+R2435:2437 Corelib.Init.Datatypes <> nat ind
+def 2529:2535 <> mi_paid
+R2542:2557 UMSTFormal.Urge.CompactionComposite <> MiPaymentWitness rec
+binder 2538:2538 <> m:8
+R2562:2565 Corelib.Init.Datatypes <> bool ind
+R2572:2572 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2592:2599 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2637:2637 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2574:2577 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R2578:2589 UMSTFormal.Urge.CompactionComposite <> mi_paid_bits proj
+R2591:2591 UMSTFormal.Urge.CompactionComposite <> m:8 var
+R2618:2622 Stdlib.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R2600:2615 UMSTFormal.Urge.CompactionComposite <> mi_required_bits proj
+R2617:2617 UMSTFormal.Urge.CompactionComposite <> m:8 var
+R2623:2634 UMSTFormal.Urge.CompactionComposite <> mi_paid_bits proj
+R2636:2636 UMSTFormal.Urge.CompactionComposite <> m:8 var
+prf 2647:2658 <> mi_paid_spec
+R2665:2680 UMSTFormal.Urge.CompactionComposite <> MiPaymentWitness rec
+binder 2661:2661 <> m:9
+R2703:2709 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R2696:2698 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2687:2693 UMSTFormal.Urge.CompactionComposite <> mi_paid def
+R2695:2695 UMSTFormal.Urge.CompactionComposite <> m:9 var
+R2699:2702 Corelib.Init.Datatypes <> true constr
+R2734:2739 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R2712:2714 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R2715:2726 UMSTFormal.Urge.CompactionComposite <> mi_paid_bits proj
+R2728:2728 UMSTFormal.Urge.CompactionComposite <> m:9 var
+R2759:2762 Corelib.Init.Peano <> ::nat_scope:x_'<='_x not
+R2741:2756 UMSTFormal.Urge.CompactionComposite <> mi_required_bits proj
+R2758:2758 UMSTFormal.Urge.CompactionComposite <> m:9 var
+R2763:2774 UMSTFormal.Urge.CompactionComposite <> mi_paid_bits proj
+R2776:2776 UMSTFormal.Urge.CompactionComposite <> m:9 var
+R2800:2806 UMSTFormal.Urge.CompactionComposite <> mi_paid def
+R2842:2850 Corelib.Init.Datatypes <> andb_prop thm
+R2842:2850 Corelib.Init.Datatypes <> andb_prop thm
+R2892:2901 Stdlib.Arith.PeanoNat Nat ltb_lt thm
+R2892:2901 Stdlib.Arith.PeanoNat Nat ltb_lt thm
+R2932:2941 Stdlib.Arith.PeanoNat Nat leb_le thm
+R2932:2941 Stdlib.Arith.PeanoNat Nat leb_le thm
+R2990:3004 Corelib.Init.Datatypes <> andb_true_intro thm
+R2990:3004 Corelib.Init.Datatypes <> andb_true_intro thm
+R3026:3035 Stdlib.Arith.PeanoNat Nat ltb_lt thm
+R3026:3035 Stdlib.Arith.PeanoNat Nat ltb_lt thm
+R3060:3069 Stdlib.Arith.PeanoNat Nat leb_le thm
+R3060:3069 Stdlib.Arith.PeanoNat Nat leb_le thm
+rec 3179:3202 <> CompositeCompactionArrow
+proj 3217:3228 <> composite_id
+proj 3239:3255 <> composite_witness
+proj 3285:3307 <> composite_source_commit
+R3232:3234 Corelib.Init.Datatypes <> nat ind
+R3259:3280 UMSTFormal.Urge.CompactionComposite <> DerivationChainWitness rec
+R3311:3313 Corelib.Init.Datatypes <> nat ind
+ind 3555:3570 <> compaction_class
+constr 3579:3594 <> git_gc_substrate
+constr 3600:3622 <> semantic_squash_refused
+constr 3628:3653 <> composite_excitement_arrow
+scheme 3555:3570 <> compaction_class_rect
+scheme 3555:3570 <> compaction_class_ind
+scheme 3555:3570 <> compaction_class_rec
+scheme 3555:3570 <> compaction_class_sind
+ind 3667:3693 <> compaction_composite_refuse
+constr 3702:3722 <> refuse_git_gc_theater
+constr 3728:3752 <> refuse_delete_old_commits
+constr 3758:3797 <> refuse_semantic_squash_without_composite
+constr 3803:3818 <> refuse_mi_unpaid
+constr 3824:3843 <> refuse_second_argmin
+scheme 3667:3693 <> compaction_composite_refuse_rect
+scheme 3667:3693 <> compaction_composite_refuse_ind
+scheme 3667:3693 <> compaction_composite_refuse_rec
+scheme 3667:3693 <> compaction_composite_refuse_sind
+def 3926:3954 <> refuseDeleteOldCommitsTheater
+R3958:3984 UMSTFormal.Urge.CompactionComposite <> compaction_composite_refuse ind
+R3991:4015 UMSTFormal.Urge.CompactionComposite <> refuse_delete_old_commits constr
+def 4085:4098 <> refuseMiUnpaid
+R4102:4128 UMSTFormal.Urge.CompactionComposite <> compaction_composite_refuse ind
+R4135:4150 UMSTFormal.Urge.CompactionComposite <> refuse_mi_unpaid constr
+def 4249:4266 <> refuseSecondArgmin
+R4270:4296 UMSTFormal.Urge.CompactionComposite <> compaction_composite_refuse ind
+R4303:4322 UMSTFormal.Urge.CompactionComposite <> refuse_second_argmin constr
+def 4400:4417 <> refuseGitGcTheater
+R4421:4447 UMSTFormal.Urge.CompactionComposite <> compaction_composite_refuse ind
+R4454:4474 UMSTFormal.Urge.CompactionComposite <> refuse_git_gc_theater constr
+def 4567:4602 <> refuseSemanticSquashWithoutComposite
+R4606:4632 UMSTFormal.Urge.CompactionComposite <> compaction_composite_refuse ind
+R4639:4678 UMSTFormal.Urge.CompactionComposite <> refuse_semantic_squash_without_composite constr
+rec 4759:4775 <> CompactionAttempt
+proj 4790:4815 <> attempt_delete_old_commits
+proj 4827:4836 <> attempt_mi
+proj 4860:4874 <> attempt_witness
+proj 4911:4935 <> attempt_provenance_intact
+R4819:4822 Corelib.Init.Datatypes <> bool ind
+R4840:4855 UMSTFormal.Urge.CompactionComposite <> MiPaymentWitness rec
+R4878:4883 Corelib.Init.Datatypes <> option ind
+R4885:4906 UMSTFormal.Urge.CompactionComposite <> DerivationChainWitness rec
+R4939:4942 Corelib.Init.Datatypes <> bool ind
+def 5023:5048 <> composite_arrow_from_chain
+R5057:5059 Corelib.Init.Datatypes <> nat ind
+binder 5051:5053 <> cid:23
+R5071:5074 Corelib.Init.Datatypes <> list ind
+R5076:5078 Corelib.Init.Datatypes <> nat ind
+binder 5063:5067 <> chain:24
+R5102:5104 Corelib.Init.Datatypes <> nat ind
+binder 5086:5098 <> source_commit:25
+R5109:5114 Corelib.Init.Datatypes <> option ind
+R5116:5139 UMSTFormal.Urge.CompactionComposite <> CompositeCompactionArrow rec
+R5152:5156 UMSTFormal.Urge.CompactionComposite <> chain:24 var
+R5167:5169 Corelib.Init.Datatypes <> nil constr
+R5174:5177 Corelib.Init.Datatypes <> None constr
+R5188:5191 Corelib.Init.Datatypes <> Some constr
+R5196:5207 UMSTFormal.Urge.CompactionComposite <> composite_id proj
+R5196:5207 UMSTFormal.Urge.CompactionComposite <> composite_id proj
+R5196:5207 UMSTFormal.Urge.CompactionComposite <> composite_id proj
+R5234:5250 UMSTFormal.Urge.CompactionComposite <> composite_witness proj
+R5234:5250 UMSTFormal.Urge.CompactionComposite <> composite_witness proj
+R5305:5327 UMSTFormal.Urge.CompactionComposite <> composite_source_commit proj
+R5305:5327 UMSTFormal.Urge.CompactionComposite <> composite_source_commit proj
+R5212:5214 UMSTFormal.Urge.CompactionComposite <> cid:23 var
+R5258:5273 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R5258:5273 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R5258:5273 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R5278:5282 UMSTFormal.Urge.CompactionComposite <> chain:24 var
+R5332:5344 UMSTFormal.Urge.CompactionComposite <> source_commit:25 var
+def 5432:5450 <> classify_compaction
+R5480:5483 Corelib.Init.Datatypes <> bool ind
+binder 5453:5476 <> is_git_gc_substrate_only:27
+R5512:5515 Corelib.Init.Datatypes <> bool ind
+binder 5491:5508 <> is_semantic_squash:28
+R5529:5534 Corelib.Init.Datatypes <> option ind
+R5536:5557 UMSTFormal.Urge.CompactionComposite <> DerivationChainWitness rec
+binder 5519:5525 <> witness:29
+R5580:5582 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5564:5579 UMSTFormal.Urge.CompactionComposite <> compaction_class ind
+R5583:5609 UMSTFormal.Urge.CompactionComposite <> compaction_composite_refuse ind
+R5619:5636 UMSTFormal.Urge.CompactionComposite <> is_semantic_squash:28 var
+R5900:5923 UMSTFormal.Urge.CompactionComposite <> is_git_gc_substrate_only:27 var
+R5972:5978 UMSTFormal.Urge.CompactionComposite <> witness:29 var
+R5991:5994 Corelib.Init.Datatypes <> Some constr
+R6012:6024 UMSTFormal.Urge.CompactionComposite <> retains_chain def
+R6097:6099 Corelib.Init.Datatypes <> inr constr
+R6101:6121 UMSTFormal.Urge.CompactionComposite <> refuse_git_gc_theater constr
+R6043:6045 Corelib.Init.Datatypes <> inl constr
+R6047:6072 UMSTFormal.Urge.CompactionComposite <> composite_excitement_arrow constr
+R6129:6132 Corelib.Init.Datatypes <> None constr
+R6137:6139 Corelib.Init.Datatypes <> inr constr
+R6141:6161 UMSTFormal.Urge.CompactionComposite <> refuse_git_gc_theater constr
+R5934:5936 Corelib.Init.Datatypes <> inl constr
+R5938:5953 UMSTFormal.Urge.CompactionComposite <> git_gc_substrate constr
+R5653:5659 UMSTFormal.Urge.CompactionComposite <> witness:29 var
+R5672:5675 Corelib.Init.Datatypes <> Some constr
+R5693:5705 UMSTFormal.Urge.CompactionComposite <> retains_chain def
+R5778:5780 Corelib.Init.Datatypes <> inr constr
+R5782:5821 UMSTFormal.Urge.CompactionComposite <> refuse_semantic_squash_without_composite constr
+R5724:5726 Corelib.Init.Datatypes <> inl constr
+R5728:5753 UMSTFormal.Urge.CompactionComposite <> composite_excitement_arrow constr
+R5829:5832 Corelib.Init.Datatypes <> None constr
+R5837:5839 Corelib.Init.Datatypes <> inr constr
+R5841:5880 UMSTFormal.Urge.CompactionComposite <> refuse_semantic_squash_without_composite constr
+def 6272:6298 <> evaluate_compaction_attempt
+R6305:6321 UMSTFormal.Urge.CompactionComposite <> CompactionAttempt rec
+binder 6301:6301 <> a:32
+R6332:6334 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6328:6331 Corelib.Init.Datatypes <> bool ind
+R6335:6361 UMSTFormal.Urge.CompactionComposite <> compaction_composite_refuse ind
+R6371:6396 UMSTFormal.Urge.CompactionComposite <> attempt_delete_old_commits proj
+R6398:6398 UMSTFormal.Urge.CompactionComposite <> a:32 var
+R6449:6452 Corelib.Init.Datatypes <> negb def
+R6455:6461 UMSTFormal.Urge.CompactionComposite <> mi_paid def
+R6464:6473 UMSTFormal.Urge.CompactionComposite <> attempt_mi proj
+R6475:6475 UMSTFormal.Urge.CompactionComposite <> a:32 var
+R6526:6540 UMSTFormal.Urge.CompactionComposite <> attempt_witness proj
+R6542:6542 UMSTFormal.Urge.CompactionComposite <> a:32 var
+R6555:6558 Corelib.Init.Datatypes <> None constr
+R6563:6565 Corelib.Init.Datatypes <> inr constr
+R6567:6606 UMSTFormal.Urge.CompactionComposite <> refuse_semantic_squash_without_composite constr
+R6614:6617 Corelib.Init.Datatypes <> Some constr
+R6635:6647 UMSTFormal.Urge.CompactionComposite <> retains_chain def
+R6818:6820 Corelib.Init.Datatypes <> inr constr
+R6822:6861 UMSTFormal.Urge.CompactionComposite <> refuse_semantic_squash_without_composite constr
+R6669:6693 UMSTFormal.Urge.CompactionComposite <> attempt_provenance_intact proj
+R6695:6695 UMSTFormal.Urge.CompactionComposite <> a:32 var
+R6750:6752 Corelib.Init.Datatypes <> inr constr
+R6754:6793 UMSTFormal.Urge.CompactionComposite <> refuse_semantic_squash_without_composite constr
+R6714:6716 Corelib.Init.Datatypes <> inl constr
+R6718:6721 Corelib.Init.Datatypes <> true constr
+R6488:6490 Corelib.Init.Datatypes <> inr constr
+R6492:6507 UMSTFormal.Urge.CompactionComposite <> refuse_mi_unpaid constr
+R6409:6411 Corelib.Init.Datatypes <> inr constr
+R6413:6437 UMSTFormal.Urge.CompactionComposite <> refuse_delete_old_commits constr
+def 7190:7218 <> mi_payment_from_landauer_bits
+R7225:7227 Corelib.Init.Datatypes <> nat ind
+binder 7221:7221 <> n:33
+R7232:7247 UMSTFormal.Urge.CompactionComposite <> MiPaymentWitness rec
+R7257:7272 UMSTFormal.Urge.CompactionComposite <> mi_required_bits proj
+R7257:7272 UMSTFormal.Urge.CompactionComposite <> mi_required_bits proj
+R7257:7272 UMSTFormal.Urge.CompactionComposite <> mi_required_bits proj
+R7280:7291 UMSTFormal.Urge.CompactionComposite <> mi_paid_bits proj
+R7280:7291 UMSTFormal.Urge.CompactionComposite <> mi_paid_bits proj
+R7277:7277 UMSTFormal.Urge.CompactionComposite <> n:33 var
+R7296:7296 UMSTFormal.Urge.CompactionComposite <> n:33 var
+prf 7309:7344 <> landauer_bridge_mi_paid_when_nonzero
+R7351:7353 Corelib.Init.Datatypes <> nat ind
+binder 7347:7347 <> n:34
+R7363:7365 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R7366:7366 UMSTFormal.Urge.CompactionComposite <> n:34 var
+binder 7357:7357 <> H:35
+R7419:7421 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7378:7384 UMSTFormal.Urge.CompactionComposite <> mi_paid def
+R7387:7415 UMSTFormal.Urge.CompactionComposite <> mi_payment_from_landauer_bits def
+R7417:7417 UMSTFormal.Urge.CompactionComposite <> n:34 var
+R7422:7425 Corelib.Init.Datatypes <> true constr
+R7444:7472 UMSTFormal.Urge.CompactionComposite <> mi_payment_from_landauer_bits def
+R7475:7481 UMSTFormal.Urge.CompactionComposite <> mi_paid def
+R7543:7554 Stdlib.Arith.PeanoNat Nat leb_refl thm
+R7543:7554 Stdlib.Arith.PeanoNat Nat leb_refl thm
+R7543:7554 Stdlib.Arith.PeanoNat Nat leb_refl thm
+def 7680:7696 <> landauer_mi_cited
+R7703:7723 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 7699:7699 <> b:36
+R7728:7730 Corelib.Init.Datatypes <> nat ind
+def 7832:7854 <> composite_from_landauer
+R7861:7881 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 7857:7857 <> b:37
+R7897:7906 UMSTFormal.Urge.ProvenancePreserve <> Provenance rec
+binder 7889:7893 <> prior:38
+R7950:7968 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7923:7943 UMSTFormal.Urge.ProvenancePreserve <> provenance_dag_commit proj
+R7945:7949 UMSTFormal.Urge.CompactionComposite <> prior:38 var
+R7969:7985 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R7988:8000 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R8003:8021 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8023:8023 UMSTFormal.Urge.CompactionComposite <> b:37 var
+binder 7914:7919 <> hPrior:39
+R8039:8052 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8055:8073 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8075:8075 UMSTFormal.Urge.CompactionComposite <> b:37 var
+binder 8033:8035 <> hSL:40
+R8083:8106 UMSTFormal.Urge.CompactionComposite <> CompositeCompactionArrow rec
+R8116:8127 UMSTFormal.Urge.CompactionComposite <> composite_id proj
+R8116:8127 UMSTFormal.Urge.CompactionComposite <> composite_id proj
+R8116:8127 UMSTFormal.Urge.CompactionComposite <> composite_id proj
+R8195:8211 UMSTFormal.Urge.CompactionComposite <> composite_witness proj
+R8195:8211 UMSTFormal.Urge.CompactionComposite <> composite_witness proj
+R8345:8367 UMSTFormal.Urge.CompactionComposite <> composite_source_commit proj
+R8345:8367 UMSTFormal.Urge.CompactionComposite <> composite_source_commit proj
+R8132:8148 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R8151:8162 UMSTFormal.Urge.AdmitKleisli <> history_post proj
+R8165:8183 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8185:8185 UMSTFormal.Urge.CompactionComposite <> b:37 var
+R8226:8241 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R8226:8241 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R8226:8241 UMSTFormal.Urge.CompactionComposite <> derivation_chain proj
+R8285:8300 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8258:8278 UMSTFormal.Urge.ProvenancePreserve <> provenance_ucrs_chain proj
+R8280:8284 UMSTFormal.Urge.CompactionComposite <> prior:38 var
+R8328:8331 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8301:8321 UMSTFormal.Urge.ProvenancePreserve <> provenance_dag_commit proj
+R8323:8327 UMSTFormal.Urge.CompactionComposite <> prior:38 var
+R8332:8334 Corelib.Init.Datatypes <> nil constr
+R8372:8392 UMSTFormal.Urge.ProvenancePreserve <> provenance_dag_commit proj
+R8394:8398 UMSTFormal.Urge.CompactionComposite <> prior:38 var
+prf 8411:8447 <> composite_from_landauer_retains_chain
+R8454:8474 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 8450:8450 <> b:41
+R8490:8499 UMSTFormal.Urge.ProvenancePreserve <> Provenance rec
+binder 8482:8486 <> prior:42
+R8543:8561 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8516:8536 UMSTFormal.Urge.ProvenancePreserve <> provenance_dag_commit proj
+R8538:8542 UMSTFormal.Urge.CompactionComposite <> prior:42 var
+R8562:8578 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R8581:8593 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R8596:8614 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8616:8616 UMSTFormal.Urge.CompactionComposite <> b:41 var
+binder 8507:8512 <> hPrior:43
+R8632:8645 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R8648:8666 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R8668:8668 UMSTFormal.Urge.CompactionComposite <> b:41 var
+binder 8626:8628 <> hSL:44
+R8754:8756 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8676:8688 UMSTFormal.Urge.CompactionComposite <> retains_chain def
+R8691:8707 UMSTFormal.Urge.CompactionComposite <> composite_witness proj
+R8710:8732 UMSTFormal.Urge.CompactionComposite <> composite_from_landauer def
+R8734:8734 UMSTFormal.Urge.CompactionComposite <> b:41 var
+R8736:8740 UMSTFormal.Urge.CompactionComposite <> prior:42 var
+R8742:8747 UMSTFormal.Urge.CompactionComposite <> hPrior:43 var
+R8749:8751 UMSTFormal.Urge.CompactionComposite <> hSL:44 var
+R8757:8760 Corelib.Init.Datatypes <> true constr
+R8779:8791 UMSTFormal.Urge.CompactionComposite <> retains_chain def
+R8794:8816 UMSTFormal.Urge.CompactionComposite <> composite_from_landauer def
+R8840:8860 UMSTFormal.Urge.ProvenancePreserve <> provenance_ucrs_chain proj
+R8840:8860 UMSTFormal.Urge.ProvenancePreserve <> provenance_ucrs_chain proj
+prf 8897:8936 <> landauer_compaction_preserves_provenance
+R8943:8963 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 8939:8939 <> b:45
+R8979:8988 UMSTFormal.Urge.ProvenancePreserve <> Provenance rec
+binder 8971:8975 <> prior:46
+R9032:9050 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9005:9025 UMSTFormal.Urge.ProvenancePreserve <> provenance_dag_commit proj
+R9027:9031 UMSTFormal.Urge.CompactionComposite <> prior:46 var
+R9051:9067 UMSTFormal.Urge.AdmitKleisli <> history_commit_id proj
+R9070:9082 UMSTFormal.Urge.AdmitKleisli <> history_prior proj
+R9085:9103 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R9105:9105 UMSTFormal.Urge.CompactionComposite <> b:45 var
+binder 8996:9001 <> hPrior:47
+R9121:9134 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R9137:9155 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R9157:9157 UMSTFormal.Urge.CompactionComposite <> b:45 var
+binder 9115:9117 <> hSL:48
+R9165:9173 UMSTFormal.Urge.ProvenancePreserve <> preserves def
+R9176:9194 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R9196:9196 UMSTFormal.Urge.CompactionComposite <> b:45 var
+R9199:9203 UMSTFormal.Urge.CompactionComposite <> prior:46 var
+R9210:9235 UMSTFormal.Urge.ProvenancePreserve <> postProvenanceFromLandauer def
+R9237:9237 UMSTFormal.Urge.CompactionComposite <> b:45 var
+R9239:9243 UMSTFormal.Urge.CompactionComposite <> prior:46 var
+R9245:9250 UMSTFormal.Urge.CompactionComposite <> hPrior:47 var
+R9252:9254 UMSTFormal.Urge.CompactionComposite <> hSL:48 var
+R9273:9297 UMSTFormal.Urge.ProvenancePreserve <> landauer_bridge_preserves thm
+R9273:9297 UMSTFormal.Urge.ProvenancePreserve <> landauer_bridge_preserves thm
+def 9636:9657 <> urge_compaction_select
+R9666:9683 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9660:9662 <> src:49
+R9699:9702 Corelib.Init.Datatypes <> list ind
+R9705:9721 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9723:9725 UMSTFormal.Urge.CompactionComposite <> src:49 var
+binder 9691:9695 <> cands:50
+R9754:9756 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9733:9749 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9751:9753 UMSTFormal.Urge.CompactionComposite <> src:49 var
+R9757:9774 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R9781:9797 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9799:9801 UMSTFormal.Urge.CompactionComposite <> src:49 var
+R9803:9807 UMSTFormal.Urge.CompactionComposite <> cands:50 var
+prf 9819:9861 <> urge_compaction_select_eq_excitement_select
+R9874:9891 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9868:9870 <> src:51
+R9903:9906 Corelib.Init.Datatypes <> list ind
+R9909:9925 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9927:9929 UMSTFormal.Urge.CompactionComposite <> src:51 var
+binder 9895:9899 <> cands:52
+R9969:9971 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9937:9958 UMSTFormal.Urge.CompactionComposite <> urge_compaction_select def
+R9960:9962 UMSTFormal.Urge.CompactionComposite <> src:51 var
+R9964:9968 UMSTFormal.Urge.CompactionComposite <> cands:52 var
+R9972:9988 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9990:9992 UMSTFormal.Urge.CompactionComposite <> src:51 var
+R9994:9998 UMSTFormal.Urge.CompactionComposite <> cands:52 var
+prf 10037:10067 <> urge_compaction_no_local_argmin
+R10080:10097 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10074:10076 <> src:53
+R10109:10112 Corelib.Init.Datatypes <> list ind
+R10115:10131 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10133:10135 UMSTFormal.Urge.CompactionComposite <> src:53 var
+binder 10101:10105 <> cands:54
+R10175:10177 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10143:10164 UMSTFormal.Urge.CompactionComposite <> urge_compaction_select def
+R10166:10168 UMSTFormal.Urge.CompactionComposite <> src:53 var
+R10170:10174 UMSTFormal.Urge.CompactionComposite <> cands:54 var
+R10178:10195 UMSTFormal.Urge.AdmitKleisli <> admitHistorySelect def
+R10197:10199 UMSTFormal.Urge.CompactionComposite <> src:53 var
+R10201:10205 UMSTFormal.Urge.CompactionComposite <> cands:54 var
+R10224:10245 UMSTFormal.Urge.CompactionComposite <> urge_compaction_select def
+R10248:10265 UMSTFormal.Urge.AdmitKleisli <> admitHistorySelect def
+def 10381:10397 <> compactionCompose
+R10402:10415 UMSTFormal.Urge.AdmitKleisli <> kleisliCompose def
+prf 10427:10460 <> compaction_compose_assoc_inherited
+R10471:10480 UMSTFormal.Urge.AdmitKleisli <> AdmitArrow def
+binder 10463:10463 <> f:55
+binder 10465:10465 <> g:56
+binder 10467:10467 <> h:57
+R10492:10509 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10488:10488 <> s:58
+R10561:10565 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10516:10532 UMSTFormal.Urge.CompactionComposite <> compactionCompose def
+R10535:10551 UMSTFormal.Urge.CompactionComposite <> compactionCompose def
+R10553:10553 UMSTFormal.Urge.CompactionComposite <> f:55 var
+R10555:10555 UMSTFormal.Urge.CompactionComposite <> g:56 var
+R10558:10558 UMSTFormal.Urge.CompactionComposite <> h:57 var
+R10560:10560 UMSTFormal.Urge.CompactionComposite <> s:58 var
+R10566:10582 UMSTFormal.Urge.CompactionComposite <> compactionCompose def
+R10584:10584 UMSTFormal.Urge.CompactionComposite <> f:55 var
+R10587:10603 UMSTFormal.Urge.CompactionComposite <> compactionCompose def
+R10605:10605 UMSTFormal.Urge.CompactionComposite <> g:56 var
+R10607:10607 UMSTFormal.Urge.CompactionComposite <> h:57 var
+R10610:10610 UMSTFormal.Urge.CompactionComposite <> s:58 var
+R10629:10645 UMSTFormal.Urge.CompactionComposite <> compactionCompose def
+R10657:10677 UMSTFormal.Urge.AdmitKleisli <> kleisliComposeAssocAt thm
+R10657:10677 UMSTFormal.Urge.AdmitKleisli <> kleisliComposeAssocAt thm
+def 10927:10960 <> compaction_composite_physics_green
+R10964:10967 Corelib.Init.Datatypes <> bool ind
+R10972:10976 Corelib.Init.Datatypes <> false constr
+prf 10986:11025 <> compaction_composite_physics_green_false
+R11065:11067 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11031:11064 UMSTFormal.Urge.CompactionComposite <> compaction_composite_physics_green def
+R11068:11072 Corelib.Init.Datatypes <> false constr
+def 11112:11148 <> compaction_composite_production_wired
+R11152:11155 Corelib.Init.Datatypes <> bool ind
+R11160:11164 Corelib.Init.Datatypes <> false constr
+prf 11174:11216 <> compaction_composite_production_wired_false
+R11259:11261 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11222:11258 UMSTFormal.Urge.CompactionComposite <> compaction_composite_production_wired def
+R11262:11266 Corelib.Init.Datatypes <> false constr
+def 11306:11332 <> compaction_composite_marker
+R11336:11338 Corelib.Init.Datatypes <> nat ind
+prf 11355:11385 <> compaction_composite_marker_pos
+R11392:11394 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R11395:11421 UMSTFormal.Urge.CompactionComposite <> compaction_composite_marker def
+R11437:11449 Stdlib.Arith.PeanoNat Nat lt_0_succ thm
+R11437:11449 Stdlib.Arith.PeanoNat Nat lt_0_succ thm
+prf 11466:11500 <> compaction_composite_module_witness
+R11504:11507 Corelib.Init.Logic <> True ind
+R11523:11523 Corelib.Init.Logic <> I constr
+R11523:11523 Corelib.Init.Logic <> I constr
+prf 11540:11572 <> compaction_composite_no_new_axiom
+R11576:11579 Corelib.Init.Logic <> True ind
+R11595:11595 Corelib.Init.Logic <> I constr
+R11595:11595 Corelib.Init.Logic <> I constr
+prf 11612:11648 <> compaction_composite_no_second_argmin
+R11672:11674 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11654:11671 UMSTFormal.Urge.CompactionComposite <> refuseSecondArgmin def
+R11675:11694 UMSTFormal.Urge.CompactionComposite <> refuse_second_argmin constr

@@ -1,0 +1,585 @@
+DIGEST 5251e0160beafbc3a4f7c68a68cfd10b
+FUMSTFormal.Urge.OriginRefuse
+R908:912 Stdlib.Arith.Arith <> <> lib
+R914:917 Stdlib.Lists.List <> <> lib
+R919:922 Stdlib.Bool.Bool <> <> lib
+R924:929 Stdlib.Strings.String <> <> lib
+R931:936 Stdlib.QArith.QArith <> <> lib
+R954:968 UMSTFormal.Gate <> <> lib
+R986:1013 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1031:1062 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1418:1436 <> origin_entity_label
+constr 1445:1455 <> oel_compose
+constr 1461:1479 <> oel_labs_public_oss
+scheme 1418:1436 <> origin_entity_label_rect
+scheme 1418:1436 <> origin_entity_label_ind
+scheme 1418:1436 <> origin_entity_label_rec
+scheme 1418:1436 <> origin_entity_label_sind
+ind 1546:1562 <> origin_host_class
+constr 1571:1587 <> ohc_origin_cursor
+constr 1593:1602 <> ohc_github
+constr 1608:1628 <> ohc_forgejo_canonical
+constr 1634:1649 <> ohc_unclassified
+scheme 1546:1562 <> origin_host_class_rect
+scheme 1546:1562 <> origin_host_class_ind
+scheme 1546:1562 <> origin_host_class_rec
+scheme 1546:1562 <> origin_host_class_sind
+def 1730:1750 <> origin_host_is_cursor
+R1757:1773 UMSTFormal.Urge.OriginRefuse <> origin_host_class ind
+binder 1753:1753 <> c:5
+R1778:1781 Corelib.Init.Datatypes <> bool ind
+R1794:1794 UMSTFormal.Urge.OriginRefuse <> c:5 var
+R1805:1821 UMSTFormal.Urge.OriginRefuse <> ohc_origin_cursor constr
+R1826:1829 Corelib.Init.Datatypes <> true constr
+R1840:1844 Corelib.Init.Datatypes <> false constr
+def 1906:1926 <> origin_host_is_github
+R1933:1949 UMSTFormal.Urge.OriginRefuse <> origin_host_class ind
+binder 1929:1929 <> c:7
+R1954:1957 Corelib.Init.Datatypes <> bool ind
+R1970:1970 UMSTFormal.Urge.OriginRefuse <> c:7 var
+R1981:1990 UMSTFormal.Urge.OriginRefuse <> ohc_github constr
+R1995:1998 Corelib.Init.Datatypes <> true constr
+R2009:2013 Corelib.Init.Datatypes <> false constr
+def 2074:2095 <> origin_cursor_host_pin
+R2099:2104 Stdlib.Strings.String <> string ind
+def 2141:2162 <> github_origin_host_pin
+R2166:2171 Stdlib.Strings.String <> string ind
+def 2201:2226 <> forgejo_canonical_host_pin
+R2230:2235 Stdlib.Strings.String <> string ind
+def 2346:2365 <> classify_origin_host
+R2375:2380 Stdlib.Strings.String <> string ind
+binder 2368:2371 <> host:9
+R2385:2401 UMSTFormal.Urge.OriginRefuse <> origin_host_class ind
+R2411:2420 Stdlib.Strings.String <> eqb def
+R2422:2425 UMSTFormal.Urge.OriginRefuse <> host:9 var
+R2427:2448 UMSTFormal.Urge.OriginRefuse <> origin_cursor_host_pin def
+R2483:2492 Stdlib.Strings.String <> eqb def
+R2494:2497 UMSTFormal.Urge.OriginRefuse <> host:9 var
+R2499:2520 UMSTFormal.Urge.OriginRefuse <> github_origin_host_pin def
+R2548:2557 Stdlib.Strings.String <> eqb def
+R2559:2562 UMSTFormal.Urge.OriginRefuse <> host:9 var
+R2564:2589 UMSTFormal.Urge.OriginRefuse <> forgejo_canonical_host_pin def
+R2628:2637 Stdlib.Strings.String <> eqb def
+R2639:2642 UMSTFormal.Urge.OriginRefuse <> host:9 var
+R2676:2691 UMSTFormal.Urge.OriginRefuse <> ohc_unclassified constr
+R2652:2667 UMSTFormal.Urge.OriginRefuse <> ohc_unclassified constr
+R2596:2616 UMSTFormal.Urge.OriginRefuse <> ohc_forgejo_canonical constr
+R2527:2536 UMSTFormal.Urge.OriginRefuse <> ohc_github constr
+R2455:2471 UMSTFormal.Urge.OriginRefuse <> ohc_origin_cursor constr
+rec 2766:2789 <> origin_remote_descriptor
+proj 2804:2823 <> origin_remote_entity
+proj 2850:2867 <> origin_remote_host
+R2827:2845 UMSTFormal.Urge.OriginRefuse <> origin_entity_label ind
+R2871:2876 Stdlib.Strings.String <> string ind
+rec 2955:2971 <> origin_ucrs_stamp
+proj 2986:3000 <> origin_ucrs_seq
+proj 3011:3032 <> origin_ucrs_wall_has_t
+R3004:3006 Corelib.Init.Datatypes <> nat ind
+R3036:3039 Corelib.Init.Datatypes <> bool ind
+rec 3115:3135 <> origin_policy_witness
+proj 3150:3168 <> origin_witness_ucrs
+proj 3193:3224 <> origin_witness_forgejo_canonical
+R3172:3188 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_stamp rec
+R3228:3231 Corelib.Init.Datatypes <> bool ind
+rec 3325:3346 <> origin_refuse_morphism
+proj 3361:3382 <> origin_morphism_remote
+proj 3414:3436 <> origin_morphism_witness
+proj 3465:3499 <> origin_morphism_excitement_selected
+R3386:3409 UMSTFormal.Urge.OriginRefuse <> origin_remote_descriptor rec
+R3440:3460 UMSTFormal.Urge.OriginRefuse <> origin_policy_witness rec
+R3503:3506 Corelib.Init.Datatypes <> bool ind
+ind 3793:3813 <> origin_policy_verdict
+constr 3822:3833 <> opv_admitted
+constr 3839:3849 <> opv_refused
+scheme 3793:3813 <> origin_policy_verdict_rect
+scheme 3793:3813 <> origin_policy_verdict_ind
+scheme 3793:3813 <> origin_policy_verdict_rec
+scheme 3793:3813 <> origin_policy_verdict_sind
+ind 3927:3940 <> origin_refusal
+constr 3949:3980 <> or_origin_cursor_compose_refused
+constr 3986:4020 <> or_github_as_origin_compose_refused
+constr 4026:4054 <> or_origin_cursor_labs_refused
+constr 4060:4079 <> or_unclassified_host
+constr 4085:4112 <> or_dual_push_compose_refused
+constr 4118:4133 <> or_gate_rejected
+R4142:4144 Corelib.Init.Datatypes <> nat ind
+binder 4136:4138 <> seq:27
+scheme 3927:3940 <> origin_refusal_rect
+scheme 3927:3940 <> origin_refusal_ind
+scheme 3927:3940 <> origin_refusal_rec
+scheme 3927:3940 <> origin_refusal_sind
+def 4238:4261 <> compose_upstream_refused
+R4271:4276 Stdlib.Strings.String <> string ind
+binder 4264:4267 <> host:28
+R4281:4284 Corelib.Init.Datatypes <> bool ind
+R4329:4334 Corelib.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R4291:4300 Stdlib.Strings.String <> eqb def
+R4302:4305 UMSTFormal.Urge.OriginRefuse <> host:28 var
+R4307:4328 UMSTFormal.Urge.OriginRefuse <> github_origin_host_pin def
+R4335:4344 Stdlib.Strings.String <> eqb def
+R4346:4349 UMSTFormal.Urge.OriginRefuse <> host:28 var
+R4351:4372 UMSTFormal.Urge.OriginRefuse <> origin_cursor_host_pin def
+rec 4440:4468 <> origin_admissibility_conjunct
+proj 4483:4501 <> origin_conj_gate_ok
+proj 4513:4541 <> origin_conj_forgejo_canonical
+proj 4553:4584 <> origin_conj_excitement_preserves
+R4505:4508 Corelib.Init.Datatypes <> bool ind
+R4545:4548 Corelib.Init.Datatypes <> bool ind
+R4588:4591 Corelib.Init.Datatypes <> bool ind
+def 4692:4713 <> origin_conjunct_admits
+R4720:4748 UMSTFormal.Urge.OriginRefuse <> origin_admissibility_conjunct rec
+binder 4716:4716 <> c:33
+R4753:4756 Corelib.Init.Datatypes <> bool ind
+R4821:4826 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4784:4789 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4763:4781 UMSTFormal.Urge.OriginRefuse <> origin_conj_gate_ok proj
+R4783:4783 UMSTFormal.Urge.OriginRefuse <> c:33 var
+R4790:4818 UMSTFormal.Urge.OriginRefuse <> origin_conj_forgejo_canonical proj
+R4820:4820 UMSTFormal.Urge.OriginRefuse <> c:33 var
+R4827:4858 UMSTFormal.Urge.OriginRefuse <> origin_conj_excitement_preserves proj
+R4860:4860 UMSTFormal.Urge.OriginRefuse <> c:33 var
+def 4943:4964 <> evaluate_origin_policy
+R4980:4998 UMSTFormal.Urge.OriginRefuse <> origin_entity_label ind
+binder 4971:4976 <> entity:34
+R5009:5025 UMSTFormal.Urge.OriginRefuse <> origin_host_class ind
+binder 5002:5005 <> host:35
+R5055:5057 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5034:5054 UMSTFormal.Urge.OriginRefuse <> origin_policy_verdict ind
+R5058:5071 UMSTFormal.Urge.OriginRefuse <> origin_refusal ind
+R5092:5095 UMSTFormal.Urge.OriginRefuse <> host:35 var
+R5084:5089 UMSTFormal.Urge.OriginRefuse <> entity:34 var
+R5106:5116 UMSTFormal.Urge.OriginRefuse <> oel_compose constr
+R5119:5135 UMSTFormal.Urge.OriginRefuse <> ohc_origin_cursor constr
+R5144:5146 Corelib.Init.Datatypes <> inr constr
+R5148:5179 UMSTFormal.Urge.OriginRefuse <> or_origin_cursor_compose_refused constr
+R5185:5195 UMSTFormal.Urge.OriginRefuse <> oel_compose constr
+R5198:5207 UMSTFormal.Urge.OriginRefuse <> ohc_github constr
+R5216:5218 Corelib.Init.Datatypes <> inr constr
+R5220:5254 UMSTFormal.Urge.OriginRefuse <> or_github_as_origin_compose_refused constr
+R5260:5278 UMSTFormal.Urge.OriginRefuse <> oel_labs_public_oss constr
+R5281:5297 UMSTFormal.Urge.OriginRefuse <> ohc_origin_cursor constr
+R5306:5308 Corelib.Init.Datatypes <> inr constr
+R5310:5338 UMSTFormal.Urge.OriginRefuse <> or_origin_cursor_labs_refused constr
+R5344:5362 UMSTFormal.Urge.OriginRefuse <> oel_labs_public_oss constr
+R5365:5374 UMSTFormal.Urge.OriginRefuse <> ohc_github constr
+R5383:5385 Corelib.Init.Datatypes <> inl constr
+R5387:5398 UMSTFormal.Urge.OriginRefuse <> opv_admitted constr
+R5407:5427 UMSTFormal.Urge.OriginRefuse <> ohc_forgejo_canonical constr
+R5436:5438 Corelib.Init.Datatypes <> inl constr
+R5440:5451 UMSTFormal.Urge.OriginRefuse <> opv_admitted constr
+R5460:5475 UMSTFormal.Urge.OriginRefuse <> ohc_unclassified constr
+R5484:5486 Corelib.Init.Datatypes <> inr constr
+R5488:5507 UMSTFormal.Urge.OriginRefuse <> or_unclassified_host constr
+def 5608:5626 <> admit_origin_remote
+R5638:5661 UMSTFormal.Urge.OriginRefuse <> origin_remote_descriptor rec
+binder 5629:5634 <> remote:38
+R5691:5693 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5670:5690 UMSTFormal.Urge.OriginRefuse <> origin_policy_verdict ind
+R5694:5707 UMSTFormal.Urge.OriginRefuse <> origin_refusal ind
+R5714:5735 UMSTFormal.Urge.OriginRefuse <> evaluate_origin_policy def
+R5742:5761 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R5763:5768 UMSTFormal.Urge.OriginRefuse <> remote:38 var
+R5776:5795 UMSTFormal.Urge.OriginRefuse <> classify_origin_host def
+R5798:5815 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R5817:5822 UMSTFormal.Urge.OriginRefuse <> remote:38 var
+def 5903:5934 <> refuse_origin_cursor_for_compose
+R5938:5951 UMSTFormal.Urge.OriginRefuse <> origin_refusal ind
+R5958:5989 UMSTFormal.Urge.OriginRefuse <> or_origin_cursor_compose_refused constr
+def 6071:6105 <> refuse_github_as_origin_for_compose
+R6109:6122 UMSTFormal.Urge.OriginRefuse <> origin_refusal ind
+R6129:6163 UMSTFormal.Urge.OriginRefuse <> or_github_as_origin_compose_refused constr
+def 6253:6276 <> refuse_dual_push_compose
+R6280:6293 UMSTFormal.Urge.OriginRefuse <> origin_refusal ind
+R6300:6327 UMSTFormal.Urge.OriginRefuse <> or_dual_push_compose_refused constr
+def 6387:6405 <> witness_from_remote
+R6417:6440 UMSTFormal.Urge.OriginRefuse <> origin_remote_descriptor rec
+binder 6408:6413 <> remote:39
+R6456:6472 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_stamp rec
+binder 6448:6452 <> stamp:40
+R6477:6497 UMSTFormal.Urge.OriginRefuse <> origin_policy_witness rec
+R6507:6525 UMSTFormal.Urge.OriginRefuse <> origin_witness_ucrs proj
+R6507:6525 UMSTFormal.Urge.OriginRefuse <> origin_witness_ucrs proj
+R6507:6525 UMSTFormal.Urge.OriginRefuse <> origin_witness_ucrs proj
+R6542:6573 UMSTFormal.Urge.OriginRefuse <> origin_witness_forgejo_canonical proj
+R6542:6573 UMSTFormal.Urge.OriginRefuse <> origin_witness_forgejo_canonical proj
+R6530:6534 UMSTFormal.Urge.OriginRefuse <> stamp:40 var
+R6591:6610 UMSTFormal.Urge.OriginRefuse <> classify_origin_host def
+R6613:6630 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R6632:6637 UMSTFormal.Urge.OriginRefuse <> remote:39 var
+R6654:6674 UMSTFormal.Urge.OriginRefuse <> ohc_forgejo_canonical constr
+R6679:6682 Corelib.Init.Datatypes <> true constr
+R6698:6702 Corelib.Init.Datatypes <> false constr
+def 6804:6831 <> apply_origin_refuse_morphism
+R6847:6870 UMSTFormal.Urge.OriginRefuse <> origin_remote_descriptor rec
+binder 6838:6843 <> remote:41
+R6889:6917 UMSTFormal.Urge.OriginRefuse <> origin_admissibility_conjunct rec
+binder 6878:6885 <> conjunct:42
+R6933:6949 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_stamp rec
+binder 6925:6929 <> stamp:43
+R6979:6982 Corelib.Init.Datatypes <> bool ind
+binder 6957:6975 <> excitement_selected:44
+R7013:7015 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6991:7012 UMSTFormal.Urge.OriginRefuse <> origin_refuse_morphism rec
+R7016:7029 UMSTFormal.Urge.OriginRefuse <> origin_refusal ind
+R7039:7042 Corelib.Init.Datatypes <> negb def
+R7045:7066 UMSTFormal.Urge.OriginRefuse <> origin_conjunct_admits def
+R7068:7075 UMSTFormal.Urge.OriginRefuse <> conjunct:42 var
+R7151:7169 UMSTFormal.Urge.OriginRefuse <> admit_origin_remote def
+R7171:7176 UMSTFormal.Urge.OriginRefuse <> remote:41 var
+R7189:7191 Corelib.Init.Datatypes <> inl constr
+R7207:7210 Corelib.Init.Datatypes <> negb def
+R7212:7230 UMSTFormal.Urge.OriginRefuse <> excitement_selected:44 var
+R7289:7291 Corelib.Init.Datatypes <> inl constr
+R7306:7327 UMSTFormal.Urge.OriginRefuse <> origin_morphism_remote proj
+R7306:7327 UMSTFormal.Urge.OriginRefuse <> origin_morphism_remote proj
+R7306:7327 UMSTFormal.Urge.OriginRefuse <> origin_morphism_remote proj
+R7353:7375 UMSTFormal.Urge.OriginRefuse <> origin_morphism_witness proj
+R7353:7375 UMSTFormal.Urge.OriginRefuse <> origin_morphism_witness proj
+R7427:7461 UMSTFormal.Urge.OriginRefuse <> origin_morphism_excitement_selected proj
+R7427:7461 UMSTFormal.Urge.OriginRefuse <> origin_morphism_excitement_selected proj
+R7332:7337 UMSTFormal.Urge.OriginRefuse <> remote:41 var
+R7380:7398 UMSTFormal.Urge.OriginRefuse <> witness_from_remote def
+R7400:7405 UMSTFormal.Urge.OriginRefuse <> remote:41 var
+R7407:7411 UMSTFormal.Urge.OriginRefuse <> stamp:43 var
+R7466:7484 UMSTFormal.Urge.OriginRefuse <> excitement_selected:44 var
+R7245:7247 Corelib.Init.Datatypes <> inr constr
+R7249:7268 UMSTFormal.Urge.OriginRefuse <> or_unclassified_host constr
+R7495:7497 Corelib.Init.Datatypes <> inr constr
+R7504:7506 Corelib.Init.Datatypes <> inr constr
+R7087:7089 Corelib.Init.Datatypes <> inr constr
+R7092:7107 UMSTFormal.Urge.OriginRefuse <> or_gate_rejected constr
+R7110:7124 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_seq proj
+R7126:7130 UMSTFormal.Urge.OriginRefuse <> stamp:43 var
+prf 7526:7566 <> refuse_origin_cursor_for_compose_positive
+R7604:7606 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7572:7603 UMSTFormal.Urge.OriginRefuse <> refuse_origin_cursor_for_compose def
+R7607:7638 UMSTFormal.Urge.OriginRefuse <> or_origin_cursor_compose_refused constr
+prf 7675:7718 <> refuse_github_as_origin_for_compose_positive
+R7759:7761 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7724:7758 UMSTFormal.Urge.OriginRefuse <> refuse_github_as_origin_for_compose def
+R7762:7796 UMSTFormal.Urge.OriginRefuse <> or_github_as_origin_compose_refused constr
+prf 7833:7865 <> refuse_dual_push_compose_positive
+R7895:7897 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7871:7894 UMSTFormal.Urge.OriginRefuse <> refuse_dual_push_compose def
+R7898:7925 UMSTFormal.Urge.OriginRefuse <> or_dual_push_compose_refused constr
+ind 8265:8293 <> origin_excitement_compose_pin
+constr 8302:8330 <> oecp_import_select_excitement
+constr 8336:8361 <> oecp_second_argmin_refused
+scheme 8265:8293 <> origin_excitement_compose_pin_rect
+scheme 8265:8293 <> origin_excitement_compose_pin_ind
+scheme 8265:8293 <> origin_excitement_compose_pin_rec
+scheme 8265:8293 <> origin_excitement_compose_pin_sind
+rec 8441:8457 <> origin_refuse_ctx
+proj 8499:8522 <> origin_refuse_successors
+R8466:8483 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8460:8462 <> src:47
+R8526:8529 Corelib.Init.Datatypes <> list ind
+R8532:8548 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8550:8552 UMSTFormal.Urge.OriginRefuse <> src:47 var
+def 8644:8668 <> compose_excitement_select
+R8677:8694 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8671:8673 <> src:50
+R8710:8713 Corelib.Init.Datatypes <> list ind
+R8716:8732 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8734:8736 UMSTFormal.Urge.OriginRefuse <> src:50 var
+binder 8702:8706 <> cands:51
+R8751:8779 UMSTFormal.Urge.OriginRefuse <> origin_excitement_compose_pin ind
+binder 8745:8747 <> pin:52
+R8807:8809 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R8786:8802 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R8804:8806 UMSTFormal.Urge.OriginRefuse <> src:50 var
+R8810:8827 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R8840:8842 UMSTFormal.Urge.OriginRefuse <> pin:52 var
+R8853:8881 UMSTFormal.Urge.OriginRefuse <> oecp_import_select_excitement constr
+R8886:8902 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8904:8906 UMSTFormal.Urge.OriginRefuse <> src:50 var
+R8908:8912 UMSTFormal.Urge.OriginRefuse <> cands:51 var
+R8918:8943 UMSTFormal.Urge.OriginRefuse <> oecp_second_argmin_refused constr
+R8948:8950 Corelib.Init.Datatypes <> inr constr
+R8952:8971 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+def 9076:9095 <> origin_refuse_select
+R9104:9121 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9098:9100 <> src:54
+R9135:9151 UMSTFormal.Urge.OriginRefuse <> origin_refuse_ctx rec
+R9153:9155 UMSTFormal.Urge.OriginRefuse <> src:54 var
+binder 9129:9131 <> ctx:55
+R9183:9185 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9162:9178 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9180:9182 UMSTFormal.Urge.OriginRefuse <> src:54 var
+R9186:9203 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R9210:9229 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R9231:9233 UMSTFormal.Urge.OriginRefuse <> src:54 var
+R9236:9259 UMSTFormal.Urge.OriginRefuse <> origin_refuse_successors proj
+R9261:9263 UMSTFormal.Urge.OriginRefuse <> src:54 var
+R9265:9267 UMSTFormal.Urge.OriginRefuse <> ctx:55 var
+prf 9280:9325 <> compose_excitement_select_eq_excitement_select
+R9338:9355 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9332:9334 <> src:56
+R9371:9374 Corelib.Init.Datatypes <> list ind
+R9377:9393 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9395:9397 UMSTFormal.Urge.OriginRefuse <> src:56 var
+binder 9363:9367 <> cands:57
+R9470:9474 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9405:9429 UMSTFormal.Urge.OriginRefuse <> compose_excitement_select def
+R9431:9433 UMSTFormal.Urge.OriginRefuse <> src:56 var
+R9435:9439 UMSTFormal.Urge.OriginRefuse <> cands:57 var
+R9441:9469 UMSTFormal.Urge.OriginRefuse <> oecp_import_select_excitement constr
+R9475:9491 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9493:9495 UMSTFormal.Urge.OriginRefuse <> src:56 var
+R9497:9501 UMSTFormal.Urge.OriginRefuse <> cands:57 var
+prf 9540:9580 <> origin_refuse_select_eq_excitement_select
+R9593:9610 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9587:9589 <> src:58
+R9620:9636 UMSTFormal.Urge.OriginRefuse <> origin_refuse_ctx rec
+R9638:9640 UMSTFormal.Urge.OriginRefuse <> src:58 var
+binder 9614:9616 <> ctx:59
+R9675:9679 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9647:9666 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select def
+R9668:9670 UMSTFormal.Urge.OriginRefuse <> src:58 var
+R9672:9674 UMSTFormal.Urge.OriginRefuse <> ctx:59 var
+R9680:9696 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R9698:9700 UMSTFormal.Urge.OriginRefuse <> src:58 var
+R9703:9726 UMSTFormal.Urge.OriginRefuse <> origin_refuse_successors proj
+R9728:9730 UMSTFormal.Urge.OriginRefuse <> src:58 var
+R9732:9734 UMSTFormal.Urge.OriginRefuse <> ctx:59 var
+R9754:9773 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select def
+R9776:9795 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 9827:9870 <> origin_refuse_select_eq_urge_recovery_select
+R9883:9900 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9877:9879 <> src:60
+R9910:9926 UMSTFormal.Urge.OriginRefuse <> origin_refuse_ctx rec
+R9928:9930 UMSTFormal.Urge.OriginRefuse <> src:60 var
+binder 9904:9906 <> ctx:61
+R9965:9969 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9937:9956 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select def
+R9958:9960 UMSTFormal.Urge.OriginRefuse <> src:60 var
+R9962:9964 UMSTFormal.Urge.OriginRefuse <> ctx:61 var
+R9970:9989 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R9991:9993 UMSTFormal.Urge.OriginRefuse <> src:60 var
+R9996:10019 UMSTFormal.Urge.OriginRefuse <> origin_refuse_successors proj
+R10021:10023 UMSTFormal.Urge.OriginRefuse <> src:60 var
+R10025:10027 UMSTFormal.Urge.OriginRefuse <> ctx:61 var
+prf 10067:10095 <> origin_refuse_no_local_argmin
+R10108:10125 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10102:10104 <> src:62
+R10135:10151 UMSTFormal.Urge.OriginRefuse <> origin_refuse_ctx rec
+R10153:10155 UMSTFormal.Urge.OriginRefuse <> src:62 var
+binder 10129:10131 <> ctx:63
+R10190:10194 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10162:10181 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select def
+R10183:10185 UMSTFormal.Urge.OriginRefuse <> src:62 var
+R10187:10189 UMSTFormal.Urge.OriginRefuse <> ctx:63 var
+R10195:10211 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10213:10215 UMSTFormal.Urge.OriginRefuse <> src:62 var
+R10218:10241 UMSTFormal.Urge.OriginRefuse <> origin_refuse_successors proj
+R10243:10245 UMSTFormal.Urge.OriginRefuse <> src:62 var
+R10247:10249 UMSTFormal.Urge.OriginRefuse <> ctx:63 var
+R10269:10309 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select_eq_excitement_select thm
+R10269:10309 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select_eq_excitement_select thm
+prf 10335:10381 <> compose_excitement_select_refuses_second_argmin
+R10394:10411 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10388:10390 <> src:64
+R10427:10430 Corelib.Init.Datatypes <> list ind
+R10433:10449 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10451:10453 UMSTFormal.Urge.OriginRefuse <> src:64 var
+binder 10419:10423 <> cands:65
+R10523:10527 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10461:10485 UMSTFormal.Urge.OriginRefuse <> compose_excitement_select def
+R10487:10489 UMSTFormal.Urge.OriginRefuse <> src:64 var
+R10491:10495 UMSTFormal.Urge.OriginRefuse <> cands:65 var
+R10497:10522 UMSTFormal.Urge.OriginRefuse <> oecp_second_argmin_refused constr
+R10528:10530 Corelib.Init.Datatypes <> inr constr
+R10532:10551 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 10588:10606 <> origin_refuse_empty
+R10615:10632 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10609:10611 <> src:66
+R10646:10662 UMSTFormal.Urge.OriginRefuse <> origin_refuse_ctx rec
+R10664:10666 UMSTFormal.Urge.OriginRefuse <> src:66 var
+binder 10640:10642 <> ctx:67
+R10713:10715 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10681:10704 UMSTFormal.Urge.OriginRefuse <> origin_refuse_successors proj
+R10706:10708 UMSTFormal.Urge.OriginRefuse <> src:66 var
+R10710:10712 UMSTFormal.Urge.OriginRefuse <> ctx:67 var
+R10716:10718 Corelib.Init.Datatypes <> nil constr
+binder 10674:10677 <> Hnil:68
+R10753:10755 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10725:10744 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select def
+R10746:10748 UMSTFormal.Urge.OriginRefuse <> src:66 var
+R10750:10752 UMSTFormal.Urge.OriginRefuse <> ctx:67 var
+R10756:10758 Corelib.Init.Datatypes <> inr constr
+R10760:10776 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R10795:10814 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select def
+R10817:10836 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 11107:11126 <> origin_fixture_state
+R11130:11147 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R11157:11163 UMSTFormal.Concrete.Gate <> density proj
+R11157:11163 UMSTFormal.Concrete.Gate <> density proj
+R11157:11163 UMSTFormal.Concrete.Gate <> density proj
+R11183:11193 UMSTFormal.Concrete.Gate <> free_energy proj
+R11183:11193 UMSTFormal.Concrete.Gate <> free_energy proj
+R11206:11214 UMSTFormal.Concrete.Gate <> hydration proj
+R11206:11214 UMSTFormal.Concrete.Gate <> hydration proj
+R11227:11234 UMSTFormal.Concrete.Gate <> strength proj
+R11227:11234 UMSTFormal.Concrete.Gate <> strength proj
+R11172:11174 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 11257:11275 <> origin_fixture_ucrs
+R11279:11295 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_stamp rec
+R11305:11319 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_seq proj
+R11305:11319 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_seq proj
+R11305:11319 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_seq proj
+R11332:11353 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_wall_has_t proj
+R11332:11353 UMSTFormal.Urge.OriginRefuse <> origin_ucrs_wall_has_t proj
+R11358:11361 Corelib.Init.Datatypes <> true constr
+def 11379:11401 <> origin_fixture_conjunct
+R11405:11433 UMSTFormal.Urge.OriginRefuse <> origin_admissibility_conjunct rec
+R11443:11461 UMSTFormal.Urge.OriginRefuse <> origin_conj_gate_ok proj
+R11443:11461 UMSTFormal.Urge.OriginRefuse <> origin_conj_gate_ok proj
+R11443:11461 UMSTFormal.Urge.OriginRefuse <> origin_conj_gate_ok proj
+R11477:11505 UMSTFormal.Urge.OriginRefuse <> origin_conj_forgejo_canonical proj
+R11477:11505 UMSTFormal.Urge.OriginRefuse <> origin_conj_forgejo_canonical proj
+R11521:11552 UMSTFormal.Urge.OriginRefuse <> origin_conj_excitement_preserves proj
+R11521:11552 UMSTFormal.Urge.OriginRefuse <> origin_conj_excitement_preserves proj
+R11466:11469 Corelib.Init.Datatypes <> true constr
+R11510:11513 Corelib.Init.Datatypes <> true constr
+R11557:11560 Corelib.Init.Datatypes <> true constr
+def 11578:11606 <> compose_origin_cursor_fixture
+R11610:11633 UMSTFormal.Urge.OriginRefuse <> origin_remote_descriptor rec
+R11643:11662 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11643:11662 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11643:11662 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11685:11702 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R11685:11702 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R11667:11677 UMSTFormal.Urge.OriginRefuse <> oel_compose constr
+R11707:11728 UMSTFormal.Urge.OriginRefuse <> origin_cursor_host_pin def
+def 11746:11774 <> compose_github_origin_fixture
+R11778:11801 UMSTFormal.Urge.OriginRefuse <> origin_remote_descriptor rec
+R11811:11830 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11811:11830 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11811:11830 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11853:11870 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R11853:11870 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R11835:11845 UMSTFormal.Urge.OriginRefuse <> oel_compose constr
+R11875:11896 UMSTFormal.Urge.OriginRefuse <> github_origin_host_pin def
+def 11914:11946 <> compose_forgejo_canonical_fixture
+R11950:11973 UMSTFormal.Urge.OriginRefuse <> origin_remote_descriptor rec
+R11983:12002 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11983:12002 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R11983:12002 UMSTFormal.Urge.OriginRefuse <> origin_remote_entity proj
+R12025:12042 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R12025:12042 UMSTFormal.Urge.OriginRefuse <> origin_remote_host proj
+R12007:12017 UMSTFormal.Urge.OriginRefuse <> oel_compose constr
+R12047:12072 UMSTFormal.Urge.OriginRefuse <> forgejo_canonical_host_pin def
+prf 12087:12123 <> origin_fixture_cursor_compose_refused
+R12178:12182 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12129:12147 UMSTFormal.Urge.OriginRefuse <> admit_origin_remote def
+R12149:12177 UMSTFormal.Urge.OriginRefuse <> compose_origin_cursor_fixture def
+R12183:12185 Corelib.Init.Datatypes <> inr constr
+R12187:12218 UMSTFormal.Urge.OriginRefuse <> or_origin_cursor_compose_refused constr
+prf 12257:12293 <> origin_fixture_github_compose_refused
+R12348:12352 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12299:12317 UMSTFormal.Urge.OriginRefuse <> admit_origin_remote def
+R12319:12347 UMSTFormal.Urge.OriginRefuse <> compose_github_origin_fixture def
+R12353:12355 Corelib.Init.Datatypes <> inr constr
+R12357:12391 UMSTFormal.Urge.OriginRefuse <> or_github_as_origin_compose_refused constr
+prf 12430:12468 <> origin_fixture_forgejo_compose_admitted
+R12527:12529 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12474:12492 UMSTFormal.Urge.OriginRefuse <> admit_origin_remote def
+R12494:12526 UMSTFormal.Urge.OriginRefuse <> compose_forgejo_canonical_fixture def
+R12530:12532 Corelib.Init.Datatypes <> inl constr
+R12534:12545 UMSTFormal.Urge.OriginRefuse <> opv_admitted constr
+prf 12584:12629 <> origin_fixture_compose_upstream_refused_github
+R12682:12684 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12635:12658 UMSTFormal.Urge.OriginRefuse <> compose_upstream_refused def
+R12660:12681 UMSTFormal.Urge.OriginRefuse <> github_origin_host_pin def
+R12685:12688 Corelib.Init.Datatypes <> true constr
+prf 12727:12772 <> origin_fixture_compose_upstream_refused_cursor
+R12825:12827 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12778:12801 UMSTFormal.Urge.OriginRefuse <> compose_upstream_refused def
+R12803:12824 UMSTFormal.Urge.OriginRefuse <> origin_cursor_host_pin def
+R12828:12831 Corelib.Init.Datatypes <> true constr
+prf 12870:12909 <> origin_fixture_apply_morphism_forgejo_ok
+R13034:13038 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R12915:12942 UMSTFormal.Urge.OriginRefuse <> apply_origin_refuse_morphism def
+R12948:12980 UMSTFormal.Urge.OriginRefuse <> compose_forgejo_canonical_fixture def
+R12982:13004 UMSTFormal.Urge.OriginRefuse <> origin_fixture_conjunct def
+R13010:13028 UMSTFormal.Urge.OriginRefuse <> origin_fixture_ucrs def
+R13030:13033 Corelib.Init.Datatypes <> true constr
+R13039:13041 Corelib.Init.Datatypes <> inl constr
+R13052:13073 UMSTFormal.Urge.OriginRefuse <> origin_morphism_remote proj
+R13052:13073 UMSTFormal.Urge.OriginRefuse <> origin_morphism_remote proj
+R13052:13073 UMSTFormal.Urge.OriginRefuse <> origin_morphism_remote proj
+R13122:13144 UMSTFormal.Urge.OriginRefuse <> origin_morphism_witness proj
+R13122:13144 UMSTFormal.Urge.OriginRefuse <> origin_morphism_witness proj
+R13257:13291 UMSTFormal.Urge.OriginRefuse <> origin_morphism_excitement_selected proj
+R13257:13291 UMSTFormal.Urge.OriginRefuse <> origin_morphism_excitement_selected proj
+R13078:13110 UMSTFormal.Urge.OriginRefuse <> compose_forgejo_canonical_fixture def
+R13160:13178 UMSTFormal.Urge.OriginRefuse <> witness_from_remote def
+R13180:13212 UMSTFormal.Urge.OriginRefuse <> compose_forgejo_canonical_fixture def
+R13227:13245 UMSTFormal.Urge.OriginRefuse <> origin_fixture_ucrs def
+R13296:13299 Corelib.Init.Datatypes <> true constr
+prf 13341:13370 <> origin_fixture_classify_cursor
+R13419:13421 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13376:13395 UMSTFormal.Urge.OriginRefuse <> classify_origin_host def
+R13397:13418 UMSTFormal.Urge.OriginRefuse <> origin_cursor_host_pin def
+R13422:13438 UMSTFormal.Urge.OriginRefuse <> ohc_origin_cursor constr
+prf 13477:13506 <> origin_fixture_classify_github
+R13555:13557 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13512:13531 UMSTFormal.Urge.OriginRefuse <> classify_origin_host def
+R13533:13554 UMSTFormal.Urge.OriginRefuse <> github_origin_host_pin def
+R13558:13567 UMSTFormal.Urge.OriginRefuse <> ohc_github constr
+prf 13606:13636 <> origin_fixture_classify_forgejo
+R13689:13691 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13642:13661 UMSTFormal.Urge.OriginRefuse <> classify_origin_host def
+R13663:13688 UMSTFormal.Urge.OriginRefuse <> forgejo_canonical_host_pin def
+R13692:13712 UMSTFormal.Urge.OriginRefuse <> ohc_forgejo_canonical constr
+def 13975:14001 <> origin_refuse_physics_green
+R14005:14008 Corelib.Init.Datatypes <> bool ind
+R14013:14017 Corelib.Init.Datatypes <> false constr
+prf 14027:14059 <> origin_refuse_physics_green_false
+R14092:14094 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14065:14091 UMSTFormal.Urge.OriginRefuse <> origin_refuse_physics_green def
+R14095:14099 Corelib.Init.Datatypes <> false constr
+def 14139:14168 <> origin_refuse_production_wired
+R14172:14175 Corelib.Init.Datatypes <> bool ind
+R14180:14184 Corelib.Init.Datatypes <> false constr
+prf 14194:14229 <> origin_refuse_production_wired_false
+R14265:14267 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14235:14264 UMSTFormal.Urge.OriginRefuse <> origin_refuse_production_wired def
+R14268:14272 Corelib.Init.Datatypes <> false constr
+prf 14309:14336 <> origin_refuse_module_witness
+R14340:14343 Corelib.Init.Logic <> True ind
+R14359:14359 Corelib.Init.Logic <> I constr
+R14359:14359 Corelib.Init.Logic <> I constr
+prf 14376:14401 <> origin_refuse_no_new_axiom
+R14405:14408 Corelib.Init.Logic <> True ind
+R14424:14424 Corelib.Init.Logic <> I constr
+R14424:14424 Corelib.Init.Logic <> I constr
+prf 14441:14480 <> origin_refuse_positive_refuse_not_silent
+R14555:14560 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14535:14538 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R14486:14504 UMSTFormal.Urge.OriginRefuse <> admit_origin_remote def
+R14506:14534 UMSTFormal.Urge.OriginRefuse <> compose_origin_cursor_fixture def
+R14539:14541 Corelib.Init.Datatypes <> inl constr
+R14543:14554 UMSTFormal.Urge.OriginRefuse <> opv_admitted constr
+R14610:14613 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R14561:14579 UMSTFormal.Urge.OriginRefuse <> admit_origin_remote def
+R14581:14609 UMSTFormal.Urge.OriginRefuse <> compose_github_origin_fixture def
+R14614:14616 Corelib.Init.Datatypes <> inl constr
+R14618:14629 UMSTFormal.Urge.OriginRefuse <> opv_admitted constr
+prf 14676:14718 <> origin_refuse_compose_excitement_not_argmin
+R14738:14755 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 14732:14734 <> src:69
+R14765:14781 UMSTFormal.Urge.OriginRefuse <> origin_refuse_ctx rec
+R14783:14785 UMSTFormal.Urge.OriginRefuse <> src:69 var
+binder 14759:14761 <> ctx:70
+R14819:14823 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14791:14810 UMSTFormal.Urge.OriginRefuse <> origin_refuse_select def
+R14812:14814 UMSTFormal.Urge.OriginRefuse <> src:69 var
+R14816:14818 UMSTFormal.Urge.OriginRefuse <> ctx:70 var
+R14824:14840 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R14842:14844 UMSTFormal.Urge.OriginRefuse <> src:69 var
+R14847:14870 UMSTFormal.Urge.OriginRefuse <> origin_refuse_successors proj
+R14872:14874 UMSTFormal.Urge.OriginRefuse <> src:69 var
+R14876:14878 UMSTFormal.Urge.OriginRefuse <> ctx:70 var
+R14906:14934 UMSTFormal.Urge.OriginRefuse <> origin_refuse_no_local_argmin thm
+R14906:14934 UMSTFormal.Urge.OriginRefuse <> origin_refuse_no_local_argmin thm

@@ -1,0 +1,444 @@
+DIGEST 197033d57d2d11e1e52ff97a4214b6d9
+FUMSTFormal.Urge.FrugalMi
+R975:979 Stdlib.Arith.Arith <> <> lib
+R981:984 Stdlib.Lists.List <> <> lib
+R986:989 Stdlib.Bool.Bool <> <> lib
+R1007:1021 UMSTFormal.Gate <> <> lib
+R1039:1066 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1084:1115 UMSTFormal.Urge.ExcitementImport <> <> lib
+rec 1437:1454 <> frugal_local_state
+proj 1469:1492 <> frugal_local_commit_head
+proj 1503:1527 <> frugal_local_entropy_bits
+R1496:1498 Corelib.Init.Datatypes <> nat ind
+R1531:1533 Corelib.Init.Datatypes <> nat ind
+rec 1606:1622 <> frugal_mesh_state
+proj 1637:1659 <> frugal_mesh_replica_seq
+proj 1670:1700 <> frugal_mesh_gossip_entropy_bits
+R1663:1665 Corelib.Init.Datatypes <> nat ind
+R1704:1706 Corelib.Init.Datatypes <> nat ind
+rec 1791:1813 <> frugal_local_mesh_state
+proj 1828:1842 <> frugal_lm_local
+proj 1868:1881 <> frugal_lm_mesh
+R1846:1863 UMSTFormal.Urge.FrugalMi <> frugal_local_state rec
+R1885:1901 UMSTFormal.Urge.FrugalMi <> frugal_mesh_state rec
+ind 1995:2021 <> frugal_local_mesh_coalgebra
+constr 2030:2044 <> flmc_local_only
+constr 2075:2088 <> flmc_mesh_only
+constr 2118:2128 <> flmc_paired
+R2051:2068 UMSTFormal.Urge.FrugalMi <> frugal_local_state rec
+binder 2047:2047 <> l:12
+R2095:2111 UMSTFormal.Urge.FrugalMi <> frugal_mesh_state rec
+binder 2091:2091 <> m:13
+R2135:2157 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_state rec
+binder 2131:2131 <> s:14
+scheme 1995:2021 <> frugal_local_mesh_coalgebra_rect
+scheme 1995:2021 <> frugal_local_mesh_coalgebra_ind
+scheme 1995:2021 <> frugal_local_mesh_coalgebra_rec
+scheme 1995:2021 <> frugal_local_mesh_coalgebra_sind
+def 2241:2272 <> frugal_coalgebra_requires_paired
+R2279:2305 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_coalgebra ind
+binder 2275:2275 <> c:15
+R2310:2313 Corelib.Init.Datatypes <> bool ind
+R2326:2326 UMSTFormal.Urge.FrugalMi <> c:15 var
+R2337:2347 UMSTFormal.Urge.FrugalMi <> flmc_paired constr
+R2354:2357 Corelib.Init.Datatypes <> true constr
+R2368:2372 Corelib.Init.Datatypes <> false constr
+def 2477:2505 <> frugal_local_mesh_deconstruct
+R2512:2534 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_state rec
+binder 2508:2508 <> s:17
+R2543:2569 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_coalgebra ind
+R2576:2586 UMSTFormal.Urge.FrugalMi <> flmc_paired constr
+R2588:2588 UMSTFormal.Urge.FrugalMi <> s:17 var
+rec 2679:2699 <> frugal_mi_observation
+proj 2714:2735 <> frugal_i_required_bits
+proj 2746:2767 <> frugal_i_observed_bits
+R2739:2741 Corelib.Init.Datatypes <> nat ind
+R2771:2773 Corelib.Init.Datatypes <> nat ind
+def 2867:2883 <> frugal_mi_deficit
+R2892:2912 UMSTFormal.Urge.FrugalMi <> frugal_mi_observation rec
+binder 2886:2888 <> obs:21
+R2917:2919 Corelib.Init.Datatypes <> nat ind
+R2937:2958 UMSTFormal.Urge.FrugalMi <> frugal_i_required_bits proj
+R2960:2962 UMSTFormal.Urge.FrugalMi <> obs:21 var
+binder 2930:2932 <> req:22
+R2980:3001 UMSTFormal.Urge.FrugalMi <> frugal_i_observed_bits proj
+R3003:3005 UMSTFormal.Urge.FrugalMi <> obs:21 var
+binder 2973:2975 <> got:23
+R3015:3021 Stdlib.Arith.PeanoNat Nat leb def
+R3023:3025 UMSTFormal.Urge.FrugalMi <> got:23 var
+R3027:3029 UMSTFormal.Urge.FrugalMi <> req:22 var
+R3036:3042 Stdlib.Arith.PeanoNat Nat sub def
+R3044:3046 UMSTFormal.Urge.FrugalMi <> req:22 var
+R3048:3050 UMSTFormal.Urge.FrugalMi <> got:23 var
+ind 3146:3162 <> frugal_mi_refusal
+constr 3171:3196 <> fmr_landauer_proof_refused
+constr 3202:3233 <> fmr_landauer_kernel_fork_refused
+constr 3239:3265 <> fmr_mutual_information_zero
+constr 3271:3306 <> fmr_mesh_absent_when_paired_required
+constr 3312:3337 <> fmr_inconsistent_entropies
+constr 3343:3361 <> fmr_witness_deficit
+R3384:3386 Corelib.Init.Datatypes <> nat ind
+binder 3364:3371 <> required:26
+binder 3373:3380 <> observed:27
+scheme 3146:3162 <> frugal_mi_refusal_rect
+scheme 3146:3162 <> frugal_mi_refusal_ind
+scheme 3146:3162 <> frugal_mi_refusal_rec
+scheme 3146:3162 <> frugal_mi_refusal_sind
+ind 3450:3466 <> frugal_mi_verdict
+constr 3475:3492 <> fmv_observation_ok
+constr 3498:3523 <> fmv_landauer_proof_refused
+constr 3529:3544 <> fmv_inadmissible
+scheme 3450:3466 <> frugal_mi_verdict_rect
+scheme 3450:3466 <> frugal_mi_verdict_ind
+scheme 3450:3466 <> frugal_mi_verdict_rec
+scheme 3450:3466 <> frugal_mi_verdict_sind
+def 3867:3886 <> pairwise_mi_bits_nat
+R3920:3922 Corelib.Init.Datatypes <> nat ind
+binder 3889:3895 <> h_local:30
+binder 3897:3902 <> h_mesh:31
+binder 3904:3916 <> joint_entropy:32
+R3927:3932 Corelib.Init.Datatypes <> option ind
+R3934:3936 Corelib.Init.Datatypes <> nat ind
+R3954:3960 Stdlib.Arith.PeanoNat Nat add def
+R3962:3968 UMSTFormal.Urge.FrugalMi <> h_local:30 var
+R3970:3975 UMSTFormal.Urge.FrugalMi <> h_mesh:31 var
+binder 3947:3949 <> sum:33
+R3985:3991 Stdlib.Arith.PeanoNat Nat leb def
+R3993:4005 UMSTFormal.Urge.FrugalMi <> joint_entropy:32 var
+R4007:4009 UMSTFormal.Urge.FrugalMi <> sum:33 var
+R4054:4057 Corelib.Init.Datatypes <> None constr
+R4016:4019 Corelib.Init.Datatypes <> Some constr
+R4022:4028 Stdlib.Arith.PeanoNat Nat sub def
+R4030:4032 UMSTFormal.Urge.FrugalMi <> sum:33 var
+R4034:4046 UMSTFormal.Urge.FrugalMi <> joint_entropy:32 var
+rec 4122:4153 <> frugal_mi_admissibility_conjunct
+proj 4168:4186 <> frugal_conj_gate_ok
+proj 4198:4220 <> frugal_conj_mi_positive
+proj 4232:4263 <> frugal_conj_excitement_preserves
+R4190:4193 Corelib.Init.Datatypes <> bool ind
+R4224:4227 Corelib.Init.Datatypes <> bool ind
+R4267:4270 Corelib.Init.Datatypes <> bool ind
+def 4358:4379 <> frugal_conjunct_admits
+R4386:4417 UMSTFormal.Urge.FrugalMi <> frugal_mi_admissibility_conjunct rec
+binder 4382:4382 <> c:38
+R4422:4425 Corelib.Init.Datatypes <> bool ind
+R4484:4489 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4453:4458 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4432:4450 UMSTFormal.Urge.FrugalMi <> frugal_conj_gate_ok proj
+R4452:4452 UMSTFormal.Urge.FrugalMi <> c:38 var
+R4459:4481 UMSTFormal.Urge.FrugalMi <> frugal_conj_mi_positive proj
+R4483:4483 UMSTFormal.Urge.FrugalMi <> c:38 var
+R4490:4521 UMSTFormal.Urge.FrugalMi <> frugal_conj_excitement_preserves proj
+R4523:4523 UMSTFormal.Urge.FrugalMi <> c:38 var
+def 4622:4649 <> evaluate_frugal_mi_operation
+R4672:4675 Corelib.Init.Datatypes <> bool ind
+binder 4652:4668 <> is_landauer_proof:39
+R4684:4700 UMSTFormal.Urge.FrugalMi <> frugal_mi_verdict ind
+R4710:4726 UMSTFormal.Urge.FrugalMi <> is_landauer_proof:39 var
+R4765:4782 UMSTFormal.Urge.FrugalMi <> fmv_observation_ok constr
+R4733:4758 UMSTFormal.Urge.FrugalMi <> fmv_landauer_proof_refused constr
+def 4876:4896 <> refuse_landauer_proof
+R4900:4916 UMSTFormal.Urge.FrugalMi <> frugal_mi_refusal ind
+R4923:4948 UMSTFormal.Urge.FrugalMi <> fmr_landauer_proof_refused constr
+def 5030:5056 <> refuse_landauer_kernel_fork
+R5060:5076 UMSTFormal.Urge.FrugalMi <> frugal_mi_refusal ind
+R5083:5114 UMSTFormal.Urge.FrugalMi <> fmr_landauer_kernel_fork_refused constr
+def 5193:5216 <> frugal_mi_observation_mk
+R5239:5241 Corelib.Init.Datatypes <> nat ind
+binder 5219:5226 <> required:40
+binder 5228:5235 <> observed:41
+R5250:5270 UMSTFormal.Urge.FrugalMi <> frugal_mi_observation rec
+R5280:5301 UMSTFormal.Urge.FrugalMi <> frugal_i_required_bits proj
+R5280:5301 UMSTFormal.Urge.FrugalMi <> frugal_i_required_bits proj
+R5280:5301 UMSTFormal.Urge.FrugalMi <> frugal_i_required_bits proj
+R5321:5342 UMSTFormal.Urge.FrugalMi <> frugal_i_observed_bits proj
+R5321:5342 UMSTFormal.Urge.FrugalMi <> frugal_i_observed_bits proj
+R5306:5313 UMSTFormal.Urge.FrugalMi <> required:40 var
+R5347:5354 UMSTFormal.Urge.FrugalMi <> observed:41 var
+def 5446:5477 <> observe_frugal_mi_from_coalgebra
+R5496:5522 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_coalgebra ind
+binder 5484:5492 <> coalgebra:42
+R5579:5581 Corelib.Init.Datatypes <> nat ind
+binder 5530:5536 <> h_local:43
+binder 5538:5543 <> h_mesh:44
+binder 5545:5557 <> joint_entropy:45
+binder 5559:5566 <> required:46
+binder 5568:5575 <> observed:47
+R5600:5631 UMSTFormal.Urge.FrugalMi <> frugal_mi_admissibility_conjunct rec
+binder 5589:5596 <> conjunct:48
+R5659:5661 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R5638:5658 UMSTFormal.Urge.FrugalMi <> frugal_mi_observation rec
+R5662:5678 UMSTFormal.Urge.FrugalMi <> frugal_mi_refusal ind
+R5688:5691 Corelib.Init.Datatypes <> negb def
+R5694:5715 UMSTFormal.Urge.FrugalMi <> frugal_conjunct_admits def
+R5717:5724 UMSTFormal.Urge.FrugalMi <> conjunct:48 var
+R5777:5780 Corelib.Init.Datatypes <> negb def
+R5783:5814 UMSTFormal.Urge.FrugalMi <> frugal_coalgebra_requires_paired def
+R5816:5824 UMSTFormal.Urge.FrugalMi <> coalgebra:42 var
+R5894:5913 UMSTFormal.Urge.FrugalMi <> pairwise_mi_bits_nat def
+R5915:5921 UMSTFormal.Urge.FrugalMi <> h_local:43 var
+R5923:5928 UMSTFormal.Urge.FrugalMi <> h_mesh:44 var
+R5930:5942 UMSTFormal.Urge.FrugalMi <> joint_entropy:45 var
+R5955:5958 Corelib.Init.Datatypes <> None constr
+R5963:5965 Corelib.Init.Datatypes <> inr constr
+R5967:5992 UMSTFormal.Urge.FrugalMi <> fmr_inconsistent_entropies constr
+R6000:6003 Corelib.Init.Datatypes <> Some constr
+R6022:6028 Stdlib.Arith.PeanoNat Nat eqb def
+R6116:6139 UMSTFormal.Urge.FrugalMi <> frugal_mi_observation_mk def
+R6141:6148 UMSTFormal.Urge.FrugalMi <> required:46 var
+R6150:6157 UMSTFormal.Urge.FrugalMi <> observed:47 var
+binder 6109:6111 <> obs:49
+R6175:6181 Stdlib.Arith.PeanoNat Nat ltb def
+R6183:6190 UMSTFormal.Urge.FrugalMi <> observed:47 var
+R6192:6199 UMSTFormal.Urge.FrugalMi <> required:46 var
+R6289:6291 Corelib.Init.Datatypes <> inl constr
+R6293:6295 UMSTFormal.Urge.FrugalMi <> obs:49 var
+R6218:6220 Corelib.Init.Datatypes <> inr constr
+R6223:6241 UMSTFormal.Urge.FrugalMi <> fmr_witness_deficit constr
+R6243:6250 UMSTFormal.Urge.FrugalMi <> required:46 var
+R6252:6259 UMSTFormal.Urge.FrugalMi <> observed:47 var
+R6050:6052 Corelib.Init.Datatypes <> inr constr
+R6054:6080 UMSTFormal.Urge.FrugalMi <> fmr_mutual_information_zero constr
+R5836:5838 Corelib.Init.Datatypes <> inr constr
+R5840:5875 UMSTFormal.Urge.FrugalMi <> fmr_mesh_absent_when_paired_required constr
+R5736:5738 Corelib.Init.Datatypes <> inr constr
+R5740:5765 UMSTFormal.Urge.FrugalMi <> fmr_inconsistent_entropies constr
+prf 6313:6344 <> frugal_mi_landauer_proof_refused
+R6383:6385 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6350:6377 UMSTFormal.Urge.FrugalMi <> evaluate_frugal_mi_operation def
+R6379:6382 Corelib.Init.Datatypes <> true constr
+R6386:6411 UMSTFormal.Urge.FrugalMi <> fmv_landauer_proof_refused constr
+prf 6448:6489 <> frugal_mi_observation_ok_when_not_landauer
+R6529:6531 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6495:6522 UMSTFormal.Urge.FrugalMi <> evaluate_frugal_mi_operation def
+R6524:6528 Corelib.Init.Datatypes <> false constr
+R6532:6549 UMSTFormal.Urge.FrugalMi <> fmv_observation_ok constr
+prf 6586:6615 <> refuse_landauer_proof_positive
+R6642:6644 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6621:6641 UMSTFormal.Urge.FrugalMi <> refuse_landauer_proof def
+R6645:6670 UMSTFormal.Urge.FrugalMi <> fmr_landauer_proof_refused constr
+prf 6707:6742 <> refuse_landauer_kernel_fork_positive
+R6775:6777 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6748:6774 UMSTFormal.Urge.FrugalMi <> refuse_landauer_kernel_fork def
+R6778:6809 UMSTFormal.Urge.FrugalMi <> fmr_landauer_kernel_fork_refused constr
+prf 6846:6871 <> pairwise_mi_fixture_paired
+R6903:6905 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6877:6896 UMSTFormal.Urge.FrugalMi <> pairwise_mi_bits_nat def
+R6906:6909 Corelib.Init.Datatypes <> Some constr
+prf 6948:6971 <> pairwise_mi_fixture_zero
+R7003:7005 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R6977:6996 UMSTFormal.Urge.FrugalMi <> pairwise_mi_bits_nat def
+R7006:7009 Corelib.Init.Datatypes <> Some constr
+rec 7347:7359 <> frugal_mi_ctx
+proj 7401:7420 <> frugal_mi_successors
+R7368:7385 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7362:7364 <> src:50
+R7424:7427 Corelib.Init.Datatypes <> list ind
+R7430:7446 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7448:7450 UMSTFormal.Urge.FrugalMi <> src:50 var
+def 7557:7572 <> frugal_mi_select
+R7581:7598 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7575:7577 <> src:53
+R7612:7624 UMSTFormal.Urge.FrugalMi <> frugal_mi_ctx rec
+R7626:7628 UMSTFormal.Urge.FrugalMi <> src:53 var
+binder 7606:7608 <> ctx:54
+R7656:7658 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R7635:7651 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R7653:7655 UMSTFormal.Urge.FrugalMi <> src:53 var
+R7659:7676 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R7683:7702 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R7704:7706 UMSTFormal.Urge.FrugalMi <> src:53 var
+R7709:7728 UMSTFormal.Urge.FrugalMi <> frugal_mi_successors proj
+R7730:7732 UMSTFormal.Urge.FrugalMi <> src:53 var
+R7734:7736 UMSTFormal.Urge.FrugalMi <> ctx:54 var
+prf 7749:7785 <> frugal_mi_select_eq_excitement_select
+R7798:7815 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 7792:7794 <> src:55
+R7825:7837 UMSTFormal.Urge.FrugalMi <> frugal_mi_ctx rec
+R7839:7841 UMSTFormal.Urge.FrugalMi <> src:55 var
+binder 7819:7821 <> ctx:56
+R7872:7876 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7848:7863 UMSTFormal.Urge.FrugalMi <> frugal_mi_select def
+R7865:7867 UMSTFormal.Urge.FrugalMi <> src:55 var
+R7869:7871 UMSTFormal.Urge.FrugalMi <> ctx:56 var
+R7877:7893 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R7895:7897 UMSTFormal.Urge.FrugalMi <> src:55 var
+R7900:7919 UMSTFormal.Urge.FrugalMi <> frugal_mi_successors proj
+R7921:7923 UMSTFormal.Urge.FrugalMi <> src:55 var
+R7925:7927 UMSTFormal.Urge.FrugalMi <> ctx:56 var
+R7947:7962 UMSTFormal.Urge.FrugalMi <> frugal_mi_select def
+R7965:7984 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 8016:8055 <> frugal_mi_select_eq_urge_recovery_select
+R8068:8085 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8062:8064 <> src:57
+R8095:8107 UMSTFormal.Urge.FrugalMi <> frugal_mi_ctx rec
+R8109:8111 UMSTFormal.Urge.FrugalMi <> src:57 var
+binder 8089:8091 <> ctx:58
+R8142:8146 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8118:8133 UMSTFormal.Urge.FrugalMi <> frugal_mi_select def
+R8135:8137 UMSTFormal.Urge.FrugalMi <> src:57 var
+R8139:8141 UMSTFormal.Urge.FrugalMi <> ctx:58 var
+R8147:8166 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R8168:8170 UMSTFormal.Urge.FrugalMi <> src:57 var
+R8173:8192 UMSTFormal.Urge.FrugalMi <> frugal_mi_successors proj
+R8194:8196 UMSTFormal.Urge.FrugalMi <> src:57 var
+R8198:8200 UMSTFormal.Urge.FrugalMi <> ctx:58 var
+prf 8240:8264 <> frugal_mi_no_local_argmin
+R8277:8294 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8271:8273 <> src:59
+R8304:8316 UMSTFormal.Urge.FrugalMi <> frugal_mi_ctx rec
+R8318:8320 UMSTFormal.Urge.FrugalMi <> src:59 var
+binder 8298:8300 <> ctx:60
+R8351:8355 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8327:8342 UMSTFormal.Urge.FrugalMi <> frugal_mi_select def
+R8344:8346 UMSTFormal.Urge.FrugalMi <> src:59 var
+R8348:8350 UMSTFormal.Urge.FrugalMi <> ctx:60 var
+R8356:8372 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R8374:8376 UMSTFormal.Urge.FrugalMi <> src:59 var
+R8379:8398 UMSTFormal.Urge.FrugalMi <> frugal_mi_successors proj
+R8400:8402 UMSTFormal.Urge.FrugalMi <> src:59 var
+R8404:8406 UMSTFormal.Urge.FrugalMi <> ctx:60 var
+R8426:8462 UMSTFormal.Urge.FrugalMi <> frugal_mi_select_eq_excitement_select thm
+R8426:8462 UMSTFormal.Urge.FrugalMi <> frugal_mi_select_eq_excitement_select thm
+prf 8486:8507 <> frugal_mi_select_empty
+R8516:8533 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 8510:8512 <> src:61
+R8547:8559 UMSTFormal.Urge.FrugalMi <> frugal_mi_ctx rec
+R8561:8563 UMSTFormal.Urge.FrugalMi <> src:61 var
+binder 8541:8543 <> ctx:62
+R8606:8608 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8578:8597 UMSTFormal.Urge.FrugalMi <> frugal_mi_successors proj
+R8599:8601 UMSTFormal.Urge.FrugalMi <> src:61 var
+R8603:8605 UMSTFormal.Urge.FrugalMi <> ctx:62 var
+R8609:8611 Corelib.Init.Datatypes <> nil constr
+binder 8571:8574 <> Hnil:63
+R8642:8644 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8618:8633 UMSTFormal.Urge.FrugalMi <> frugal_mi_select def
+R8635:8637 UMSTFormal.Urge.FrugalMi <> src:61 var
+R8639:8641 UMSTFormal.Urge.FrugalMi <> ctx:62 var
+R8645:8647 Corelib.Init.Datatypes <> inr constr
+R8649:8665 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R8684:8699 UMSTFormal.Urge.FrugalMi <> frugal_mi_select def
+R8702:8721 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 9019:9038 <> frugal_fixture_local
+R9042:9059 UMSTFormal.Urge.FrugalMi <> frugal_local_state rec
+R9069:9092 UMSTFormal.Urge.FrugalMi <> frugal_local_commit_head proj
+R9069:9092 UMSTFormal.Urge.FrugalMi <> frugal_local_commit_head proj
+R9069:9092 UMSTFormal.Urge.FrugalMi <> frugal_local_commit_head proj
+R9105:9129 UMSTFormal.Urge.FrugalMi <> frugal_local_entropy_bits proj
+R9105:9129 UMSTFormal.Urge.FrugalMi <> frugal_local_entropy_bits proj
+def 9152:9170 <> frugal_fixture_mesh
+R9174:9190 UMSTFormal.Urge.FrugalMi <> frugal_mesh_state rec
+R9200:9222 UMSTFormal.Urge.FrugalMi <> frugal_mesh_replica_seq proj
+R9200:9222 UMSTFormal.Urge.FrugalMi <> frugal_mesh_replica_seq proj
+R9200:9222 UMSTFormal.Urge.FrugalMi <> frugal_mesh_replica_seq proj
+R9235:9265 UMSTFormal.Urge.FrugalMi <> frugal_mesh_gossip_entropy_bits proj
+R9235:9265 UMSTFormal.Urge.FrugalMi <> frugal_mesh_gossip_entropy_bits proj
+def 9288:9308 <> frugal_fixture_paired
+R9312:9334 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_state rec
+R9344:9358 UMSTFormal.Urge.FrugalMi <> frugal_lm_local proj
+R9344:9358 UMSTFormal.Urge.FrugalMi <> frugal_lm_local proj
+R9344:9358 UMSTFormal.Urge.FrugalMi <> frugal_lm_local proj
+R9390:9403 UMSTFormal.Urge.FrugalMi <> frugal_lm_mesh proj
+R9390:9403 UMSTFormal.Urge.FrugalMi <> frugal_lm_mesh proj
+R9363:9382 UMSTFormal.Urge.FrugalMi <> frugal_fixture_local def
+R9408:9426 UMSTFormal.Urge.FrugalMi <> frugal_fixture_mesh def
+def 9444:9467 <> frugal_fixture_coalgebra
+R9471:9497 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_coalgebra ind
+R9504:9532 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_deconstruct def
+R9534:9554 UMSTFormal.Urge.FrugalMi <> frugal_fixture_paired def
+def 9569:9591 <> frugal_fixture_conjunct
+R9595:9626 UMSTFormal.Urge.FrugalMi <> frugal_mi_admissibility_conjunct rec
+R9636:9654 UMSTFormal.Urge.FrugalMi <> frugal_conj_gate_ok proj
+R9636:9654 UMSTFormal.Urge.FrugalMi <> frugal_conj_gate_ok proj
+R9636:9654 UMSTFormal.Urge.FrugalMi <> frugal_conj_gate_ok proj
+R9670:9692 UMSTFormal.Urge.FrugalMi <> frugal_conj_mi_positive proj
+R9670:9692 UMSTFormal.Urge.FrugalMi <> frugal_conj_mi_positive proj
+R9708:9739 UMSTFormal.Urge.FrugalMi <> frugal_conj_excitement_preserves proj
+R9708:9739 UMSTFormal.Urge.FrugalMi <> frugal_conj_excitement_preserves proj
+R9659:9662 Corelib.Init.Datatypes <> true constr
+R9697:9700 Corelib.Init.Datatypes <> true constr
+R9744:9747 Corelib.Init.Datatypes <> true constr
+prf 9762:9798 <> frugal_fixture_landauer_proof_refused
+R9825:9827 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9804:9824 UMSTFormal.Urge.FrugalMi <> refuse_landauer_proof def
+R9828:9853 UMSTFormal.Urge.FrugalMi <> fmr_landauer_proof_refused constr
+prf 9892:9927 <> frugal_fixture_paired_observation_ok
+R10028:10032 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9933:9964 UMSTFormal.Urge.FrugalMi <> observe_frugal_mi_from_coalgebra def
+R9970:9993 UMSTFormal.Urge.FrugalMi <> frugal_fixture_coalgebra def
+R10005:10027 UMSTFormal.Urge.FrugalMi <> frugal_fixture_conjunct def
+R10033:10035 Corelib.Init.Datatypes <> inl constr
+R10038:10061 UMSTFormal.Urge.FrugalMi <> frugal_mi_observation_mk def
+prf 10105:10138 <> frugal_fixture_mesh_absent_refused
+R10253:10257 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10144:10175 UMSTFormal.Urge.FrugalMi <> observe_frugal_mi_from_coalgebra def
+R10182:10196 UMSTFormal.Urge.FrugalMi <> flmc_local_only constr
+R10198:10217 UMSTFormal.Urge.FrugalMi <> frugal_fixture_local def
+R10230:10252 UMSTFormal.Urge.FrugalMi <> frugal_fixture_conjunct def
+R10258:10260 Corelib.Init.Datatypes <> inr constr
+R10262:10297 UMSTFormal.Urge.FrugalMi <> fmr_mesh_absent_when_paired_required constr
+prf 10336:10365 <> frugal_fixture_mi_zero_refused
+R10466:10470 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10371:10402 UMSTFormal.Urge.FrugalMi <> observe_frugal_mi_from_coalgebra def
+R10408:10431 UMSTFormal.Urge.FrugalMi <> frugal_fixture_coalgebra def
+R10443:10465 UMSTFormal.Urge.FrugalMi <> frugal_fixture_conjunct def
+R10471:10473 Corelib.Init.Datatypes <> inr constr
+R10475:10501 UMSTFormal.Urge.FrugalMi <> fmr_mutual_information_zero constr
+prf 10540:10577 <> frugal_fixture_witness_deficit_refused
+R10678:10682 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10583:10614 UMSTFormal.Urge.FrugalMi <> observe_frugal_mi_from_coalgebra def
+R10620:10643 UMSTFormal.Urge.FrugalMi <> frugal_fixture_coalgebra def
+R10655:10677 UMSTFormal.Urge.FrugalMi <> frugal_fixture_conjunct def
+R10683:10685 Corelib.Init.Datatypes <> inr constr
+R10688:10706 UMSTFormal.Urge.FrugalMi <> fmr_witness_deficit constr
+prf 10750:10789 <> frugal_fixture_coalgebra_requires_paired
+R10852:10854 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10795:10826 UMSTFormal.Urge.FrugalMi <> frugal_coalgebra_requires_paired def
+R10828:10851 UMSTFormal.Urge.FrugalMi <> frugal_fixture_coalgebra def
+R10855:10858 Corelib.Init.Datatypes <> true constr
+prf 10897:10929 <> frugal_fixture_deconstruct_paired
+R10986:10988 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10935:10963 UMSTFormal.Urge.FrugalMi <> frugal_local_mesh_deconstruct def
+R10965:10985 UMSTFormal.Urge.FrugalMi <> frugal_fixture_paired def
+R10989:10999 UMSTFormal.Urge.FrugalMi <> flmc_paired constr
+R11001:11021 UMSTFormal.Urge.FrugalMi <> frugal_fixture_paired def
+def 11284:11306 <> frugal_mi_physics_green
+R11310:11313 Corelib.Init.Datatypes <> bool ind
+R11318:11322 Corelib.Init.Datatypes <> false constr
+prf 11332:11360 <> frugal_mi_physics_green_false
+R11389:11391 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11366:11388 UMSTFormal.Urge.FrugalMi <> frugal_mi_physics_green def
+R11392:11396 Corelib.Init.Datatypes <> false constr
+def 11436:11461 <> frugal_mi_production_wired
+R11465:11468 Corelib.Init.Datatypes <> bool ind
+R11473:11477 Corelib.Init.Datatypes <> false constr
+prf 11487:11518 <> frugal_mi_production_wired_false
+R11550:11552 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11524:11549 UMSTFormal.Urge.FrugalMi <> frugal_mi_production_wired def
+R11553:11557 Corelib.Init.Datatypes <> false constr
+def 11597:11622 <> frugal_mi_modality_unwired
+R11626:11629 Corelib.Init.Datatypes <> bool ind
+R11634:11637 Corelib.Init.Datatypes <> true constr
+prf 11647:11677 <> frugal_mi_modality_unwired_true
+R11709:11711 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11683:11708 UMSTFormal.Urge.FrugalMi <> frugal_mi_modality_unwired def
+R11712:11715 Corelib.Init.Datatypes <> true constr
+prf 11752:11775 <> frugal_mi_module_witness
+R11779:11782 Corelib.Init.Logic <> True ind
+R11798:11798 Corelib.Init.Logic <> I constr
+R11798:11798 Corelib.Init.Logic <> I constr
+prf 11815:11836 <> frugal_mi_no_new_axiom
+R11840:11843 Corelib.Init.Logic <> True ind
+R11859:11859 Corelib.Init.Logic <> I constr
+R11859:11859 Corelib.Init.Logic <> I constr
+prf 11876:11911 <> frugal_mi_positive_refuse_not_silent
+R11950:11953 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R11917:11944 UMSTFormal.Urge.FrugalMi <> evaluate_frugal_mi_operation def
+R11946:11949 Corelib.Init.Datatypes <> true constr
+R11954:11971 UMSTFormal.Urge.FrugalMi <> fmv_observation_ok constr
+R11990:12017 UMSTFormal.Urge.FrugalMi <> evaluate_frugal_mi_operation def
+prf 12050:12094 <> frugal_mi_acting_coalgebra_not_landauer_proof
+R12121:12124 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R12100:12120 UMSTFormal.Urge.FrugalMi <> refuse_landauer_proof def
+R12125:12156 UMSTFormal.Urge.FrugalMi <> fmr_landauer_kernel_fork_refused constr

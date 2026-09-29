@@ -1,0 +1,961 @@
+DIGEST ca660c295d239c34879d5635be3c6d85
+FUMSTFormal.Urge.KleisliMerge
+R1062:1066 Stdlib.Arith.Arith <> <> lib
+R1068:1071 Stdlib.Lists.List <> <> lib
+R1073:1076 Stdlib.Bool.Bool <> <> lib
+R1078:1083 Stdlib.QArith.QArith <> <> lib
+R1101:1115 UMSTFormal.Gate <> <> lib
+R1133:1160 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1178:1202 UMSTFormal.Urge.MergeSafe <> <> lib
+R1220:1251 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1553:1565 <> operator_verb
+constr 1570:1582 <> op_verb_merge
+scheme 1553:1565 <> operator_verb_rect
+scheme 1553:1565 <> operator_verb_ind
+scheme 1553:1565 <> operator_verb_rec
+scheme 1553:1565 <> operator_verb_sind
+ind 1596:1618 <> verb_column_requirement
+constr 1627:1647 <> verb_col_not_required
+constr 1653:1669 <> verb_col_required
+scheme 1596:1618 <> verb_column_requirement_rect
+scheme 1596:1618 <> verb_column_requirement_ind
+scheme 1596:1618 <> verb_column_requirement_rec
+scheme 1596:1618 <> verb_column_requirement_sind
+ind 1683:1699 <> kleisli_gate_kind
+constr 1708:1740 <> kg_gate_check_before_sync_inbound
+constr 1746:1769 <> kg_frugal_mi_observation
+constr 1775:1802 <> kg_outbound_tick_if_admitted
+scheme 1683:1699 <> kleisli_gate_kind_rect
+scheme 1683:1699 <> kleisli_gate_kind_ind
+scheme 1683:1699 <> kleisli_gate_kind_rec
+scheme 1683:1699 <> kleisli_gate_kind_sind
+ind 1816:1832 <> entity_check_kind
+constr 1841:1856 <> ec_tier_disjoint
+constr 1862:1876 <> ec_remote_class
+constr 1882:1897 <> ec_replica_class
+scheme 1816:1832 <> entity_check_kind_rect
+scheme 1816:1832 <> entity_check_kind_ind
+scheme 1816:1832 <> entity_check_kind_rec
+scheme 1816:1832 <> entity_check_kind_sind
+rec 1908:1924 <> operator_verb_row
+proj 1939:1946 <> ovr_verb
+proj 1967:1982 <> ovr_kleisli_gate
+proj 2007:2020 <> ovr_merge_safe
+proj 2051:2064 <> ovr_excitement
+proj 2095:2110 <> ovr_entity_check
+R1950:1962 UMSTFormal.Urge.KleisliMerge <> operator_verb ind
+R1986:2002 UMSTFormal.Urge.KleisliMerge <> kleisli_gate_kind ind
+R2024:2046 UMSTFormal.Urge.KleisliMerge <> verb_column_requirement ind
+R2068:2090 UMSTFormal.Urge.KleisliMerge <> verb_column_requirement ind
+R2114:2130 UMSTFormal.Urge.KleisliMerge <> entity_check_kind ind
+def 2147:2160 <> merge_verb_row
+R2164:2180 UMSTFormal.Urge.KleisliMerge <> operator_verb_row rec
+R2190:2197 UMSTFormal.Urge.KleisliMerge <> ovr_verb proj
+R2190:2197 UMSTFormal.Urge.KleisliMerge <> ovr_verb proj
+R2190:2197 UMSTFormal.Urge.KleisliMerge <> ovr_verb proj
+R2222:2237 UMSTFormal.Urge.KleisliMerge <> ovr_kleisli_gate proj
+R2222:2237 UMSTFormal.Urge.KleisliMerge <> ovr_kleisli_gate proj
+R2282:2295 UMSTFormal.Urge.KleisliMerge <> ovr_merge_safe proj
+R2282:2295 UMSTFormal.Urge.KleisliMerge <> ovr_merge_safe proj
+R2324:2337 UMSTFormal.Urge.KleisliMerge <> ovr_excitement proj
+R2324:2337 UMSTFormal.Urge.KleisliMerge <> ovr_excitement proj
+R2366:2381 UMSTFormal.Urge.KleisliMerge <> ovr_entity_check proj
+R2366:2381 UMSTFormal.Urge.KleisliMerge <> ovr_entity_check proj
+R2202:2214 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R2242:2274 UMSTFormal.Urge.KleisliMerge <> kg_gate_check_before_sync_inbound constr
+R2300:2316 UMSTFormal.Urge.KleisliMerge <> verb_col_required constr
+R2342:2358 UMSTFormal.Urge.KleisliMerge <> verb_col_required constr
+R2386:2401 UMSTFormal.Urge.KleisliMerge <> ec_tier_disjoint constr
+ind 2418:2428 <> memory_tier
+constr 2437:2448 <> mt_ephemeral
+constr 2454:2462 <> mt_device
+constr 2468:2479 <> mt_federated
+scheme 2418:2428 <> memory_tier_rect
+scheme 2418:2428 <> memory_tier_ind
+scheme 2418:2428 <> memory_tier_rec
+scheme 2418:2428 <> memory_tier_sind
+rec 2490:2509 <> merge_history_object
+proj 2524:2532 <> mho_entry
+proj 2558:2565 <> mho_tier
+R2536:2553 UMSTFormal.Urge.MergeSafe <> HistoryMemoryEntry rec
+R2569:2579 UMSTFormal.Urge.KleisliMerge <> memory_tier ind
+ind 2595:2612 <> inbound_gate_check
+constr 2621:2632 <> igc_admitted
+constr 2638:2648 <> igc_refused
+constr 2654:2673 <> igc_bypass_attempted
+scheme 2595:2612 <> inbound_gate_check_rect
+scheme 2595:2612 <> inbound_gate_check_ind
+scheme 2595:2612 <> inbound_gate_check_rec
+scheme 2595:2612 <> inbound_gate_check_sind
+def 2688:2706 <> inbound_gate_admits
+R2713:2730 UMSTFormal.Urge.KleisliMerge <> inbound_gate_check ind
+binder 2709:2709 <> g:22
+R2735:2738 Corelib.Init.Datatypes <> bool ind
+R2751:2751 UMSTFormal.Urge.KleisliMerge <> g:22 var
+R2762:2773 UMSTFormal.Urge.KleisliMerge <> igc_admitted constr
+R2778:2781 Corelib.Init.Datatypes <> true constr
+R2787:2797 UMSTFormal.Urge.KleisliMerge <> igc_refused constr
+R2801:2820 UMSTFormal.Urge.KleisliMerge <> igc_bypass_attempted constr
+R2825:2829 Corelib.Init.Datatypes <> false constr
+R2825:2829 Corelib.Init.Datatypes <> false constr
+rec 2846:2861 <> merge_transition
+proj 2876:2893 <> merge_prior_commit
+proj 2904:2920 <> merge_post_commit
+R2897:2899 Corelib.Init.Datatypes <> nat ind
+R2924:2926 Corelib.Init.Datatypes <> nat ind
+rec 2939:2954 <> merge_provenance
+proj 2969:2984 <> merge_ucrs_chain
+proj 3000:3015 <> merge_dag_commit
+proj 3026:3047 <> merge_landauer_witness
+R2988:2991 Corelib.Init.Datatypes <> list ind
+R2993:2995 Corelib.Init.Datatypes <> nat ind
+R3019:3021 Corelib.Init.Datatypes <> nat ind
+R3051:3054 Corelib.Init.Datatypes <> bool ind
+rec 3067:3085 <> merge_kleisli_arrow
+proj 3100:3107 <> mka_verb
+proj 3128:3135 <> mka_gate
+proj 3161:3168 <> mka_left
+proj 3196:3204 <> mka_right
+proj 3232:3245 <> mka_transition
+proj 3269:3288 <> mka_prior_provenance
+proj 3312:3330 <> mka_post_provenance
+proj 3354:3368 <> mka_prior_state
+proj 3394:3407 <> mka_post_state
+R3111:3123 UMSTFormal.Urge.KleisliMerge <> operator_verb ind
+R3139:3156 UMSTFormal.Urge.KleisliMerge <> inbound_gate_check ind
+R3172:3191 UMSTFormal.Urge.KleisliMerge <> merge_history_object rec
+R3208:3227 UMSTFormal.Urge.KleisliMerge <> merge_history_object rec
+R3249:3264 UMSTFormal.Urge.KleisliMerge <> merge_transition rec
+R3292:3307 UMSTFormal.Urge.KleisliMerge <> merge_provenance rec
+R3334:3349 UMSTFormal.Urge.KleisliMerge <> merge_provenance rec
+R3372:3389 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R3411:3428 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+ind 3444:3464 <> tier_disjoint_verdict
+constr 3473:3481 <> tdv_admit
+constr 3487:3507 <> tdv_refuse_cross_tier
+scheme 3444:3464 <> tier_disjoint_verdict_rect
+scheme 3444:3464 <> tier_disjoint_verdict_ind
+scheme 3444:3464 <> tier_disjoint_verdict_rec
+scheme 3444:3464 <> tier_disjoint_verdict_sind
+ind 3521:3547 <> provenance_preserve_verdict
+constr 3556:3564 <> ppv_admit
+constr 3570:3589 <> ppv_refuse_prior_dag
+constr 3595:3613 <> ppv_refuse_post_dag
+constr 3619:3634 <> ppv_refuse_chain
+constr 3640:3657 <> ppv_refuse_witness
+scheme 3521:3547 <> provenance_preserve_verdict_rect
+scheme 3521:3547 <> provenance_preserve_verdict_ind
+scheme 3521:3547 <> provenance_preserve_verdict_rec
+scheme 3521:3547 <> provenance_preserve_verdict_sind
+ind 3671:3689 <> merge_arrow_refusal
+constr 3698:3711 <> mar_wrong_verb
+constr 3717:3732 <> mar_gate_refused
+constr 3738:3760 <> mar_gate_bypass_refused
+constr 3766:3782 <> mar_tier_disjoint
+constr 3816:3837 <> mar_merge_safe_refused
+constr 3843:3864 <> mar_provenance_refused
+constr 3904:3931 <> mar_production_wired_refused
+R3789:3809 UMSTFormal.Urge.KleisliMerge <> tier_disjoint_verdict ind
+binder 3785:3785 <> v:47
+R3871:3897 UMSTFormal.Urge.KleisliMerge <> provenance_preserve_verdict ind
+binder 3867:3867 <> v:48
+scheme 3671:3689 <> merge_arrow_refusal_rect
+scheme 3671:3689 <> merge_arrow_refusal_ind
+scheme 3671:3689 <> merge_arrow_refusal_rec
+scheme 3671:3689 <> merge_arrow_refusal_sind
+rec 3942:3954 <> merge_outcome
+proj 3969:3984 <> merge_out_merged
+proj 4012:4031 <> merge_out_provenance
+proj 4066:4079 <> merge_out_tier
+R3988:4007 UMSTFormal.Urge.KleisliMerge <> merge_history_object rec
+R4035:4061 UMSTFormal.Urge.KleisliMerge <> provenance_preserve_verdict ind
+R4083:4103 UMSTFormal.Urge.KleisliMerge <> tier_disjoint_verdict ind
+def 4342:4356 <> memory_tier_eqb
+R4367:4377 UMSTFormal.Urge.KleisliMerge <> memory_tier ind
+binder 4359:4360 <> t1:53
+binder 4362:4363 <> t2:54
+R4382:4385 Corelib.Init.Datatypes <> bool ind
+R4402:4403 UMSTFormal.Urge.KleisliMerge <> t2:54 var
+R4398:4399 UMSTFormal.Urge.KleisliMerge <> t1:53 var
+R4414:4425 UMSTFormal.Urge.KleisliMerge <> mt_ephemeral constr
+R4428:4439 UMSTFormal.Urge.KleisliMerge <> mt_ephemeral constr
+R4444:4447 Corelib.Init.Datatypes <> true constr
+R4453:4461 UMSTFormal.Urge.KleisliMerge <> mt_device constr
+R4464:4472 UMSTFormal.Urge.KleisliMerge <> mt_device constr
+R4477:4480 Corelib.Init.Datatypes <> true constr
+R4486:4497 UMSTFormal.Urge.KleisliMerge <> mt_federated constr
+R4500:4511 UMSTFormal.Urge.KleisliMerge <> mt_federated constr
+R4516:4519 Corelib.Init.Datatypes <> true constr
+R4533:4537 Corelib.Init.Datatypes <> false constr
+def 4556:4563 <> list_eqb
+binder 4566:4566 <> A:57
+R4584:4587 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4583:4583 UMSTFormal.Urge.KleisliMerge <> A:57 var
+R4589:4592 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4588:4588 UMSTFormal.Urge.KleisliMerge <> A:57 var
+R4593:4596 Corelib.Init.Datatypes <> bool ind
+binder 4577:4579 <> eqA:58
+R4608:4611 Corelib.Init.Datatypes <> list ind
+R4613:4613 UMSTFormal.Urge.KleisliMerge <> A:57 var
+binder 4600:4601 <> xs:59
+binder 4603:4604 <> ys:60
+R4618:4621 Corelib.Init.Datatypes <> bool ind
+R4638:4639 UMSTFormal.Urge.KleisliMerge <> ys:60 var
+R4634:4635 UMSTFormal.Urge.KleisliMerge <> xs:59 var
+R4650:4652 Corelib.Init.Datatypes <> nil constr
+R4655:4657 Corelib.Init.Datatypes <> nil constr
+R4662:4665 Corelib.Init.Datatypes <> true constr
+R4672:4675 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4681:4684 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4698:4701 Corelib.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4691:4693 UMSTFormal.Urge.KleisliMerge <> eqA:58 var
+R4702:4709 UMSTFormal.Urge.KleisliMerge <> list_eqb:61 def
+R4711:4713 UMSTFormal.Urge.KleisliMerge <> eqA:58 var
+R4733:4737 Corelib.Init.Datatypes <> false constr
+def 4758:4774 <> operator_verb_eqb
+R4785:4797 UMSTFormal.Urge.KleisliMerge <> operator_verb ind
+binder 4777:4778 <> v1:64
+binder 4780:4781 <> v2:65
+R4802:4805 Corelib.Init.Datatypes <> bool ind
+R4822:4823 UMSTFormal.Urge.KleisliMerge <> v2:65 var
+R4818:4819 UMSTFormal.Urge.KleisliMerge <> v1:64 var
+R4834:4846 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R4849:4861 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R4866:4869 Corelib.Init.Datatypes <> true constr
+def 4890:4911 <> inbound_gate_check_eqb
+R4922:4939 UMSTFormal.Urge.KleisliMerge <> inbound_gate_check ind
+binder 4914:4915 <> g1:68
+binder 4917:4918 <> g2:69
+R4944:4947 Corelib.Init.Datatypes <> bool ind
+R4964:4965 UMSTFormal.Urge.KleisliMerge <> g2:69 var
+R4960:4961 UMSTFormal.Urge.KleisliMerge <> g1:68 var
+R4976:4987 UMSTFormal.Urge.KleisliMerge <> igc_admitted constr
+R4990:5001 UMSTFormal.Urge.KleisliMerge <> igc_admitted constr
+R5006:5009 Corelib.Init.Datatypes <> true constr
+R5015:5025 UMSTFormal.Urge.KleisliMerge <> igc_refused constr
+R5028:5038 UMSTFormal.Urge.KleisliMerge <> igc_refused constr
+R5043:5046 Corelib.Init.Datatypes <> true constr
+R5052:5071 UMSTFormal.Urge.KleisliMerge <> igc_bypass_attempted constr
+R5074:5093 UMSTFormal.Urge.KleisliMerge <> igc_bypass_attempted constr
+R5098:5101 Corelib.Init.Datatypes <> true constr
+R5115:5119 Corelib.Init.Datatypes <> false constr
+def 5140:5164 <> tier_disjoint_verdict_eqb
+R5175:5195 UMSTFormal.Urge.KleisliMerge <> tier_disjoint_verdict ind
+binder 5167:5168 <> v1:72
+binder 5170:5171 <> v2:73
+R5200:5203 Corelib.Init.Datatypes <> bool ind
+R5220:5221 UMSTFormal.Urge.KleisliMerge <> v2:73 var
+R5216:5217 UMSTFormal.Urge.KleisliMerge <> v1:72 var
+R5232:5240 UMSTFormal.Urge.KleisliMerge <> tdv_admit constr
+R5243:5251 UMSTFormal.Urge.KleisliMerge <> tdv_admit constr
+R5256:5259 Corelib.Init.Datatypes <> true constr
+R5265:5285 UMSTFormal.Urge.KleisliMerge <> tdv_refuse_cross_tier constr
+R5288:5308 UMSTFormal.Urge.KleisliMerge <> tdv_refuse_cross_tier constr
+R5313:5316 Corelib.Init.Datatypes <> true constr
+R5330:5334 Corelib.Init.Datatypes <> false constr
+def 5355:5385 <> provenance_preserve_verdict_eqb
+R5396:5422 UMSTFormal.Urge.KleisliMerge <> provenance_preserve_verdict ind
+binder 5388:5389 <> v1:76
+binder 5391:5392 <> v2:77
+R5427:5430 Corelib.Init.Datatypes <> bool ind
+R5447:5448 UMSTFormal.Urge.KleisliMerge <> v2:77 var
+R5443:5444 UMSTFormal.Urge.KleisliMerge <> v1:76 var
+R5459:5467 UMSTFormal.Urge.KleisliMerge <> ppv_admit constr
+R5470:5478 UMSTFormal.Urge.KleisliMerge <> ppv_admit constr
+R5483:5486 Corelib.Init.Datatypes <> true constr
+R5492:5511 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_prior_dag constr
+R5514:5533 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_prior_dag constr
+R5538:5541 Corelib.Init.Datatypes <> true constr
+R5547:5565 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_post_dag constr
+R5568:5586 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_post_dag constr
+R5591:5594 Corelib.Init.Datatypes <> true constr
+R5600:5615 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_chain constr
+R5618:5633 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_chain constr
+R5638:5641 Corelib.Init.Datatypes <> true constr
+R5647:5664 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_witness constr
+R5667:5684 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_witness constr
+R5689:5692 Corelib.Init.Datatypes <> true constr
+R5706:5710 Corelib.Init.Datatypes <> false constr
+def 5731:5758 <> merge_gate_check_before_sync
+R5774:5791 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 5761:5765 <> prior:80
+binder 5767:5770 <> post:81
+R5796:5799 Corelib.Init.Datatypes <> bool ind
+R5806:5815 UMSTFormal.Concrete.Gate <> gate_check def
+R5817:5821 UMSTFormal.Urge.KleisliMerge <> prior:80 var
+R5823:5826 UMSTFormal.Urge.KleisliMerge <> post:81 var
+def 5841:5862 <> evaluate_tier_disjoint
+R5873:5883 UMSTFormal.Urge.KleisliMerge <> memory_tier ind
+binder 5865:5866 <> t1:82
+binder 5868:5869 <> t2:83
+R5888:5908 UMSTFormal.Urge.KleisliMerge <> tier_disjoint_verdict ind
+R5918:5932 UMSTFormal.Urge.KleisliMerge <> memory_tier_eqb def
+R5934:5935 UMSTFormal.Urge.KleisliMerge <> t1:82 var
+R5937:5938 UMSTFormal.Urge.KleisliMerge <> t2:83 var
+R5960:5980 UMSTFormal.Urge.KleisliMerge <> tdv_refuse_cross_tier constr
+R5945:5953 UMSTFormal.Urge.KleisliMerge <> tdv_admit constr
+def 5995:6013 <> merge_history_entry
+R6029:6046 UMSTFormal.Urge.MergeSafe <> HistoryMemoryEntry rec
+binder 6016:6019 <> left:84
+binder 6021:6025 <> right:85
+R6053:6058 Corelib.Init.Datatypes <> option ind
+R6060:6077 UMSTFormal.Urge.MergeSafe <> HistoryMemoryEntry rec
+R6090:6099 UMSTFormal.Urge.MergeSafe <> merge_safe def
+R6101:6104 UMSTFormal.Urge.KleisliMerge <> left:84 var
+R6106:6110 UMSTFormal.Urge.KleisliMerge <> right:85 var
+R6121:6136 UMSTFormal.Urge.MergeSafe <> merge_safe_admit constr
+R6141:6144 Corelib.Init.Datatypes <> Some constr
+R6146:6149 UMSTFormal.Urge.KleisliMerge <> left:84 var
+R6155:6180 UMSTFormal.Urge.MergeSafe <> merge_safe_refuse_mismatch constr
+R6185:6188 Corelib.Init.Datatypes <> None constr
+def 6209:6234 <> preserves_merge_provenance
+R6242:6257 UMSTFormal.Urge.KleisliMerge <> merge_transition rec
+binder 6237:6238 <> tr:86
+R6278:6293 UMSTFormal.Urge.KleisliMerge <> merge_provenance rec
+binder 6265:6269 <> prior:87
+binder 6271:6274 <> post:88
+R6298:6324 UMSTFormal.Urge.KleisliMerge <> provenance_preserve_verdict ind
+R6334:6340 Stdlib.Arith.PeanoNat Nat eqb def
+R6343:6358 UMSTFormal.Urge.KleisliMerge <> merge_dag_commit proj
+R6360:6364 UMSTFormal.Urge.KleisliMerge <> prior:87 var
+R6368:6385 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R6387:6388 UMSTFormal.Urge.KleisliMerge <> tr:86 var
+R6841:6860 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_prior_dag constr
+R6403:6409 Stdlib.Arith.PeanoNat Nat eqb def
+R6412:6427 UMSTFormal.Urge.KleisliMerge <> merge_dag_commit proj
+R6429:6432 UMSTFormal.Urge.KleisliMerge <> post:88 var
+R6436:6452 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R6454:6455 UMSTFormal.Urge.KleisliMerge <> tr:86 var
+R6810:6828 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_post_dag constr
+R6507:6510 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6485:6500 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R6502:6506 UMSTFormal.Urge.KleisliMerge <> prior:87 var
+R6533:6536 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6511:6526 UMSTFormal.Urge.KleisliMerge <> merge_dag_commit proj
+R6528:6532 UMSTFormal.Urge.KleisliMerge <> prior:87 var
+R6537:6539 Corelib.Init.Datatypes <> nil constr
+binder 6473:6480 <> expected:89
+R6553:6560 UMSTFormal.Urge.KleisliMerge <> list_eqb def
+R6594:6601 UMSTFormal.Urge.KleisliMerge <> expected:89 var
+R6571:6586 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R6588:6591 UMSTFormal.Urge.KleisliMerge <> post:88 var
+R6562:6568 Stdlib.Arith.PeanoNat Nat eqb def
+R6778:6793 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_chain constr
+R6619:6622 Corelib.Init.Datatypes <> andb def
+R6656:6659 Corelib.Init.Datatypes <> negb def
+R6662:6683 UMSTFormal.Urge.KleisliMerge <> merge_landauer_witness proj
+R6685:6688 UMSTFormal.Urge.KleisliMerge <> post:88 var
+R6625:6646 UMSTFormal.Urge.KleisliMerge <> merge_landauer_witness proj
+R6648:6652 UMSTFormal.Urge.KleisliMerge <> prior:87 var
+R6749:6757 UMSTFormal.Urge.KleisliMerge <> ppv_admit constr
+R6707:6724 UMSTFormal.Urge.KleisliMerge <> ppv_refuse_witness constr
+def 6875:6896 <> evaluate_merge_kleisli
+R6903:6921 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_arrow rec
+binder 6899:6899 <> a:90
+R6941:6943 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6928:6940 UMSTFormal.Urge.KleisliMerge <> merge_outcome rec
+R6944:6962 UMSTFormal.Urge.KleisliMerge <> merge_arrow_refusal ind
+R6972:6988 UMSTFormal.Urge.KleisliMerge <> operator_verb_eqb def
+R6991:6998 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R7000:7000 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7003:7015 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R8353:8355 Corelib.Init.Datatypes <> inr constr
+R8357:8370 UMSTFormal.Urge.KleisliMerge <> mar_wrong_verb constr
+R7029:7050 UMSTFormal.Urge.KleisliMerge <> inbound_gate_check_eqb def
+R7053:7060 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R7062:7062 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7065:7084 UMSTFormal.Urge.KleisliMerge <> igc_bypass_attempted constr
+R7137:7140 Corelib.Init.Datatypes <> negb def
+R7143:7161 UMSTFormal.Urge.KleisliMerge <> inbound_gate_admits def
+R7164:7171 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R7173:7173 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7221:7245 UMSTFormal.Urge.KleisliMerge <> tier_disjoint_verdict_eqb def
+R7262:7283 UMSTFormal.Urge.KleisliMerge <> evaluate_tier_disjoint def
+R7286:7293 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R7296:7303 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R7305:7305 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7310:7317 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R7320:7328 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R7330:7330 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7349:7357 UMSTFormal.Urge.KleisliMerge <> tdv_admit constr
+R8231:8233 Corelib.Init.Datatypes <> inr constr
+R8236:8252 UMSTFormal.Urge.KleisliMerge <> mar_tier_disjoint constr
+R8268:8289 UMSTFormal.Urge.KleisliMerge <> evaluate_tier_disjoint def
+R8292:8299 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R8302:8309 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R8311:8311 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R8316:8323 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R8326:8334 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R8336:8336 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7376:7394 UMSTFormal.Urge.KleisliMerge <> merge_history_entry def
+R7397:7405 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R7408:7415 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R7417:7417 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7422:7430 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R7433:7441 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R7443:7443 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7460:7463 Corelib.Init.Datatypes <> None constr
+R7468:7470 Corelib.Init.Datatypes <> inr constr
+R7472:7493 UMSTFormal.Urge.KleisliMerge <> mar_merge_safe_refused constr
+R7503:7506 Corelib.Init.Datatypes <> Some constr
+R7546:7571 UMSTFormal.Urge.KleisliMerge <> preserves_merge_provenance def
+R7574:7587 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R7589:7589 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7620:7639 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R7641:7641 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7645:7663 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R7665:7665 UMSTFormal.Urge.KleisliMerge <> a:90 var
+binder 7538:7541 <> prov:91
+R7684:7714 UMSTFormal.Urge.KleisliMerge <> provenance_preserve_verdict_eqb def
+R7716:7719 UMSTFormal.Urge.KleisliMerge <> prov:91 var
+R7721:7729 UMSTFormal.Urge.KleisliMerge <> ppv_admit constr
+R8172:8174 Corelib.Init.Datatypes <> inr constr
+R8177:8198 UMSTFormal.Urge.KleisliMerge <> mar_provenance_refused constr
+R8200:8203 UMSTFormal.Urge.KleisliMerge <> prov:91 var
+R7751:7778 UMSTFormal.Urge.KleisliMerge <> merge_gate_check_before_sync def
+R7781:7795 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R7797:7797 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R7801:7814 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R7816:7816 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R8124:8126 Corelib.Init.Datatypes <> inr constr
+R8128:8143 UMSTFormal.Urge.KleisliMerge <> mar_gate_refused constr
+R7838:7840 Corelib.Init.Datatypes <> inl constr
+R7861:7876 UMSTFormal.Urge.KleisliMerge <> merge_out_merged proj
+R7861:7876 UMSTFormal.Urge.KleisliMerge <> merge_out_merged proj
+R7861:7876 UMSTFormal.Urge.KleisliMerge <> merge_out_merged proj
+R8013:8032 UMSTFormal.Urge.KleisliMerge <> merge_out_provenance proj
+R8013:8032 UMSTFormal.Urge.KleisliMerge <> merge_out_provenance proj
+R8062:8075 UMSTFormal.Urge.KleisliMerge <> merge_out_tier proj
+R8062:8075 UMSTFormal.Urge.KleisliMerge <> merge_out_tier proj
+R7905:7913 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R7905:7913 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R7905:7913 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R7956:7963 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R7956:7963 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R7968:7975 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R7978:7985 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R7987:7987 UMSTFormal.Urge.KleisliMerge <> a:90 var
+R8037:8040 UMSTFormal.Urge.KleisliMerge <> prov:91 var
+R8080:8088 UMSTFormal.Urge.KleisliMerge <> tdv_admit constr
+R7188:7190 Corelib.Init.Datatypes <> inr constr
+R7192:7207 UMSTFormal.Urge.KleisliMerge <> mar_gate_refused constr
+R7097:7099 Corelib.Init.Datatypes <> inr constr
+R7101:7123 UMSTFormal.Urge.KleisliMerge <> mar_gate_bypass_refused constr
+prf 8380:8413 <> merge_verb_row_merge_safe_required
+R8448:8450 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8419:8432 UMSTFormal.Urge.KleisliMerge <> ovr_merge_safe proj
+R8434:8447 UMSTFormal.Urge.KleisliMerge <> merge_verb_row def
+R8451:8467 UMSTFormal.Urge.KleisliMerge <> verb_col_required constr
+prf 8502:8535 <> merge_verb_row_excitement_required
+R8570:8572 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8541:8554 UMSTFormal.Urge.KleisliMerge <> ovr_excitement proj
+R8556:8569 UMSTFormal.Urge.KleisliMerge <> merge_verb_row def
+R8573:8589 UMSTFormal.Urge.KleisliMerge <> verb_col_required constr
+prf 8624:8658 <> merge_verb_row_tier_disjoint_entity
+R8695:8697 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8664:8679 UMSTFormal.Urge.KleisliMerge <> ovr_entity_check proj
+R8681:8694 UMSTFormal.Urge.KleisliMerge <> merge_verb_row def
+R8698:8713 UMSTFormal.Urge.KleisliMerge <> ec_tier_disjoint constr
+prf 8748:8781 <> kleisli_gate_matches_merge_inbound
+R8818:8820 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8787:8802 UMSTFormal.Urge.KleisliMerge <> ovr_kleisli_gate proj
+R8804:8817 UMSTFormal.Urge.KleisliMerge <> merge_verb_row def
+R8821:8853 UMSTFormal.Urge.KleisliMerge <> kg_gate_check_before_sync_inbound constr
+prf 8888:8919 <> kleisli_gate_frugal_mi_not_merge
+R8956:8959 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R8925:8940 UMSTFormal.Urge.KleisliMerge <> ovr_kleisli_gate proj
+R8942:8955 UMSTFormal.Urge.KleisliMerge <> merge_verb_row def
+R8960:8983 UMSTFormal.Urge.KleisliMerge <> kg_frugal_mi_observation constr
+prf 9019:9047 <> merge_history_entry_admit_iff
+R9063:9080 UMSTFormal.Urge.MergeSafe <> HistoryMemoryEntry rec
+binder 9050:9053 <> left:92
+binder 9055:9059 <> right:93
+R9129:9135 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R9117:9119 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9087:9105 UMSTFormal.Urge.KleisliMerge <> merge_history_entry def
+R9107:9110 UMSTFormal.Urge.KleisliMerge <> left:92 var
+R9112:9116 UMSTFormal.Urge.KleisliMerge <> right:93 var
+R9120:9123 Corelib.Init.Datatypes <> Some constr
+R9125:9128 UMSTFormal.Urge.KleisliMerge <> left:92 var
+R9157:9159 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9136:9145 UMSTFormal.Urge.MergeSafe <> merge_safe def
+R9147:9150 UMSTFormal.Urge.KleisliMerge <> left:92 var
+R9152:9156 UMSTFormal.Urge.KleisliMerge <> right:93 var
+R9160:9175 UMSTFormal.Urge.MergeSafe <> merge_safe_admit constr
+R9194:9212 UMSTFormal.Urge.KleisliMerge <> merge_history_entry def
+R9227:9236 UMSTFormal.Urge.MergeSafe <> merge_safe def
+R9227:9236 UMSTFormal.Urge.MergeSafe <> merge_safe def
+prf 9306:9343 <> merge_history_entry_refuse_on_mismatch
+R9359:9376 UMSTFormal.Urge.MergeSafe <> HistoryMemoryEntry rec
+binder 9346:9349 <> left:94
+binder 9351:9355 <> right:95
+R9433:9438 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R9404:9406 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9383:9392 UMSTFormal.Urge.MergeSafe <> merge_safe def
+R9394:9397 UMSTFormal.Urge.KleisliMerge <> left:94 var
+R9399:9403 UMSTFormal.Urge.KleisliMerge <> right:95 var
+R9407:9432 UMSTFormal.Urge.MergeSafe <> merge_safe_refuse_mismatch constr
+R9469:9471 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9439:9457 UMSTFormal.Urge.KleisliMerge <> merge_history_entry def
+R9459:9462 UMSTFormal.Urge.KleisliMerge <> left:94 var
+R9464:9468 UMSTFormal.Urge.KleisliMerge <> right:95 var
+R9472:9475 Corelib.Init.Datatypes <> None constr
+R9506:9524 UMSTFormal.Urge.KleisliMerge <> merge_history_entry def
+prf 9565:9591 <> evaluate_tier_disjoint_same
+R9598:9608 UMSTFormal.Urge.KleisliMerge <> memory_tier ind
+binder 9594:9594 <> t:96
+R9641:9643 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9615:9636 UMSTFormal.Urge.KleisliMerge <> evaluate_tier_disjoint def
+R9638:9638 UMSTFormal.Urge.KleisliMerge <> t:96 var
+R9640:9640 UMSTFormal.Urge.KleisliMerge <> t:96 var
+R9644:9652 UMSTFormal.Urge.KleisliMerge <> tdv_admit constr
+R9671:9692 UMSTFormal.Urge.KleisliMerge <> evaluate_tier_disjoint def
+R9695:9709 UMSTFormal.Urge.KleisliMerge <> memory_tier_eqb def
+prf 9751:9778 <> evaluate_tier_disjoint_cross
+R9789:9799 UMSTFormal.Urge.KleisliMerge <> memory_tier ind
+binder 9781:9782 <> t1:97
+binder 9784:9785 <> t2:98
+R9813:9816 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R9811:9812 UMSTFormal.Urge.KleisliMerge <> t1:97 var
+R9817:9818 UMSTFormal.Urge.KleisliMerge <> t2:98 var
+binder 9807:9807 <> H:99
+R9853:9855 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9825:9846 UMSTFormal.Urge.KleisliMerge <> evaluate_tier_disjoint def
+R9848:9849 UMSTFormal.Urge.KleisliMerge <> t1:97 var
+R9851:9852 UMSTFormal.Urge.KleisliMerge <> t2:98 var
+R9856:9876 UMSTFormal.Urge.KleisliMerge <> tdv_refuse_cross_tier constr
+R9895:9916 UMSTFormal.Urge.KleisliMerge <> evaluate_tier_disjoint def
+rec 10205:10221 <> merge_kleisli_ctx
+proj 10263:10278 <> merge_successors
+R10230:10247 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10224:10226 <> src:100
+R10282:10285 Corelib.Init.Datatypes <> list ind
+R10288:10304 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10306:10308 UMSTFormal.Urge.KleisliMerge <> src:100 var
+def 10326:10345 <> merge_kleisli_select
+R10354:10371 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10348:10350 <> src:103
+R10385:10401 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_ctx rec
+R10403:10405 UMSTFormal.Urge.KleisliMerge <> src:103 var
+binder 10379:10381 <> ctx:104
+R10433:10435 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R10412:10428 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10430:10432 UMSTFormal.Urge.KleisliMerge <> src:103 var
+R10436:10453 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10460:10476 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10478:10480 UMSTFormal.Urge.KleisliMerge <> src:103 var
+R10483:10498 UMSTFormal.Urge.KleisliMerge <> merge_successors proj
+R10500:10502 UMSTFormal.Urge.KleisliMerge <> src:103 var
+R10504:10506 UMSTFormal.Urge.KleisliMerge <> ctx:104 var
+prf 10519:10559 <> merge_kleisli_select_eq_excitement_select
+R10572:10589 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10566:10568 <> src:105
+R10599:10615 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_ctx rec
+R10617:10619 UMSTFormal.Urge.KleisliMerge <> src:105 var
+binder 10593:10595 <> ctx:106
+R10654:10658 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10626:10645 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select def
+R10647:10649 UMSTFormal.Urge.KleisliMerge <> src:105 var
+R10651:10653 UMSTFormal.Urge.KleisliMerge <> ctx:106 var
+R10659:10675 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10677:10679 UMSTFormal.Urge.KleisliMerge <> src:105 var
+R10682:10697 UMSTFormal.Urge.KleisliMerge <> merge_successors proj
+R10699:10701 UMSTFormal.Urge.KleisliMerge <> src:105 var
+R10703:10705 UMSTFormal.Urge.KleisliMerge <> ctx:106 var
+prf 10745:10788 <> merge_kleisli_select_eq_urge_recovery_select
+R10801:10818 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10795:10797 <> src:107
+R10828:10844 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_ctx rec
+R10846:10848 UMSTFormal.Urge.KleisliMerge <> src:107 var
+binder 10822:10824 <> ctx:108
+R10883:10887 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10855:10874 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select def
+R10876:10878 UMSTFormal.Urge.KleisliMerge <> src:107 var
+R10880:10882 UMSTFormal.Urge.KleisliMerge <> ctx:108 var
+R10888:10907 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10909:10911 UMSTFormal.Urge.KleisliMerge <> src:107 var
+R10914:10929 UMSTFormal.Urge.KleisliMerge <> merge_successors proj
+R10931:10933 UMSTFormal.Urge.KleisliMerge <> src:107 var
+R10935:10937 UMSTFormal.Urge.KleisliMerge <> ctx:108 var
+prf 10977:11005 <> merge_kleisli_no_local_argmin
+R11018:11035 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11012:11014 <> src:109
+R11045:11061 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_ctx rec
+R11063:11065 UMSTFormal.Urge.KleisliMerge <> src:109 var
+binder 11039:11041 <> ctx:110
+R11100:11104 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11072:11091 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select def
+R11093:11095 UMSTFormal.Urge.KleisliMerge <> src:109 var
+R11097:11099 UMSTFormal.Urge.KleisliMerge <> ctx:110 var
+R11105:11121 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11123:11125 UMSTFormal.Urge.KleisliMerge <> src:109 var
+R11128:11143 UMSTFormal.Urge.KleisliMerge <> merge_successors proj
+R11145:11147 UMSTFormal.Urge.KleisliMerge <> src:109 var
+R11149:11151 UMSTFormal.Urge.KleisliMerge <> ctx:110 var
+R11171:11211 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select_eq_excitement_select thm
+R11171:11211 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select_eq_excitement_select thm
+prf 11235:11253 <> merge_kleisli_empty
+R11262:11279 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11256:11258 <> src:111
+R11293:11309 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_ctx rec
+R11311:11313 UMSTFormal.Urge.KleisliMerge <> src:111 var
+binder 11287:11289 <> ctx:112
+R11352:11354 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11328:11343 UMSTFormal.Urge.KleisliMerge <> merge_successors proj
+R11345:11347 UMSTFormal.Urge.KleisliMerge <> src:111 var
+R11349:11351 UMSTFormal.Urge.KleisliMerge <> ctx:112 var
+R11355:11357 Corelib.Init.Datatypes <> nil constr
+binder 11321:11324 <> Hnil:113
+R11392:11394 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11364:11383 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select def
+R11385:11387 UMSTFormal.Urge.KleisliMerge <> src:111 var
+R11389:11391 UMSTFormal.Urge.KleisliMerge <> ctx:112 var
+R11395:11397 Corelib.Init.Datatypes <> inr constr
+R11399:11415 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R11434:11453 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select def
+ind 11722:11740 <> merge_gate_mismatch
+constr 11749:11770 <> mgm_frugal_mi_on_merge
+constr 11776:11801 <> mgm_outbound_tick_on_merge
+constr 11807:11831 <> mgm_remote_class_on_merge
+constr 11837:11862 <> mgm_replica_class_on_merge
+scheme 11722:11740 <> merge_gate_mismatch_rect
+scheme 11722:11740 <> merge_gate_mismatch_ind
+scheme 11722:11740 <> merge_gate_mismatch_rec
+scheme 11722:11740 <> merge_gate_mismatch_sind
+def 11877:11901 <> refuse_frugal_mi_on_merge
+R11905:11923 UMSTFormal.Urge.KleisliMerge <> merge_gate_mismatch ind
+R11928:11949 UMSTFormal.Urge.KleisliMerge <> mgm_frugal_mi_on_merge constr
+def 11964:11992 <> refuse_outbound_tick_on_merge
+R11996:12014 UMSTFormal.Urge.KleisliMerge <> merge_gate_mismatch ind
+R12019:12044 UMSTFormal.Urge.KleisliMerge <> mgm_outbound_tick_on_merge constr
+def 12059:12086 <> refuse_remote_class_on_merge
+R12090:12108 UMSTFormal.Urge.KleisliMerge <> merge_gate_mismatch ind
+R12113:12137 UMSTFormal.Urge.KleisliMerge <> mgm_remote_class_on_merge constr
+def 12152:12180 <> refuse_replica_class_on_merge
+R12184:12202 UMSTFormal.Urge.KleisliMerge <> merge_gate_mismatch ind
+R12207:12232 UMSTFormal.Urge.KleisliMerge <> mgm_replica_class_on_merge constr
+def 12247:12275 <> refuse_production_wired_merge
+R12279:12297 UMSTFormal.Urge.KleisliMerge <> merge_arrow_refusal ind
+R12302:12329 UMSTFormal.Urge.KleisliMerge <> mar_production_wired_refused constr
+def 12344:12362 <> merge_fixture_entry
+R12366:12383 UMSTFormal.Urge.MergeSafe <> HistoryMemoryEntry rec
+R12393:12410 UMSTFormal.Urge.MergeSafe <> history_content_id proj
+R12393:12410 UMSTFormal.Urge.MergeSafe <> history_content_id proj
+R12393:12410 UMSTFormal.Urge.MergeSafe <> history_content_id proj
+R12424:12441 UMSTFormal.Urge.MergeSafe <> history_theorem_id proj
+R12424:12441 UMSTFormal.Urge.MergeSafe <> history_theorem_id proj
+def 12464:12483 <> merge_fixture_object
+R12487:12506 UMSTFormal.Urge.KleisliMerge <> merge_history_object rec
+R12516:12524 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R12516:12524 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R12516:12524 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R12550:12557 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R12550:12557 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R12529:12547 UMSTFormal.Urge.KleisliMerge <> merge_fixture_entry def
+R12562:12570 UMSTFormal.Urge.KleisliMerge <> mt_device constr
+def 12588:12606 <> merge_fixture_state
+R12610:12627 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R12637:12643 UMSTFormal.Concrete.Gate <> density proj
+R12637:12643 UMSTFormal.Concrete.Gate <> density proj
+R12637:12643 UMSTFormal.Concrete.Gate <> density proj
+R12663:12673 UMSTFormal.Concrete.Gate <> free_energy proj
+R12663:12673 UMSTFormal.Concrete.Gate <> free_energy proj
+R12686:12694 UMSTFormal.Concrete.Gate <> hydration proj
+R12686:12694 UMSTFormal.Concrete.Gate <> hydration proj
+R12707:12714 UMSTFormal.Concrete.Gate <> strength proj
+R12707:12714 UMSTFormal.Concrete.Gate <> strength proj
+R12652:12654 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 12737:12760 <> merge_fixture_provenance
+R12776:12778 Corelib.Init.Datatypes <> nat ind
+binder 12763:12767 <> prior:116
+binder 12769:12772 <> post:117
+R12783:12798 UMSTFormal.Urge.KleisliMerge <> merge_provenance rec
+R12808:12823 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R12808:12823 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R12808:12823 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R12847:12862 UMSTFormal.Urge.KleisliMerge <> merge_dag_commit proj
+R12847:12862 UMSTFormal.Urge.KleisliMerge <> merge_dag_commit proj
+R12879:12900 UMSTFormal.Urge.KleisliMerge <> merge_landauer_witness proj
+R12879:12900 UMSTFormal.Urge.KleisliMerge <> merge_landauer_witness proj
+R12833:12836 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12828:12832 UMSTFormal.Urge.KleisliMerge <> prior:116 var
+R12837:12839 Corelib.Init.Datatypes <> nil constr
+R12867:12871 UMSTFormal.Urge.KleisliMerge <> prior:116 var
+R12905:12908 Corelib.Init.Datatypes <> true constr
+def 12926:12954 <> merge_fixture_post_provenance
+R12970:12972 Corelib.Init.Datatypes <> nat ind
+binder 12957:12961 <> prior:118
+binder 12963:12966 <> post:119
+R12977:12992 UMSTFormal.Urge.KleisliMerge <> merge_provenance rec
+R13002:13017 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R13002:13017 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R13002:13017 UMSTFormal.Urge.KleisliMerge <> merge_ucrs_chain proj
+R13050:13065 UMSTFormal.Urge.KleisliMerge <> merge_dag_commit proj
+R13050:13065 UMSTFormal.Urge.KleisliMerge <> merge_dag_commit proj
+R13081:13102 UMSTFormal.Urge.KleisliMerge <> merge_landauer_witness proj
+R13081:13102 UMSTFormal.Urge.KleisliMerge <> merge_landauer_witness proj
+R13027:13030 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13022:13026 UMSTFormal.Urge.KleisliMerge <> prior:118 var
+R13036:13039 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13031:13035 UMSTFormal.Urge.KleisliMerge <> prior:118 var
+R13040:13042 Corelib.Init.Datatypes <> nil constr
+R13070:13073 UMSTFormal.Urge.KleisliMerge <> post:119 var
+R13107:13110 Corelib.Init.Datatypes <> true constr
+def 13128:13146 <> merge_fixture_arrow
+R13150:13168 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_arrow rec
+R13178:13185 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R13178:13185 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R13178:13185 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R13210:13217 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R13210:13217 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R13241:13248 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R13241:13248 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R13280:13288 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R13280:13288 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R13320:13333 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R13320:13333 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R13400:13419 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R13400:13419 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R13461:13479 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R13461:13479 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R13526:13540 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R13526:13540 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R13571:13584 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R13571:13584 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R13190:13202 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R13222:13233 UMSTFormal.Urge.KleisliMerge <> igc_admitted constr
+R13253:13272 UMSTFormal.Urge.KleisliMerge <> merge_fixture_object def
+R13293:13312 UMSTFormal.Urge.KleisliMerge <> merge_fixture_object def
+R13341:13358 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R13341:13358 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R13341:13358 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R13367:13383 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R13367:13383 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R13424:13447 UMSTFormal.Urge.KleisliMerge <> merge_fixture_provenance def
+R13484:13512 UMSTFormal.Urge.KleisliMerge <> merge_fixture_post_provenance def
+R13545:13563 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+R13589:13607 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+prf 13622:13646 <> merge_fixture_evaluate_ok
+R13694:13696 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13652:13673 UMSTFormal.Urge.KleisliMerge <> evaluate_merge_kleisli def
+R13675:13693 UMSTFormal.Urge.KleisliMerge <> merge_fixture_arrow def
+R13697:13699 Corelib.Init.Datatypes <> inl constr
+R13708:13723 UMSTFormal.Urge.KleisliMerge <> merge_out_merged proj
+R13708:13723 UMSTFormal.Urge.KleisliMerge <> merge_out_merged proj
+R13708:13723 UMSTFormal.Urge.KleisliMerge <> merge_out_merged proj
+R13757:13776 UMSTFormal.Urge.KleisliMerge <> merge_out_provenance proj
+R13757:13776 UMSTFormal.Urge.KleisliMerge <> merge_out_provenance proj
+R13799:13812 UMSTFormal.Urge.KleisliMerge <> merge_out_tier proj
+R13799:13812 UMSTFormal.Urge.KleisliMerge <> merge_out_tier proj
+R13728:13747 UMSTFormal.Urge.KleisliMerge <> merge_fixture_object def
+R13781:13789 UMSTFormal.Urge.KleisliMerge <> ppv_admit constr
+R13817:13825 UMSTFormal.Urge.KleisliMerge <> tdv_admit constr
+def 13870:13901 <> merge_fixture_arrow_gate_refused
+R13905:13923 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_arrow rec
+R13933:13940 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R13933:13940 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R13933:13940 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R13965:13972 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R13965:13972 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R13995:14002 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R13995:14002 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R14034:14042 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R14034:14042 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R14074:14087 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R14074:14087 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R14154:14173 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R14154:14173 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R14215:14233 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R14215:14233 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R14280:14294 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R14280:14294 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R14325:14338 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R14325:14338 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R13945:13957 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R13977:13987 UMSTFormal.Urge.KleisliMerge <> igc_refused constr
+R14007:14026 UMSTFormal.Urge.KleisliMerge <> merge_fixture_object def
+R14047:14066 UMSTFormal.Urge.KleisliMerge <> merge_fixture_object def
+R14095:14112 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R14095:14112 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R14095:14112 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R14121:14137 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R14121:14137 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R14178:14201 UMSTFormal.Urge.KleisliMerge <> merge_fixture_provenance def
+R14238:14266 UMSTFormal.Urge.KleisliMerge <> merge_fixture_post_provenance def
+R14299:14317 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+R14343:14361 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+def 14379:14406 <> merge_fixture_right_mismatch
+R14410:14429 UMSTFormal.Urge.KleisliMerge <> merge_history_object rec
+R14439:14447 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R14439:14447 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R14439:14447 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R14514:14521 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R14514:14521 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R14455:14472 UMSTFormal.Urge.MergeSafe <> history_content_id proj
+R14455:14472 UMSTFormal.Urge.MergeSafe <> history_content_id proj
+R14455:14472 UMSTFormal.Urge.MergeSafe <> history_content_id proj
+R14481:14498 UMSTFormal.Urge.MergeSafe <> history_theorem_id proj
+R14481:14498 UMSTFormal.Urge.MergeSafe <> history_theorem_id proj
+R14526:14534 UMSTFormal.Urge.KleisliMerge <> mt_device constr
+def 14552:14589 <> merge_fixture_arrow_merge_safe_refused
+R14593:14611 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_arrow rec
+R14621:14628 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R14621:14628 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R14621:14628 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R14653:14660 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R14653:14660 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R14684:14691 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R14684:14691 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R14723:14731 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R14723:14731 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R14771:14784 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R14771:14784 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R14851:14870 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R14851:14870 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R14912:14930 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R14912:14930 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R14977:14991 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R14977:14991 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R15022:15035 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R15022:15035 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R14633:14645 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R14665:14676 UMSTFormal.Urge.KleisliMerge <> igc_admitted constr
+R14696:14715 UMSTFormal.Urge.KleisliMerge <> merge_fixture_object def
+R14736:14763 UMSTFormal.Urge.KleisliMerge <> merge_fixture_right_mismatch def
+R14792:14809 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R14792:14809 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R14792:14809 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R14818:14834 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R14818:14834 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R14875:14898 UMSTFormal.Urge.KleisliMerge <> merge_fixture_provenance def
+R14935:14963 UMSTFormal.Urge.KleisliMerge <> merge_fixture_post_provenance def
+R14996:15014 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+R15040:15058 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+def 15076:15105 <> merge_fixture_right_cross_tier
+R15109:15128 UMSTFormal.Urge.KleisliMerge <> merge_history_object rec
+R15138:15146 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R15138:15146 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R15138:15146 UMSTFormal.Urge.KleisliMerge <> mho_entry proj
+R15172:15179 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R15172:15179 UMSTFormal.Urge.KleisliMerge <> mho_tier proj
+R15151:15169 UMSTFormal.Urge.KleisliMerge <> merge_fixture_entry def
+R15184:15195 UMSTFormal.Urge.KleisliMerge <> mt_federated constr
+def 15213:15253 <> merge_fixture_arrow_tier_disjoint_refused
+R15257:15275 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_arrow rec
+R15285:15292 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R15285:15292 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R15285:15292 UMSTFormal.Urge.KleisliMerge <> mka_verb proj
+R15317:15324 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R15317:15324 UMSTFormal.Urge.KleisliMerge <> mka_gate proj
+R15348:15355 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R15348:15355 UMSTFormal.Urge.KleisliMerge <> mka_left proj
+R15387:15395 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R15387:15395 UMSTFormal.Urge.KleisliMerge <> mka_right proj
+R15437:15450 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R15437:15450 UMSTFormal.Urge.KleisliMerge <> mka_transition proj
+R15517:15536 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R15517:15536 UMSTFormal.Urge.KleisliMerge <> mka_prior_provenance proj
+R15578:15596 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R15578:15596 UMSTFormal.Urge.KleisliMerge <> mka_post_provenance proj
+R15643:15657 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R15643:15657 UMSTFormal.Urge.KleisliMerge <> mka_prior_state proj
+R15688:15701 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R15688:15701 UMSTFormal.Urge.KleisliMerge <> mka_post_state proj
+R15297:15309 UMSTFormal.Urge.KleisliMerge <> op_verb_merge constr
+R15329:15340 UMSTFormal.Urge.KleisliMerge <> igc_admitted constr
+R15360:15379 UMSTFormal.Urge.KleisliMerge <> merge_fixture_object def
+R15400:15429 UMSTFormal.Urge.KleisliMerge <> merge_fixture_right_cross_tier def
+R15458:15475 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R15458:15475 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R15458:15475 UMSTFormal.Urge.KleisliMerge <> merge_prior_commit proj
+R15484:15500 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R15484:15500 UMSTFormal.Urge.KleisliMerge <> merge_post_commit proj
+R15541:15564 UMSTFormal.Urge.KleisliMerge <> merge_fixture_provenance def
+R15601:15629 UMSTFormal.Urge.KleisliMerge <> merge_fixture_post_provenance def
+R15662:15680 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+R15706:15724 UMSTFormal.Urge.KleisliMerge <> merge_fixture_state def
+prf 15739:15764 <> merge_fixture_gate_refused
+R15825:15827 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15770:15791 UMSTFormal.Urge.KleisliMerge <> evaluate_merge_kleisli def
+R15793:15824 UMSTFormal.Urge.KleisliMerge <> merge_fixture_arrow_gate_refused def
+R15828:15830 Corelib.Init.Datatypes <> inr constr
+R15832:15847 UMSTFormal.Urge.KleisliMerge <> mar_gate_refused constr
+prf 15886:15917 <> merge_fixture_merge_safe_refused
+R15984:15988 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15923:15944 UMSTFormal.Urge.KleisliMerge <> evaluate_merge_kleisli def
+R15946:15983 UMSTFormal.Urge.KleisliMerge <> merge_fixture_arrow_merge_safe_refused def
+R15989:15991 Corelib.Init.Datatypes <> inr constr
+R15993:16014 UMSTFormal.Urge.KleisliMerge <> mar_merge_safe_refused constr
+prf 16053:16087 <> merge_fixture_tier_disjoint_refused
+R16157:16161 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16093:16114 UMSTFormal.Urge.KleisliMerge <> evaluate_merge_kleisli def
+R16116:16156 UMSTFormal.Urge.KleisliMerge <> merge_fixture_arrow_tier_disjoint_refused def
+R16162:16164 Corelib.Init.Datatypes <> inr constr
+R16167:16183 UMSTFormal.Urge.KleisliMerge <> mar_tier_disjoint constr
+R16185:16205 UMSTFormal.Urge.KleisliMerge <> tdv_refuse_cross_tier constr
+prf 16245:16270 <> merge_fixture_crdt_refused
+R16298:16300 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16276:16297 UMSTFormal.Urge.MergeSafe <> refuse_crdt_auto_merge def
+R16301:16327 UMSTFormal.Urge.MergeSafe <> crdt_auto_merge_refused_tag constr
+prf 16366:16400 <> merge_fixture_positive_refuse_gates
+R16456:16461 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R16431:16433 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16406:16430 UMSTFormal.Urge.KleisliMerge <> refuse_frugal_mi_on_merge def
+R16434:16455 UMSTFormal.Urge.KleisliMerge <> mgm_frugal_mi_on_merge constr
+R16520:16525 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R16491:16493 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16462:16490 UMSTFormal.Urge.KleisliMerge <> refuse_outbound_tick_on_merge def
+R16494:16519 UMSTFormal.Urge.KleisliMerge <> mgm_outbound_tick_on_merge constr
+R16582:16587 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R16554:16556 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16526:16553 UMSTFormal.Urge.KleisliMerge <> refuse_remote_class_on_merge def
+R16557:16581 UMSTFormal.Urge.KleisliMerge <> mgm_remote_class_on_merge constr
+R16617:16619 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16588:16616 UMSTFormal.Urge.KleisliMerge <> refuse_replica_class_on_merge def
+R16620:16645 UMSTFormal.Urge.KleisliMerge <> mgm_replica_class_on_merge constr
+def 16937:16963 <> kleisli_merge_physics_green
+R16967:16970 Corelib.Init.Datatypes <> bool ind
+R16975:16979 Corelib.Init.Datatypes <> false constr
+prf 16989:17021 <> kleisli_merge_physics_green_false
+R17054:17056 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17027:17053 UMSTFormal.Urge.KleisliMerge <> kleisli_merge_physics_green def
+R17057:17061 Corelib.Init.Datatypes <> false constr
+def 17101:17130 <> kleisli_merge_production_wired
+R17134:17137 Corelib.Init.Datatypes <> bool ind
+R17142:17146 Corelib.Init.Datatypes <> false constr
+prf 17156:17191 <> kleisli_merge_production_wired_false
+R17227:17229 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17197:17226 UMSTFormal.Urge.KleisliMerge <> kleisli_merge_production_wired def
+R17230:17234 Corelib.Init.Datatypes <> false constr
+def 17274:17293 <> kleisli_merge_marker
+R17297:17299 Corelib.Init.Datatypes <> nat ind
+prf 17316:17339 <> kleisli_merge_marker_pos
+R17347:17349 Corelib.Init.Peano <> ::nat_scope:x_'<'_x not
+R17350:17369 UMSTFormal.Urge.KleisliMerge <> kleisli_merge_marker def
+R17390:17402 Stdlib.Arith.PeanoNat Nat lt_0_succ thm
+R17390:17402 Stdlib.Arith.PeanoNat Nat lt_0_succ thm
+prf 17419:17446 <> kleisli_merge_module_witness
+R17450:17453 Corelib.Init.Logic <> True ind
+R17469:17469 Corelib.Init.Logic <> I constr
+R17469:17469 Corelib.Init.Logic <> I constr
+prf 17486:17511 <> kleisli_merge_no_new_axiom
+R17515:17518 Corelib.Init.Logic <> True ind
+R17534:17534 Corelib.Init.Logic <> I constr
+R17534:17534 Corelib.Init.Logic <> I constr
+prf 17551:17580 <> kleisli_merge_no_second_argmin
+R17593:17610 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 17587:17589 <> src:120
+R17620:17636 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_ctx rec
+R17638:17640 UMSTFormal.Urge.KleisliMerge <> src:120 var
+binder 17614:17616 <> ctx:121
+R17675:17677 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R17647:17666 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select def
+R17668:17670 UMSTFormal.Urge.KleisliMerge <> src:120 var
+R17672:17674 UMSTFormal.Urge.KleisliMerge <> ctx:121 var
+R17678:17695 UMSTFormal.Urge.AdmitKleisli <> admitHistorySelect def
+R17697:17699 UMSTFormal.Urge.KleisliMerge <> src:120 var
+R17702:17717 UMSTFormal.Urge.KleisliMerge <> merge_successors proj
+R17719:17721 UMSTFormal.Urge.KleisliMerge <> src:120 var
+R17723:17725 UMSTFormal.Urge.KleisliMerge <> ctx:121 var
+R17745:17764 UMSTFormal.Urge.KleisliMerge <> merge_kleisli_select def
+R17767:17784 UMSTFormal.Urge.AdmitKleisli <> admitHistorySelect def

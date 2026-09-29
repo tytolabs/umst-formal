@@ -1,0 +1,659 @@
+DIGEST 7898a29ff3eba4992e73f9b7872ad19f
+FUMSTFormal.Urge.ReplicaClass
+R904:908 Stdlib.Arith.Arith <> <> lib
+R910:913 Stdlib.Lists.List <> <> lib
+R915:918 Stdlib.Bool.Bool <> <> lib
+R920:925 Stdlib.Strings.String <> <> lib
+R927:932 Stdlib.QArith.QArith <> <> lib
+R950:964 UMSTFormal.Gate <> <> lib
+R982:1009 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1027:1058 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1415:1433 <> replica_class_label
+constr 1442:1460 <> rcl_node0_dev_clone
+constr 1466:1484 <> rcl_node1_dev_clone
+constr 1490:1515 <> rcl_forgejo_primary_mirror
+constr 1521:1538 <> rcl_darwin_scratch
+constr 1544:1559 <> rcl_offline_luks
+constr 1565:1584 <> rcl_customer_compose
+scheme 1415:1433 <> replica_class_label_rect
+scheme 1415:1433 <> replica_class_label_ind
+scheme 1415:1433 <> replica_class_label_rec
+scheme 1415:1433 <> replica_class_label_sind
+def 1654:1678 <> replica_class_class_field
+R1685:1703 UMSTFormal.Urge.ReplicaClass <> replica_class_label ind
+binder 1681:1681 <> c:3
+R1708:1713 Stdlib.Strings.String <> string ind
+R1726:1726 UMSTFormal.Urge.ReplicaClass <> c:3 var
+R1737:1755 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+R1783:1801 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R1829:1854 UMSTFormal.Urge.ReplicaClass <> rcl_forgejo_primary_mirror constr
+R1888:1905 UMSTFormal.Urge.ReplicaClass <> rcl_darwin_scratch constr
+R1931:1946 UMSTFormal.Urge.ReplicaClass <> rcl_offline_luks constr
+R1970:1989 UMSTFormal.Urge.ReplicaClass <> rcl_customer_compose constr
+def 2032:2053 <> rcl_node0_legacy_field
+R2057:2062 Stdlib.Strings.String <> string ind
+def 2088:2109 <> rcl_node1_legacy_field
+R2113:2118 Stdlib.Strings.String <> string ind
+def 2231:2255 <> parse_replica_class_field
+R2264:2269 Stdlib.Strings.String <> string ind
+binder 2258:2260 <> raw:5
+R2274:2279 Corelib.Init.Datatypes <> option ind
+R2281:2299 UMSTFormal.Urge.ReplicaClass <> replica_class_label ind
+R2309:2318 Stdlib.Strings.String <> eqb def
+R2320:2322 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2383:2392 Stdlib.Strings.String <> eqb def
+R2394:2396 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2398:2419 UMSTFormal.Urge.ReplicaClass <> rcl_node0_legacy_field def
+R2461:2470 Stdlib.Strings.String <> eqb def
+R2472:2474 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2535:2544 Stdlib.Strings.String <> eqb def
+R2546:2548 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2550:2571 UMSTFormal.Urge.ReplicaClass <> rcl_node1_legacy_field def
+R2613:2622 Stdlib.Strings.String <> eqb def
+R2624:2626 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2700:2709 Stdlib.Strings.String <> eqb def
+R2711:2713 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2771:2780 Stdlib.Strings.String <> eqb def
+R2782:2784 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2838:2847 Stdlib.Strings.String <> eqb def
+R2849:2851 UMSTFormal.Urge.ReplicaClass <> raw:5 var
+R2910:2913 Corelib.Init.Datatypes <> None constr
+R2877:2880 Corelib.Init.Datatypes <> Some constr
+R2882:2901 UMSTFormal.Urge.ReplicaClass <> rcl_customer_compose constr
+R2806:2809 Corelib.Init.Datatypes <> Some constr
+R2811:2826 UMSTFormal.Urge.ReplicaClass <> rcl_offline_luks constr
+R2737:2740 Corelib.Init.Datatypes <> Some constr
+R2742:2759 UMSTFormal.Urge.ReplicaClass <> rcl_darwin_scratch constr
+R2658:2661 Corelib.Init.Datatypes <> Some constr
+R2663:2688 UMSTFormal.Urge.ReplicaClass <> rcl_forgejo_primary_mirror constr
+R2578:2581 Corelib.Init.Datatypes <> Some constr
+R2583:2601 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R2500:2503 Corelib.Init.Datatypes <> Some constr
+R2505:2523 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R2426:2429 Corelib.Init.Datatypes <> Some constr
+R2431:2449 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+R2348:2351 Corelib.Init.Datatypes <> Some constr
+R2353:2371 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+ind 2989:3010 <> replica_network_egress
+constr 3019:3042 <> rne_tailscale_admin_only
+constr 3048:3076 <> rne_tailscale_no_public_ports
+constr 3082:3090 <> rne_empty
+constr 3096:3109 <> rne_mount_only
+constr 3115:3133 <> rne_customer_policy
+scheme 2989:3010 <> replica_network_egress_rect
+scheme 2989:3010 <> replica_network_egress_ind
+scheme 2989:3010 <> replica_network_egress_rec
+scheme 2989:3010 <> replica_network_egress_sind
+def 3223:3242 <> replica_egress_empty
+R3249:3270 UMSTFormal.Urge.ReplicaClass <> replica_network_egress ind
+binder 3245:3245 <> e:8
+R3275:3278 Corelib.Init.Datatypes <> bool ind
+R3291:3291 UMSTFormal.Urge.ReplicaClass <> e:8 var
+R3302:3310 UMSTFormal.Urge.ReplicaClass <> rne_empty constr
+R3314:3327 UMSTFormal.Urge.ReplicaClass <> rne_mount_only constr
+R3332:3335 Corelib.Init.Datatypes <> true constr
+R3332:3335 Corelib.Init.Datatypes <> true constr
+R3346:3350 Corelib.Init.Datatypes <> false constr
+ind 3427:3443 <> replica_authority
+constr 3452:3466 <> ra_working_copy
+constr 3472:3490 <> ra_canonical_remote
+constr 3496:3512 <> ra_backup_scratch
+constr 3518:3533 <> ra_disaster_copy
+constr 3539:3555 <> ra_on_site_record
+scheme 3427:3443 <> replica_authority_rect
+scheme 3427:3443 <> replica_authority_ind
+scheme 3427:3443 <> replica_authority_rec
+scheme 3427:3443 <> replica_authority_sind
+rec 3646:3668 <> replica_class_table_row
+proj 3683:3699 <> replica_row_class
+proj 3726:3743 <> replica_row_egress
+proj 3773:3793 <> replica_row_authority
+R3703:3721 UMSTFormal.Urge.ReplicaClass <> replica_class_label ind
+R3747:3768 UMSTFormal.Urge.ReplicaClass <> replica_network_egress ind
+R3797:3813 UMSTFormal.Urge.ReplicaClass <> replica_authority ind
+def 3893:3919 <> replica_class_blueprint_row
+R3926:3944 UMSTFormal.Urge.ReplicaClass <> replica_class_label ind
+binder 3922:3922 <> c:16
+R3953:3975 UMSTFormal.Urge.ReplicaClass <> replica_class_table_row rec
+R3988:3988 UMSTFormal.Urge.ReplicaClass <> c:16 var
+R3999:4017 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+R4029:4045 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4029:4045 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4029:4045 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4078:4095 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4078:4095 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4133:4153 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4133:4153 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4050:4068 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+R4100:4123 UMSTFormal.Urge.ReplicaClass <> rne_tailscale_admin_only constr
+R4158:4172 UMSTFormal.Urge.ReplicaClass <> ra_working_copy constr
+R4181:4199 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R4211:4227 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4211:4227 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4211:4227 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4260:4277 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4260:4277 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4315:4335 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4315:4335 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4232:4250 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R4282:4305 UMSTFormal.Urge.ReplicaClass <> rne_tailscale_admin_only constr
+R4340:4354 UMSTFormal.Urge.ReplicaClass <> ra_working_copy constr
+R4363:4388 UMSTFormal.Urge.ReplicaClass <> rcl_forgejo_primary_mirror constr
+R4400:4416 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4400:4416 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4400:4416 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4456:4473 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4456:4473 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4516:4536 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4516:4536 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4421:4446 UMSTFormal.Urge.ReplicaClass <> rcl_forgejo_primary_mirror constr
+R4478:4506 UMSTFormal.Urge.ReplicaClass <> rne_tailscale_no_public_ports constr
+R4541:4559 UMSTFormal.Urge.ReplicaClass <> ra_canonical_remote constr
+R4568:4585 UMSTFormal.Urge.ReplicaClass <> rcl_darwin_scratch constr
+R4597:4613 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4597:4613 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4597:4613 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4645:4662 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4645:4662 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4690:4710 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4690:4710 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4618:4635 UMSTFormal.Urge.ReplicaClass <> rcl_darwin_scratch constr
+R4667:4680 UMSTFormal.Urge.ReplicaClass <> rne_mount_only constr
+R4715:4731 UMSTFormal.Urge.ReplicaClass <> ra_backup_scratch constr
+R4740:4755 UMSTFormal.Urge.ReplicaClass <> rcl_offline_luks constr
+R4767:4783 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4767:4783 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4767:4783 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4813:4830 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4813:4830 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4853:4873 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4853:4873 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4788:4803 UMSTFormal.Urge.ReplicaClass <> rcl_offline_luks constr
+R4835:4843 UMSTFormal.Urge.ReplicaClass <> rne_empty constr
+R4878:4893 UMSTFormal.Urge.ReplicaClass <> ra_disaster_copy constr
+R4902:4921 UMSTFormal.Urge.ReplicaClass <> rcl_customer_compose constr
+R4933:4949 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4933:4949 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4933:4949 UMSTFormal.Urge.ReplicaClass <> replica_row_class proj
+R4983:5000 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R4983:5000 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R5033:5053 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R5033:5053 UMSTFormal.Urge.ReplicaClass <> replica_row_authority proj
+R4954:4973 UMSTFormal.Urge.ReplicaClass <> rcl_customer_compose constr
+R5005:5023 UMSTFormal.Urge.ReplicaClass <> rne_customer_policy constr
+R5058:5074 UMSTFormal.Urge.ReplicaClass <> ra_on_site_record constr
+def 5098:5128 <> replica_class_table_cardinality
+R5132:5134 Corelib.Init.Datatypes <> nat ind
+rec 5456:5476 <> fabric_node_class_pin
+proj 5491:5504 <> fabric_node_id
+proj 5518:5535 <> fabric_class_field
+proj 5556:5581 <> fabric_physics_green_claim
+proj 5593:5623 <> fabric_joins_labs_public_gossip
+R5508:5513 Stdlib.Strings.String <> string ind
+R5539:5544 Corelib.Init.Datatypes <> option ind
+R5546:5551 Stdlib.Strings.String <> string ind
+R5585:5588 Corelib.Init.Datatypes <> bool ind
+R5627:5630 Corelib.Init.Datatypes <> bool ind
+ind 5717:5735 <> replica_class_admit
+constr 5744:5755 <> rca_admitted
+constr 5761:5771 <> rca_refused
+scheme 5717:5735 <> replica_class_admit_rect
+scheme 5717:5735 <> replica_class_admit_ind
+scheme 5717:5735 <> replica_class_admit_rec
+scheme 5717:5735 <> replica_class_admit_sind
+ind 5842:5866 <> fabric_node_class_verdict
+constr 5875:5885 <> fncv_accept
+constr 5891:5901 <> fncv_reject
+scheme 5842:5866 <> fabric_node_class_verdict_rect
+scheme 5842:5866 <> fabric_node_class_verdict_ind
+scheme 5842:5866 <> fabric_node_class_verdict_rec
+scheme 5842:5866 <> fabric_node_class_verdict_sind
+ind 5986:6006 <> replica_class_refusal
+constr 6015:6037 <> rcr_missing_class_field
+constr 6043:6067 <> rcr_unknown_replica_class
+constr 6073:6098 <> rcr_invented_physics_green
+constr 6104:6135 <> rcr_customer_compose_labs_gossip
+constr 6141:6168 <> rcr_second_excitement_argmin
+scheme 5986:6006 <> replica_class_refusal_rect
+scheme 5986:6006 <> replica_class_refusal_ind
+scheme 5986:6006 <> replica_class_refusal_rec
+scheme 5986:6006 <> replica_class_refusal_sind
+rec 6237:6257 <> fabric_node_class_row
+proj 6272:6289 <> fabric_row_node_id
+proj 6303:6318 <> fabric_row_class
+proj 6345:6360 <> fabric_row_table
+proj 6391:6408 <> fabric_row_verdict
+proj 6441:6456 <> fabric_row_admit
+R6293:6298 Stdlib.Strings.String <> string ind
+R6322:6340 UMSTFormal.Urge.ReplicaClass <> replica_class_label ind
+R6364:6386 UMSTFormal.Urge.ReplicaClass <> replica_class_table_row rec
+R6412:6436 UMSTFormal.Urge.ReplicaClass <> fabric_node_class_verdict ind
+R6460:6478 UMSTFormal.Urge.ReplicaClass <> replica_class_admit ind
+def 6495:6520 <> replica_class_label_to_nat
+R6527:6545 UMSTFormal.Urge.ReplicaClass <> replica_class_label ind
+binder 6523:6523 <> c:35
+R6550:6552 Corelib.Init.Datatypes <> nat ind
+R6565:6565 UMSTFormal.Urge.ReplicaClass <> c:35 var
+R6576:6594 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+R6611:6629 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R6646:6671 UMSTFormal.Urge.ReplicaClass <> rcl_forgejo_primary_mirror constr
+R6688:6705 UMSTFormal.Urge.ReplicaClass <> rcl_darwin_scratch constr
+R6722:6737 UMSTFormal.Urge.ReplicaClass <> rcl_offline_luks constr
+R6754:6773 UMSTFormal.Urge.ReplicaClass <> rcl_customer_compose constr
+def 6871:6896 <> evaluate_fabric_node_class
+R6905:6925 UMSTFormal.Urge.ReplicaClass <> fabric_node_class_pin rec
+binder 6899:6901 <> pin:37
+R6955:6957 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6934:6954 UMSTFormal.Urge.ReplicaClass <> fabric_node_class_row rec
+R6958:6978 UMSTFormal.Urge.ReplicaClass <> replica_class_refusal ind
+R6988:7013 UMSTFormal.Urge.ReplicaClass <> fabric_physics_green_claim proj
+R7015:7017 UMSTFormal.Urge.ReplicaClass <> pin:37 var
+R7076:7093 UMSTFormal.Urge.ReplicaClass <> fabric_class_field proj
+R7095:7097 UMSTFormal.Urge.ReplicaClass <> pin:37 var
+R7110:7113 Corelib.Init.Datatypes <> None constr
+R7118:7120 Corelib.Init.Datatypes <> inr constr
+R7122:7144 UMSTFormal.Urge.ReplicaClass <> rcr_missing_class_field constr
+R7152:7155 Corelib.Init.Datatypes <> Some constr
+R7176:7200 UMSTFormal.Urge.ReplicaClass <> parse_replica_class_field def
+R7219:7222 Corelib.Init.Datatypes <> None constr
+R7227:7229 Corelib.Init.Datatypes <> inr constr
+R7231:7255 UMSTFormal.Urge.ReplicaClass <> rcr_unknown_replica_class constr
+R7265:7268 Corelib.Init.Datatypes <> Some constr
+R7288:7291 Corelib.Init.Datatypes <> andb def
+R7429:7459 UMSTFormal.Urge.ReplicaClass <> fabric_joins_labs_public_gossip proj
+R7461:7463 UMSTFormal.Urge.ReplicaClass <> pin:37 var
+R7294:7300 Stdlib.Arith.PeanoNat Nat eqb def
+R7303:7328 UMSTFormal.Urge.ReplicaClass <> replica_class_label_to_nat def
+R7362:7387 UMSTFormal.Urge.ReplicaClass <> replica_class_label_to_nat def
+R7389:7408 UMSTFormal.Urge.ReplicaClass <> rcl_customer_compose constr
+R7558:7584 UMSTFormal.Urge.ReplicaClass <> replica_class_blueprint_row def
+binder 7545:7553 <> table_row:38
+R7603:7605 Corelib.Init.Datatypes <> inl constr
+R7622:7639 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R7622:7639 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R7622:7639 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R7679:7694 UMSTFormal.Urge.ReplicaClass <> fabric_row_class proj
+R7679:7694 UMSTFormal.Urge.ReplicaClass <> fabric_row_class proj
+R7719:7734 UMSTFormal.Urge.ReplicaClass <> fabric_row_table proj
+R7719:7734 UMSTFormal.Urge.ReplicaClass <> fabric_row_table proj
+R7765:7782 UMSTFormal.Urge.ReplicaClass <> fabric_row_verdict proj
+R7765:7782 UMSTFormal.Urge.ReplicaClass <> fabric_row_verdict proj
+R7815:7830 UMSTFormal.Urge.ReplicaClass <> fabric_row_admit proj
+R7815:7830 UMSTFormal.Urge.ReplicaClass <> fabric_row_admit proj
+R7644:7657 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R7659:7661 UMSTFormal.Urge.ReplicaClass <> pin:37 var
+R7739:7747 UMSTFormal.Urge.ReplicaClass <> table_row:38 var
+R7787:7797 UMSTFormal.Urge.ReplicaClass <> fncv_accept constr
+R7835:7846 UMSTFormal.Urge.ReplicaClass <> rca_admitted constr
+R7481:7483 Corelib.Init.Datatypes <> inr constr
+R7485:7516 UMSTFormal.Urge.ReplicaClass <> rcr_customer_compose_labs_gossip constr
+R7028:7030 Corelib.Init.Datatypes <> inr constr
+R7032:7057 UMSTFormal.Urge.ReplicaClass <> rcr_invented_physics_green constr
+def 7950:7978 <> refuse_invented_physics_green
+R7982:8002 UMSTFormal.Urge.ReplicaClass <> replica_class_refusal ind
+R8009:8034 UMSTFormal.Urge.ReplicaClass <> rcr_invented_physics_green constr
+def 8111:8136 <> refuse_missing_class_field
+R8140:8160 UMSTFormal.Urge.ReplicaClass <> replica_class_refusal ind
+R8167:8189 UMSTFormal.Urge.ReplicaClass <> rcr_missing_class_field constr
+def 8273:8307 <> refuse_customer_compose_labs_gossip
+R8311:8331 UMSTFormal.Urge.ReplicaClass <> replica_class_refusal ind
+R8338:8369 UMSTFormal.Urge.ReplicaClass <> rcr_customer_compose_labs_gossip constr
+def 8464:8494 <> refuse_second_excitement_argmin
+R8498:8518 UMSTFormal.Urge.ReplicaClass <> replica_class_refusal ind
+R8525:8552 UMSTFormal.Urge.ReplicaClass <> rcr_second_excitement_argmin constr
+prf 8562:8599 <> refuse_invented_physics_green_positive
+R8634:8636 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8605:8633 UMSTFormal.Urge.ReplicaClass <> refuse_invented_physics_green def
+R8637:8662 UMSTFormal.Urge.ReplicaClass <> rcr_invented_physics_green constr
+prf 8697:8731 <> refuse_missing_class_field_positive
+R8763:8765 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8737:8762 UMSTFormal.Urge.ReplicaClass <> refuse_missing_class_field def
+R8766:8788 UMSTFormal.Urge.ReplicaClass <> rcr_missing_class_field constr
+prf 8823:8866 <> refuse_customer_compose_labs_gossip_positive
+R8907:8909 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R8872:8906 UMSTFormal.Urge.ReplicaClass <> refuse_customer_compose_labs_gossip def
+R8910:8941 UMSTFormal.Urge.ReplicaClass <> rcr_customer_compose_labs_gossip constr
+prf 8976:9015 <> refuse_second_excitement_argmin_positive
+R9052:9054 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R9021:9051 UMSTFormal.Urge.ReplicaClass <> refuse_second_excitement_argmin def
+R9055:9082 UMSTFormal.Urge.ReplicaClass <> rcr_second_excitement_argmin constr
+ind 9419:9448 <> replica_excitement_compose_pin
+constr 9457:9485 <> recp_import_select_excitement
+constr 9491:9516 <> recp_second_argmin_refused
+scheme 9419:9448 <> replica_excitement_compose_pin_rect
+scheme 9419:9448 <> replica_excitement_compose_pin_ind
+scheme 9419:9448 <> replica_excitement_compose_pin_rec
+scheme 9419:9448 <> replica_excitement_compose_pin_sind
+rec 9596:9612 <> replica_class_ctx
+proj 9654:9677 <> replica_class_successors
+R9621:9638 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9615:9617 <> src:41
+R9681:9684 Corelib.Init.Datatypes <> list ind
+R9687:9703 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9705:9707 UMSTFormal.Urge.ReplicaClass <> src:41 var
+def 9799:9831 <> compose_replica_excitement_select
+R9840:9857 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9834:9836 <> src:44
+R9873:9876 Corelib.Init.Datatypes <> list ind
+R9879:9895 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9897:9899 UMSTFormal.Urge.ReplicaClass <> src:44 var
+binder 9865:9869 <> cands:45
+R9914:9943 UMSTFormal.Urge.ReplicaClass <> replica_excitement_compose_pin ind
+binder 9908:9910 <> pin:46
+R9971:9973 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9950:9966 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R9968:9970 UMSTFormal.Urge.ReplicaClass <> src:44 var
+R9974:9991 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10004:10006 UMSTFormal.Urge.ReplicaClass <> pin:46 var
+R10017:10045 UMSTFormal.Urge.ReplicaClass <> recp_import_select_excitement constr
+R10050:10066 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10068:10070 UMSTFormal.Urge.ReplicaClass <> src:44 var
+R10072:10076 UMSTFormal.Urge.ReplicaClass <> cands:45 var
+R10082:10107 UMSTFormal.Urge.ReplicaClass <> recp_second_argmin_refused constr
+R10112:10114 Corelib.Init.Datatypes <> inr constr
+R10116:10135 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+def 10240:10259 <> replica_class_select
+R10268:10285 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10262:10264 <> src:48
+R10299:10315 UMSTFormal.Urge.ReplicaClass <> replica_class_ctx rec
+R10317:10319 UMSTFormal.Urge.ReplicaClass <> src:48 var
+binder 10293:10295 <> ctx:49
+R10347:10349 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R10326:10342 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10344:10346 UMSTFormal.Urge.ReplicaClass <> src:48 var
+R10350:10367 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10374:10393 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10395:10397 UMSTFormal.Urge.ReplicaClass <> src:48 var
+R10400:10423 UMSTFormal.Urge.ReplicaClass <> replica_class_successors proj
+R10425:10427 UMSTFormal.Urge.ReplicaClass <> src:48 var
+R10429:10431 UMSTFormal.Urge.ReplicaClass <> ctx:49 var
+prf 10444:10497 <> compose_replica_excitement_select_eq_excitement_select
+R10510:10527 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10504:10506 <> src:50
+R10543:10546 Corelib.Init.Datatypes <> list ind
+R10549:10565 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10567:10569 UMSTFormal.Urge.ReplicaClass <> src:50 var
+binder 10535:10539 <> cands:51
+R10650:10654 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10577:10609 UMSTFormal.Urge.ReplicaClass <> compose_replica_excitement_select def
+R10611:10613 UMSTFormal.Urge.ReplicaClass <> src:50 var
+R10615:10619 UMSTFormal.Urge.ReplicaClass <> cands:51 var
+R10621:10649 UMSTFormal.Urge.ReplicaClass <> recp_import_select_excitement constr
+R10655:10671 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10673:10675 UMSTFormal.Urge.ReplicaClass <> src:50 var
+R10677:10681 UMSTFormal.Urge.ReplicaClass <> cands:51 var
+prf 10720:10760 <> replica_class_select_eq_excitement_select
+R10773:10790 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10767:10769 <> src:52
+R10800:10816 UMSTFormal.Urge.ReplicaClass <> replica_class_ctx rec
+R10818:10820 UMSTFormal.Urge.ReplicaClass <> src:52 var
+binder 10794:10796 <> ctx:53
+R10855:10859 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10827:10846 UMSTFormal.Urge.ReplicaClass <> replica_class_select def
+R10848:10850 UMSTFormal.Urge.ReplicaClass <> src:52 var
+R10852:10854 UMSTFormal.Urge.ReplicaClass <> ctx:53 var
+R10860:10876 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10878:10880 UMSTFormal.Urge.ReplicaClass <> src:52 var
+R10883:10906 UMSTFormal.Urge.ReplicaClass <> replica_class_successors proj
+R10908:10910 UMSTFormal.Urge.ReplicaClass <> src:52 var
+R10912:10914 UMSTFormal.Urge.ReplicaClass <> ctx:53 var
+R10934:10953 UMSTFormal.Urge.ReplicaClass <> replica_class_select def
+R10956:10975 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+prf 11007:11050 <> replica_class_select_eq_urge_recovery_select
+R11063:11080 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11057:11059 <> src:54
+R11090:11106 UMSTFormal.Urge.ReplicaClass <> replica_class_ctx rec
+R11108:11110 UMSTFormal.Urge.ReplicaClass <> src:54 var
+binder 11084:11086 <> ctx:55
+R11145:11149 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11117:11136 UMSTFormal.Urge.ReplicaClass <> replica_class_select def
+R11138:11140 UMSTFormal.Urge.ReplicaClass <> src:54 var
+R11142:11144 UMSTFormal.Urge.ReplicaClass <> ctx:55 var
+R11150:11169 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R11171:11173 UMSTFormal.Urge.ReplicaClass <> src:54 var
+R11176:11199 UMSTFormal.Urge.ReplicaClass <> replica_class_successors proj
+R11201:11203 UMSTFormal.Urge.ReplicaClass <> src:54 var
+R11205:11207 UMSTFormal.Urge.ReplicaClass <> ctx:55 var
+prf 11247:11275 <> replica_class_no_local_argmin
+R11288:11305 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11282:11284 <> src:56
+R11315:11331 UMSTFormal.Urge.ReplicaClass <> replica_class_ctx rec
+R11333:11335 UMSTFormal.Urge.ReplicaClass <> src:56 var
+binder 11309:11311 <> ctx:57
+R11370:11374 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11342:11361 UMSTFormal.Urge.ReplicaClass <> replica_class_select def
+R11363:11365 UMSTFormal.Urge.ReplicaClass <> src:56 var
+R11367:11369 UMSTFormal.Urge.ReplicaClass <> ctx:57 var
+R11375:11391 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11393:11395 UMSTFormal.Urge.ReplicaClass <> src:56 var
+R11398:11421 UMSTFormal.Urge.ReplicaClass <> replica_class_successors proj
+R11423:11425 UMSTFormal.Urge.ReplicaClass <> src:56 var
+R11427:11429 UMSTFormal.Urge.ReplicaClass <> ctx:57 var
+R11449:11489 UMSTFormal.Urge.ReplicaClass <> replica_class_select_eq_excitement_select thm
+R11449:11489 UMSTFormal.Urge.ReplicaClass <> replica_class_select_eq_excitement_select thm
+prf 11515:11569 <> compose_replica_excitement_select_refuses_second_argmin
+R11582:11599 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11576:11578 <> src:58
+R11615:11618 Corelib.Init.Datatypes <> list ind
+R11621:11637 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11639:11641 UMSTFormal.Urge.ReplicaClass <> src:58 var
+binder 11607:11611 <> cands:59
+R11719:11723 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11649:11681 UMSTFormal.Urge.ReplicaClass <> compose_replica_excitement_select def
+R11683:11685 UMSTFormal.Urge.ReplicaClass <> src:58 var
+R11687:11691 UMSTFormal.Urge.ReplicaClass <> cands:59 var
+R11693:11718 UMSTFormal.Urge.ReplicaClass <> recp_second_argmin_refused constr
+R11724:11726 Corelib.Init.Datatypes <> inr constr
+R11728:11747 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+prf 11784:11809 <> replica_class_select_empty
+R11818:11835 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11812:11814 <> src:60
+R11849:11865 UMSTFormal.Urge.ReplicaClass <> replica_class_ctx rec
+R11867:11869 UMSTFormal.Urge.ReplicaClass <> src:60 var
+binder 11843:11845 <> ctx:61
+R11916:11918 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11884:11907 UMSTFormal.Urge.ReplicaClass <> replica_class_successors proj
+R11909:11911 UMSTFormal.Urge.ReplicaClass <> src:60 var
+R11913:11915 UMSTFormal.Urge.ReplicaClass <> ctx:61 var
+R11919:11921 Corelib.Init.Datatypes <> nil constr
+binder 11877:11880 <> Hnil:62
+R11956:11958 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11928:11947 UMSTFormal.Urge.ReplicaClass <> replica_class_select def
+R11949:11951 UMSTFormal.Urge.ReplicaClass <> src:60 var
+R11953:11955 UMSTFormal.Urge.ReplicaClass <> ctx:61 var
+R11959:11961 Corelib.Init.Datatypes <> inr constr
+R11963:11979 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R11998:12017 UMSTFormal.Urge.ReplicaClass <> replica_class_select def
+R12020:12039 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+def 12310:12330 <> fabric_nodes_json_rel
+R12334:12339 Stdlib.Strings.String <> string ind
+def 12391:12413 <> fabric_nodes_schema_pin
+R12417:12422 Stdlib.Strings.String <> string ind
+def 12463:12489 <> replica_class_fixture_state
+R12493:12510 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R12520:12526 UMSTFormal.Concrete.Gate <> density proj
+R12520:12526 UMSTFormal.Concrete.Gate <> density proj
+R12520:12526 UMSTFormal.Concrete.Gate <> density proj
+R12546:12556 UMSTFormal.Concrete.Gate <> free_energy proj
+R12546:12556 UMSTFormal.Concrete.Gate <> free_energy proj
+R12569:12577 UMSTFormal.Concrete.Gate <> hydration proj
+R12569:12577 UMSTFormal.Concrete.Gate <> hydration proj
+R12590:12597 UMSTFormal.Concrete.Gate <> strength proj
+R12590:12597 UMSTFormal.Concrete.Gate <> strength proj
+R12535:12537 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 12620:12650 <> replica_class_fixture_node0_pin
+R12654:12674 UMSTFormal.Urge.ReplicaClass <> fabric_node_class_pin rec
+R12684:12697 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R12684:12697 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R12684:12697 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R12717:12734 UMSTFormal.Urge.ReplicaClass <> fabric_class_field proj
+R12717:12734 UMSTFormal.Urge.ReplicaClass <> fabric_class_field proj
+R12769:12794 UMSTFormal.Urge.ReplicaClass <> fabric_physics_green_claim proj
+R12769:12794 UMSTFormal.Urge.ReplicaClass <> fabric_physics_green_claim proj
+R12811:12841 UMSTFormal.Urge.ReplicaClass <> fabric_joins_labs_public_gossip proj
+R12811:12841 UMSTFormal.Urge.ReplicaClass <> fabric_joins_labs_public_gossip proj
+R12739:12742 Corelib.Init.Datatypes <> Some constr
+R12799:12803 Corelib.Init.Datatypes <> false constr
+R12846:12850 Corelib.Init.Datatypes <> false constr
+def 12868:12905 <> replica_class_fixture_invent_green_pin
+R12909:12929 UMSTFormal.Urge.ReplicaClass <> fabric_node_class_pin rec
+R12939:12952 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R12939:12952 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R12939:12952 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R12983:13000 UMSTFormal.Urge.ReplicaClass <> fabric_class_field proj
+R12983:13000 UMSTFormal.Urge.ReplicaClass <> fabric_class_field proj
+R13035:13060 UMSTFormal.Urge.ReplicaClass <> fabric_physics_green_claim proj
+R13035:13060 UMSTFormal.Urge.ReplicaClass <> fabric_physics_green_claim proj
+R13076:13106 UMSTFormal.Urge.ReplicaClass <> fabric_joins_labs_public_gossip proj
+R13076:13106 UMSTFormal.Urge.ReplicaClass <> fabric_joins_labs_public_gossip proj
+R13005:13008 Corelib.Init.Datatypes <> Some constr
+R13065:13068 Corelib.Init.Datatypes <> true constr
+R13111:13115 Corelib.Init.Datatypes <> false constr
+def 13133:13172 <> replica_class_fixture_compose_gossip_pin
+R13176:13196 UMSTFormal.Urge.ReplicaClass <> fabric_node_class_pin rec
+R13206:13219 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R13206:13219 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R13206:13219 UMSTFormal.Urge.ReplicaClass <> fabric_node_id proj
+R13249:13266 UMSTFormal.Urge.ReplicaClass <> fabric_class_field proj
+R13249:13266 UMSTFormal.Urge.ReplicaClass <> fabric_class_field proj
+R13301:13326 UMSTFormal.Urge.ReplicaClass <> fabric_physics_green_claim proj
+R13301:13326 UMSTFormal.Urge.ReplicaClass <> fabric_physics_green_claim proj
+R13343:13373 UMSTFormal.Urge.ReplicaClass <> fabric_joins_labs_public_gossip proj
+R13343:13373 UMSTFormal.Urge.ReplicaClass <> fabric_joins_labs_public_gossip proj
+R13271:13274 Corelib.Init.Datatypes <> Some constr
+R13331:13335 Corelib.Init.Datatypes <> false constr
+R13378:13381 Corelib.Init.Datatypes <> true constr
+prf 13396:13431 <> replica_class_fixture_node0_admitted
+R13495:13499 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13437:13462 UMSTFormal.Urge.ReplicaClass <> evaluate_fabric_node_class def
+R13464:13494 UMSTFormal.Urge.ReplicaClass <> replica_class_fixture_node0_pin def
+R13500:13502 Corelib.Init.Datatypes <> inl constr
+R13511:13528 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R13511:13528 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R13511:13528 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R13550:13565 UMSTFormal.Urge.ReplicaClass <> fabric_row_class proj
+R13550:13565 UMSTFormal.Urge.ReplicaClass <> fabric_row_class proj
+R13598:13613 UMSTFormal.Urge.ReplicaClass <> fabric_row_table proj
+R13598:13613 UMSTFormal.Urge.ReplicaClass <> fabric_row_table proj
+R13674:13691 UMSTFormal.Urge.ReplicaClass <> fabric_row_verdict proj
+R13674:13691 UMSTFormal.Urge.ReplicaClass <> fabric_row_verdict proj
+R13716:13731 UMSTFormal.Urge.ReplicaClass <> fabric_row_admit proj
+R13716:13731 UMSTFormal.Urge.ReplicaClass <> fabric_row_admit proj
+R13570:13588 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+R13618:13644 UMSTFormal.Urge.ReplicaClass <> replica_class_blueprint_row def
+R13646:13664 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+R13696:13706 UMSTFormal.Urge.ReplicaClass <> fncv_accept constr
+R13736:13747 UMSTFormal.Urge.ReplicaClass <> rca_admitted constr
+prf 13789:13830 <> replica_class_fixture_invent_green_refused
+R13901:13905 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R13836:13861 UMSTFormal.Urge.ReplicaClass <> evaluate_fabric_node_class def
+R13863:13900 UMSTFormal.Urge.ReplicaClass <> replica_class_fixture_invent_green_pin def
+R13906:13908 Corelib.Init.Datatypes <> inr constr
+R13910:13935 UMSTFormal.Urge.ReplicaClass <> rcr_invented_physics_green constr
+prf 13974:14017 <> replica_class_fixture_compose_gossip_refused
+R14090:14094 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14023:14048 UMSTFormal.Urge.ReplicaClass <> evaluate_fabric_node_class def
+R14050:14089 UMSTFormal.Urge.ReplicaClass <> replica_class_fixture_compose_gossip_pin def
+R14095:14097 Corelib.Init.Datatypes <> inr constr
+R14099:14130 UMSTFormal.Urge.ReplicaClass <> rcr_customer_compose_labs_gossip constr
+prf 14169:14207 <> replica_class_offline_luks_egress_empty
+R14305:14307 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14213:14232 UMSTFormal.Urge.ReplicaClass <> replica_egress_empty def
+R14235:14252 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R14259:14285 UMSTFormal.Urge.ReplicaClass <> replica_class_blueprint_row def
+R14287:14302 UMSTFormal.Urge.ReplicaClass <> rcl_offline_luks constr
+R14308:14311 Corelib.Init.Datatypes <> true constr
+prf 14350:14390 <> replica_class_darwin_scratch_egress_empty
+R14490:14492 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14396:14415 UMSTFormal.Urge.ReplicaClass <> replica_egress_empty def
+R14418:14435 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R14442:14468 UMSTFormal.Urge.ReplicaClass <> replica_class_blueprint_row def
+R14470:14487 UMSTFormal.Urge.ReplicaClass <> rcl_darwin_scratch constr
+R14493:14496 Corelib.Init.Datatypes <> true constr
+prf 14535:14571 <> replica_class_forgejo_egress_nonempty
+R14679:14681 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14577:14596 UMSTFormal.Urge.ReplicaClass <> replica_egress_empty def
+R14599:14616 UMSTFormal.Urge.ReplicaClass <> replica_row_egress proj
+R14623:14649 UMSTFormal.Urge.ReplicaClass <> replica_class_blueprint_row def
+R14651:14676 UMSTFormal.Urge.ReplicaClass <> rcl_forgejo_primary_mirror constr
+R14682:14686 Corelib.Init.Datatypes <> false constr
+prf 14725:14759 <> replica_class_table_cardinality_six
+R14796:14799 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14805:14805 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14765:14795 UMSTFormal.Urge.ReplicaClass <> replica_class_table_cardinality def
+prf 14844:14874 <> replica_class_node0_class_field
+R14925:14927 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14880:14904 UMSTFormal.Urge.ReplicaClass <> replica_class_class_field def
+R14906:14924 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+prf 14984:15015 <> replica_class_parse_legacy_node0
+R15069:15073 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15021:15045 UMSTFormal.Urge.ReplicaClass <> parse_replica_class_field def
+R15047:15068 UMSTFormal.Urge.ReplicaClass <> rcl_node0_legacy_field def
+R15074:15077 Corelib.Init.Datatypes <> Some constr
+R15079:15097 UMSTFormal.Urge.ReplicaClass <> rcl_node0_dev_clone constr
+prf 15136:15167 <> replica_class_parse_unknown_none
+R15214:15216 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15173:15197 UMSTFormal.Urge.ReplicaClass <> parse_replica_class_field def
+R15217:15220 Corelib.Init.Datatypes <> None constr
+def 15483:15509 <> replica_class_physics_green
+R15513:15516 Corelib.Init.Datatypes <> bool ind
+R15521:15525 Corelib.Init.Datatypes <> false constr
+prf 15535:15567 <> replica_class_physics_green_false
+R15600:15602 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15573:15599 UMSTFormal.Urge.ReplicaClass <> replica_class_physics_green def
+R15603:15607 Corelib.Init.Datatypes <> false constr
+def 15647:15676 <> replica_class_production_wired
+R15680:15683 Corelib.Init.Datatypes <> bool ind
+R15688:15692 Corelib.Init.Datatypes <> false constr
+prf 15702:15737 <> replica_class_production_wired_false
+R15773:15775 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15743:15772 UMSTFormal.Urge.ReplicaClass <> replica_class_production_wired def
+R15776:15780 Corelib.Init.Datatypes <> false constr
+prf 15817:15844 <> replica_class_module_witness
+R15848:15851 Corelib.Init.Logic <> True ind
+R15867:15867 Corelib.Init.Logic <> I constr
+R15867:15867 Corelib.Init.Logic <> I constr
+prf 15884:15909 <> replica_class_no_new_axiom
+R15913:15916 Corelib.Init.Logic <> True ind
+R15932:15932 Corelib.Init.Logic <> I constr
+R15932:15932 Corelib.Init.Logic <> I constr
+prf 15949:15988 <> replica_class_positive_refuse_not_silent
+R16059:16064 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R15994:16019 UMSTFormal.Urge.ReplicaClass <> evaluate_fabric_node_class def
+R16021:16058 UMSTFormal.Urge.ReplicaClass <> replica_class_fixture_invent_green_pin def
+R16065:16067 Corelib.Init.Datatypes <> inl constr
+R16076:16093 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R16076:16093 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R16076:16093 UMSTFormal.Urge.ReplicaClass <> fabric_row_node_id proj
+R16126:16141 UMSTFormal.Urge.ReplicaClass <> fabric_row_class proj
+R16126:16141 UMSTFormal.Urge.ReplicaClass <> fabric_row_class proj
+R16174:16189 UMSTFormal.Urge.ReplicaClass <> fabric_row_table proj
+R16174:16189 UMSTFormal.Urge.ReplicaClass <> fabric_row_table proj
+R16250:16267 UMSTFormal.Urge.ReplicaClass <> fabric_row_verdict proj
+R16250:16267 UMSTFormal.Urge.ReplicaClass <> fabric_row_verdict proj
+R16292:16307 UMSTFormal.Urge.ReplicaClass <> fabric_row_admit proj
+R16292:16307 UMSTFormal.Urge.ReplicaClass <> fabric_row_admit proj
+R16146:16164 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R16194:16220 UMSTFormal.Urge.ReplicaClass <> replica_class_blueprint_row def
+R16222:16240 UMSTFormal.Urge.ReplicaClass <> rcl_node1_dev_clone constr
+R16272:16282 UMSTFormal.Urge.ReplicaClass <> fncv_accept constr
+R16312:16323 UMSTFormal.Urge.ReplicaClass <> rca_admitted constr
+R16345:16370 UMSTFormal.Urge.ReplicaClass <> evaluate_fabric_node_class def
+R16373:16410 UMSTFormal.Urge.ReplicaClass <> replica_class_fixture_invent_green_pin def
+prf 16443:16485 <> replica_class_compose_excitement_not_argmin
+R16505:16522 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 16499:16501 <> src:63
+R16532:16548 UMSTFormal.Urge.ReplicaClass <> replica_class_ctx rec
+R16550:16552 UMSTFormal.Urge.ReplicaClass <> src:63 var
+binder 16526:16528 <> ctx:64
+R16586:16590 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16558:16577 UMSTFormal.Urge.ReplicaClass <> replica_class_select def
+R16579:16581 UMSTFormal.Urge.ReplicaClass <> src:63 var
+R16583:16585 UMSTFormal.Urge.ReplicaClass <> ctx:64 var
+R16591:16607 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R16609:16611 UMSTFormal.Urge.ReplicaClass <> src:63 var
+R16614:16637 UMSTFormal.Urge.ReplicaClass <> replica_class_successors proj
+R16639:16641 UMSTFormal.Urge.ReplicaClass <> src:63 var
+R16643:16645 UMSTFormal.Urge.ReplicaClass <> ctx:64 var
+R16673:16701 UMSTFormal.Urge.ReplicaClass <> replica_class_no_local_argmin thm
+R16673:16701 UMSTFormal.Urge.ReplicaClass <> replica_class_no_local_argmin thm

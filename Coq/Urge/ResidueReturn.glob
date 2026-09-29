@@ -1,0 +1,797 @@
+DIGEST 1f21fa37fe65cc7557d6e9f0998fda33
+FUMSTFormal.Urge.ResidueReturn
+R1053:1057 Stdlib.Arith.Arith <> <> lib
+R1059:1062 Stdlib.Lists.List <> <> lib
+R1064:1067 Stdlib.Bool.Bool <> <> lib
+R1069:1074 Stdlib.Strings.String <> <> lib
+R1076:1081 Stdlib.QArith.QArith <> <> lib
+R1099:1113 UMSTFormal.Gate <> <> lib
+R1131:1155 UMSTFormal.Constitutional <> <> lib
+R1173:1200 UMSTFormal.Urge.AdmitKleisli <> <> lib
+R1218:1249 UMSTFormal.Urge.ExcitementImport <> <> lib
+ind 1629:1651 <> urge_excitement_residue
+constr 1660:1676 <> uer_no_candidates
+constr 1682:1701 <> uer_all_inadmissible
+constr 1707:1729 <> uer_all_excluded_by_cbf
+constr 1735:1757 <> uer_all_excluded_by_dec
+constr 1763:1783 <> uer_untagged_constant
+constr 1789:1813 <> uer_no_strict_improvement
+scheme 1629:1651 <> urge_excitement_residue_rect
+scheme 1629:1651 <> urge_excitement_residue_ind
+scheme 1629:1651 <> urge_excitement_residue_rec
+scheme 1629:1651 <> urge_excitement_residue_sind
+def 1907:1930 <> residue_constructor_name
+R1937:1959 UMSTFormal.Urge.ResidueReturn <> urge_excitement_residue ind
+binder 1933:1933 <> r:3
+R1964:1969 Stdlib.Strings.String <> string ind
+R1982:1982 UMSTFormal.Urge.ResidueReturn <> r:3 var
+R1993:2009 UMSTFormal.Urge.ResidueReturn <> uer_no_candidates constr
+R2040:2059 UMSTFormal.Urge.ResidueReturn <> uer_all_inadmissible constr
+R2093:2115 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_cbf constr
+R2150:2172 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_dec constr
+R2207:2227 UMSTFormal.Urge.ResidueReturn <> uer_untagged_constant constr
+R2262:2286 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+def 2410:2437 <> pin_six_residue_constructors
+R2441:2444 Corelib.Init.Datatypes <> list ind
+R2446:2468 UMSTFormal.Urge.ResidueReturn <> urge_excitement_residue ind
+R2492:2497 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2475:2491 UMSTFormal.Urge.ResidueReturn <> uer_no_candidates constr
+R2518:2523 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2498:2517 UMSTFormal.Urge.ResidueReturn <> uer_all_inadmissible constr
+R2547:2552 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2524:2546 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_cbf constr
+R2576:2581 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2553:2575 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_dec constr
+R2603:2608 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2582:2602 UMSTFormal.Urge.ResidueReturn <> uer_untagged_constant constr
+R2634:2637 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2609:2633 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+R2638:2640 Corelib.Init.Datatypes <> nil constr
+def 2655:2679 <> residue_constructor_names
+R2683:2686 Corelib.Init.Datatypes <> list ind
+R2688:2693 Stdlib.Strings.String <> string ind
+R2721:2726 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2751:2756 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2782:2787 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2813:2818 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2844:2849 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2878:2881 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2882:2884 Corelib.Init.Datatypes <> nil constr
+def 2967:2983 <> map_admit_residue
+R2990:3007 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+binder 2986:2986 <> r:5
+R3012:3034 UMSTFormal.Urge.ResidueReturn <> urge_excitement_residue ind
+R3047:3047 UMSTFormal.Urge.ResidueReturn <> r:5 var
+R3058:3074 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R3079:3095 UMSTFormal.Urge.ResidueReturn <> uer_no_candidates constr
+R3101:3120 UMSTFormal.Urge.AdmitKleisli <> exc_all_inadmissible constr
+R3125:3144 UMSTFormal.Urge.ResidueReturn <> uer_all_inadmissible constr
+R3150:3174 UMSTFormal.Urge.AdmitKleisli <> exc_no_strict_improvement constr
+R3179:3203 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+rec 3505:3518 <> residue_counts
+proj 3533:3548 <> rc_no_candidates
+proj 3559:3577 <> rc_all_inadmissible
+proj 3588:3609 <> rc_all_excluded_by_cbf
+proj 3620:3641 <> rc_all_excluded_by_dec
+proj 3652:3671 <> rc_untagged_constant
+proj 3682:3705 <> rc_no_strict_improvement
+R3552:3554 Corelib.Init.Datatypes <> nat ind
+R3581:3583 Corelib.Init.Datatypes <> nat ind
+R3613:3615 Corelib.Init.Datatypes <> nat ind
+R3645:3647 Corelib.Init.Datatypes <> nat ind
+R3675:3677 Corelib.Init.Datatypes <> nat ind
+R3709:3711 Corelib.Init.Datatypes <> nat ind
+def 3728:3747 <> empty_residue_counts
+R3751:3764 UMSTFormal.Urge.ResidueReturn <> residue_counts rec
+R3774:3789 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R3774:3789 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R3774:3789 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R3802:3820 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R3802:3820 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R3833:3854 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R3833:3854 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R3867:3888 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R3867:3888 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R3901:3920 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R3901:3920 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R3933:3956 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R3933:3956 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+def 4042:4061 <> residue_counts_total
+R4068:4081 UMSTFormal.Urge.ResidueReturn <> residue_counts rec
+binder 4064:4064 <> c:14
+R4086:4088 Corelib.Init.Datatypes <> nat ind
+R4224:4228 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R4197:4201 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R4168:4172 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R4139:4143 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R4113:4117 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R4095:4110 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R4112:4112 UMSTFormal.Urge.ResidueReturn <> c:14 var
+R4118:4136 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R4138:4138 UMSTFormal.Urge.ResidueReturn <> c:14 var
+R4144:4165 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R4167:4167 UMSTFormal.Urge.ResidueReturn <> c:14 var
+R4173:4194 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R4196:4196 UMSTFormal.Urge.ResidueReturn <> c:14 var
+R4202:4221 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R4223:4223 UMSTFormal.Urge.ResidueReturn <> c:14 var
+R4229:4252 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R4254:4254 UMSTFormal.Urge.ResidueReturn <> c:14 var
+def 4326:4341 <> residue_count_of
+R4348:4361 UMSTFormal.Urge.ResidueReturn <> residue_counts rec
+binder 4344:4344 <> c:15
+R4369:4391 UMSTFormal.Urge.ResidueReturn <> urge_excitement_residue ind
+binder 4365:4365 <> r:16
+R4396:4398 Corelib.Init.Datatypes <> nat ind
+R4411:4411 UMSTFormal.Urge.ResidueReturn <> r:16 var
+R4422:4438 UMSTFormal.Urge.ResidueReturn <> uer_no_candidates constr
+R4443:4458 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R4460:4460 UMSTFormal.Urge.ResidueReturn <> c:15 var
+R4466:4485 UMSTFormal.Urge.ResidueReturn <> uer_all_inadmissible constr
+R4490:4508 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R4510:4510 UMSTFormal.Urge.ResidueReturn <> c:15 var
+R4516:4538 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_cbf constr
+R4543:4564 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R4566:4566 UMSTFormal.Urge.ResidueReturn <> c:15 var
+R4572:4594 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_dec constr
+R4599:4620 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R4622:4622 UMSTFormal.Urge.ResidueReturn <> c:15 var
+R4628:4648 UMSTFormal.Urge.ResidueReturn <> uer_untagged_constant constr
+R4653:4672 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R4674:4674 UMSTFormal.Urge.ResidueReturn <> c:15 var
+R4680:4704 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+R4709:4732 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R4734:4734 UMSTFormal.Urge.ResidueReturn <> c:15 var
+def 4821:4843 <> increment_residue_count
+R4855:4868 UMSTFormal.Urge.ResidueReturn <> residue_counts rec
+binder 4846:4851 <> counts:18
+R4880:4902 UMSTFormal.Urge.ResidueReturn <> urge_excitement_residue ind
+binder 4876:4876 <> r:19
+R4907:4920 UMSTFormal.Urge.ResidueReturn <> residue_counts rec
+R4933:4933 UMSTFormal.Urge.ResidueReturn <> r:19 var
+R4944:4960 UMSTFormal.Urge.ResidueReturn <> uer_no_candidates constr
+R4974:4989 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R4974:4989 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R4974:4989 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5032:5050 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5032:5050 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5092:5113 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5092:5113 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5158:5179 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R5158:5179 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R5224:5243 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R5224:5243 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R5286:5309 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R5286:5309 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R4994:4994 Corelib.Init.Datatypes <> S constr
+R4997:5012 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5014:5019 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5055:5073 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5075:5080 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5118:5139 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5141:5146 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5184:5205 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R5207:5212 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5248:5267 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R5269:5274 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5314:5337 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R5339:5344 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5353:5372 UMSTFormal.Urge.ResidueReturn <> uer_all_inadmissible constr
+R5386:5401 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5386:5401 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5386:5401 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5440:5458 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5440:5458 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5504:5525 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5504:5525 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5570:5591 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R5570:5591 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R5636:5655 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R5636:5655 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R5698:5721 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R5698:5721 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R5406:5421 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5423:5428 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5463:5463 Corelib.Init.Datatypes <> S constr
+R5466:5484 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5486:5491 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5530:5551 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5553:5558 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5596:5617 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R5619:5624 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5660:5679 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R5681:5686 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5726:5749 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R5751:5756 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5765:5787 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_cbf constr
+R5801:5816 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5801:5816 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5801:5816 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5855:5873 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5855:5873 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5915:5936 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5915:5936 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5985:6006 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R5985:6006 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6051:6070 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6051:6070 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6113:6136 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6113:6136 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R5821:5836 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R5838:5843 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5878:5896 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R5898:5903 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R5941:5941 Corelib.Init.Datatypes <> S constr
+R5944:5965 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R5967:5972 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6011:6032 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6034:6039 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6075:6094 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6096:6101 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6141:6164 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6166:6171 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6180:6202 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_dec constr
+R6216:6231 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6216:6231 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6216:6231 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6270:6288 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R6270:6288 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R6330:6351 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R6330:6351 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R6396:6417 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6396:6417 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6466:6485 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6466:6485 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6528:6551 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6528:6551 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6236:6251 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6253:6258 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6293:6311 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R6313:6318 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6356:6377 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R6379:6384 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6422:6422 Corelib.Init.Datatypes <> S constr
+R6425:6446 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6448:6453 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6490:6509 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6511:6516 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6556:6579 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6581:6586 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6595:6615 UMSTFormal.Urge.ResidueReturn <> uer_untagged_constant constr
+R6629:6644 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6629:6644 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6629:6644 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6683:6701 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R6683:6701 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R6743:6764 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R6743:6764 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R6809:6830 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6809:6830 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6875:6894 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6875:6894 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6941:6964 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6941:6964 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6649:6664 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R6666:6671 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6706:6724 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R6726:6731 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6769:6790 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R6792:6797 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6835:6856 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R6858:6863 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6899:6899 Corelib.Init.Datatypes <> S constr
+R6902:6921 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R6923:6928 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R6969:6992 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R6994:6999 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R7008:7032 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+R7046:7061 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R7046:7061 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R7046:7061 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R7100:7118 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R7100:7118 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R7160:7181 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R7160:7181 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R7226:7247 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R7226:7247 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R7292:7311 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R7292:7311 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R7354:7377 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R7354:7377 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R7066:7081 UMSTFormal.Urge.ResidueReturn <> rc_no_candidates proj
+R7083:7088 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R7123:7141 UMSTFormal.Urge.ResidueReturn <> rc_all_inadmissible proj
+R7143:7148 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R7186:7207 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_cbf proj
+R7209:7214 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R7252:7273 UMSTFormal.Urge.ResidueReturn <> rc_all_excluded_by_dec proj
+R7275:7280 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R7316:7335 UMSTFormal.Urge.ResidueReturn <> rc_untagged_constant proj
+R7337:7342 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+R7382:7382 Corelib.Init.Datatypes <> S constr
+R7385:7408 UMSTFormal.Urge.ResidueReturn <> rc_no_strict_improvement proj
+R7410:7415 UMSTFormal.Urge.ResidueReturn <> counts:18 var
+rec 7507:7522 <> observed_delta_f
+proj 7537:7542 <> od_src
+proj 7551:7561 <> od_observed
+R7546:7546 Stdlib.QArith.QArith_base <> Q rec
+R7565:7565 Stdlib.QArith.QArith_base <> Q rec
+def 7629:7650 <> observed_delta_f_delta
+R7657:7672 UMSTFormal.Urge.ResidueReturn <> observed_delta_f rec
+binder 7653:7653 <> d:24
+R7677:7677 Stdlib.QArith.QArith_base <> Q rec
+R7684:7689 Stdlib.QArith.QArith_base <> Qminus def
+R7692:7702 UMSTFormal.Urge.ResidueReturn <> od_observed proj
+R7704:7704 UMSTFormal.Urge.ResidueReturn <> d:24 var
+R7708:7713 UMSTFormal.Urge.ResidueReturn <> od_src proj
+R7715:7715 UMSTFormal.Urge.ResidueReturn <> d:24 var
+def 7797:7820 <> observed_delta_f_compute
+R7838:7838 Stdlib.QArith.QArith_base <> Q rec
+binder 7823:7825 <> src:25
+binder 7827:7834 <> observed:26
+R7843:7843 Stdlib.QArith.QArith_base <> Q rec
+R7850:7855 Stdlib.QArith.QArith_base <> Qminus def
+R7857:7864 UMSTFormal.Urge.ResidueReturn <> observed:26 var
+R7866:7868 UMSTFormal.Urge.ResidueReturn <> src:25 var
+prf 7878:7910 <> observed_delta_f_delta_eq_compute
+R7917:7932 UMSTFormal.Urge.ResidueReturn <> observed_delta_f rec
+binder 7913:7913 <> d:27
+R7963:7965 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R7939:7960 UMSTFormal.Urge.ResidueReturn <> observed_delta_f_delta def
+R7962:7962 UMSTFormal.Urge.ResidueReturn <> d:27 var
+R7966:7989 UMSTFormal.Urge.ResidueReturn <> observed_delta_f_compute def
+R7992:7997 UMSTFormal.Urge.ResidueReturn <> od_src proj
+R7999:7999 UMSTFormal.Urge.ResidueReturn <> d:27 var
+R8003:8013 UMSTFormal.Urge.ResidueReturn <> od_observed proj
+R8015:8015 UMSTFormal.Urge.ResidueReturn <> d:27 var
+rec 8125:8138 <> residue_return
+proj 8153:8161 <> rr_counts
+proj 8183:8201 <> rr_observed_delta_f
+R8165:8178 UMSTFormal.Urge.ResidueReturn <> residue_counts rec
+R8205:8208 Corelib.Init.Datatypes <> list ind
+R8210:8225 UMSTFormal.Urge.ResidueReturn <> observed_delta_f rec
+def 8242:8261 <> empty_residue_return
+R8265:8278 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+R8288:8296 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8288:8296 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8288:8296 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8328:8346 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8328:8346 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8301:8320 UMSTFormal.Urge.ResidueReturn <> empty_residue_counts def
+R8351:8353 Corelib.Init.Datatypes <> nil constr
+def 8371:8388 <> add_observed_delta
+R8397:8410 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+binder 8391:8393 <> ret:31
+R8418:8433 UMSTFormal.Urge.ResidueReturn <> observed_delta_f rec
+binder 8414:8414 <> d:32
+R8442:8455 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+R8465:8473 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8465:8473 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8465:8473 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8498:8516 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8498:8516 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8478:8486 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8488:8490 UMSTFormal.Urge.ResidueReturn <> ret:31 var
+R8522:8525 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8521:8521 UMSTFormal.Urge.ResidueReturn <> d:32 var
+R8526:8544 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8546:8548 UMSTFormal.Urge.ResidueReturn <> ret:31 var
+def 8566:8579 <> record_residue
+R8588:8601 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+binder 8582:8584 <> ret:33
+R8609:8631 UMSTFormal.Urge.ResidueReturn <> urge_excitement_residue ind
+binder 8605:8605 <> r:34
+R8640:8653 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+R8663:8671 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8663:8671 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8663:8671 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8724:8742 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8724:8742 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8676:8698 UMSTFormal.Urge.ResidueReturn <> increment_residue_count def
+R8701:8709 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R8711:8713 UMSTFormal.Urge.ResidueReturn <> ret:33 var
+R8716:8716 UMSTFormal.Urge.ResidueReturn <> r:34 var
+R8747:8765 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R8767:8769 UMSTFormal.Urge.ResidueReturn <> ret:33 var
+def 8787:8806 <> record_admit_residue
+R8815:8828 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+binder 8809:8811 <> ret:35
+R8836:8853 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+binder 8832:8832 <> r:36
+R8862:8875 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+R8882:8895 UMSTFormal.Urge.ResidueReturn <> record_residue def
+R8897:8899 UMSTFormal.Urge.ResidueReturn <> ret:35 var
+R8902:8918 UMSTFormal.Urge.ResidueReturn <> map_admit_residue def
+R8920:8920 UMSTFormal.Urge.ResidueReturn <> r:36 var
+ind 9157:9178 <> residue_return_refusal
+constr 9187:9209 <> rrr_seventh_constructor
+constr 9215:9229 <> rrr_f64_delta_f
+scheme 9157:9178 <> residue_return_refusal_rect
+scheme 9157:9178 <> residue_return_refusal_ind
+scheme 9157:9178 <> residue_return_refusal_rec
+scheme 9157:9178 <> residue_return_refusal_sind
+def 9313:9338 <> refuse_seventh_constructor
+R9351:9353 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9342:9350 Corelib.Init.Datatypes <> Empty_set ind
+R9354:9375 UMSTFormal.Urge.ResidueReturn <> residue_return_refusal ind
+R9382:9384 Corelib.Init.Datatypes <> inr constr
+R9386:9408 UMSTFormal.Urge.ResidueReturn <> rrr_seventh_constructor constr
+def 9510:9527 <> refuse_f64_delta_f
+R9540:9542 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R9531:9539 Corelib.Init.Datatypes <> Empty_set ind
+R9543:9564 UMSTFormal.Urge.ResidueReturn <> residue_return_refusal ind
+R9571:9573 Corelib.Init.Datatypes <> inr constr
+R9575:9589 UMSTFormal.Urge.ResidueReturn <> rrr_f64_delta_f constr
+rec 9899:9916 <> residue_return_ctx
+proj 9958:9982 <> residue_return_successors
+R9925:9942 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 9919:9921 <> src:39
+R9986:9989 Corelib.Init.Datatypes <> list ind
+R9992:10008 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10010:10012 UMSTFormal.Urge.ResidueReturn <> src:39 var
+def 10106:10126 <> residue_return_select
+R10135:10152 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10129:10131 <> src:42
+R10173:10176 Corelib.Init.Datatypes <> list ind
+R10179:10195 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10197:10199 UMSTFormal.Urge.ResidueReturn <> src:42 var
+binder 10160:10169 <> successors:43
+R10228:10230 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R10207:10223 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10225:10227 UMSTFormal.Urge.ResidueReturn <> src:42 var
+R10231:10248 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10255:10274 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R10276:10278 UMSTFormal.Urge.ResidueReturn <> src:42 var
+R10280:10289 UMSTFormal.Urge.ResidueReturn <> successors:43 var
+def 10304:10328 <> residue_return_select_ctx
+R10337:10354 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10331:10333 <> src:44
+R10368:10385 UMSTFormal.Urge.ResidueReturn <> residue_return_ctx rec
+R10387:10389 UMSTFormal.Urge.ResidueReturn <> src:44 var
+binder 10362:10364 <> ctx:45
+R10417:10419 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R10396:10412 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10414:10416 UMSTFormal.Urge.ResidueReturn <> src:44 var
+R10420:10437 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R10444:10464 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R10466:10468 UMSTFormal.Urge.ResidueReturn <> src:44 var
+R10471:10495 UMSTFormal.Urge.ResidueReturn <> residue_return_successors proj
+R10497:10499 UMSTFormal.Urge.ResidueReturn <> src:44 var
+R10501:10503 UMSTFormal.Urge.ResidueReturn <> ctx:45 var
+prf 10516:10557 <> residue_return_select_eq_excitement_select
+R10570:10587 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10564:10566 <> src:46
+R10608:10611 Corelib.Init.Datatypes <> list ind
+R10614:10630 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10632:10634 UMSTFormal.Urge.ResidueReturn <> src:46 var
+binder 10595:10604 <> successors:47
+R10678:10682 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10642:10662 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R10664:10666 UMSTFormal.Urge.ResidueReturn <> src:46 var
+R10668:10677 UMSTFormal.Urge.ResidueReturn <> successors:47 var
+R10683:10699 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R10701:10703 UMSTFormal.Urge.ResidueReturn <> src:46 var
+R10705:10714 UMSTFormal.Urge.ResidueReturn <> successors:47 var
+R10733:10753 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R10765:10805 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select_eq_excitement_select thm
+R10765:10805 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select_eq_excitement_select thm
+prf 10838:10882 <> residue_return_select_eq_urge_recovery_select
+R10895:10912 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 10889:10891 <> src:48
+R10933:10936 Corelib.Init.Datatypes <> list ind
+R10939:10955 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R10957:10959 UMSTFormal.Urge.ResidueReturn <> src:48 var
+binder 10920:10929 <> successors:49
+R11003:11007 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R10967:10987 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R10989:10991 UMSTFormal.Urge.ResidueReturn <> src:48 var
+R10993:11002 UMSTFormal.Urge.ResidueReturn <> successors:49 var
+R11008:11027 UMSTFormal.Urge.ExcitementImport <> urge_recovery_select def
+R11029:11031 UMSTFormal.Urge.ResidueReturn <> src:48 var
+R11033:11042 UMSTFormal.Urge.ResidueReturn <> successors:49 var
+prf 11081:11110 <> residue_return_no_local_argmin
+R11123:11140 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11117:11119 <> src:50
+R11161:11164 Corelib.Init.Datatypes <> list ind
+R11167:11183 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11185:11187 UMSTFormal.Urge.ResidueReturn <> src:50 var
+binder 11148:11157 <> successors:51
+R11231:11235 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11195:11215 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R11217:11219 UMSTFormal.Urge.ResidueReturn <> src:50 var
+R11221:11230 UMSTFormal.Urge.ResidueReturn <> successors:51 var
+R11236:11252 UMSTFormal.Urge.AdmitKleisli <> excitement_select def
+R11254:11256 UMSTFormal.Urge.ResidueReturn <> src:50 var
+R11258:11267 UMSTFormal.Urge.ResidueReturn <> successors:51 var
+R11286:11327 UMSTFormal.Urge.ResidueReturn <> residue_return_select_eq_excitement_select thm
+R11286:11327 UMSTFormal.Urge.ResidueReturn <> residue_return_select_eq_excitement_select thm
+prf 11358:11377 <> residue_return_empty
+R11386:11403 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11380:11382 <> src:52
+R11424:11427 Corelib.Init.Datatypes <> list ind
+R11430:11446 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11448:11450 UMSTFormal.Urge.ResidueReturn <> src:52 var
+binder 11411:11420 <> successors:53
+R11476:11478 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11466:11475 UMSTFormal.Urge.ResidueReturn <> successors:53 var
+R11479:11481 Corelib.Init.Datatypes <> nil constr
+binder 11459:11462 <> Hnil:54
+R11524:11526 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R11488:11508 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R11510:11512 UMSTFormal.Urge.ResidueReturn <> src:52 var
+R11514:11523 UMSTFormal.Urge.ResidueReturn <> successors:53 var
+R11527:11529 Corelib.Init.Datatypes <> inr constr
+R11531:11547 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R11566:11586 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R11614:11632 UMSTFormal.Urge.ExcitementImport <> urge_recovery_empty thm
+R11614:11632 UMSTFormal.Urge.ExcitementImport <> urge_recovery_empty thm
+def 11726:11748 <> record_recovery_attempt
+R11757:11770 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+binder 11751:11753 <> ret:55
+R11784:11801 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+binder 11778:11780 <> src:56
+R11822:11825 Corelib.Init.Datatypes <> list ind
+R11828:11844 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11846:11848 UMSTFormal.Urge.ResidueReturn <> src:56 var
+binder 11809:11818 <> successors:57
+R11870:11873 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R11916:11916 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R11856:11869 UMSTFormal.Urge.ResidueReturn <> residue_return rec
+R11895:11897 Corelib.Init.Datatypes <> ::type_scope:x_'+'_x not
+R11874:11890 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R11892:11894 UMSTFormal.Urge.ResidueReturn <> src:56 var
+R11898:11915 UMSTFormal.Urge.AdmitKleisli <> excitement_residue ind
+R11937:11957 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+R11959:11961 UMSTFormal.Urge.ResidueReturn <> src:56 var
+R11963:11972 UMSTFormal.Urge.ResidueReturn <> successors:57 var
+binder 11927:11932 <> result:58
+R11985:11990 UMSTFormal.Urge.ResidueReturn <> result:58 var
+R12001:12003 Corelib.Init.Datatypes <> inl constr
+R12040:12045 UMSTFormal.Urge.ResidueReturn <> od_src proj
+R12040:12045 UMSTFormal.Urge.ResidueReturn <> od_src proj
+R12040:12045 UMSTFormal.Urge.ResidueReturn <> od_src proj
+R12078:12088 UMSTFormal.Urge.ResidueReturn <> od_observed proj
+R12078:12088 UMSTFormal.Urge.ResidueReturn <> od_observed proj
+R12050:12060 UMSTFormal.Concrete.Gate <> free_energy proj
+R12062:12064 UMSTFormal.Urge.ResidueReturn <> src:56 var
+R12093:12103 UMSTFormal.Concrete.Gate <> free_energy proj
+R12106:12113 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R12115:12117 UMSTFormal.Urge.ResidueReturn <> src:56 var
+binder 12020:12024 <> delta:60
+R12134:12134 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12163:12164 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12170:12170 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12135:12152 UMSTFormal.Urge.ResidueReturn <> add_observed_delta def
+R12154:12156 UMSTFormal.Urge.ResidueReturn <> ret:55 var
+R12158:12162 UMSTFormal.Urge.ResidueReturn <> delta:60 var
+R12165:12167 Corelib.Init.Datatypes <> inl constr
+R12176:12178 Corelib.Init.Datatypes <> inr constr
+R12185:12185 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12212:12213 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12219:12219 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12186:12205 UMSTFormal.Urge.ResidueReturn <> record_admit_residue def
+R12207:12209 UMSTFormal.Urge.ResidueReturn <> ret:55 var
+R12214:12216 Corelib.Init.Datatypes <> inr constr
+prf 12461:12496 <> residue_return_landauer_bridge_cited
+R12507:12527 UMSTFormal.Urge.AdmitKleisli <> LandauerHistoryBridge rec
+binder 12503:12503 <> b:61
+R12541:12554 UMSTFormal.Urge.AdmitKleisli <> admitSecondLaw def
+R12557:12575 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R12577:12577 UMSTFormal.Urge.ResidueReturn <> b:61 var
+binder 12535:12537 <> hSL:62
+R12585:12611 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition def
+R12614:12632 UMSTFormal.Urge.AdmitKleisli <> landauer_transition proj
+R12634:12634 UMSTFormal.Urge.ResidueReturn <> b:61 var
+R12654:12701 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition_from_landauer_bridge thm
+R12654:12701 UMSTFormal.Urge.AdmitKleisli <> admissibleHistoryTransition_from_landauer_bridge thm
+def 12950:12968 <> residue_fixture_src
+R12972:12989 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R12999:13005 UMSTFormal.Concrete.Gate <> density proj
+R12999:13005 UMSTFormal.Concrete.Gate <> density proj
+R12999:13005 UMSTFormal.Concrete.Gate <> density proj
+R13025:13035 UMSTFormal.Concrete.Gate <> free_energy proj
+R13025:13035 UMSTFormal.Concrete.Gate <> free_energy proj
+R13053:13061 UMSTFormal.Concrete.Gate <> hydration proj
+R13053:13061 UMSTFormal.Concrete.Gate <> hydration proj
+R13074:13081 UMSTFormal.Concrete.Gate <> strength proj
+R13074:13081 UMSTFormal.Concrete.Gate <> strength proj
+R13014:13016 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R13042:13044 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 13104:13122 <> residue_fixture_tgt
+R13126:13143 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R13153:13159 UMSTFormal.Concrete.Gate <> density proj
+R13153:13159 UMSTFormal.Concrete.Gate <> density proj
+R13153:13159 UMSTFormal.Concrete.Gate <> density proj
+R13179:13189 UMSTFormal.Concrete.Gate <> free_energy proj
+R13179:13189 UMSTFormal.Concrete.Gate <> free_energy proj
+R13206:13214 UMSTFormal.Concrete.Gate <> hydration proj
+R13206:13214 UMSTFormal.Concrete.Gate <> hydration proj
+R13227:13234 UMSTFormal.Concrete.Gate <> strength proj
+R13227:13234 UMSTFormal.Concrete.Gate <> strength proj
+R13168:13170 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R13195:13197 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+prf 13252:13277 <> residue_fixture_admissible
+R13283:13292 UMSTFormal.Concrete.Gate <> admissible def
+R13294:13312 UMSTFormal.Urge.ResidueReturn <> residue_fixture_src def
+R13314:13332 UMSTFormal.Urge.ResidueReturn <> residue_fixture_tgt def
+R13350:13365 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+R13350:13365 UMSTFormal.Concrete.Gate <> gate_check_sound thm
+R13377:13386 UMSTFormal.Concrete.Gate <> gate_check def
+R13389:13407 UMSTFormal.Urge.ResidueReturn <> residue_fixture_src def
+R13410:13428 UMSTFormal.Urge.ResidueReturn <> residue_fixture_tgt def
+def 13472:13496 <> residue_fixture_candidate
+R13500:13516 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R13518:13536 UMSTFormal.Urge.ResidueReturn <> residue_fixture_src def
+R13546:13552 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13546:13552 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13546:13552 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13565:13572 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R13565:13572 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R13603:13617 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R13603:13617 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R13577:13595 UMSTFormal.Urge.ResidueReturn <> residue_fixture_tgt def
+R13622:13647 UMSTFormal.Urge.ResidueReturn <> residue_fixture_admissible thm
+def 13665:13680 <> residue_fail_src
+R13684:13701 UMSTFormal.Concrete.Gate <> ThermodynamicState rec
+R13711:13717 UMSTFormal.Concrete.Gate <> density proj
+R13711:13717 UMSTFormal.Concrete.Gate <> density proj
+R13711:13717 UMSTFormal.Concrete.Gate <> density proj
+R13737:13747 UMSTFormal.Concrete.Gate <> free_energy proj
+R13737:13747 UMSTFormal.Concrete.Gate <> free_energy proj
+R13764:13772 UMSTFormal.Concrete.Gate <> hydration proj
+R13764:13772 UMSTFormal.Concrete.Gate <> hydration proj
+R13785:13792 UMSTFormal.Concrete.Gate <> strength proj
+R13785:13792 UMSTFormal.Concrete.Gate <> strength proj
+R13726:13728 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R13753:13755 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 13815:13836 <> residue_fail_candidate
+R13840:13856 UMSTFormal.Urge.AdmitKleisli <> history_candidate rec
+R13858:13873 UMSTFormal.Urge.ResidueReturn <> residue_fail_src def
+R13883:13889 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13883:13889 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13883:13889 UMSTFormal.Urge.AdmitKleisli <> cand_id proj
+R13902:13909 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R13902:13909 UMSTFormal.Urge.AdmitKleisli <> cand_tgt proj
+R13937:13951 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R13937:13951 UMSTFormal.Urge.AdmitKleisli <> cand_admissible proj
+R13914:13929 UMSTFormal.Urge.ResidueReturn <> residue_fail_src def
+R13956:13970 UMSTFormal.Constitutional <> admissible_refl thm
+R13972:13987 UMSTFormal.Urge.ResidueReturn <> residue_fail_src def
+prf 14002:14032 <> residue_six_constructors_pinned
+R14104:14109 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14080:14082 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14038:14061 UMSTFormal.Urge.ResidueReturn <> residue_constructor_name def
+R14063:14079 UMSTFormal.Urge.ResidueReturn <> uer_no_candidates constr
+R14182:14187 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14155:14157 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14110:14133 UMSTFormal.Urge.ResidueReturn <> residue_constructor_name def
+R14135:14154 UMSTFormal.Urge.ResidueReturn <> uer_all_inadmissible constr
+R14264:14269 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14236:14238 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14188:14211 UMSTFormal.Urge.ResidueReturn <> residue_constructor_name def
+R14213:14235 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_cbf constr
+R14346:14351 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14318:14320 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14270:14293 UMSTFormal.Urge.ResidueReturn <> residue_constructor_name def
+R14295:14317 UMSTFormal.Urge.ResidueReturn <> uer_all_excluded_by_dec constr
+R14426:14431 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14398:14400 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14352:14375 UMSTFormal.Urge.ResidueReturn <> residue_constructor_name def
+R14377:14397 UMSTFormal.Urge.ResidueReturn <> uer_untagged_constant constr
+R14482:14484 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14432:14455 UMSTFormal.Urge.ResidueReturn <> residue_constructor_name def
+R14457:14481 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+prf 14565:14586 <> residue_pin_six_length
+R14632:14634 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14592:14602 Stdlib.Lists.List <> length abbrev
+R14604:14631 UMSTFormal.Urge.ResidueReturn <> pin_six_residue_constructors def
+prf 14676:14721 <> residue_empty_successors_records_no_candidates
+R14749:14771 UMSTFormal.Urge.ResidueReturn <> record_recovery_attempt def
+R14773:14792 UMSTFormal.Urge.ResidueReturn <> empty_residue_return def
+R14794:14812 UMSTFormal.Urge.ResidueReturn <> residue_fixture_src def
+R14814:14816 Corelib.Init.Datatypes <> nil constr
+binder 14732:14734 <> buf:63
+binder 14737:14739 <> res:64
+R14850:14855 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R14826:14828 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14823:14825 UMSTFormal.Urge.ResidueReturn <> res:64 var
+R14829:14831 Corelib.Init.Datatypes <> inr constr
+R14833:14849 UMSTFormal.Urge.AdmitKleisli <> exc_no_candidates constr
+R14906:14908 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R14856:14871 UMSTFormal.Urge.ResidueReturn <> residue_count_of def
+R14874:14882 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R14884:14886 UMSTFormal.Urge.ResidueReturn <> buf:63 var
+R14889:14905 UMSTFormal.Urge.ResidueReturn <> uer_no_candidates constr
+R14932:14954 UMSTFormal.Urge.ResidueReturn <> record_recovery_attempt def
+R14957:14977 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+prf 15025:15064 <> residue_strict_improvement_records_delta
+R15092:15114 UMSTFormal.Urge.ResidueReturn <> record_recovery_attempt def
+R15116:15135 UMSTFormal.Urge.ResidueReturn <> empty_residue_return def
+R15137:15155 UMSTFormal.Urge.ResidueReturn <> residue_fixture_src def
+R15189:15192 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15164:15188 UMSTFormal.Urge.ResidueReturn <> residue_fixture_candidate def
+R15193:15195 Corelib.Init.Datatypes <> nil constr
+binder 15075:15077 <> buf:65
+binder 15080:15082 <> res:66
+R15238:15243 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R15206:15208 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15203:15205 UMSTFormal.Urge.ResidueReturn <> res:66 var
+R15209:15211 Corelib.Init.Datatypes <> inl constr
+R15213:15237 UMSTFormal.Urge.ResidueReturn <> residue_fixture_candidate def
+R15250:15268 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R15270:15272 UMSTFormal.Urge.ResidueReturn <> buf:65 var
+R15284:15287 Corelib.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15344:15353 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R15336:15338 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15299:15309 Stdlib.Lists.List <> length abbrev
+R15312:15330 UMSTFormal.Urge.ResidueReturn <> rr_observed_delta_f proj
+R15332:15334 UMSTFormal.Urge.ResidueReturn <> buf:65 var
+R15378:15380 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15354:15375 UMSTFormal.Urge.ResidueReturn <> observed_delta_f_delta def
+R15381:15381 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R15387:15391 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R15398:15398 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R15383:15385 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R15394:15396 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R15404:15406 Corelib.Init.Datatypes <> nil constr
+R15411:15415 Corelib.Init.Logic <> False ind
+R15440:15462 UMSTFormal.Urge.ResidueReturn <> record_recovery_attempt def
+R15465:15485 UMSTFormal.Urge.ResidueReturn <> residue_return_select def
+prf 15589:15632 <> residue_manual_no_strict_improvement_counted
+R15764:15766 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15638:15653 UMSTFormal.Urge.ResidueReturn <> residue_count_of def
+R15660:15668 UMSTFormal.Urge.ResidueReturn <> rr_counts proj
+R15671:15684 UMSTFormal.Urge.ResidueReturn <> record_residue def
+R15686:15705 UMSTFormal.Urge.ResidueReturn <> empty_residue_return def
+R15707:15731 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+R15739:15763 UMSTFormal.Urge.ResidueReturn <> uer_no_strict_improvement constr
+prf 15810:15852 <> residue_refuse_seventh_constructor_positive
+R15884:15886 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15858:15883 UMSTFormal.Urge.ResidueReturn <> refuse_seventh_constructor def
+R15887:15889 Corelib.Init.Datatypes <> inr constr
+R15891:15913 UMSTFormal.Urge.ResidueReturn <> rrr_seventh_constructor constr
+prf 15952:15986 <> residue_refuse_f64_delta_f_positive
+R16010:16012 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R15992:16009 UMSTFormal.Urge.ResidueReturn <> refuse_f64_delta_f def
+R16013:16015 Corelib.Init.Datatypes <> inr constr
+R16017:16031 UMSTFormal.Urge.ResidueReturn <> rrr_f64_delta_f constr
+prf 16070:16109 <> residue_observed_delta_f_compute_fixture
+R16156:16158 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16115:16138 UMSTFormal.Urge.ResidueReturn <> observed_delta_f_compute def
+R16143:16145 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R16151:16153 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R16159:16159 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R16165:16169 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R16176:16176 Stdlib.QArith.QArith_base <> ::Q_scope:x_'-'_x not
+R16161:16163 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R16172:16174 Stdlib.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 16439:16466 <> residue_return_physics_green
+R16470:16473 Corelib.Init.Datatypes <> bool ind
+R16478:16482 Corelib.Init.Datatypes <> false constr
+prf 16492:16525 <> residue_return_physics_green_false
+R16559:16561 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16531:16558 UMSTFormal.Urge.ResidueReturn <> residue_return_physics_green def
+R16562:16566 Corelib.Init.Datatypes <> false constr
+def 16606:16636 <> residue_return_production_wired
+R16640:16643 Corelib.Init.Datatypes <> bool ind
+R16648:16652 Corelib.Init.Datatypes <> false constr
+prf 16662:16698 <> residue_return_production_wired_false
+R16735:16737 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R16704:16734 UMSTFormal.Urge.ResidueReturn <> residue_return_production_wired def
+R16738:16742 Corelib.Init.Datatypes <> false constr
+prf 16779:16807 <> residue_return_module_witness
+R16811:16814 Corelib.Init.Logic <> True ind
+R16830:16830 Corelib.Init.Logic <> I constr
+R16830:16830 Corelib.Init.Logic <> I constr
+prf 16847:16873 <> residue_return_no_new_axiom
+R16877:16880 Corelib.Init.Logic <> True ind
+R16896:16896 Corelib.Init.Logic <> I constr
+R16896:16896 Corelib.Init.Logic <> I constr
+prf 16913:16953 <> residue_return_positive_refuse_not_silent
+R16970:16978 Corelib.Init.Datatypes <> Empty_set ind
+binder 16966:16966 <> x:67
+R17007:17010 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R16981:17006 UMSTFormal.Urge.ResidueReturn <> refuse_seventh_constructor def
+R17011:17013 Corelib.Init.Datatypes <> inl constr
+R17015:17015 UMSTFormal.Urge.ResidueReturn <> x:67 var
+R17044:17069 UMSTFormal.Urge.ResidueReturn <> refuse_seventh_constructor def
