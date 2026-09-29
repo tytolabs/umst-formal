@@ -252,7 +252,9 @@ pointwiseAdd-mapMul :
     (map (λ qk → qk * (ph + S)) q)
 pointwiseAdd-mapMul ph S [] = pw-[]
 pointwiseAdd-mapMul ph S (qh ∷ qt) =
-  trans (cong₂ _+_ (*-comm ph qh) refl) (sym (*-distribˡ-+ qh ph S))
+  trans
+    (cong (ph * qh +_) (*-comm qh S))
+    (trans (sym (*-distribʳ-+ qh ph S)) (*-comm (ph + S) qh))
     pw∷ pointwiseAdd-mapMul ph S qt
 
 map-scale-pointwise :

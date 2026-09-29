@@ -16,8 +16,18 @@
 #
 # Tested with Coq 8.20.x.
 
-COQC         := coqc
+# Rocq 9.x exposes `rocq coqc` / `rocq makefile` when legacy `coqc`/`coq_makefile` shims are absent.
+ifeq ($(shell command -v coqc 2>/dev/null),)
+COQC := rocq coqc
+else
+COQC := coqc
+endif
+
+ifeq ($(shell command -v coq_makefile 2>/dev/null),)
+COQ_MAKEFILE := rocq makefile
+else
 COQ_MAKEFILE := coq_makefile
+endif
 SOURCES      := Core/Gate.v Concrete/Gate.v Compat/Gate.v Gate.v Constitutional.v LandauerEinsteinBridge.v InfoTheory.v MeasurementCost.v PrimeSpectralGuidance.v Extraction.v
 COQMAKEFILE  := CoqMakefile
 
