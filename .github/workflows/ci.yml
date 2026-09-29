@@ -144,7 +144,7 @@ jobs:
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@3c5f7ea28cd621ae0bf5283f0e981fb97b8a7af9 # master
         with:
-          toolchain: 1.90
+          toolchain: 1.88.0
           components: clippy, rustfmt
 
       - name: Cache cargo registry
