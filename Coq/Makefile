@@ -50,9 +50,10 @@ $(COQMAKEFILE): $(SOURCES)
 # would omit those flags and fail with “Cannot find … UMSTFormal.Gate”.
 extract: all
 	@echo "── OCaml extraction (artifacts from CoqMakefile build of Extraction.v) ──"
-	@test -f gate_extracted.ml && test -f gate_extracted.mli || \
-	  (echo "missing gate_extracted.ml/.mli after build" >&2; exit 1)
-	@echo "── OCaml files: gate_extracted.ml, gate_extracted.mli ──"
+	@test \( -f gate_extracted.ml -a -f gate_extracted.mli \) \
+	  -o \( -f ocaml/gate_extracted.ml -a -f ocaml/gate_extracted.mli \) || \
+	  (echo "missing gate_extracted.ml/.mli (Coq/ or Coq/ocaml/) after build" >&2; exit 1)
+	@echo "── OCaml files: gate_extracted.ml, gate_extracted.mli (Coq/ or Coq/ocaml/) ──"
 
 # Fallback: direct coqc invocation (no dep tracking; use for quick checks).
 check:
