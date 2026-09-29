@@ -5,7 +5,7 @@
 // Upstream umst-formal witness for §14bis.h L-6 partial crosswalk posture.
 // `l6_crosswalk_wired` stays false until full :: derived census lands GREEN.
 
-use umst_math::theorem_registry::{crosswalk_stats, THEOREM_DERIVES_CONSTANT};
+use crate::theorem_crosswalk_shim::{crosswalk_stats, THEOREM_DERIVES_CONSTANT};
 
 /// AGAP-2350 L-Arc L-6 slot id.
 pub const JOB_ID: &str = "AGAP-2350-L-6";

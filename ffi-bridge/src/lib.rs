@@ -6,6 +6,7 @@
 // Pure morphisms only: scalars in → scalars out. Cement chemistry lives in
 // `umst-concrete-ffi` (cartridge fiber).
 
+mod theorem_crosswalk_shim;
 mod agap_2350_l1_inventory;
 mod agap_2350_l2_attestation;
 mod agap_2350_l6_attestation;

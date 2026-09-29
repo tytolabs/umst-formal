@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 77,
+  "lake_roots_count": 81,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -27,6 +27,10 @@
     "FormalFoundations",
     "LandauerEinsteinBridge",
     "LandauerLaw",
+    "Process",
+    "OneInequalitySecondLaw",
+    "ConvexPhiDissipation",
+    "CoarseGraining",
     "InfoTheory",
     "SemanticSecondLaw",
     "MeaningState",
@@ -81,14 +85,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 544,
-    "lemma": 63,
-    "total": 607
+    "theorem": 566,
+    "lemma": 64,
+    "total": 630
   },
   "all_lean_glob": {
-    "theorem": 2128,
-    "lemma": 63,
-    "total": 2191
+    "theorem": 2187,
+    "lemma": 64,
+    "total": 2251
   },
   "per_root": {
     "Core.Scalar": {
@@ -188,11 +192,27 @@
       "lemma": 5
     },
     "LandauerLaw": {
-      "theorem": 9,
+      "theorem": 16,
       "lemma": 3
     },
+    "Process": {
+      "theorem": 12,
+      "lemma": 0
+    },
+    "OneInequalitySecondLaw": {
+      "theorem": 12,
+      "lemma": 1
+    },
+    "ConvexPhiDissipation": {
+      "theorem": 8,
+      "lemma": 0
+    },
+    "CoarseGraining": {
+      "theorem": 12,
+      "lemma": 0
+    },
     "InfoTheory": {
-      "theorem": 4,
+      "theorem": 5,
       "lemma": 0
     },
     "SemanticSecondLaw": {
@@ -312,11 +332,11 @@
       "lemma": 0
     },
     "Economic.CollectiveCoherenceCost": {
-      "theorem": 13,
+      "theorem": 1,
       "lemma": 0
     },
     "Economic.CreativeExplorationTolerance": {
-      "theorem": 19,
+      "theorem": 1,
       "lemma": 0
     },
     "CreditGreedyOptimal": {
@@ -401,11 +421,5 @@
     }
   },
   "missing_root_files": [],
-  "axioms": [
-    {
-      "file": "LandauerLaw.lean",
-      "line": 160,
-      "name": "physicalSecondLaw"
-    }
-  ]
+  "axioms": []
 }

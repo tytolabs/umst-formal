@@ -9,7 +9,7 @@ description = "Material-agnostic C-ABI thermodynamic gate (manifold + umst-math)
 license = "MIT"
 
 [dependencies]
-# W-62: pinned public git siblings (monorepo override in ../.cargo/config.toml).
+# W-62: pinned public git siblings (monorepo may patch via workspace-root .cargo).
 umst-manifold = { version = "0.1.0", git = "https://github.com/tytolabs/umst-manifold.git", rev = "ce9828ea5a8c3ced0a350da648a4c5f336fec0fb", default-features = false, features = ["ndarray"] }
 umst-math = { version = "0.1.0", git = "https://github.com/tytolabs/umst-manifold.git", rev = "ce9828ea5a8c3ced0a350da648a4c5f336fec0fb", package = "umst-math" }
 [lib]

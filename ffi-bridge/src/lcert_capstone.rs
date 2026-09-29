@@ -8,7 +8,7 @@
 
 use std::path::{Path, PathBuf};
 
-use umst_math::theorem_registry::crosswalk_stats;
+use crate::theorem_crosswalk_shim::crosswalk_stats;
 
 use super::agap_2350_l1_inventory::{l1_qc_bisim_cluster_count, L1_EXPECTED_CLUSTER_COUNT};
 use super::agap_2350_l2_attestation::l2_attestation_wired;
