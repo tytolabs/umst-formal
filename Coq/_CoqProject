@@ -8,6 +8,7 @@
 -Q . UMSTFormal
 Core/Gate.v
 Concrete/Gate.v
+Concrete/Helmholtz.v
 Compat/Gate.v
 Gate.v
 Constitutional.v
