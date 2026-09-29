@@ -9,8 +9,9 @@ description = "Material-agnostic C-ABI thermodynamic gate (manifold + umst-math)
 license = "MIT"
 
 [dependencies]
-umst-manifold = { version = "0.1.0", path = "../../umst-manifold", default-features = false, features = ["ndarray"] }
-umst-math = { version = "0.1.0", path = "../../umst-manifold/umst-math" }
+# W-62: pinned public git siblings (monorepo override in ../.cargo/config.toml).
+umst-manifold = { version = "0.1.0", git = "https://github.com/tytolabs/umst-manifold.git", rev = "ce9828ea5a8c3ced0a350da648a4c5f336fec0fb", default-features = false, features = ["ndarray"] }
+umst-math = { version = "0.1.0", git = "https://github.com/tytolabs/umst-manifold.git", rev = "ce9828ea5a8c3ced0a350da648a4c5f336fec0fb", package = "umst-math" }
 [lib]
 name = "umst_ffi"
 # rlib is required for integration tests (tests/ directory).

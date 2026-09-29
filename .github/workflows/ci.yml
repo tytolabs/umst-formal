@@ -137,32 +137,17 @@ jobs:
         working-directory: Haskell
         run: cabal test landauer-einstein-sanity
 
-  # ── Rust FFI bridge (ABI 9 agnostic; umst-manifold path dep) ───────
+  # ── Rust FFI bridge (W-62: pinned git deps on umst-manifold @ ce9828ea) ─────
   rust-ffi:
     name: Rust FFI bridge tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 # v4
-        with:
-          path: umst-formal
-
-      - uses: actions/checkout@v4 # v4
-        with:
-          repository: tytolabs/umst-manifold
-          ref: ce9828ea5a8c3ced0a350da648a4c5f336fec0fb
-          path: umst-manifold
-
-      - name: Overlay umst-math from manifold docs (crosswalk_stats SSOT)
-        run: |
-          set -euo pipefail
-          cd umst-manifold
-          git fetch --depth=1 origin c25c8ef55533495523e0149b2c300ea13bca5def
-          git checkout FETCH_HEAD -- umst-math/src/theorem_registry.rs
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@3c5f7ea28cd621ae0bf5283f0e981fb97b8a7af9 # master
         with:
-          toolchain: 1.88
+          toolchain: 1.90
           components: clippy, rustfmt
 
       - name: Cache cargo registry
@@ -171,19 +156,19 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            umst-formal/ffi-bridge/target
-          key: ${{ runner.os }}-cargo-ffi-${{ hashFiles('umst-formal/ffi-bridge/Cargo.lock') }}
+            ffi-bridge/target
+          key: ${{ runner.os }}-cargo-ffi-${{ hashFiles('Cargo.lock', 'ffi-bridge/Cargo.toml') }}
 
       - name: Check formatting
-        working-directory: umst-formal/ffi-bridge
+        working-directory: ffi-bridge
         run: cargo fmt --check
 
       - name: Build ffi-bridge (docs scaffold; clippy advisory only on main)
-        working-directory: umst-formal/ffi-bridge
+        working-directory: ffi-bridge
         run: cargo build --all-targets
 
       - name: Run integration tests
-        working-directory: umst-formal/ffi-bridge
+        working-directory: ffi-bridge
         run: cargo test --test integration
 
   # ── Visuals script (optional matplotlib; stub OK if deps missing) ─
