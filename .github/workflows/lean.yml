@@ -56,10 +56,10 @@ jobs:
         uses: actions/checkout@v4 # v4
         with:
           repository: tytolabs/umst-formal-double-slit
-          ref: docs/reorganize-readme
+          ref: main
           path: sibling/umst-formal-double-slit
 
-      - name: Shared Lean module drift (8 modules)
+      - name: Single-source Lean modules (no sibling copy of the law)
         env:
           UMST_FORMAL_SIBLING_DIR: ${{ github.workspace }}/sibling/umst-formal-double-slit
         run: bash scripts/check_shared_lean_drift.sh

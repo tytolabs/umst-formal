@@ -154,6 +154,37 @@ theorem SecondLaw_transition_oneInequality_iff (old new : RealThermodynamicState
   · intro ⟨hF, hm⟩
     exact ⟨hm, (transitionStep_oneInequality_iff old new).2 hF⟩
 
+/-- **Passive transition at a given bath.** W_in = 0 and I = 0, so the bath temperature does not enter the
+    inequality; the bath is carried only so the step chains with erase and feedback steps at that bath. -/
+noncomputable def transitionStepAt (bath : HeatBath) (old new : RealThermodynamicState) : Step where
+  bath := bath
+  deltaF := new.freeEnergy - old.freeEnergy
+  wIn := 0
+  infoI := 0
+
+theorem transitionStepAt_oneInequality_iff (bath : HeatBath) (old new : RealThermodynamicState) :
+    (new.freeEnergy ≤ old.freeEnergy) ↔ oneInequality (transitionStepAt bath old new) := by
+  dsimp [oneInequality, transitionStepAt]
+  constructor <;> intro h <;> simpa [mul_zero, add_zero, zero_add] using h
+
+/-- An admissible passive transition satisfies the one inequality at every bath. -/
+theorem SecondLaw_transition_oneInequality_at (bath : HeatBath) (old new : RealThermodynamicState)
+    (h : SecondLawₚ .transition (.thermodynamic old new)) :
+    oneInequality (transitionStepAt bath old new) := by
+  rcases h with ⟨_, hd⟩
+  exact (transitionStepAt_oneInequality_iff bath old new).1 hd
+
+/-- **Mixed chain at a physical bath:** an admissible transition followed by an admissible erase composes at the
+    erase's bath temperature (for example 300 K). -/
+theorem transition_erase_chain_oneInequality (old new : RealThermodynamicState) (proc : ErasureProcess)
+    (prior post : ProbDist 2)
+    (hTr : SecondLawₚ .transition (.thermodynamic old new))
+    (hEr : eraseSecondLawStep proc prior post) :
+    oneInequality ((transitionStepAt proc.bath old new).chain (eraseStep proc prior post) rfl) :=
+  oneInequality_chain (transitionStepAt proc.bath old new) (eraseStep proc prior post) rfl
+    (SecondLaw_transition_oneInequality_at proc.bath old new hTr)
+    ((eraseStep_oneInequality_iff proc prior post).1 hEr)
+
 /-- Package any `Process` + `Prior` as a `Step` when kinds match. -/
 noncomputable def stepOf : Process → Prior → Option Step
   | .erase proc, .erasure prior =>

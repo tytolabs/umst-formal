@@ -12,11 +12,10 @@ esac
 SIBLING_NAME="${UMST_FORMAL_SIBLING:-$DEFAULT_SIBLING}"
 SIBLING="${UMST_FORMAL_SIBLING_DIR:-$ROOT/../$SIBLING_NAME}"
 
-# Shared modules with identical statement contracts in both formal repos.
-# Post science-cartridge (2026-07): double-slit no longer vendors flat copies of
-# Gate/Naturality/Activation/FiberedActivation/MonoidalState — it imports
-# `UMST.Core` via `GateCompat` and keeps only the Landauer trilogy byte-aligned.
-MODULES=(
+# Single-source modules: umst-formal owns them and double-slit imports them (P0-2
+# FORMAL-DS-SECOND-LAW-DEDUP-L, double-slit 4f2b53f). A copy in the sibling is a second
+# statement of the one law and fails; a sibling that imports the module passes.
+SINGLE_SOURCE=(
   LandauerLaw LandauerEinsteinBridge LandauerExtension
 )
 
@@ -36,7 +35,7 @@ if ! cmp -s "$STATS_A" "$STATS_B"; then
   exit 1
 fi
 
-python3 - "$ROOT" "$SIBLING" "${MODULES[@]}" << 'PY'
+python3 - "$ROOT" "$SIBLING" "${SINGLE_SOURCE[@]}" << 'PY'
 import re, sys
 from pathlib import Path
 
@@ -67,13 +66,21 @@ NAME_SUBSET_MODULES = {"Gate"}
 
 root, sibling, *modules = sys.argv[1:]
 root_p, sib_p = Path(root), Path(sibling)
+if root_p.resolve().name == "umst-formal-double-slit":  # run from double-slit: umst-formal is the owner
+    root_p, sib_p = sib_p, root_p
 fail = 0
 for mod in modules:
     sib_file = sib_p / "Lean" / f"{mod}.lean"
-    if not sib_file.is_file():
-        print(f"FAIL {mod}: missing sibling file")
+    if sib_file.is_file():
+        print(f"FAIL {mod}: sibling carries its own copy; import it from umst-formal (single source)")
         fail = 1
         continue
+    if not (root_p / "Lean" / f"{mod}.lean").is_file():
+        print(f"FAIL {mod}: single-source module missing from umst-formal")
+        fail = 1
+        continue
+    print(f"OK {mod}: single source in umst-formal; sibling imports it")
+    continue
     formal_rels = SPECIAL_FORMAL.get(mod, [f"{mod}.lean"])
     formal_files = [root_p / "Lean" / rel for rel in formal_rels]
     missing_local = [str(p) for p in formal_files if not p.is_file()]

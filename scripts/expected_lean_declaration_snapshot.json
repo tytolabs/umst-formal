@@ -85,14 +85,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 566,
+    "theorem": 569,
     "lemma": 64,
-    "total": 630
+    "total": 633
   },
   "all_lean_glob": {
-    "theorem": 2187,
+    "theorem": 2190,
     "lemma": 64,
-    "total": 2251
+    "total": 2254
   },
   "per_root": {
     "Core.Scalar": {
@@ -200,7 +200,7 @@
       "lemma": 0
     },
     "OneInequalitySecondLaw": {
-      "theorem": 12,
+      "theorem": 15,
       "lemma": 1
     },
     "ConvexPhiDissipation": {

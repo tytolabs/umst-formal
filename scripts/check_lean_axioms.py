@@ -63,10 +63,29 @@ def lean_files(lean_root: Path) -> list[Path]:
         if p.name != "lakefile.lean" and ".lake" not in p.parts
     ]
 
+def code_lines(text: str):
+    """(lineno, line) for lines that start outside a Lean block comment `/- … -/` (block comments nest).
+    Prose inside a docstring that happens to begin with the word "axiom" is not a declaration."""
+    depth = 0
+    for lineno, line in enumerate(text.splitlines(), 1):
+        if depth == 0:
+            yield lineno, line
+        i = 0
+        while i < len(line):
+            two = line[i:i + 2]
+            if depth == 0 and two == "--":
+                break
+            if two == "/-":
+                depth += 1; i += 2; continue
+            if two == "-/" and depth > 0:
+                depth -= 1; i += 2; continue
+            i += 1
+
+
 def find_axioms(lean_root: Path) -> list[dict]:
     rows = []
     for p in lean_files(lean_root):
-        for lineno, line in enumerate(p.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+        for lineno, line in code_lines(p.read_text(encoding="utf-8", errors="replace")):
             m = AXIOM_RE.match(line)
             if not m:
                 continue
@@ -126,11 +145,15 @@ def run_synthetic_tier2_fail(ws: Path) -> None:
     scratch = census_dir(ws) / ".tmp_u1_tier2_scratch/Lean"
     scratch.mkdir(parents=True, exist_ok=True)
     bad = scratch / "SyntheticTier2.lean"
-    bad.write_text("axiom synthetic_tier2_must_fail : True\n")
+    bad.write_text("/- Docstring prose:\naxiom / extra force is not a declaration.\n-/\n"
+                   "axiom synthetic_tier2_must_fail : True\n")
     try:
-        errs = classify_repo(scratch, find_axioms(scratch))
+        found = find_axioms(scratch)
+        errs = classify_repo(scratch, found)
         if not any("Tier-2" in e for e in errs):
             raise SystemExit("synthetic Tier-2 test FAILED to detect planted axiom")
+        if [r["name"] for r in found] != ["synthetic_tier2_must_fail"]:
+            raise SystemExit(f"synthetic test FAILED: docstring prose counted as axiom: {found}")
         print("check_lean_axioms: synthetic Tier-2 detection OK")
     finally:
         bad.unlink(missing_ok=True)

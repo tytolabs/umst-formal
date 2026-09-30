@@ -7,12 +7,15 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WS="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 cd "$WS"
-python3 - "$WS" <<'PY'
+python3 - "$WS" "$SCRIPT_DIR/.." <<'PY'
 import re, sys
 from pathlib import Path
 ws = Path(sys.argv[1])
 skip = {".lake", "node_modules", "old", "archived", "scratch", "target", ".git"}
-LINE_START = re.compile(r"^[ \t]*(sorry|admit)\b")
+# A tactic or term `sorry`/`admit` stands alone (optionally closed by `)`, `;` or `<;>`); a user definition named
+# `admit` applied to arguments (`admit h ↔ …`) is not a proof hole.
+LINE_START = re.compile(r"^[ \t]*(sorry|admit)[ \t]*($|;|<;>|\))")
+EXACT_SORRY = re.compile(r"\b(exact|refine|apply|show)\s+(sorry|admit)\b")
 BY_SORRY = re.compile(r"\bby\s+(sorry|admit)\b")
 PURPOSE = "sorry_detector_fixture"
 COMMENT = re.compile(r"--.*$")
@@ -32,10 +35,37 @@ def discover():
             roots.append(lean_dir)
     return sorted(set(roots))
 
+def code_lines(text):
+    """Lines that start outside a Lean block comment `/- … -/` (nesting)."""
+    depth = 0
+    for i, line in enumerate(text.splitlines(), 1):
+        if depth == 0:
+            yield i, line
+        j = 0
+        while j < len(line):
+            two = line[j:j + 2]
+            if depth == 0 and two == "--":
+                break
+            if two == "/-":
+                depth += 1; j += 2; continue
+            if two == "-/" and depth > 0:
+                depth -= 1; j += 2; continue
+            j += 1
+
+roots = discover()
+if not roots:
+    # Single-repository checkout (CI): scan this repository's own Lean tree, never nothing.
+    own = Path(sys.argv[2]) / "Lean"
+    roots = [own] if own.is_dir() else []
+if not roots:
+    print("check_lean_sorry: FAIL — no Lean tree found to scan", file=sys.stderr)
+    sys.exit(1)
+print("check_lean_sorry: scanning " + ", ".join(str(r) for r in roots))
+
 found = 0
 fixture_skipped = 0
 hits = []
-for lean in discover():
+for lean in roots:
     for p in sorted(lean.rglob("*.lean")):
         if p.name == "lakefile.lean" or ".lake" in p.parts:
             continue
@@ -43,9 +73,9 @@ for lean in discover():
         if PURPOSE in text:
             fixture_skipped += 1
             continue
-        for i, line in enumerate(text.splitlines(), 1):
+        for i, line in code_lines(text):
             code = COMMENT.sub("", line)
-            if LINE_START.match(code) or BY_SORRY.search(code):
+            if LINE_START.match(code) or BY_SORRY.search(code) or EXACT_SORRY.search(code):
                 hits.append(f"{p}:{i}:{line.strip()}")
                 found = 1
 for h in hits:
