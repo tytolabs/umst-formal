@@ -2,7 +2,7 @@
 -- SPDX-License-Identifier: MIT
 /-
   Track R programme R1 — Gibbs minimiser uniqueness obligation (`R1_MINIMISER_UNIQUE_STRICT`).
-  typed_absence: full cement thermodynamics proof deferred; follow-up R1-CEMENT-THERMO-SOLVE-COMBINATOR.
+  typed_absence: full cement thermodynamics proof deferred; R1-CEMENT-THERMO-SOLVE-COMBINATOR landed STEER_20260930T2226 wave 18 (Track C stub).
 
   Scalar strict-convex witness: squared distance to `c` has a unique global minimiser.
   Pins the convex-program uniqueness lemma used by `schema_track_model_spec.json`; not a benchmark pass.
