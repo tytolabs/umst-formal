@@ -8,7 +8,7 @@
   Agda mirror: priority residue `R-LS4-agda-priority`.
 
   **No axiom.** Both laws are fields of `Spec`, discharged wherever a trust algebra is constructed.
-  Physics stack unchanged — the sole axiom in the workspace is `LandauerLaw.physicalSecondLaw`.
+  Physics stack unchanged — the sole physical law in the workspace is the predicate `LandauerLaw.physicalSecondLaw`.
 -/
 
 namespace Crypto

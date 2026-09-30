@@ -9,7 +9,7 @@
   Merge / recovery pays the slow path (≤1s budget) with composed
   `Excitement.select` — **not** wall-clock GREEN, not a second argmin.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 

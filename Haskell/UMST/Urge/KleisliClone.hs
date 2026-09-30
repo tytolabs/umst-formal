@@ -10,7 +10,7 @@
 --
 -- Mirrors 'UMST.Urge.CollaborativeObject' excitement alignment discipline.
 -- Anchored in 'UMST.Urge.AdmitKleisli.admitSecondLaw' via Landauer bridge.
--- Sole physics axiom remains on Lean @LandauerLaw.physicalSecondLaw@ (cited,
+-- Sole physical law: the Lean @SecondLaw@ predicate, erase instance @LandauerLaw.physicalSecondLaw@ (cited,
 -- not restated). Adds zero new physics axioms. Knowing fiber (EpistemicMI) lives
 -- on @umst-formal-double-slit@ — cited, not restated here.
 module UMST.Urge.KleisliClone

@@ -7,7 +7,7 @@
   `PadmaBacking` live enum lives in Rust (`umst-padma`); this module witnesses that
   formal Lean does **not** bool-flip portable LeanProven / physics_green / production_wired.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 
   Cell: PADMA-FORMAL-ACT-LEAN-MEMBRANE-BACKING

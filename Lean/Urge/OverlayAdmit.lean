@@ -5,7 +5,7 @@
 
   Agentic admitted overlay — packets on L3 (WireGuard / Tailscale / LAN) are not
   an admit oracle. Overlay admissibility is suite-bound Trust ∧ UCRS gate ∧
-  SDF-canonical occupancy. Sole physics axiom remains LandauerLaw.physicalSecondLaw
+  SDF-canonical occupancy. Sole physical law (the `SecondLaw` predicate) remains LandauerLaw.physicalSecondLaw
   (imported by sibling Urge.AdmitKleisli; **zero new axioms here**).
 
   This is a positive theorem: packet arrival does not imply overlay admit.

@@ -36,7 +36,7 @@ import UMST.Concrete
   )
 import UMST.Core (coreDissipationOk, coreMassOk)
 
--- | Machine-readable marker — single axiom: second law + conservation.
+-- | Machine-readable marker — single law: second law + conservation.
 chemAxiomMarker :: String
 chemAxiomMarker = "chem_axiom_second_law_conservation_v1"
 
@@ -94,7 +94,7 @@ secondLawFromGate old new dt =
       , secondLawOk = ok
       }
 
--- | A chemistry transition under the single axiom.
+-- | A chemistry transition under the single law.
 data ChemTransition = ChemTransition
   { chemFromState :: !ThermodynamicState
   , chemToState   :: !ThermodynamicState

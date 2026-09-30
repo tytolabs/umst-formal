@@ -7,7 +7,7 @@
   History merge **is** `Memory.Federation.mergeSafePred` on typed history objects;
   honest `Err` on mismatch — no CRDT fork.
 
-  Imports `Memory.MergeSafe` (do not fork). Sole physics axiom remains
+  Imports `Memory.MergeSafe` (do not fork). Sole physical law (the `SecondLaw` predicate) remains
   `LandauerLaw.physicalSecondLaw` (imported transitively, not re-declared).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/

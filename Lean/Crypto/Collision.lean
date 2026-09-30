@@ -9,7 +9,7 @@
 
   **No axiom.** The carriers are fields of `Scheme`, so the abstraction is instantiable: a concrete
   hash supplies `Hash`, `Input` and `h` and the theorem applies to it. Physics stack unchanged —
-  the sole axiom in the workspace is `LandauerLaw.physicalSecondLaw`.
+  the sole physical law in the workspace is the predicate `LandauerLaw.physicalSecondLaw`.
 -/
 
 namespace Crypto

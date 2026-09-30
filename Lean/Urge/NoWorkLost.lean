@@ -9,7 +9,7 @@
 
   Scaffold / theorem pin only — runtime reconcile+guard test wiring is a later cell.
   Composes `Urge.AdmitKleisli` history carriers + `Urge.AppendOnly` discipline.
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 

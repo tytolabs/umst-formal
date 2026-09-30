@@ -9,7 +9,7 @@
   `allocate_antichain` or invent GREEN from antichain size.
   Mirrors `Urge.ReplicaCoalgebra` / `Urge.BackupRecovery` typed morphism discipline.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations.  Zero sorry.
 -/
 

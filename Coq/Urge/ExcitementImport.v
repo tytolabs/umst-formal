@@ -7,7 +7,7 @@
 (*  Urge history recovery **is** `excitement_select` over admissible    *)
 (*  history successors; refuse a second argmin / f64 F compare.         *)
 (*                                                                      *)
-(*  Sole physics axiom remains on Lean `LandauerLaw` (cited, not here). *)
+(*  Sole physical law: the Lean `SecondLaw` predicate in `LandauerLaw` (cited, not here). *)
 (*  Adds **zero** Coq `Axiom` declarations. ZERO `Admitted`.           *)
 (* ================================================================== *)
 

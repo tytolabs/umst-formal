@@ -9,7 +9,7 @@
 
   Push composes `Excitement.select` (via `Urge.ExcitementImport`) — not a second argmin.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 

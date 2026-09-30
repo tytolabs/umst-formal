@@ -9,7 +9,7 @@
 --
 -- Mirrors 'UMST.Urge.CollaborativeObject' carrier discipline and Lean
 -- @Urge.ContentAddressed@. Anchored in 'UMST.Urge.AdmitKleisli.admitSecondLaw'
--- via Landauer bridge. Sole physics axiom remains on Lean
+-- via Landauer bridge. Sole physical law (the `SecondLaw` predicate) remains on Lean
 -- @LandauerLaw.physicalSecondLaw@ (cited, not restated). Adds zero new physics
 -- axioms. Knowing fiber (EpistemicMI) lives on @umst-formal-double-slit@ — cited,
 -- not restated here.

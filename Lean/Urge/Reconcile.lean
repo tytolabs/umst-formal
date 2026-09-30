@@ -5,7 +5,7 @@
 
   Meso acting Urge — BP II §5.2 / §13.02 both-way union-preserving reconcile.
   Machine-checked Props mirroring Rust `reconcile_heads` + ContentConflict refuse.
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Zero Lean `axiom`. Zero sorry. `physics_green` false.
 -/
 

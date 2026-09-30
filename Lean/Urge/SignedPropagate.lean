@@ -7,7 +7,7 @@
   Stamp `T` required; witness retained; unsigned propagation refused — not silent accept.
   Composes `Excitement.select` — no second ℚ argmin.
 
-  Mirrors `Urge.ReplicaCoalgebra` / Coq `Urge.SignedPropagate`. Sole physics axiom remains
+  Mirrors `Urge.ReplicaCoalgebra` / Coq `Urge.SignedPropagate`. Sole physical law (the `SecondLaw` predicate) remains
   `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/

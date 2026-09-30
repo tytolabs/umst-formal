@@ -6,7 +6,7 @@
 --
 -- URGE-II-FORMAL-NOLOSS-HS. Once admitted, a change stays reachable from ≥1 replica.
 -- Eight mechanisms pinned; reconcile/transport wired=false until §13 lands.
--- Sole physics axiom remains on Lean @LandauerLaw@ (cited, not restated).
+-- Sole physical law: the Lean @SecondLaw@ predicate in @LandauerLaw@ (cited, not restated).
 -- Zero new physics axioms. Knowing fiber (EpistemicMI) lives on
 -- @umst-formal-double-slit@ — cited, not restated here.
 -- physics_green = False.

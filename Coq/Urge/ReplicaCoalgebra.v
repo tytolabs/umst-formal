@@ -14,7 +14,7 @@
 (*  rsync theater).  Offline LUKS replica class carries                 *)
 (*  `network-egress: []`.                                               *)
 (*                                                                      *)
-(*  Sole physics axiom remains on Lean `LandauerLaw` (cited, not here). *)
+(*  Sole physical law: the Lean `SecondLaw` predicate in `LandauerLaw` (cited, not here). *)
 (*  Adds **zero** Coq `Axiom` declarations. ZERO `Admitted`.           *)
 (* ================================================================== *)
 

@@ -7,7 +7,7 @@
   Integer surrogate ms vs declared tier ceiling — not wall-clock SLA theater.
   Merge / recovery slow path composes `Excitement.select` — no second argmin.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 

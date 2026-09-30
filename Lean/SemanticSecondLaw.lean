@@ -11,7 +11,7 @@
     a shared model.
 
   **Single-axiom discipline:** this module adds **zero** Lean `axiom` declarations.
-  The sole project axiom remains `physicalSecondLaw`.  `semanticSecondLaw` is the
+  The sole physical law (the `SecondLaw` predicate) remains `physicalSecondLaw`.  `semanticSecondLaw` is the
   named foundational `Prop`; entropy accounting on physically bridged transitions
   is **derived** from `physicalSecondLaw` via `semanticSecondLaw_from_physical`.
 

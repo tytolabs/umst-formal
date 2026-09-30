@@ -34,7 +34,7 @@ require mathlib from git
   Honesty: measured census receipts; not physics GREEN.
   CHEM-FORMAL-MESO-LEAN-CHEM — meso acting chemistry lift (`lake build UMST.Chem`).
   `Chem.+` glob: later `Chem/*.lean` compile without re-editing this lakefile.
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Declared before `lean_lib «UMST»` so the `UMST.Chem` target is not shadowed.
 -/
 lean_lib UMST.Chem where
@@ -45,7 +45,7 @@ lean_lib UMST.Chem where
 /-!
   URGE-FORMAL-MESO-LEAN-ADMIT-KLEISLI — meso acting Urge lift (`lake build UMST.Urge`).
   `Urge.+` glob: later `Urge/*.lean` compile without re-editing this lakefile.
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Declared before `lean_lib «UMST»` so the `UMST.Urge` target is not shadowed.
 -/
 lean_lib UMST.Urge where

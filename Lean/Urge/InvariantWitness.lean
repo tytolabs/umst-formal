@@ -10,7 +10,7 @@
 
   Mirrors `Urge.ReplicaCoalgebra` meso discipline + Coq `InvariantWitness.v`.
   Anchored in `AdmitKleisli` / `CarrierProduct`.
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 
@@ -296,7 +296,7 @@ theorem invariantFixtureLedgerEveryHasWitness :
 -- SECTION 5: Landauer bridge + honesty flags (zero new axioms)
 -- ================================================================
 
-/-- History transition second-law discharge from sole project axiom. -/
+/-- History transition second-law discharge from sole physical law (the `SecondLaw` predicate). -/
 theorem invariantSecondLawFromLandauer (b : PhysicalHistoryBridge)
     (hSL : physicalSecondLawUniformBinary b.proc) :
     admitSecondLaw b.transition :=

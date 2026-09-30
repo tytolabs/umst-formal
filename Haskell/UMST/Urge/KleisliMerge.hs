@@ -11,7 +11,7 @@
 -- Composes 'excitementSelect' — no second argmin.
 -- Mirrors 'UMST.Urge.CollaborativeObject' / Coq @Urge.KleisliMerge@.
 -- Anchored in 'UMST.Urge.AdmitKleisli.admitSecondLaw' via Landauer bridge.
--- Sole physics axiom remains on Lean @LandauerLaw.physicalSecondLaw@ (cited,
+-- Sole physical law: the Lean @SecondLaw@ predicate, erase instance @LandauerLaw.physicalSecondLaw@ (cited,
 -- not restated). Adds zero new physics axioms.
 module UMST.Urge.KleisliMerge
   ( -- * §16.7 verb row + merge carriers

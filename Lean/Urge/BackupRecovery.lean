@@ -7,7 +7,7 @@
   Backup **is** an Excitement-selected admissible state transition — not rsync theater.
   Composes `UMST.Excitement.select`; no second argmin.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations.  Zero sorry.
 -/
 

@@ -12,7 +12,7 @@
   Backup is a **typed recovery morphism** (Excitement `select`, not rsync theater).
   Offline LUKS replica class carries `network-egress: []`.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations.  Zero sorry.
 -/
 

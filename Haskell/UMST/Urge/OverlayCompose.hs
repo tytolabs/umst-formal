@@ -6,7 +6,7 @@
 --
 -- Overlay admit = suiteBound && gateAdmit && occupancyCanonical.
 -- Occupancy remainder SDF is replica-lag identity — not MagicDNS.
--- Sole physics axiom remains Lean LandauerLaw.physicalSecondLaw (cited, not restated).
+-- Sole physical law (the `SecondLaw` predicate) remains Lean LandauerLaw.physicalSecondLaw (cited, not restated).
 module UMST.Urge.OverlayCompose
   ( OverlayCarrier (..)
   , overlayAdmissible

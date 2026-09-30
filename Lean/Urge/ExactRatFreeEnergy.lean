@@ -7,7 +7,7 @@
   Executable F lives in ℚ (`jointFreeEnergy` at field `K`); pin Rat/ℚ carrier;
   refuse f64-as-identity theater as a named Prop.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 

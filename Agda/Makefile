@@ -2,10 +2,9 @@
 # SPDX-License-Identifier: MIT
 AGDA       := agda
 # --library : uses umst-formal.agda-lib for the stdlib path.
-# Note: we intentionally do NOT pass --safe here: Gate.agda and Helmholtz.agda
-# contain physical-model postulates (ψ-antitone / fc-monotone at the state level,
-# matching the Coq/Lean “axiom as interface” split). For a safe-only slice, add a
-# separate target that type-checks only postulate-free modules.
+# Safe mode is set per module with `{-# OPTIONS --safe #-}`; the tree holds no `postulate`
+# (the physical laws are module parameters, W-04 / P0-5). The flag is not passed globally
+# because not every module carries the pragma yet; `agda --safe Gate.agda` type-checks.
 # Agda 2.8 may emit spurious LibUnknownField on this repo’s .agda-lib when
 # resolving `depend:`; silence if it appears (fields are valid for bundled libs).
 AGDA_FLAGS := --library=umst-formal -W noLibUnknownField

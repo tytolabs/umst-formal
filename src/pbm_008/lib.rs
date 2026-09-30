@@ -255,16 +255,18 @@ pub fn workspace_file_on_disk(rel: &str) -> bool {
     workspace_root().join(rel).is_file()
 }
 
-/// Lean `physicalSecondLaw` axiom posture present on disk.
+/// Lean `SecondLaw` predicate posture present on disk (no project axiom).
 #[must_use]
 pub fn lean_physical_second_law_on_disk() -> bool {
     let path = umst_formal_root().join(LEAN_PHYSICAL_SECOND_LAW);
     let Ok(text) = fs::read_to_string(path) else {
         return false;
     };
-    text.contains("axiom physicalSecondLaw")
-        && text.contains("Sole project `axiom`: `physicalSecondLaw`")
-        && text.contains("theorem physicalSecondLaw_uniform_binary")
+    // Predicate posture (P0-1, `7271806`): the law is `SecondLaw`, `physicalSecondLaw` its erase alias,
+    // satisfiable, and no Lean `axiom` declares it.
+    !text.lines().any(|l| l.trim_start().starts_with("axiom "))
+        && text.contains("abbrev physicalSecondLaw")
+        && text.contains("theorem secondLaw_satisfiable")
 }
 
 /// Lean `sequentialCompositionSafe` mechanised anchor on disk.

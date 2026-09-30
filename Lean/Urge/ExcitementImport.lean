@@ -7,7 +7,7 @@
   Urge history recovery **is** `UMST.Excitement.select` over admissible history
   successors; refuse a second argmin / f64 F compare.
 
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 

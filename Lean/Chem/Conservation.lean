@@ -4,7 +4,7 @@
   UMST-Formal: Chem/Conservation.lean
 
   Meso acting chemistry — linear/affine conservation lift for chemical assemblages.
-  Conservation axes are **typed closures** under the sole axiom stack anchored in
+  Conservation axes are **typed closures** under the sole law stack anchored in
   `LandauerLaw.physicalSecondLaw` via `Chem.SecondLaw`.  Adds **zero** Lean `axiom`
   declarations.
 

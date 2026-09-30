@@ -134,7 +134,7 @@ theorem admitSecondLaw_from_physical (b : PhysicalHistoryBridge)
   exact hSL
 
 /-- **Admit morphism axiom discipline**: history second-law admissibility discharges from
-    the sole project axiom `physicalSecondLaw` — zero new Lean `axiom` declarations. -/
+    the sole physical law (the `SecondLaw` predicate) `physicalSecondLaw` — zero new Lean `axiom` declarations. -/
 theorem admitMorphism_noNewAxiom (b : PhysicalHistoryBridge)
     (hSL : physicalSecondLawUniformBinary b.proc) :
     admitSecondLaw b.transition :=

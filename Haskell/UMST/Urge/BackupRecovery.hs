@@ -9,7 +9,7 @@
 --
 -- Excitement recovery composes 'excitementSelect' — no second argmin.
 -- Anchored in 'UMST.Urge.AdmitKleisli.admitSecondLaw' via Landauer bridge.
--- Sole physics axiom remains on Lean @LandauerLaw.physicalSecondLaw@ (cited,
+-- Sole physical law: the Lean @SecondLaw@ predicate, erase instance @LandauerLaw.physicalSecondLaw@ (cited,
 -- not restated). Adds zero new physics axioms.
 module UMST.Urge.BackupRecovery
   ( -- * Replica class rows (§15.4)

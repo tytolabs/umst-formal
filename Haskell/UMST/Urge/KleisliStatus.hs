@@ -11,7 +11,7 @@
 -- Mirrors 'UMST.Urge.CollaborativeObject' excitement/Landauer discipline and
 -- Lean @Urge.KleisliStatus@ / Coq @Urge.KleisliStatus@.
 -- Anchored in 'UMST.Urge.AdmitKleisli.admitSecondLaw' via Landauer bridge.
--- Sole physics axiom remains on Lean @LandauerLaw.physicalSecondLaw@ (cited,
+-- Sole physical law: the Lean @SecondLaw@ predicate, erase instance @LandauerLaw.physicalSecondLaw@ (cited,
 -- not restated). Adds zero new physics axioms.
 module UMST.Urge.KleisliStatus
   ( -- * §16.7 verb table + status Kleisli carriers

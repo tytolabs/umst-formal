@@ -7,7 +7,7 @@
   Blueprint row: `fetch` → `gate_check_before_sync` inbound · entity check `remote class`.
   Composes `UMST.Excitement.select`; no second argmin.
 
-  Anchored in `AdmitKleisli` / `GateBeforeSync`. Sole physics axiom remains
+  Anchored in `AdmitKleisli` / `GateBeforeSync`. Sole physical law (the `SecondLaw` predicate) remains
   `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/

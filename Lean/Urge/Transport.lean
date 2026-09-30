@@ -5,7 +5,7 @@
 
   Meso acting Urge — BP II §5.3 / §13.05 transport seam channel set.
   Mirrors Rust `Transport` + `admit_carry` Offline refuse. Channel-agnostic above.
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Zero Lean `axiom`. Zero sorry. `physics_green` false.
 -/
 

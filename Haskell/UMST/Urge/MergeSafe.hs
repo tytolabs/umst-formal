@@ -8,7 +8,7 @@
 -- on mismatch — no CRDT fork. Predicate mirrors Lean @Memory.Federation.mergeSafePred@
 -- (import-only pin). Composes 'excitementSelect' — no local argmin re-derivation.
 --
--- Sole physics axiom remains on Lean @LandauerLaw@ (cited, not restated).
+-- Sole physical law: the Lean @SecondLaw@ predicate in @LandauerLaw@ (cited, not restated).
 -- Adds zero new physics axioms. Knowing fiber (EpistemicMI) lives on
 -- @umst-formal-double-slit@ — cited, not restated here.
 module UMST.Urge.MergeSafe

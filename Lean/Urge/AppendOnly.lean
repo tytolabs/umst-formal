@@ -8,7 +8,7 @@
   Self-healing adds an Excitement arrow; it does not mutate prior admitted objects.
 
   Anchored in `LandauerLaw.physicalSecondLaw` via `Urge.AdmitKleisli` physical bridge.
-  Sole physics axiom remains `LandauerLaw.physicalSecondLaw` (imported, not re-declared).
+  Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Adds **zero** Lean `axiom` declarations. Zero sorry.
 -/
 
