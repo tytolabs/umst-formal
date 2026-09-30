@@ -184,12 +184,12 @@ def miPaymentFromLandauerBits (n : Nat) : MiPaymentWitness :=
 theorem landauerBridgeMiPaidWhenNonzero (n : Nat) (h : 0 < n) :
     miPaidBool (miPaymentFromLandauerBits n) = true := by
   cases n with
-  | zero => simpa using h
+  | zero => simp at h
   | succ k => simp [miPaymentFromLandauerBits, miPaidBool]
 
 /-- Composite arrow from physical bridge + prior provenance chain extension. -/
 def compositeFromLandauer (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
+    (_hPrior : prior.dagCommit = b.transition.prior.commitId)
     (_hSL : physicalSecondLawUniformBinary b.proc) (excitementSelected : Bool) :
     CompactionArrow :=
   { compositeId := b.transition.post.commitId

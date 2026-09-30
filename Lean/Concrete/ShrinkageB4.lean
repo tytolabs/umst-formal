@@ -201,7 +201,7 @@ private lemma b4UltimateEnvelope_mono_from_lo_knot {wc : ℚ}
         have hpin : criticalWcChemPin - b4WcLo = 12 / 100 := by norm_num [criticalWcChemPin, b4WcLo]
         linarith [le_of_lt hlt, hpin]
       have hterm : 400 * (criticalWcChemPin - wc) / (12 / 100) ≤ 400 := by
-        rw [div_le_iff (by norm_num : (0 : ℚ) < 12 / 100)]
+        rw [div_le_iff₀ (by norm_num : (0 : ℚ) < 12 / 100)]
         nlinarith
       calc
         b4UltimateEnvelope b4WcLo = -1000 := b4UltimateEnvelope_at_lo
@@ -221,7 +221,7 @@ private lemma b4UltimateEnvelope_mono_from_critical_knot {wc : ℚ}
         have hpin : b4WcMid - criticalWcChemPin = 8 / 100 := by norm_num [b4WcMid, criticalWcChemPin]
         linarith [le_of_lt hlt, hpin]
       have hterm : 400 * (b4WcMid - wc) / (8 / 100) ≤ 400 := by
-        rw [div_le_iff (by norm_num : (0 : ℚ) < 8 / 100)]
+        rw [div_le_iff₀ (by norm_num : (0 : ℚ) < 8 / 100)]
         nlinarith
       calc
         b4UltimateEnvelope criticalWcChemPin = -600 := b4UltimateEnvelope_at_critical
@@ -242,7 +242,7 @@ private lemma b4UltimateEnvelope_mono_from_mid_knot {wc : ℚ}
         have hpin : b4WcHi - b4WcMid = 10 / 100 := by norm_num [b4WcHi, b4WcMid]
         linarith [le_of_lt hlt, hpin]
       have hterm : 100 * (b4WcHi - wc) / (10 / 100) ≤ 100 := by
-        rw [div_le_iff (by norm_num : (0 : ℚ) < 10 / 100)]
+        rw [div_le_iff₀ (by norm_num : (0 : ℚ) < 10 / 100)]
         nlinarith
       calc
         b4UltimateEnvelope b4WcMid = -200 := b4UltimateEnvelope_at_mid
@@ -305,20 +305,20 @@ private lemma b4UltimateEnvelope_mono_to_lo_knot {wc : ℚ} (h : wc ≤ b4WcLo) 
   b4UltimateEnvelope_mono_on_lo h (le_refl b4WcLo) h
 
 private lemma b4UltimateEnvelope_mono_cross_lo_critical {wc₁ wc₂ : ℚ}
-    (hlo₁ : wc₁ ≤ b4WcLo) (hlo₂ : b4WcLo < wc₂) (hcrit₂ : wc₂ ≤ criticalWcChemPin) (h : wc₁ ≤ wc₂) :
+    (hlo₁ : wc₁ ≤ b4WcLo) (hlo₂ : b4WcLo < wc₂) (hcrit₂ : wc₂ ≤ criticalWcChemPin) (_h : wc₁ ≤ wc₂) :
     b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
   le_trans (b4UltimateEnvelope_mono_to_lo_knot hlo₁)
     (b4UltimateEnvelope_mono_from_lo_knot (le_of_lt hlo₂) hcrit₂)
 
 private lemma b4UltimateEnvelope_mono_cross_lo_mid {wc₁ wc₂ : ℚ}
-    (hlo₁ : wc₁ ≤ b4WcLo) (hcrit₂ : criticalWcChemPin < wc₂) (hmid₂ : wc₂ ≤ b4WcMid) (h : wc₁ ≤ wc₂) :
+    (hlo₁ : wc₁ ≤ b4WcLo) (hcrit₂ : criticalWcChemPin < wc₂) (hmid₂ : wc₂ ≤ b4WcMid) (_h : wc₁ ≤ wc₂) :
     b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
   le_trans (b4UltimateEnvelope_mono_to_lo_knot hlo₁)
     (le_trans b4UltimateEnvelope_knots_mono_lo_critical
       (b4UltimateEnvelope_mono_from_critical_knot (le_of_lt hcrit₂) hmid₂))
 
 private lemma b4UltimateEnvelope_mono_cross_lo_hi {wc₁ wc₂ : ℚ}
-    (hlo₁ : wc₁ ≤ b4WcLo) (hmid₂ : b4WcMid < wc₂) (hhi₂ : wc₂ ≤ b4WcHi) (h : wc₁ ≤ wc₂) :
+    (hlo₁ : wc₁ ≤ b4WcLo) (hmid₂ : b4WcMid < wc₂) (hhi₂ : wc₂ ≤ b4WcHi) (_h : wc₁ ≤ wc₂) :
     b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
   le_trans (b4UltimateEnvelope_mono_to_lo_knot hlo₁)
     (le_trans b4UltimateEnvelope_knots_mono_lo_critical
@@ -327,7 +327,7 @@ private lemma b4UltimateEnvelope_mono_cross_lo_hi {wc₁ wc₂ : ℚ}
 
 private lemma b4UltimateEnvelope_mono_cross_critical_mid {wc₁ wc₂ : ℚ}
     (hlo₁ : b4WcLo < wc₁) (hcrit₁ : wc₁ ≤ criticalWcChemPin) (hcrit₂ : criticalWcChemPin < wc₂)
-    (hmid₂ : wc₂ ≤ b4WcMid) (h : wc₁ ≤ wc₂) :
+    (hmid₂ : wc₂ ≤ b4WcMid) (_h : wc₁ ≤ wc₂) :
     b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
   le_trans (b4UltimateEnvelope_mono_on_critical_closed (le_of_lt hlo₁) hcrit₁
       b4WcLo_le_critical (le_refl criticalWcChemPin) hcrit₁)
@@ -335,7 +335,7 @@ private lemma b4UltimateEnvelope_mono_cross_critical_mid {wc₁ wc₂ : ℚ}
 
 private lemma b4UltimateEnvelope_mono_cross_critical_hi {wc₁ wc₂ : ℚ}
     (hlo₁ : b4WcLo < wc₁) (hcrit₁ : wc₁ ≤ criticalWcChemPin) (hmid₂ : b4WcMid < wc₂)
-    (hhi₂ : wc₂ ≤ b4WcHi) (h : wc₁ ≤ wc₂) :
+    (hhi₂ : wc₂ ≤ b4WcHi) (_h : wc₁ ≤ wc₂) :
     b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
   le_trans (b4UltimateEnvelope_mono_on_critical_closed (le_of_lt hlo₁) hcrit₁
       b4WcLo_le_critical (le_refl criticalWcChemPin) hcrit₁)
@@ -344,7 +344,7 @@ private lemma b4UltimateEnvelope_mono_cross_critical_hi {wc₁ wc₂ : ℚ}
 
 private lemma b4UltimateEnvelope_mono_cross_mid_hi {wc₁ wc₂ : ℚ}
     (hcrit₁ : criticalWcChemPin < wc₁) (hmid₁ : wc₁ ≤ b4WcMid) (hmid₂ : b4WcMid < wc₂)
-    (hhi₂ : wc₂ ≤ b4WcHi) (h : wc₁ ≤ wc₂) :
+    (hhi₂ : wc₂ ≤ b4WcHi) (_h : wc₁ ≤ wc₂) :
     b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
   le_trans (b4UltimateEnvelope_mono_on_mid_closed (le_of_lt hcrit₁) hmid₁
       critical_le_b4WcMid (le_refl b4WcMid) hmid₁)

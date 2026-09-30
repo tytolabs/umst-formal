@@ -166,7 +166,7 @@ def applyCryptoComposeMorphism (snapshot : CryptoComposeSnapshot)
         morphismWitness := witnessFromCryptoSnapshot snapshot
         morphismExcitementSelected := excitementSelected }
 
-theorem cryptoComposeEgoffCopyPasteRefused (snapshotId : Nat) :
+theorem cryptoComposeEgoffCopyPasteRefused (_snapshotId : Nat) :
     evaluateCryptoComposeOperation true = .egoffCopyPasteRefused := rfl
 
 theorem cryptoComposeMorphismOkWhenNotCopyPaste :

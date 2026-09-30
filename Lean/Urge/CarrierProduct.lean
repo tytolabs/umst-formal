@@ -188,8 +188,8 @@ def carrierFromPhysical (b : PhysicalHistoryBridge) (prior : HistoryCarrier)
     witness := satisfiedWitness }
 
 theorem carrierFromPhysical_admitSecondLaw (b : PhysicalHistoryBridge) (prior : HistoryCarrier)
-    (hPrior : prior.umst.commitId = b.transition.prior.commitId)
-    (postWall : Nat) (hSL : physicalSecondLawUniformBinary b.proc) :
+    (_hPrior : prior.umst.commitId = b.transition.prior.commitId)
+    (_postWall : Nat) (hSL : physicalSecondLawUniformBinary b.proc) :
     admitSecondLaw b.transition :=
   admitSecondLaw_from_physical b hSL
 

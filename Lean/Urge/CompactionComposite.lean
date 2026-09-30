@@ -174,7 +174,7 @@ theorem gateCompactionMiRefuseDelete (a : CompactionAttempt)
   simp [evaluateCompactionAttempt, h]
 
 theorem gateCompactionMiAdmit (a : CompactionAttempt)
-    (hDel : a.attemptDeleteOldCommits = false) (_hMi : miPaid a.attemptMi) :
+    (_hDel : a.attemptDeleteOldCommits = false) (_hMi : miPaid a.attemptMi) :
     True :=
   trivial
 
@@ -189,12 +189,12 @@ def miPaymentFromLandauerBits (n : Nat) : MiPaymentWitness :=
 theorem landauerBridgeMiPaidWhenNonzero (n : Nat) (h : 0 < n) :
     miPaidBool (miPaymentFromLandauerBits n) = true := by
   cases n with
-  | zero => simpa using h
+  | zero => simp at h
   | succ k => simp [miPaymentFromLandauerBits, miPaidBool]
 
 /-- Composite arrow from physical bridge + prior provenance chain extension. -/
 def compositeFromPhysical (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
+    (_hPrior : prior.dagCommit = b.transition.prior.commitId)
     (_hSL : physicalSecondLawUniformBinary b.proc) : CompositeCompactionArrow :=
   { compositeId := b.transition.post.commitId
     compositeWitness := { derivationChain := prior.ucrsChain ++ [prior.dagCommit] }

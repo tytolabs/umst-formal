@@ -80,7 +80,7 @@ private theorem missingWeightList_zero_iff_list {D : Type} (weight : D → Nat) 
             omega) y htl
     · intro hall
       have ha := hall a (List.mem_cons_self a as)
-      simpa [ha, (ih hpos').mpr fun z hz => hall z (List.mem_cons_of_mem _ hz)]
+      simp [ha, (ih hpos').mpr fun z hz => hall z (List.mem_cons_of_mem _ hz)]
 
 theorem missingWeight_zero_iff {D : Type} (R : Region D) (present : D → Bool) :
     missingWeight R present = 0 ↔ ∀ d ∈ R.deliverables, present d := by
@@ -102,7 +102,7 @@ theorem missingWeightList_antimono {D : Type} {p q : D → Bool} (h : Completes 
               show missingWeightList weight q (d :: tl) = weight d + missingWeightList weight q tl from by
                 simp [missingWeightList, hq']]
           apply le_trans ih
-          simpa [Nat.add_comm] using Nat.le_add_right (missingWeightList weight q tl) (weight d)
+          simp [Nat.add_comm]
       · by_cases hq : q d
         · exact absurd (h d hq) hp
         · have hp' : p d = false := Bool.eq_false_iff.mpr hp

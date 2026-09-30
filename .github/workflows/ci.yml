@@ -209,24 +209,45 @@ jobs:
     steps:
       - uses: actions/checkout@v4 # v4
 
-      - name: Set up Lean 4 + Mathlib cache + build UMST
+      - name: Set up Lean 4 + Mathlib cache
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1
         with:
           lake-package-directory: Lean
           auto-config: "false"
-          build: "true"
-          # Omit `--wfail` here: a Mathlib cache miss can force a long replay where
-          # upstream doc/linter noise is treated as failure. Project sources stay
-          # warning-clean under normal `lake build UMST` in development.
-          build-args: "UMST"
+          build: "false"
           test: "false"
           lint: "false"
           use-mathlib-cache: auto
 
+      - name: Every tracked Lean file is compiled by a default target (or listed with a reason)
+        run: python3 scripts/check_lean_ci_closure.py
+
+      - name: Build every library (zero errors, warnings, sorry; manifest current)
+        working-directory: Lean
+        run: |
+          set -eo pipefail
+          lake build 2>&1 | tee lake-build.log
+          if grep -q "manifest out of date" lake-build.log; then
+            echo "FAIL: lakefile and lake-manifest.json disagree on a dependency revision"; exit 1
+          fi
+          project=$(grep -E "^(warning|error): " lake-build.log | grep -v "\.lake/packages" | grep -v "has local changes" || true)
+          if [ -n "$project" ]; then
+            echo "FAIL: project diagnostics (zero warnings is the bar):"; echo "$project"; exit 1
+          fi
+
+      - name: Negative regression - the universal second-law discharge must not elaborate
+        working-directory: Lean
+        run: |
+          if lake env lean tests/AxiomProbe.lean > axiom-probe.log 2>&1; then
+            echo "FAIL: tests/AxiomProbe.lean elaborated; the universal discharge of the law is back"; exit 1
+          fi
+          grep -q "physicalSecondLaw_uniform_binary" axiom-probe.log
+          echo "OK: AxiomProbe fails as required"
+
       - name: No tactic sorry/admit in Lean sources
         run: bash scripts/check_lean_sorry.sh
 
-      - name: Single project axiom (physicalSecondLaw only)
+      - name: Axiom hygiene (the law is the SecondLaw predicate; no project axiom)
         run: python3 scripts/check_lean_axioms.py
 
       - name: Lean declaration counts match committed snapshot

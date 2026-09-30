@@ -78,7 +78,7 @@ lemma B1_eq : B1 = !![
   unfold B1
   ext i j
   fin_cases i <;> fin_cases j <;> simp [Matrix.transpose_apply, D,
-    Matrix.cons_val', Matrix.head_cons, Matrix.tail_cons, Matrix.empty_val'] <;> norm_num
+    Matrix.cons_val', Matrix.head_cons, Matrix.tail_cons, Matrix.empty_val']
 
 theorem hodge_laplacian_symmetric (ω ψ : V → ℚ) :
     Matrix.dotProduct (Δ₀ *ᵥ ω) ψ = Matrix.dotProduct ω (Δ₀ *ᵥ ψ) := by
@@ -114,7 +114,7 @@ theorem boundary_squared_zero : B1 * B2 = 0 := by
   rw [B1_eq]
   ext i j
   fin_cases i <;> fin_cases j <;> simp [B2, Matrix.mul_apply,
-    Finset.sum_fin_eq_sum_range, Finset.sum_range_succ] <;> norm_num
+    Finset.sum_fin_eq_sum_range, Finset.sum_range_succ]
 
 theorem discrete_stokes (ω : V → ℚ) : (∑ e : E, (d ω) e) = 0 := by
   simp [d, Matrix.mulVec, Matrix.mul_apply, D, Finset.sum_fin_eq_sum_range,

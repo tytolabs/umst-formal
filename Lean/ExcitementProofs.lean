@@ -21,7 +21,7 @@ theorem select_admissible_from_result {S : Type} [ThermodynamicSystem ℚ S] [Ad
     Admissible src c.tgt ∧ select src cands ≠ Sum.inr Residue.noCandidates := by
   refine ⟨c.step, ?_⟩
   intro h
-  simpa [h] using hsel
+  simp [h] at hsel
 
 theorem select_result_cbf {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
     (src : S) (cands : List (Cand (K := ℚ) src)) (c : Cand (K := ℚ) src)

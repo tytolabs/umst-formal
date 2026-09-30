@@ -23,10 +23,9 @@ require mathlib from git
   `python3 scripts/lean_declaration_stats.py`.
 -/
 /-
-  **Default `roots`** = core formal layer checked by `lake build` (constitutional gate,
-  Landauer, DIB, convergence, …).  **Not listed here:** scratch / debug modules such as
-  `_check_ext.lean` (local `#print` / `#check` only).  Add a module to `roots` when it
-  should participate in CI; optional experiments stay out of the default closure.
+  Every `lean_lib` is a `@[default_target]`: `lake build` (and CI) compiles all of them, experiments included.
+  A tracked Lean file outside every library must be listed in `lean-unchecked.txt` with its reason
+  (`scripts/check_lean_ci_closure.py` enforces this); `_check_ext.lean` (local `#print` / `#check`) is listed there.
 -/
 /-!
   CHEM-NS-MVP-FORMAL-MESO-DEFECT-CLEAR — SERIAL_ON_LAKEFILE meso acting fiber defect-clear wave.
@@ -37,6 +36,7 @@ require mathlib from git
   Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Declared before `lean_lib «UMST»` so the `UMST.Chem` target is not shadowed.
 -/
+@[default_target]
 lean_lib UMST.Chem where
   roots := #[`Chem.SecondLaw, `Chem.Conservation]
   globs := #[`Chem.+]
@@ -48,6 +48,7 @@ lean_lib UMST.Chem where
   Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Declared before `lean_lib «UMST»` so the `UMST.Urge` target is not shadowed.
 -/
+@[default_target]
 lean_lib UMST.Urge where
   roots := #[`Urge.AdmitKleisli]
   globs := #[`Urge.+]
@@ -58,11 +59,13 @@ lean_lib UMST.Urge where
   `Solver.+` glob: later `Solver/*.lean` compile without re-editing this lakefile.
   Prelude-only combinator laws; no project axioms added here.
 -/
+@[default_target]
 lean_lib UMST.Solver where
   roots := #[`Solver.CombinatorLaws]
   globs := #[`Solver.+]
   srcDir := "."
 
+@[default_target]
 lean_lib «UMST» where
   roots := #[`Core.Scalar, `Core.State, `Core.Gate, `Core.Constitutional,
     `Concrete.State, `Concrete.Gate,
@@ -105,6 +108,7 @@ lean_lib «UMST» where
   §14bis.f-M-4 — `Behavior.SDFCanonical` (L-M2 stub). Built standalone; optional target
   `lake build Behavior.SDFCanonical` alongside `Memory.MergeSafe` / `Memory.TierDisjoint`.
 -/
+@[default_target]
 lean_lib «Behavior.SDFCanonical» where
   roots := #[`Behavior.SDFCanonical]
   srcDir := "."
@@ -113,6 +117,7 @@ lean_lib «Behavior.SDFCanonical» where
   LEAN-COORD-COST — `CoordinationCostP6` (A10 P6 spine prep). Built standalone;
   not in default `UMST` roots. See `Docs/COORDINATION_COST_P6_SPINE.md`.
 -/
+@[default_target]
 lean_lib «CoordinationCostP6» where
   roots := #[`CoordinationCostP6]
   srcDir := "."
@@ -121,30 +126,37 @@ lean_lib «CoordinationCostP6» where
   §14bis.f-S-0 — L-S0..L-S5 Crypto stubs (`lake build Crypto.LWE` … `Crypto.SanitizePatternCoverage`).
   Shared metadata: `Crypto.CryptoHypothesis` (GROUND-1 provenance records).
 -/
+@[default_target]
 lean_lib «Crypto.CryptoHypothesis» where
   roots := #[`Crypto.CryptoHypothesis]
   srcDir := "."
 
+@[default_target]
 lean_lib «Crypto.LWE» where
   roots := #[`Crypto.LWE]
   srcDir := "."
 
+@[default_target]
 lean_lib «Crypto.EUF_CMA» where
   roots := #[`Crypto.EUF_CMA]
   srcDir := "."
 
+@[default_target]
 lean_lib «Crypto.Collision» where
   roots := #[`Crypto.Collision]
   srcDir := "."
 
+@[default_target]
 lean_lib «Crypto.SideChannel» where
   roots := #[`Crypto.SideChannel]
   srcDir := "."
 
+@[default_target]
 lean_lib «Crypto.Composability» where
   roots := #[`Crypto.Composability]
   srcDir := "."
 
+@[default_target]
 lean_lib «Crypto.SanitizePatternCoverage» where
   roots := #[`Crypto.SanitizePatternCoverage]
   srcDir := "."
@@ -153,6 +165,7 @@ lean_lib «Crypto.SanitizePatternCoverage» where
   AC48 — `LIB-LEARN-F-MORI-TANAKA` doctrinal binding (`lake build MoriTanaka`).
   Built standalone alongside `Concrete.MicroMechanics`; not in default `UMST` roots.
 -/
+@[default_target]
 lean_lib «MoriTanaka» where
   roots := #[`Concrete.MoriTanaka, `Concrete.MoriTanakaPosture]
   srcDir := "."
@@ -161,6 +174,13 @@ lean_lib «MoriTanaka» where
   LIB-ADOPT-F-LEAN-RS — RSBridge cold-path inventory (`lake build RSBridge.ColdPath`).
   Standalone; not in default `UMST` roots.
 -/
+@[default_target]
 lean_lib «RSBridge.ColdPath» where
   roots := #[`RSBridge.ColdPath]
   srcDir := "."
+
+/-- Experiments: proofs outside the constitutional core that CI still checks (Track R obligations, experiment
+    boundary types). -/
+@[default_target]
+lean_lib Experiments where
+  globs := #[`experiments.+]

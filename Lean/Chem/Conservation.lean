@@ -111,7 +111,7 @@ theorem affine_zero_slack_linear {n : ℕ} (w : AffineConservationWitness n)
     (hslack : w.slack = 0) (delta : Fin n → ℝ) :
     affineConservationClosed w delta ↔ linearConservationClosed w.coeff delta := by
   unfold affineConservationClosed linearConservationClosed
-  simpa [hslack] using (Eq.symm zero_add)
+  simp [hslack]
 
 /-- When slack is zero, dissipative witness holds for any nonnegative work at T ≥ 0. -/
 theorem affineDissipative_zero_slack {n : ℕ} (w : AffineConservationWitness n)

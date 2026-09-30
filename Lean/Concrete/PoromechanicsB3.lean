@@ -464,7 +464,7 @@ theorem psiTransport_slice1_fixture_value :
 /-- S-component is antitone in `S` on `[0, 1]` when modulus is admissible. -/
 theorem psiTransportSaturationComponent_antitone_in_s {s₁ s₂ : ℚ}
     {c : PoromechanicsEnergyCoeffs} (hc : energyCoeffsAdmissible c)
-    (hs₁ : unitIntervalAdmissible s₁) (hs : s₁ ≤ s₂) (hs₂ : unitIntervalAdmissible s₂) :
+    (_hs₁ : unitIntervalAdmissible s₁) (hs : s₁ ≤ s₂) (hs₂ : unitIntervalAdmissible s₂) :
     psiTransportSaturationComponent s₂ c ≤ psiTransportSaturationComponent s₁ c := by
   unfold psiTransportSaturationComponent energyCoeffsAdmissible at *
   have hdef : 1 - s₂ ≤ 1 - s₁ := by linarith

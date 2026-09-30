@@ -30,10 +30,10 @@ structure SurfaceForm where
   deriving Repr
 
 /-- Geometric object carrier @ P0 scaffold `n = 2`. -/
-abbrev Geom := MeaningState.MeaningState 2
+abbrev Geom := MeaningState.State 2
 
 /-- **InterpretationFunctor** — L: surface → geometry (many-to-one @ fixture scope). -/
-structure InterpretationFunctor where
+structure Interpretation where
   lang : LangCode
   mapToGeometry : SurfaceForm → Option Geom
 
@@ -47,11 +47,11 @@ def chairEnSurface : SurfaceForm :=
   { lang := LangCode.En, surfaceLemma := "chair" }
 
 /-- Identity-on-fixture interpretation for chair English lemma. -/
-noncomputable def chairEnglishFunctor : InterpretationFunctor where
+noncomputable def chairEnglishFunctor : Interpretation where
   lang := LangCode.En
   mapToGeometry := fun sf =>
-    if h : sf.surfaceLemma = "chair" then
-      if he : sf.lang = LangCode.En then
+    if _h : sf.surfaceLemma = "chair" then
+      if _he : sf.lang = LangCode.En then
         some MeaningState.consistentP0Meaning
       else
         none

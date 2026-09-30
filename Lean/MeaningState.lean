@@ -34,7 +34,7 @@ structure MeaningContext where
 /-- **MeaningState**: geometric shape bundle over a finite alphabet, with
     context, timestamp, and semantic thermodynamic legs aligned with
     `CommunicativeTransition`. -/
-structure MeaningState (n : ℕ) where
+structure State (n : ℕ) where
   context : MeaningContext
   timestamp : ℕ
   shapeDist : ProbDist n
@@ -43,11 +43,11 @@ structure MeaningState (n : ℕ) where
   consistencyDefect : ℝ
 
 /-- Structural consistency at the object level (no contradictory shapes). -/
-def structurallyConsistent {n : ℕ} (ms : MeaningState n) : Prop :=
+def structurallyConsistent {n : ℕ} (ms : State n) : Prop :=
   ms.consistencyDefect = 0
 
 /-- Advance turn index while preserving dialogue identity. -/
-def advanceTurn {n : ℕ} (ms : MeaningState n) : MeaningState n where
+def advanceTurn {n : ℕ} (ms : State n) : State n where
   context := { dialogueId := ms.context.dialogueId, turnIndex := ms.context.turnIndex + 1 }
   timestamp := ms.timestamp + 1
   shapeDist := ms.shapeDist
@@ -56,7 +56,7 @@ def advanceTurn {n : ℕ} (ms : MeaningState n) : MeaningState n where
   consistencyDefect := ms.consistencyDefect
 
 /-- Lift a `MeaningState` to the `CommunicativeTransition` reporting carrier. -/
-def toCommunicativeTransition {n : ℕ} (ms : MeaningState n) : CommunicativeTransition n where
+def toCommunicativeTransition {n : ℕ} (ms : State n) : CommunicativeTransition n where
   bath := ms.bath
   prior := ms.shapeDist
   post := ms.shapeDist
@@ -64,7 +64,7 @@ def toCommunicativeTransition {n : ℕ} (ms : MeaningState n) : CommunicativeTra
   consistencyDefect := ms.consistencyDefect
 
 /-- Pairwise communicative transition between prior and post meaning states. -/
-def communicativeTransitionBetween {n : ℕ} (prior post : MeaningState n) : CommunicativeTransition n where
+def communicativeTransitionBetween {n : ℕ} (prior post : State n) : CommunicativeTransition n where
   bath := post.bath
   prior := prior.shapeDist
   post := post.shapeDist
@@ -78,8 +78,8 @@ def communicativeTransitionBetween {n : ℕ} (prior post : MeaningState n) : Com
 /-- **CoreAdmissibleCommunication**: single-step meaning transition preserving
     `semanticSecondLaw` invariants on the declared joint witness. -/
 structure CoreAdmissibleCommunication (n m : ℕ) where
-  prior : MeaningState n
-  post : MeaningState n
+  prior : State n
+  post : State n
   witness : ProposalOutcomeWitness n m
   miThreshold : ℝ
 
@@ -107,20 +107,20 @@ theorem coreAdmissible_semanticSecondLaw {n m : ℕ} (c : CoreAdmissibleCommunic
 -- ================================================================
 
 /-- Kleisli arrow over meaning states (proposal → gated option). -/
-def MeaningKleisliArrow (n : ℕ) : Type := MeaningState n → Option (MeaningState n)
+def MeaningKleisliArrow (n : ℕ) : Type := State n → Option (State n)
 
 /-- Well-typed dialogue arrow: every `some` output forms a `coreAdmissible` step
     from the input, using the supplied witness assignment. -/
 def MeaningWellTyped (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
     (f : MeaningKleisliArrow n) : Prop :=
   ∀ prior post, f prior = some post →
     coreAdmissible ⟨prior, post, witnessFor prior post, miThreshold⟩
 
 /-- Graded n-step dialogue admissibility (Constitutional / KleisliN parity). -/
 inductive MeaningAdmissibleSteps (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m) :
-    MeaningState n → MeaningState n → Prop where
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m) :
+    State n → State n → Prop where
   | zero {s} : MeaningAdmissibleSteps n m miThreshold witnessFor s s
   | succ {s s' s''} :
       coreAdmissible ⟨s, s', witnessFor s s', miThreshold⟩ →
@@ -129,30 +129,30 @@ inductive MeaningAdmissibleSteps (n m : ℕ) (miThreshold : ℝ)
 
 /-- Well-typed n-step dialogue arrow (graded Kleisli budget). -/
 def MeaningWellTypedN (_steps : ℕ) (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
     (f : MeaningKleisliArrow n) : Prop :=
   ∀ prior post, f prior = some post →
     MeaningAdmissibleSteps n m miThreshold witnessFor prior post
 
 /-- Structural gate (decidable): reject posts with positive consistency defect. -/
-noncomputable def meaningStructuralGateCheck {n : ℕ} (post : MeaningState n) : Bool :=
+noncomputable def meaningStructuralGateCheck {n : ℕ} (post : State n) : Bool :=
   decide (post.consistencyDefect = 0)
 
-theorem meaningStructuralGateCheck_true_iff {n : ℕ} (post : MeaningState n) :
+theorem meaningStructuralGateCheck_true_iff {n : ℕ} (post : State n) :
     meaningStructuralGateCheck post = true ↔ structurallyConsistent post := by
   unfold meaningStructuralGateCheck structurallyConsistent
   simp
 
 /-- Proposal functor composed with the structural gate (runtime-fast leg). -/
-noncomputable def makeMeaningGateArrow (n : ℕ) (propose : MeaningState n → MeaningState n) :
+noncomputable def makeMeaningGateArrow (n : ℕ) (propose : State n → State n) :
     MeaningKleisliArrow n :=
   fun prior =>
     let post := propose prior
     if meaningStructuralGateCheck post then some post else none
 
 theorem makeMeaningGateArrowWellTyped {n m : ℕ} (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
-    (propose : MeaningState n → MeaningState n)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
+    (propose : State n → State n)
     (hAdm : ∀ prior, coreAdmissible ⟨prior, propose prior, witnessFor prior (propose prior), miThreshold⟩) :
     MeaningWellTyped n m miThreshold witnessFor (makeMeaningGateArrow n propose) := by
   intro prior post h
@@ -165,8 +165,8 @@ theorem makeMeaningGateArrowWellTyped {n m : ℕ} (miThreshold : ℝ)
 
 /-- Back-compat alias (structural gate + per-step admissibility hypothesis). -/
 theorem makeMeaningGateArrowWellTyped_structural {n m : ℕ} (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
-    (propose : MeaningState n → MeaningState n)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
+    (propose : State n → State n)
     (hAdm : ∀ prior, coreAdmissible ⟨prior, propose prior, witnessFor prior (propose prior), miThreshold⟩) :
     MeaningWellTyped n m miThreshold witnessFor (makeMeaningGateArrow n propose) :=
   makeMeaningGateArrowWellTyped miThreshold witnessFor propose hAdm
@@ -181,7 +181,7 @@ noncomputable def meaningKleisliCompose {n : ℕ} (f g : MeaningKleisliArrow n) 
 /-- **Kleisli composition preserves graded admissibility** (dialogue subject reduction):
     if each atomic turn is `coreAdmissible`, their Kleisli composite is a 2-step path. -/
 theorem meaningKleisliComposeWellTyped (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
     (f g : MeaningKleisliArrow n)
     (hf : MeaningWellTyped n m miThreshold witnessFor f)
     (hg : MeaningWellTyped n m miThreshold witnessFor g) :
@@ -198,7 +198,7 @@ theorem meaningKleisliComposeWellTyped (n m : ℕ) (miThreshold : ℝ)
 
 /-- Single-step well-typedness yields a graded admissible path. -/
 theorem meaningWellTyped_one (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
     (f : MeaningKleisliArrow n) (hf : MeaningWellTyped n m miThreshold witnessFor f) :
     MeaningWellTypedN 1 n m miThreshold witnessFor f := by
   intro prior post h
@@ -206,7 +206,7 @@ theorem meaningWellTyped_one (n m : ℕ) (miThreshold : ℝ)
 
 /-- Graded Kleisli composition re-export (Economic / Web naming parity). -/
 theorem meaning_kleisliComposeWellTyped (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
     (f g : MeaningKleisliArrow n)
     (hf : MeaningWellTyped n m miThreshold witnessFor f)
     (hg : MeaningWellTyped n m miThreshold witnessFor g) :
@@ -219,7 +219,7 @@ theorem meaning_kleisliComposeWellTyped (n m : ℕ) (miThreshold : ℝ)
 -- ================================================================
 
 /-- Degenerate P0 meaning state: uniform binary shape, zero defect. -/
-noncomputable def consistentP0Meaning : MeaningState 2 where
+noncomputable def consistentP0Meaning : State 2 where
   context := { dialogueId := 0, turnIndex := 0 }
   timestamp := 0
   shapeDist := uniformBinary
@@ -240,7 +240,7 @@ def meaningIdentityArrow (n : ℕ) : MeaningKleisliArrow n :=
   fun s => some s
 
 theorem meaningIdentityArrowWellTyped (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
     (hId : ∀ s, coreAdmissible ⟨s, s, witnessFor s s, miThreshold⟩) :
     MeaningWellTyped n m miThreshold witnessFor (meaningIdentityArrow n) := by
   intro prior post h
@@ -250,7 +250,7 @@ theorem meaningIdentityArrowWellTyped (n m : ℕ) (miThreshold : ℝ)
 
 /-- Two-step dialogue: identity then identity yields a graded admissible path. -/
 theorem meaningKleisliCompose_identity_identity (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : MeaningState n → MeaningState n → ProposalOutcomeWitness n m)
+    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
     (hId : ∀ s, coreAdmissible ⟨s, s, witnessFor s s, miThreshold⟩) :
     ∀ s, meaningKleisliCompose (meaningIdentityArrow n) (meaningIdentityArrow n) s = some s →
       MeaningAdmissibleSteps n m miThreshold witnessFor s s := by

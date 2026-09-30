@@ -148,7 +148,7 @@ structure Cob where
   identity : RepositoryIdentity
   social   : TypedSocialGraph
 
-abbrev CollaborativeObject := Cob
+-- `Cob` is the collaborative object (the namespace already names it; no alias).
 
 def cobNew (id : RepositoryIdentity) : Cob :=
   { identity := id, social := emptySocialGraph }

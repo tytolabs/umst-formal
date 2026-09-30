@@ -59,7 +59,7 @@ theorem preserves_discharges_second_law (t : Transition) (prior post : Provenanc
   h.2.2.2.2 hw
 
 def postProvenanceFromPhysical (b : PhysicalHistoryBridge)
-    (prior : Provenance) (hPrior : prior.dagCommit = b.transition.prior.commitId)
+    (prior : Provenance) (_hPrior : prior.dagCommit = b.transition.prior.commitId)
     (_hSL : physicalSecondLawUniformBinary b.proc) : Provenance where
   ucrsChain := prior.ucrsChain ++ [prior.dagCommit]
   dagCommit := b.transition.post.commitId

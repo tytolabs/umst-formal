@@ -141,7 +141,7 @@ theorem budgetWitnessFor_budget (p : AdmitPath) :
 /-- Check surrogate estimated cost against typed budget — refuse if exceeded. -/
 def checkTypedBudget (p : AdmitPath) (estimatedMs : Nat) :
     LatencyBudgetWitness ⊕ FastPathAdmitRefusal :=
-  if h : estimatedMs ≤ admitPathBudgetMs p then
+  if _h : estimatedMs ≤ admitPathBudgetMs p then
     Sum.inl (budgetWitnessFor p)
   else
     Sum.inr (.refuseBudgetExceeded estimatedMs (admitPathBudgetMs p))

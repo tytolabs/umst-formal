@@ -27,8 +27,10 @@ def Q_hyd : ℚ := 450
 
 def helmholtz (α : ℚ) : ℚ := -(Q_hyd * α)
 
+/-- Helmholtz free energy of the cement paste at hydration degree `α`: `ψ(α) = -Q_hyd · α`. -/
 @[simp] theorem helmholtz_formula (α : ℚ) : helmholtz α = -(Q_hyd * α) := rfl
 
+/-- Free energy is antitone in hydration: more hydration never raises `ψ`. -/
 theorem helmholtzAntitone : ∀ α₁ α₂ : ℚ, α₁ ≤ α₂ → helmholtz α₂ ≤ helmholtz α₁ := by
   intro α₁ α₂ h
   unfold helmholtz Q_hyd
@@ -48,11 +50,13 @@ theorem helmholtz_ge_neg_Q_hyd {α : ℚ} (hα : α ≤ 1) : -(Q_hyd) ≤ helmho
   have := helmholtzAntitone α 1 hα
   rwa [helmholtz_one] at this
 
+/-- Finite-difference form: a hydration step `ε` changes `ψ` by exactly `-Q_hyd · ε`. -/
 theorem helmholtzGradient : ∀ α ε : ℚ, helmholtz (α + ε) - helmholtz α = -(Q_hyd * ε) := by
   intro α ε
   unfold helmholtz
   ring
 
+/-- `ψ` is additive in hydration degree (linear in `α`). -/
 theorem helmholtzAdditive : ∀ α₁ α₂ : ℚ, helmholtz (α₁ + α₂) = helmholtz α₁ + helmholtz α₂ := by
   intro α₁ α₂
   unfold helmholtz
@@ -70,29 +74,36 @@ structure ConcreteAdmissibleN (n : ℕ) (old new : ConcreteState) : Prop where
   hydrationMono : old.hydration ≤ new.hydration
   strengthMono  : old.strength ≤ new.strength
 
+/-- Decidable gate: mass within `δMass`, free energy non-increasing (second-law leg), hydration and strength
+    non-decreasing. -/
 def gateCheck (old new : ConcreteState) : Bool :=
   decide (|new.density - old.density| ≤ δMass) &&
   decide (new.freeEnergy ≤ old.freeEnergy) &&
   decide (old.hydration ≤ new.hydration) &&
   decide (old.strength ≤ new.strength)
 
+/-- Soundness: a passing `gateCheck` implies `ConcreteAdmissible`. -/
 theorem gateCheckSound (old new : ConcreteState) :
     gateCheck old new = true → ConcreteAdmissible old new := by
   simp only [gateCheck, Bool.and_eq_true, decide_eq_true_eq]
   intro ⟨⟨⟨hm, hd⟩, hh⟩, hs⟩
   exact ⟨⟨hm, hd⟩, hh, hs⟩
 
+/-- Completeness: every `ConcreteAdmissible` transition passes `gateCheck`. -/
 theorem gateCheckComplete (old new : ConcreteState) :
     ConcreteAdmissible old new → gateCheck old new = true := by
   intro ⟨⟨hm, hd⟩, hh, hs⟩
   simp only [gateCheck, Bool.and_eq_true, decide_eq_true_eq]
   exact ⟨⟨⟨hm, hd⟩, hh⟩, hs⟩
 
+/-- Clausius–Duhem, forward form: under the dissipation hypothesis, forward hydration lowers free energy. -/
 theorem clausiusDuhemFwd (s1 s2 : ConcreteState)
     (h_psi : s1.hydration ≤ s2.hydration → s2.freeEnergy ≤ s1.freeEnergy)
     (h : s1.hydration ≤ s2.hydration) : s2.freeEnergy ≤ s1.freeEnergy :=
   h_psi h
 
+/-- A forward-hydration step within the mass tolerance is admissible, given the dissipation and strength
+    hypotheses. -/
 theorem forwardHydrationAdmissible (old new : ConcreteState)
     (hyd : old.hydration ≤ new.hydration)
     (mass : |new.density - old.density| ≤ δMass)
@@ -101,6 +112,7 @@ theorem forwardHydrationAdmissible (old new : ConcreteState)
     ConcreteAdmissible old new :=
   ⟨⟨mass, h_psi hyd⟩, hyd, h_fc hyd⟩
 
+/-- The identity transition is admissible. -/
 theorem admissibleRefl (s : ConcreteState) : ConcreteAdmissible s s := by
   constructor
   · constructor
@@ -121,6 +133,7 @@ def HydratCond (old new : ConcreteState) : Prop :=
 def StrengthCond (old new : ConcreteState) : Prop :=
   old.strength ≤ new.strength
 
+/-- Admissibility is exactly the conjunction of the mass, dissipation, hydration and strength conditions. -/
 theorem admissibleIffCSG (old new : ConcreteState) :
     ConcreteAdmissible old new ↔
       MassCond old new ∧ DissipCond old new ∧ HydratCond old new ∧ StrengthCond old new := by
@@ -128,6 +141,7 @@ theorem admissibleIffCSG (old new : ConcreteState) :
   · intro ⟨⟨hm, hd⟩, hh, hs⟩; exact ⟨hm, hd, hh, hs⟩
   · intro ⟨hm, hd, hh, hs⟩; exact ⟨⟨hm, hd⟩, hh, hs⟩
 
+/-- One-step graded admissibility coincides with ungraded admissibility. -/
 theorem admissible_iff_admissibleN1 (old new : ConcreteState) :
     ConcreteAdmissible old new ↔ ConcreteAdmissibleN 1 old new := by
   constructor
@@ -138,6 +152,7 @@ theorem admissible_iff_admissibleN1 (old new : ConcreteState) :
     refine ⟨⟨?_, hd⟩, hh, hs⟩
     simpa [one_mul] using hm
 
+/-- The identity transition is admissible at every grade `n`. -/
 theorem admissibleNRefl (n : ℕ) (s : ConcreteState) : ConcreteAdmissibleN n s s :=
   ⟨coreAdmissibleN_refl ℚ ConcreteState n s, le_refl _, le_refl _⟩
 
