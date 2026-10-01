@@ -88,14 +88,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 551,
+    "theorem": 547,
     "lemma": 61,
-    "total": 612
+    "total": 608
   },
   "all_lean_glob": {
-    "theorem": 1339,
+    "theorem": 1335,
     "lemma": 61,
-    "total": 1400
+    "total": 1396
   },
   "per_root": {
     "Core.Scalar": {
@@ -219,7 +219,7 @@
       "lemma": 0
     },
     "CoarseGraining": {
-      "theorem": 12,
+      "theorem": 8,
       "lemma": 0
     },
     "InfoTheory": {

@@ -1251,6 +1251,106 @@
     "name": "prop_oneineq_szilard_chain",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "coarse.from_fine",
+   "statement": "under the Esposito conditions fine erase admissibility implies coarse erase admissibility",
+   "lean": {
+    "name": "secondLaw_coarse_from_fine",
+    "file": "Lean/CoarseGraining.lean"
+   },
+   "coq": {
+    "name": "secondLaw_coarse_from_fine",
+    "file": "Coq/CoarseGraining.v"
+   },
+   "agda": {
+    "name": "secondLaw-coarse-from-fine",
+    "file": "Agda/CoarseGraining.agda"
+   },
+   "haskell": {
+    "name": "prop_cg_coarse_from_fine",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "coarse.conditions_id",
+   "statement": "the identity coarse graining meets the Esposito conditions",
+   "lean": {
+    "name": "espositoConditions_id",
+    "file": "Lean/CoarseGraining.lean"
+   },
+   "coq": {
+    "name": "espositoConditions_id",
+    "file": "Coq/CoarseGraining.v"
+   },
+   "agda": {
+    "name": "espositoConditions-id",
+    "file": "Agda/CoarseGraining.agda"
+   },
+   "haskell": {
+    "name": "prop_cg_id",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "coarse.refusal_sound",
+   "statement": "a refused coarse erasure refuses the fine one",
+   "lean": {
+    "name": "coarse_refusal_sound_erase",
+    "file": "Lean/CoarseGraining.lean"
+   },
+   "coq": {
+    "name": "coarse_refusal_sound_erase",
+    "file": "Coq/CoarseGraining.v"
+   },
+   "agda": {
+    "name": "coarse-refusal-sound-erase",
+    "file": "Agda/CoarseGraining.agda"
+   },
+   "haskell": {
+    "name": "prop_cg_refusal_sound",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "coarse.lump_pair",
+   "statement": "erasing a product pair admits erasing its first factor (H(X) ≤ H(X,Y))",
+   "lean": {
+    "name": "lumpPair_secondLaw_coarse_from_fine_joint",
+    "file": "Lean/CoarseGraining.lean"
+   },
+   "coq": {
+    "name": "lumpPair_secondLaw_coarse_from_fine_joint",
+    "file": "Coq/CoarseGraining.v"
+   },
+   "agda": {
+    "name": "lumpPair-secondLaw-coarse-from-fine-joint",
+    "file": "Agda/CoarseGraining.agda"
+   },
+   "haskell": {
+    "name": "prop_cg_lump_coarse_from_fine",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "coarse.satisfiable",
+   "statement": "the Esposito conditions are satisfiable",
+   "lean": {
+    "name": "coarse_graining_p0_12_satisfiable",
+    "file": "Lean/CoarseGraining.lean"
+   },
+   "coq": {
+    "name": "coarse_graining_satisfiable",
+    "file": "Coq/CoarseGraining.v"
+   },
+   "agda": {
+    "name": "coarse-graining-satisfiable",
+    "file": "Agda/CoarseGraining.agda"
+   },
+   "haskell": {
+    "name": "sharpenMap",
+    "file": "Haskell/UMST/CoarseGraining.hs"
+   }
   }
  ]
 }

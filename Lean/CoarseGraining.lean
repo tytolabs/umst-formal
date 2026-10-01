@@ -110,7 +110,7 @@ theorem secondLaw_coarse_from_fine (cg : CoarseGrainMap)
     le_trans hEnt (by simpa [hW.1, hW.2] using hfineDrop)
   simpa [hProc, hPrior, ProcessFamily.SecondLaw] using eraseSecondLaw_of_entropy_drop_le proc' q hdrop
 
-theorem espinositoConditions_id : EspositoCoarseGrainingConditions idCoarseGrainMap where
+theorem espositoConditions_id : EspositoCoarseGrainingConditions idCoarseGrainMap where
   erase_work_preservation := by
     intro proc proc' h
     dsimp [idCoarseGrainMap] at h
@@ -139,7 +139,7 @@ theorem secondLaw_coarse_from_fine_id (proc : ErasureProcess) (prior : ProbDist 
     (hFine : ProcessFamily.SecondLaw (.erase proc) (.erasure prior)) :
     ProcessFamily.SecondLaw (idCoarseGrainMap.mapProcess (.erase proc))
       (idCoarseGrainMap.mapPrior (.erasure prior)) :=
-  secondLaw_coarse_from_fine idCoarseGrainMap espinositoConditions_id proc prior hFine
+  secondLaw_coarse_from_fine idCoarseGrainMap espositoConditions_id proc prior hFine
 
 /-- Contrapositive on the erase branch: coarse refusal is sound for matched erasure priors. -/
 theorem coarse_refusal_sound_erase (cg : CoarseGrainMap) (hEsp : EspositoCoarseGrainingConditions cg)
@@ -167,7 +167,7 @@ noncomputable def lumpPairEraseCoarseGrainMap : CoarseGrainMap where
 def jointEraseFineSecondLaw (proc : ErasureProcess) (p q : ProbDist 2) : Prop :=
   jointEntropy (productJoint p q) ≤ proc.work / proc.bath.bathTemp.val
 
-theorem espinositoConditions_lumpPairErase :
+theorem espositoConditions_lumpPairErase :
     EspositoCoarseGrainingConditions lumpPairEraseCoarseGrainMap where
   erase_work_preservation := by
     intro proc proc' h
@@ -238,6 +238,7 @@ inductive ScaleCoarseMapId
   | quantum_to_stochastic
   | stochastic_to_continuum
   | quantum_to_continuum_direct
+  | stochastic_pair_lump
 
 /-- Why a scale edge is not yet a proved `CoarseGrainMap` in L₀. -/
 inductive ScaleMapAbsenceReason
@@ -262,26 +263,10 @@ def scaleMapQuantumToContinuumDirect : ScaleMapRegistration :=
 
 /-- Stochastic-layer pair lumping (`Fin 2 × Fin 2 → Fin 2` on erase), not the identity map. -/
 noncomputable def scaleMapStochasticPairLump : ScaleMapRegistration :=
-  .implemented .stochastic_to_continuum lumpPairEraseCoarseGrainMap espinositoConditions_lumpPairErase
-
-theorem scaleMapQuantumToStochastic_absent :
-    ∃ r, scaleMapQuantumToStochastic = .absent .quantum_to_stochastic r :=
-  ⟨ScaleMapAbsenceReason.quantum_cptp_not_in_process_family, rfl⟩
-
-theorem scaleMapStochasticToContinuum_absent :
-    ∃ r, scaleMapStochasticToContinuum = .absent .stochastic_to_continuum r :=
-  ⟨ScaleMapAbsenceReason.stochastic_to_continuum_generic_not_linked, rfl⟩
-
-theorem scaleMapQuantumToContinuumDirect_absent :
-    ∃ r, scaleMapQuantumToContinuumDirect = .absent .quantum_to_continuum_direct r :=
-  ⟨ScaleMapAbsenceReason.quantum_to_continuum_skips_meso, rfl⟩
-
-theorem scaleMapStochasticPairLump_implemented :
-    ∃ cg h, scaleMapStochasticPairLump = .implemented .stochastic_to_continuum cg h :=
-  ⟨lumpPairEraseCoarseGrainMap, espinositoConditions_lumpPairErase, rfl⟩
+  .implemented .stochastic_pair_lump lumpPairEraseCoarseGrainMap espositoConditions_lumpPairErase
 
 theorem coarse_graining_p0_12_satisfiable :
     ∃ cg, EspositoCoarseGrainingConditions cg :=
-  ⟨lumpPairEraseCoarseGrainMap, espinositoConditions_lumpPairErase⟩
+  ⟨lumpPairEraseCoarseGrainMap, espositoConditions_lumpPairErase⟩
 
 end UMST.CoarseGraining

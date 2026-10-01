@@ -1,0 +1,45 @@
+{
+ "schema": "retirement_ledger_v1",
+ "module": "Lean/CoarseGraining.lean",
+ "date": "2026-10-02",
+ "removed": [
+  {
+   "name": "UMST.CoarseGraining.scaleMapQuantumToStochastic_absent",
+   "statement": "theorem scaleMapQuantumToStochastic_absent :\n    ∃ r, scaleMapQuantumToStochastic = .absent .quantum_to_stochastic r :=\n  ⟨ScaleMapAbsenceReason.quantum_cptp_not_in_process_family, rfl⟩",
+   "reason": "restates its definition (⟨_, rfl⟩); the registration it names is kept"
+  },
+  {
+   "name": "UMST.CoarseGraining.scaleMapStochasticToContinuum_absent",
+   "statement": "theorem scaleMapStochasticToContinuum_absent :\n    ∃ r, scaleMapStochasticToContinuum = .absent .stochastic_to_continuum r :=\n  ⟨ScaleMapAbsenceReason.stochastic_to_continuum_generic_not_linked, rfl⟩",
+   "reason": "restates its definition (⟨_, rfl⟩); the registration it names is kept"
+  },
+  {
+   "name": "UMST.CoarseGraining.scaleMapQuantumToContinuumDirect_absent",
+   "statement": "theorem scaleMapQuantumToContinuumDirect_absent :\n    ∃ r, scaleMapQuantumToContinuumDirect = .absent .quantum_to_continuum_direct r :=\n  ⟨ScaleMapAbsenceReason.quantum_to_continuum_skips_meso, rfl⟩",
+   "reason": "restates its definition (⟨_, rfl⟩); the registration it names is kept"
+  },
+  {
+   "name": "UMST.CoarseGraining.scaleMapStochasticPairLump_implemented",
+   "statement": "theorem scaleMapStochasticPairLump_implemented :\n    ∃ cg h, scaleMapStochasticPairLump = .implemented .stochastic_to_continuum cg h :=\n  ⟨lumpPairEraseCoarseGrainMap, espinositoConditions_lumpPairErase, rfl⟩",
+   "reason": "restates its definition (⟨_, rfl⟩); the registration it names is kept"
+  }
+ ],
+ "renamed": [
+  {
+   "from": "espinositoConditions_id",
+   "to": "espositoConditions_id"
+  },
+  {
+   "from": "espinositoConditions_lumpPairErase",
+   "to": "espositoConditions_lumpPairErase"
+  }
+ ],
+ "relabelled": [
+  {
+   "name": "scaleMapStochasticPairLump",
+   "from": "stochastic_to_continuum",
+   "to": "stochastic_pair_lump",
+   "reason": "the map lumps a stochastic pair alphabet; it is not a stochastic-to-continuum map"
+  }
+ ]
+}

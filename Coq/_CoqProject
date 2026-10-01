@@ -15,6 +15,7 @@ Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v
 OneInequalitySecondLaw.v
+CoarseGraining.v
 InfoTheory.v
 MeasurementCost.v
 PrimeSpectralGuidance.v

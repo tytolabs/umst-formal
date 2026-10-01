@@ -30,6 +30,7 @@ import qualified UMST.Process as P
 import qualified UMST.Chem.SecondLaw as CS
 import qualified UMST.Excitement as X
 import qualified UMST.OneInequality as O
+import qualified UMST.CoarseGraining as CG
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -611,6 +612,41 @@ prop_oneineq_szilard_chain (Positive t0) =
       bound = O.wIn st + P.kB * t * O.infoI st
    in O.deltaF st <= bound + 1e-9 * abs bound
 
+-- Coarse graining (twins of Lean/CoarseGraining.lean). The sharpening map meets the Esposito conditions.
+genProb2 :: Gen P.ProbDist2
+genProb2 = P.ProbDist2 <$> choose (0, 1)
+
+prop_cg_coarse_from_fine :: Property
+prop_cg_coarse_from_fine = forAll (choose (1, 1000)) $ \t -> forAll genProb2 $ \p -> forAll (choose (0, 1)) $ \s ->
+  forAll (choose (0, 2)) $ \k ->
+    let e = P.Erase (P.ErasureProcess (P.HeatBath t) (k * t))
+        cg = CG.sharpenMap s
+     in P.secondLaw e (P.Erasure p) ==> P.secondLaw (CG.mapProcess cg e) (CG.mapPrior cg (P.Erasure p))
+
+-- The identity coarse graining preserves every verdict (twin of espositoConditions_id).
+prop_cg_id :: Property
+prop_cg_id = forAll (choose (1, 1000)) $ \t -> forAll genProb2 $ \p -> forAll (choose (0, 2)) $ \k ->
+  let e = P.Erase (P.ErasureProcess (P.HeatBath t) (k * t))
+      cg = CG.idCoarseGrainMap
+   in P.secondLaw (CG.mapProcess cg e) (CG.mapPrior cg (P.Erasure p)) == P.secondLaw e (P.Erasure p)
+
+prop_cg_refusal_sound :: Property
+prop_cg_refusal_sound = forAll (choose (1, 1000)) $ \t -> forAll genProb2 $ \p -> forAll (choose (0, 1)) $ \s ->
+  forAll (choose (0, 2)) $ \k ->
+    let e = P.Erase (P.ErasureProcess (P.HeatBath t) (k * t))
+        cg = CG.sharpenMap s
+     in not (P.secondLaw (CG.mapProcess cg e) (CG.mapPrior cg (P.Erasure p))) ==> not (P.secondLaw e (P.Erasure p))
+
+prop_cg_product_entropy :: Property
+prop_cg_product_entropy = forAll genProb2 $ \p -> forAll genProb2 $ \q ->
+  let h = P.jointEntropy2 (CG.productJoint2 p q)
+   in abs (h - (P.shannon2 p + P.shannon2 q)) <= 1e-12 && P.shannon2 p <= h + 1e-12
+
+prop_cg_lump_coarse_from_fine :: Property
+prop_cg_lump_coarse_from_fine = forAll (choose (1, 1000)) $ \t -> forAll genProb2 $ \p -> forAll genProb2 $ \q ->
+  let w = t * P.jointEntropy2 (CG.productJoint2 p q) * (1 + 1e-9) + 1e-12
+   in P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure p)
+
 -- The Szilard witness (twins of szilardJoint, its marginals, entropy and mutual information, and the engine).
 prop_szilard_joint :: Property
 prop_szilard_joint = once $
@@ -964,6 +1000,11 @@ main = do
   check r prop_oneineq_transition_erase_chain
   check r prop_oneineq_secondlaw_implies
   check r prop_oneineq_szilard_chain
+  check r prop_cg_coarse_from_fine
+  check r prop_cg_id
+  check r prop_cg_refusal_sound
+  check r prop_cg_product_entropy
+  check r prop_cg_lump_coarse_from_fine
   check r prop_szilard_joint
   check r prop_szilard_marginal_x
   check r prop_szilard_marginal_y
