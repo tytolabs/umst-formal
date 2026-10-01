@@ -5,6 +5,8 @@
 // Upstream umst-formal witness for §14bis.h L-6 partial crosswalk posture.
 // `l6_crosswalk_wired` stays false until full :: derived census lands GREEN.
 
+use crate::lcert::l5_lcert_factor_closed;
+use crate::lcert_capstone::{l7_capstone_wired, lcert_prereq_factor_rows};
 use crate::theorem_crosswalk_shim::{crosswalk_stats, THEOREM_DERIVES_CONSTANT};
 
 /// AGAP-2350 L-Arc L-6 slot id.
@@ -48,11 +50,15 @@ pub fn l6_crosswalk_wired() -> bool {
 #[must_use]
 pub fn l6_probe_detail() -> String {
     let stats = crosswalk_stats();
+    let l5_factor_closed = l5_lcert_factor_closed();
+    let l7_capstone = l7_capstone_wired();
+    let lcert_factor_count = lcert_prereq_factor_rows().len();
     format!(
         "L-6 probe (umst-formal): map_rows={} mapped_constants={} \
          derived_rows={} covered_derived={} expected_gate_exit={} \
          gate_script={L6_GATE_SCRIPT_REL} dump_script={L6_DUMP_SCRIPT_REL} \
-         crosswalk_wired={}",
+         crosswalk_wired={} l5_lcert_factor_closed={l5_factor_closed} \
+         l7_capstone_wired={l7_capstone} lcert_prereq_factors={lcert_factor_count}",
         stats.map_rows,
         stats.mapped_constants,
         stats.derived_constant_rows,

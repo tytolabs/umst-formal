@@ -7,7 +7,7 @@
 // `l5_lcert_factor_closed()` when workflow + Haskell mirror wired; does not
 // claim L-7 capstone GREEN or production wiring.
 
-use super::l5_extract_runtime::{
+use super::extract_runtime::{
     l5_extraction_wired, l5_probe_detail, l5_receipt_status_label, l5_runtime_inventory,
     L5_EXPECTED_GATE_EXIT,
 };

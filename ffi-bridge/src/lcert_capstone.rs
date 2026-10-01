@@ -12,7 +12,7 @@ use crate::theorem_crosswalk_shim::crosswalk_stats;
 
 use super::agap_2350_l1_inventory::{l1_qc_bisim_cluster_count, L1_EXPECTED_CLUSTER_COUNT};
 use super::agap_2350_l2_attestation::l2_attestation_wired;
-use super::l5_extract_runtime::{l5_extraction_wired, l5_runtime_inventory, L5_EXPECTED_GATE_EXIT};
+use super::extract_runtime::{l5_extraction_wired, l5_runtime_inventory, L5_EXPECTED_GATE_EXIT};
 
 /// AGAP-2350 L-Arc L-7 slot id.
 pub const JOB_ID: &str = "AGAP-2350-L-7";

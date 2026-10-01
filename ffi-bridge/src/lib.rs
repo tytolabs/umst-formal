@@ -10,12 +10,9 @@ mod agap_2350_l1_inventory;
 mod agap_2350_l2_attestation;
 mod agap_2350_l6_attestation;
 mod formal_swarm_deepen;
-#[path = "extract_runtime.rs"]
-mod l5_extract_runtime;
-#[path = "lcert.rs"]
-mod l5_lcert;
-#[path = "lcert_capstone.rs"]
-mod l7_lcert_capstone;
+mod extract_runtime;
+mod lcert;
+mod lcert_capstone;
 mod lean_l1_bridge_prep;
 mod lean_l1_stiffness_adopt;
 mod lean_rs_cold_path;
@@ -95,7 +92,7 @@ pub use formal_swarm_deepen::{
     RECEIPT_PATH as FORMAL_SWARM_RECEIPT_PATH,
 };
 
-pub use l5_extract_runtime::{
+pub use extract_runtime::{
     haskell_module_inventory, l5_extract_runtime_honest, l5_extract_runtime_probe,
     l5_extraction_wired, l5_probe_detail, l5_receipt_status_label, l5_runtime_inventory,
     l5_workflow_path, L5ExtractRuntimeProbe, L5RuntimeInventory, JOB_ID as L5_EXTRACT_JOB_ID,
@@ -103,14 +100,14 @@ pub use l5_extract_runtime::{
     PRIOR_SWARM_RECEIPT_PATH as L5_PRIOR_SWARM_RECEIPT, RECEIPT_PATH as L5_EXTRACT_RECEIPT_PATH,
 };
 
-pub use l5_lcert::{
+pub use lcert::{
     l5_lcert_factor_closed, l5_lcert_honest, l5_lcert_probe, L5LcertProbe,
     JOB_ID as L5_LCERT_JOB_ID, POSTURE_TAG as L5_LCERT_POSTURE,
     PRIOR_Y78_RECEIPT_PATH as L5_LCERT_PRIOR_Y78_RECEIPT, RECEIPT_PATH as L5_LCERT_RECEIPT_PATH,
     Z121_JOB_ID as L5_LCERT_Z121_JOB_ID, Z121_WAVE_SLOT as L5_LCERT_Z121_WAVE_SLOT,
 };
 
-pub use l7_lcert_capstone::{
+pub use lcert_capstone::{
     l6_crosswalk_partial, l6_crosswalk_wired, l7_capstone_wired, l7_lcert_capstone_honest,
     l7_lcert_capstone_probe, l_cert_ledger_path, lcert_factor_readiness_matrix,
     lcert_gate_factor_table, lcert_prereq_factor_rows, L7LcertCapstoneProbe, LcertFactorRow,
