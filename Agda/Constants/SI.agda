@@ -102,6 +102,42 @@ fineStructure = (mkℚᵘ (+ 72973525643) 9999999999999)
 fineStructureUncertainty : ℚᵘ
 fineStructureUncertainty = (mkℚᵘ (+ 11) 9999999999999)
 
+-- m_e: electron mass [kg], measured (CODATA2022)
+electronMass : ℚᵘ
+electronMass = (mkℚᵘ (+ 91093837139) 99999999999999999999999999999999999999999)
+electronMassUncertainty : ℚᵘ
+electronMassUncertainty = (mkℚᵘ (+ 7) 24999999999999999999999999999999999999999)
+
+-- R∞: Rydberg constant [m^-1], derived: fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck)
+rydberg : ℚᵘ
+rydberg = (mkℚᵘ (+ 10387530739584650529984309579749063654017) 946581449999999999999999999999999)
+
+rydberg-derivation : rydberg * (two * planck) ≃ fineStructure * fineStructure * electronMass * speedOfLight
+rydberg-derivation = *≡* refl
+
+rydberg-within-CODATA2022 : ((mkℚᵘ (+ 5193765366686165780378999038591358188549) 473290724999999999999999999999999) ≤ rydberg) × (rydberg ≤ (mkℚᵘ (+ 5193765373010661107271000961408641811451) 473290724999999999999999999999999))
+rydberg-within-CODATA2022 = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
+-- E_h: Hartree energy [J], derived: fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight
+hartreeEnergy : ℚᵘ
+hartreeEnergy = (mkℚᵘ (+ 10899361805397240985092496046210715856126763013251) 2499999999999999999999999999999999999999999999999999999999999999999)
+
+hartreeEnergy-derivation : hartreeEnergy ≃ fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight
+hartreeEnergy-derivation = *≡* refl
+
+hartreeEnergy-within-CODATA2022 : ((mkℚᵘ (+ 5449680899439437000597683175281290451162362572047) 1249999999999999999999999999999999999999999999999999999999999999999) ≤ hartreeEnergy) × (hartreeEnergy ≤ (mkℚᵘ (+ 5449680906075562999402316824718709548837637427953) 1249999999999999999999999999999999999999999999999999999999999999999))
+hartreeEnergy-within-CODATA2022 = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
+-- λ_C: Compton wavelength [m], derived: planck / (electronMass * speedOfLight)
+comptonWavelength : ℚᵘ
+comptonWavelength = (mkℚᵘ (+ 18931629) 7802641527014999331)
+
+comptonWavelength-derivation : comptonWavelength * (electronMass * speedOfLight) ≃ planck
+comptonWavelength-derivation = *≡* refl
+
+comptonWavelength-within-CODATA2022 : ((mkℚᵘ (+ 121315511731) 49999999999999999999999) ≤ comptonWavelength) × (comptonWavelength ≤ (mkℚᵘ (+ 121315511807) 49999999999999999999999))
+comptonWavelength-within-CODATA2022 = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
 -- ε₀: vacuum electric permittivity [F m⁻¹], derived: elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight)
 vacuumPermittivity : ℚᵘ
 vacuumPermittivity = (mkℚᵘ (+ 213914163877964163) 24159659615848077226571442349)

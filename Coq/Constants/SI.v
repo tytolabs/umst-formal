@@ -75,6 +75,38 @@ Proof. vm_compute. reflexivity. Qed.
 Definition fineStructure : Q := (Qmake 72973525643 10000000000000).
 Definition fineStructureUncertainty : Q := (Qmake 11 10000000000000).
 
+(* m_e: electron mass [kg], measured (CODATA2022) *)
+Definition electronMass : Q := (Qmake 91093837139 100000000000000000000000000000000000000000).
+Definition electronMassUncertainty : Q := (Qmake 7 25000000000000000000000000000000000000000).
+
+(* R∞: Rydberg constant [m^-1], derived: fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck) *)
+Definition rydberg : Q := fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck).
+Lemma rydberg_value : rydberg == (Qmake 10387530739584650529984309579749063654017 946581450000000000000000000000000).
+Proof. vm_compute. reflexivity. Qed.
+Lemma rydberg_derivation : (Qmake 10387530739584650529984309579749063654017 946581450000000000000000000000000) * (2 * planck) == fineStructure * fineStructure * electronMass * speedOfLight.
+Proof. vm_compute. reflexivity. Qed.
+Lemma rydberg_within_CODATA2022 :
+  (Qmake 5193765366686165780378999038591358188549 473290725000000000000000000000000) <= rydberg /\ rydberg <= (Qmake 5193765373010661107271000961408641811451 473290725000000000000000000000000).
+Proof. split; vm_compute; discriminate. Qed.
+
+(* E_h: Hartree energy [J], derived: fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight *)
+Definition hartreeEnergy : Q := fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight.
+Lemma hartreeEnergy_value : hartreeEnergy == (Qmake 10899361805397240985092496046210715856126763013251 2500000000000000000000000000000000000000000000000000000000000000000).
+Proof. vm_compute. reflexivity. Qed.
+Lemma hartreeEnergy_within_CODATA2022 :
+  (Qmake 5449680899439437000597683175281290451162362572047 1250000000000000000000000000000000000000000000000000000000000000000) <= hartreeEnergy /\ hartreeEnergy <= (Qmake 5449680906075562999402316824718709548837637427953 1250000000000000000000000000000000000000000000000000000000000000000).
+Proof. split; vm_compute; discriminate. Qed.
+
+(* λ_C: Compton wavelength [m], derived: planck / (electronMass * speedOfLight) *)
+Definition comptonWavelength : Q := planck / (electronMass * speedOfLight).
+Lemma comptonWavelength_value : comptonWavelength == (Qmake 18931629 7802641527014999332).
+Proof. vm_compute. reflexivity. Qed.
+Lemma comptonWavelength_derivation : (Qmake 18931629 7802641527014999332) * (electronMass * speedOfLight) == planck.
+Proof. vm_compute. reflexivity. Qed.
+Lemma comptonWavelength_within_CODATA2022 :
+  (Qmake 121315511731 50000000000000000000000) <= comptonWavelength /\ comptonWavelength <= (Qmake 121315511807 50000000000000000000000).
+Proof. split; vm_compute; discriminate. Qed.
+
 (* ε₀: vacuum electric permittivity [F m⁻¹], derived: elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight) *)
 Definition vacuumPermittivity : Q := elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight).
 Lemma vacuumPermittivity_value : vacuumPermittivity == (Qmake 213914163877964163 24159659615848077226571442350).

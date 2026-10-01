@@ -70,6 +70,24 @@ fineStructure = 72973525643 % 10000000000000
 fineStructureUncertainty :: Rational
 fineStructureUncertainty = 11 % 10000000000000
 
+-- | m_e: electron mass [kg], measured (CODATA2022).
+electronMass :: Rational
+electronMass = 91093837139 % 100000000000000000000000000000000000000000
+electronMassUncertainty :: Rational
+electronMassUncertainty = 7 % 25000000000000000000000000000000000000000
+
+-- | R∞: Rydberg constant [m^-1], derived: fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck).
+rydberg :: Rational
+rydberg = fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck)
+
+-- | E_h: Hartree energy [J], derived: fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight.
+hartreeEnergy :: Rational
+hartreeEnergy = fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight
+
+-- | λ_C: Compton wavelength [m], derived: planck / (electronMass * speedOfLight).
+comptonWavelength :: Rational
+comptonWavelength = planck / (electronMass * speedOfLight)
+
 -- | ε₀: vacuum electric permittivity [F m⁻¹], derived: elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight).
 vacuumPermittivity :: Rational
 vacuumPermittivity = elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight)
@@ -178,6 +196,12 @@ derivations =
   , ("vonKlitzing", vonKlitzing == 5521725125000000000000 % 213914163877964163)
   , ("fluxQuantum", fluxQuantum == 44173801 % 21362355120000000000000)
   , ("conductanceQuantum", conductanceQuantum == 213914163877964163 % 2760862562500000000000)
+  , ("rydberg", rydberg == 10387530739584650529984309579749063654017 % 946581450000000000000000000000000)
+  , ("rydberg within CODATA2022", abs (rydberg - 10973731568157 % 1000000) <= 3162247663446000961408641811451 % 473290725000000000000000000000000)
+  , ("hartreeEnergy", hartreeEnergy == 10899361805397240985092496046210715856126763013251 % 2500000000000000000000000000000000000000000000000000000000000000000)
+  , ("hartreeEnergy within CODATA2022", abs (hartreeEnergy - 2179872361103 % 500000000000000000000000000000) <= 3318062999402316824718709548837637427953 % 1250000000000000000000000000000000000000000000000000000000000000000)
+  , ("comptonWavelength", comptonWavelength == 18931629 % 7802641527014999332)
+  , ("comptonWavelength within CODATA2022", abs (comptonWavelength - 121315511769 % 50000000000000000000000) <= 19 % 25000000000000000000000)
   , ("vacuumPermittivity", vacuumPermittivity == 213914163877964163 % 24159659615848077226571442350)
   , ("vacuumPermittivity within CODATA2022", abs (vacuumPermittivity - 22135469547 % 2500000000000000000000) <= 7 % 5000000000000000000000)
   , ("vacuumPermeability", vacuumPermeability == 11512564285793853725 % 9161407569998526923097522)

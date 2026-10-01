@@ -94,6 +94,53 @@ def fineStructure : ℚ := (72973525643 : ℚ) / 10000000000000
 /-- Standard uncertainty of α (CODATA2022). -/
 def fineStructureUncertainty : ℚ := (11 : ℚ) / 10000000000000
 
+/-- m_e: electron mass [kg]; measured, cited from CODATA2022. -/
+def electronMass : ℚ := (91093837139 : ℚ) / 100000000000000000000000000000000000000000
+/-- Standard uncertainty of m_e (CODATA2022). -/
+def electronMassUncertainty : ℚ := (7 : ℚ) / 25000000000000000000000000000000000000000
+
+/-- R∞: Rydberg constant [m^-1]; derived: fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck). -/
+def rydberg : ℚ := fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck)
+
+theorem rydberg_value : rydberg = (10387530739584650529984309579749063654017 : ℚ) / 946581450000000000000000000000000 := by
+  norm_num [rydberg, speedOfLight, planck, fineStructure, electronMass]
+
+theorem rydberg_derivation : (10387530739584650529984309579749063654017 : ℚ) / 946581450000000000000000000000000 * (2 * planck) = fineStructure * fineStructure * electronMass * speedOfLight := by
+  norm_num [speedOfLight, planck, fineStructure, electronMass]
+
+/-- R∞ derived here lies within the uncertainty its measured inputs carry (first order), from the CODATA2022 value. -/
+theorem rydberg_within_CODATA2022 :
+    |rydberg - (10973731568157 : ℚ) / 1000000| ≤ (3162247663446000961408641811451 : ℚ) / 473290725000000000000000000000000 := by
+  rw [rydberg_value, abs_le]
+  constructor <;> norm_num
+
+/-- E_h: Hartree energy [J]; derived: fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight. -/
+def hartreeEnergy : ℚ := fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight
+
+theorem hartreeEnergy_value : hartreeEnergy = (10899361805397240985092496046210715856126763013251 : ℚ) / 2500000000000000000000000000000000000000000000000000000000000000000 := by
+  norm_num [hartreeEnergy, speedOfLight, fineStructure, electronMass]
+
+/-- E_h derived here lies within the uncertainty its measured inputs carry (first order), from the CODATA2022 value. -/
+theorem hartreeEnergy_within_CODATA2022 :
+    |hartreeEnergy - (2179872361103 : ℚ) / 500000000000000000000000000000| ≤ (3318062999402316824718709548837637427953 : ℚ) / 1250000000000000000000000000000000000000000000000000000000000000000 := by
+  rw [hartreeEnergy_value, abs_le]
+  constructor <;> norm_num
+
+/-- λ_C: Compton wavelength [m]; derived: planck / (electronMass * speedOfLight). -/
+def comptonWavelength : ℚ := planck / (electronMass * speedOfLight)
+
+theorem comptonWavelength_value : comptonWavelength = (18931629 : ℚ) / 7802641527014999332 := by
+  norm_num [comptonWavelength, speedOfLight, planck, electronMass]
+
+theorem comptonWavelength_derivation : (18931629 : ℚ) / 7802641527014999332 * (electronMass * speedOfLight) = planck := by
+  norm_num [speedOfLight, planck, electronMass]
+
+/-- λ_C derived here lies within the CODATA2022 value's standard uncertainty. -/
+theorem comptonWavelength_within_CODATA2022 :
+    |comptonWavelength - (121315511769 : ℚ) / 50000000000000000000000| ≤ (19 : ℚ) / 25000000000000000000000 := by
+  rw [comptonWavelength_value, abs_le]
+  constructor <;> norm_num
+
 /-- ε₀: vacuum electric permittivity [F m⁻¹]; derived: elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight). -/
 def vacuumPermittivity : ℚ := elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight)
 

@@ -15,7 +15,10 @@ language checks it by exact computation:
             monomial (a product and quotient of constants and integers) or linear (a sum and difference of
             constants and integers); a linear formula's `_value` is its derivation, and Agda states it as
             `<id> ≃ <formula>` by `refl`
-  crosscheck  for a derived row with a published value: |derived − published| ≤ published uncertainty
+  crosscheck  for a derived row with a published value: |derived − published| ≤ published uncertainty, or, with
+            "bound": "propagated", ≤ the uncertainty its measured inputs carry to first order (Σ |exponent| · u/x of
+            each measured factor, times the derived value): for a published value itself adjusted from other data
+            (CODATA's m_e from R∞), whose own uncertainty is smaller than its inputs' rounding
   policy    a documented model or configuration choice, never counted as a constant: its value, its reason, and the
             range it must lie in, given by two rows of the table; `<id>_in_range` proves low ≤ value ≤ high
 
@@ -129,6 +132,23 @@ def frac(c: dict, prefix: str) -> Fraction:
     return Fraction(big(c[prefix + "num"]), big(c[prefix + "den"]))
 
 
+def crossbound(c: dict, table: dict, vals: dict[str, Fraction]) -> tuple[Fraction, Fraction]:
+    """The published value of a derived row's cross-check and the bound its distance must meet."""
+    x = c["crosscheck"]
+    if x.get("bound") != "propagated":
+        return frac(x, ""), frac(x, "uncertainty_")
+    rows = {r["id"]: r for r in table["constants"]}
+    rel = sum((frac(rows[n], "uncertainty_") / vals[n] for n, _ in factors(c["formula"])
+               if n in rows and rows[n]["status"] == "measured"), Fraction(0))
+    return frac(x, ""), abs(vals[c["id"]]) * rel
+
+
+def crosswhat(c: dict) -> str:
+    x = c["crosscheck"]
+    return (f"the uncertainty its measured inputs carry (first order), from the {x['authority']} value"
+            if x.get("bound") == "propagated" else f"the {x['authority']} value's standard uncertainty")
+
+
 # ------------------------------------------------------------------------------------------------- Lean (ℚ)
 
 def lean_q(v: Fraction) -> str:
@@ -179,8 +199,8 @@ def lean(table: dict, vals: dict[str, Fraction]) -> str:
                       f"  norm_num [{unfold}]", ""]
             if "crosscheck" in c:
                 x = c["crosscheck"]
-                pub, u = frac(x, ""), frac(x, "uncertainty_")
-                L += [f"/-- {c['symbol']} derived here lies within the {x['authority']} value's standard uncertainty. -/",
+                pub, u = crossbound(c, table, vals)
+                L += [f"/-- {c['symbol']} derived here lies within {crosswhat(c)}. -/",
                       f"theorem {c['id']}_within_{x['authority']} :",
                       f"    |{c['id']} - {lean_q(pub)}| ≤ {lean_q(u)} := by",
                       f"  rw [{c['id']}_value, abs_le]", "  constructor <;> norm_num", ""]
@@ -225,7 +245,7 @@ def coq(table: dict, vals: dict[str, Fraction]) -> str:
                       "Proof. vm_compute. reflexivity. Qed."]
             if "crosscheck" in c:
                 x = c["crosscheck"]
-                pub, u = frac(x, ""), frac(x, "uncertainty_")
+                pub, u = crossbound(c, table, vals)
                 L += [f"Lemma {c['id']}_within_{x['authority']} :",
                       f"  {coq_q(pub - u)} <= {c['id']} /\\ {c['id']} <= {coq_q(pub + u)}.",
                       "Proof. split; vm_compute; discriminate. Qed."]
@@ -280,7 +300,7 @@ def agda(table: dict, vals: dict[str, Fraction]) -> str:
                   f"{c['id']}-derivation = *≡* refl", ""]
             if "crosscheck" in c:
                 x = c["crosscheck"]
-                pub, u = frac(x, ""), frac(x, "uncertainty_")
+                pub, u = crossbound(c, table, vals)
                 L += [f"{c['id']}-within-{x['authority']} : ({agda_q(pub - u)} ≤ {c['id']}) × ({c['id']} ≤ {agda_q(pub + u)})",
                       f"{c['id']}-within-{x['authority']} = *≤* (toWitness {{a? = _ ℤ.≤? _}} _) , *≤* (toWitness {{a? = _ ℤ.≤? _}} _)", ""]
     return "\n".join(L)
@@ -319,7 +339,7 @@ def haskell(table: dict, vals: dict[str, Fraction]) -> str:
             rows.append(f'("{c["id"]}", {c["id"]} == {v.numerator} % {v.denominator})')
             if "crosscheck" in c:
                 x = c["crosscheck"]
-                pub, u = frac(x, ""), frac(x, "uncertainty_")
+                pub, u = crossbound(c, table, vals)
                 rows.append(f'("{c["id"]} within {x["authority"]}", abs ({c["id"]} - {pub.numerator} % {pub.denominator}) <= {u.numerator} % {u.denominator})')
         if c["status"] == "policy":
             rows.append(f'("{c["id"]} in its range", {c["range"]["low"]} <= {c["id"]} && {c["id"]} <= {c["range"]["high"]})')

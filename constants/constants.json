@@ -166,6 +166,69 @@
    "fibre": "knowing"
   },
   {
+   "id": "electronMass",
+   "symbol": "m_e",
+   "name": "electron mass",
+   "unit": "kg",
+   "status": "measured",
+   "authority": "CODATA2022",
+   "num": "91093837139",
+   "den": "10^41",
+   "uncertainty_num": "28",
+   "uncertainty_den": "10^41",
+   "fibre": "knowing"
+  },
+  {
+   "id": "rydberg",
+   "symbol": "R∞",
+   "name": "Rydberg constant",
+   "unit": "m^-1",
+   "status": "derived",
+   "formula": "fineStructure * fineStructure * electronMass * speedOfLight / (2 * planck)",
+   "fibre": "knowing",
+   "crosscheck": {
+    "authority": "CODATA2022",
+    "num": "10973731568157",
+    "den": "10^6",
+    "uncertainty_num": "12",
+    "uncertainty_den": "10^6",
+    "bound": "propagated"
+   }
+  },
+  {
+   "id": "hartreeEnergy",
+   "symbol": "E_h",
+   "name": "Hartree energy",
+   "unit": "J",
+   "status": "derived",
+   "formula": "fineStructure * fineStructure * electronMass * speedOfLight * speedOfLight",
+   "fibre": "knowing",
+   "crosscheck": {
+    "authority": "CODATA2022",
+    "num": "43597447222060",
+    "den": "10^31",
+    "uncertainty_num": "48",
+    "uncertainty_den": "10^31",
+    "bound": "propagated"
+   }
+  },
+  {
+   "id": "comptonWavelength",
+   "symbol": "λ_C",
+   "name": "Compton wavelength",
+   "unit": "m",
+   "status": "derived",
+   "formula": "planck / (electronMass * speedOfLight)",
+   "fibre": "knowing",
+   "crosscheck": {
+    "authority": "CODATA2022",
+    "num": "242631023538",
+    "den": "10^23",
+    "uncertainty_num": "76",
+    "uncertainty_den": "10^23"
+   }
+  },
+  {
    "id": "vacuumPermittivity",
    "symbol": "ε₀",
    "name": "vacuum electric permittivity",
