@@ -25,12 +25,11 @@ require mathlib from git
 /-
   Every `lean_lib` is a `@[default_target]`: `lake build` (and CI) compiles all of them, experiments included.
   A tracked Lean file outside every library must be listed in `lean-unchecked.txt` with its reason
-  (`scripts/check_lean_ci_closure.py` enforces this); `_check_ext.lean` (local `#print` / `#check`) is listed there.
+  (`scripts/check_lean_ci_closure.py` enforces this).
 -/
 /-!
   CHEM-NS-MVP-FORMAL-MESO-DEFECT-CLEAR — SERIAL_ON_LAKEFILE meso acting fiber defect-clear wave.
   Sole writer for `UMST.Chem` lake targets during this SERIAL close. Build: `lake build UMST.Chem`.
-  Honesty: measured census receipts; not physics GREEN.
   CHEM-FORMAL-MESO-LEAN-CHEM — meso acting chemistry lift (`lake build UMST.Chem`).
   `Chem.+` glob: later `Chem/*.lean` compile without re-editing this lakefile.
   Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
@@ -85,7 +84,7 @@ lean_lib «UMST» where
     `Concrete.Convergence, `Concrete.GraphProperties,
     `Concrete.Activation, `Concrete.EndConditions, `Concrete.EnrichedAdmissibility, `Concrete.GaloisGate,
     `Compat.Gate, `Compat.Constitutional,
-    `Naturality, `DIBKleisli, `FormalFoundations,
+    `MaterialClass, `DIBKleisli, `FormalFoundations,
     `LandauerEinsteinBridge,
     `LandauerLaw, `Process, `OneInequalitySecondLaw, `ConvexPhiDissipation,
     `CoarseGraining, `InfoTheory, `SemanticSecondLaw, `MeaningState, `SemanticFormal, `InterpretationFunctor, `SemanticEconomicModules,
@@ -169,24 +168,6 @@ lean_lib «Crypto.Composability» where
 @[default_target]
 lean_lib «Crypto.SanitizePatternCoverage» where
   roots := #[`Crypto.SanitizePatternCoverage]
-  srcDir := "."
-
-/-!
-  AC48 — `LIB-LEARN-F-MORI-TANAKA` doctrinal binding (`lake build MoriTanaka`).
-  Built standalone alongside `Concrete.MicroMechanics`; not in default `UMST` roots.
--/
-@[default_target]
-lean_lib «MoriTanaka» where
-  roots := #[`Concrete.MoriTanaka, `Concrete.MoriTanakaPosture]
-  srcDir := "."
-
-/-!
-  LIB-ADOPT-F-LEAN-RS — RSBridge cold-path inventory (`lake build RSBridge.ColdPath`).
-  Standalone; not in default `UMST` roots.
--/
-@[default_target]
-lean_lib «RSBridge.ColdPath» where
-  roots := #[`RSBridge.ColdPath]
   srcDir := "."
 
 /-- Experiments: proofs outside the constitutional core that CI still checks (Track R obligations, experiment

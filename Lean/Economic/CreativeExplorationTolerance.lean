@@ -20,9 +20,4 @@ structure CreativeExplorationTolerance where
 def withinCreativityBudget (t : CreativeExplorationTolerance) : Bool :=
   t.sdf >= 0 && !t.self_propagate
 
-/-- PADMA-P2-11 deepen pin — formal wired bool stays false. -/
-theorem padma_p2_11_exploration_formal_not_live :
-    explorationToleranceWiredOnAgentIdentity = false := by
-  rfl
-
 end Economic

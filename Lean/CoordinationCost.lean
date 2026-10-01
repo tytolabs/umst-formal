@@ -221,11 +221,6 @@ theorem multiInformationNats_eq_sum_sub (marginals joint : ℝ) :
     multiInformationNats [marginals] joint = marginals - joint := by
   simp [multiInformationNats]
 
-theorem multiInformationBits_eq_div (marginalEntropies : List ℝ) (jointEntropy : ℝ) :
-    multiInformationBits marginalEntropies jointEntropy =
-      multiInformationNats marginalEntropies jointEntropy / log 2 := by
-  rfl
-
 theorem multiInformationNats_pair (hX hY joint : ℝ) :
     multiInformationNats [hX, hY] joint = hX + hY - joint := by
   simp [multiInformationNats]
@@ -282,14 +277,6 @@ theorem multiInformationBits_pair_product_zero {n m : ℕ} (p : ProbDist n) (q :
     rw [← jointEntropy_product p q]
   exact multiInformationBits_zero _ _ hj
 
-theorem coordinationSavingGlobal_eq_pairwise (multiInfoBits T : ℝ) :
-    coordinationSavingGlobalJoules multiInfoBits T = coordinationSavingJoules multiInfoBits T :=
-  rfl
-
-theorem globalCoordinationSaving_eq_global (multiInfoBits T : ℝ) :
-    globalCoordinationSavingJoules multiInfoBits T = coordinationSavingGlobalJoules multiInfoBits T :=
-  rfl
-
 theorem globalCoordinationSaving_eq_pairwise (miBits T : ℝ) :
     globalCoordinationSavingJoules miBits T = coordinationSavingJoules miBits T :=
   rfl
@@ -315,7 +302,7 @@ theorem coordinationSavingGlobal_physical_zero {n m : ℕ} (T : ℝ) (p : ProbDi
 theorem global_floor_pair_agrees {n m : ℕ} (T : ℝ) (J : JointDist n m) :
     coordinationSavingGlobalJoules (physicalMultiInfoBits (physicalMultiInfoChannel_pair J)) T =
       coordinationSavingJoules (mutualInformationBits J) T := by
-  rw [physicalMultiInfoBits_pair_eq, coordinationSavingGlobal_eq_pairwise]
+  rw [physicalMultiInfoBits_pair_eq, coordinationSavingGlobalJoules]
 
 theorem mkGlobalReport_saving (multiInfoBits T : ℝ) :
     (mkGlobalReport multiInfoBits T).savingJoules =

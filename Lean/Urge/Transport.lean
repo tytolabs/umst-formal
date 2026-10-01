@@ -52,7 +52,4 @@ def channelSet : List Transport :=
 
 theorem channelSet_len : channelSet.length = 5 := rfl
 
-def transportPhysicsGreen : Bool := false
-theorem transportPhysicsGreen_false : transportPhysicsGreen = false := rfl
-
 end UMST.Urge.Transport

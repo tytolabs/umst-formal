@@ -8,8 +8,7 @@
 (*  and the CHEM-L0-CAT-00 Rust scaffold (`kleisli_interact.rs`).       *)
 (*                                                                      *)
 (*  Algebraic Kleisli laws (identity / associativity / coherence) are  *)
-(*  machine-checked.  `physics_green` stays false — thermo witnesses   *)
-(*  remain Unwired until FORMAL BAR + path census.                       *)
+(*  machine-checked.                                                     *)
 (*                                                                      *)
 (*  Imports only existing UMSTFormal modules; ZERO new axioms.           *)
 (* ================================================================== *)
@@ -77,7 +76,7 @@ Definition interact_compose (left right : interact_step) : option interact_step 
   else None.
 
 (* ------------------------------------------------------------------ *)
-(*  Kleisli laws (algebraic — proved, not physics GREEN)               *)
+(*  Kleisli laws (algebraic)                                            *)
 (* ------------------------------------------------------------------ *)
 
 Lemma kleisli_left_unit_endpoints :
@@ -150,17 +149,6 @@ Qed.
 
 Local Close Scope Q_scope.
 
-Definition chem_physics_green : bool := false.
-
-Lemma chem_physics_green_false : chem_physics_green = false.
-Proof. reflexivity. Qed.
-
-Definition kleisli_interact_production_wired : bool := false.
-
-Lemma kleisli_interact_production_wired_false :
-  kleisli_interact_production_wired = false.
-Proof. reflexivity. Qed.
-
 Lemma interact_landauer_floor_pos (T : R) :
   0 < T -> 0 < chem_landauer_floor T.
 Proof.
@@ -185,5 +173,3 @@ Proof.
   exact (chem_joint_mass_conserved p q Hp Hq).
 Qed.
 
-Lemma kleisli_interact_module_witness : True.
-Proof. exact I. Qed.

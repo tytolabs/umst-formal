@@ -60,23 +60,6 @@ theorem quantile_separation_preserved (ε δ ρ_min : ℝ) (hε : 0 < ε) (hδ :
   rw [htwo]
   exact add_le_add hn hn'
 
-/-- Structural **misclassification surrogate** (probability layer deferred to narrative; slot scales linearly in `δ`). -/
-noncomputable def misclassificationSurrogate (δ : ℝ) : ℝ :=
-  3 * δ
-
-theorem band_classification_soundness (δ : ℝ) (hδ : 0 ≤ δ) : (0 : ℝ) ≤ misclassificationSurrogate δ := by
-  unfold misclassificationSurrogate
-  nlinarith
-
-/-- Flip-rate bookkeeping: inverse window length is a nonnegative **rate** surrogate (full Markov
-bound under stationarity deferred to narrative). -/
-noncomputable def flipRateSurrogate (W : ℕ) : ℝ :=
-  (1 : ℝ) / (W : ℝ)
-
-theorem band_flip_rate_bound (W : ℕ) (hW : 0 < W) : (0 : ℝ) ≤ flipRateSurrogate W := by
-  unfold flipRateSurrogate
-  positivity
-
 /-- Reference triple `(ε, δ, ρ_min) = (1, 1/2, 1)` at `W = 32`: the shipped warmup gate **6** still
 lower-bounds the per-quantile `nQuantile` budget (same witness as `MedianConvergence.sqrt_window_warmup_is_admissible`). -/
 theorem p25_p75_admissibility :
@@ -87,9 +70,5 @@ theorem p25_p75_admissibility :
     (MedianConvergence.sqrt_window_warmup_is_admissible :
       max 3 (Nat.ceil (Real.sqrt (32 : ℝ))) ≥
         nWarmup (1 : ℝ) (1 / 2 : ℝ) (1 : ℝ) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-
-/-- Re-export the median-layer DKW-style surrogate (`ρ = 0` slot). -/
-lemma empirical_cdf_tail_nonneg (n : ℕ) (hn : 0 < n) : (0 : ℝ) ≤ (1 : ℝ) ^ 2 / (n : ℝ) :=
-  MedianConvergence.empirical_cdf_tail_nonneg n hn
 
 end UMST.Formal.OrderStatisticsBand

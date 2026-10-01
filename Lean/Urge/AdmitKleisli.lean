@@ -15,6 +15,7 @@
 import Compat.Constitutional
 import Excitement
 import LandauerLaw
+import Process
 
 open Real Finset UMST UMST.Core UMST.LandauerLaw UMST.Excitement
 
@@ -29,22 +30,26 @@ structure HistorySnapshot where
   commitId : Nat
   head     : ThermodynamicState
 
-/-- Thermodynamic accounting on a history transition (acting meso layer). -/
+/-- A move of the history head and the erasure that pays for it: the head move passes the gate, and `erasure`
+    erases the distribution `erased` (the information the move discards). -/
 structure HistoryTransition where
-  prior           : HistorySnapshot
-  post            : HistorySnapshot
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-  gateAdmissible  : Admissible prior.head post.head
+  prior          : HistorySnapshot
+  post           : HistorySnapshot
+  gateAdmissible : Admissible prior.head post.head
+  erasure        : ErasureProcess
+  erased         : ProbDist 2
 
-/-- Named second-law invariant on history (Prop — not a Lean axiom). -/
-def admitSecondLaw (t : HistoryTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-/-- Admissible history transition: gate-checked head move + second-law accounting. -/
+/-- A history move is admissible when its erasure is an instance of the one second law. -/
 def admissibleHistoryTransition (t : HistoryTransition) : Prop :=
-  admitSecondLaw t
+  UMST.ProcessFamily.SecondLaw (.erase t.erasure) (.erasure t.erased)
+
+/-- Admissibility is the Clausius bound of the erasure: the erased entropy is at most the work over the bath
+    temperature. -/
+theorem admissibleHistoryTransition_iff (t : HistoryTransition) :
+    admissibleHistoryTransition t ↔
+      shannonEntropy t.erased ≤ t.erasure.work / t.erasure.bath.bathTemp.val := by
+  simp [admissibleHistoryTransition, UMST.ProcessFamily.SecondLaw, eraseSecondLaw, eraseSecondLawStep,
+    diracEntropy_zero LandauerLaw.two_pos]
 
 -- ================================================================
 -- SECTION 2: Kleisli admit arrows (inherit monad laws — do not re-prove)
@@ -67,11 +72,6 @@ theorem kleisliComposeAssocAt (f g h : AdmitArrow) (s : ThermodynamicState) :
     kleisliCompose (kleisliCompose f g) h s = kleisliCompose f (kleisliCompose g h) s := by
   simpa using congrArg (fun k => k s) (UMST.kleisliComposeAssoc f g h)
 
-/-- Global Kleisli associativity (inherited). -/
-theorem kleisliComposeAssoc (f g h : AdmitArrow) :
-    kleisliCompose (kleisliCompose f g) h = kleisliCompose f (kleisliCompose g h) :=
-  UMST.kleisliComposeAssoc f g h
-
 /-- Left unit law at a state (inherited). -/
 theorem kleisliLeftUnitAt (f : AdmitArrow) (s : ThermodynamicState) :
     kleisliCompose admitIdentity f s = f s := by
@@ -81,86 +81,5 @@ theorem kleisliLeftUnitAt (f : AdmitArrow) (s : ThermodynamicState) :
 theorem kleisliRightUnitAt (f : AdmitArrow) (s : ThermodynamicState) :
     kleisliCompose f admitIdentity s = f s := by
   simpa [admitIdentity] using congrArg (fun k => k s) (UMST.kleisliRightUnit f)
-
-/-- Graded composition preserves well-typing (inherited). -/
-theorem kleisliComposeWellTypedN (m n : ℕ) (f g : AdmitArrow)
-    (hf : WellTypedN m f) (hg : WellTypedN n g) :
-    WellTypedN (m + n) (kleisliCompose f g) :=
-  UMST.kleisliComposeWellTypedN m n f g hf hg
-
--- ================================================================
--- SECTION 3: Excitement composition (no local argmin re-derivation)
--- ================================================================
-
-/-- History admit selection composes `UMST.Excitement.select` — not a second argmin. -/
-noncomputable def admitHistorySelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src cands
-
-/-- Alias witness: local selection API is definitionally `Excitement.select`. -/
-theorem admitHistorySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    admitHistorySelect src cands = select src cands :=
-  rfl
-
--- ================================================================
--- SECTION 4: Bridge to physicalSecondLaw (derived — zero new axioms)
--- ================================================================
-
-/-- Physical realization of a binary history erasure (uniform → Dirac accounting). -/
-structure PhysicalHistoryBridge where
-  proc : ErasureProcess
-  transition : HistoryTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-
-/-- `physicalSecondLaw` discharges history second-law admissibility. -/
-theorem admitSecondLaw_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition := by
-  unfold admitSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-/-- **Admit morphism axiom discipline**: history second-law admissibility discharges from
-    the sole physical law (the `SecondLaw` predicate) `physicalSecondLaw` — zero new Lean `axiom` declarations. -/
-theorem admitMorphism_noNewAxiom (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
-/-- Physically bridged transition is an admissible history transition. -/
-theorem admissibleHistoryTransition_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleHistoryTransition b.transition :=
-  admitSecondLaw_from_physical b hSL
-
--- ================================================================
--- SECTION 5: Honesty flags + catalog witnesses
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-/-- Production wiring stays open (meso lift only). -/
-def admitKleisliProductionWired : Bool := false
-
-theorem admitKleisliProductionWiredFalse : admitKleisliProductionWired = false := rfl
-
-/-- Catalog witness: meso Urge AdmitKleisli module present. -/
-theorem admitKleisliModuleWitness : True := trivial
 
 end UMST.Urge.AdmitKleisli

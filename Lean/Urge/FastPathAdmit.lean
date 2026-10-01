@@ -32,10 +32,6 @@ def localCommitBudgetMs : Nat := 100
 /-- Blueprint §17.8 merge / recovery slow-path budget (milliseconds, typed). -/
 def mergeRecoveryBudgetMs : Nat := 1000
 
-theorem local_commit_budget_is_100 : localCommitBudgetMs = 100 := rfl
-
-theorem merge_recovery_budget_is_1000 : mergeRecoveryBudgetMs = 1000 := rfl
-
 -- ================================================================
 -- SECTION 2: Admission path classification
 -- ================================================================
@@ -179,21 +175,6 @@ theorem slowPathRecovery_eq_urgeRecovery {S : Type} [ThermodynamicSystem ℚ S]
     slowPathRecovery ctx = urgeRecovery ctx :=
   rfl
 
-theorem slowPathRecovery_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : HistoryRecoveryCtx S) :
-    slowPathRecovery ctx = excitementSelect ctx.prior ctx.successors :=
-  rfl
-
-theorem slowPathRecovery_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : HistoryRecoveryCtx S) :
-    slowPathRecovery ctx = select ctx.prior ctx.successors := by
-  simpa [slowPathRecovery, excitementSelect] using urgeRecovery_eq_select ctx
-
-theorem slowPathRecovery_no_second_argmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : HistoryRecoveryCtx S) :
-    slowPathRecovery ctx = excitementSelect ctx.prior ctx.successors :=
-  slowPathRecovery_eq_excitementSelect ctx
-
 /-- Slow-path admission class for merge/recovery candidates. -/
 def classifySlowPath (c : FastPathCandidate) : AdmitPath ⊕ FastPathAdmitRefusal :=
   if c.fpIsMergeOrRecovery then
@@ -206,65 +187,5 @@ theorem classifySlowPath_mergeRecovery (c : FastPathCandidate)
     classifySlowPath c = Sum.inl .fullMergeRecovery := by
   unfold classifySlowPath
   simp only [h, if_true]
-
--- ================================================================
--- SECTION 6: Bridge to physicalSecondLaw (derived — zero new axioms)
--- ================================================================
-
-structure FastPathTransition where
-  prior           : ThermodynamicState
-  post            : ThermodynamicState
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-  fastPathOk      : Prop
-
-def fastPathSecondLaw (t : FastPathTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalFastPathBridge where
-  proc : ErasureProcess
-  transition : FastPathTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  fastPathOk : transition.fastPathOk
-
-theorem fastPathSecondLaw_from_physical (b : PhysicalFastPathBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    fastPathSecondLaw b.transition := by
-  unfold fastPathSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem fastPathOk_from_physical (b : PhysicalFastPathBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    b.transition.fastPathOk :=
-  b.fastPathOk
-
--- ================================================================
--- SECTION 7: Honesty flags + catalog witnesses
--- ================================================================
-
-def fastPathPhysicsGreen : Bool := false
-
-theorem fastPathPhysicsGreenFalse : fastPathPhysicsGreen = false := rfl
-
-def fastPathProductionWired : Bool := false
-
-theorem fastPathProductionWiredFalse : fastPathProductionWired = false := rfl
-
-theorem fastPathAdmitModuleWitness : True := trivial
-
-theorem fastPathAdmit_noNewAxiom : True := trivial
 
 end UMST.Urge.FastPathAdmit

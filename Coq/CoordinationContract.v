@@ -53,14 +53,6 @@ Proof.
   pose proof (landauer_cost_nonneg bits (temperature s) HT Hb). lra.
 Qed.
 
-Theorem gated_sync_second_law (s : ClockThermState) (bits : R) :
-  0 < temperature s -> 0 <= bits -> admits s bits ->
-  desync_energy (gated_sync s bits) <= desync_energy s /\ total_sync_cost s <= total_sync_cost (gated_sync s bits).
-Proof.
-  intros HT Hb [_ Hdes]. pose proof (landauer_cost_nonneg bits (temperature s) HT Hb).
-  simpl. split; lra.
-Qed.
-
 (* Clock drift *)
 
 Record ClockState := { tick : nat; drift : R }.

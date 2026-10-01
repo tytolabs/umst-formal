@@ -50,13 +50,6 @@ theorem adjoint_recovers_gradient (A : Matrix (Fin n) (Fin n) ℝ) (c : Fin n �
       _ = exp ℝ (T • Aᵀ) := by simp [Matrix.transpose_smul]
   simp [hM]
 
-/-- The closed-form adjoint value does not depend on which forward trajectory is chosen. -/
-theorem adjoint_uses_only_terminal (t T : ℝ) (A : Matrix (Fin n) (Fin n) ℝ) (c : Fin n → ℝ)
-    (_traj₁ _traj₂ : ℝ → Fin n → ℝ) :
-    adjointClosedForm t T A c = adjointClosedForm t T A c :=
-  rfl
-
 #print axioms adjoint_recovers_gradient
-#print axioms adjoint_uses_only_terminal
 
 end UMST

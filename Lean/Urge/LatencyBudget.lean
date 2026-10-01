@@ -37,11 +37,6 @@ def mergeRecoveryBudgetMs : Nat := 1000
 /-- Blueprint §17.8 background compaction budget (milliseconds, typed). -/
 def backgroundBudgetMs : Nat := 10000
 
-theorem interactive_budget_ms_eq : interactiveBudgetMs = 16 := rfl
-theorem local_commit_budget_ms_eq : localCommitBudgetMs = 100 := rfl
-theorem merge_recovery_budget_ms_eq : mergeRecoveryBudgetMs = 1000 := rfl
-theorem background_budget_ms_eq : backgroundBudgetMs = 10000 := rfl
-
 /-- Typed budget tier — declared ceiling, not measured wall-clock. -/
 inductive LatencyBudgetTier where
   | interactive
@@ -144,17 +139,9 @@ def latencyBudgetAdmitPred (c : LatencyBudgetCandidate) : Bool :=
 def evaluateWallClockSlaOperation (claimsWallClock : Bool) : LatencyBudgetVerdict :=
   if claimsWallClock then .wallClockSlaRefused else .admitOk
 
-/-- Classify physics GREEN invent without performing I/O. -/
-def evaluatePhysicsGreenOperation (claimsGreen : Bool) : LatencyBudgetVerdict :=
-  if claimsGreen then .physicsGreenRefused else .admitOk
-
 /-- Positive refuse: wall-clock SLA theater is inadmissible — typed predicate only. -/
 def refuseWallClockSlaTheater : Empty ⊕ LatencyBudgetRefusal :=
   Sum.inr .wallClockSlaTheater
-
-/-- Positive refuse: unbounded f64 latency-ratio theater is inadmissible. -/
-def refuseUnboundedLatencyRatioTheater : Empty ⊕ LatencyBudgetRefusal :=
-  Sum.inr .unboundedLatencyRatioTheater
 
 /-- Evaluate latency-budget admission — honest refusal on inadmissible inputs. -/
 def evaluateLatencyBudgetAdmit (c : LatencyBudgetCandidate) :
@@ -253,73 +240,11 @@ theorem evaluate_wall_clock_sla_refused :
 theorem evaluate_wall_clock_sla_ok :
     evaluateWallClockSlaOperation false = .admitOk := rfl
 
-theorem refuse_wall_clock_sla_theater_positive :
-    refuseWallClockSlaTheater = Sum.inr .wallClockSlaTheater := rfl
-
-theorem refuse_unbounded_ratio_theater_positive :
-    refuseUnboundedLatencyRatioTheater = Sum.inr .unboundedLatencyRatioTheater := rfl
-
 -- ================================================================
 -- SECTION 4: Merge/recovery composes Excitement (no second argmin)
 -- ================================================================
 
-/-- Context for merge/recovery slow path over admissible history successors. -/
-structure LatencyBudgetCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Merge / recovery slow path **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def latencyBudgetRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : LatencyBudgetCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def urgeLatencyBudgetSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem latencyBudgetRecoverySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : LatencyBudgetCtx S) :
-    latencyBudgetRecoverySelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem urgeLatencyBudgetSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    urgeLatencyBudgetSelect prior successors = select prior successors :=
-  rfl
-
-theorem latencyBudgetSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : LatencyBudgetCtx S) :
-    latencyBudgetRecoverySelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem latencyBudgetNoSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : LatencyBudgetCtx S) :
-    latencyBudgetRecoverySelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem urgeLatencyBudgetSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    urgeLatencyBudgetSelect prior successors = urgeRecoverySelect prior successors :=
-  rfl
-
 def refuseSecondArgmin : LatencyBudgetRefusal := .unboundedLatencyRatioTheater
-
-theorem refuseSecondArgmin_is_tag :
-    refuseSecondArgmin = .unboundedLatencyRatioTheater := rfl
-
-theorem latencyBudgetRecovery_empty {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : LatencyBudgetCtx S)
-    (h : ctx.successors = []) :
-    latencyBudgetRecoverySelect ctx = Sum.inr Residue.noCandidates := by
-  dsimp [latencyBudgetRecoverySelect]
-  rw [h]
-  exact select_empty (src := ctx.prior)
 
 -- ================================================================
 -- SECTION 5: Bridge to physicalSecondLaw (derived — zero new axioms)
@@ -334,53 +259,6 @@ def admissibleLatencyBudget (h : LatencyHistoryMove) : Prop :=
   h.gateChecked ∧ h.typedPredicate ∧ h.excitementOk
 
 abbrev admitLatencyInbound := admissibleLatencyBudget
-
-structure LatencyTransition where
-  move            : LatencyHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def latencySecondLaw (t : LatencyTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalLatencyBridge where
-  proc : ErasureProcess
-  transition : LatencyTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleLatencyBudget transition.move
-
-theorem latencySecondLaw_from_physical (b : PhysicalLatencyBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    latencySecondLaw b.transition := by
-  unfold latencySecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleLatencyBudget_from_physical (b : PhysicalLatencyBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleLatencyBudget b.transition.move :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
-theorem latencyBudget_admitSecondLaw_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
 
 -- ================================================================
 -- SECTION 6: §17.8 fixtures + witness theorems
@@ -443,10 +321,6 @@ theorem latencyFixture_wall_clock_refused :
     evaluateLatencyBudgetAdmit latencyFixtureWallClockCandidate =
       Sum.inr .wallClockSlaTheater := rfl
 
-theorem latencyFixture_physics_green_refused :
-    evaluateLatencyBudgetAdmit latencyFixtureGreenCandidate =
-      Sum.inr .physicsGreenInvent := rfl
-
 theorem latencyFixture_apply_morphism_ok :
     applyLatencyBudgetMorphism latencyFixtureLocalCommitCandidate latencyFixtureConjunct true =
       Sum.inl
@@ -466,35 +340,10 @@ theorem latency_budget_positive_refuse_not_silent :
     evaluateWallClockSlaOperation true ≠ .admitOk := by
   simp [evaluateWallClockSlaOperation]
 
-theorem latency_budget_sla_theater_refused_not_admit_ok :
-    evaluateLatencyBudgetAdmit latencyFixtureWallClockCandidate ≠
-      Sum.inl
-        { tier := .localCommit
-          budgetMs := localCommitBudgetMs
-          surrogateMs := 50
-          typedPredicate := true } := by
-  rw [latencyFixture_wall_clock_refused]
-  intro h
-  cases h
-
 -- ================================================================
 -- SECTION 7: Honesty flags + catalog witnesses
 -- ================================================================
 
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def latencyBudgetProductionWired : Bool := false
-
-theorem latencyBudgetProductionWiredFalse : latencyBudgetProductionWired = false := rfl
-
 def latencyBudgetMarker : Nat := 1
-
-theorem latencyBudgetMarkerEq : latencyBudgetMarker = 1 := rfl
-
-theorem latencyBudgetModuleWitness : True := trivial
-
-theorem latencyBudget_noNewAxiom : True := trivial
 
 end UMST.Urge.LatencyBudget

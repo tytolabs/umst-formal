@@ -102,40 +102,6 @@ theorem gossipTickVerdict_reject_iff (c : GossipCandidate) :
 -- SECTION 3: Excitement compose (no second argmin)
 -- ================================================================
 
-/-- Excitement compose pin — Urge imports selector; no second argmin. -/
-inductive ExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving DecidableEq, Repr
-
-/-- Gossip path composes `select` — not a second argmin. -/
-noncomputable def gossipExcitementSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) (pin : ExcitementComposePin) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-theorem gossipExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    gossipExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem gossipExcitementSelect_refuses_secondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    gossipExcitementSelect src cands .secondArgminRefused = Sum.inr Residue.allInadmissible :=
-  rfl
-
-noncomputable def gossipSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src cands
-
-theorem gossipSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    gossipSelect src cands = select src cands :=
-  rfl
-
 /-- Drop-provenance gossip candidates never reach excitement selection. -/
 def filterAdmissibleGossip (cands : List GossipCandidate) : List GossipCandidate :=
   cands.filter (fun c => gossipIsAdmissible c && stampOk c)
@@ -206,66 +172,8 @@ theorem h3DropProvenanceFixture_notAdmissible :
   rfl
 
 -- ================================================================
--- SECTION 5: Landauer bridge (sole physics axiom — imported)
--- ================================================================
-
-structure GossipTransition where
-  candidate       : GossipCandidate
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def gossipSecondLaw (t : GossipTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalGossipBridge where
-  proc : ErasureProcess
-  transition : GossipTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  refused : evaluateGossipTick transition.candidate = .rejectDropProvenance
-
-theorem gossipSecondLaw_from_physical (b : PhysicalGossipBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    gossipSecondLaw b.transition := by
-  unfold gossipSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
-theorem dropProvenance_from_physical (b : PhysicalGossipBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    evaluateGossipTick b.transition.candidate = .rejectDropProvenance :=
-  b.refused
-
--- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def dropProvenanceProductionWired : Bool := false
-
-theorem dropProvenanceProductionWiredFalse : dropProvenanceProductionWired = false := rfl
-
-theorem dropProvenanceModuleWitness : True := trivial
-
-theorem dropProvenance_noNewAxiom : True := trivial
 
 theorem dropProvenance_positiveRefuse_notSilent :
     admitGossipCandidate h3DropProvenanceFixtureCandidate ≠ none := by

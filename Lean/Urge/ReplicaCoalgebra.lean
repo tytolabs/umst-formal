@@ -37,11 +37,6 @@ def replicaClassTag (c : ReplicaClass) : String :=
   | .forge => "forge"
   | .luks => "luks"
 
-theorem node0_tag : replicaClassTag .node0 = "node-0" := rfl
-theorem node1_tag : replicaClassTag .node1 = "node-1" := rfl
-theorem forge_tag : replicaClassTag .forge = "forge" := rfl
-theorem luks_tag : replicaClassTag .luks = "luks" := rfl
-
 theorem replicaClassTag_node0_ne_node1 :
     replicaClassTag .node0 ≠ replicaClassTag .node1 := by decide
 
@@ -74,8 +69,6 @@ theorem replicaClassesNotXorHolds : replicaClassesNotXor :=
    replicaClassTag_node1_ne_luks, replicaClassTag_forge_ne_luks⟩
 
 def replicaClassCount : Nat := 4
-
-theorem replica_class_count_is_four : replicaClassCount = 4 := rfl
 
 structure ReplicaMeshSheaf where
   sectionProbe : ReplicaClass → ℕ
@@ -147,10 +140,6 @@ theorem luks_network_egress_empty : networkEgress .luks = [] := rfl
 theorem node0_network_egress_tailscale :
     networkEgress .node0 = ["tailscale-admin"] := rfl
 
-theorem offline_luks_is_network_egress_empty :
-    networkEgress .luks = [] ∧ replicaClassTag .luks = "luks" :=
-  ⟨luks_network_egress_empty, luks_tag⟩
-
 structure ReplicaHistoryMove where
   prior           : ThermodynamicState
   post            : ThermodynamicState
@@ -176,79 +165,5 @@ structure RecoveryCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem �
 noncomputable def typedRecoveryMorphism {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
     [JointThermo ℚ S] (ctx : RecoveryCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
   select ctx.prior ctx.successors
-
-noncomputable def typedRecoverySelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem typedRecoveryMorphism_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : RecoveryCtx S) :
-    typedRecoveryMorphism ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem typedRecoverySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    typedRecoverySelect prior successors = select prior successors :=
-  rfl
-
-theorem typedRecoveryMorphism_eq_typedRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : RecoveryCtx S) :
-    typedRecoveryMorphism ctx = typedRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-structure ReplicaTransition where
-  move            : ReplicaHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def replicaSecondLaw (t : ReplicaTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalReplicaBridge where
-  proc : ErasureProcess
-  transition : ReplicaTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleReplicaCoalgebra transition.move
-
-theorem replicaSecondLaw_from_physical (b : PhysicalReplicaBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    replicaSecondLaw b.transition := by
-  unfold replicaSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleReplicaCoalgebra_from_physical (b : PhysicalReplicaBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleReplicaCoalgebra b.transition.move :=
-  b.admissible
-
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def replicaCoalgebraProductionWired : Bool := false
-
-theorem replicaCoalgebraProductionWiredFalse : replicaCoalgebraProductionWired = false := rfl
-
-theorem replicaCoalgebraModuleWitness : True := trivial
-
-theorem replicaCoalgebra_noNewAxiom : True := trivial
-
-theorem replicaCoalgebra_namedNotXor : replicaClassesNotXor :=
-  replicaClassesNotXorHolds
 
 end UMST.Urge.ReplicaCoalgebra

@@ -193,82 +193,9 @@ def evaluateFabricNodeClass (pin : FabricNodeClassPin) :
               fabricRowVerdict := .accept
               fabricRowAdmit := .admitted }
 
-def refuseInventedPhysicsGreen : ReplicaClassRefusal := .inventedPhysicsGreen
 def refuseMissingClassField : ReplicaClassRefusal := .missingClassField
 def refuseCustomerComposeLabsGossip : ReplicaClassRefusal := .customerComposeLabsGossip
 def refuseSecondExcitementArgmin : ReplicaClassRefusal := .secondExcitementArgmin
-
-theorem refuseInventedPhysicsGreenPositive :
-    refuseInventedPhysicsGreen = .inventedPhysicsGreen := rfl
-
-theorem refuseMissingClassFieldPositive :
-    refuseMissingClassField = .missingClassField := rfl
-
-theorem refuseCustomerComposeLabsGossipPositive :
-    refuseCustomerComposeLabsGossip = .customerComposeLabsGossip := rfl
-
-theorem refuseSecondExcitementArgminPositive :
-    refuseSecondExcitementArgmin = .secondExcitementArgmin := rfl
-
--- ================================================================
--- SECTION 3: Replica class composes Excitement.select (no argmin)
--- ================================================================
-
-inductive ReplicaExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving DecidableEq, Repr
-
-structure ReplicaClassCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  replicaClassSrc : S
-  replicaClassSuccessors : List (Cand (K := ℚ) replicaClassSrc)
-
-noncomputable def composeReplicaExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src))
-    (pin : ReplicaExcitementComposePin) : Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-noncomputable def replicaClassSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ReplicaClassCtx S) :
-    Cand (K := ℚ) ctx.replicaClassSrc ⊕ Residue :=
-  urgeRecoverySelect ctx.replicaClassSrc ctx.replicaClassSuccessors
-
-theorem composeReplicaExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    composeReplicaExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem replicaClassSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ReplicaClassCtx S) :
-    replicaClassSelect ctx = select ctx.replicaClassSrc ctx.replicaClassSuccessors :=
-  rfl
-
-theorem replicaClassSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : ReplicaClassCtx S) :
-    replicaClassSelect ctx = urgeRecoverySelect ctx.replicaClassSrc ctx.replicaClassSuccessors :=
-  rfl
-
-theorem replicaClassNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ReplicaClassCtx S) :
-    replicaClassSelect ctx = select ctx.replicaClassSrc ctx.replicaClassSuccessors :=
-  replicaClassSelect_eq_select ctx
-
-theorem composeReplicaExcitementSelect_refusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    composeReplicaExcitementSelect src cands .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem replicaClassSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ReplicaClassCtx S)
-    (hnil : ctx.replicaClassSuccessors = []) :
-    replicaClassSelect ctx = Sum.inr Residue.noCandidates := by
-  unfold replicaClassSelect
-  rw [hnil]
-  simpa using urgeRecovery_empty ctx.replicaClassSrc
 
 -- ================================================================
 -- SECTION 4: fabric-nodes.json census + §15.4 fixtures
@@ -329,11 +256,6 @@ theorem replicaClassForgejoEgressNonempty :
     replicaEgressEmpty (replicaClassBlueprintRow .forgejoPrimaryMirror).replicaRowEgress = false :=
   rfl
 
-theorem replicaClassTableCardinalitySix : replicaClassTableCardinality = 6 := rfl
-
-theorem replicaClassNode0ClassField :
-    replicaClassClassField .node0DevClone = "node-0-dev-clone" := rfl
-
 theorem replicaClassParseLegacyNode0 :
     parseReplicaClassField rclNode0LegacyField = some .node0DevClone := rfl
 
@@ -351,46 +273,10 @@ theorem replicaClassPositiveRefuseNotSilent :
   intro h
   cases h
 
-theorem replicaClassComposeExcitementNotArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : ReplicaClassCtx S) :
-    replicaClassSelect ctx = select ctx.replicaClassSrc ctx.replicaClassSuccessors :=
-  replicaClassNoLocalArgmin ctx
-
--- ================================================================
--- SECTION 5: Landauer bridge (inherited — zero new axioms)
--- ================================================================
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
-theorem replicaClassSecondLaw_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
-theorem landauerAnchorCited (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def replicaClassProductionWired : Bool := false
-
-theorem replicaClassProductionWiredFalse : replicaClassProductionWired = false := rfl
-
 def replicaClassMarker : Nat := 1
-
-theorem replicaClassMarkerEq : replicaClassMarker = 1 := rfl
-
-theorem replicaClassModuleWitness : True := trivial
-
-theorem replicaClassNoNewAxiom : True := trivial
 
 end UMST.Urge.ReplicaClass

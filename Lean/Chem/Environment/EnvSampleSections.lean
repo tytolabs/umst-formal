@@ -13,8 +13,7 @@
   Imports `EnvironmentContinuum` only; adds **zero** Lean `axiom` declarations.
 
   v15: vacuum/contained/messy are three named sample sections of one Env sheaf, not XOR.
-  `physics_green` stays false — thermo witnesses remain Unwired.
--/
+  -/
 
 import Chem.Environment.EnvironmentContinuum
 
@@ -39,8 +38,6 @@ def environmentSectionRegimeTags : List EnvironmentSectionRegime :=
    EnvironmentSectionRegime.MessySection]
 
 def environmentRegimeCardinality : ℕ := environmentSectionRegimeTags.length
-
-theorem environmentRegimeCardinality_eq : environmentRegimeCardinality = 3 := rfl
 
 -- ================================================================
 -- SECTION 2: Named sample probes (vacuum | contained | messy — not XOR)
@@ -108,9 +105,6 @@ def envSampleSectionsWellTyped (E : MesoEnvironmentSheaf) : Prop :=
   0 < messySampleProbe E ∧
   thermoContinuumFieldPositive E.sheaf_thermo_continuum
 
-theorem envSampleSectionsNamedNotXor : envSampleSectionsNotXor :=
-  envSampleSectionsNotXorHolds
-
 def envSampleSectionsRegimeDistinct : Prop :=
   EnvironmentSectionRegime.VacuumSection ≠ EnvironmentSectionRegime.ContainedSection ∧
   EnvironmentSectionRegime.VacuumSection ≠ EnvironmentSectionRegime.MessySection ∧
@@ -161,18 +155,11 @@ def envSampleSectionsWellTypedOnEdge (old new : ThermodynamicState) : Prop :=
     | none => True
     | some (v, c, m) => 0 ≤ v ∧ 0 ≤ c ∧ 0 ≤ m
 
-theorem envSampleSectionsNamedNotXorOnEdge :
-    environmentRegimeCardinality = 3 := environmentSectionsNamedNotXor
-
 theorem envSampleSectionsOnEdge_ungated (old new : ThermodynamicState)
     (h : gateCheck old new = false) :
     envSampleSectionsOnEdge old new = none := by
   unfold envSampleSectionsOnEdge
   exact environmentSheafOnEdge_ungated old new h
-
-theorem envSampleSectionsOnEdge_admissible (old new : ThermodynamicState)
-    (_ : admissibleStep old new) :
-    envSampleSectionsOnEdge old new = environmentSheafOnEdge old new := rfl
 
 -- ================================================================
 -- SECTION 5: Fixture sheaf — simultaneous named sample triple on one Env sheaf
@@ -197,28 +184,5 @@ theorem envSampleSectionsFixtureTripleDistinct :
     vacuumSampleProbe, messySampleProbe, vacuumSampleSection, messySampleSection,
     vacuumGraphVertex, messyGraphVertex]
   norm_num
-
-theorem envSampleSectionsFixtureWitness :
-    envSampleSectionsWellTyped envSampleFixtureSheaf ∧ vacuumDoesNotCloseMessy :=
-  ⟨envSampleSectionsFixtureWellTyped, vacuumDoesNotCloseMessyHolds⟩
-
--- ================================================================
--- SECTION 6: Honesty fence (physics_green false — not measured env pins)
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def chemEnvSampleSectionsPhysicsGreen : Bool := false
-
-theorem chemEnvSampleSectionsPhysicsGreenFalse :
-    chemEnvSampleSectionsPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (CAT-00 lift only). -/
-def envSampleSectionsProductionWired : Bool := false
-
-theorem envSampleSectionsProductionWiredFalse :
-    envSampleSectionsProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry env sample sections module present. -/
-theorem envSampleSectionsModuleWitness : True := trivial
 
 end UMST.Chem.Environment.EnvSampleSections

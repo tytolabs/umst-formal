@@ -37,11 +37,6 @@ def wellTypedAt (f : KleisliArrow) (s s' : ThermodynamicState) : Prop :=
 /-- Gate-checked Kleisli arrow from a state proposal. -/
 abbrev makeGateArrow := UMST.makeGateArrow
 
-/-- Every successful `makeGateArrow` step is admissible. -/
-theorem gateArrowWellTyped (propose : ThermodynamicState → ThermodynamicState) :
-    WellTyped (makeGateArrow propose) :=
-  UMST.gateArrowWellTyped propose
-
 -- ================================================================
 -- SECTION 2: Kleisli algebra (identity / compose / fold)
 -- ================================================================
@@ -63,11 +58,6 @@ abbrev kleisliFold := UMST.kleisliFold
 theorem kleisliComposeAssocAt (f g h : KleisliArrow) (s : ThermodynamicState) :
     kleisliCompose (kleisliCompose f g) h s = kleisliCompose f (kleisliCompose g h) s := by
   simpa using congrArg (fun k => k s) (UMST.kleisliComposeAssoc f g h)
-
-/-- Global associativity. -/
-theorem kleisliComposeAssoc (f g h : KleisliArrow) :
-    kleisliCompose (kleisliCompose f g) h = kleisliCompose f (kleisliCompose g h) :=
-  UMST.kleisliComposeAssoc f g h
 
 /-- Left unit law at a state. -/
 theorem kleisliLeftUnitAt (f : KleisliArrow) (s : ThermodynamicState) :
@@ -107,47 +97,5 @@ theorem kleisliCoherenceUnits (f : KleisliArrow) (s g h : ThermodynamicState)
     unfold kleisliCompose interactIdentity at hleft
     simpa using hleft
   simpa [UMST.kleisliCompose, interactIdentity, hfl] using hright
-
-/-- Graded composition preserves well-typing. -/
-theorem kleisliComposeWellTypedN (m n : ℕ) (f g : KleisliArrow)
-    (hf : WellTypedN m f) (hg : WellTypedN n g) :
-    WellTypedN (m + n) (kleisliCompose f g) :=
-  UMST.kleisliComposeWellTypedN m n f g hf hg
-
-/-- Fold of well-typed arrows is graded well-typed. -/
-theorem kleisliFoldWellTypedN (arrows : List KleisliArrow) (hall : AllWellTyped arrows) :
-    WellTypedN arrows.length (kleisliFold arrows) :=
-  UMST.kleisliFoldWellTypedN arrows hall
-
--- ================================================================
--- SECTION 4: Meso acting bridge (second law + conservation spine)
--- ================================================================
-
-/-- `physicalSecondLaw` discharges chemical second-law admissibility on bridged erasures. -/
-theorem interact_chemSecondLaw_from_physical (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    chemSecondLaw b.transition :=
-  chemSecondLaw_from_physical b hSL
-
-/-- Physically bridged transition satisfies conserved admissibility at zero composition delta. -/
-theorem interact_admissibleConserved_from_physical (b : PhysicalChemBridge)
-    (w : LinearConservationWitness 2)
-    (hDelta : conservedCompositionDelta ⟨b.transition, fun _ => 0, fun _ => 0⟩ = fun _ => 0)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleConservedTransition w ⟨b.transition, fun _ => 0, fun _ => 0⟩ :=
-  admissible_from_physical_bridge b w hDelta hSL
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def chemPhysicsGreen : Bool := false
-
-theorem chemPhysicsGreenFalse : chemPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (CAT-00 lift only). -/
-def kleisliInteractProductionWired : Bool := false
-
-theorem kleisliInteractProductionWiredFalse : kleisliInteractProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry Kleisli Interact module present. -/
-theorem kleisliInteractModuleWitness : True := trivial
 
 end UMST.Chem.KleisliInteract

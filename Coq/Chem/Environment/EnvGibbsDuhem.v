@@ -9,7 +9,6 @@
 (*  reusing ConstantsSheaf interdependence pattern.                      *)
 (*                                                                      *)
 (*  Imports EnvironmentContinuum, EnvSampleSections, ConstantsSheaf;  *)
-(*  ZERO new axioms.  physics_green stays false.                         *)
 (* ================================================================== *)
 
 From Stdlib Require Import Reals QArith List Psatz.
@@ -201,24 +200,6 @@ Proof.
   exact (env_composition_zero_variation legs).
 Qed.
 
-Lemma env_gibbs_duhem_matches_constants_pattern (fractions : list Q) :
-  env_gibbs_duhem_interdependence fractions (map (fun _ => 0%Q) fractions) /\
-  UMSTFormal.Chem.Constants.ConstantsSheaf.gibbs_duhem_interdependence fractions (map (fun _ => 0%Q) fractions).
-Proof.
-  split.
-  - exact (env_gibbs_duhem_zero_coordinate_variation fractions).
-  - exact (UMSTFormal.Chem.Constants.ConstantsSheaf.gibbs_duhem_zero_variation fractions).
-Qed.
-
-Lemma env_debye_matches_composition_pattern (legs : list Q) :
-  env_debye_square_interdependence legs (map (fun _ => 0%Q) legs) /\
-  env_composition_interdependence legs (map (fun _ => 0%Q) legs).
-Proof.
-  split.
-  - exact (env_debye_square_zero_variation legs).
-  - exact (env_composition_zero_variation legs).
-Qed.
-
 (* ------------------------------------------------------------------ *)
 (*  Env sheaf + sample sections coupled interdependence witness        *)
 (* ------------------------------------------------------------------ *)
@@ -252,13 +233,6 @@ Proof.
       * exact (env_debye_square_zero_variation env_debye_square_fixture_legs).
 Qed.
 
-Lemma env_gibbs_duhem_fixture_sample_triple_distinct :
-  ess_vacuum (env_sample_sections_triple env_sample_fixture_sheaf) <>
-  ess_messy (env_sample_sections_triple env_sample_fixture_sheaf).
-Proof.
-  exact env_sample_sections_fixture_triple_distinct.
-Qed.
-
 (* ------------------------------------------------------------------ *)
 (*  Conservation-normalized env coordinate covariation witness         *)
 (* ------------------------------------------------------------------ *)
@@ -278,21 +252,3 @@ Proof.
     + exact (env_debye_square_zero_variation p).
 Qed.
 
-(* ------------------------------------------------------------------ *)
-(*  Honesty fence (physics_green false — not measured env pins)         *)
-(* ------------------------------------------------------------------ *)
-
-Definition chem_env_gibbs_duhem_physics_green : bool := false.
-
-Lemma chem_env_gibbs_duhem_physics_green_false :
-  chem_env_gibbs_duhem_physics_green = false.
-Proof. reflexivity. Qed.
-
-Definition env_gibbs_duhem_production_wired : bool := false.
-
-Lemma env_gibbs_duhem_production_wired_false :
-  env_gibbs_duhem_production_wired = false.
-Proof. reflexivity. Qed.
-
-Lemma env_gibbs_duhem_module_witness : True.
-Proof. exact I. Qed.

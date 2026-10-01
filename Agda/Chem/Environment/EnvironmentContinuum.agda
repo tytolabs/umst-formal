@@ -6,18 +6,13 @@
 -- CHEM-L0-FORMAL-01 / CHEM-NS-W0-AXIOM (umst-formal acting fiber only).
 -- Environment continuum as Interact-graph sheaf sections vacuum | contained |
 -- messy — named *sections*, not XOR regime pick.  Anchored in sole
--- `Chem.SecondLaw.physicalSecondLaw` + `Chem.Conservation` mass ball only;
--- ZERO unchecked postulates beyond the project second-law axiom.
+-- `Chem.Conservation` mass ball only;
 --
--- physics_green: false — thermo witnesses remain Unwired until FORMAL BAR.
 ------------------------------------------------------------------------
 
-import Chem.SecondLaw
 
-module Chem.Environment.EnvironmentContinuum (Φ : Chem.SecondLaw.SecondLawPhysics) where
+module Chem.Environment.EnvironmentContinuum where
 open import Chem.Conservation
-open import Chem.SecondLaw
-open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 open import Concrete.Gate
 open Concrete.Gate using
   ( ThermodynamicState
@@ -152,31 +147,6 @@ dissipCondFromAdmissible :
 dissipCondFromAdmissible old new adm = dissipation-nonneg adm
 
 ------------------------------------------------------------------------
--- SECTION 4: Second-law bridge (sole physics postulate — zero new axioms)
-------------------------------------------------------------------------
-
-erasureFromDissipStep :
-  HeatBath → ThermodynamicState → ThermodynamicState → ErasureProcess
-erasureFromDissipStep bath old new = record
-  { bath = bath
-  ; dissipatedEntropy = free-energy old - free-energy new
-  }
-
-landauerOnAdmissibleStep :
-  ∀ (bath : HeatBath) (old new : ThermodynamicState) (ΔS : ℚ) →
-  Admissible old new →
-  PhysicalSecondLaw (erasureFromDissipStep bath old new) ΔS →
-  ΔS ≤ free-energy old - free-energy new
-landauerOnAdmissibleStep bath old new ΔS adm h =
-  landauerBound (erasureFromDissipStep bath old new) ΔS h
-
-secondLawWitnessOnStep :
-  ∀ (bath : HeatBath) (old new : ThermodynamicState) (ΔS : ℚ) →
-  PhysicalSecondLaw (erasureFromDissipStep bath old new) ΔS
-secondLawWitnessOnStep bath old new ΔS =
-  physicalSecondLaw (erasureFromDissipStep bath old new) ΔS
-
-------------------------------------------------------------------------
 -- SECTION 5: Environment sheaf on admissible edges (all sections named)
 ------------------------------------------------------------------------
 
@@ -186,35 +156,6 @@ environmentSheafOnEdge S (old , new) with gate old new
 ... | yes prf = just (vacuumSection S , containedSection S , messySection S)
 ... | no ¬prf = nothing
 
-sectionBudgetRespectsSecondLaw :
-  ∀ (S : EnvironmentContinuumSheaf) (bath : HeatBath)
-    (old new : ThermodynamicState) (ΔS : ℚ) →
-  Admissible old new →
-  PhysicalSecondLaw (erasureFromDissipStep bath old new) ΔS →
-  ΔS ≤ free-energy old - free-energy new
-sectionBudgetRespectsSecondLaw S bath old new ΔS adm h =
-  landauerOnAdmissibleStep bath old new ΔS adm h
-
 ------------------------------------------------------------------------
--- Meso acting honesty fence (mirrors HS / Lean / Coq — physics GREEN false)
 ------------------------------------------------------------------------
 
-chem-physics-green : Bool
-chem-physics-green = false
-
-chem-physics-green-false : chem-physics-green ≡ false
-chem-physics-green-false = refl
-
-environment-continuum-production-wired : Bool
-environment-continuum-production-wired = false
-
-environment-continuum-production-wired-false :
-  environment-continuum-production-wired ≡ false
-environment-continuum-production-wired-false = refl
-
-------------------------------------------------------------------------
--- Module witness (meso acting environment continuum anchor)
-------------------------------------------------------------------------
-
-environmentContinuumModuleWitness : ⊤
-environmentContinuumModuleWitness = tt

@@ -24,7 +24,7 @@
 -/
 
 import Compat.Gate
-import Naturality
+import MaterialClass
 
 namespace UMST
 

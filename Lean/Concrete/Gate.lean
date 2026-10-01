@@ -23,12 +23,7 @@ def δMass : ℚ := @UMST.Core.δMass ℚ _ _
 /-- Latent heat of hydration (kJ/kg = J/g); SSOT with Rust `OPC_REACTION_ENTHALPY_KJ_PER_KG`. -/
 def Q_hyd : ℚ := 450
 
-@[simp] theorem Q_hyd_val : Q_hyd = 450 := rfl
-
 def helmholtz (α : ℚ) : ℚ := -(Q_hyd * α)
-
-/-- Helmholtz free energy of the cement paste at hydration degree `α`: `ψ(α) = -Q_hyd · α`. -/
-@[simp] theorem helmholtz_formula (α : ℚ) : helmholtz α = -(Q_hyd * α) := rfl
 
 /-- Free energy is antitone in hydration: more hydration never raises `ψ`. -/
 theorem helmholtzAntitone : ∀ α₁ α₂ : ℚ, α₁ ≤ α₂ → helmholtz α₂ ≤ helmholtz α₁ := by

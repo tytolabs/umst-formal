@@ -171,16 +171,8 @@ def refuseGitHashOnly (rid : String) : CobSocialRefusal :=
 def refuseSecondArgmin : CobSocialRefusal :=
   .secondArgminRefused
 
-theorem refuse_git_hash_only_identity_positive (rid : String) :
-    refuseGitHashOnlyIdentity rid = CobIdentityVerdict.gitHashOnlyIdentityRefused rid :=
-  rfl
-
 theorem refuse_git_hash_only_eq_csr (rid : String) :
     refuseGitHashOnly rid = CobSocialRefusal.gitHashOnlyIdentity rid :=
-  rfl
-
-theorem refuse_second_argmin_positive :
-    refuseSecondArgmin = .secondArgminRefused :=
   rfl
 
 theorem linkTypedEdge_untyped_refused (g : TypedSocialGraph) (fromId toId : Nat)
@@ -201,67 +193,6 @@ theorem linkTypedEdge_untyped_refused (g : TypedSocialGraph) (fromId toId : Nat)
       simp [linkTypedEdge, Hnf, Hnt, kindEqb_refl, ht, Bool.true_and, ite_false]
     · have hf := (kindEqb_ne_iff nf.kind fk).mpr hne
       simp [linkTypedEdge, Hnf, Hnt, hf, Bool.false_and, ite_false]
-
--- ================================================================
--- SECTION 3: COB social graph composes Excitement (no second argmin)
--- ================================================================
-
-/-- Excitement compose pin — Urge imports selector; no second argmin. -/
-inductive CobExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-
-/-- Context for COB social history recovery over admissible successors. -/
-structure CobSocialRecoveryCtx (src : ThermodynamicState) where
-  successors : List (Cand (K := ℚ) src)
-
-/-- COB social graph selection **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def cobSocialSelect (src : ThermodynamicState)
-    (ctx : CobSocialRecoveryCtx src) : Cand (K := ℚ) src ⊕ Residue :=
-  urgeRecoverySelect src ctx.successors
-
-theorem cob_social_select_eq_excitement_select (src : ThermodynamicState)
-    (ctx : CobSocialRecoveryCtx src) :
-    cobSocialSelect src ctx = select src ctx.successors :=
-  rfl
-
-theorem cob_social_select_eq_urge_recovery_select (src : ThermodynamicState)
-    (ctx : CobSocialRecoveryCtx src) :
-    cobSocialSelect src ctx = urgeRecoverySelect src ctx.successors :=
-  rfl
-
-theorem cob_social_no_local_argmin (src : ThermodynamicState)
-    (ctx : CobSocialRecoveryCtx src) :
-    cobSocialSelect src ctx = select src ctx.successors :=
-  rfl
-
-/-- COB path composes `Excitement.select` — not a second argmin. -/
-noncomputable def cobSocialExcitementSelect (src : ThermodynamicState)
-    (cands : List (Cand (K := ℚ) src)) (pin : CobExcitementComposePin) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-theorem cob_social_excitement_select_eq_excitement_select (src : ThermodynamicState)
-    (cands : List (Cand (K := ℚ) src)) :
-    cobSocialExcitementSelect src cands CobExcitementComposePin.importSelectExcitement =
-      select src cands :=
-  rfl
-
-theorem cob_social_excitement_select_refuses_second_argmin (src : ThermodynamicState)
-    (cands : List (Cand (K := ℚ) src)) :
-    cobSocialExcitementSelect src cands CobExcitementComposePin.secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem cob_social_select_empty (src : ThermodynamicState)
-    (ctx : CobSocialRecoveryCtx src) (h : ctx.successors = []) :
-    cobSocialSelect src ctx = Sum.inr Residue.noCandidates := by
-  rcases ctx with ⟨succs⟩
-  subst h
-  unfold cobSocialSelect
-  simpa using urgeRecovery_empty src
 
 -- ================================================================
 -- SECTION 4: §3 fixtures + witness theorems
@@ -299,17 +230,7 @@ theorem cob_fixture_missing_node_refused :
     linkTypedEdge addSocialNode emptySocialGraph findSocialNode kindEqb
   rfl
 
-theorem cob_fixture_git_hash_only_refused :
-    refuseGitHashOnly "sha1:deadbeef" = .gitHashOnlyIdentity "sha1:deadbeef" :=
-  rfl
-
 def cobFixtureState : ThermodynamicState := ⟨2400, 0, 0, 0⟩
-
-theorem cob_fixture_excitement_compose :
-    cobSocialExcitementSelect cobFixtureState []
-      CobExcitementComposePin.importSelectExcitement = Sum.inr Residue.noCandidates := by
-  unfold cobSocialExcitementSelect
-  exact cob_social_select_empty cobFixtureState { successors := [] } rfl
 
 theorem cob_social_positive_refuse_not_silent :
     evaluateSocialLink cobFixtureGraph cobFixturePatchId cobFixtureReviewId .patch .issue ≠
@@ -338,72 +259,5 @@ theorem admissibleCobSocialGraph_intro (h : CobSocialHistoryMove)
   And.intro hg (And.intro hu hp)
 
 abbrev admitCobSocialInbound := admissibleCobSocialGraph
-
-structure CobSocialTransition where
-  move            : CobSocialHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def cobSocialSecondLaw (t : CobSocialTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalCobSocialBridge where
-  proc : ErasureProcess
-  transition : CobSocialTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleCobSocialGraph transition.move
-
-theorem cobSocialSecondLaw_from_physical (b : PhysicalCobSocialBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    cobSocialSecondLaw b.transition := by
-  unfold cobSocialSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleCobSocialGraph_from_physical (b : PhysicalCobSocialBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleCobSocialGraph b.transition.move :=
-  b.admissible
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def cobSocialGraphPhysicsGreen : Bool := false
-
-theorem cobSocialGraphPhysicsGreenFalse : cobSocialGraphPhysicsGreen = false := rfl
-
-def cobSocialGraphProductionWired : Bool := false
-
-theorem cobSocialGraphProductionWiredFalse : cobSocialGraphProductionWired = false := rfl
-
-def cobSocialGraphNonClaim : String :=
-  "§3 COB typed social graph (patch/issue/review/identity); positive refuse not only !physics_green; " ++
-  "compose Excitement.select not local argmin; not physics GREEN; not production_wired"
-
-theorem cobSocialGraphNonClaim_prefix_len :
-    ("§3 COB typed social graph (patch/issue/review/identity); positive refuse not only !physics_green; ").length > 0 := by
-  decide
-
-theorem cobSocialGraphNonClaim_nonempty : cobSocialGraphNonClaim.length > 0 := by
-  unfold cobSocialGraphNonClaim
-  rw [String.length_append]
-  exact Nat.lt_of_lt_of_le cobSocialGraphNonClaim_prefix_len (Nat.le_add_right _ _)
-
-theorem cobSocialGraphModuleWitness : True := trivial
-
-theorem cobSocialGraph_noNewAxiom : True := trivial
 
 end UMST.Urge.CobSocialGraph

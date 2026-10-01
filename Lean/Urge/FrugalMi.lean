@@ -141,67 +141,11 @@ theorem frugalMiLandauerProofRefused :
 theorem frugalMiObservationOkWhenNotLandauer :
     evaluateFrugalMiOperation false = .observationOk := rfl
 
-theorem refuseLandauerProofPositive :
-    refuseLandauerProof = .landauerProofRefused := rfl
-
-theorem refuseLandauerKernelForkPositive :
-    refuseLandauerKernelFork = .landauerKernelForkRefused := rfl
-
 theorem pairwiseMiFixturePaired :
     pairwiseMiBitsNat 4 3 5 = some 2 := rfl
 
 theorem pairwiseMiFixtureZero :
     pairwiseMiBitsNat 2 2 4 = some 0 := rfl
-
--- ================================================================
--- SECTION 3: Frugal MI composes Excitement.select (no second argmin)
--- ================================================================
-
-/-- Context for frugal MI observation over admissible history successors. -/
-structure FrugalMiCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Frugal MI status observation **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def frugalMiSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FrugalMiCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def frugalMiSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem frugalMiSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : FrugalMiCtx S) :
-    frugalMiSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem frugalMiSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : FrugalMiCtx S) :
-    frugalMiSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem frugalMiSelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    frugalMiSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem frugalMiNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FrugalMiCtx S) :
-    frugalMiSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem frugalMiSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    frugalMiSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [frugalMiSelectBare] using select_empty (src := prior)
 
 -- ================================================================
 -- SECTION 4: §4 fixtures + witness theorems
@@ -221,9 +165,6 @@ def frugalFixtureCoalgebra : FrugalLocalMeshCoalgebra :=
 
 def frugalFixtureConjunct : FrugalMiAdmissibilityConjunct :=
   { gateOk := true, miPositive := true, excitementPreserves := true }
-
-theorem frugalFixtureLandauerProofRefused :
-    refuseLandauerProof = .landauerProofRefused := rfl
 
 theorem frugalFixturePairedObservationOk :
     observeFrugalMiFromCoalgebra
@@ -248,77 +189,9 @@ theorem frugalFixtureWitnessDeficitRefused :
 theorem frugalFixtureCoalgebraRequiresPaired :
     frugalCoalgebraRequiresPaired frugalFixtureCoalgebra = true := rfl
 
-theorem frugalFixtureDeconstructPaired :
-    frugalLocalMeshDeconstruct frugalFixturePaired = .paired frugalFixturePaired := rfl
-
--- ================================================================
--- SECTION 5: Bridge to physicalSecondLaw (derived — zero new axioms)
--- ================================================================
-
-structure FrugalMiTransition where
-  prior           : ThermodynamicState
-  post            : ThermodynamicState
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-  gateChecked     : Prop
-  miPositive      : Prop
-  provenanceOk    : Prop
-
-def admissibleFrugalMiTransition (t : FrugalMiTransition) : Prop :=
-  t.gateChecked ∧ t.miPositive ∧ t.provenanceOk
-
-def frugalMiSecondLaw (t : FrugalMiTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalFrugalMiBridge where
-  proc : ErasureProcess
-  transition : FrugalMiTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleFrugalMiTransition transition
-
-theorem frugalMiSecondLaw_from_physical (b : PhysicalFrugalMiBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    frugalMiSecondLaw b.transition := by
-  unfold frugalMiSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleFrugalMiTransition_from_physical (b : PhysicalFrugalMiBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleFrugalMiTransition b.transition :=
-  b.admissible
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def frugalMiPhysicsGreen : Bool := false
-
-theorem frugalMiPhysicsGreenFalse : frugalMiPhysicsGreen = false := rfl
-
-def frugalMiProductionWired : Bool := false
-
-theorem frugalMiProductionWiredFalse : frugalMiProductionWired = false := rfl
-
-def frugalMiModalityUnwired : Bool := true
-
-theorem frugalMiModalityUnwiredTrue : frugalMiModalityUnwired = true := rfl
-
-theorem frugalMiModuleWitness : True := trivial
-
-theorem frugalMi_noNewAxiom : True := trivial
 
 theorem frugalMiPositiveRefuseNotSilent :
     evaluateFrugalMiOperation true ≠ .observationOk := by

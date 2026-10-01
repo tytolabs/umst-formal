@@ -33,20 +33,6 @@ def appendOnlyInvariant (t : HistoryTransition) : Prop :=
 def silentRewrite (t : HistoryTransition) : Prop :=
   t.post.commitId ≤ t.prior.commitId
 
-/-- Silent rewrite refused when append-only discipline holds. -/
-theorem silentRewriteRefused (t : HistoryTransition) (h : appendOnlyCommitMove t) :
-    ¬ silentRewrite t := by
-  unfold appendOnlyCommitMove silentRewrite at *
-  omega
-
-/-- Append-only and silent rewrite are mutually exclusive. -/
-theorem appendOnly_not_silentRewrite (t : HistoryTransition) :
-    appendOnlyCommitMove t ↔ ¬ silentRewrite t := by
-  constructor
-  · exact silentRewriteRefused t
-  · unfold appendOnlyCommitMove silentRewrite
-    omega
-
 /-- Admitted history transition with append-only discipline (§17.6). -/
 def appendOnlyAdmittedTransition (t : HistoryTransition) : Prop :=
   admissibleHistoryTransition t ∧ appendOnlyInvariant t
@@ -54,12 +40,6 @@ def appendOnlyAdmittedTransition (t : HistoryTransition) : Prop :=
 /-- Every transition in a chain respects append-only commit moves. -/
 def appendOnlyHistoryChain (ts : List HistoryTransition) : Prop :=
   ∀ t ∈ ts, appendOnlyCommitMove t
-
-/-- Chain append-only ⇒ no transition in the chain is a silent rewrite. -/
-theorem appendOnlyHistoryChain_refusesSilentRewrite (ts : List HistoryTransition)
-    (h : appendOnlyHistoryChain ts) (t : HistoryTransition) (ht : t ∈ ts) :
-    ¬ silentRewrite t :=
-  silentRewriteRefused t (h t ht)
 
 /-- Recovery snapshot must strictly extend prior commit id (new arrow, not rewrite). -/
 def recoveryAppendOnly (prior post : HistorySnapshot) : Prop :=
@@ -79,47 +59,5 @@ theorem recoveryAppendOnly_refusesSilentRewrite (prior post : HistorySnapshot)
 /-- Self-heal discipline: recovery transition obeys append-only when modeled as HistoryTransition. -/
 def selfHealAppendOnly (t : HistoryTransition) : Prop :=
   recoveryAppendOnly t.prior t.post
-
-theorem selfHealAppendOnly_eq_appendOnlyInvariant (t : HistoryTransition) :
-    selfHealAppendOnly t = appendOnlyInvariant t :=
-  rfl
-
-/-- Self-heal transition refuses snapshot-level silent rewrite. -/
-theorem selfHeal_not_silentRewrite (t : HistoryTransition) (h : selfHealAppendOnly t) :
-    ¬ silentRewriteSnapshots t.prior t.post :=
-  recoveryAppendOnly_refusesSilentRewrite t.prior t.post h
-
-/-- Physically bridged transition is append-only admitted. -/
-theorem appendOnlyAdmitted_from_physical (b : PhysicalHistoryBridge)
-    (hAppend : appendOnlyCommitMove b.transition)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    appendOnlyAdmittedTransition b.transition := by
-  refine ⟨admissibleHistoryTransition_from_physical b hSL, ?_⟩
-  exact hAppend
-
-/-- Physical bridge forbids silent rewrite on the bridged transition. -/
-theorem silentRewriteRefused_from_physical (b : PhysicalHistoryBridge)
-    (hAppend : appendOnlyCommitMove b.transition)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    ¬ silentRewrite b.transition :=
-  silentRewriteRefused b.transition hAppend
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-/-- Production wiring stays open (meso lift only). -/
-def appendOnlyProductionWired : Bool := false
-
-theorem appendOnlyProductionWiredFalse : appendOnlyProductionWired = false := rfl
-
-/-- Catalog witness: meso Urge AppendOnly module present. -/
-theorem appendOnlyModuleWitness : True := trivial
-
-/-- §17.6 named obligation: admitted history append-only; silent rewrite refused. -/
-theorem appendOnly_silentRewrite_refused (t : HistoryTransition) :
-    appendOnlyInvariant t → ¬ silentRewrite t :=
-  silentRewriteRefused t
 
 end UMST.Urge.AppendOnly

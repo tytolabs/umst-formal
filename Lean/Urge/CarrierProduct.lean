@@ -165,40 +165,6 @@ def carrierAlongTransition (t : HistoryTransition) (prior : HistoryCarrier)
   exactAlg := prior.exactAlg
   witness := prior.witness
 
-/-- Transition carrier preserves prior SDF/FRep + exact-alg factors. -/
-theorem carrierAlongTransition_preserves_sdf (t : HistoryTransition) (prior : HistoryCarrier)
-    (hPrior : prior.umst.commitId = t.prior.commitId) (postWall : Nat) :
-    (carrierAlongTransition t prior hPrior postWall).sdfFRep = prior.sdfFRep :=
-  rfl
-
-theorem carrierAlongTransition_preserves_exactAlg (t : HistoryTransition) (prior : HistoryCarrier)
-    (hPrior : prior.umst.commitId = t.prior.commitId) (postWall : Nat) :
-    (carrierAlongTransition t prior hPrior postWall).exactAlg = prior.exactAlg :=
-  rfl
-
--- ================================================================
--- SECTION 4: Second-law bridge (inherited — zero new axioms)
--- ================================================================
-
-/-- Physical bridge yields a carrier whose witness discharges `admitSecondLaw`. -/
-def carrierFromPhysical (b : PhysicalHistoryBridge) (prior : HistoryCarrier)
-    (hPrior : prior.umst.commitId = b.transition.prior.commitId)
-    (postWall : Nat) (_hSL : physicalSecondLawUniformBinary b.proc) : HistoryCarrier :=
-  { carrierAlongTransition b.transition prior hPrior postWall with
-    witness := satisfiedWitness }
-
-theorem carrierFromPhysical_admitSecondLaw (b : PhysicalHistoryBridge) (prior : HistoryCarrier)
-    (_hPrior : prior.umst.commitId = b.transition.prior.commitId)
-    (_postWall : Nat) (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
-theorem carrierFromPhysical_witness_satisfied (b : PhysicalHistoryBridge) (prior : HistoryCarrier)
-    (hPrior : prior.umst.commitId = b.transition.prior.commitId)
-    (_postWall : Nat) (hSL : physicalSecondLawUniformBinary b.proc) :
-    (carrierFromPhysical b prior hPrior 0 hSL).witness.satisfied = true :=
-  rfl
-
 -- ================================================================
 -- SECTION 5: Excitement alignment (no second argmin)
 -- ================================================================
@@ -209,40 +175,10 @@ noncomputable def carrierSelect {S : Type} [ThermodynamicSystem ℚ S] [Admissib
     Cand (K := ℚ) head ⊕ Residue :=
   select head cands
 
-theorem carrierSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (head : S) (cands : List (Cand (K := ℚ) head)) :
-    carrierSelect head cands = select head cands :=
-  rfl
-
 /-- Carrier recovery on a typed head — no Urge-local argmin (alias of `carrierSelect`). -/
 noncomputable def carrierRecovery {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
     [JointThermo ℚ S] (head : S) (successors : List (Cand (K := ℚ) head)) :
     Cand (K := ℚ) head ⊕ Residue :=
   carrierSelect head successors
-
-theorem carrierRecovery_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (head : S) (successors : List (Cand (K := ℚ) head)) :
-    carrierRecovery head successors = select head successors :=
-  rfl
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def carrierProductPhysicsGreen : Bool := false
-
-theorem carrierProductPhysicsGreenFalse : carrierProductPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (product lift only). -/
-def carrierProductProductionWired : Bool := false
-
-theorem carrierProductProductionWiredFalse : carrierProductProductionWired = false := rfl
-
-/-- Catalog witness: meso Urge CarrierProduct module present. -/
-theorem carrierProductModuleWitness : True := trivial
-
-/-- Zero new Lean axioms — sole physics input remains `physicalSecondLaw`. -/
-theorem carrierProduct_noNewAxiom : True := trivial
 
 end UMST.Urge.CarrierProduct

@@ -45,7 +45,7 @@ abbrev inheritFold := kleisliFold
 theorem kleisli_compose_preserves_admissibility (m n : ℕ) (f g : InheritArrow)
     (hf : WellTypedN m f) (hg : WellTypedN n g) :
     WellTypedN (m + n) (inheritCompose f g) :=
-  kleisliComposeWellTypedN m n f g hf hg
+  UMST.kleisliComposeWellTypedN m n f g hf hg
 
 /-- Single-step compose preserves admissibility (2-step graded witness). -/
 theorem kleisli_compose_preserves_admissibility_step (f g : InheritArrow)
@@ -76,7 +76,7 @@ theorem kleisli_compose_preserves_admissibility_at (f g : InheritArrow)
 /-- Associativity (inherited from `Compat.Constitutional`). -/
 theorem kleisli_associativity_inherited (f g h : InheritArrow) :
     inheritCompose (inheritCompose f g) h = inheritCompose f (inheritCompose g h) :=
-  kleisliComposeAssoc f g h
+  UMST.kleisliComposeAssoc f g h
 
 /-- Left unit (inherited). -/
 theorem kleisli_left_unit_inherited (f : InheritArrow) :
@@ -90,39 +90,5 @@ theorem kleisli_right_unit_inherited (f : InheritArrow) :
 
 /-- Rust parity probe: associativity inherited, not re-proved here. -/
 def kleisli_associativity_probe_holds : Bool := true
-
-theorem kleisliAssociativityProbeHolds : kleisli_associativity_probe_holds = true := rfl
-
--- ================================================================
--- SECTION 4: Excitement import (no second argmin)
--- ================================================================
-
-/-- History selection composes `Excitement.select` — inherited alias, not a fork. -/
-noncomputable def inheritHistorySelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src cands
-
-theorem inheritHistorySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    inheritHistorySelect src cands = select src cands :=
-  rfl
-
--- ================================================================
--- SECTION 5: Honesty flags + catalog witnesses
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def kleisliInheritPhysicsGreen : Bool := false
-
-theorem kleisliInheritPhysicsGreenFalse : kleisliInheritPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (inheritance lift only). -/
-def kleisliInheritProductionWired : Bool := false
-
-theorem kleisliInheritProductionWiredFalse : kleisliInheritProductionWired = false := rfl
-
-/-- Catalog witness: meso Urge KleisliInherit module present. -/
-theorem kleisliInheritModuleWitness : True := trivial
 
 end UMST.Urge.KleisliInherit

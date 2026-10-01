@@ -197,81 +197,6 @@ theorem homologRecovery_gitResetHard_refused :
 theorem homologRecovery_newArrow_ok_when_not_reset :
     evaluateHomologRecoveryOperation false = .newArrowOk := rfl
 
-theorem refuseGitResetHardSibling_positive :
-    refuseGitResetHardSibling = .gitResetHardSibling := rfl
-
-theorem refuseHomologAsCopy_positive :
-    refuseHomologAsCopy = .homologIsNotCopy := rfl
-
-theorem refuseSecondArgmin_positive :
-    refuseSecondArgmin = .secondArgmin := rfl
-
--- ================================================================
--- SECTION 3: Homolog recovery composes Excitement (no second argmin)
--- ================================================================
-
-/-- Excitement compose pin — import selector; refuse second local argmin. -/
-inductive HomologExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving Repr
-
-/-- Context for homolog recovery over admissible history successors. -/
-structure HomologRecoveryCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Homolog recovery path composes `select` — not a second argmin. -/
-noncomputable def homologExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) (pin : HomologExcitementComposePin) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select prior cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-/-- Homolog recovery **is** `urgeRecoverySelect` / `select`. -/
-noncomputable def homologRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : HomologRecoveryCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem homologExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    homologExcitementSelect prior cands .importSelectExcitement = select prior cands :=
-  rfl
-
-theorem homologRecoverySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : HomologRecoveryCtx S) :
-    homologRecoverySelect ctx = select ctx.prior ctx.successors := by
-  unfold homologRecoverySelect urgeRecoverySelect
-  rfl
-
-theorem homologRecoverySelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : HomologRecoveryCtx S) :
-    homologRecoverySelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem homologRecovery_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : HomologRecoveryCtx S) :
-    homologRecoverySelect ctx = select ctx.prior ctx.successors :=
-  homologRecoverySelect_eq_select ctx
-
-theorem homologExcitementSelect_refuses_secondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    homologExcitementSelect prior cands .secondArgminRefused = Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem homologRecovery_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    homologRecoverySelect { prior := prior, successors := successors } = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [homologRecoverySelect, urgeRecoverySelect] using urgeRecovery_empty (prior := prior)
-
 -- ================================================================
 -- SECTION 4: §22.1 fixtures + witness theorems
 -- ================================================================
@@ -309,9 +234,6 @@ def homologFixtureCopyClaimWitness : HomologWitness :=
   { homologFrom := homologFixtureFrom
     homologTo := homologFixtureTo
     claimsIdentityCopy := true }
-
-theorem homologFixture_gitResetHard_refused :
-    refuseGitResetHardSibling = .gitResetHardSibling := rfl
 
 theorem homologFixture_witness_notCopy :
     homologNotCopyOk homologFixtureWitness = true := rfl
@@ -362,66 +284,12 @@ structure HomologHistoryMove where
 def admissibleHomologRecovery (h : HomologHistoryMove) : Prop :=
   h.gateChecked ∧ h.homologNotCopy ∧ h.provenanceOk
 
-def homologSecondLaw (_t : HomologHistoryMove) (bath : HeatBath) (dissipatedWork entropyDrop : ℝ) :
-    Prop :=
-  entropyDrop ≤ dissipatedWork / bath.bathTemp.val
-
-structure PhysicalHomologBridge where
-  proc : ErasureProcess
-  move : HomologHistoryMove
-  bath : HeatBath
-  dissipatedWork : ℝ
-  entropyDrop : ℝ
-  bathEq : bath = proc.bath
-  workEq : dissipatedWork = proc.work
-  entropyDropEq :
-    entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleHomologRecovery move
-
-theorem homologSecondLaw_from_physical (b : PhysicalHomologBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    homologSecondLaw b.move b.bath b.dissipatedWork b.entropyDrop := by
-  unfold homologSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.dissipatedWork / b.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleHomologRecovery_from_physical (b : PhysicalHomologBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleHomologRecovery b.move :=
-  b.admissible
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def homologNotCopyPhysicsGreen : Bool := false
-
-theorem homologNotCopyPhysicsGreenFalse : homologNotCopyPhysicsGreen = false := rfl
-
-def homologNotCopyProductionWired : Bool := false
-
-theorem homologNotCopyProductionWiredFalse : homologNotCopyProductionWired = false := rfl
-
-theorem homologNotCopyModuleWitness : True := trivial
-
-theorem homologNotCopy_noNewAxiom : True := trivial
-
 theorem homologNotCopy_positiveRefuse_notSilent :
     evaluateHomologRecoveryOperation true ≠ .newArrowOk := by
   simp [evaluateHomologRecoveryOperation]
-
-theorem homologRecovery_classOfRefusal_gitReset :
-    recoveryClassOfRefusal .gitResetHardSibling = .gitResetHardSiblingClass := rfl
-
-theorem homologRecovery_classOfRefusal_homologCopy :
-    recoveryClassOfRefusal .homologIsNotCopy = .homologClaimsCopy := rfl
 
 end UMST.Urge.HomologNotCopy

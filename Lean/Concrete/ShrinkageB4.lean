@@ -144,23 +144,6 @@ private lemma b4UltimateEnvelope_mono_branch_hi {wc₁ wc₂ : ℚ}
     · simp [h₂, sub_le_sub_left h _]
   linarith
 
-theorem b4UltimateEnvelope_mono_on_lo {wc₁ wc₂ : ℚ}
-    (hlo₁ : wc₁ ≤ b4WcLo) (hlo₂ : wc₂ ≤ b4WcLo) (h : wc₁ ≤ wc₂) :
-    b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
-  b4UltimateEnvelope_mono_branch_lo hlo₁ hlo₂ h
-
-theorem b4UltimateEnvelope_mono_on_critical {wc₁ wc₂ : ℚ}
-    (hlo₁ : b4WcLo < wc₁) (hlo₂ : b4WcLo < wc₂) (hcrit₁ : wc₁ ≤ criticalWcChemPin)
-    (hcrit₂ : wc₂ ≤ criticalWcChemPin) (h : wc₁ ≤ wc₂) :
-    b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
-  b4UltimateEnvelope_mono_branch_critical hlo₁ hlo₂ hcrit₁ hcrit₂ h
-
-theorem b4UltimateEnvelope_mono_on_mid {wc₁ wc₂ : ℚ}
-    (hcrit₁ : criticalWcChemPin < wc₁) (hcrit₂ : criticalWcChemPin < wc₂)
-    (hmid₁ : wc₁ ≤ b4WcMid) (hmid₂ : wc₂ ≤ b4WcMid) (h : wc₁ ≤ wc₂) :
-    b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
-  b4UltimateEnvelope_mono_branch_mid hcrit₁ hcrit₂ hmid₁ hmid₂ h
-
 theorem b4UltimateEnvelope_mono_on_hi {wc₁ wc₂ : ℚ}
     (hmid₁ : b4WcMid < wc₁) (hmid₂ : b4WcMid < wc₂) (hhi₁ : wc₁ ≤ b4WcHi) (hhi₂ : wc₂ ≤ b4WcHi)
     (h : wc₁ ≤ wc₂) :
@@ -182,13 +165,6 @@ theorem b4UltimateEnvelope_knots_mono_critical_mid :
 theorem b4UltimateEnvelope_knots_mono_mid_hi :
     b4UltimateEnvelope b4WcMid ≤ b4UltimateEnvelope b4WcHi := by
   rw [b4UltimateEnvelope_at_mid, b4UltimateEnvelope_at_hi]; norm_num
-
-theorem b4UltimateEnvelope_knots_mono :
-    b4UltimateEnvelope b4WcLo ≤ b4UltimateEnvelope criticalWcChemPin ∧
-      b4UltimateEnvelope criticalWcChemPin ≤ b4UltimateEnvelope b4WcMid ∧
-        b4UltimateEnvelope b4WcMid ≤ b4UltimateEnvelope b4WcHi :=
-  ⟨b4UltimateEnvelope_knots_mono_lo_critical, b4UltimateEnvelope_knots_mono_critical_mid,
-    b4UltimateEnvelope_knots_mono_mid_hi⟩
 
 private lemma b4UltimateEnvelope_mono_from_lo_knot {wc : ℚ}
     (hlo : b4WcLo ≤ wc) (hcrit : wc ≤ criticalWcChemPin) :
@@ -268,7 +244,7 @@ private lemma b4UltimateEnvelope_mono_on_critical_closed {wc₁ wc₂ : ℚ}
       · exact b4UltimateEnvelope_mono_from_lo_knot hlo₂ hcrit₂
   · rcases le_iff_eq_or_lt.mp hlo₂ with h₂eq | h₂lt
     · linarith [h₁lt, h₂eq]
-    · exact b4UltimateEnvelope_mono_on_critical h₁lt h₂lt hcrit₁ hcrit₂ h
+    · exact b4UltimateEnvelope_mono_branch_critical h₁lt h₂lt hcrit₁ hcrit₂ h
 
 private lemma b4UltimateEnvelope_mono_on_mid_closed {wc₁ wc₂ : ℚ}
     (hcrit₁ : criticalWcChemPin ≤ wc₁) (hmid₁ : wc₁ ≤ b4WcMid)
@@ -283,7 +259,7 @@ private lemma b4UltimateEnvelope_mono_on_mid_closed {wc₁ wc₂ : ℚ}
       · exact b4UltimateEnvelope_mono_from_critical_knot (le_of_lt h₂lt) hmid₂
   · rcases le_iff_eq_or_lt.mp hcrit₂ with h₂eq | h₂lt
     · linarith [h₁lt, h₂eq]
-    · exact b4UltimateEnvelope_mono_on_mid h₁lt h₂lt hmid₁ hmid₂ h
+    · exact b4UltimateEnvelope_mono_branch_mid h₁lt h₂lt hmid₁ hmid₂ h
 
 private lemma b4UltimateEnvelope_mono_on_hi_closed {wc₁ wc₂ : ℚ}
     (hmid₁ : b4WcMid ≤ wc₁) (hhi₁ : wc₁ ≤ b4WcHi)
@@ -302,7 +278,7 @@ private lemma b4UltimateEnvelope_mono_on_hi_closed {wc₁ wc₂ : ℚ}
 
 private lemma b4UltimateEnvelope_mono_to_lo_knot {wc : ℚ} (h : wc ≤ b4WcLo) :
     b4UltimateEnvelope wc ≤ b4UltimateEnvelope b4WcLo :=
-  b4UltimateEnvelope_mono_on_lo h (le_refl b4WcLo) h
+  b4UltimateEnvelope_mono_branch_lo h (le_refl b4WcLo) h
 
 private lemma b4UltimateEnvelope_mono_cross_lo_critical {wc₁ wc₂ : ℚ}
     (hlo₁ : wc₁ ≤ b4WcLo) (hlo₂ : b4WcLo < wc₂) (hcrit₂ : wc₂ ≤ criticalWcChemPin) (_h : wc₁ ≤ wc₂) :
@@ -357,7 +333,7 @@ theorem envelope_global_mono_cross_knot {wc₁ wc₂ : ℚ}
   rcases hwc₂ with ⟨_, hhi₂⟩
   by_cases hlo₁ : wc₁ ≤ b4WcLo
   · by_cases hlo₂ : wc₂ ≤ b4WcLo
-    · exact b4UltimateEnvelope_mono_on_lo hlo₁ hlo₂ h
+    · exact b4UltimateEnvelope_mono_branch_lo hlo₁ hlo₂ h
     · by_cases hcrit₂ : wc₂ ≤ criticalWcChemPin
       · exact b4UltimateEnvelope_mono_cross_lo_critical hlo₁ (lt_of_not_ge hlo₂) hcrit₂ h
       · by_cases hmid₂ : wc₂ ≤ b4WcMid
@@ -367,7 +343,7 @@ theorem envelope_global_mono_cross_knot {wc₁ wc₂ : ℚ}
     · by_cases hlo₂ : wc₂ ≤ b4WcLo
       · linarith [hlo₂, h]
       · by_cases hcrit₂ : wc₂ ≤ criticalWcChemPin
-        · exact b4UltimateEnvelope_mono_on_critical (lt_of_not_ge hlo₁) (lt_of_not_ge hlo₂) hcrit₁ hcrit₂ h
+        · exact b4UltimateEnvelope_mono_branch_critical (lt_of_not_ge hlo₁) (lt_of_not_ge hlo₂) hcrit₁ hcrit₂ h
         · by_cases hmid₂ : wc₂ ≤ b4WcMid
           · exact b4UltimateEnvelope_mono_cross_critical_mid (lt_of_not_ge hlo₁) hcrit₁
               (lt_of_not_ge hcrit₂) hmid₂ h
@@ -379,16 +355,11 @@ theorem envelope_global_mono_cross_knot {wc₁ wc₂ : ℚ}
         · linarith [hcrit₂, hcrit₁]
         · by_cases hmid₂ : wc₂ ≤ b4WcMid
           · have hmid₁ : wc₁ ≤ b4WcMid := le_trans h hmid₂
-            exact b4UltimateEnvelope_mono_on_mid (lt_of_not_ge hcrit₁) (lt_of_not_ge hcrit₂) hmid₁ hmid₂ h
+            exact b4UltimateEnvelope_mono_branch_mid (lt_of_not_ge hcrit₁) (lt_of_not_ge hcrit₂) hmid₁ hmid₂ h
           · by_cases hmid₁ : wc₁ ≤ b4WcMid
             · exact b4UltimateEnvelope_mono_cross_mid_hi (lt_of_not_ge hcrit₁) hmid₁
                 (lt_of_not_ge hmid₂) hhi₂ h
             · exact b4UltimateEnvelope_mono_on_hi (lt_of_not_ge hmid₁) (lt_of_not_ge hmid₂) hhi₁ hhi₂ h
-
-theorem b4UltimateEnvelope_mono {wc₁ wc₂ : ℚ}
-    (hwc₁ : b4WcAdmissible wc₁) (hwc₂ : b4WcAdmissible wc₂) (h : wc₁ ≤ wc₂) :
-    b4UltimateEnvelope wc₁ ≤ b4UltimateEnvelope wc₂ :=
-  envelope_global_mono_cross_knot hwc₁ hwc₂ h
 
 noncomputable def alphaUlt (wc : ℚ) : ℚ := min (wc / criticalWcChemPin) 1
 
@@ -507,25 +478,6 @@ theorem autogenousShrinkageMicrostrain_nonpos {input : AutogenousShrinkageInput}
   have hpaste : 0 ≤ pasteFactor input.cement_content_kg := by unfold pasteFactor; split_ifs <;> linarith
   have hscm : 0 ≤ scmFactor input.scm_ratio := by unfold scmFactor; nlinarith
   exact mul_nonpos_of_nonpos_of_nonneg (mul_nonpos_of_nonpos_of_nonneg (mul_nonpos_of_nonpos_of_nonneg henvelope hdev) hpaste) hscm
-
-inductive B2OpenObligation
-  | transcendental_development_bridge
-  | paste_factor_sqrt_bridge
-  | full_compose_stack_cd_closure
-  | operator_epsilon_calibration
-  deriving DecidableEq, Repr
-
-def b2OpenObligationCertId : String := "CC-P-B2-1"
-
-def b2OpenObligationDescription : B2OpenObligation → String
-  | .transcendental_development_bridge =>
-      "prove rational scaffold approximates ℝ exp(-3α/α_ult) within operator ε on admissible box"
-  | .paste_factor_sqrt_bridge =>
-      "prove sqrt(cement/350) paste factor matches rational scaffold or tighten domain"
-  | .full_compose_stack_cd_closure =>
-      "end-to-end Clausius–Duhem closure for B2 compose stack (beyond slice-1 scalar)"
-  | .operator_epsilon_calibration =>
-      "measured ε bounds + operator B2-O1 anchor — P3/P4/P5 cert gate"
 
 #print axioms shrinkageDevelopmentExp_mono_in_degree
 #print axioms shrinkageDevelopment_parallel_bounds

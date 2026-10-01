@@ -9,13 +9,11 @@
 -- not a third axiom.  Sample-probe layer on @EnvironmentContinuum@.
 --
 -- Imports EnvironmentContinuum only; ZERO new postulates.
--- physics_green: false — thermo witnesses remain Unwired until FORMAL BAR.
 ------------------------------------------------------------------------
 
-import Chem.SecondLaw
 
-module Chem.Environment.EnvSampleSections (Φ : Chem.SecondLaw.SecondLawPhysics) where
-open import Chem.Environment.EnvironmentContinuum Φ
+module Chem.Environment.EnvSampleSections where
+open import Chem.Environment.EnvironmentContinuum
 open import Chem.KleisliInteract using (admissible-refl)
 open import Concrete.Gate using (ThermodynamicState; gate)
 open import Data.Bool using (Bool; false)
@@ -119,9 +117,6 @@ sampleSectionOnEdge envMessy S e = messySampleSectionOnEdge S e
 -- Named sections are simultaneous — not XOR regime selection
 ------------------------------------------------------------------------
 
-envSampleSectionsNamedNotXor : ⊤
-envSampleSectionsNamedNotXor = tt
-
 envSampleSectionsRegimeDistinct :
   (envVacuum ≢ envContained)
   × (envVacuum ≢ envMessy)
@@ -158,30 +153,6 @@ envSampleSectionsFixtureTriple :
   ≡ (1ℚ , normalize 2 1 , normalize 3 1)
 envSampleSectionsFixtureTriple = refl
 
-envSampleSectionsFixtureWitness : ⊤
-envSampleSectionsFixtureWitness = tt
-
 ------------------------------------------------------------------------
--- Honesty fence (physics_green false — not measured env pins)
 ------------------------------------------------------------------------
 
-chem-env-sample-sections-physics-green : Bool
-chem-env-sample-sections-physics-green = false
-
-chem-env-sample-sections-physics-green-false :
-  chem-env-sample-sections-physics-green ≡ false
-chem-env-sample-sections-physics-green-false = refl
-
-env-sample-sections-production-wired : Bool
-env-sample-sections-production-wired = false
-
-env-sample-sections-production-wired-false :
-  env-sample-sections-production-wired ≡ false
-env-sample-sections-production-wired-false = refl
-
-------------------------------------------------------------------------
--- Module witness (meso acting env sample sections anchor)
-------------------------------------------------------------------------
-
-envSampleSectionsModuleWitness : ⊤
-envSampleSectionsModuleWitness = tt

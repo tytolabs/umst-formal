@@ -165,10 +165,6 @@ def eraseSecondLawStep (proc : ErasureProcess) (prior post : ProbDist 2) : Prop 
 def eraseSecondLaw (proc : ErasureProcess) (prior : ProbDist 2) : Prop :=
   eraseSecondLawStep proc prior (diracDist (0 : Fin 2))
 
-theorem eraseSecondLaw_eq_step (proc : ErasureProcess) (prior : ProbDist 2) :
-    eraseSecondLaw proc prior =
-      eraseSecondLawStep proc prior (diracDist (0 : Fin 2)) := rfl
-
 /-- Erasure-only spelling retained for existing importers (`ProcessFamily.SecondLaw` generalises this). -/
 abbrev SecondLaw := eraseSecondLaw
 
@@ -180,9 +176,6 @@ abbrev physicalSecondLaw := eraseSecondLaw
     `SecondLaw proc uniformBinary` in some positions). -/
 def physicalSecondLawUniformBinary (proc : ErasureProcess) : Prop :=
   eraseSecondLaw proc uniformBinary
-
-theorem physicalSecondLawUniformBinary_eq (proc : ErasureProcess) :
-    physicalSecondLawUniformBinary proc = eraseSecondLaw proc uniformBinary := rfl
 
 /-- Erasure process that meets the Landauer floor at `uniformBinary` (work = T · ln 2). -/
 noncomputable def landauerTightErasure (T : ℝ) (hT : 0 < T) : ErasureProcess where

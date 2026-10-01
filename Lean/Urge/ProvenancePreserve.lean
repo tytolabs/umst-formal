@@ -8,7 +8,7 @@
   `preserves : Transition → Provenance → Provenance → Prop` — Excitement `select`
   must respect this by construction (obligation named here; wiring stays open).
 
-  Anchored in `LandauerLaw.physicalSecondLaw` via inherited `admitSecondLaw`.
+  The witness obligation is the admissibility of the move under the one second law.
   Adds **zero** Lean `axiom` declarations.
 -/
 
@@ -41,7 +41,7 @@ def preserves (t : Transition) (prior post : Provenance) : Prop :=
   post.dagCommit = t.post.commitId ∧
   post.ucrsChain = prior.ucrsChain ++ [prior.dagCommit] ∧
   (∀ _ : prior.landauerWitness, post.landauerWitness) ∧
-  (post.landauerWitness → admitSecondLaw t)
+  (post.landauerWitness → admissibleHistoryTransition t)
 
 theorem preserves_chain_append (t : Transition) (prior post : Provenance)
     (h : preserves t prior post) :
@@ -53,57 +53,16 @@ theorem preserves_witness_retained (t : Transition) (prior post : Provenance)
     post.landauerWitness :=
   h.2.2.2.1 hw
 
-theorem preserves_discharges_second_law (t : Transition) (prior post : Provenance)
-    (h : preserves t prior post) (hw : post.landauerWitness) :
-    admitSecondLaw t :=
-  h.2.2.2.2 hw
-
-def postProvenanceFromPhysical (b : PhysicalHistoryBridge)
-    (prior : Provenance) (_hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (_hSL : physicalSecondLawUniformBinary b.proc) : Provenance where
+/-- The provenance after a move: the stamp chain extended by the prior commit, the DAG at the move's target. -/
+def postProvenance (t : Transition) (prior : Provenance) : Provenance where
   ucrsChain := prior.ucrsChain ++ [prior.dagCommit]
-  dagCommit := b.transition.post.commitId
+  dagCommit := t.post.commitId
   landauerWitness := True
 
-theorem physicalBridge_preserves (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    preserves b.transition prior (postProvenanceFromPhysical b prior hPrior hSL) := by
-  refine ⟨hPrior, rfl, rfl, fun _ => trivial, fun _ => admitSecondLaw_from_physical b hSL⟩
-
-theorem admissibleHistoryTransition_preserves (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleHistoryTransition b.transition ∧
-      preserves b.transition prior (postProvenanceFromPhysical b prior hPrior hSL) := by
-  refine ⟨admissibleHistoryTransition_from_physical b hSL, ?_⟩
-  exact physicalBridge_preserves b prior hPrior hSL
-
-noncomputable abbrev provenanceSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src cands
-
-theorem provenanceSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    provenanceSelect src cands = select src cands :=
-  rfl
-
-def excitementSelectRespectsPreserves : Prop :=
-  ∀ (t : Transition) (prior post : Provenance), preserves t prior post → True
-
-theorem excitement_select_respects_preserves (_t : Transition) (_prior _post : Provenance)
-    (_h : preserves _t _prior _post) : excitementSelectRespectsPreserves := by
-  intro _ _ _ _
-  trivial
-
-def urgePhysicsGreen : Bool := false
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def provenancePreserveProductionWired : Bool := false
-theorem provenancePreserveProductionWiredFalse : provenancePreserveProductionWired = false := rfl
-
-theorem provenancePreserveModuleWitness : True := trivial
-theorem provenancePreserve_noNewAxiom : True := trivial
+/-- An admissible move from the prior's commit preserves provenance; the second law discharges the witness. -/
+theorem postProvenance_preserves (t : Transition) (prior : Provenance)
+    (hPrior : prior.dagCommit = t.prior.commitId) (hSL : admissibleHistoryTransition t) :
+    preserves t prior (postProvenance t prior) :=
+  ⟨hPrior, rfl, rfl, fun _ => trivial, fun _ => hSL⟩
 
 end UMST.Urge.ProvenancePreserve

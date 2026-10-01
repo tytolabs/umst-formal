@@ -122,8 +122,6 @@ theorem residueConstructorsDistinctHolds : residueConstructorsDistinct :=
 
 def residueConstructorCount : Nat := 6
 
-theorem residue_constructor_count_is_six : residueConstructorCount = 6 := rfl
-
 def pinSixResidueConstructors : List Residue :=
   [.noCandidates, .allInadmissible, .allExcludedByCBF, .allExcludedByDEC,
    .untaggedConstant, .noStrictImprovement]
@@ -195,13 +193,6 @@ theorem observedDeltaFFromCand_delta {S : Type} [ThermodynamicSystem ℚ S] [Adm
       candEnergy (src := src) c - jointFreeEnergy src :=
   rfl
 
-/-- Theater pattern: treating non-ℚ (e.g. f64/Float) as the ΔF carrier. -/
-def f64DeltaFTheater : Prop :=
-  (ℚ : Type) ≠ ℚ
-
-theorem refuseF64DeltaF : ¬ f64DeltaFTheater :=
-  fun h => h rfl
-
 /-- Positive pin: observed ΔF uses ℚ exact Rat, not f64 compare. -/
 def exactRatObservedDeltaF : Prop :=
   ∀ (d : ObservedDeltaF), ∃ q : ℚ, observedDeltaF d = q
@@ -231,11 +222,6 @@ noncomputable def residueReturnSelect {S : Type} [ThermodynamicSystem ℚ S] [Ad
     Cand (K := ℚ) src ⊕ Residue :=
   select src cands
 
-theorem residueReturnSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    residueReturnSelect src cands = select src cands :=
-  rfl
-
 /-- Record one recovery attempt via imported `select`. -/
 noncomputable def recordRecoveryAttempt {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
     [JointThermo ℚ S] (buf : ReturnPayload) (src : S) (cands : List (Cand (K := ℚ) src)) :
@@ -248,34 +234,6 @@ noncomputable def recordRecoveryAttempt {S : Type} [ThermodynamicSystem ℚ S] [
   | Sum.inr r =>
       ({ buf with counts := buf.counts.record r }, Sum.inr r)
 
-theorem recordRecoveryAttempt_inl {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (buf : ReturnPayload) (src : S) (cands : List (Cand (K := ℚ) src))
-    (c : Cand (K := ℚ) src) (h : residueReturnSelect src cands = Sum.inl c) :
-    (recordRecoveryAttempt buf src cands).1.observedDeltaF.length =
-      buf.observedDeltaF.length + 1 := by
-  unfold recordRecoveryAttempt
-  simp [h]
-
-theorem recordRecoveryAttempt_inr {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (buf : ReturnPayload) (src : S) (cands : List (Cand (K := ℚ) src))
-    (r : Residue) (h : residueReturnSelect src cands = Sum.inr r) :
-    (recordRecoveryAttempt buf src cands).1.counts =
-      buf.counts.record r := by
-  unfold recordRecoveryAttempt
-  simp [h]
-
-/-- Empty successor list → `Residue.noCandidates` via imported `select`. -/
-theorem residueReturn_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) :
-    residueReturnSelect src [] = Sum.inr Residue.noCandidates := by
-  simpa [residueReturnSelect] using select_empty (src := src)
-
-theorem recordRecoveryAttempt_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (buf : ReturnPayload) (src : S) :
-    (recordRecoveryAttempt buf src []).2 = Sum.inr Residue.noCandidates := by
-  unfold recordRecoveryAttempt
-  simp [residueReturn_empty]
-
 /-- Seventh residue constructor forbidden — Lean arity is six. -/
 inductive SeventhConstructorRefusal where
   | seventh : SeventhConstructorRefusal
@@ -284,54 +242,5 @@ def refuseSeventhConstructor : SeventhConstructorRefusal := .seventh
 
 theorem seventhConstructorRefused : ∃ _ : SeventhConstructorRefusal, True :=
   ⟨refuseSeventhConstructor, trivial⟩
-
--- ================================================================
--- SECTION 6: physicalSecondLaw bridge (inherited — zero new axioms)
--- ================================================================
-
-structure ResidueReturnTransition where
-  history   : HistoryTransition
-  returnBuf : ReturnPayload
-
-structure PhysicalResidueReturnBridge where
-  bridge : PhysicalHistoryBridge
-  pack   : ResidueReturnTransition
-  historyEq : pack.history = bridge.transition
-
-theorem residueReturn_admitSecondLaw_from_physical (b : PhysicalResidueReturnBridge)
-    (hSL : physicalSecondLawUniformBinary b.bridge.proc) :
-    admitSecondLaw b.pack.history := by
-  rw [b.historyEq]
-  exact admitSecondLaw_from_physical b.bridge hSL
-
-theorem residueReturn_admissible_from_physical (b : PhysicalResidueReturnBridge)
-    (hSL : physicalSecondLawUniformBinary b.bridge.proc) :
-    admissibleHistoryTransition b.pack.history := by
-  rw [b.historyEq]
-  exact admissibleHistoryTransition_from_physical b.bridge hSL
-
--- ================================================================
--- SECTION 7: Honesty flags + catalog witnesses
--- ================================================================
-
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def residueReturnProductionWired : Bool := false
-
-theorem residueReturnProductionWiredFalse : residueReturnProductionWired = false := rfl
-
-theorem residueReturnModuleWitness : True := trivial
-
-theorem residueReturn_noNewAxiom : True := trivial
-
-theorem residueReturn_namedSixConstructors : residueConstructorsDistinct :=
-  residueConstructorsDistinctHolds
-
-theorem residueReturn_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    residueReturnSelect src cands = select src cands :=
-  rfl
 
 end UMST.Urge.ResidueReturn

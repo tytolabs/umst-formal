@@ -78,23 +78,12 @@ lemma capillaryPorosity_g0_eq_jennings {wc α : ℚ} :
   unfold capillaryPorosity capillaryPorosityRaw g0PowersCoeffs φ_cap clamp01
   norm_num
 
-lemma capillaryPorosity_nonneg {wc α : ℚ} (c : PowersCapillaryCoeffs) :
-    0 ≤ capillaryPorosity wc α c := by
-  unfold capillaryPorosity clamp01
-  exact le_max_left _ _
-
-lemma capillaryPorosity_le_one {wc α : ℚ} (c : PowersCapillaryCoeffs) :
-    capillaryPorosity wc α c ≤ 1 := by
-  unfold capillaryPorosity clamp01
-  have hmin : min 1 (capillaryPorosityRaw wc α c) ≤ 1 := min_le_left _ _
-  calc
-    max 0 (min 1 _) ≤ max 0 1 := max_le_max (le_refl _) hmin
-    _ = 1 := by norm_num
-
-/-- B3-S1: clamped capillary porosity lies in `[0, 1]` on ℚ. -/
+/-- B3-S1: capillary porosity lies in `[0, 1]` on ℚ, because it is the raw Powers porosity clamped to that
+    interval. -/
 theorem capillaryPorosity_unit_interval {wc α : ℚ} (c : PowersCapillaryCoeffs) :
-    0 ≤ capillaryPorosity wc α c ∧ capillaryPorosity wc α c ≤ 1 :=
-  ⟨capillaryPorosity_nonneg c, capillaryPorosity_le_one c⟩
+    0 ≤ capillaryPorosity wc α c ∧ capillaryPorosity wc α c ≤ 1 := by
+  unfold capillaryPorosity clamp01
+  exact ⟨le_max_left _ _, max_le (by norm_num) (min_le_left _ _)⟩
 
 private lemma capillaryPorosityRaw_mono_in_alpha {wc : ℚ} {c : PowersCapillaryCoeffs}
     (hcoeff : 0 ≤ c.nonEvapWaterCoeff) {α₁ α₂ : ℚ} (hα : α₁ ≤ α₂)

@@ -106,12 +106,6 @@ def refusesGitKleisliFusion (coords : ThreeDagCoordinates) : Bool :=
 def refusesUcrsGitFusion (coords : ThreeDagCoordinates) : Bool :=
   coords.tdcUcrsSeq == coords.tdcGitCommit
 
-def refuseSecondArgminSelector : ThreeDagFusionRefusal :=
-  .secondArgminRefused
-
-theorem refuseSecondArgminSelector_positive :
-    refuseSecondArgminSelector = .secondArgminRefused := rfl
-
 theorem refuses_git_kleisli_fusion_detects_equal (n : Nat) :
     refusesGitKleisliFusion
       { tdcGitCommit := n, tdcKleisliArrow := n, tdcUcrsSeq := 0 } = true := by
@@ -156,69 +150,6 @@ def applyThreeDagMorphism (coords : ThreeDagCoordinates) (kleisli : KleisliHisto
           witness := witnessFromCoords coords kleisli stamp
           excitementSelected := excitementSelected }
     | .refused r => Sum.inr r
-
--- ================================================================
--- SECTION 3: Three-DAG walk composes Excitement (no second argmin)
--- ================================================================
-
-/-- Excitement compose pin — import selector; refuse second local argmin. -/
-inductive ThreeDagExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving Repr
-
-/-- Context for three-DAG selection over admissible history successors. -/
-structure ThreeDagCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior : S
-  successors : List (Cand (K := ℚ) prior)
-
-/-- Compose path composes `Excitement.select` — not a second argmin. -/
-noncomputable def threeDagExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) (pin : ThreeDagExcitementComposePin) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-/-- Three-DAG Kleisli walk **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def threeDagSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ThreeDagCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem threeDagSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ThreeDagCtx S) :
-    threeDagSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem threeDagSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : ThreeDagCtx S) :
-    threeDagSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem threeDag_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ThreeDagCtx S) :
-    threeDagSelect ctx = select ctx.prior ctx.successors :=
-  threeDagSelect_eq_select ctx
-
-theorem threeDagExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    threeDagExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem threeDagExcitementSelect_refuses_second_argmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    threeDagExcitementSelect src cands .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem threeDagSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ThreeDagCtx S) (h : ctx.successors = []) :
-    threeDagSelect ctx = Sum.inr Residue.noCandidates := by
-  simp [threeDagSelect, urgeRecoverySelect_eq_select, h, select_empty]
 
 -- ================================================================
 -- SECTION 4: §16.11 fixtures + witness theorems
@@ -279,11 +210,6 @@ theorem threeDagFixture_witness_preserves_ucrs :
       threeDagFixtureUcrs :=
   rfl
 
-theorem threeDagFixture_physics_green_invent_refused :
-    evaluateThreeDagWalk threeDagFixtureCoords threeDagFixtureKleisli
-      threeDagFixtureUcrsNode true = .refused .physicsGreenInvent :=
-  rfl
-
 theorem threeDag_fusion_refuse_not_silent :
     evaluateThreeDagWalk threeDagFixtureFusedCoords
       { arrowId := 66, gateMergeExcitementAdmitted := true }
@@ -307,57 +233,9 @@ structure ThreeDagTransition where
   conjunct : ThreeDagAdmissibilityConjunct
   excitementSelected : Bool
 
-def threeDagSecondLaw (t : ThreeDagTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
 def admissibleThreeDagWalk (t : ThreeDagTransition) : Prop :=
   threeDagConjunctAdmits t.conjunct = true ∧
     evaluateThreeDagWalk t.coords t.kleisli t.ucrs false = .admitted ∧
     t.excitementSelected
-
-structure PhysicalThreeDagBridge where
-  proc : ErasureProcess
-  transition : ThreeDagTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleThreeDagWalk transition
-
-theorem threeDagSecondLaw_from_physical (b : PhysicalThreeDagBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    threeDagSecondLaw b.transition := by
-  unfold threeDagSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleThreeDagWalk_from_physical (b : PhysicalThreeDagBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleThreeDagWalk b.transition :=
-  b.admissible
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def threeDagSeparatePhysicsGreen : Bool := false
-
-theorem threeDagSeparatePhysicsGreenFalse : threeDagSeparatePhysicsGreen = false := rfl
-
-def threeDagSeparateProductionWired : Bool := false
-
-theorem threeDagSeparateProductionWiredFalse : threeDagSeparateProductionWired = false := rfl
-
-theorem threeDagSeparateModuleWitness : True := trivial
-
-theorem threeDagSeparate_noNewAxiom : True := trivial
 
 end UMST.Urge.ThreeDagSeparate

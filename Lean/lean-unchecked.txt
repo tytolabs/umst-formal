@@ -1,5 +1,4 @@
 # Tracked Lean files that no CI target compiles, each with its reason. scripts/check_lean_ci_closure.py fails on
 # any other unchecked file and on stale entries, so this list only shrinks. Nothing here is a project claim.
-Lean/_check_ext.lean          # local #print / #check probes (lakefile note); refer to pre-namespace names, do not compile
 Lean/scripts/print_axioms.lean  # a program, run by scripts/check_print_axioms.sh (lake env lean --run) in CI
 Lean/tests/AxiomProbe.lean    # negative regression: must fail to elaborate (the universal-axiom discharge is gone); CI asserts the failure

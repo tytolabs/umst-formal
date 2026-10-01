@@ -87,12 +87,6 @@ theorem kleisliFoldWellTypedN {K : Type} [LinearOrderedField K] [ThermodynamicSc
         intro h hmem
         exact hall h (List.mem_cons_of_mem f hmem)
 
-theorem kleisliFoldWellTyped {K : Type} [LinearOrderedField K] [ThermodynamicScalar K] {S : Type}
-    [ThermodynamicSystem K S] [AdmissibleSystem K S] (arrows : List (KleisliArrow S))
-    (hall : AllWellTyped arrows) :
-    WellTypedN arrows.length (kleisliFold arrows) :=
-  kleisliFoldWellTypedN arrows hall
-
 inductive ConstitutionalSeq {K : Type} [LinearOrderedField K] [ThermodynamicScalar K] {S : Type}
     [ThermodynamicSystem K S] [AdmissibleSystem K S] : List S → Prop where
   | nil : ConstitutionalSeq []

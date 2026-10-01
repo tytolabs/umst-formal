@@ -4,7 +4,7 @@
 -- UMST.Concrete.Helmholtz — Helmholtz free-energy model (OPC cartridge).
 --
 -- FORMAL-AGDA-HELMHOLTZ: zero postulate lines; ordered-field proofs on ℚ.
--- physics_green: false — concrete arithmetic witness only (Gate ψ-antitone
+-- Concrete arithmetic witness (Gate ψ-antitone
 -- remains a separate physical-model interface).
 ------------------------------------------------------------------------
 

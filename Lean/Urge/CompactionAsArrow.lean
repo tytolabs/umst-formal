@@ -91,9 +91,6 @@ inductive CompactionAsArrowRefuse where
   | missingDerivationWitness
   deriving DecidableEq, Repr
 
-def refuseDeleteOldCommitsTheater : CompactionAsArrowRefuse :=
-  .deleteOldCommitsTheater
-
 def refuseMiUnpaid : CompactionAsArrowRefuse :=
   .miUnpaid
 
@@ -187,98 +184,9 @@ theorem landauerBridgeMiPaidWhenNonzero (n : Nat) (h : 0 < n) :
   | zero => simp at h
   | succ k => simp [miPaymentFromLandauerBits, miPaidBool]
 
-/-- Composite arrow from physical bridge + prior provenance chain extension. -/
-def compositeFromLandauer (b : PhysicalHistoryBridge) (prior : Provenance)
-    (_hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (_hSL : physicalSecondLawUniformBinary b.proc) (excitementSelected : Bool) :
-    CompactionArrow :=
-  { compositeId := b.transition.post.commitId
-    compositeWitness := { derivationChain := prior.ucrsChain ++ [prior.dagCommit] }
-    compositeSourceCommit := prior.dagCommit
-    compositeExcitementSelected := excitementSelected }
-
-theorem compositeFromLandauerRetainsChain (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc) (excitementSelected : Bool) :
-    retainsChain (compositeFromLandauer b prior hPrior hSL excitementSelected).compositeWitness := by
-  dsimp [retainsChain, compositeFromLandauer]
-  simp
-
-theorem landauerCompactionPreservesProvenance (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    preserves b.transition prior (postProvenanceFromPhysical b prior hPrior hSL) :=
-  physicalBridge_preserves b prior hPrior hSL
-
-theorem compactionSecondLawFromPhysical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
 -- ================================================================
 -- SECTION 4: Compaction composes Excitement.select (no second argmin)
 -- ================================================================
-
-/-- Context for compaction over admissible history successors (ReplicaCoalgebra-style). -/
-structure CompactionCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Urge compaction **is** `Excitement.select` — not a second argmin. -/
-noncomputable def compactionAsArrowSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CompactionCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def compactionAsArrowSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem compactionAsArrowSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CompactionCtx S) :
-    compactionAsArrowSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem compactionAsArrowSelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    compactionAsArrowSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem compactionAsArrowSelect_eq_bare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CompactionCtx S) :
-    compactionAsArrowSelect ctx = compactionAsArrowSelectBare ctx.prior ctx.successors :=
-  rfl
-
-theorem compactionAsArrowNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CompactionCtx S) :
-    compactionAsArrowSelect ctx = admitHistorySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem compactionAsArrow_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CompactionCtx S) (h : ctx.successors = []) :
-    compactionAsArrowSelect ctx = Sum.inr Residue.noCandidates := by
-  simp [compactionAsArrowSelect, h]
-  exact select_empty (src := ctx.prior)
-
-/-- Bare successor list selector — compose `Excitement.select`, refuse second argmin. -/
-noncomputable def urgeCompactionSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src cands
-
-theorem urgeCompactionSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    urgeCompactionSelect src cands = select src cands :=
-  rfl
-
-theorem urgeCompactionSelect_eq_admitHistorySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    urgeCompactionSelect src cands = admitHistorySelect src cands :=
-  rfl
 
 /-- Kleisli composite pin — compaction chains inherited arrows, not squash. -/
 abbrev compactionCompose := kleisliCompose
@@ -340,12 +248,6 @@ theorem fixtureArrowFromEmptyChainRefused :
     compactionArrowFromChain 1 [] 0 true = Sum.inr .missingDerivationWitness :=
   rfl
 
-theorem refuseDeleteOldCommitsTheaterPositive :
-    refuseDeleteOldCommitsTheater = .deleteOldCommitsTheater := rfl
-
-theorem refuseSecondArgminPositive :
-    refuseSecondArgmin = .secondArgmin := rfl
-
 theorem positiveRefuseNotSilent :
     evaluateCompactionAttempt fixtureDeleteOldCommits ≠ .accept := by
   simp [evaluateCompactionAttempt, fixtureDeleteOldCommits]
@@ -354,24 +256,9 @@ theorem positiveRefuseNotSilent :
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def compactionAsArrowProductionWired : Bool := false
-
-theorem compactionAsArrowProductionWiredFalse : compactionAsArrowProductionWired = false := rfl
-
 def compactionAsArrowMarker : Nat := 175
 
 theorem compactionAsArrowMarkerPos : 0 < compactionAsArrowMarker := by decide
-
-theorem compactionAsArrowModuleWitness : True := trivial
-
-theorem compactionAsArrowNoNewAxiom : True := trivial
-
-theorem compactionAsArrowNoSecondArgmin :
-    refuseSecondArgmin = .secondArgmin := rfl
 
 theorem deleteOldCommitsRefused (a : CompactionAttempt)
     (h : a.attemptDeleteOldCommits = true) :

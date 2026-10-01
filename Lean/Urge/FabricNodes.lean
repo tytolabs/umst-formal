@@ -158,8 +158,6 @@ def refuseByzantineMeshClaim : FabricNodesRefusal := .byzantineMeshClaim
 
 def refuseForgejoInstallClaim : FabricNodesRefusal := .forgejoInstallClaim
 
-def refuseSecondArgminSelector : FabricNodesRefusal := .secondArgmin
-
 def admitFabricNodePin (pin : FabricNodePin) : Unit ⊕ FabricNodesRefusal :=
   if pin.byzantineMesh then Sum.inr .byzantineMeshClaim
   else if pin.claimsForgejoRunning then Sum.inr .forgejoInstallClaim
@@ -198,15 +196,6 @@ theorem fabricNodesForgejoInstallRefused :
 theorem fabricNodesPinOkWhenHonest :
     evaluateFabricNodesOperation false false = .pinOk := rfl
 
-theorem refuseByzantineMeshClaimPositive :
-    refuseByzantineMeshClaim = .byzantineMeshClaim := rfl
-
-theorem refuseForgejoInstallClaimPositive :
-    refuseForgejoInstallClaim = .forgejoInstallClaim := rfl
-
-theorem refuseSecondArgminSelectorPositive :
-    refuseSecondArgminSelector = .secondArgmin := rfl
-
 theorem fabricNodesPositiveRefuseNotSilent :
     evaluateFabricNodesOperation true false ≠ .pinOk := by decide
 
@@ -217,81 +206,10 @@ theorem fabricNodesForgejoRefuseNotSilent :
 -- SECTION 6: Excitement compose pin (no second ℚ argmin)
 -- ================================================================
 
-structure FabricNodesCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
 noncomputable def urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
     [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
     Cand (K := ℚ) prior ⊕ Residue :=
   select prior successors
-
-noncomputable def fabricNodesSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FabricNodesCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem fabricNodesSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : FabricNodesCtx S) :
-    fabricNodesSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem fabricNodesSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : FabricNodesCtx S) :
-    fabricNodesSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem fabricNodesNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FabricNodesCtx S) :
-    fabricNodesSelect ctx = select ctx.prior ctx.successors :=
-  fabricNodesSelect_eq_excitementSelect ctx
-
-theorem fabricNodesEmpty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FabricNodesCtx S) (h : ctx.successors = []) :
-    fabricNodesSelect ctx = Sum.inr Residue.noCandidates := by
-  unfold fabricNodesSelect urgeRecoverySelect
-  rw [h]
-  simpa using select_empty (src := ctx.prior)
-
-inductive FabricExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving DecidableEq, Repr
-
-noncomputable def fabricExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) (pin : FabricExcitementComposePin) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select prior cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-theorem fabricExcitementSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    fabricExcitementSelect prior cands .importSelectExcitement = select prior cands :=
-  rfl
-
-theorem fabricExcitementSelect_refusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    fabricExcitementSelect prior cands .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-def excitementComposePin : Nat := 0
-
-theorem excitementComposePinMarker : excitementComposePin = 0 := rfl
-
-noncomputable def urgeFabricSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem urgeFabricSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    urgeFabricSelect prior successors = select prior successors :=
-  rfl
 
 -- ================================================================
 -- SECTION 7: §15 fixtures + Landauer bridge (ReplicaCoalgebra-style)
@@ -339,15 +257,6 @@ theorem fabricNode1MapsToDevClone :
 theorem fabricUnknownNodeIdRefused :
     fabricReplicaFromNodeId 99 = none := rfl
 
-theorem fabricOfflineLuksEgressEmpty :
-    fabricReplicaEgressEmpty .offlineLuks = true := rfl
-
-theorem fabricDarwinScratchEgressEmpty :
-    fabricReplicaEgressEmpty .darwinScratch = true := rfl
-
-theorem fabricForgejoPrimaryEgressNonempty :
-    fabricReplicaEgressEmpty .forgejoPrimaryMirror = false := rfl
-
 theorem fabricFixtureWitnessPreservesUcrs :
     (witnessFromFabricPin fabricFixtureNode0Pin).ucrs = fabricFixtureUcrs := rfl
 
@@ -377,9 +286,6 @@ theorem fabricFixtureByzantineRefused :
 theorem fabricFixtureForgejoRefused :
     admitFabricNodePin fabricFixtureForgejoPin = Sum.inr .forgejoInstallClaim := rfl
 
-theorem fabricNodesSchemaPinEq :
-    fabricNodesSchemaPin = "umst_fabric_nodes_v1" := rfl
-
 structure FabricHistoryMove where
   prior           : ThermodynamicState
   post            : ThermodynamicState
@@ -397,62 +303,6 @@ theorem admissibleFabricHistoryMove_intro (h : FabricHistoryMove)
 
 abbrev admitFabricInbound := admissibleFabricHistoryMove
 
-structure FabricTransition where
-  move            : FabricHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def fabricSecondLaw (t : FabricTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalFabricBridge where
-  proc : ErasureProcess
-  transition : FabricTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleFabricHistoryMove transition.move
-
-theorem fabricSecondLaw_from_physical (b : PhysicalFabricBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    fabricSecondLaw b.transition := by
-  unfold fabricSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleFabricHistoryMove_from_physical (b : PhysicalFabricBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleFabricHistoryMove b.transition.move :=
-  b.admissible
-
-theorem landauerAnchorCited (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
-def fabricNodesPhysicsGreen : Bool := false
-
-theorem fabricNodesPhysicsGreenFalse : fabricNodesPhysicsGreen = false := rfl
-
-def fabricNodesProductionWired : Bool := false
-
-theorem fabricNodesProductionWiredFalse : fabricNodesProductionWired = false := rfl
-
-theorem fabricNodesModuleWitness : True := trivial
-
-theorem fabricNodesNoNewAxiom : True := trivial
-
 def fabricNodesMarker : Nat := 1
-
-theorem fabricNodesMarkerEq : fabricNodesMarker = 1 := rfl
 
 end UMST.Urge.FabricNodes

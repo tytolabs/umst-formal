@@ -16,8 +16,4 @@ theorem realAdmissibleRefl (s : RealThermodynamicState) : RealAdmissible s s :=
   (UMST.Core.coreAdmissibleN_one ℝ RealThermodynamicState s s).mp
     (UMST.Core.coreAdmissibleN_refl ℝ RealThermodynamicState 1 s)
 
-theorem realAdmissible_eq_core (old new : RealThermodynamicState) :
-    RealAdmissible old new ↔ UMST.Core.CoreAdmissible ℝ RealThermodynamicState old new :=
-  Iff.rfl
-
 end UMST.Real

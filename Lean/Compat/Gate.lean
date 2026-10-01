@@ -26,7 +26,6 @@ def helmholtz := UMST.Concrete.helmholtz
 /-- Compat pin: `Q_hyd` is 450 kJ/kg (not 450 J/kg). -/
 @[simp] theorem Q_hyd_eq : Q_hyd = 450 := rfl
 
-@[inherit_doc UMST.Concrete.helmholtz_formula] abbrev helmholtz_formula := UMST.Concrete.helmholtz_formula
 @[inherit_doc UMST.Concrete.helmholtzAntitone] abbrev helmholtzAntitone := UMST.Concrete.helmholtzAntitone
 @[inherit_doc UMST.Concrete.helmholtz_le_iff] abbrev helmholtz_le_iff := UMST.Concrete.helmholtz_le_iff
 theorem helmholtz_ge_neg_Q_hyd {α : ℚ} (hα : α ≤ 1) : -(Q_hyd) ≤ helmholtz α :=

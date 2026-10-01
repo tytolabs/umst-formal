@@ -156,9 +156,6 @@ structure GuidedState (n : Nat) where
 /-- Gate projection: auxiliary channel is invisible to the thermodynamic gate. -/
 def gateProjection {n : Nat} (g : GuidedState n) : ThermodynamicState := g.thermo
 
-@[simp]
-theorem gateProjection_id {n : Nat} (g : GuidedState n) : gateProjection g = g.thermo := rfl
-
 /-- Apply a channel filter; thermodynamic fields unchanged. -/
 def applyChannelFilter {n : Nat} (g : GuidedState n)
     (f : MultiplicativeChannel n → MultiplicativeChannel n) : GuidedState n where

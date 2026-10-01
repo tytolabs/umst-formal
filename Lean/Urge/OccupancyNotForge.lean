@@ -113,8 +113,6 @@ theorem fourNamesUnfusedHolds : fourNamesUnfused :=
 
 def fourNameCount : Nat := 4
 
-theorem four_name_count_is_four : fourNameCount = 4 := rfl
-
 /-- Classify without fusion — identity-preserving surrogate. -/
 def classifyUrgeName (n : UrgeUnfusedName) : UrgeUnfusedName := n
 
@@ -188,12 +186,6 @@ theorem try_merge_occupancy_forge_refused (o : OccupancyName) (f : ForgeName) :
 theorem try_merge_padma_occupancy_refused (p : PadmaName) (o : OccupancyName) :
     tryMerge (.padma p) (.occupancy o) = .occupancyPadma := rfl
 
-theorem refuse_occupancy_as_forge_positive (o : OccupancyName) :
-    refuseOccupancyAsForge o = .occupancyForge := rfl
-
-theorem refuse_meta_as_padma_positive (m : MetaName) :
-    refuseMetaAsPadma m = .metaPadma := rfl
-
 /-- §13.1 admissibility conjunct inputs (surrogate). -/
 structure OccupancyNotForgeConjunct where
   fourNamesDistinct : Bool
@@ -211,92 +203,6 @@ def onfFixtureConjunct : OccupancyNotForgeConjunct :=
 
 theorem onf_fixture_conjunct_admits :
     onfConjunctAdmits onfFixtureConjunct = true := rfl
-
--- ================================================================
--- SECTION 3: Occupancy-not-forge composes Excitement (no argmin)
--- ================================================================
-
-/-- Context for occupancy-not-forge over admissible history successors. -/
-structure OccupancyNotForgeCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Occupancy-not-forge history selection **is** `Excitement.select` — no second argmin. -/
-noncomputable def occupancyNotForgeSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OccupancyNotForgeCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-/-- Alias on bare `(prior, successors)` — same selector, no re-derivation. -/
-noncomputable def occupancyNotForgeSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem occupancyNotForgeSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OccupancyNotForgeCtx S) :
-    occupancyNotForgeSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem occupancyNotForgeSelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    occupancyNotForgeSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem occupancyNotForgeSelect_eq_admitHistorySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OccupancyNotForgeCtx S) :
-    occupancyNotForgeSelect ctx = admitHistorySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem occupancyNotForge_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OccupancyNotForgeCtx S) :
-    occupancyNotForgeSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem occupancyNotForge_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) :
-    occupancyNotForgeSelectBare prior [] = Sum.inr Residue.noCandidates := by
-  simpa [occupancyNotForgeSelectBare] using select_empty (src := prior)
-
--- ================================================================
--- SECTION 4: Landauer bridge + history second law (zero new axioms)
--- ================================================================
-
-structure OccupancyNotForgeTransition where
-  transition : HistoryTransition
-  namesUnfused : fourNamesUnfused
-
-def occupancySecondLaw (t : OccupancyNotForgeTransition) : Prop :=
-  admitSecondLaw t.transition
-
-structure PhysicalOccupancyNotForgeBridge where
-  proc : ErasureProcess
-  transition : OccupancyNotForgeTransition
-  bathEq : transition.transition.bath = proc.bath
-  workEq : transition.transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-
-theorem occupancySecondLaw_from_physical (b : PhysicalOccupancyNotForgeBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    occupancySecondLaw b.transition := by
-  unfold occupancySecondLaw
-  exact admitSecondLaw_from_physical
-    { proc := b.proc
-      transition := b.transition.transition
-      bathEq := b.bathEq
-      workEq := b.workEq
-      entropyDropEq := b.entropyDropEq }
-    hSL
-
-theorem fourNamesUnfused_from_physical (b : PhysicalOccupancyNotForgeBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    fourNamesUnfused :=
-  fourNamesUnfusedHolds
 
 -- ================================================================
 -- SECTION 5: Fixtures + witness theorems
@@ -325,9 +231,6 @@ theorem onf_fixture_occupancy_forge_merge_refused :
 theorem onf_fixture_padma_occupancy_merge_refused :
     tryMerge onfFixturePadmaName onfFixtureOccName = .occupancyPadma := rfl
 
-theorem onf_fixture_evaluate_fusion_refused :
-    evaluateNameFusion true = .fusionRefused := rfl
-
 theorem occupancy_not_forge_positive_refuse_not_silent :
     evaluateNameFusion true ≠ .unfusedOk := by
   simp [evaluateNameFusion]
@@ -336,24 +239,9 @@ theorem occupancy_not_forge_positive_refuse_not_silent :
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def occupancyNotForgeProductionWired : Bool := false
-
-theorem occupancyNotForgeProductionWiredFalse : occupancyNotForgeProductionWired = false := rfl
-
 def occupancyNotForgeMarker : String := "urge_int_occupancy_not_forge_v1"
 
 theorem occupancyNotForgeMarkerNonempty : occupancyNotForgeMarker.length > 0 := by decide
-
-theorem occupancyNotForgeModuleWitness : True := trivial
-
-theorem occupancyNotForge_noNewAxiom : True := trivial
-
-theorem occupancyNotForge_namedUnfused : fourNamesUnfused :=
-  fourNamesUnfusedHolds
 
 theorem padma_not_fifth_urge_name :
     urgeNameTag onfFixturePadmaName = 3 := rfl

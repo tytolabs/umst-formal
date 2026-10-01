@@ -173,14 +173,8 @@ theorem defaultInterpretation_zero_within :
   rw [abs_zero]
   norm_num
 
-theorem catalogRead_eq_default :
-    catalogReadSemanticEconomicParams = defaultSemanticEconomicParams := rfl
-
 theorem defaultParams_consistency_within_tolerance :
     meaningConsistencyWithinTolerance 0 defaultSemanticEconomicParams :=
   defaultInterpretation_zero_within
-
-/-- Catalog witness marker: HCOM-003 semantic economic modules are present. -/
-theorem semantic_economic_modules_witness : True := trivial
 
 end UMST.SemanticEconomics

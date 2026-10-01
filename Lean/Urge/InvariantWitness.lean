@@ -144,12 +144,6 @@ theorem invariantWitnessAbsentRefused :
 theorem invariantWitnessAdmitOkWhenWitnessed :
     evaluateInvariantWitnessOperation false = .admitOk := rfl
 
-theorem refuseWitnessAbsentPositive :
-    refuseWitnessAbsent = .witnessAbsent := rfl
-
-theorem refuseWitnessStripPositive (contentId : Nat) :
-    refuseWitnessStrip contentId = .witnessStripped contentId := rfl
-
 theorem satisfiedWitnessPropConsistent :
     witnessPropConsistent satisfiedWitness .satisfied = true := rfl
 
@@ -184,50 +178,6 @@ def excitementSelect (src : ThermodynamicState) (cands : List (HistoryCandidate 
 def urgeRecoverySelect (src : ThermodynamicState) (successors : List (HistoryCandidate src)) :
     HistoryCandidate src ⊕ ExcitementResidue :=
   excitementSelect src successors
-
-/-- Context for invariant witness over admissible history successors. -/
-structure InvariantWitnessCtx (src : ThermodynamicState) where
-  invariantWitnessSuccessors : List (HistoryCandidate src)
-
-/-- Invariant witness selection **is** `urgeRecoverySelect` / `excitementSelect`. -/
-def invariantWitnessSelect (src : ThermodynamicState) (ctx : InvariantWitnessCtx src) :
-    HistoryCandidate src ⊕ ExcitementResidue :=
-  urgeRecoverySelect src ctx.invariantWitnessSuccessors
-
-theorem invariantWitnessSelect_eq_excitementSelect (src : ThermodynamicState)
-    (ctx : InvariantWitnessCtx src) :
-    invariantWitnessSelect src ctx =
-      excitementSelect src ctx.invariantWitnessSuccessors :=
-  rfl
-
-theorem invariantWitnessSelect_eq_urgeRecoverySelect (src : ThermodynamicState)
-    (ctx : InvariantWitnessCtx src) :
-    invariantWitnessSelect src ctx =
-      urgeRecoverySelect src ctx.invariantWitnessSuccessors :=
-  rfl
-
-theorem invariantWitnessNoLocalArgmin (src : ThermodynamicState)
-    (ctx : InvariantWitnessCtx src) :
-    invariantWitnessSelect src ctx =
-      excitementSelect src ctx.invariantWitnessSuccessors :=
-  invariantWitnessSelect_eq_excitementSelect src ctx
-
-theorem invariantWitnessEmpty (src : ThermodynamicState) (ctx : InvariantWitnessCtx src)
-    (h : ctx.invariantWitnessSuccessors = []) :
-    invariantWitnessSelect src ctx = Sum.inr .noCandidates := by
-  unfold invariantWitnessSelect urgeRecoverySelect excitementSelect
-  rw [h]
-
-/-- Typed recovery via imported `Excitement.select` — not rsync theater. -/
-noncomputable def typedRecoverySelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem typedRecoverySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    typedRecoverySelect prior successors = select prior successors :=
-  rfl
 
 -- ================================================================
 -- SECTION 4: §3 fixtures + witness theorems
@@ -296,35 +246,10 @@ theorem invariantFixtureLedgerEveryHasWitness :
 -- SECTION 5: Landauer bridge + honesty flags (zero new axioms)
 -- ================================================================
 
-/-- History transition second-law discharge from sole physical law (the `SecondLaw` predicate). -/
-theorem invariantSecondLawFromLandauer (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
-/-- Landauer anchor cited — `physicalSecondLaw` imported, not re-declared. -/
-theorem landauerAnchorCited (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
-def invariantWitnessPhysicsGreen : Bool := false
-
-theorem invariantWitnessPhysicsGreenFalse : invariantWitnessPhysicsGreen = false := rfl
-
-def invariantWitnessProductionWired : Bool := false
-
-theorem invariantWitnessProductionWiredFalse : invariantWitnessProductionWired = false := rfl
-
-theorem invariantWitnessModuleWitness : True := trivial
-
-theorem invariantWitnessNoNewAxiom : True := trivial
-
 theorem invariantWitnessPositiveRefuseNotSilent :
     evaluateInvariantWitnessOperation true ≠ .admitOk := by
   decide
 
 def invariantWitnessMarker : Nat := 3
-
-theorem invariantWitnessMarkerEq : invariantWitnessMarker = 3 := rfl
 
 end UMST.Urge.InvariantWitness

@@ -188,7 +188,4 @@ theorem ProposalPreserves_const (ε : ℝ) (t : Obj) (ht : isAdmissible t ε) :
     ProposalPreserves ε (fun _ => t) :=
   fun _ _ => ht
 
-/-- Catalog witness: WebMat + GateNT module present for manifest discovery. -/
-theorem web_mat_module_witness : True := trivial
-
 end UMST.Web.WebMat

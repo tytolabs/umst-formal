@@ -43,11 +43,6 @@ theorem PairwiseDisjoint (a b : MemoryTier) (hab : a ≠ b) :
   intro ha hb
   exact absurd (ha.symm.trans hb) hab
 
-/-- Deprecated; forwards to `PairwiseDisjoint`. -/
-theorem LocalSharedDisjoint (a b : MemoryTier) (hab : a ≠ b) :
-    entries a ∩ entries b = ∅ :=
-  PairwiseDisjoint a b hab
-
 end MemoryTier
 
 theorem local_shared_disjoint_under_promotion :

@@ -12,8 +12,7 @@
   Lean `axiom` declarations.
 
   v15: Env coordinates covary via sheaf interdependence — not independent float pins.
-  `physics_green` stays false — thermo witnesses remain Unwired.
--/
+  -/
 
 import Chem.Environment.EnvironmentContinuum
 import Chem.Environment.EnvSampleSections
@@ -184,18 +183,6 @@ theorem envDebyeSquareZeroVariation (legs : List ℚ) :
   unfold envDebyeSquareInterdependence
   exact envCompositionZeroVariation legs
 
-theorem envGibbsDuhemMatchesConstantsPattern (fractions : List ℚ) :
-    envGibbsDuhemInterdependence fractions (List.map (fun _ => (0 : ℚ)) fractions) ∧
-      UMST.Chem.Constants.ConstantsSheaf.gibbsDuhemInterdependence fractions
-        (List.map (fun _ => (0 : ℚ)) fractions) :=
-  ⟨envGibbsDuhemZeroCoordinateVariation fractions,
-   UMST.Chem.Constants.ConstantsSheaf.gibbsDuhemInterdependence_zero fractions⟩
-
-theorem envDebyeMatchesCompositionPattern (legs : List ℚ) :
-    envDebyeSquareInterdependence legs (List.map (fun _ => (0 : ℚ)) legs) ∧
-      envCompositionInterdependence legs (List.map (fun _ => (0 : ℚ)) legs) :=
-  ⟨envDebyeSquareZeroVariation legs, envCompositionZeroVariation legs⟩
-
 -- ================================================================
 -- SECTION 7: Env sheaf + sample sections coupled interdependence witness
 -- ================================================================
@@ -219,29 +206,5 @@ theorem envGibbsDuhemFixtureCoupled :
     norm_num
   · exact envGibbsDuhemZeroCoordinateVariation envGibbsDuhemFixtureFractions
   · exact envDebyeSquareZeroVariation envDebyeSquareFixtureLegs
-
-theorem envGibbsDuhemFixtureSampleTripleDistinct :
-    (envSampleSectionsTriple envSampleFixtureSheaf).ess_vacuum ≠
-      (envSampleSectionsTriple envSampleFixtureSheaf).ess_messy :=
-  envSampleSectionsFixtureTripleDistinct
-
--- ================================================================
--- SECTION 8: Honesty fence (physics_green false — not measured env pins)
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def chemEnvGibbsDuhemPhysicsGreen : Bool := false
-
-theorem chemEnvGibbsDuhemPhysicsGreenFalse :
-    chemEnvGibbsDuhemPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (CAT-00 lift only). -/
-def envGibbsDuhemProductionWired : Bool := false
-
-theorem envGibbsDuhemProductionWiredFalse :
-    envGibbsDuhemProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry env Gibbs–Duhem module present. -/
-theorem envGibbsDuhemModuleWitness : True := trivial
 
 end UMST.Chem.Environment.EnvGibbsDuhem

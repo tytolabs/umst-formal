@@ -8,12 +8,10 @@
 --   composition safety, identity / associativity / unit coherence.
 --
 -- CHEM-NS-W5-FORMAL-THEOREMS (umst-formal/meso_acting fiber only).
--- physics_green: false — no new physics postulates beyond `Chem.SecondLaw`.
 ------------------------------------------------------------------------
 
 module Chem.KleisliInteract where
 
-open import Chem.SecondLaw
 open import Concrete.Gate
 open Concrete.Gate using (ThermodynamicState; Admissible; gate; mkAdmissible)
 open import Core.Gate using (δ-mass)
@@ -154,25 +152,5 @@ kleisli-coherence-units f s g h hleft hright =
   in just-injective (trans (sym hfs) hfs')
 
 ------------------------------------------------------------------------
--- Meso acting honesty fence (mirrors HS / Lean / Coq — physics GREEN false)
 ------------------------------------------------------------------------
 
-chem-physics-green : Bool
-chem-physics-green = false
-
-chem-physics-green-false : chem-physics-green ≡ false
-chem-physics-green-false = refl
-
-kleisli-interact-production-wired : Bool
-kleisli-interact-production-wired = false
-
-kleisli-interact-production-wired-false :
-  kleisli-interact-production-wired ≡ false
-kleisli-interact-production-wired-false = refl
-
-------------------------------------------------------------------------
--- Module witness (meso acting Kleisli Interact anchor)
-------------------------------------------------------------------------
-
-kleisliInteractModuleWitness : ⊤
-kleisliInteractModuleWitness = tt

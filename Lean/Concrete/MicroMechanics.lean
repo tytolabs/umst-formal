@@ -203,12 +203,6 @@ theorem microMechanicsStateAdmissible
 -- Pins mirror cartridge fixture `lean_l1_micro_mechanics_v2` (7 rows).
 -- Fixture GREEN ≠ catalog `[proved]`; tensor MT homogenization is **not** claimed.
 
-/-- Schema pin — matches Rust `lean_l1_micro_mechanics_v2`. -/
-def l1bRationalGridSchema : String := "lean_l1_micro_mechanics_v2"
-
-/-- Pinned rational witness row count (G55 extend: 5 → 7). -/
-def l1bRationalGridRowCount : Nat := 7
-
 /-- Reference E₀ for grid rows 1–4 and row 7 (30 GPa as ℚ). -/
 def gridE0RefPa : ℚ := 30000000000
 
@@ -261,47 +255,5 @@ theorem psi_elastic_base_grid_row7_zero_damage :
   unfold psi_elastic_base gridE0RefPa
   simp [e_eff_mt_at_zero]
   norm_num
-
-/-- All seven pinned grid rows evaluate without sorry (computational witness bundle). -/
-theorem l1b_rational_grid_row_count :
-    l1bRationalGridRowCount = 7 := by
-  rfl
-
--- ================================================================
--- SECTION 6: Honest posture pins (witnessed-not-proved · no Proved invent)
--- ================================================================
-
-/-- Frozen proved-count posture — agents must not inflate. -/
-def expectedProvedCount : Nat := 0
-
-/-- Machine-checked pin: proved-count stays zero until operator catalog export. -/
-theorem expectedProvedCount_zero : expectedProvedCount = 0 := rfl
-
-/-- Structural cert-proved fence honest — **not** tier-2→Proved promotion. -/
-def certProvedFenceHonest : Bool := true
-
-/-- Formal fence closed — structural audit GREEN; tier promotion still blocked. -/
-def formalFenceClosed : Bool := certProvedFenceHonest && expectedProvedCount = 0
-
-/-- Machine-checked pin: formal fence closed without Proved inflation. -/
-theorem formalFenceClosed_honest : formalFenceClosed = true := by
-  simp [formalFenceClosed, certProvedFenceHonest, expectedProvedCount_zero]
-
-/-- Literature anchor tier — **[assumed]**, not mechanized homogenization. -/
-def literatureAnchorTier : String := "assumed"
-
-/-- Catalog `[proved]` export remains operator-gated. -/
-def catalogExportDeferred : Bool := true
-
-/-- Slice-1 `ψ_elastic_base` hot path does not use this module's wire yet. -/
-def mtHomogenizationWiredToSlice1 : Bool := false
-
-/-- Explicit non-claims carried beside the rational grid (fixture parity). -/
-def microMechanicsNonClaims : List String :=
-  [ "fixture GREEN ≠ catalog [proved]"
-  , "e_eff_mt scalar (1−d)² ≠ tensor Mori–Tanaka homogenization"
-  , "slice-1 ψ_elastic_base uses Vinet E₀ blend — not Zhang MT closure"
-  , "effective_modulus_mt_pa (mt-closure feature) orthogonal P2 — not wired to slice-1"
-  , "A_MT_scalar is model choice — not derived from Eshelby tensor" ]
 
 end UMST

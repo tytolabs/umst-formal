@@ -4,7 +4,7 @@
   C-CONVEX-1 (W-32): `ConvexPhiDissipation` — convex φ, φ ≥ 0, φ(0) = 0 ⇒ non-negative dissipation;
   passive `SecondLaw` case for any GSM cartridge.
 
-  Zero new Lean axioms; `physics_green` stays false (typed scaffold, not measured physics).
+  Zero Lean axioms.
 -/
 
 import Process
@@ -59,11 +59,6 @@ theorem convex_phi_dissipation_nonneg (P : GsmDissipationPotential) (sDot : ℝ)
     0 ≤ dissipationPower P sDot :=
   le_trans (P.nonneg sDot) (convex_phi_le_dissipationPower P sDot)
 
-/-- Alias aligned with cartridge doc wording. -/
-theorem convex_phi_nonneg_dissipation (P : GsmDissipationPotential) (sDot : ℝ) :
-    0 ≤ dissipationPower P sDot :=
-  convex_phi_dissipation_nonneg P sDot
-
 /-- A GSM cartridge packages a dissipation potential obeying the convex passive pin. -/
 structure GsmCartridge where
   dissip : GsmDissipationPotential
@@ -102,11 +97,5 @@ theorem gsmCartridge_passive_secondLaw_of_balance (C : GsmCartridge)
 theorem gsmCartridge_dissipation_nonneg (C : GsmCartridge) (sDot : ℝ) :
     0 ≤ dissipationPower C.dissip sDot :=
   convex_phi_dissipation_nonneg C.dissip sDot
-
-def convexPhiDissipationCellId : String := "C-CONVEX-1B"
-
-def convexPhiDissipationPhysicsGreen : Bool := false
-
-theorem convexPhiDissipationPhysicsGreen_false : convexPhiDissipationPhysicsGreen = false := rfl
 
 end UMST.ConvexPhiDissipation

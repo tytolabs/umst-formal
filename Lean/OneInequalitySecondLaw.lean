@@ -10,8 +10,7 @@
   (Szilard measure-then-erase cycle as witness).
 
   Bridges to `UMST.ProcessFamily.SecondLaw` in `umst-formal` — zero new Lean axioms.
-  `physics_green` stays false (typed scaffold, not measured physics).
--/
+  -/
 
 import Process
 
@@ -33,9 +32,6 @@ structure Step where
 /-- **Second law (one inequality).** -/
 def oneInequality (s : Step) : Prop :=
   s.deltaF ≤ s.wIn + kB * s.bath.bathTemp.val * s.infoI
-
-@[simp] theorem oneInequality_def (s : Step) :
-    oneInequality s ↔ s.deltaF ≤ s.wIn + kB * s.bath.bathTemp.val * s.infoI := Iff.rfl
 
 /-- Sequential composition: additive ΔF, work, and information at fixed bath. -/
 def Step.chain (s₁ s₂ : Step) (_hT : s₁.bath.bathTemp.val = s₂.bath.bathTemp.val) : Step :=
@@ -103,7 +99,7 @@ theorem eraseStep_oneInequality_iff (proc : ErasureProcess) (prior post : ProbDi
 theorem eraseSecondLaw_oneInequality_iff (proc : ErasureProcess) (prior : ProbDist 2) :
     eraseSecondLaw proc prior ↔
       oneInequality (eraseStep proc prior (diracDist (0 : Fin 2))) := by
-  rw [eraseSecondLaw_eq_step]
+  rw [eraseSecondLaw]
   exact eraseStep_oneInequality_iff proc prior (diracDist (0 : Fin 2))
 
 /-- **Measure / feedback:** W_in = −W_ext (Sagawa external work); I = mutual information (nats). -/
@@ -237,12 +233,5 @@ theorem szilardMixedChain_oneInequality (T : ℝ) (hT : 0 < T) :
       (SecondLaw_landauerTight_erase T hT)
   exact oneInequality_chain (feedbackStep (szilardEngine T hT) (log 2))
     (eraseStep (landauerTightErasure T hT) uniformBinary (diracDist (0 : Fin 2))) rfl hM hE
-
-def formalOneInequalityCellId : String := "FORMAL-ONE-INEQUALITY"
-
-def formalOneInequalityPhysicsGreen : Bool := false
-
-theorem formalOneInequalityPhysicsGreen_false :
-    formalOneInequalityPhysicsGreen = false := rfl
 
 end UMST.OneInequalitySecondLaw

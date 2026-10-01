@@ -100,19 +100,4 @@ theorem historyMergeSafe_from_attempt (h_A h_B : HistoryObject)
     historyMergeSafePred h_A h_B :=
   (historyMergeSafePred_iff h_A h_B).2 ⟨h_A, h⟩
 
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def mergeSafeProductionWired : Bool := false
-
-theorem mergeSafeProductionWiredFalse : mergeSafeProductionWired = false := rfl
-
-theorem mergeSafeModuleWitness : True := trivial
-
-theorem historyMergeSafePred_eq_imported (h_A h_B : HistoryObject) :
-    historyMergeSafePred h_A h_B =
-      mergeSafePred (toMemoryEntry h_A) (toMemoryEntry h_B) :=
-  rfl
-
 end UMST.Urge.MergeSafe

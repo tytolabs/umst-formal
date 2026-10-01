@@ -238,7 +238,4 @@ theorem productWitness_miPreserved_at_zero {n m : ℕ} (p : ProbDist n) (q : Pro
   unfold miPreserved
   rw [productWitness_mi_zero p q]
 
-/-- Catalog witness marker: foundational semantic invariant module is present. -/
-theorem semantic_second_law_module_witness : True := trivial
-
 end UMST.SemanticSecondLaw

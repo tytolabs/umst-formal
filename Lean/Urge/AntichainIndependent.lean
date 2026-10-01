@@ -123,100 +123,15 @@ def admitAntichainMember (incumbent candidate : ConflictCell) :
 /-- Positive refuse: Urge must not fork `umst-adk` greedy allocate. -/
 def refuseForkAllocate : AntichainIndependentRefusal := .forkAllocateRefused
 
-/-- Positive refuse: second local Excitement argmin — compose import only. -/
-def refuseSecondArgminSelector : AntichainIndependentRefusal := .secondArgminRefused
-
-/-- Positive refuse: greedy/exact MIS theater — Urge witnesses only. -/
-def refuseGreedyMisTheater : AntichainIndependentRefusal := .greedyMisTheater
-
-/-- Urge does not bool-flip physics GREEN from antichain cardinality. -/
-def physicsGreenFromAntichainSize (_size : Nat) : Bool := false
-
 /-- Classify fork-allocate vs witness-only independent set without performing I/O. -/
 def evaluateAntichainOperation (forkAllocate : Bool) : AntichainIndependentVerdict :=
   if forkAllocate then .forkAllocateRefused else .independentAdmit
-
-theorem refuseForkAllocate_positive :
-    refuseForkAllocate = .forkAllocateRefused := rfl
-
-theorem refuseSecondArgminSelector_positive :
-    refuseSecondArgminSelector = .secondArgminRefused := rfl
-
-theorem refuseGreedyMisTheater_positive :
-    refuseGreedyMisTheater = .greedyMisTheater := rfl
-
-theorem antichainSize_never_invents_green (size : Nat) :
-    physicsGreenFromAntichainSize size = false := rfl
 
 theorem evaluateAntichainOperation_forkRefused :
     evaluateAntichainOperation true = .forkAllocateRefused := rfl
 
 theorem evaluateAntichainOperation_witnessAdmit :
     evaluateAntichainOperation false = .independentAdmit := rfl
-
--- ================================================================
--- SECTION 3: Antichain independent composes Excitement (no second argmin)
--- ================================================================
-
-/-- Excitement compose pin — import selector; refuse second local argmin. -/
-inductive AntichainExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving DecidableEq, Repr
-
-/-- Context for antichain independent over admissible history successors. -/
-structure AntichainIndependentCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Compose path composes `select` — not a second argmin. -/
-noncomputable def antichainExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) (pin : AntichainExcitementComposePin) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select prior cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-/-- Antichain independent selection **is** `urgeRecoverySelect` / `select`. -/
-noncomputable def antichainIndependentSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : AntichainIndependentCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem antichainExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    antichainExcitementSelect prior cands .importSelectExcitement = select prior cands :=
-  rfl
-
-theorem antichainIndependentSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : AntichainIndependentCtx S) :
-    antichainIndependentSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem antichainIndependentSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : AntichainIndependentCtx S) :
-    antichainIndependentSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem antichainIndependent_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : AntichainIndependentCtx S) :
-    antichainIndependentSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem antichainExcitementSelect_refusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    antichainExcitementSelect prior cands .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem antichainIndependent_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : AntichainIndependentCtx S) (h : ctx.successors = []) :
-    antichainIndependentSelect ctx = Sum.inr Residue.noCandidates := by
-  simpa [antichainIndependentSelect, h] using urgeRecovery_empty ctx.prior
 
 -- ================================================================
 -- SECTION 4: §22.2 fixtures + witness theorems
@@ -276,9 +191,6 @@ theorem aiFixture_notIndependentPair :
 theorem aiFixture_conjunctAdmits :
     antichainConjunctAdmits aiFixtureConjunct = true := rfl
 
-theorem aiFixture_antichainSize_noGreen :
-    physicsGreenFromAntichainSize aiFixtureGraph.nodes.length = false := rfl
-
 -- ================================================================
 -- SECTION 5: Bridge to physicalSecondLaw (derived — zero new axioms)
 -- ================================================================
@@ -298,81 +210,12 @@ theorem admissibleAntichainIndependent_intro (h : AntichainHistoryMove)
 
 abbrev admitAntichainInbound := admissibleAntichainIndependent
 
-structure AntichainTransition where
-  move            : AntichainHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def antichainSecondLaw (t : AntichainTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalAntichainBridge where
-  proc : ErasureProcess
-  transition : AntichainTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleAntichainIndependent transition.move
-
-theorem antichainSecondLaw_from_physical (b : PhysicalAntichainBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    antichainSecondLaw b.transition := by
-  unfold antichainSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleAntichainIndependent_from_physical (b : PhysicalAntichainBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleAntichainIndependent b.transition.move :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def antichainIndependentPhysicsGreen : Bool := false
-
-theorem antichainIndependentPhysicsGreenFalse :
-    antichainIndependentPhysicsGreen = false := rfl
-
-def antichainIndependentProductionWired : Bool := false
-
-theorem antichainIndependentProductionWiredFalse :
-    antichainIndependentProductionWired = false := rfl
-
-theorem antichainIndependentModuleWitness : True := trivial
-
-theorem antichainIndependent_noNewAxiom : True := trivial
-
 theorem antichainIndependent_positiveRefuseNotSilent :
     evaluateAntichainOperation true ≠ .independentAdmit := by
   simp [evaluateAntichainOperation]
-
-theorem antichainIndependent_forkAllocateRefusedPositive :
-    refuseForkAllocate = .forkAllocateRefused := rfl
-
-theorem antichainIndependent_secondArgminRefusedPositive :
-    refuseSecondArgminSelector = .secondArgminRefused := rfl
-
-theorem antichainIndependent_greedyMisRefusedPositive :
-    refuseGreedyMisTheater = .greedyMisTheater := rfl
-
-theorem antichainIndependent_neverInventsGreenFromSize (size : Nat) :
-    physicsGreenFromAntichainSize size = false :=
-  antichainSize_never_invents_green size
 
 end UMST.Urge.AntichainIndependent

@@ -9,7 +9,6 @@
 -- 'UMST.Concrete.ThermodynamicState', graded gate admissibility, identity /
 -- associativity / unit coherence.
 --
--- @physics_green@ stays false — thermo witnesses remain Unwired until FORMAL BAR.
 module UMST.Chem.Kleisli
   ( -- * Carriers
     KleisliArrow
@@ -29,11 +28,6 @@ module UMST.Chem.Kleisli
   , kleisliComposeWellTypedAt
   , kleisliCoherenceUnits
     -- * Meso acting bridge (second law + conservation spine)
-  , chemPhysicsGreen
-  , chemPhysicsGreenFalse
-  , kleisliInteractProductionWired
-  , kleisliInteractProductionWiredFalse
-  , kleisliInteractModuleWitness
   ) where
 
 import UMST.Concrete
@@ -115,22 +109,3 @@ kleisliCoherenceUnits f s =
     (Just g, Just h) -> g == h
     _                -> True
 
--- | Physics GREEN unauthorized on this scaffold.
-chemPhysicsGreen :: Bool
-chemPhysicsGreen = False
-
--- | Lean/Coq: @chem_physics_green_false@.
-chemPhysicsGreenFalse :: Bool
-chemPhysicsGreenFalse = not chemPhysicsGreen
-
--- | Production wiring stays open (CAT-00 lift only).
-kleisliInteractProductionWired :: Bool
-kleisliInteractProductionWired = False
-
--- | Lean/Coq: @kleisli_interact_production_wired_false@.
-kleisliInteractProductionWiredFalse :: Bool
-kleisliInteractProductionWiredFalse = not kleisliInteractProductionWired
-
--- | Catalog witness: meso chemistry Kleisli Interact module present.
-kleisliInteractModuleWitness :: Bool
-kleisliInteractModuleWitness = True

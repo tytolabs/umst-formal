@@ -10,7 +10,6 @@
 -- Mirrors @Lean/Chem/Environment/EnvSampleSections@ and
 -- @Coq/Chem/Environment/EnvSampleSections@ on @umst-formal/meso_acting@.
 --
--- @physics_green@ stays false — thermo witnesses remain Unwired until FORMAL BAR.
 module UMST.Chem.Environment.EnvSampleSections
   ( -- * Carriers (reused from continuum sheaf)
     InteractGraphEdge
@@ -24,16 +23,9 @@ module UMST.Chem.Environment.EnvSampleSections
     -- * Simultaneous triple on one admissible edge
   , envSampleSectionsOnEdge
   , envSampleSectionsWellTyped
-  , envSampleSectionsNamedNotXor
   , envSampleSectionsTripleOnEdgeWitness
   , envSampleSectionsRegimeDistinct
-  , envSampleSectionsFixtureWitness
     -- * Honesty (mirror @UMST.Chem.Kleisli@)
-  , chemPhysicsGreen
-  , chemPhysicsGreenFalse
-  , envSampleSectionsProductionWired
-  , envSampleSectionsProductionWiredFalse
-  , envSampleSectionsModuleWitness
   , environmentSectionRegimeTags
   , environmentRegimeCardinality
   ) where
@@ -42,18 +34,15 @@ import UMST.Chem.Environment.EnvironmentContinuum
   ( EnvironmentContinuumSections
   , EnvironmentSectionRegime (..)
   , InteractGraphEdge
-  , chemPhysicsGreen
-  , chemPhysicsGreenFalse
   , containedSectionOnEdge
   , environmentRegimeCardinality
   , environmentSectionRegimeTags
-  , environmentSectionsNamedNotXor
   , environmentSheafOnEdge
   , messySectionOnEdge
   , vacuumSectionOnEdge
   )
 import UMST.Chem.Kleisli (admissibleStep)
-import UMST.Concrete (ThermodynamicState (..), fromMix)
+import UMST.Concrete (ThermodynamicState (..))
 
 -- | Named environment sample sections on an edge — simultaneous triple, not XOR.
 type EnvironmentSampleSections = EnvironmentContinuumSections
@@ -91,10 +80,6 @@ envSampleSectionsWellTyped old new =
     Nothing -> True
     Just (v, c, m) -> v >= 0 && c >= 0 && m >= 0
 
--- | Sample sections are a named triple (vacuum | contained | messy), not XOR.
-envSampleSectionsNamedNotXor :: Bool
-envSampleSectionsNamedNotXor = environmentSectionsNamedNotXor
-
 -- | Named regime tags are pairwise distinct (not collapsed to one sample world).
 envSampleSectionsRegimeDistinct :: Bool
 envSampleSectionsRegimeDistinct =
@@ -115,27 +100,3 @@ envSampleSectionsTripleOnEdgeWitness old new =
         && messySampleSectionOnEdge old new == Just m
     Nothing -> not (admissibleStep old new)
 
--- | Fixture admissible edge: simultaneous named sample sections on one Interact step.
-envSampleFixtureOld :: ThermodynamicState
-envSampleFixtureOld = fromMix 0.45 0.50 20.0
-
-envSampleFixtureNew :: ThermodynamicState
-envSampleFixtureNew = fromMix 0.45 0.52 20.0
-
--- | Catalog witness: fixture edge carries the full named sample triple.
-envSampleSectionsFixtureWitness :: Bool
-envSampleSectionsFixtureWitness =
-  admissibleStep envSampleFixtureOld envSampleFixtureNew
-    && envSampleSectionsTripleOnEdgeWitness envSampleFixtureOld envSampleFixtureNew
-
--- | Production wiring stays open (CAT-00 lift only).
-envSampleSectionsProductionWired :: Bool
-envSampleSectionsProductionWired = False
-
--- | Lean/Coq: @env_sample_sections_production_wired_false@.
-envSampleSectionsProductionWiredFalse :: Bool
-envSampleSectionsProductionWiredFalse = not envSampleSectionsProductionWired
-
--- | Catalog witness: meso chemistry env sample sections module present.
-envSampleSectionsModuleWitness :: Bool
-envSampleSectionsModuleWitness = True

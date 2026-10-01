@@ -94,17 +94,11 @@ inductive CompactionCompositeRefusal where
   | miUnpaid
   deriving DecidableEq, Repr
 
-def refuseDeleteOldCommitsTheater : CompactionCompositeRefusal :=
-  .deleteOldCommitsTheater
-
 def refuseMiUnpaid : CompactionCompositeRefusal :=
   .miUnpaid
 
 def refuseSecondArgmin : CompactionCompositeRefusal :=
   .secondArgmin
-
-def refuseGitGcTheater : CompactionCompositeRefusal :=
-  .gitGcTheater
 
 def refuseSemanticSquashWithoutComposite : CompactionCompositeRefusal :=
   .semanticSquashWithoutComposite
@@ -173,11 +167,6 @@ theorem gateCompactionMiRefuseDelete (a : CompactionAttempt)
     evaluateCompactionAttempt a = Sum.inr .deleteOldCommitsTheater := by
   simp [evaluateCompactionAttempt, h]
 
-theorem gateCompactionMiAdmit (a : CompactionAttempt)
-    (_hDel : a.attemptDeleteOldCommits = false) (_hMi : miPaid a.attemptMi) :
-    True :=
-  trivial
-
 -- ================================================================
 -- SECTION 3: Landauer bridge — compaction pays MI (cited, not axiom)
 -- ================================================================
@@ -192,51 +181,9 @@ theorem landauerBridgeMiPaidWhenNonzero (n : Nat) (h : 0 < n) :
   | zero => simp at h
   | succ k => simp [miPaymentFromLandauerBits, miPaidBool]
 
-/-- Composite arrow from physical bridge + prior provenance chain extension. -/
-def compositeFromPhysical (b : PhysicalHistoryBridge) (prior : Provenance)
-    (_hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (_hSL : physicalSecondLawUniformBinary b.proc) : CompositeCompactionArrow :=
-  { compositeId := b.transition.post.commitId
-    compositeWitness := { derivationChain := prior.ucrsChain ++ [prior.dagCommit] }
-    compositeSourceCommit := prior.dagCommit }
-
-theorem compositeFromPhysicalRetainsChain (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    retainsChain (compositeFromPhysical b prior hPrior hSL).compositeWitness := by
-  dsimp [retainsChain, compositeFromPhysical]
-  simp
-
-theorem landauerCompactionPreservesProvenance (b : PhysicalHistoryBridge) (prior : Provenance)
-    (hPrior : prior.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    preserves b.transition prior (postProvenanceFromPhysical b prior hPrior hSL) :=
-  physicalBridge_preserves b prior hPrior hSL
-
-theorem compactionSecondLawFromPhysical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
 -- ================================================================
 -- SECTION 4: Excitement compose (no second argmin)
 -- ================================================================
-
-/-- Urge compaction composes `Excitement.select` — not a second argmin. -/
-noncomputable def urgeCompactionSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src cands
-
-theorem urgeCompactionSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    urgeCompactionSelect src cands = select src cands :=
-  rfl
-
-theorem urgeCompactionNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    urgeCompactionSelect src cands = admitHistorySelect src cands :=
-  rfl
 
 /-- Kleisli composite pin — compaction chains inherited arrows, not squash. -/
 abbrev compactionCompose := kleisliCompose
@@ -249,33 +196,8 @@ theorem compactionComposeAssocInherited (f g h : AdmitArrow) (s : ThermodynamicS
 -- SECTION 5: Honesty flags + catalog witnesses
 -- ================================================================
 
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def compactionCompositeProductionWired : Bool := false
-
-theorem compactionCompositeProductionWiredFalse : compactionCompositeProductionWired = false := rfl
-
 def compactionCompositeMarker : Nat := 175
 
 theorem compactionCompositeMarkerPos : 0 < compactionCompositeMarker := by decide
-
-theorem compactionCompositeModuleWitness : True := trivial
-
-theorem compactionCompositeNoNewAxiom : True := trivial
-
-theorem compactionCompositeNoSecondArgmin :
-    refuseSecondArgmin = .secondArgmin := rfl
-
-theorem deleteOldCommitsRefused (a : CompactionAttempt)
-    (h : a.attemptDeleteOldCommits = true) :
-    evaluateCompactionAttempt a = Sum.inr .deleteOldCommitsTheater :=
-  gateCompactionMiRefuseDelete a h
-
-theorem gitGcTheaterRefused : refuseGitGcTheater = .gitGcTheater := rfl
-
-theorem semanticSquashRefused :
-    refuseSemanticSquashWithoutComposite = .semanticSquashWithoutComposite := rfl
 
 end UMST.Urge.CompactionComposite

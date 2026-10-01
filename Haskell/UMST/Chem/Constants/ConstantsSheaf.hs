@@ -9,7 +9,6 @@
 -- floats.  Mirrors @Lean/Chem/Constants/ConstantsSheaf@ and
 -- @Coq/Chem/Constants/ConstantsSheaf@ on @umst-formal/meso_acting@.
 --
--- @physics_green@ stays false — thermo witnesses remain Unwired until FORMAL BAR.
 module UMST.Chem.Constants.ConstantsSheaf
   ( -- * Carriers
     InteractGraphEdge
@@ -31,11 +30,6 @@ module UMST.Chem.Constants.ConstantsSheaf
   , constantsSheafWellTyped
   , gibbsDuhemInterdependenceEq
     -- * Honesty (mirror @UMST.Chem.Kleisli@)
-  , chemPhysicsGreen
-  , chemPhysicsGreenFalse
-  , constantsSheafProductionWired
-  , constantsSheafProductionWiredFalse
-  , constantsSheafModuleWitness
   ) where
 
 import UMST.Chem.Kleisli (admissibleStep)
@@ -129,22 +123,3 @@ gibbsDuhemInterdependenceEq old new =
           predicted = p * dV + mu * dN - t * dS
        in abs (dG - predicted) < tolerance * max 1 (abs dG + abs predicted)
 
--- | Physics GREEN unauthorized on this scaffold.
-chemPhysicsGreen :: Bool
-chemPhysicsGreen = False
-
--- | Lean/Coq: @chem_physics_green_false@.
-chemPhysicsGreenFalse :: Bool
-chemPhysicsGreenFalse = not chemPhysicsGreen
-
--- | Production wiring stays open (CAT-00 lift only).
-constantsSheafProductionWired :: Bool
-constantsSheafProductionWired = False
-
--- | Lean/Coq: @constants_sheaf_production_wired_false@.
-constantsSheafProductionWiredFalse :: Bool
-constantsSheafProductionWiredFalse = not constantsSheafProductionWired
-
--- | Catalog witness: meso chemistry constants sheaf module present.
-constantsSheafModuleWitness :: Bool
-constantsSheafModuleWitness = True

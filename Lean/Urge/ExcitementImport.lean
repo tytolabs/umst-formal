@@ -83,23 +83,7 @@ theorem urgeRecovery_admissible {S : Type} [ThermodynamicSystem ℚ S] [Admissib
 -- SECTION 4: Axiom discipline + honesty flags
 -- ================================================================
 
-/-- Physics GREEN unauthorized on this scaffold. -/
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
 /-- Production wiring stays open (meso import only). -/
 def excitementImportProductionWired : Bool := false
-
-theorem excitementImportProductionWiredFalse : excitementImportProductionWired = false := rfl
-
-/-- Catalog witness: meso Urge ExcitementImport module present. -/
-theorem excitementImportModuleWitness : True := trivial
-
-/-- Recovery selector re-uses `jointFreeEnergy` / `pickMin` from Excitement — no Urge-local argmin. -/
-theorem urgeRecovery_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : HistoryRecoveryCtx S) :
-    urgeRecovery ctx = select ctx.prior ctx.successors :=
-  rfl
 
 end UMST.Urge.ExcitementImport

@@ -66,11 +66,6 @@ admitted-cost-bounded s 0≤b (fits , resolves) = cost-nonneg 0≤b , fits , res
 admitted-budget-nonneg : ∀ s {bits} → 0ℚ ≤ bits → Admits s bits → 0ℚ ≤ budget s
 admitted-budget-nonneg s 0≤b (fits , _) = ℚ-Props.≤-trans (cost-nonneg 0≤b) fits
 
-gatedSync-second-law : ∀ s {bits} → 0ℚ ≤ bits → Admits s bits →
-  (desyncEnergy (gatedSync s bits) ≤ desyncEnergy s) × (totalSyncCost s ≤ totalSyncCost (gatedSync s bits))
-gatedSync-second-law (thermal d b t) 0≤b (_ , resolves) =
-  ℚ-Props.≤-trans (cost-nonneg 0≤b) resolves , ≤-+-nonneg t (cost-nonneg 0≤b)
-
 ------------------------------------------------------------------------
 -- Clock drift
 

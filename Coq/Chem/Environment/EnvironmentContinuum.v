@@ -8,7 +8,6 @@
 (*  Env sheaf anchored in `physicalSecondLaw` via Chem.SecondLaw.        *)
 (*                                                                      *)
 (*  Imports Chem.SecondLaw + Chem.Conservation only; ZERO new axioms.  *)
-(*  physics_green stays false — thermo witnesses remain Unwired.        *)
 (* ================================================================== *)
 
 From Stdlib Require Import Reals QArith List Psatz.
@@ -107,30 +106,10 @@ Definition messy_thermo_continuum_section
   (E : environment_sheaf) : R :=
   sheaf_thermo_continuum E messy_graph_vertex.
 
-Lemma vacuum_contained_vertices_distinct :
-  vacuum_graph_vertex <> contained_graph_vertex.
-Proof. discriminate. Qed.
-
-Lemma vacuum_messy_vertices_distinct :
-  vacuum_graph_vertex <> messy_graph_vertex.
-Proof. discriminate. Qed.
-
-Lemma contained_messy_vertices_distinct :
-  contained_graph_vertex <> messy_graph_vertex.
-Proof. discriminate. Qed.
-
 Definition env_sample_sections_not_xor : Prop :=
   vacuum_graph_vertex <> contained_graph_vertex /\
   vacuum_graph_vertex <> messy_graph_vertex /\
   contained_graph_vertex <> messy_graph_vertex.
-
-Lemma env_sample_sections_not_xor_holds :
-  env_sample_sections_not_xor.
-Proof.
-  split; [exact vacuum_contained_vertices_distinct|
-          split; [exact vacuum_messy_vertices_distinct|
-                  exact contained_messy_vertices_distinct]].
-Qed.
 
 Definition vacuum_does_not_close_messy : Prop :=
   exists (E : environment_sheaf),
@@ -255,21 +234,3 @@ Proof.
   - exact (env_composition_zero_variation p).
 Qed.
 
-(* ------------------------------------------------------------------ *)
-(*  Honesty fence (physics_green false — not measured env pins)         *)
-(* ------------------------------------------------------------------ *)
-
-Definition chem_environment_continuum_physics_green : bool := false.
-
-Lemma chem_environment_continuum_physics_green_false :
-  chem_environment_continuum_physics_green = false.
-Proof. reflexivity. Qed.
-
-Definition environment_continuum_production_wired : bool := false.
-
-Lemma environment_continuum_production_wired_false :
-  environment_continuum_production_wired = false.
-Proof. reflexivity. Qed.
-
-Lemma environment_continuum_module_witness : True.
-Proof. exact I. Qed.

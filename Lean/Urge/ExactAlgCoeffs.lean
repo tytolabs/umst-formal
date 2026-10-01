@@ -105,17 +105,9 @@ structure ExactAlgCoeffAdmissibilityConjunct where
 def exactAlgCoeffConjunctAdmits (c : ExactAlgCoeffAdmissibilityConjunct) : Bool :=
   c.gateOk && c.denNonzero && c.excitementPreserves
 
-/-- Classify f64 identity theater vs ℚ carrier admit. -/
-def evaluateF64IdentityTheater (isF64Theater : Bool) : ExactAlgCoeffsVerdict :=
-  if isF64Theater then .f64TheaterRefused else .admitted
-
 /-- Classify zero denominator vs ℚ carrier admit. -/
 def evaluateZeroDenominator (isZeroDen : Bool) : ExactAlgCoeffsVerdict :=
   if isZeroDen then .zeroDenRefused else .admitted
-
-/-- Positive refuse: f64 silent identity theater — ℚ carrier required. -/
-def refuseF64IdentityTheater (_ : FloatCarrierTag) : ExactAlgCoeffsRefusal :=
-  .f64IdentityTheater
 
 /-- Positive refuse: zero denominator on ℚ coefficient. -/
 def refuseZeroDenominator : ExactAlgCoeffsRefusal :=
@@ -124,10 +116,6 @@ def refuseZeroDenominator : ExactAlgCoeffsRefusal :=
 /-- Positive refuse: ExactAlg slot absent on carrier. -/
 def refuseExactAlgAbsent : ExactAlgCoeffsRefusal :=
   .exactAlgAbsent
-
-/-- Positive refuse: second Excitement selector — compose `select`. -/
-def refuseSecondArgminSelector : ExactAlgCoeffsRefusal :=
-  .secondArgmin
 
 /-- Build witness from carrier ExactAlg coefficients. -/
 def witnessFromCarrierCoeffs (c : CarrierExactAlgCoeffs) : ExactAlgCoeffWitness :=
@@ -160,18 +148,6 @@ def applyExactAlgCoeffMorphism (coeffs : CarrierExactAlgCoeffs) (carrier : Histo
               witness := witnessFromCarrierCoeffs admitted
               excitementSelected := excitementSelected }
 
-theorem exactAlgCoeffF64TheaterRefused :
-    refuseF64IdentityTheater .floatTheater = .f64IdentityTheater := rfl
-
-theorem exactAlgCoeffZeroDenRefused :
-    refuseZeroDenominator = .zeroDenominator := rfl
-
-theorem exactAlgCoeffExactAlgAbsentRefused :
-    refuseExactAlgAbsent = .exactAlgAbsent := rfl
-
-theorem refuseSecondArgminSelectorPositive :
-    refuseSecondArgminSelector = .secondArgmin := rfl
-
 -- ================================================================
 -- SECTION 3: ExactAlg coefficients compose Excitement (no argmin)
 -- ================================================================
@@ -180,61 +156,6 @@ theorem refuseSecondArgminSelectorPositive :
 inductive ExactAlgCoeffsExcitementPin where
   | importSelectExcitement
   | secondArgminRefused
-
-/-- Context for ExactAlg coefficients over admissible history successors. -/
-structure ExactAlgCoeffCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- ExactAlg coefficient path composes `select` — not a second argmin. -/
-noncomputable def exactAlgCoeffsExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) (pin : ExactAlgCoeffsExcitementPin) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select prior successors
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-/-- ExactAlg coefficient selection **is** `urgeRecoverySelect` / `select`. -/
-noncomputable def exactAlgCoeffSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ExactAlgCoeffCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem exactAlgCoeffsExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    exactAlgCoeffsExcitementSelect prior successors .importSelectExcitement =
-      select prior successors :=
-  rfl
-
-theorem exactAlgCoeffSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ExactAlgCoeffCtx S) :
-    exactAlgCoeffSelect ctx = select ctx.prior ctx.successors := by
-  simp [exactAlgCoeffSelect, urgeRecoverySelect_eq_select]
-
-theorem exactAlgCoeffSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : ExactAlgCoeffCtx S) :
-    exactAlgCoeffSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem exactAlgCoeffNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ExactAlgCoeffCtx S) :
-    exactAlgCoeffSelect ctx = select ctx.prior ctx.successors :=
-  exactAlgCoeffSelect_eq_select ctx
-
-theorem exactAlgCoeffsExcitementSelectRefusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    exactAlgCoeffsExcitementSelect prior successors .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem exactAlgCoeffEmpty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ExactAlgCoeffCtx S) (h : ctx.successors = []) :
-    exactAlgCoeffSelect ctx = Sum.inr Residue.noCandidates := by
-  simp [exactAlgCoeffSelect, urgeRecoverySelect, h, select_empty]
 
 -- ================================================================
 -- SECTION 4: §3 fixtures + witness theorems
@@ -280,9 +201,6 @@ theorem exactAlgFixtureAdmitOk :
 theorem exactAlgFixtureZeroDenRefused :
     admitCarrierExactAlg exactAlgFixtureZeroDenCoeffs = Sum.inr .zeroDenominator := rfl
 
-theorem exactAlgFixtureF64TheaterRefused :
-    evaluateF64IdentityTheater true = .f64TheaterRefused := rfl
-
 theorem exactAlgFixtureApplyMorphismOk :
     applyExactAlgCoeffMorphism exactAlgFixtureCarrierCoeffs exactAlgFixtureCarrier
       exactAlgFixtureConjunct true =
@@ -299,11 +217,6 @@ theorem exactAlgFixtureWitnessPreservesValue :
 theorem exactAlgFixtureAttachPreservesExactAlg :
     exactAlgProj (attachExactAlgCoeff exactAlgFixtureCarrier exactAlgFixtureCoeff) =
       exactAlgFixtureExactAlg := rfl
-
-theorem exactAlgCoeffF64TheaterNotAdmitted :
-    evaluateF64IdentityTheater true ≠ .admitted := by
-  intro h
-  cases h
 
 theorem exactAlgCoeffZeroDenNotAdmitted :
     evaluateZeroDenominator true ≠ .admitted := by
@@ -330,67 +243,5 @@ theorem admissibleExactAlgCoeffs_intro (h : ExactAlgCoeffsHistoryMove)
   And.intro hg (And.intro hd hp)
 
 abbrev admitExactAlgCoeffs := admissibleExactAlgCoeffs
-
-structure ExactAlgCoeffsTransition where
-  move            : ExactAlgCoeffsHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def exactAlgCoeffsSecondLaw (t : ExactAlgCoeffsTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalExactAlgCoeffsBridge where
-  proc : ErasureProcess
-  transition : ExactAlgCoeffsTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleExactAlgCoeffs transition.move
-
-theorem exactAlgCoeffsSecondLaw_from_physical (b : PhysicalExactAlgCoeffsBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    exactAlgCoeffsSecondLaw b.transition := by
-  unfold exactAlgCoeffsSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleExactAlgCoeffs_from_physical (b : PhysicalExactAlgCoeffsBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleExactAlgCoeffs b.transition.move :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def exactAlgCoeffsPhysicsGreen : Bool := false
-
-theorem exactAlgCoeffsPhysicsGreenFalse : exactAlgCoeffsPhysicsGreen = false := rfl
-
-def exactAlgCoeffsProductionWired : Bool := false
-
-theorem exactAlgCoeffsProductionWiredFalse : exactAlgCoeffsProductionWired = false := rfl
-
-theorem exactAlgCoeffsModuleWitness : True := trivial
-
-theorem exactAlgCoeffs_noNewAxiom : True := trivial
-
-theorem exactAlgCoeffsPositiveRefuseNotSilent :
-    evaluateF64IdentityTheater true ≠ .admitted :=
-  exactAlgCoeffF64TheaterNotAdmitted
 
 end UMST.Urge.ExactAlgCoeffs

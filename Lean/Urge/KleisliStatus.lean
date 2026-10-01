@@ -171,55 +171,6 @@ theorem statusVerbRow_mergeSafeNotRequired :
 theorem statusVerbRow_frugalMiGate :
     statusVerbRow.verbKleisliGate = .frugalMiObservation := rfl
 
-theorem kleisliGateMatchesStatus_frugal :
-    kleisliGateMatchesStatus .frugalMiObservation = true := rfl
-
-theorem kleisliGateMatchesStatus_syncFalse :
-    kleisliGateMatchesStatus .gateCheckBeforeSyncInbound = false := rfl
-
--- ================================================================
--- SECTION 3: Excitement compose (no second argmin)
--- ================================================================
-
-/-- Excitement compose pin — Urge imports selector; no second argmin. -/
-inductive StatusExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving DecidableEq, Repr
-
-/-- Status path composes `Excitement.select` — not a second argmin. -/
-noncomputable def statusExcitementSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src))
-    (pin : StatusExcitementComposePin) : Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-theorem statusExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    statusExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem statusExcitementSelect_refusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    statusExcitementSelect src cands .secondArgminRefused = Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem statusNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    statusExcitementSelect src cands .importSelectExcitement = select src cands :=
-  statusExcitementSelect_eq_select src cands
-
-theorem statusExcitementSelect_eq_admitHistorySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src)) :
-    statusExcitementSelect src cands .importSelectExcitement = admitHistorySelect src cands :=
-  rfl
-
-theorem statusExcitement_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) :
-    statusExcitementSelect src [] .importSelectExcitement = Sum.inr Residue.noCandidates := by
-  simpa [statusExcitementSelect] using select_empty (src := src)
-
 -- ================================================================
 -- SECTION 4: §16.7 fixtures + witness theorems
 -- ================================================================
@@ -255,61 +206,11 @@ theorem statusFixture_arrowRefusesCap :
       Sum.inr (.frugalMiRefused .refuseExceedsCap) :=
   rfl
 
-theorem statusPositiveRefuse_syncGate :
-    refuseSyncGateOnStatus = .syncInboundOnStatus := rfl
-
-theorem statusPositiveRefuse_mergeSafe :
-    refuseMergeSafeOnStatus = .mergeSafeOnStatus := rfl
-
-theorem statusPositiveRefuse_excitement :
-    refuseExcitementOnStatus = .excitementOnStatus := rfl
-
-theorem statusPositiveRefuse_outboundTick :
-    refuseOutboundTickOnStatus = .outboundTickOnStatus := rfl
-
-theorem statusPositiveRefuse_notSilent :
-    refuseSyncGateOnStatus ≠ refuseMergeSafeOnStatus := by
-  decide
-
 theorem statusPositiveRefuse_aggregate :
     refuseSyncGateOnStatus = .syncInboundOnStatus ∧
     refuseMergeSafeOnStatus = .mergeSafeOnStatus ∧
     refuseExcitementOnStatus = .excitementOnStatus ∧
     refuseOutboundTickOnStatus = .outboundTickOnStatus :=
   ⟨rfl, rfl, rfl, rfl⟩
-
--- ================================================================
--- SECTION 5: Landauer bridge (inherited — zero new axioms)
--- ================================================================
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
-theorem statusSecondLaw_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
-theorem statusAdmissibleTransition_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleHistoryTransition b.transition :=
-  UMST.Urge.AdmitKleisli.admissibleHistoryTransition_from_physical b hSL
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def kleisliStatusPhysicsGreen : Bool := false
-
-theorem kleisliStatusPhysicsGreenFalse : kleisliStatusPhysicsGreen = false := rfl
-
-def kleisliStatusProductionWired : Bool := false
-
-theorem kleisliStatusProductionWiredFalse : kleisliStatusProductionWired = false := rfl
-
-theorem kleisliStatusModuleWitness : True := trivial
-
-theorem kleisliStatus_noNewAxiom : True := trivial
 
 end UMST.Urge.KleisliStatus

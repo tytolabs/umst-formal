@@ -160,10 +160,6 @@ def evaluateEntityPrePush (policy : UrgeRemotePolicy) (host : String) :
   | .forge => Sum.inl .admitted
   | .unclassified => Sum.inr (.unclassifiedHostRefused .unclassified)
 
-/-- Positive refuse: production wired push without entity remote policy. -/
-def refuseProductionWiredEntityPush : EntityPrePushRefusal :=
-  .productionWiredRefused
-
 /-- Classify blind upstream vs typed policy without performing I/O. -/
 def evaluateEntityRemoteOperation (isUpstreamRefused : Bool) : EntityRemoteVerdict :=
   if isUpstreamRefused then .upstreamRefused else .policyOk
@@ -186,48 +182,6 @@ theorem entityRemoteUpstreamRefusedPositive :
 
 theorem entityRemotePolicyOkWhenNotUpstream :
     evaluateEntityRemoteOperation false = EntityRemoteVerdict.policyOk := rfl
-
-theorem refuseProductionWiredEntityPushPositive :
-    refuseProductionWiredEntityPush = EntityPrePushRefusal.productionWiredRefused := rfl
-
--- ================================================================
--- SECTION 3: Entity remote composes Excitement (no second argmin)
--- ================================================================
-
-/-- Context for entity remote over admissible history successors. -/
-structure EntityRemoteCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Entity remote selection **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def entityRemoteSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : EntityRemoteCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-noncomputable def entityRemoteSelectBare {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem entityRemoteSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : EntityRemoteCtx S) :
-    entityRemoteSelect ctx = select ctx.prior ctx.successors := by
-  simp [entityRemoteSelect, urgeRecoverySelect_eq_select]
-
-theorem entityRemoteSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : EntityRemoteCtx S) :
-    entityRemoteSelect ctx = urgeRecoverySelect ctx.prior ctx.successors := rfl
-
-theorem entityRemote_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : EntityRemoteCtx S) :
-    entityRemoteSelect ctx = select ctx.prior ctx.successors :=
-  entityRemoteSelect_eq_excitementSelect ctx
-
-theorem entityRemote_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : EntityRemoteCtx S) (h : ctx.successors = []) :
-    entityRemoteSelect ctx = Sum.inr Residue.noCandidates := by
-  simp [entityRemoteSelect, urgeRecoverySelect, h, select_empty]
 
 -- ================================================================
 -- SECTION 4: §13.6 fixtures + witness theorems
@@ -271,9 +225,6 @@ theorem entityRemoteComposeForgeAdmitted :
     evaluateEntityPrePush entityRemoteFixtureComposeConfidential "forge.tyto.in" =
       Sum.inl .admitted := rfl
 
-theorem entityRemoteSectionPrefixWitness :
-    urgeRemoteSectionPrefix = "urge.remote." := rfl
-
 theorem entityRemoteLabsPublicSectionKey :
     urgeRemoteSectionPrefix ++ entityRemoteFixtureLabsPublic.sectionKey =
       "urge.remote.labs-public" := rfl
@@ -283,12 +234,6 @@ theorem entityRemoteParseLabs :
 
 theorem entityRemoteParseCompose :
     parseUrgeEntity "compose" = .parsed .compose := rfl
-
-theorem entityRemoteClassificationEntityLabs :
-    classificationEntity .publicOss = .labs := rfl
-
-theorem entityRemoteClassificationEntityCompose :
-    classificationEntity .composeConfidential = .compose := rfl
 
 theorem entityRemoteFixtureApplyPolicyOk :
     applyEntityRemotePolicy entityRemoteFixtureLabsPublic "forge.tyto.in"
@@ -315,59 +260,9 @@ theorem admissibleEntityRemote_intro (h : EntityRemoteHistoryMove)
 
 abbrev admitEntityRemote := admissibleEntityRemote
 
-structure EntityRemoteTransition where
-  move            : EntityRemoteHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def entityRemoteSecondLaw (t : EntityRemoteTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalEntityRemoteBridge where
-  proc : ErasureProcess
-  transition : EntityRemoteTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleEntityRemote transition.move
-
-theorem entityRemoteSecondLaw_from_physical (b : PhysicalEntityRemoteBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    entityRemoteSecondLaw b.transition := by
-  unfold entityRemoteSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleEntityRemote_from_physical (b : PhysicalEntityRemoteBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleEntityRemote b.transition.move :=
-  b.admissible
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def entityRemotePhysicsGreen : Bool := false
-
-theorem entityRemotePhysicsGreenFalse : entityRemotePhysicsGreen = false := rfl
-
-def entityRemoteProductionWired : Bool := false
-
-theorem entityRemoteProductionWiredFalse : entityRemoteProductionWired = false := rfl
-
-theorem entityRemoteModuleWitness : True := trivial
-
-theorem entityRemote_noNewAxiom : True := trivial
 
 theorem entityRemotePositiveRefuseNotSilent :
     evaluateEntityRemoteOperation true ≠ EntityRemoteVerdict.policyOk := by

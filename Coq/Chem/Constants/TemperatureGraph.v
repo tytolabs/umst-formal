@@ -10,7 +10,6 @@
 (*  convention values are named *sections* of this field, not SI pins.  *)
 (*                                                                      *)
 (*  Imports Chem.SecondLaw + Chem.Conservation only; ZERO new axioms. *)
-(*  physics_green stays false — thermo witnesses remain Unwired.        *)
 (* ================================================================== *)
 
 From Stdlib Require Import Reals QArith List.
@@ -140,21 +139,3 @@ Proof.
   exact (chem_joint_mass_product p q).
 Qed.
 
-(* ------------------------------------------------------------------ *)
-(*  Honesty fence (physics_green false — not a measured T pin)         *)
-(* ------------------------------------------------------------------ *)
-
-Definition chem_temperature_graph_physics_green : bool := false.
-
-Lemma chem_temperature_graph_physics_green_false :
-  chem_temperature_graph_physics_green = false.
-Proof. reflexivity. Qed.
-
-Definition temperature_graph_production_wired : bool := false.
-
-Lemma temperature_graph_production_wired_false :
-  temperature_graph_production_wired = false.
-Proof. reflexivity. Qed.
-
-Lemma temperature_graph_module_witness : True.
-Proof. exact I. Qed.

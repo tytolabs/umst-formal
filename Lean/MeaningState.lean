@@ -11,7 +11,7 @@
 
   L₀ boundary: imports `SemanticSecondLaw` only (no `Gate.lean`).
   Kleisli composition theorem mirrors `Web.lean` / `KleisliAdmissibilityComposition`
-  naming parity (`meaning_kleisliComposeWellTyped`).
+  naming parity (`meaningKleisliComposeWellTyped`).
 
   Single-axiom discipline: zero new Lean `axiom` declarations.
 -/
@@ -163,14 +163,6 @@ theorem makeMeaningGateArrowWellTyped {n m : ℕ} (miThreshold : ℝ)
     exact hAdm prior
   · simp [hg] at h
 
-/-- Back-compat alias (structural gate + per-step admissibility hypothesis). -/
-theorem makeMeaningGateArrowWellTyped_structural {n m : ℕ} (miThreshold : ℝ)
-    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
-    (propose : State n → State n)
-    (hAdm : ∀ prior, coreAdmissible ⟨prior, propose prior, witnessFor prior (propose prior), miThreshold⟩) :
-    MeaningWellTyped n m miThreshold witnessFor (makeMeaningGateArrow n propose) :=
-  makeMeaningGateArrowWellTyped miThreshold witnessFor propose hAdm
-
 noncomputable def meaningKleisliCompose {n : ℕ} (f g : MeaningKleisliArrow n) :
     MeaningKleisliArrow n :=
   fun s =>
@@ -203,16 +195,6 @@ theorem meaningWellTyped_one (n m : ℕ) (miThreshold : ℝ)
     MeaningWellTypedN 1 n m miThreshold witnessFor f := by
   intro prior post h
   exact MeaningAdmissibleSteps.succ (hf prior post h) (MeaningAdmissibleSteps.zero (s := post))
-
-/-- Graded Kleisli composition re-export (Economic / Web naming parity). -/
-theorem meaning_kleisliComposeWellTyped (n m : ℕ) (miThreshold : ℝ)
-    (witnessFor : State n → State n → ProposalOutcomeWitness n m)
-    (f g : MeaningKleisliArrow n)
-    (hf : MeaningWellTyped n m miThreshold witnessFor f)
-    (hg : MeaningWellTyped n m miThreshold witnessFor g) :
-    ∀ prior post, meaningKleisliCompose f g prior = some post →
-      MeaningAdmissibleSteps n m miThreshold witnessFor prior post :=
-  meaningKleisliComposeWellTyped n m miThreshold witnessFor f g hf hg
 
 -- ================================================================
 -- SECTION 4: Canonical fixtures (0 sorry — catalog witnesses)
@@ -272,8 +254,5 @@ theorem consistentP0_coreAdmissible_at_zero :
   rw [consistentP0Meaning_zero_model_uncertainty_drop]
   unfold communicativeTransitionBetween consistentP0Meaning
   simp only [zero_div, le_refl]
-
-/-- Catalog witness marker: categorical meaning-state module is present. -/
-theorem meaning_state_module_witness : True := trivial
 
 end UMST.MeaningState

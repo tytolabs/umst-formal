@@ -146,3 +146,14 @@ Use this list when **adding** new physics to the tree.
   in this repository.
 - It does not tie `umst-formal` to external documents; those map **to** this
   artifact only through explicit engineering and documentation work.
+
+## Open obligations of the B4 shrinkage development (certificate CC-P-B2-1)
+
+These four steps are not proved in `Lean/Concrete/ShrinkageB4.lean`; they were recorded as data in that module until
+2026-10-01 and are tracked here instead.
+
+1. The rational development law approximates the real exp(−3α/α_ult) within the operator tolerance ε on the
+   admissible box.
+2. The paste factor √(cement/350) matches the rational development law, or the domain is tightened until it does.
+3. The Clausius–Duhem inequality holds end to end for the B2 compose stack, beyond the slice-1 scalar.
+4. Measured bounds on ε and the operator B2-O1 anchor (the P3, P4 and P5 certificate gate).

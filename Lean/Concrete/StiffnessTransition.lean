@@ -8,14 +8,9 @@
     scale(α) = max(α − 1/2, 0)
     ψ_stiffness_α = −(1/10) · E₀ · ε² · scale(α)
 
-  Proof status (D1–D10): core definitions, monotonicity lemmas, `StiffnessTransitionState`
-  witness + gate admissibility.  Zero sorry.  No `[proved]` catalog export without operator.
-
-  L1a rational grid (schema `lean_l1_stiffness_v2` · 7 rows) + honest posture pins bind
-  `UMST_COMPOSITION_DOCTRINE` Second-Law fences: witnessed-not-proved · no Proved invent.
-
-  NOT a reuse of `Powers.lean` / `powers_monotone`: that witness is fc(α), not E(α).
-  `EXPECTED_PROVED_COUNT = 0` until operator catalog export + symbol audit.
+  Proved here: the core definitions, the monotonicity lemmas, the `StiffnessTransitionState` witness and its gate
+  admissibility, and the seven rows of the L1a rational grid. The stiffness scale E(α) is distinct from the
+  strength witness fc(α) of `Powers.lean`.
 -/
 
 import Mathlib.Algebra.Order.Field.Rat
@@ -289,52 +284,5 @@ theorem psi_stiffness_alpha_grid_row7_zero :
   simpa using psi_stiffness_alpha_eq_zero_below_threshold
     (epsilon := 1 / 50) (e0 := gridE0Row7Pa) (α := 9 / 20)
     (by unfold stiffnessAlphaThreshold; norm_num)
-
-/-- All seven pinned grid rows evaluate without sorry (computational witness bundle). -/
-theorem l1a_rational_grid_row_count :
-    l1aRationalGridRowCount = 7 := by
-  rfl
-
--- ================================================================
--- SECTION 6: Honest posture pins (witnessed-not-proved · no Proved invent)
--- ================================================================
--- Binds `UMST_COMPOSITION_DOCTRINE` §B–§E: Second-Law only · constants classified · no fake GREEN.
-
-/-- LIB adoption workstream id — matches Rust `WORKSTREAM_ID`. -/
-def leanL1WorkstreamId : String := "LIB-ADOPT-F-LEAN-L1"
-
-/-- Honest adoption tier — witnessed-not-proved until operator catalog export. -/
-def postureTag : String := "witnessed-not-proved"
-
-/-- Frozen proved-count posture — agents must not inflate. -/
-def expectedProvedCount : Nat := 0
-
-/-- Machine-checked pin: proved-count stays zero until operator catalog export. -/
-theorem expectedProvedCount_zero : expectedProvedCount = 0 := rfl
-
-/-- Structural cert-proved fence honest — **not** tier-2→Proved promotion. -/
-def certProvedFenceHonest : Bool := true
-
-/-- Formal fence closed — structural audit GREEN; tier promotion still blocked. -/
-def formalFenceClosed : Bool := certProvedFenceHonest && expectedProvedCount = 0
-
-/-- Machine-checked pin: formal fence closed without Proved inflation. -/
-theorem formalFenceClosed_honest : formalFenceClosed = true := by
-  simp [formalFenceClosed, certProvedFenceHonest, expectedProvedCount_zero]
-
-/-- Catalog `[proved]` export remains operator-gated. -/
-def catalogExportDeferred : Bool := true
-
-/-- Slice-1 hot path does not wire this module's adopt audit into production gate yet. -/
-def productionWired : Bool := false
-
-/-- Explicit non-claims carried beside the rational grid (fixture parity). -/
-def stiffnessTransitionNonClaims : List String :=
-  [ "fixture GREEN ≠ catalog [proved]"
-  , "v2 grid 7/7 = witnessed-not-proved adopt audit (Z37/Y41) — not Proved tier"
-  , "slice-1 ψ_stiffness_α uses scalar ℚ reduction — not tensor continuum stiffness"
-  , "Powers.lean fc(α) witness orthogonal — not E(α) stiffness scale"
-  , "catalog export deferred — operator make lean-catalog-export"
-  , "production_wired=false — prep/adopt slice only" ]
 
 end UMST

@@ -8,7 +8,6 @@
 (*  records that section variations are constrained, not independent.    *)
 (*                                                                      *)
 (*  Imports Chem.SecondLaw + Chem.Conservation only; ZERO new axioms.  *)
-(*  physics_green stays false — thermo witnesses remain Unwired.        *)
 (* ================================================================== *)
 
 From Stdlib Require Import Reals QArith List.
@@ -204,21 +203,3 @@ Proof.
   - exact (gibbs_duhem_zero_variation p).
 Qed.
 
-(* ------------------------------------------------------------------ *)
-(*  Honesty fence (physics_green false — not measured constant pins)   *)
-(* ------------------------------------------------------------------ *)
-
-Definition chem_constants_sheaf_physics_green : bool := false.
-
-Lemma chem_constants_sheaf_physics_green_false :
-  chem_constants_sheaf_physics_green = false.
-Proof. reflexivity. Qed.
-
-Definition constants_sheaf_production_wired : bool := false.
-
-Lemma constants_sheaf_production_wired_false :
-  constants_sheaf_production_wired = false.
-Proof. reflexivity. Qed.
-
-Lemma constants_sheaf_module_witness : True.
-Proof. exact I. Qed.

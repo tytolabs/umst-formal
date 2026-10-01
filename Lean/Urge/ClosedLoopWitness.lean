@@ -45,8 +45,6 @@ theorem noStrictImprovement_tag :
 
 def residueConstructorCount : Nat := 6
 
-theorem residue_constructor_count_is_six : residueConstructorCount = 6 := rfl
-
 structure ClosedLoopResidueCounts where
   noCandidates          : ℕ
   allInadmissible       : ℕ
@@ -147,21 +145,11 @@ inductive ClosedLoopStepVerdict where
   | accepted (feedback : ExcitementOccupancyFeedback)
   | refused (refusal : ClosedLoopRefusal)
 
-def refuseClosedLoopSecondArgmin : Empty ⊕ ClosedLoopRefusal :=
-  Sum.inr ClosedLoopRefusal.secondArgmin
-
 def refuseClosedLoopF64DeltaF : Empty ⊕ ClosedLoopRefusal :=
   Sum.inr ClosedLoopRefusal.f64DeltaF
 
 def refuseClosedLoopOpenLoopIsolation : Empty ⊕ ClosedLoopRefusal :=
   Sum.inr ClosedLoopRefusal.openLoopIsolation
-
-/-- Theater pattern: treating non-ℚ (e.g. f64/Float) as the ΔF carrier. -/
-def f64DeltaFTheater : Prop :=
-  (ℚ : Type) ≠ ℚ
-
-theorem refuseF64DeltaF : ¬ f64DeltaFTheater :=
-  fun h => h rfl
 
 /-- Strict improvement predicate for successor filtering (exact ℚ free-energy field). -/
 def strictImprovement {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
@@ -176,36 +164,10 @@ def strictImprovementSuccessors {S : Type} [ThermodynamicSystem ℚ S] [Admissib
 -- SECTION 3: Closed loop composes Excitement.select (no argmin)
 -- ================================================================
 
-/-- Context for §22.7 closed-loop witness over admissible successors. -/
-structure ClosedLoopCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Closed-loop selection **is** `Excitement.select` / `urgeRecoverySelect`. -/
-def closedLoopSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ClosedLoopCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
 def closedLoopSelectList {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
     [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
     Cand (K := ℚ) prior ⊕ Residue :=
   select prior successors
-
-theorem closedLoopSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ClosedLoopCtx S) :
-    closedLoopSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem closedLoopSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : ClosedLoopCtx S) :
-    closedLoopSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem closedLoopNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : ClosedLoopCtx S) :
-    closedLoopSelect ctx = select ctx.prior ctx.successors :=
-  rfl
 
 theorem closedLoopEmpty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
     [JointThermo ℚ S] (prior : S) :
@@ -322,94 +284,12 @@ theorem fixtureRefuseNoCandidates :
   simp only [List.isEmpty]
   trivial
 
-theorem fixtureRefuseNoStrictImprovement :
-    let (w, v) := witnessClosedLoopStep emptyMessyWitness refuseSrc [refuseCandidate]
-    v = .refused (.excitementResidue .noStrictImprovement) ∧
-    closedLoopResidueCountOf w.counts .noStrictImprovement = 1 := by
-  dsimp [witnessClosedLoopStep, strictImprovementSuccessors, strictImprovement,
-    recordMessyResidue, incrementClosedLoopResidueCount, refuseCandidate, refuseSrc, refuseTgt,
-    closedLoopResidueCountOf, emptyMessyWitness, ClosedLoopResidueCounts.zero]
-  simp only [List.filter]
-  trivial
-
-theorem occupancySurrogateFixture :
-    let w :=
-      recordMessyResidue
-        (recordMessyResidue emptyMessyWitness .noCandidates)
-        .noStrictImprovement
-    let w' := addMessyObservedDelta w { src := 10, observed := 3 }
-    (occupancyFromWitness w').occupancySurrogate = 2001 := by
-  unfold occupancyFromWitness recordMessyResidue incrementClosedLoopResidueCount
-    ClosedLoopResidueCounts.total addMessyObservedDelta
-  rfl
-
-theorem refuseSecondArgminPositive :
-    refuseClosedLoopSecondArgmin = Sum.inr .secondArgmin := rfl
-
 theorem refuseF64DeltaFPositive :
     refuseClosedLoopF64DeltaF = Sum.inr .f64DeltaF := rfl
 
 theorem refuseOpenLoopIsolationPositive :
     refuseClosedLoopOpenLoopIsolation = Sum.inr .openLoopIsolation := rfl
 
-theorem observedDeltaFComputeFixture :
-    observedDeltaFCompute 10 3 = 3 - 10 := rfl
-
-theorem positiveRefuseNotSilent (x : Empty) :
-    refuseClosedLoopSecondArgmin ≠ Sum.inl x := by
-  intro h
-  cases h
-
 end ClosedLoopFixture
-
--- ================================================================
--- SECTION 5: Bridge to physicalSecondLaw (derived — zero new axioms)
--- ================================================================
-
-structure ClosedLoopTransition where
-  history   : HistoryTransition
-  witness   : MessyWitness
-
-structure PhysicalClosedLoopBridge where
-  bridge : PhysicalHistoryBridge
-  pack   : ClosedLoopTransition
-  historyEq : pack.history = bridge.transition
-
-theorem closedLoop_admitSecondLaw_from_physical (b : PhysicalClosedLoopBridge)
-    (hSL : physicalSecondLawUniformBinary b.bridge.proc) :
-    admitSecondLaw b.pack.history := by
-  rw [b.historyEq]
-  exact admitSecondLaw_from_physical b.bridge hSL
-
-theorem closedLoop_admissible_from_physical (b : PhysicalClosedLoopBridge)
-    (hSL : physicalSecondLawUniformBinary b.bridge.proc) :
-    admissibleHistoryTransition b.pack.history := by
-  rw [b.historyEq]
-  exact admissibleHistoryTransition_from_physical b.bridge hSL
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def closedLoopWitnessProductionWired : Bool := false
-
-theorem closedLoopWitnessProductionWiredFalse : closedLoopWitnessProductionWired = false := rfl
-
-theorem closedLoopWitnessModuleWitness : True := trivial
-
-theorem closedLoopWitness_noNewAxiom : True := trivial
-
-theorem closedLoopWitness_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : ClosedLoopCtx S) :
-    closedLoopSelect ctx = select ctx.prior ctx.successors :=
-  rfl
 
 end UMST.Urge.ClosedLoopWitness

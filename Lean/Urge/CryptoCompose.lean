@@ -172,83 +172,6 @@ theorem cryptoComposeEgoffCopyPasteRefused (_snapshotId : Nat) :
 theorem cryptoComposeMorphismOkWhenNotCopyPaste :
     evaluateCryptoComposeOperation false = .morphismOk := rfl
 
-theorem refuseEgoffCopyPastePositive (snapshotId : Nat) :
-    refuseEgoffCopyPaste snapshotId = .egoffCopyPasteRefused snapshotId := rfl
-
-theorem refuseHostIdAsRidPositive (hostId : Nat) :
-    refuseHostIdAsRid hostId = .hostIdAsRid hostId := rfl
-
-theorem refuseUnsignedTransitionPositive (snapshotId : Nat) :
-    refuseUnsignedTransition snapshotId = .unsignedTransition snapshotId := rfl
-
-theorem refuseSecondArgminIsTag :
-    refuseSecondArgmin = .secondArgmin := rfl
-
--- ================================================================
--- SECTION 3: Crypto compose composes Excitement.select (no second argmin)
--- ================================================================
-
-/-- Context for crypto compose over admissible history successors. -/
-structure CryptoComposeCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Crypto compose **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def cryptoComposeSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CryptoComposeCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def cryptoComposeExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (successors : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src successors
-
-noncomputable def urgeCryptoComposeSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (successors : List (Cand (K := ℚ) src)) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  cryptoComposeExcitementSelect src successors
-
-theorem cryptoComposeSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CryptoComposeCtx S) :
-    cryptoComposeSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem cryptoComposeSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CryptoComposeCtx S) :
-    cryptoComposeSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem cryptoComposeNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CryptoComposeCtx S) :
-    cryptoComposeSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem cryptoComposeExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (successors : List (Cand (K := ℚ) src)) :
-    cryptoComposeExcitementSelect src successors = select src successors :=
-  rfl
-
-theorem urgeCryptoComposeSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (successors : List (Cand (K := ℚ) src)) :
-    urgeCryptoComposeSelect src successors = select src successors :=
-  rfl
-
-theorem cryptoComposeEmpty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CryptoComposeCtx S)
-    (h : ctx.successors = []) :
-    cryptoComposeSelect ctx = Sum.inr Residue.noCandidates := by
-  simpa [cryptoComposeSelect, h] using select_empty (src := ctx.prior)
-
-def excitementComposePin : Nat := 0
-
-theorem excitementComposePinMarker : excitementComposePin = 0 := rfl
-
 -- ================================================================
 -- SECTION 4: §5.4 fixtures + witness theorems
 -- ================================================================
@@ -301,15 +224,6 @@ theorem cryptoComposeFixtureApplyMorphismOk :
         morphismExcitementSelected := true } :=
   rfl
 
-theorem cryptoComposeContentAddressedIdentity :
-    identityContentAddressed .contentAddressedRid = true := rfl
-
-theorem cryptoComposeDecentralizedDidIdentity :
-    identityContentAddressed .decentralizedDid = true := rfl
-
-theorem cryptoComposeHostIdNotContentAddressed :
-    identityContentAddressed .hostIdSurrogate = false := rfl
-
 theorem cryptoComposeFixtureWitnessPreservesUcrs :
     (witnessFromCryptoSnapshot cryptoComposeFixtureSnapshot).witnessUcrs =
       cryptoComposeFixtureUcrs :=
@@ -338,71 +252,10 @@ theorem admissibleCryptoCompose_intro (h : CryptoHistoryMove)
 
 abbrev admitCryptoInbound := admissibleCryptoCompose
 
-structure CryptoTransition where
-  move            : CryptoHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def cryptoSecondLaw (t : CryptoTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalCryptoBridge where
-  proc : ErasureProcess
-  transition : CryptoTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleCryptoCompose transition.move
-
-theorem cryptoSecondLaw_from_physical (b : PhysicalCryptoBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    cryptoSecondLaw b.transition := by
-  unfold cryptoSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleCryptoCompose_from_physical (b : PhysicalCryptoBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleCryptoCompose b.transition.move :=
-  b.admissible
-
-theorem cryptoSecondLaw_from_landauer (b : PhysicalCryptoBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    cryptoSecondLaw b.transition :=
-  cryptoSecondLaw_from_physical b hSL
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def cryptoComposePhysicsGreen : Bool := false
-
-theorem cryptoComposePhysicsGreenFalse : cryptoComposePhysicsGreen = false := rfl
-
-def cryptoComposeProductionWired : Bool := false
-
-theorem cryptoComposeProductionWiredFalse : cryptoComposeProductionWired = false := rfl
-
-theorem cryptoComposeModuleWitness : True := trivial
-
-theorem cryptoComposeNoNewAxiom : True := trivial
-
 def cryptoComposeMarker : Nat := 1
-
-theorem cryptoComposeMarkerEq : cryptoComposeMarker = 1 := rfl
 
 end UMST.Urge.CryptoCompose

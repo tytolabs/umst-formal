@@ -22,19 +22,6 @@ prop_quantile_separation_split_sample u v w =
         2 * nWarmup eps del rho
           <= nWarmup eps half rho + nWarmup eps half rho
 
--- | Structural surrogate: misclassification budget slot is nonnegative for honest `δ ≥ 0`.
-prop_band_classification_surrogate_nonneg :: Double -> Property
-prop_band_classification_surrogate_nonneg d =
-  let del = max 0 (abs (sin d))
-   in property $ 0 <= 3 * del
-
--- | Flip-rate surrogate `1/W` is nonnegative on stationary windows of capacity `W ≥ 1`.
-prop_flip_rate_surrogate_nonneg :: Int -> Property
-prop_flip_rate_surrogate_nonneg w =
-  let w' = max 1 (abs w `mod` 10000)
-      inv = 1 / (fromIntegral w' :: Double)
-   in property $ inv >= 0
-
 prop_n_quantile_monotone_in_epsilon :: Double -> Double -> Double -> Double -> Property
 prop_n_quantile_monotone_in_epsilon u v w t =
   let eps1 = 0.05 + 0.15 * abs (sin u)

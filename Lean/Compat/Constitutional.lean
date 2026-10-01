@@ -91,10 +91,6 @@ theorem kleisliFoldWellTypedN (arrows : List KleisliArrow) (hall : AllWellTyped 
         intro h hmem
         exact hall h (List.mem_cons_of_mem f hmem)
 
-theorem kleisliFoldWellTyped (arrows : List KleisliArrow) (hall : AllWellTyped arrows) :
-    WellTypedN arrows.length (kleisliFold arrows) :=
-  kleisliFoldWellTypedN arrows hall
-
 theorem sequentialCompositionSafe (s0 s1 s2 : ThermodynamicState)
     (hseq : ConstitutionalSeq [s0, s1, s2]) :
     Admissible s0 s1 ∧ Admissible s1 s2 :=

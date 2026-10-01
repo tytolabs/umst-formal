@@ -170,7 +170,4 @@ theorem coherentP0_chemSecondLaw : chemSecondLaw coherentP0Transition := by
   unfold assemblageEntropyDrop coherentP0Transition
   simp [coherentP0_zero_entropy_drop]
 
-/-- Catalog witness: meso chemistry second-law module is present. -/
-theorem chem_second_law_module_witness : True := trivial
-
 end UMST.Chem.SecondLaw

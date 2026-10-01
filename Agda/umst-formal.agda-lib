@@ -2,3 +2,4 @@ name: umst-formal
 include: .
 depend:
   standard-library
+flags: --safe

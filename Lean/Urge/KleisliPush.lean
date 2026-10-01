@@ -154,8 +154,6 @@ def evaluatePushKleisli (a : PushKleisliArrow) : PushVerdict ⊕ PushRefusal :=
     | .bypassAttempted => Sum.inr PushRefusal.gateBypassRefused
     | _ => Sum.inr PushRefusal.gateRefused
 
-def refuseProductionWiredPush : PushRefusal := PushRefusal.productionWiredRefused
-
 def refuseGateBypassPush : PushRefusal := PushRefusal.gateBypassRefused
 
 def refuseSyncGateOnPush : PushRefusal :=
@@ -189,48 +187,6 @@ def pushKleisliArrowFromHost
     objectCount := objectCount }
 
 -- ================================================================
--- SECTION 3: Push composes Excitement (no second argmin)
--- ================================================================
-
-/-- Context for push over admissible history successors. -/
-structure PushCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Push **is** `urgeRecoverySelect` / `Excitement.select` on successors. -/
-noncomputable def pushSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : PushCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-noncomputable def pushSelectBare {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  urgeRecoverySelect prior successors
-
-theorem pushSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : PushCtx S) :
-    pushSelect ctx = select ctx.prior ctx.successors :=
-  urgeRecoverySelect_eq_select ctx.prior ctx.successors
-
-theorem pushSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : PushCtx S) :
-    pushSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem pushNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : PushCtx S) :
-    pushSelect ctx = select ctx.prior ctx.successors :=
-  pushSelect_eq_select ctx
-
-theorem pushSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : PushCtx S) (h : ctx.successors = []) :
-    pushSelect ctx = Sum.inr Residue.noCandidates := by
-  unfold pushSelect urgeRecoverySelect
-  rw [h]
-  simpa using select_empty (src := ctx.prior)
-
--- ================================================================
 -- SECTION 4: §16.7 fixtures + witness theorems
 -- ================================================================
 
@@ -261,18 +217,6 @@ theorem pushFixtureEntityRefusedUpstreamOrigin :
 theorem pushFixtureEntityRefusedUpstreamGithub :
     classifyEntityRemote "github.com" = EntityRemoteClass.refusedUpstream := rfl
 
-theorem pushFixtureKleisliGateMatchesPush :
-    kleisliGateMatchesPush KleisliGateKind.outboundTickIfAdmitted = true := rfl
-
-theorem pushFixtureKleisliGateRejectsInboundSync :
-    kleisliGateMatchesPush KleisliGateKind.gateCheckBeforeSyncInbound = false := rfl
-
-theorem pushFixtureRefuseSyncGatePositive :
-    refuseSyncGateOnPush = PushRefusal.wrongGate KleisliGateKind.gateCheckBeforeSyncInbound := rfl
-
-theorem pushFixtureRefuseFrugalMiPositive :
-    refuseFrugalMiOnPush = PushRefusal.wrongGate KleisliGateKind.frugalMiObservation := rfl
-
 theorem pushFixtureConjunctAdmits :
     pushConjunctAdmits pushFixtureConjunct = true := rfl
 
@@ -297,69 +241,13 @@ theorem admissiblePushHistoryMove_intro (h : PushHistoryMove)
 
 abbrev admitPushOutbound := admissiblePushHistoryMove
 
-structure PushTransition where
-  move            : PushHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def pushSecondLaw (t : PushTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalPushBridge where
-  proc : ErasureProcess
-  transition : PushTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissiblePushHistoryMove transition.move
-
-theorem pushSecondLaw_from_physical (b : PhysicalPushBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    pushSecondLaw b.transition := by
-  unfold pushSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissiblePushHistoryMove_from_physical (b : PhysicalPushBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissiblePushHistoryMove b.transition.move :=
-  b.admissible
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def kleisliPushPhysicsGreen : Bool := false
-
-theorem kleisliPushPhysicsGreenFalse : kleisliPushPhysicsGreen = false := rfl
-
-def kleisliPushProductionWired : Bool := false
-
-theorem kleisliPushProductionWiredFalse : kleisliPushProductionWired = false := rfl
-
-theorem kleisliPushModuleWitness : True := trivial
-
-theorem kleisliPush_noNewAxiom : True := trivial
 
 theorem kleisliPushPositiveRefuseNotSilent :
     evaluatePushKleisli pushFixtureGateRefusedArrow ≠ Sum.inl PushVerdict.admitted := by
   rw [pushFixtureGateRefused]
   decide
-
-theorem kleisliPushProductionWiredRefusePositive :
-    refuseProductionWiredPush = PushRefusal.productionWiredRefused := rfl
-
-theorem kleisliPushGateBypassRefusePositive :
-    refuseGateBypassPush = PushRefusal.gateBypassRefused := rfl
 
 end UMST.Urge.KleisliPush

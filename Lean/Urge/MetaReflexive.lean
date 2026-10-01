@@ -163,73 +163,11 @@ def applyMetaReflexiveMorphism (m : UrgeMorphism) (conjunct : MetaAdmissibilityC
     | Sum.inl _ => Sum.inl m
     | Sum.inr r => Sum.inr r
 
-theorem metaReflexiveBypassRefused (k : UrgeMorphismKind) :
-    refuseBypassMetaGate k = .bypassMeta k := rfl
-
-theorem metaReflexiveSelfExemptRefused (k : UrgeMorphismKind) :
-    refuseSelfExempt k = .selfExempt k := rfl
-
-theorem metaReflexiveInventedGreenRefused (k : UrgeMorphismKind) :
-    refuseInventedGreen k = .inventedGreen k := rfl
-
-theorem metaReflexiveFormalOverclaimRefused (k : UrgeMorphismKind) :
-    refuseFormalOverclaim k = .formalOverclaim k := rfl
-
 theorem evaluateMetaGateBypassPositive :
     evaluateMetaGateBypass true = .bypassRefused := rfl
 
 theorem evaluateMetaGateBypassHonest :
     evaluateMetaGateBypass false = .healthy := rfl
-
--- ================================================================
--- SECTION 3: Reflexive recovery composes Excitement (no second argmin)
--- ================================================================
-
-/-- Context for reflexive recovery over admissible history successors. -/
-structure MetaReflexiveCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Reflexive recovery **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def metaReflexiveSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : MetaReflexiveCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-noncomputable def metaReflexiveSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) : Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem metaReflexiveSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : MetaReflexiveCtx S) :
-    metaReflexiveSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem metaReflexiveSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : MetaReflexiveCtx S) :
-    metaReflexiveSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem metaReflexiveNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : MetaReflexiveCtx S) :
-    metaReflexiveSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem metaReflexive_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : MetaReflexiveCtx S) (h : ctx.successors = []) :
-    metaReflexiveSelect ctx = Sum.inr Residue.noCandidates := by
-  unfold metaReflexiveSelect
-  rw [h]
-  simpa using select_empty (src := ctx.prior)
-
-theorem metaReflexive_emptyBare {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    metaReflexiveSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [metaReflexiveSelectBare] using select_empty (src := prior)
 
 -- ================================================================
 -- SECTION 4: §10.5 fixtures + witness theorems
@@ -299,90 +237,12 @@ theorem metaFixtureWitnessPreservesStamp :
     metaFixtureWitness.stamp = metaFixtureStamp := rfl
 
 -- ================================================================
--- SECTION 5: Landauer bridge (ReplicaCoalgebra-style — zero new axioms)
--- ================================================================
-
-structure MetaReflexiveTransition where
-  prior           : ThermodynamicState
-  post            : ThermodynamicState
-  gateChecked     : Prop
-  reflexiveHonest : Prop
-  provenanceOk    : Prop
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def admissibleMetaReflexiveTransition (t : MetaReflexiveTransition) : Prop :=
-  t.gateChecked ∧ t.reflexiveHonest ∧ t.provenanceOk
-
-def metaReflexiveSecondLaw (t : MetaReflexiveTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalMetaReflexiveBridge where
-  proc : ErasureProcess
-  transition : MetaReflexiveTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleMetaReflexiveTransition transition
-
-theorem metaReflexiveSecondLaw_from_physical (b : PhysicalMetaReflexiveBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    metaReflexiveSecondLaw b.transition := by
-  unfold metaReflexiveSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleMetaReflexiveTransition_from_physical (b : PhysicalMetaReflexiveBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleMetaReflexiveTransition b.transition :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
--- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def metaReflexivePhysicsGreen : Bool := false
-
-theorem metaReflexivePhysicsGreenFalse : metaReflexivePhysicsGreen = false := rfl
-
-def metaReflexiveProductionWired : Bool := false
-
-theorem metaReflexiveProductionWiredFalse : metaReflexiveProductionWired = false := rfl
-
-theorem metaReflexiveModuleWitness : True := trivial
-
-theorem metaReflexive_noNewAxiom : True := trivial
 
 theorem metaReflexivePositiveRefuseNotSilent :
     evaluateMetaGateBypass true ≠ .healthy := by
   simp [evaluateMetaGateBypass]
-
-theorem metaReflexiveHonest :
-    metaReflexivePhysicsGreen = false ∧
-    metaReflexiveProductionWired = false ∧
-    (∃ r, evaluateReflexiveHealth metaFixtureHealthyMorphism = Sum.inl r) ∧
-    evaluateReflexiveHealth metaFixtureBypassMorphism ≠
-      Sum.inl { kind := .merge, verdict := .healthy, physicsGreen := false } := by
-  refine ⟨metaReflexivePhysicsGreenFalse, ?_, ?_, ?_⟩
-  · exact metaReflexiveProductionWiredFalse
-  · exact ⟨metaFixtureHealthyReport, metaFixtureHealthyAdmits⟩
-  · rw [metaFixtureBypassRefused]
-    intro h
-    cases h
 
 theorem metaReflexivePositiveRefuse :
     refuseBypassMetaGate .merge = .bypassMeta .merge ∧

@@ -35,11 +35,6 @@ inductive OreTree where
   | tensor : OreTree → OreTree → OreTree
   deriving Repr
 
-/-- Whether an ore tree is a multi-body scaffold (not a singleton placeholder). -/
-def isMultiBodyScaffold : OreTree → Bool
-  | .leaf _ => true
-  | .tensor l r => isMultiBodyScaffold l && isMultiBodyScaffold r
-
 /-- Canonical hematite-dominant ore leaf. -/
 def hematiteLeaf : OreTree := .leaf .HematiteDominant
 
@@ -141,21 +136,5 @@ noncomputable def coherentP0OreMorphism : OreMorphism 2 where
 
 theorem coherentP0Ore_secondLaw : oreSecondLawAdmissible coherentP0OreMorphism :=
   coherentP0_chemSecondLaw
-
-theorem hematiteGangue_multiBody : isMultiBodyScaffold hematiteGangueTensor = true := by
-  decide
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def orePhysicsGreen : Bool := false
-
-theorem orePhysicsGreenFalse : orePhysicsGreen = false := rfl
-
-/-- Production wiring stays open (ORE-00 / CAT-01 lift only). -/
-def oreAssemblageProductionWired : Bool := false
-
-theorem oreAssemblageProductionWiredFalse : oreAssemblageProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry ore-assemblage module present. -/
-theorem oreAssemblageModuleWitness : True := trivial
 
 end UMST.Chem.OreAssemblage

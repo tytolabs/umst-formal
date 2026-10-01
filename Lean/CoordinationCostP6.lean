@@ -206,12 +206,6 @@ noncomputable def mkSemanticFloorReport {n m : ℕ}
 -- SECTION 2: Definitional alignment (proved — no new physics)
 -- ================================================================
 
-theorem physicalUnderstandingFloor_eq_coordinationSaving {n m : ℕ}
-    (w : PhysicalMiBridgeWitness n m) (T : ℝ) :
-    physicalUnderstandingFloorJoules w T =
-      coordinationSavingJoules w.declaredDeficitBits T :=
-  rfl
-
 theorem mkSemanticFloorReport_understandingCost {n m : ℕ}
     (w : PhysicalMiBridgeWitness n m) (T : ℝ) :
     (mkSemanticFloorReport w T).understandingCostJoules =

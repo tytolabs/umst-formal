@@ -56,21 +56,13 @@ theorem gateCheck_guidance_naturality {n : Nat}
     gateCheck (GuidanceF_map f g).thermo (GuidanceF_map f t).thermo =
       gateCheck g.thermo t.thermo := rfl
 
-/-- Alias per design doc: naturality of gate decision under guidance. -/
-theorem gate_naturality {n : Nat}
-    (f : MultiplicativeChannel n → MultiplicativeChannel n)
-    (g t : GuidedState n) :
-    gateCheck (GuidanceF_map f g).thermo (GuidanceF_map f t).thermo =
-      gateCheck g.thermo t.thermo :=
-  gateCheck_guidance_naturality f g t
-
 /-- Soundness of gate check is preserved under channel-only guidance. -/
 theorem gateCheckSound_guidance {n : Nat}
     (f : MultiplicativeChannel n → MultiplicativeChannel n)
     (g t : GuidedState n)
     (h : gateCheck g.thermo t.thermo = true) :
     gateCheck (GuidanceF_map f g).thermo (GuidanceF_map f t).thermo = true := by
-  rw [gate_naturality f g t, h]
+  rw [gateCheck_guidance_naturality f g t, h]
 
 /-- Admissibility extracted from gate soundness is guidance-invariant. -/
 theorem admissible_of_gateCheck_guidance {n : Nat}

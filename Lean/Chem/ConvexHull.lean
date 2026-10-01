@@ -138,26 +138,6 @@ structure CommonTangentEquilibrium (n : ℕ) extends ConvexHullEquilibrium n whe
 -- SECTION 4: physicalSecondLaw bridge (corollary — zero new axioms)
 -- ================================================================
 
-/-- `physicalSecondLaw` discharges chemical second law on bridged assemblages. -/
-theorem convexHull_chemSecondLaw_from_physical (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    chemSecondLaw b.transition :=
-  chemSecondLaw_from_physical b hSL
-
-/-- Entropy accounting corollary from `physicalSecondLaw`. -/
-theorem convexHull_entropy_from_physical (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    assemblageEntropyDrop b.transition ≤
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val :=
-  chem_entropy_bound_from_physical b hSL
-
-/-- Landauer refinement floor corollary from `physicalSecondLaw`. -/
-theorem convexHull_refinementLandauer (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    b.transition.dissipatedWork ≥
-      b.transition.bath.bathTemp.val * log 2 :=
-  refinementLandauerBound b hSL
-
 /-- Physical bridge yields admissible convex-hull equilibrium at zero composition delta. -/
 theorem admissibleConvexHull_from_physical_bridge (b : PhysicalChemBridge)
     (w : LinearConservationWitness 2)
@@ -268,22 +248,5 @@ noncomputable def coherentP0CommonTangentEquilibrium : CommonTangentEquilibrium 
 theorem coherentP0CommonTangent_secondLaw :
     convexHullSecondLawAdmissible coherentP0CommonTangentEquilibrium.toConvexHullEquilibrium :=
   coherentP0_chemSecondLaw
-
--- ================================================================
--- SECTION 6: Honesty fence (physics_green false — not measured G pins)
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def convexHullPhysicsGreen : Bool := false
-
-theorem convexHullPhysicsGreenFalse : convexHullPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (CHEM-MATH-GIBBS-CONVEX-HULL lift only). -/
-def convexHullProductionWired : Bool := false
-
-theorem convexHullProductionWiredFalse : convexHullProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry convex-hull module present. -/
-theorem convexHullModuleWitness : True := trivial
 
 end UMST.Chem.ConvexHull

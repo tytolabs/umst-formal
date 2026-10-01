@@ -106,9 +106,6 @@ def evaluateFetchKleisli (arrow : FetchKleisliArrow) : FetchVerdict ⊕ FetchErr
     | .bypassAttempted => Sum.inr .gateBypassRefused
     | _ => Sum.inr .gateRefused
 
-/-- Positive refuse: production wired fetch without Kleisli gate. -/
-def refuseProductionWiredFetch : FetchError := .productionWiredRefused
-
 /-- Positive refuse: gate bypass on inbound fetch. -/
 def refuseGateBypassFetch : FetchError := .gateBypassRefused
 
@@ -182,70 +179,11 @@ theorem fetchInboundGateFromSync_admitted (h : HistorySyncTick)
 -- SECTION 4: Fetch composes Excitement.select (no second argmin)
 -- ================================================================
 
-/-- Context for fetch over admissible history successors. -/
-structure FetchCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Fetch operator selection **is** `Excitement.select`. -/
-noncomputable def fetchSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FetchCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def fetchSelectBare {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem fetchSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FetchCtx S) :
-    fetchSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem fetchSelect_eq_admitHistorySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : FetchCtx S) :
-    fetchSelect ctx = admitHistorySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem fetch_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : FetchCtx S) :
-    fetchSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem fetchSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    fetchSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [fetchSelectBare] using select_empty (src := prior)
-
 /-- Kleisli fetch compose pin — import selector; refuse second argmin. -/
 inductive FetchExcitementPin where
   | importSelectExcitement
   | secondArgminRefused
   deriving DecidableEq, Repr
-
-noncomputable def fetchExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) (pin : FetchExcitementPin) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select prior cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-theorem fetchExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    fetchExcitementSelect prior cands .importSelectExcitement = select prior cands :=
-  rfl
-
-theorem fetchExcitementSelect_refuses_secondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    fetchExcitementSelect prior cands .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
 
 -- ================================================================
 -- SECTION 5: §16.7 fixtures + witness theorems
@@ -278,92 +216,11 @@ theorem fetchFixture_classify_forge_entity :
 theorem fetchFixture_classify_github_refused :
     classifyFetchRemote "github.com" = .refusedUpstream := rfl
 
-theorem fetchFixture_production_wired_refuse :
-    refuseProductionWiredFetch = .productionWiredRefused := rfl
-
-theorem fetchFixture_gate_bypass_refuse :
-    refuseGateBypassFetch = .gateBypassRefused := rfl
-
 theorem fetchFixture_kleisli_admissible :
     fetchKleisliAdmissible fetchFixtureAdmittedArrow = true := rfl
 
 theorem fetchPositiveRefuse_not_silent :
     evaluateFetchKleisli fetchFixtureGateRefusedArrow ≠ Sum.inl FetchVerdict.admitted := by
   simp [fetchFixture_gate_refused]
-
--- ================================================================
--- SECTION 6: Landauer bridge (derived — zero new axioms)
--- ================================================================
-
-structure FetchTransition where
-  prior           : ThermodynamicState
-  post            : ThermodynamicState
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-  gateChecked     : Prop
-  remoteAdmissible : Prop
-
-def admissibleFetchTransition (t : FetchTransition) : Prop :=
-  t.gateChecked ∧ t.remoteAdmissible
-
-def fetchSecondLaw (t : FetchTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalFetchBridge where
-  proc : ErasureProcess
-  transition : FetchTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleFetchTransition transition
-
-theorem fetchSecondLaw_from_physical (b : PhysicalFetchBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    fetchSecondLaw b.transition := by
-  unfold fetchSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleFetchTransition_from_physical (b : PhysicalFetchBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleFetchTransition b.transition :=
-  b.admissible
-
-theorem fetch_physicalSecondLaw_discharge (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
--- ================================================================
--- SECTION 7: Honesty flags + catalog witnesses
--- ================================================================
-
-def kleisliFetchPhysicsGreen : Bool := false
-
-theorem kleisliFetchPhysicsGreenFalse : kleisliFetchPhysicsGreen = false := rfl
-
-def kleisliFetchProductionWired : Bool := false
-
-theorem kleisliFetchProductionWiredFalse : kleisliFetchProductionWired = false := rfl
-
-theorem kleisliFetchModuleWitness : True := trivial
-
-theorem kleisliFetch_noNewAxiom : True := trivial
-
-def excitementComposePin : Nat := 0
-
-theorem excitementComposePin_marker : excitementComposePin = 0 := rfl
-
-theorem refuseSecondArgmin_isTag :
-    FetchExcitementPin.secondArgminRefused = .secondArgminRefused := rfl
 
 end UMST.Urge.KleisliFetch

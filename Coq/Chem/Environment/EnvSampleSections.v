@@ -10,7 +10,6 @@
 (*  EnvironmentContinuum.                                             *)
 (*                                                                      *)
 (*  Imports EnvironmentContinuum only; ZERO new axioms.               *)
-(*  physics_green stays false — thermo witnesses remain Unwired.        *)
 (* ================================================================== *)
 
 From Stdlib Require Import Reals List Psatz.
@@ -92,9 +91,6 @@ Definition env_sample_sections_well_typed (E : environment_sheaf) : Prop :=
   0 < messy_sample_probe E /\
   thermo_continuum_field_positive (sheaf_thermo_continuum E).
 
-Lemma env_sample_sections_named_not_xor : env_sample_sections_not_xor.
-Proof. exact env_sample_sections_not_xor_holds. Qed.
-
 Lemma env_sample_sections_regime_vacuum_contained_distinct :
   env_vacuum_section <> env_contained_section.
 Proof. discriminate. Qed.
@@ -167,30 +163,3 @@ Proof.
   simpl. lra.
 Qed.
 
-Lemma env_sample_sections_fixture_witness :
-  env_sample_sections_well_typed env_sample_fixture_sheaf /\
-  vacuum_does_not_close_messy.
-Proof.
-  split.
-  - exact env_sample_sections_fixture_well_typed.
-  - exact vacuum_does_not_close_messy_holds.
-Qed.
-
-(* ------------------------------------------------------------------ *)
-(*  Honesty fence (physics_green false — not measured env pins)         *)
-(* ------------------------------------------------------------------ *)
-
-Definition chem_env_sample_sections_physics_green : bool := false.
-
-Lemma chem_env_sample_sections_physics_green_false :
-  chem_env_sample_sections_physics_green = false.
-Proof. reflexivity. Qed.
-
-Definition env_sample_sections_production_wired : bool := false.
-
-Lemma env_sample_sections_production_wired_false :
-  env_sample_sections_production_wired = false.
-Proof. reflexivity. Qed.
-
-Lemma env_sample_sections_module_witness : True.
-Proof. exact I. Qed.

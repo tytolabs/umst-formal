@@ -9,7 +9,6 @@
 -- Mirrors @Lean/Chem/Environment/EnvironmentContinuum@ and
 -- @Coq/Chem/Environment/EnvironmentContinuum@ on @umst-formal/meso_acting@.
 --
--- @physics_green@ stays false — thermo witnesses remain Unwired until FORMAL BAR.
 module UMST.Chem.Environment.EnvironmentContinuum
   ( -- * Carriers
     InteractGraphEdge
@@ -26,14 +25,8 @@ module UMST.Chem.Environment.EnvironmentContinuum
     -- * Environment sheaf from physicalSecondLaw
   , environmentSheafOnEdge
   , environmentContinuumWellTyped
-  , environmentSectionsNamedNotXor
   , environmentContinuumSecondLawEq
     -- * Honesty (mirror @UMST.Chem.Kleisli@)
-  , chemPhysicsGreen
-  , chemPhysicsGreenFalse
-  , environmentContinuumProductionWired
-  , environmentContinuumProductionWiredFalse
-  , environmentContinuumModuleWitness
   , environmentRegimeCardinality
   , environmentSectionRegimeTags
   ) where
@@ -130,13 +123,6 @@ environmentContinuumWellTyped old new =
     Nothing -> True
     Just (v, c, m) -> v >= 0 && c >= 0 && m >= 0
 
--- | Sections are a named triple (vacuum | contained | messy), not XOR regime selection.
-environmentSectionsNamedNotXor :: Bool
-environmentSectionsNamedNotXor =
-  environmentRegimeCardinality == 3
-    && length environmentSectionRegimeTags == 3
-    && environmentSectionRegimeTags == ["vacuum", "contained", "messy"]
-
 -- | Second-law coherence: contained dissipation matches gate witness on coupled sections.
 environmentContinuumSecondLawEq :: ThermodynamicState -> ThermodynamicState -> Bool
 environmentContinuumSecondLawEq old new =
@@ -145,22 +131,3 @@ environmentContinuumSecondLawEq old new =
     Just (_, c, _) ->
       abs (c - gateDissipationWitness old new) < tolerance * max 1 (abs c + 1)
 
--- | Physics GREEN unauthorized on this scaffold.
-chemPhysicsGreen :: Bool
-chemPhysicsGreen = False
-
--- | Lean/Coq: @chem_physics_green_false@.
-chemPhysicsGreenFalse :: Bool
-chemPhysicsGreenFalse = not chemPhysicsGreen
-
--- | Production wiring stays open (CAT-00 lift only).
-environmentContinuumProductionWired :: Bool
-environmentContinuumProductionWired = False
-
--- | Lean/Coq: @environment_continuum_production_wired_false@.
-environmentContinuumProductionWiredFalse :: Bool
-environmentContinuumProductionWiredFalse = not environmentContinuumProductionWired
-
--- | Catalog witness: meso chemistry environment continuum module present.
-environmentContinuumModuleWitness :: Bool
-environmentContinuumModuleWitness = True

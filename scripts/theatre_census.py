@@ -49,6 +49,7 @@ BOUNDARY = re.compile(r"^(?:@\[|private\s|protected\s|noncomputable\s|theorem\s|
                       r"set_option\s|#|attribute\s|macro\b|syntax\b|notation\b|universe\s)", re.M)
 LITERAL = re.compile(r'^\(?\s*(true|false|True|False|"[^"]*"|-?\d[\d_]*(\s*:\s*\w+)?|\.\w+|\w+\.\w+|\[\]|none|\(\))\s*\)?$')
 CONNECTIVES = re.compile(r"\s*(&&|\|\||∧|∨|¬|!|=|≠|\(|\))\s*")
+STRING_OPS = {"length", "toList", "isEmpty", "size", "data", "utf8ByteSize", "startsWith", "endsWith", "isPrefixOf"}
 KEYWORDS = {"true", "false", "True", "False", "none", "some", "if", "then", "else", "Nat", "String", "Bool", "Prop",
             "Int", "decide", "rfl", "by", "fun", "let", "in"}
 
@@ -140,6 +141,11 @@ def theatre(text: str, index: dict[str, set[tuple[str, str]]] | None = None) -> 
             idents = [n.split(".")[-1] for n in re.findall(r"[A-Za-z_][\w.']*", stmt_n) if n not in KEYWORDS]
             if idents and all(n in lit for n in idents):
                 kind = "literal"
+        if kind is None and not binders_n and '"' in stmt_n:
+            bare = re.sub(r'"(?:[^"\\]|\\.)*"', "", stmt_n)
+            rest = {n for n in re.findall(r"[A-Za-z_][\w']*", bare)} - KEYWORDS - STRING_OPS
+            if not rest:
+                kind = "literal"  # a property of string literals alone (a length, an emptiness)
         sides = re.fullmatch(r"\(?(.+?)\)?\s*(=|↔)\s*\(?(.+?)\)?", stmt_n)
         if kind is None and sides and sides.group(1).strip() == sides.group(3).strip():
             kind = "reflexive"

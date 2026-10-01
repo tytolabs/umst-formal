@@ -12,8 +12,7 @@
   Adds **zero** Lean `axiom` declarations.
 
   v15: Env sheaf from physicalSecondLaw; vacuum/contained/messy are named sections, not XOR.
-  `physics_green` stays false — thermo witnesses remain Unwired.
--/
+  -/
 
 import Chem.Constants.TemperatureGraph
 import Chem.KleisliInteract
@@ -82,23 +81,11 @@ def messyThermoContinuumSection (E : MesoEnvironmentSheaf) : ℝ :=
 /-- Admissible one-step edge in the Interact graph (HS `InteractGraphEdge`). -/
 abbrev InteractGraphEdge := ThermodynamicState × ThermodynamicState
 
-theorem vacuumContainedVerticesDistinct :
-    vacuumGraphVertex ≠ containedGraphVertex := by decide
-
-theorem vacuumMessyVerticesDistinct :
-    vacuumGraphVertex ≠ messyGraphVertex := by decide
-
-theorem containedMessyVerticesDistinct :
-    containedGraphVertex ≠ messyGraphVertex := by decide
-
 /-- Named sections are distinct vertices — not XOR regime selection. -/
 def envSampleSectionsNotXor : Prop :=
   vacuumGraphVertex ≠ containedGraphVertex ∧
   vacuumGraphVertex ≠ messyGraphVertex ∧
   containedGraphVertex ≠ messyGraphVertex
-
-theorem envSampleSectionsNotXorHolds : envSampleSectionsNotXor :=
-  ⟨vacuumContainedVerticesDistinct, vacuumMessyVerticesDistinct, containedMessyVerticesDistinct⟩
 
 /-- Vacuum does not close messy: witness sheaf with distinct sample sections. -/
 def vacuumDoesNotCloseMessy : Prop :=
@@ -180,9 +167,6 @@ def environmentContinuumSecondLawEq (old new : ThermodynamicState) : Prop :=
 
 /-- Cardinality of named environment sections (not XOR — all three named). -/
 def environmentRegimeCardinality : ℕ := 3
-
-theorem environmentSectionsNamedNotXor :
-    environmentRegimeCardinality = 3 := rfl
 
 -- ================================================================
 -- SECTION 3: Composition interdependence (Coq dot_list mirror)
@@ -274,23 +258,6 @@ theorem environmentContinuumSecondLawEq_ungated (old new : ThermodynamicState)
   unfold environmentContinuumSecondLawEq environmentSheafOnEdge
   simp [h]
 
-theorem environmentContinuum_chemSecondLaw_from_physical (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    chemSecondLaw b.transition :=
-  chemSecondLaw_from_physical b hSL
-
-theorem physicalSecondLaw_discharges_environment_entropy (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    assemblageEntropyDrop b.transition ≤
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val :=
-  chem_entropy_bound_from_physical b hSL
-
-theorem environmentContinuum_refinementLandauer (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    b.transition.dissipatedWork ≥
-      b.transition.bath.bathTemp.val * log 2 :=
-  refinementLandauerBound b hSL
-
 -- ================================================================
 -- SECTION 6: Conservation bridge (zero new axioms)
 -- ================================================================
@@ -298,31 +265,5 @@ theorem environmentContinuum_refinementLandauer (b : PhysicalChemBridge)
 theorem environmentContinuum_linear_conservation_zero {n : ℕ} (w : LinearConservationWitness n) :
     linearWitnessClosed w (fun _ => 0) :=
   linearConservation_zero_delta w
-
-theorem environmentContinuum_admissibleConserved_from_physical (b : PhysicalChemBridge)
-    (w : LinearConservationWitness 2)
-    (hDelta : conservedCompositionDelta ⟨b.transition, fun _ => 0, fun _ => 0⟩ = fun _ => 0)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleConservedTransition w ⟨b.transition, fun _ => 0, fun _ => 0⟩ :=
-  interact_admissibleConserved_from_physical b w hDelta hSL
-
--- ================================================================
--- SECTION 7: Honesty fence (physics_green false — not measured env pins)
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def chemEnvironmentContinuumPhysicsGreen : Bool := false
-
-theorem chemEnvironmentContinuumPhysicsGreenFalse :
-    chemEnvironmentContinuumPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (CAT-00 lift only). -/
-def environmentContinuumProductionWired : Bool := false
-
-theorem environmentContinuumProductionWiredFalse :
-    environmentContinuumProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry environment continuum module present. -/
-theorem environmentContinuumModuleWitness : True := trivial
 
 end UMST.Chem.Environment.EnvironmentContinuum

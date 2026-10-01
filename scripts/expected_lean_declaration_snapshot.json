@@ -22,7 +22,7 @@
     "Concrete.GaloisGate",
     "Compat.Gate",
     "Compat.Constitutional",
-    "Naturality",
+    "MaterialClass",
     "DIBKleisli",
     "FormalFoundations",
     "LandauerEinsteinBridge",
@@ -86,14 +86,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 578,
-    "lemma": 64,
-    "total": 642
+    "theorem": 526,
+    "lemma": 61,
+    "total": 587
   },
   "all_lean_glob": {
-    "theorem": 2225,
-    "lemma": 64,
-    "total": 2289
+    "theorem": 1296,
+    "lemma": 61,
+    "total": 1357
   },
   "per_root": {
     "Core.Scalar": {
@@ -109,7 +109,7 @@
       "lemma": 0
     },
     "Core.Constitutional": {
-      "theorem": 11,
+      "theorem": 10,
       "lemma": 0
     },
     "Concrete.State": {
@@ -125,7 +125,7 @@
       "lemma": 0
     },
     "Real.Gate": {
-      "theorem": 2,
+      "theorem": 1,
       "lemma": 0
     },
     "Concrete.Helmholtz": {
@@ -137,11 +137,11 @@
       "lemma": 5
     },
     "Concrete.StiffnessTransition": {
-      "theorem": 27,
+      "theorem": 24,
       "lemma": 2
     },
     "Concrete.MicroMechanics": {
-      "theorem": 22,
+      "theorem": 19,
       "lemma": 5
     },
     "Concrete.Convergence": {
@@ -173,11 +173,11 @@
       "lemma": 0
     },
     "Compat.Constitutional": {
-      "theorem": 11,
+      "theorem": 10,
       "lemma": 0
     },
-    "Naturality": {
-      "theorem": 6,
+    "MaterialClass": {
+      "theorem": 0,
       "lemma": 0
     },
     "DIBKleisli": {
@@ -185,15 +185,15 @@
       "lemma": 0
     },
     "FormalFoundations": {
-      "theorem": 1,
+      "theorem": 0,
       "lemma": 0
     },
     "LandauerEinsteinBridge": {
-      "theorem": 7,
+      "theorem": 5,
       "lemma": 5
     },
     "LandauerLaw": {
-      "theorem": 16,
+      "theorem": 14,
       "lemma": 3
     },
     "Process": {
@@ -201,11 +201,11 @@
       "lemma": 0
     },
     "OneInequalitySecondLaw": {
-      "theorem": 15,
+      "theorem": 14,
       "lemma": 1
     },
     "ConvexPhiDissipation": {
-      "theorem": 8,
+      "theorem": 6,
       "lemma": 0
     },
     "CoarseGraining": {
@@ -217,11 +217,11 @@
       "lemma": 0
     },
     "SemanticSecondLaw": {
-      "theorem": 12,
+      "theorem": 11,
       "lemma": 0
     },
     "MeaningState": {
-      "theorem": 13,
+      "theorem": 10,
       "lemma": 0
     },
     "SemanticFormal": {
@@ -233,7 +233,7 @@
       "lemma": 0
     },
     "SemanticEconomicModules": {
-      "theorem": 8,
+      "theorem": 6,
       "lemma": 0
     },
     "ClassicalMeasurementCost": {
@@ -241,7 +241,7 @@
       "lemma": 0
     },
     "CoordinationCost": {
-      "theorem": 42,
+      "theorem": 39,
       "lemma": 0
     },
     "CoordinationContract": {
@@ -249,7 +249,7 @@
       "lemma": 0
     },
     "LandauerExtension": {
-      "theorem": 6,
+      "theorem": 5,
       "lemma": 0
     },
     "FiberedActivation": {
@@ -261,11 +261,11 @@
       "lemma": 0
     },
     "PrimeSpectralGuidance": {
-      "theorem": 17,
+      "theorem": 16,
       "lemma": 0
     },
     "PrimeSpectralCategory": {
-      "theorem": 7,
+      "theorem": 6,
       "lemma": 0
     },
     "SeparationBound": {
@@ -281,7 +281,7 @@
       "lemma": 0
     },
     "Economic.BurdenRecursionIsAdmissible": {
-      "theorem": 7,
+      "theorem": 6,
       "lemma": 0
     },
     "Economic.StochasticBurdenExpectation": {
@@ -317,7 +317,7 @@
       "lemma": 0
     },
     "Economic.PhysicsConstrainedAI": {
-      "theorem": 1,
+      "theorem": 0,
       "lemma": 0
     },
     "Economic.EpistemicSensingModule": {
@@ -325,11 +325,11 @@
       "lemma": 0
     },
     "Economic.KleisliAdmissibilityComposition": {
-      "theorem": 2,
+      "theorem": 0,
       "lemma": 0
     },
     "Economic.NuanceIsolator": {
-      "theorem": 2,
+      "theorem": 1,
       "lemma": 0
     },
     "Economic.HorizonAwareGrounding": {
@@ -337,11 +337,11 @@
       "lemma": 0
     },
     "Economic.CollectiveCoherenceCost": {
-      "theorem": 1,
+      "theorem": 0,
       "lemma": 0
     },
     "Economic.CreativeExplorationTolerance": {
-      "theorem": 1,
+      "theorem": 0,
       "lemma": 0
     },
     "CreditGreedyOptimal": {
@@ -365,15 +365,15 @@
       "lemma": 1
     },
     "OrderStatisticsBand": {
-      "theorem": 5,
-      "lemma": 1
+      "theorem": 3,
+      "lemma": 0
     },
     "Memory.MergeSafe": {
       "theorem": 2,
       "lemma": 0
     },
     "Memory.TierDisjoint": {
-      "theorem": 3,
+      "theorem": 2,
       "lemma": 0
     },
     "DEC": {
@@ -381,7 +381,7 @@
       "lemma": 2
     },
     "Adjoint": {
-      "theorem": 2,
+      "theorem": 1,
       "lemma": 0
     },
     "RegimeSoundness": {
@@ -410,10 +410,10 @@
     },
     "Concrete.PoromechanicsB3": {
       "theorem": 15,
-      "lemma": 14
+      "lemma": 12
     },
     "Concrete.ShrinkageB4": {
-      "theorem": 19,
+      "theorem": 14,
       "lemma": 18
     },
     "Web": {
@@ -421,7 +421,7 @@
       "lemma": 0
     },
     "Web.WebMat": {
-      "theorem": 21,
+      "theorem": 20,
       "lemma": 0
     }
   },

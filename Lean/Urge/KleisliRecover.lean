@@ -174,9 +174,6 @@ def evaluateRecoverOperation (op : RecoverOperationClass) : RecoverVerdict :=
   | .rsyncTheater => .rsyncTheaterRefused
   | .typedMorphism => .admitted
 
-def refuseRsyncTheater (snapshotId : Nat) : RecoverRefusal :=
-  .rsyncTheaterRefused snapshotId
-
 def witnessFromSnapshot (s : RecoverRecoverySnapshot) : RecoverRecoveryWitness :=
   { ucrs := s.ucrs
     mergeSafe := s.mergeSafe
@@ -211,10 +208,6 @@ def applyRecoverRecoveryMorphism (snapshot : RecoverRecoverySnapshot)
         witness := witnessFromSnapshot snapshot
         excitementSelected := excitementSelected }
 
-def refuseProductionWiredRecover : RecoverRefusal := .productionWiredRefused
-
-def refuseSecondArgminRecover : RecoverRefusal := .secondArgminRefused
-
 def refuseSyncGateOnRecover : RecoverRefusal :=
   .wrongGate .gateCheckBeforeSyncInbound
 
@@ -230,80 +223,15 @@ theorem recoverVerbRowExcitementRequired :
 theorem recoverVerbRowEntityCheckEgress :
     recoverVerbRowPin.entityCheckEgress = true := rfl
 
-theorem kleisliGateMatchesRecoverExcitement :
-    kleisliGateMatchesRecover .excitementArgmin = true := rfl
-
-theorem kleisliGateMatchesRecoverRejectsInboundSync :
-    kleisliGateMatchesRecover .gateCheckBeforeSyncInbound = false := rfl
-
 -- ================================================================
 -- SECTION 3: Recover composes Excitement.select (no second argmin)
 -- ================================================================
-
-/-- Context for recover over admissible history successors (ReplicaCoalgebra-style). -/
-structure RecoverCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Recover **is** `Excitement.select` on successors — not rsync theater. -/
-noncomputable def recoverSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : RecoverCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def recoverSelectBare {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem recoverSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : RecoverCtx S) :
-    recoverSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem recoverSelect_eq_recoverSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : RecoverCtx S) :
-    recoverSelect ctx = recoverSelectBare ctx.prior ctx.successors :=
-  rfl
-
-theorem recoverNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : RecoverCtx S) :
-    recoverSelect ctx = select ctx.prior ctx.successors :=
-  recoverSelect_eq_select ctx
-
-theorem recoverSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : RecoverCtx S) (h : ctx.successors = []) :
-    recoverSelect ctx = Sum.inr Residue.noCandidates := by
-  unfold recoverSelect
-  rw [h]
-  simpa using select_empty (src := ctx.prior)
 
 /-- Kleisli recover compose pin — import selector; refuse second argmin. -/
 inductive RecoverExcitementPin where
   | importSelectExcitement
   | secondArgminRefused
   deriving DecidableEq, Repr
-
-noncomputable def recoverExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) (pin : RecoverExcitementPin) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select prior cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-theorem recoverExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    recoverExcitementSelect prior cands .importSelectExcitement = select prior cands :=
-  rfl
-
-theorem recoverExcitementSelect_refusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (cands : List (Cand (K := ℚ) prior)) :
-    recoverExcitementSelect prior cands .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
 
 -- ================================================================
 -- SECTION 4: §16.7 fixtures + witness theorems
@@ -349,9 +277,6 @@ def recoverFixtureEgressFailArrow : RecoverKleisliArrow :=
     egress := .undeclared
     snapshot := recoverFixtureSnapshot }
 
-theorem recoverFixtureRsyncTheaterRefused :
-    evaluateRecoverOperation .rsyncTheater = .rsyncTheaterRefused := rfl
-
 theorem recoverFixtureApplyMorphismOk :
     applyRecoverRecoveryMorphism recoverFixtureSnapshot .offlineLuks recoverFixtureConjunct true =
       Sum.inl
@@ -370,23 +295,11 @@ theorem recoverFixtureEgressRefused :
     evaluateRecoverKleisli recoverFixtureEgressFailArrow =
       Sum.inr (.networkEgressRefused .undeclared) := rfl
 
-theorem recoverOfflineLuksEgressEmpty : replicaEgressEmpty .offlineLuks = true := rfl
-
-theorem recoverDarwinScratchEgressEmpty : replicaEgressEmpty .darwinScratch = true := rfl
-
-theorem recoverForgePrimaryEgressNonempty : replicaEgressEmpty .forgePrimary = false := rfl
-
 theorem recoverClassifyOfflineLuksEgress :
     classifyNetworkEgress .offlineLuks = .egressEmpty := rfl
 
 theorem recoverFixtureWitnessPreservesUcrs :
     (witnessFromSnapshot recoverFixtureSnapshot).ucrs = recoverFixtureUcrs := rfl
-
-theorem recoverFixtureRefuseSyncGatePositive :
-    refuseSyncGateOnRecover = .wrongGate .gateCheckBeforeSyncInbound := rfl
-
-theorem recoverFixtureRefuseFrugalMiPositive :
-    refuseFrugalMiOnRecover = .wrongGate .frugalMiObservation := rfl
 
 theorem recoverArrowAdmissibleFixture :
     recoverArrowAdmissible recoverFixtureAdmittedArrow = true := rfl
@@ -412,68 +325,12 @@ theorem admissibleRecoverHistoryMove_intro (h : RecoverHistoryMove)
 
 abbrev admitRecoverInbound := admissibleRecoverHistoryMove
 
-structure RecoverTransition where
-  move            : RecoverHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def recoverSecondLaw (t : RecoverTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalRecoverBridge where
-  proc : ErasureProcess
-  transition : RecoverTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleRecoverHistoryMove transition.move
-
-theorem recoverSecondLaw_from_physical (b : PhysicalRecoverBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    recoverSecondLaw b.transition := by
-  unfold recoverSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleRecoverHistoryMove_from_physical (b : PhysicalRecoverBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleRecoverHistoryMove b.transition.move :=
-  b.admissible
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def kleisliRecoverPhysicsGreen : Bool := false
-
-theorem kleisliRecoverPhysicsGreenFalse : kleisliRecoverPhysicsGreen = false := rfl
-
-def kleisliRecoverProductionWired : Bool := false
-
-theorem kleisliRecoverProductionWiredFalse : kleisliRecoverProductionWired = false := rfl
-
-theorem kleisliRecoverModuleWitness : True := trivial
-
-theorem kleisliRecover_noNewAxiom : True := trivial
-
 theorem kleisliRecoverPositiveRefuseNotSilent :
     evaluateRecoverOperation .rsyncTheater ≠ .admitted := by
   simp [evaluateRecoverOperation]
-
-theorem kleisliRecoverProductionWiredRefusePositive :
-    refuseProductionWiredRecover = .productionWiredRefused := rfl
-
-theorem kleisliRecoverSecondArgminRefusePositive :
-    refuseSecondArgminRecover = .secondArgminRefused := rfl
 
 end UMST.Urge.KleisliRecover

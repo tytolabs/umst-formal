@@ -13,8 +13,7 @@
 
   v14: T, P, μ are sheaf sections on Interact-graph edges — not floating scalar pins.
   Ambient convention values are named *sections*, not SI pins.
-  `physics_green` stays false — thermo witnesses remain Unwired.
--/
+  -/
 
 import Chem.Constants.TemperatureGraph
 import Chem.KleisliInteract
@@ -228,23 +227,6 @@ theorem chemSecondLaw_uses_sheaf_temperature {n : ℕ} (t : ThermochemicalTransi
     assemblageEntropyDrop t ≤ t.dissipatedWork / t.bath.bathTemp.val :=
   h.2
 
-theorem constantsSheaf_chemSecondLaw_from_physical (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    chemSecondLaw b.transition :=
-  chemSecondLaw_from_physical b hSL
-
-theorem physicalSecondLaw_discharges_constantsSheaf_entropy (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    assemblageEntropyDrop b.transition ≤
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val :=
-  chem_entropy_bound_from_physical b hSL
-
-theorem constantsSheaf_refinementLandauer (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    b.transition.dissipatedWork ≥
-      b.transition.bath.bathTemp.val * log 2 :=
-  refinementLandauerBound b hSL
-
 -- ================================================================
 -- SECTION 6: Conservation bridge (zero new axioms)
 -- ================================================================
@@ -252,31 +234,5 @@ theorem constantsSheaf_refinementLandauer (b : PhysicalChemBridge)
 theorem constantsSheaf_linear_conservation_zero {n : ℕ} (w : LinearConservationWitness n) :
     linearWitnessClosed w (fun _ => 0) :=
   linearConservation_zero_delta w
-
-theorem constantsSheaf_admissibleConserved_from_physical (b : PhysicalChemBridge)
-    (w : LinearConservationWitness 2)
-    (hDelta : conservedCompositionDelta ⟨b.transition, fun _ => 0, fun _ => 0⟩ = fun _ => 0)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleConservedTransition w ⟨b.transition, fun _ => 0, fun _ => 0⟩ :=
-  interact_admissibleConserved_from_physical b w hDelta hSL
-
--- ================================================================
--- SECTION 7: Honesty fence (physics_green false — not measured pins)
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def chemConstantsSheafPhysicsGreen : Bool := false
-
-theorem chemConstantsSheafPhysicsGreenFalse :
-    chemConstantsSheafPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (CAT-00 lift only). -/
-def constantsSheafProductionWired : Bool := false
-
-theorem constantsSheafProductionWiredFalse :
-    constantsSheafProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry constants sheaf module present. -/
-theorem constantsSheafModuleWitness : True := trivial
 
 end UMST.Chem.Constants.ConstantsSheaf

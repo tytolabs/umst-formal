@@ -26,6 +26,7 @@ import qualified MonoidalState
 import qualified PrimeSpectralGuidance
 import CoordinationContractProps
 import qualified UMST.Constants.SI as SI
+import qualified UMST.Process as P
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -439,6 +440,33 @@ prop_econ_cost_split_nonneg qp qw =
 -- Runner
 ------------------------------------------------------------------------
 
+-- The one second law (UMST.Process): entropy values, Landauer bound, tight witness, refusal, sequence, SI bound.
+prop_process_entropies :: Property
+prop_process_entropies = once $
+  P.shannon2 P.dirac0 == 0 && abs (P.shannon2 P.uniform2 - log 2) < 1e-15
+
+prop_process_landauer_bound :: Positive Double -> Double -> Property
+prop_process_landauer_bound (Positive t) w =
+  P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure P.uniform2) ==> t * log 2 <= w * (1 + 1e-12) + 1e-300
+
+prop_process_tight :: Positive Double -> Property
+prop_process_tight (Positive t) =
+  let e = P.landauerTightErasure (P.HeatBath t)
+   in property $ abs (P.work e / t - log 2) <= 1e-12 * log 2
+
+prop_process_refuses_wrong_prior :: Double -> Double -> Property
+prop_process_refuses_wrong_prior w mi =
+  property $ not (P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath 300) w)) (P.Feedback mi))
+
+prop_process_sequential :: Positive Double -> Double -> Double -> Property
+prop_process_sequential (Positive t) w1 w2 =
+  let law w = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure P.uniform2)
+   in (law w1 && law w2) ==> 2 * log 2 <= (w1 + w2) / t + 1e-12
+
+prop_process_si_bound :: Positive Double -> Double -> Property
+prop_process_si_bound (Positive t) w =
+  P.eraseSecondLawSI t (log 2) w ==> P.kB * t * log 2 <= w * (1 + 1e-12) + 1e-300
+
 main :: IO ()
 main = do
   r <- newRunner
@@ -553,14 +581,18 @@ main = do
   putStrLn ""
   putStrLn "-- OrderStatisticsBand (Phase FPD-OrderStatisticsBand)"
   check r prop_quantile_separation_split_sample
-  check r prop_band_classification_surrogate_nonneg
-  check r prop_flip_rate_surrogate_nonneg
   check r prop_n_quantile_monotone_in_epsilon
   check r prop_n_quantile_monotone_in_delta
 
   putStrLn ""
   putStrLn "-- Constants (exact SI values; derived constants and CODATA cross-checks)"
   mapM_ (\(name, ok) -> check r (once (counterexample name ok))) SI.derivations
+  check r prop_process_entropies
+  check r prop_process_landauer_bound
+  check r prop_process_tight
+  check r prop_process_refuses_wrong_prior
+  check r prop_process_sequential
+  check r prop_process_si_bound
 
   putStrLn "-- CoordinationContract (Lean, Coq and Agda laws; umst-ucrs runtime model)"
   check r prop_cost_nonneg

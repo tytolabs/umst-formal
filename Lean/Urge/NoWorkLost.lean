@@ -124,17 +124,6 @@ def admittedChangeFromTransition (changeId contentId : Nat) (t : HistoryTransiti
     contentId := contentId
     commitId := t.post.commitId }
 
-theorem appendOnly_preserves_commit_head (t : HistoryTransition)
-    (h : appendOnlyCommitMove t) :
-    t.prior.commitId < t.post.commitId :=
-  h
-
-/-- Append-only transition cannot silently rewrite its own commit head. -/
-theorem admittedChange_appendOnly_not_silentRewrite (_changeId _contentId : Nat)
-    (t : HistoryTransition) (h : appendOnlyCommitMove t) :
-    ¬ silentRewrite t :=
-  silentRewriteRefused t h
-
 -- ================================================================
 -- SECTION 4: Fixtures + catalog witnesses
 -- ================================================================
@@ -181,25 +170,6 @@ theorem fixture_orphan_after_bad_op :
 -- SECTION 5: Honesty flags + non-claim (not runtime proven)
 -- ================================================================
 
-def noWorkLostPhysicsGreen : Bool := false
-
-theorem noWorkLostPhysicsGreenFalse : noWorkLostPhysicsGreen = false := rfl
-
-def noWorkLostProductionWired : Bool := false
-
-theorem noWorkLostProductionWiredFalse : noWorkLostProductionWired = false := rfl
-
 def noWorkLostProvenanceMarker : String := "urge_ii_no_work_lost_v1"
-
-theorem noWorkLostProvenanceMarkerWitness :
-    noWorkLostProvenanceMarker = "urge_ii_no_work_lost_v1" := rfl
-
-def noWorkLostNonClaim : String :=
-  "BP II §1 NO-WORK-LOST checkable property pin; orphan refuse named; " ++
-  "Lean scaffold only; not physics GREEN; not production_wired; not runtime proven"
-
-theorem noWorkLostModuleWitness : True := trivial
-
-theorem noWorkLost_noNewAxiom : True := trivial
 
 end UMST.Urge.NoWorkLost

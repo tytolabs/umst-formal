@@ -37,12 +37,6 @@ def replicaEgressEmpty (c : BackupReplicaClass) : Bool :=
   | .offlineLuks | .darwinScratch => true
   | .forgePrimary => false
 
-theorem offlineLuks_egress_empty : replicaEgressEmpty .offlineLuks = true := rfl
-
-theorem darwinScratch_egress_empty : replicaEgressEmpty .darwinScratch = true := rfl
-
-theorem forgePrimary_egress_nonempty : replicaEgressEmpty .forgePrimary = false := rfl
-
 /-- UCRS stamp surrogate carried through recovery. -/
 structure BackupUcrsStamp where
   seq         : Nat
@@ -107,17 +101,8 @@ def backupConjunctAdmits (c : BackupAdmissibilityConjunct) : Bool :=
 def evaluateBackupRecoveryOperation (isRsyncTheater : Bool) : BackupRecoveryVerdict :=
   if isRsyncTheater then .rsyncTheaterRefused else .morphismOk
 
-theorem backupRecovery_rsync_theater_refused (_snapshotId : Nat) :
-    evaluateBackupRecoveryOperation true = .rsyncTheaterRefused := rfl
-
 theorem backupRecovery_morphism_ok_when_not_rsync :
     evaluateBackupRecoveryOperation false = .morphismOk := rfl
-
-def refuseRsyncTheater (snapshotId : Nat) : BackupRecoveryRefusal :=
-  .rsyncTheaterRefused snapshotId
-
-theorem refuseRsyncTheater_positive (snapshotId : Nat) :
-    refuseRsyncTheater snapshotId = .rsyncTheaterRefused snapshotId := rfl
 
 def witnessFromSnapshot (s : BackupRecoverySnapshot) : BackupRecoveryWitness :=
   { ucrs := s.ucrs
@@ -144,55 +129,6 @@ def applyBackupRecoveryMorphism (snapshot : BackupRecoverySnapshot)
         excitementSelected := excitementSelected }
 
 -- ================================================================
--- SECTION 3: Backup recovery composes Excitement.select (no second argmin)
--- ================================================================
-
-/-- Context for backup recovery over admissible history successors. -/
-structure BackupRecoveryCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Backup recovery **is** `Excitement.select` — not a second argmin. -/
-noncomputable def backupRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : BackupRecoveryCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def backupRecoverySelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) : Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem backupRecoverySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : BackupRecoveryCtx S) :
-    backupRecoverySelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem backupRecoverySelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    backupRecoverySelectBare prior successors = select prior successors :=
-  rfl
-
-theorem backupRecoverySelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : BackupRecoveryCtx S) :
-    backupRecoverySelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem backupRecovery_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : BackupRecoveryCtx S) :
-    backupRecoverySelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem backupRecovery_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    backupRecoverySelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [backupRecoverySelectBare] using select_empty (src := prior)
-
--- ================================================================
 -- SECTION 4: §15.4 fixtures + witness theorems
 -- ================================================================
 
@@ -215,10 +151,6 @@ def backupFixtureSnapshot : BackupRecoverySnapshot :=
 def backupFixtureConjunct : BackupAdmissibilityConjunct :=
   { gateOk := true, mergeSafe := true, excitementPreserves := true }
 
-theorem backupFixture_rsync_theater_refused :
-    refuseRsyncTheater backupFixtureSnapshot.snapshotId =
-      .rsyncTheaterRefused 1 := rfl
-
 theorem backupFixture_apply_morphism_ok :
     applyBackupRecoveryMorphism backupFixtureSnapshot .offlineLuks backupFixtureConjunct true =
       Sum.inl
@@ -233,70 +165,5 @@ theorem backupFixture_witness_preserves_ucrs :
 theorem backup_recovery_positive_refuse_not_silent :
     evaluateBackupRecoveryOperation true ≠ .morphismOk := by
   simp [evaluateBackupRecoveryOperation]
-
--- ================================================================
--- SECTION 5: Bridge to physicalSecondLaw (derived — zero new axioms)
--- ================================================================
-
-structure BackupTransition where
-  prior           : ThermodynamicState
-  post            : ThermodynamicState
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-  gateChecked     : Prop
-  mergeSafe       : Prop
-  provenanceOk    : Prop
-
-def admissibleBackupTransition (t : BackupTransition) : Prop :=
-  t.gateChecked ∧ t.mergeSafe ∧ t.provenanceOk
-
-def backupSecondLaw (t : BackupTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalBackupBridge where
-  proc : ErasureProcess
-  transition : BackupTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleBackupTransition transition
-
-theorem backupSecondLaw_from_physical (b : PhysicalBackupBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    backupSecondLaw b.transition := by
-  unfold backupSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleBackupTransition_from_physical (b : PhysicalBackupBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleBackupTransition b.transition :=
-  b.admissible
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def backupRecoveryPhysicsGreen : Bool := false
-
-theorem backupRecoveryPhysicsGreenFalse : backupRecoveryPhysicsGreen = false := rfl
-
-def backupRecoveryProductionWired : Bool := false
-
-theorem backupRecoveryProductionWiredFalse : backupRecoveryProductionWired = false := rfl
-
-theorem backupRecoveryModuleWitness : True := trivial
-
-theorem backupRecovery_noNewAxiom : True := trivial
 
 end UMST.Urge.BackupRecovery

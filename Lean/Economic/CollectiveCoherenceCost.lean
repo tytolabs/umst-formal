@@ -19,15 +19,4 @@ structure CollectiveCoherenceCost where
 
 def collectivePenalty (c : CollectiveCoherenceCost) : Float := c.penalty
 
-/-- Nested core_id named on credit; empty/unknown cores refused at live claim. -/
-def creditCoreIdNamed (c : CollectiveCoherenceCost) : Bool :=
-  c.credit_core_id.length > 0
-
-/-- Distributed salami: fragments across hosts are the collective object (local prune cannot see). -/
-def crossHostSalamiNamed : Bool := true
-
-/-- PADMA-P2-08 deepen pin — cross-host salami remains the collective object. -/
-theorem padma_p2_08_cross_host_salami_is_collective : crossHostSalamiNamed = true := by
-  rfl
-
 end Economic

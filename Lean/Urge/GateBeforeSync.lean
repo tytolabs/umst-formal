@@ -71,31 +71,9 @@ theorem mergeSafeTick_from_mergeSafe (h : HistorySyncTick) (t : String)
 def excitementPreservesProvenance (h : HistorySyncTick) : Prop :=
   preserves h.transition h.priorProv h.postProv
 
-theorem excitementPreservesProvenance_from_physical (b : PhysicalHistoryBridge)
-    (h : HistorySyncTick) (hTrans : h.transition = b.transition)
-    (hPrior : h.priorProv.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc)
-    (hPost : h.postProv = postProvenanceFromPhysical b h.priorProv hPrior hSL) :
-    excitementPreservesProvenance h := by
-  dsimp [excitementPreservesProvenance]
-  rw [hTrans, hPost]
-  exact physicalBridge_preserves b h.priorProv hPrior hSL
-
-theorem excitement_select_preserves_obligation (h : HistorySyncTick)
-    (hp : excitementPreservesProvenance h) :
-    excitementSelectRespectsPreserves :=
-  excitement_select_respects_preserves h.transition h.priorProv h.postProv hp
-
 /-- Kleisli admit on inbound history sync: gate-before-sync ∧ MergeSafe ∧ provenance. -/
 def admit (h : HistorySyncTick) : Prop :=
   gateCheckBeforeSync h = true ∧ mergeSafeTick h ∧ excitementPreservesProvenance h
-
-/-- Main biconditional: admit is exactly the three conjuncts (no hidden fourth factor). -/
-theorem admit_iff (h : HistorySyncTick) :
-    admit h ↔
-      gateCheckBeforeSync h = true ∧ mergeSafeTick h ∧
-        excitementPreservesProvenance h :=
-  Iff.rfl
 
 theorem admit_intro (h : HistorySyncTick)
     (hg : gateCheckBeforeSync h = true) (hm : mergeSafeTick h)
@@ -113,36 +91,9 @@ theorem admit_excitementPreservesProvenance (h : HistorySyncTick) (ha : admit h)
     excitementPreservesProvenance h :=
   ha.2.2
 
-theorem admit_from_physical (b : PhysicalHistoryBridge) (h : HistorySyncTick)
-    (hTrans : h.transition = b.transition)
-    (hPrior : h.priorProv.dagCommit = b.transition.prior.commitId)
-    (hSL : physicalSecondLawUniformBinary b.proc)
-    (hm : mergeSafeTick h)
-    (hPost : h.postProv = postProvenanceFromPhysical b h.priorProv hPrior hSL) :
-    admit h :=
-  admit_intro h
-    (gateCheckBeforeSync_complete h (by
-      dsimp [tickGateAdmissible]
-      rw [hTrans]
-      exact b.transition.gateAdmissible))
-    hm
-    (excitementPreservesProvenance_from_physical b h hTrans hPrior hSL hPost)
-
 theorem admit_decomposed (h : HistorySyncTick) (hg : tickGateAdmissible h)
     (hm : mergeSafeTick h) (hp : excitementPreservesProvenance h) :
     admit h :=
   admit_intro h (gateCheckBeforeSync_complete h hg) hm hp
-
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def gateBeforeSyncProductionWired : Bool := false
-
-theorem gateBeforeSyncProductionWiredFalse : gateBeforeSyncProductionWired = false := rfl
-
-theorem gateBeforeSyncModuleWitness : True := trivial
-
-theorem gateBeforeSync_noNewAxiom : True := trivial
 
 end UMST.Urge.GateBeforeSync

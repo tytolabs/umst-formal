@@ -123,9 +123,6 @@ def refuseAliasWithoutCanonicalization (payload : Nat) : SdfCanonicalRefusal :=
 def refuseInventedEquivWithoutCanonical (contentId : Nat) : SdfCanonicalRefusal :=
   .inventedEquivWithoutCanonical contentId
 
-def refuseSecondArgminSelector : SdfCanonicalRefusal :=
-  .secondArgmin
-
 def witnessFromHistoryIdentity (h : HistoryIdentity) : SdfCanonicalWitness :=
   { bytes := canonicalSdf h.identity
     contentId := h.contentId
@@ -197,14 +194,6 @@ theorem sdfCanonicalAdmittedWhenNotAlias :
 theorem sdfCanonicalInventedEquivRefused :
     evaluateInventedEquivWithoutCanonical true = .inventedEquivRefused := rfl
 
-theorem refuseAliasWithoutCanonicalizationPositive (payload : Nat) :
-    refuseAliasWithoutCanonicalization payload =
-      .aliasWithoutCanonicalization payload :=
-  rfl
-
-theorem refuseSecondArgminSelectorPositive :
-    refuseSecondArgminSelector = .secondArgmin := rfl
-
 -- ================================================================
 -- SECTION 3: SDF canonical composes Excitement.select (no second argmin)
 -- ================================================================
@@ -214,75 +203,6 @@ inductive SdfCanonicalExcitementPin where
   | importSelectExcitement
   | secondArgminRefused
   deriving DecidableEq, Repr
-
-/-- Context for SDF canonical over admissible history successors. -/
-structure SdfCanonicalCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- SDF canonical path composes `Excitement.select` — not a second argmin. -/
-noncomputable def sdfCanonicalExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) (pin : SdfCanonicalExcitementPin) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select prior successors
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-/-- SDF canonical selection **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def sdfCanonicalSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : SdfCanonicalCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-noncomputable def sdfCanonicalSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem sdfCanonicalExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    sdfCanonicalExcitementSelect prior successors .importSelectExcitement =
-      select prior successors :=
-  rfl
-
-theorem sdfCanonicalSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : SdfCanonicalCtx S) :
-    sdfCanonicalSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem sdfCanonicalSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : SdfCanonicalCtx S) :
-    sdfCanonicalSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem sdfCanonicalNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : SdfCanonicalCtx S) :
-    sdfCanonicalSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem sdfCanonicalExcitementSelect_refusesSecondArgmin {S : Type}
-    [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
-    (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    sdfCanonicalExcitementSelect prior successors .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem sdfCanonicalSelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    sdfCanonicalSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem sdfCanonical_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    sdfCanonicalSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [sdfCanonicalSelectBare] using select_empty (src := prior)
 
 -- ================================================================
 -- SECTION 4: §12 fixtures + witness theorems
@@ -329,9 +249,6 @@ theorem sdfCanonicalFixtureByteEqualAdmitted :
     admitHistoryIdentity sdfCanonicalFixtureIdentity sdfCanonicalFixtureIdentitySame
       sdfCanonicalFixtureConjunct = Sum.inl .admitted := rfl
 
-theorem sdfCanonicalFixtureAliasRefused :
-    refuseAliasWithoutCanonicalization 42 = .aliasWithoutCanonicalization 42 := rfl
-
 theorem sdfCanonicalFixtureApplyMorphismOk :
     applySdfCanonicalMorphism sdfCanonicalFixtureIdentity sdfCanonicalFixtureContentId
       sdfCanonicalFixtureConjunct true =
@@ -363,69 +280,8 @@ theorem sdfCanonicalPositiveRefuseNotSilent :
   decide
 
 -- ================================================================
--- SECTION 5: Bridge to physicalSecondLaw (derived — zero new axioms)
--- ================================================================
-
-structure SdfCanonicalTransition where
-  prior           : ThermodynamicState
-  post            : ThermodynamicState
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-  gateChecked     : Prop
-  canonicalized   : Prop
-  provenanceOk    : Prop
-
-def admissibleSdfCanonicalTransition (t : SdfCanonicalTransition) : Prop :=
-  t.gateChecked ∧ t.canonicalized ∧ t.provenanceOk
-
-def sdfCanonicalSecondLaw (t : SdfCanonicalTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalSdfCanonicalBridge where
-  proc : ErasureProcess
-  transition : SdfCanonicalTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleSdfCanonicalTransition transition
-
-theorem sdfCanonicalSecondLaw_from_physical (b : PhysicalSdfCanonicalBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    sdfCanonicalSecondLaw b.transition := by
-  unfold sdfCanonicalSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleSdfCanonicalTransition_from_physical (b : PhysicalSdfCanonicalBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleSdfCanonicalTransition b.transition :=
-  b.admissible
-
--- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def sdfCanonicalPhysicsGreen : Bool := false
-
-theorem sdfCanonicalPhysicsGreenFalse : sdfCanonicalPhysicsGreen = false := rfl
-
-def sdfCanonicalProductionWired : Bool := false
-
-theorem sdfCanonicalProductionWiredFalse : sdfCanonicalProductionWired = false := rfl
-
-theorem sdfCanonicalModuleWitness : True := trivial
-
-theorem sdfCanonical_noNewAxiom : True := trivial
 
 theorem sdfCanonical_namedOnHistoryIdentity :
     sdfCanonicalFixtureIdentity.contentId = sdfCanonicalFixtureContentId := rfl

@@ -178,83 +178,8 @@ theorem refuseUnmeasuredGossipTick_positive :
     refuseUnmeasuredGossipTickAsFalseGreen .unmeasured =
       some .unmeasuredCollapsedToFalse := rfl
 
-theorem refuseSecondArgmin_positive :
-    refuseSecondArgminOnGossipTick .secondArgminRefused =
-      some .secondArgminSelector := rfl
-
-theorem gossipTick_unmeasuredNotMeasured :
-    gossipTickIsMeasured .unmeasured = false := rfl
-
 theorem gossipTick_observedNoneWhenUnmeasured :
     gossipTickObservedAdmissible .unmeasured = none := rfl
-
--- ================================================================
--- SECTION 3: Gossip tick composes Excitement.select (no second argmin)
--- ================================================================
-
-structure GossipTickCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-noncomputable def gossipTickExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) (pin : GossipExcitementComposePin) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-noncomputable def gossipTickSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : GossipTickCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem gossipTickSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : GossipTickCtx S) :
-    gossipTickSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem gossipTickSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : GossipTickCtx S) :
-    gossipTickSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem gossipTick_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : GossipTickCtx S) :
-    gossipTickSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem gossipTickExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    gossipTickExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem gossipTickExcitementSelect_refusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    gossipTickExcitementSelect src cands .secondArgminRefused =
-      Sum.inr Residue.allInadmissible :=
-  rfl
-
-noncomputable def gossipTickSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) : Cand (K := ℚ) prior ⊕ Residue :=
-  urgeRecoverySelect prior successors
-
-theorem gossipTickSelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    gossipTickSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem gossipTickSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    gossipTickSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [gossipTickSelectBare] using select_empty (src := prior)
 
 -- ================================================================
 -- SECTION 4: §15.6 H3 fixtures + witness theorems
@@ -262,9 +187,6 @@ theorem gossipTickSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [Admissibl
 
 def gossipFixtureDataset : String :=
   "fixture:h3:gossip-tick:admissible-001"
-
-def gossipFixtureSecondArgminDataset : String :=
-  "fixture:h3:gossip-tick:second-argmin-002"
 
 def gossipFixtureUcrs : GossipTickUcrsStamp :=
   { seq := 7, wallHasT := true }
@@ -279,12 +201,6 @@ def h3UnmeasuredFalseGreenFixture : GossipTickCandidate :=
   { gossipTickId := 2
     candidateMeasure := .unmeasured
     composePin := .importSelectExcitement
-    physicsGreenClaim := false }
-
-def h3SecondArgminFixture : GossipTickCandidate :=
-  { gossipTickId := 3
-    candidateMeasure := .measured false gossipFixtureSecondArgminDataset
-    composePin := .secondArgminRefused
     physicsGreenClaim := false }
 
 def gossipFixtureConjunct : GossipTickAdmissibilityConjunct :=
@@ -302,12 +218,6 @@ theorem h3UnmeasuredFalseGreen_refused :
 
 theorem h3UnmeasuredFalseGreen_evaluateRefuse :
     evaluateGossipTick h3UnmeasuredFalseGreenFixture = .refuseUnmeasuredFalseGreen := rfl
-
-theorem h3SecondArgmin_refused :
-    admitGossipTick h3SecondArgminFixture = some .secondArgminSelector := rfl
-
-theorem h3SecondArgmin_evaluateRefuse :
-    evaluateGossipTick h3SecondArgminFixture = .refuseSecondArgmin := rfl
 
 theorem gossipFixture_measuredGossipTickOk :
     measuredGossipTick true gossipFixtureDataset =
@@ -347,57 +257,9 @@ structure GossipTickTransition where
 def admissibleGossipTick (t : GossipTickTransition) : Prop :=
   t.gateChecked ∧ t.unmeasuredHonest ∧ t.excitementPreserves
 
-def gossipTickSecondLaw (t : GossipTickTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalGossipTickBridge where
-  proc : ErasureProcess
-  transition : GossipTickTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleGossipTick transition
-
-theorem gossipTickSecondLaw_from_physical (b : PhysicalGossipTickBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    gossipTickSecondLaw b.transition := by
-  unfold gossipTickSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleGossipTick_from_physical (b : PhysicalGossipTickBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleGossipTick b.transition :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def gossipTickPhysicsGreen : Bool := false
-
-theorem gossipTickPhysicsGreenFalse : gossipTickPhysicsGreen = false := rfl
-
-def gossipTickProductionWired : Bool := false
-
-theorem gossipTickProductionWiredFalse : gossipTickProductionWired = false := rfl
-
-theorem gossipTickModuleWitness : True := trivial
-
-theorem gossipTick_noNewAxiom : True := trivial
 
 theorem gossipTick_positiveRefuseNotSilent :
     admitGossipTick h3UnmeasuredFalseGreenFixture ≠ none := by
@@ -408,8 +270,5 @@ theorem gossipTick_unmeasuredNotFalseAsGreen :
     refuseUnmeasuredGossipTickAsFalseGreen .unmeasured ≠ none := by
   rw [refuseUnmeasuredGossipTick_positive]
   simp
-
-def gossipTickCatalogWitness : String :=
-  "URGE-FORMAL-MESO-LEAN-GOSSIP-TICK §15.6 H3 gossip tick : Unmeasured | Measured wrapper; UNKNOWN ≠ false-as-GREEN; compose excitement-select no second argmin; sole axiom physicalSecondLaw; physics_green false; production_wired false"
 
 end UMST.Urge.GossipTick

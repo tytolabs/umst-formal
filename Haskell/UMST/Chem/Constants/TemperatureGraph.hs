@@ -9,7 +9,6 @@
 -- @Lean/Chem/Constants/TemperatureGraph@ and @Coq/Chem/Constants/TemperatureGraph@
 -- on @umst-formal/meso_acting@, anchored in @Chem.SecondLaw@ via gate admissibility.
 --
--- @physics_green@ stays false — thermo witnesses remain Unwired until FORMAL BAR.
 module UMST.Chem.Constants.TemperatureGraph
   ( -- * Carriers
     InteractGraphEdge
@@ -23,11 +22,6 @@ module UMST.Chem.Constants.TemperatureGraph
   , temperatureGraphWellTyped
   , inverseTemperatureConjugateEq
     -- * Honesty (mirror @UMST.Chem.Kleisli@)
-  , chemPhysicsGreen
-  , chemPhysicsGreenFalse
-  , temperatureGraphProductionWired
-  , temperatureGraphProductionWiredFalse
-  , temperatureGraphModuleWitness
   ) where
 
 import UMST.Chem.Kleisli (admissibleStep)
@@ -81,22 +75,3 @@ inverseTemperatureConjugateEq old new =
     (Just t, Just beta) -> abs (recip t - beta) < tolerance
     _                   -> True
 
--- | Physics GREEN unauthorized on this scaffold.
-chemPhysicsGreen :: Bool
-chemPhysicsGreen = False
-
--- | Lean/Coq: @chem_physics_green_false@.
-chemPhysicsGreenFalse :: Bool
-chemPhysicsGreenFalse = not chemPhysicsGreen
-
--- | Production wiring stays open (CAT-00 lift only).
-temperatureGraphProductionWired :: Bool
-temperatureGraphProductionWired = False
-
--- | Lean/Coq: @temperature_graph_production_wired_false@.
-temperatureGraphProductionWiredFalse :: Bool
-temperatureGraphProductionWiredFalse = not temperatureGraphProductionWired
-
--- | Catalog witness: meso chemistry temperature graph module present.
-temperatureGraphModuleWitness :: Bool
-temperatureGraphModuleWitness = True

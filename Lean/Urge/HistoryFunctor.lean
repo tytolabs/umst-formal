@@ -53,11 +53,7 @@ structure AdmissibleHistoryFunctor where
 def history_functor_identity : String := "history_functor"
 
 def preservationProp (t : HistoryTransition) : Prop :=
-  admitSecondLaw t ∧ Admissible t.prior.head t.post.head
-
-theorem preservationProp_of_admissible (t : HistoryTransition)
-    (h : admissibleHistoryTransition t) : preservationProp t :=
-  And.intro h t.gateAdmissible
+  admissibleHistoryTransition t ∧ Admissible t.prior.head t.post.head
 
 def provenancedOkStep : RepoTransitionStep := {
   before := { provenanceIntact := true, physicsGreenClaim := false, witnessPresent := false }
@@ -85,12 +81,6 @@ theorem evaluateTransition_rejects_invents_green (step : RepoTransitionStep)
     (h : step.inventsGreen = true) :
     evaluateTransition step = TransitionVerdict.Reject := by
   simp [evaluateTransition, h]
-
-theorem evaluateTransition_rejects_physics_green_without_witness (step : RepoTransitionStep)
-    (hg : step.after.physicsGreenClaim = true) (hw : step.after.witnessPresent = false)
-    (hi : step.inventsGreen = false) :
-    evaluateTransition step = TransitionVerdict.Reject := by
-  simp [evaluateTransition, hg, hw, hi]
 
 theorem evaluateTransition_rejects_drops_provenance (step : RepoTransitionStep)
     (hd : step.dropsProvenance = true) (hi : step.inventsGreen = false)
@@ -141,28 +131,5 @@ def catalogHistoryFunctor : AdmissibleHistoryFunctor where
 theorem catalog_decode_fixture :
     catalogHistoryFunctor.decode fixtureRawCommit = some fixtureTypedHistory :=
   catalogDecode_fixture
-
-theorem preservationProp_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    preservationProp b.transition :=
-  And.intro (admitSecondLaw_from_physical b hSL) b.transition.gateAdmissible
-
-theorem admissible_preserves_second_law (t : HistoryTransition)
-    (h : admissibleHistoryTransition t) : admitSecondLaw t := h
-
-theorem historyFunctor_noNewAxiom (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    preservationProp b.transition :=
-  preservationProp_from_physical b hSL
-
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def historyFunctorProductionWired : Bool := false
-
-theorem historyFunctorProductionWiredFalse : historyFunctorProductionWired = false := rfl
-
-theorem historyFunctorModuleWitness : True := trivial
 
 end UMST.Urge.HistoryFunctor

@@ -186,14 +186,6 @@ def refuseMergeSafeOnClone : CloneGateMismatch := .mergeSafeWitnessOnClone
 def refuseExcitementArgminOnClone : CloneGateMismatch := .excitementArgminOnClone
 def refuseReplicaClassOnClone : CloneGateMismatch := .replicaClassOnClone
 def refuseRemoteClassOnClone : CloneGateMismatch := .remoteClassOnClone
-def refuseSecondArgminOnClone : CloneGateMismatch := .secondArgminOnClone
-
-theorem kleisliGateMatchesCloneAdmit :
-    kleisliGateMatchesClone .admitInitialReplicaCoalgebra = true := rfl
-
-theorem kleisliGateMatchesCloneFrugalFalse :
-    kleisliGateMatchesClone .frugalMiObservation = false := rfl
-
 theorem cloneVerbRowMergeSafeNotRequired :
     cloneVerbRow.mergeSafe = .notRequired := rfl
 
@@ -202,68 +194,6 @@ theorem cloneVerbRowExcitementNotRequired :
 
 theorem cloneVerbRowEntityLabelCheck :
     cloneVerbRow.entityCheck = .entityLabel := rfl
-
--- ================================================================
--- SECTION 5: Compose Excitement.select (no second argmin)
--- ================================================================
-
-inductive CloneExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving DecidableEq, Repr
-
-structure CloneExcitementCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-noncomputable def cloneExcitementSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (cands : List (Cand (K := ℚ) src))
-    (pin : CloneExcitementComposePin) : Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-noncomputable def cloneRecoverySelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CloneExcitementCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem cloneExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    cloneExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem cloneRecoverySelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CloneExcitementCtx S) :
-    cloneRecoverySelect ctx = select ctx.prior ctx.successors := by
-  unfold cloneRecoverySelect
-  rfl
-
-theorem cloneRecoverySelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CloneExcitementCtx S) :
-    cloneRecoverySelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem cloneNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CloneExcitementCtx S) :
-    cloneRecoverySelect ctx = select ctx.prior ctx.successors :=
-  cloneRecoverySelect_eq_select ctx
-
-theorem cloneExcitementSelectRefusesSecondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    cloneExcitementSelect src cands .secondArgminRefused = Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem cloneRecoveryEmpty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    cloneRecoverySelect { prior := prior, successors := successors } =
-      Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [cloneRecoverySelect] using urgeRecovery_empty prior
 
 -- ================================================================
 -- SECTION 6: Fixtures + witness theorems
@@ -302,82 +232,13 @@ theorem cloneFixtureParseLabs : parseEntityLabel "labs" = some .labs := rfl
 theorem cloneFixtureParseComposeCaseInsensitive :
     parseEntityLabel "COMPOSE" = some .compose := rfl
 
-theorem cloneReplicaClassNode0Tag : cloneReplicaClassTag .node0 = "node-0" := rfl
-
-theorem cloneReplicaClassLuksTag : cloneReplicaClassTag .luks = "offline-luks" := rfl
-
-theorem clonePositiveRefuseFrugalMi :
-    refuseFrugalMiOnClone = .frugalMiOnClone := rfl
-
-theorem clonePositiveRefuseSyncGate :
-    refuseSyncGateOnClone = .syncInboundOnClone := rfl
-
--- ================================================================
--- SECTION 7: Landauer bridge (cited — zero new axioms)
--- ================================================================
-
-structure CloneHistoryTransition where
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def cloneAdmitSecondLaw (t : CloneHistoryTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalCloneBridge where
-  proc : ErasureProcess
-  transition : CloneHistoryTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-
-theorem cloneAdmitSecondLaw_from_physical (b : PhysicalCloneBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    cloneAdmitSecondLaw b.transition := by
-  unfold cloneAdmitSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem clonePhysicalSecondLawDischarge (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
 -- ================================================================
 -- SECTION 8: Honesty flags + catalog witnesses
 -- ================================================================
-
-def kleisliClonePhysicsGreen : Bool := false
-
-theorem kleisliClonePhysicsGreenFalse : kleisliClonePhysicsGreen = false := rfl
-
-def kleisliCloneProductionWired : Bool := false
-
-theorem kleisliCloneProductionWiredFalse : kleisliCloneProductionWired = false := rfl
-
-theorem kleisliCloneModuleWitness : True := trivial
-
-theorem kleisliCloneNoNewAxiom : True := trivial
 
 theorem kleisliClonePositiveRefuseNotSilent :
     kleisliGateMatchesClone .frugalMiObservation = false ∧
     kleisliGateMatchesClone .gateCheckBeforeSyncInbound = false :=
   ⟨rfl, rfl⟩
-
-theorem kleisliCloneComposeExcitementNotArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CloneExcitementCtx S) :
-    cloneRecoverySelect ctx = select ctx.prior ctx.successors :=
-  cloneNoLocalArgmin ctx
-
-theorem refuseSecondArgminIsTag :
-    refuseSecondArgminOnClone = .secondArgminOnClone := rfl
 
 end UMST.Urge.KleisliClone

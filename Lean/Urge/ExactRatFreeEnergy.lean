@@ -25,18 +25,10 @@ namespace UMST.Urge.ExactRatFreeEnergy
 /-- Carrier for executable joint free energy F: pinned to ℚ = Rat. -/
 abbrev ExecutableFCarrier := ℚ
 
-/-- Rat/ℚ identity witness: carrier is definitionally ℚ. -/
-theorem executableFCarrier_eq_rat : ExecutableFCarrier = ℚ := rfl
-
 /-- Executable joint free energy F in ℚ — aliases `Excitement.jointFreeEnergy`. -/
 def executableF {S : Type} [ThermodynamicSystem ℚ S] [JointThermo ℚ S] (s : S) :
     ExecutableFCarrier :=
   jointFreeEnergy s
-
-/-- Definitional witness: `executableF` is `jointFreeEnergy`. -/
-theorem executableF_eq_jointFreeEnergy {S : Type} [ThermodynamicSystem ℚ S] [JointThermo ℚ S]
-    (s : S) : executableF s = jointFreeEnergy s :=
-  rfl
 
 /-- Candidate global free energy remains ℚ-exact (no Urge-local f64 lift). -/
 def executableCandEnergy {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
@@ -56,14 +48,6 @@ theorem executableCandEnergy_eq_globalFreeEnergyCand {S : Type} [ThermodynamicSy
 -- ================================================================
 -- SECTION 2: f64-as-identity theater refusal (named Prop)
 -- ================================================================
-
-/-- Theater pattern (§22.6): treating non-ℚ (e.g. f64/Float) as the identity carrier for F. -/
-def f64AsIdentityTheater : Prop :=
-  ExecutableFCarrier ≠ ℚ
-
-/-- Named refusal: f64 is not the identity carrier for executable F. -/
-theorem refuseF64AsIdentityTheater : ¬ f64AsIdentityTheater :=
-  fun h => h rfl
 
 /-- Positive pin: executable F comparisons use ℚ exact Rat, not f64 theater. -/
 def exactRatFreeEnergyIdentity : Prop :=
@@ -90,28 +74,6 @@ theorem pickMin_uses_exact_rat_energy {S : Type} [ThermodynamicSystem ℚ S]
     [AdmissibleSystem ℚ S] [JointThermo ℚ S] {src : S}
     (_acc : Option (Cand (K := ℚ) src)) (c : Cand (K := ℚ) src) :
     candEnergy (src := src) c = executableCandEnergy (src := src) c :=
-  rfl
-
--- ================================================================
--- SECTION 4: Axiom discipline + honesty flags
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-/-- Production wiring stays open (meso ℚ pin only). -/
-def exactRatFreeEnergyProductionWired : Bool := false
-
-theorem exactRatFreeEnergyProductionWiredFalse : exactRatFreeEnergyProductionWired = false := rfl
-
-/-- Catalog witness: meso Urge ExactRatFreeEnergy module present. -/
-theorem exactRatFreeEnergyModuleWitness : True := trivial
-
-/-- Executable F re-uses `jointFreeEnergy` from Excitement — no Urge-local f64 F. -/
-theorem exactRat_noLocalF64F {S : Type} [ThermodynamicSystem ℚ S] [JointThermo ℚ S]
-    (s : S) : executableF s = jointFreeEnergy s :=
   rfl
 
 end UMST.Urge.ExactRatFreeEnergy

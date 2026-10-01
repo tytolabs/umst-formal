@@ -13,8 +13,7 @@
 
   v14: `T` is a sheaf section on Interact-graph edges — not a floating scalar pin.
   Ambient convention values are named *sections*, not SI pins.
-  `physics_green` stays false — thermo witnesses remain Unwired.
--/
+  -/
 
 import Chem.KleisliInteract
 import Chem.SecondLaw
@@ -187,24 +186,5 @@ theorem chemSecondLaw_uses_inverse_temperature {n : ℕ} (t : ThermochemicalTran
 theorem temperature_linear_conservation_zero {n : ℕ} (w : LinearConservationWitness n) :
     linearWitnessClosed w (fun _ => 0) :=
   linearConservation_zero_delta w
-
--- ================================================================
--- SECTION 6: Honesty fence (physics_green false — not a measured T pin)
--- ================================================================
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def chemTemperatureGraphPhysicsGreen : Bool := false
-
-theorem chemTemperatureGraphPhysicsGreenFalse :
-    chemTemperatureGraphPhysicsGreen = false := rfl
-
-/-- Production wiring stays open (CAT-00 lift only). -/
-def temperatureGraphProductionWired : Bool := false
-
-theorem temperatureGraphProductionWiredFalse :
-    temperatureGraphProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry temperature graph module present. -/
-theorem temperatureGraphModuleWitness : True := trivial
 
 end UMST.Chem.Constants.TemperatureGraph

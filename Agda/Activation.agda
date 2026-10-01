@@ -70,8 +70,8 @@ module Activation where
 -- connect activated engines back to the gate's domain.
 open import Gate using (ThermodynamicState)
 
--- We import MaterialClass from Naturality to reuse the same type.
-open import Naturality using (MaterialClass; OPC; RAC; Geopolymer; Lime; Earth)
+-- MaterialClass is the shared type of MaterialClass.agda.
+open import MaterialClass using (MaterialClass; OPC; RAC; Geopolymer; Lime; Earth)
 
 -- Standard library imports.
 open import Data.Bool using (Bool; true; false; T; _∧_; _∨_)
@@ -322,7 +322,7 @@ activation-total Earth      = Strength , tt
   -- This is not coincidental — every construction material must have
   -- a strength model, because strength is what makes it a *structural*
   -- material.  This universality echoes the naturality theorem from
-  -- Naturality.agda: some physics is truly material-agnostic.
+  -- The gate takes no material argument (MaterialClass.agda): some physics is material-agnostic.
 
 ------------------------------------------------------------------------
 -- 8. Stronger Totality: Specific Engine Witnesses

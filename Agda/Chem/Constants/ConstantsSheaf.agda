@@ -10,19 +10,13 @@
 -- Mirrors `Lean/Chem/Constants/ConstantsSheaf.lean`,
 -- `Coq/Chem/Constants/ConstantsSheaf.v`, and
 -- `Haskell/UMST/Chem/Constants/ConstantsSheaf.hs` on `umst-formal/meso_acting`.
--- Anchored in `Chem.SecondLaw` via named `physicalSecondLaw` import only;
--- ZERO new postulates beyond the project second-law axiom.
 --
--- physics_green: false — thermo witnesses remain Unwired until FORMAL BAR.
 ------------------------------------------------------------------------
 
-import Chem.SecondLaw
 
-module Chem.Constants.ConstantsSheaf (Φ : Chem.SecondLaw.SecondLawPhysics) where
+module Chem.Constants.ConstantsSheaf where
 open import Chem.Conservation
 open import Chem.KleisliInteract using (admissible-step; admissible-refl)
-open import Chem.SecondLaw
-open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 open import Concrete.Gate
 open Concrete.Gate using
   ( ThermodynamicState
@@ -282,21 +276,6 @@ measurementFloorAtSheaf-scale :
   measurementFloorAtSheaf S v k ≡ k * landauerFloorAtSheaf S v
 measurementFloorAtSheaf-scale S v k = refl
 
-erasureFromDissipStep :
-  HeatBath → ThermodynamicState → ThermodynamicState → ErasureProcess
-erasureFromDissipStep bath old new = record
-  { bath = bath
-  ; dissipatedEntropy = free-energy old - free-energy new
-  }
-
-landauerOnAdmissibleStep :
-  ∀ (bath : HeatBath) (old new : ThermodynamicState) (ΔS : ℚ) →
-  Admissible old new →
-  PhysicalSecondLaw (erasureFromDissipStep bath old new) ΔS →
-  ΔS ≤ free-energy old - free-energy new
-landauerOnAdmissibleStep bath old new ΔS adm h =
-  landauerBound (erasureFromDissipStep bath old new) ΔS h
-
 ------------------------------------------------------------------------
 -- SECTION 5: Conservation bridge (mass ball — zero new postulates)
 ------------------------------------------------------------------------
@@ -358,42 +337,3 @@ gibbsDuhemInterdependenceEq-ungated :
   gibbsDuhemInterdependenceEq old new
 gibbsDuhemInterdependenceEq-ungated old new h rewrite h = tt
 
-------------------------------------------------------------------------
--- SECTION 6: Second-law witness on admissible edges (zero new postulates)
-------------------------------------------------------------------------
-
-secondLawWitnessOnStep :
-  ∀ (bath : HeatBath) (old new : ThermodynamicState) (ΔS : ℚ) →
-  PhysicalSecondLaw (erasureFromDissipStep bath old new) ΔS
-secondLawWitnessOnStep bath old new ΔS =
-  physicalSecondLaw (erasureFromDissipStep bath old new) ΔS
-
-constantsSheafRespectsSecondLaw :
-  ∀ (S : MesoConstantsSheaf) (bath : HeatBath)
-    (old new : ThermodynamicState) (ΔS : ℚ) →
-  Admissible old new →
-  PhysicalSecondLaw (erasureFromDissipStep bath old new) ΔS →
-  ΔS ≤ free-energy old - free-energy new
-constantsSheafRespectsSecondLaw S bath old new ΔS adm h =
-  landauerOnAdmissibleStep bath old new ΔS adm h
-
-------------------------------------------------------------------------
--- SECTION 7: Honesty fence (physics_green false — not measured pins)
-------------------------------------------------------------------------
-
-chem-constants-sheaf-physics-green : Bool
-chem-constants-sheaf-physics-green = false
-
-chem-constants-sheaf-physics-green-false :
-  chem-constants-sheaf-physics-green ≡ false
-chem-constants-sheaf-physics-green-false = refl
-
-constants-sheaf-production-wired : Bool
-constants-sheaf-production-wired = false
-
-constants-sheaf-production-wired-false :
-  constants-sheaf-production-wired ≡ false
-constants-sheaf-production-wired-false = refl
-
-constantsSheafModuleWitness : ⊤
-constantsSheafModuleWitness = tt

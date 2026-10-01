@@ -115,14 +115,8 @@ theorem persistHilbert_morphism_ok_when_not_fuse :
 def refuseHilbertFuseOccupancy : OccupancyKnowingHilbertRefused :=
   .fusePersistIntoOccupancy
 
-theorem refuseHilbertFuseOccupancy_positive :
-    refuseHilbertFuseOccupancy = .fusePersistIntoOccupancy := rfl
-
 def refuseKnowingFiberFuse : OccupancyKnowingHilbertRefused :=
   .knowingFiberNotOnActingMeso
-
-theorem refuseKnowingFiberFuse_positive :
-    refuseKnowingFiberFuse = .knowingFiberNotOnActingMeso := rfl
 
 def witnessFromPersistSnapshot (s : PersistHilbertSnapshot) : PersistHilbertWitness :=
   { ucrs := s.ucrs
@@ -149,55 +143,6 @@ def applyPersistHilbertMorphism (snapshot : PersistHilbertSnapshot)
       { morphismFrom := snapshot
         witness := witnessFromPersistSnapshot snapshot
         excitementSelected := excitementSelected }
-
--- ================================================================
--- SECTION 3: Persist Hilbert composes Excitement.select (no second argmin)
--- ================================================================
-
-/-- Context for persist Hilbert over admissible history successors. -/
-structure PersistHilbertCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Persist Hilbert selection **is** `Excitement.select` — not a second argmin. -/
-noncomputable def persistHilbertSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : PersistHilbertCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def persistHilbertSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) : Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem persistHilbertSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : PersistHilbertCtx S) :
-    persistHilbertSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem persistHilbertSelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    persistHilbertSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem persistHilbertSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : PersistHilbertCtx S) :
-    persistHilbertSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem persistHilbert_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : PersistHilbertCtx S) :
-    persistHilbertSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem persistHilbert_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    persistHilbertSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [persistHilbertSelectBare] using select_empty (src := prior)
 
 -- ================================================================
 -- SECTION 4: §12.7 persist index surrogate + fixtures
@@ -249,9 +194,6 @@ def persistFixtureSnapshot : PersistHilbertSnapshot :=
 def persistFixtureConjunct : PersistAdmissibilityConjunct :=
   { gateOk := true, mergeSafe := true, excitementPreserves := true }
 
-theorem persistFixture_fuse_occupancy_refused :
-    refuseHilbertFuseOccupancy = .fusePersistIntoOccupancy := rfl
-
 theorem persistFixture_apply_morphism_ok :
     applyPersistHilbertMorphism persistFixtureSnapshot persistFixtureConjunct true false =
       Sum.inl
@@ -273,75 +215,11 @@ theorem persistFixture_index_bits :
     persistFixtureIndex.bits = defaultPersistHilbertBits := rfl
 
 -- ================================================================
--- SECTION 5: Bridge to physicalSecondLaw (derived — zero new axioms)
--- ================================================================
-
-structure PersistHilbertTransition where
-  prior           : ThermodynamicState
-  post            : ThermodynamicState
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-  gateChecked     : Prop
-  mergeSafe       : Prop
-  provenanceOk    : Prop
-
-def admissiblePersistHilbertTransition (t : PersistHilbertTransition) : Prop :=
-  t.gateChecked ∧ t.mergeSafe ∧ t.provenanceOk
-
-def persistHilbertSecondLaw (t : PersistHilbertTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalPersistHilbertBridge where
-  proc : ErasureProcess
-  transition : PersistHilbertTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissiblePersistHilbertTransition transition
-
-theorem persistHilbertSecondLaw_from_physical (b : PhysicalPersistHilbertBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    persistHilbertSecondLaw b.transition := by
-  unfold persistHilbertSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissiblePersistHilbertTransition_from_physical (b : PhysicalPersistHilbertBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissiblePersistHilbertTransition b.transition :=
-  b.admissible
-
--- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def hilbertPersistPhysicsGreen : Bool := false
-
-theorem hilbertPersistPhysicsGreenFalse : hilbertPersistPhysicsGreen = false := rfl
-
-def hilbertPersistProductionWired : Bool := false
-
-theorem hilbertPersistProductionWiredFalse : hilbertPersistProductionWired = false := rfl
-
-theorem hilbertPersistModuleWitness : True := trivial
-
-theorem hilbertPersist_noNewAxiom : True := trivial
 
 theorem hilbertPersist_positive_refuse_not_silent :
     evaluatePersistHilbertOperation true ≠ .morphismOk := by
   decide
-
-theorem hilbertPersist_acting_role_witness :
-    HilbertPersistRole.persistActing = HilbertPersistRole.persistActing := rfl
 
 end UMST.Urge.HilbertPersist

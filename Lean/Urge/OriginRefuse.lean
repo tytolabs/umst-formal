@@ -44,11 +44,6 @@ def originHostTag (c : OriginHostClass) : String :=
   | .forgejoCanonical => "forgejo-canonical"
   | .unclassified => "unclassified"
 
-theorem origin_cursor_tag : originHostTag .originCursor = "origin-cursor" := rfl
-theorem github_tag : originHostTag .github = "github" := rfl
-theorem forgejo_canonical_tag : originHostTag .forgejoCanonical = "forgejo-canonical" := rfl
-theorem unclassified_tag : originHostTag .unclassified = "unclassified" := rfl
-
 theorem originHostTag_originCursor_ne_github :
     originHostTag .originCursor ≠ originHostTag .github := by decide
 
@@ -68,8 +63,6 @@ theorem originHostClassesNotXorHolds : originHostClassesNotXor :=
    originHostTag_github_ne_forgejo⟩
 
 def originHostClassCount : Nat := 4
-
-theorem origin_host_class_count_is_four : originHostClassCount = 4 := rfl
 
 def originHostIsCursor (c : OriginHostClass) : Bool :=
   match c with
@@ -180,86 +173,6 @@ def applyOriginRefuseMorphism (remote : OriginRemoteDescriptor)
                 excitementSelected := excitementSelected }, (none : Option OriginRefusal))
     | .refused r => ((none : Option OriginRefuseMorphism), some r)
 
-theorem refuse_origin_cursor_for_compose_positive :
-    refuseOriginCursorForCompose = .originCursorComposeRefused := rfl
-
-theorem refuse_github_as_origin_for_compose_positive :
-    refuseGithubAsOriginForCompose = .githubAsOriginComposeRefused := rfl
-
-theorem refuse_dual_push_compose_positive :
-    refuseDualPushCompose = .dualPushComposeRefused := rfl
-
--- ================================================================
--- SECTION 3: Compose Excitement.select (no second argmin)
--- ================================================================
-
-inductive OriginExcitementComposePin where
-  | importSelectExcitement
-  | secondArgminRefused
-  deriving DecidableEq, Repr
-
-structure OriginRefuseCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-noncomputable def composeExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) (pin : OriginExcitementComposePin) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-noncomputable def originRefuseSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OriginRefuseCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  select ctx.prior ctx.successors
-
-noncomputable def originRefuseSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem composeExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    composeExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem originRefuseSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OriginRefuseCtx S) :
-    originRefuseSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem originRefuseSelectBare_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    originRefuseSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem originRefuseSelect_eq_originRefuseSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OriginRefuseCtx S) :
-    originRefuseSelect ctx = originRefuseSelectBare ctx.prior ctx.successors :=
-  rfl
-
-theorem originRefuse_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OriginRefuseCtx S) :
-    originRefuseSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem composeExcitementSelect_refuses_secondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    composeExcitementSelect src cands .secondArgminRefused = Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem originRefuse_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) :
-    originRefuseSelectBare prior [] = Sum.inr Residue.noCandidates := by
-  simpa [originRefuseSelectBare] using select_empty (src := prior)
-
 -- ================================================================
 -- SECTION 4: Landauer bridge (sole physics axiom — imported)
 -- ================================================================
@@ -278,48 +191,6 @@ theorem admissibleOriginRefuse_intro (h : OriginHistoryMove)
   And.intro hg (And.intro hf hp)
 
 abbrev admitOriginInbound := admissibleOriginRefuse
-
-structure OriginTransition where
-  move            : OriginHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def originSecondLaw (t : OriginTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalOriginBridge where
-  proc : ErasureProcess
-  transition : OriginTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleOriginRefuse transition.move
-
-theorem originSecondLaw_from_physical (b : PhysicalOriginBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    originSecondLaw b.transition := by
-  unfold originSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleOriginRefuse_from_physical (b : PhysicalOriginBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleOriginRefuse b.transition.move :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 5: §16.8 fixtures + witness theorems
@@ -384,31 +255,11 @@ theorem origin_fixture_conjunct_admits :
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def urgePhysicsGreen : Bool := false
-
-theorem urgePhysicsGreenFalse : urgePhysicsGreen = false := rfl
-
-def originRefuseProductionWired : Bool := false
-
-theorem originRefuseProductionWiredFalse : originRefuseProductionWired = false := rfl
-
-theorem originRefuseModuleWitness : True := trivial
-
-theorem originRefuse_noNewAxiom : True := trivial
-
 theorem originRefuse_positiveRefuse_notSilent :
     admitOriginRemote composeOriginCursorFixture ≠ OriginPolicyVerdict.admitted ∧
     admitOriginRemote composeGithubOriginFixture ≠ OriginPolicyVerdict.admitted := by
   constructor
   · rw [origin_fixture_cursor_compose_refused]; decide
   · rw [origin_fixture_github_compose_refused]; decide
-
-theorem originRefuse_composeExcitement_notArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : OriginRefuseCtx S) :
-    originRefuseSelect ctx = select ctx.prior ctx.successors :=
-  originRefuse_noLocalArgmin ctx
-
-theorem originRefuse_namedNotXor : originHostClassesNotXor :=
-  originHostClassesNotXorHolds
 
 end UMST.Urge.OriginRefuse

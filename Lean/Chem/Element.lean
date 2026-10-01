@@ -270,8 +270,6 @@ def elementZ : Element → ℕ
 /-- IUPAC element cardinality pin. -/
 def elementCardinality : ℕ := 118
 
-theorem elementCardinality_eq : elementCardinality = 118 := rfl
-
 /-- Atomic numbers lie in the IUPAC closed range. -/
 theorem elementZ_in_range (e : Element) : 1 ≤ elementZ e ∧ elementZ e ≤ 118 := by
   cases e <;> decide
@@ -577,8 +575,5 @@ structure ConservedElementSlot (n : ℕ) where
 /-- Second-law + conservation admissibility for a conserved element slot. -/
 def elementSlotAdmissible {n : ℕ} (s : ConservedElementSlot n) : Prop :=
   admissibleConservedTransition s.witness s.transition
-
-/-- Catalog witness: canonical element carrier module is present. -/
-theorem element_module_witness : True := trivial
 
 end UMST.Chem.Element

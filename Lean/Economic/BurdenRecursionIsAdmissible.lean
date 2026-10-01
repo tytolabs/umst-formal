@@ -50,10 +50,6 @@ theorem burdenIterate_succ (n : ℕ) (g ε B : ℚ) :
     burdenIterate (n + 1) g ε B = burdenStep (burdenIterate n g ε B) g ε := by
   simp [burdenIterate, Function.iterate_succ_apply']
 
-/-- Strict single-step decrease along the burden axis when `g < ε`. -/
-theorem burdenStep_strict_lt (B g ε : ℚ) (h : g < ε) : burdenStep B g ε < B :=
-  burden_decreases_when_entropy_dominates B g ε h
-
 /-- Iterated burden strictly decreases at each positive step when entropy dominates growth. -/
 theorem burdenIterate_succ_lt (B g ε : ℚ) (h : g < ε) (n : ℕ) :
     burdenIterate (n + 1) g ε B < burdenIterate n g ε B := by

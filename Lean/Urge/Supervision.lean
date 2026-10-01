@@ -36,7 +36,4 @@ def localCycleAdmissible (ch : Transport) : Bool :=
 theorem local_admissible : localCycleAdmissible .local = true := rfl
 theorem offline_inadmissible : localCycleAdmissible .offline = false := rfl
 
-def supervisionPhysicsGreen : Bool := false
-theorem supervisionPhysicsGreen_false : supervisionPhysicsGreen = false := rfl
-
 end UMST.Urge.Supervision

@@ -136,9 +136,6 @@ def evaluateCountedDomainOperation (authorConstruct : Bool) : CountedConsumeVerd
 /-- Positive refuse: author `Domain::new` / hand-fill is inadmissible (§21). -/
 def refuseAuthorDomainNew : CountedConsumeRefusal := .authorDomainNew
 
-/-- Positive refuse: second Excitement selector — compose `select`. -/
-def refuseSecondArgminSelector : CountedConsumeRefusal := .secondArgmin
-
 /-- Map domain verification to typed `counted_consume_admit`. -/
 def domainToAdmit (d : CountedDomain) : CountedConsumeAdmit :=
   match verifyCountedDomain d with
@@ -180,64 +177,8 @@ theorem countedAuthorDomainRefused :
 theorem countedScanOkWhenNotAuthor :
     evaluateCountedDomainOperation false = .scanOk := rfl
 
-theorem refuseAuthorDomainNewPositive :
-    refuseAuthorDomainNew = .authorDomainNew := rfl
-
-theorem refuseSecondArgminPositive :
-    refuseSecondArgminSelector = .secondArgmin := rfl
-
 theorem scanCountingFinalizeEmpty :
     scanCountingFinalize countedScanWalkEmpty = Sum.inr .emptyScan := rfl
-
--- ================================================================
--- SECTION 3: Counted consume composes Excitement (no second argmin)
--- ================================================================
-
-/-- Context for counted consume over admissible history successors. -/
-structure CountedConsumeCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Counted consume recovery **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def countedConsumeSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CountedConsumeCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-/-- Urge counted recovery composes imported `select` — not local argmin. -/
-noncomputable def countedExcitementSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem countedConsumeSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CountedConsumeCtx S) :
-    countedConsumeSelect ctx = select ctx.prior ctx.successors := by
-  unfold countedConsumeSelect urgeRecoverySelect
-  rfl
-
-theorem countedConsumeSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : CountedConsumeCtx S) :
-    countedConsumeSelect ctx = urgeRecoverySelect ctx.prior ctx.successors := by
-  unfold countedConsumeSelect urgeRecoverySelect
-  rfl
-
-theorem countedExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    countedExcitementSelect prior successors = select prior successors := rfl
-
-theorem countedConsumeNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CountedConsumeCtx S) :
-    countedConsumeSelect ctx = select ctx.prior ctx.successors :=
-  countedConsumeSelect_eq_select ctx
-
-theorem countedConsumeEmpty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : CountedConsumeCtx S)
-    (h : ctx.successors = []) :
-    countedConsumeSelect ctx = Sum.inr Residue.noCandidates := by
-  unfold countedConsumeSelect urgeRecoverySelect
-  simp [h, select_empty]
 
 -- ================================================================
 -- SECTION 4: §21 fixtures + witness theorems
@@ -308,77 +249,13 @@ theorem admissibleCountedConsume_intro (h : CountedHistoryMove)
 
 abbrev admitCountedConsume := admissibleCountedConsume
 
-structure CountedTransition where
-  move            : CountedHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def countedSecondLaw (t : CountedTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalCountedBridge where
-  proc : ErasureProcess
-  transition : CountedTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleCountedConsume transition.move
-
-theorem countedSecondLaw_from_physical (b : PhysicalCountedBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    countedSecondLaw b.transition := by
-  unfold countedSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleCountedConsume_from_physical (b : PhysicalCountedBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleCountedConsume b.transition.move :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
-
-def countedConsumePhysicsGreen : Bool := false
-
-theorem countedConsumePhysicsGreenFalse : countedConsumePhysicsGreen = false := rfl
-
-def countedConsumeProductionWired : Bool := false
-
-theorem countedConsumeProductionWiredFalse : countedConsumeProductionWired = false := rfl
-
-theorem countedConsumeModuleWitness : True := trivial
-
-theorem countedConsume_noNewAxiom : True := trivial
 
 theorem countedConsumePositiveRefuseNotSilent :
     evaluateCountedDomainOperation true ≠ .scanOk := by
   intro h
   cases h
-
-theorem countedConsumeAuthorRefusePositive :
-    refuseAuthorDomainNew = .authorDomainNew := rfl
-
-def excitementComposePin : Nat := 0
-
-theorem excitementComposePinMarker : excitementComposePin = 0 := rfl
-
-theorem refuseSecondArgminIsTag :
-    refuseSecondArgminSelector = .secondArgmin := rfl
 
 end UMST.Urge.CountedConsume

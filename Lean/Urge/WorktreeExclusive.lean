@@ -130,95 +130,8 @@ def refuseOverlappingWriteSetAtClaim : WorktreeExclusiveRefusal :=
 def refuseAgentSecondWorktree : WorktreeExclusiveRefusal :=
   .agentAlreadyOwnsWorktree
 
-def refuseMergeConflictTheater : WorktreeExclusiveRefusal :=
-  .mergeConflictTheater
-
-def refuseSecondArgminOnClaim : WorktreeExclusiveRefusal :=
-  .secondArgminOnClaim
-
-theorem refuseOverlappingWriteSetAtClaim_positive :
-    refuseOverlappingWriteSetAtClaim = .overlappingWriteSetAtClaim := rfl
-
-theorem refuseAgentSecondWorktree_positive :
-    refuseAgentSecondWorktree = .agentAlreadyOwnsWorktree := rfl
-
-theorem refuseMergeConflictTheater_positive :
-    refuseMergeConflictTheater = .mergeConflictTheater := rfl
-
-theorem refuseSecondArgminOnClaim_positive :
-    refuseSecondArgminOnClaim = .secondArgminOnClaim := rfl
-
-theorem evaluateClaimOperation_mergeTheaterRefused :
-    evaluateClaimOperation true = .mergeTheaterRefused := rfl
-
 theorem evaluateClaimOperation_exclusiveAdmit :
     evaluateClaimOperation false = .exclusiveAdmit := rfl
-
--- ================================================================
--- SECTION 3: Worktree exclusive composes Excitement.select (no second argmin)
--- ================================================================
-
-inductive WorktreeExcitementComposePin where
-  | importSelectExcitement | secondArgminRefused
-  deriving DecidableEq, Repr
-
-structure WorktreeExclusiveCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-noncomputable def composeExcitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) (pin : WorktreeExcitementComposePin) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  match pin with
-  | .importSelectExcitement => select src cands
-  | .secondArgminRefused => Sum.inr Residue.allInadmissible
-
-noncomputable def worktreeExclusiveSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : WorktreeExclusiveCtx S) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-noncomputable def worktreeExclusiveSelectBare {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (prior : S)
-    (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  select prior successors
-
-theorem composeExcitementSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    composeExcitementSelect src cands .importSelectExcitement = select src cands :=
-  rfl
-
-theorem worktreeExclusiveSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : WorktreeExclusiveCtx S) :
-    worktreeExclusiveSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem worktreeExclusiveSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : WorktreeExclusiveCtx S) :
-    worktreeExclusiveSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem worktreeExclusive_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : WorktreeExclusiveCtx S) :
-    worktreeExclusiveSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem composeExcitementSelect_refuses_secondArgmin {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (cands : List (Cand (K := ℚ) src)) :
-    composeExcitementSelect src cands .secondArgminRefused = Sum.inr Residue.allInadmissible :=
-  rfl
-
-theorem worktreeExclusive_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior))
-    (h : successors = []) :
-    worktreeExclusiveSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [worktreeExclusiveSelectBare] using select_empty (src := prior)
 
 -- ================================================================
 -- SECTION 4: Landauer bridge (sole physics axiom — imported)
@@ -238,48 +151,6 @@ theorem admissibleWorktreeExclusive_intro (h : WorktreeHistoryMove)
   And.intro ha (And.intro ho hp)
 
 abbrev admitWorktreeInbound := admissibleWorktreeExclusive
-
-structure WorktreeTransition where
-  move            : WorktreeHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def worktreeSecondLaw (t : WorktreeTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalWorktreeBridge where
-  proc : ErasureProcess
-  transition : WorktreeTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleWorktreeExclusive transition.move
-
-theorem worktreeSecondLaw_from_physical (b : PhysicalWorktreeBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    worktreeSecondLaw b.transition := by
-  unfold worktreeSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleWorktreeExclusive_from_physical (b : PhysicalWorktreeBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleWorktreeExclusive b.transition.move :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
 
 -- ================================================================
 -- SECTION 5: §16.11 fixtures + witness theorems
@@ -352,27 +223,5 @@ theorem worktreeConjunct_fixture_admits :
 theorem worktreeExclusive_positiveRefuse_notSilent :
     evaluateClaimOperation true ≠ .exclusiveAdmit := by
   simp [evaluateClaimOperation]
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def worktreeExclusivePhysicsGreen : Bool := false
-
-theorem worktreeExclusivePhysicsGreenFalse : worktreeExclusivePhysicsGreen = false := rfl
-
-def worktreeExclusiveProductionWired : Bool := false
-
-theorem worktreeExclusiveProductionWiredFalse : worktreeExclusiveProductionWired = false := rfl
-
-theorem worktreeExclusiveModuleWitness : True := trivial
-
-theorem worktreeExclusive_noNewAxiom : True := trivial
-
-theorem worktreeExclusive_mergeTheaterRefused_positive :
-    refuseMergeConflictTheater = .mergeConflictTheater := rfl
-
-theorem worktreeExclusive_secondArgminRefused_positive :
-    refuseSecondArgminOnClaim = .secondArgminOnClaim := rfl
 
 end UMST.Urge.WorktreeExclusive

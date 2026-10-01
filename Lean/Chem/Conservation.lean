@@ -157,7 +157,4 @@ theorem affine_entropy_from_physical (b : PhysicalChemBridge)
   have hW : 0 < b.transition.dissipatedWork := by rw [b.workEq]; exact landauerBound_pos b.proc hSL
   exact affineDissipative_zero_slack w hslack _ _ (le_of_lt hT) (le_of_lt hW)
 
-/-- Catalog witness: meso chemistry conservation module is present. -/
-theorem chem_conservation_module_witness : True := trivial
-
 end UMST.Chem.Conservation

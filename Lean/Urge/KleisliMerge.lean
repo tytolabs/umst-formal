@@ -269,46 +269,6 @@ theorem evaluateTierDisjoint_same (t : MemoryTier) :
   cases t <;> rfl
 
 -- ================================================================
--- SECTION 3: Merge composes Excitement (no second argmin)
--- ================================================================
-
-structure MergeCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-noncomputable def mergeSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : MergeCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-noncomputable def mergeSelectBare {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (prior : S) (successors : List (Cand (K := ℚ) prior)) :
-    Cand (K := ℚ) prior ⊕ Residue :=
-  urgeRecoverySelect prior successors
-
-theorem mergeSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : MergeCtx S) :
-    mergeSelect ctx = select ctx.prior ctx.successors :=
-  urgeRecoverySelect_eq_select ctx.prior ctx.successors
-
-theorem mergeSelect_eq_admitHistorySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : MergeCtx S) :
-    mergeSelect ctx = admitHistorySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem mergeKleisliNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : MergeCtx S) :
-    mergeSelect ctx = select ctx.prior ctx.successors :=
-  mergeSelect_eq_select ctx
-
-theorem mergeSelect_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : MergeCtx S) (h : ctx.successors = []) :
-    mergeSelect ctx = Sum.inr Residue.noCandidates := by
-  unfold mergeSelect urgeRecoverySelect
-  rw [h]
-  simpa using select_empty (src := ctx.prior)
-
--- ================================================================
 -- SECTION 4: Positive refuse + CRDT + fixtures
 -- ================================================================
 
@@ -323,8 +283,6 @@ def refuseFrugalMiOnMerge : MergeGateMismatch := .frugalMiOnMerge
 def refuseOutboundTickOnMerge : MergeGateMismatch := .outboundTickOnMerge
 def refuseRemoteClassOnMerge : MergeGateMismatch := .remoteClassOnMerge
 def refuseReplicaClassOnMerge : MergeGateMismatch := .replicaClassOnMerge
-def refuseProductionWiredMerge : MergeArrowRefusal := .productionWiredRefused
-
 def mergeFixtureEntry : HistoryMemoryEntry :=
   { contentId := 42, theoremId := 7 }
 
@@ -338,7 +296,6 @@ def mergeFixtureProvenance (prior _post : Nat) : MergeProvenance :=
 
 def mergeFixturePostProvenance (prior post : Nat) : MergeProvenance :=
   { ucrsChain := [prior, prior], dagCommit := post, landauerWitness := true }
-
 
 theorem mergeFixtureSyncGateCheck :
     mergeGateCheckBeforeSync mergeFixtureState mergeFixtureState = true := by
@@ -390,9 +347,6 @@ theorem mergeFixtureTierDisjointRefused :
          mergeFixtureObject, mergeFixtureRightCrossTier, mergeFixtureEntry,
          inboundGateAdmits, evaluateTierDisjoint, memoryTierEqb]
 
-theorem mergeFixtureCrdtRefused :
-    refuseCrdtAutoMerge = .tag := rfl
-
 theorem mergeFixturePositiveRefuseGates :
     refuseFrugalMiOnMerge = .frugalMiOnMerge ∧
     refuseOutboundTickOnMerge = .outboundTickOnMerge ∧
@@ -427,72 +381,12 @@ structure MergeTransitionLaw where
   dissipatedWork  : ℝ
   entropyDrop     : ℝ
 
-def mergeSecondLaw (t : MergeTransitionLaw) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalMergeBridge where
-  proc : ErasureProcess
-  transition : MergeTransitionLaw
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleMergeHistoryMove transition.move
-
-theorem mergeSecondLaw_from_physical (b : PhysicalMergeBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    mergeSecondLaw b.transition := by
-  unfold mergeSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleMergeHistoryMove_from_physical (b : PhysicalMergeBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleMergeHistoryMove b.transition.move :=
-  b.admissible
-
-theorem merge_physicalSecondLaw_discharge (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def kleisliMergePhysicsGreen : Bool := false
-
-theorem kleisliMergePhysicsGreenFalse : kleisliMergePhysicsGreen = false := rfl
-
-def kleisliMergeProductionWired : Bool := false
-
-theorem kleisliMergeProductionWiredFalse : kleisliMergeProductionWired = false := rfl
-
 def kleisliMergeMarker : Nat := 167
 
 theorem kleisliMergeMarkerPos : 0 < kleisliMergeMarker := by decide
-
-theorem kleisliMergeModuleWitness : True := trivial
-
-theorem kleisliMerge_noNewAxiom : True := trivial
-
-theorem kleisliMergeNoSecondArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : MergeCtx S) :
-    mergeSelect ctx = admitHistorySelect ctx.prior ctx.successors :=
-  rfl
-
-def excitementComposePin : Nat := 0
-
-theorem excitementComposePin_marker : excitementComposePin = 0 := rfl
-
-theorem refuseSecondArgminIsTag :
-    MergeGateMismatch.frugalMiOnMerge = .frugalMiOnMerge := rfl
 
 end UMST.Urge.KleisliMerge

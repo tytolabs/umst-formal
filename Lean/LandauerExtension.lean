@@ -86,15 +86,6 @@ theorem landauerBound_additive (proc₁ proc₂ : ErasureProcess)
   linarith
 
 -- ================================================================
--- SECTION 4: Strict Positivity (re-export for convenience)
--- ================================================================
-
-/-- Re-export: the Landauer bound is strictly positive for T > 0. -/
-theorem landauerBound_pos' (proc : ErasureProcess)
-    (hSL : physicalSecondLawUniformBinary proc) : 0 < proc.work :=
-  landauerBound_pos proc hSL
-
--- ================================================================
 -- SECTION 5: SI Energy Scale at Room Temperature (300 K)
 -- ================================================================
 

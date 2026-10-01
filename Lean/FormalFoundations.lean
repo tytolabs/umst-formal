@@ -18,12 +18,4 @@ namespace UMST
 example : Observation × Insight × Design × Artifact :=
   (default, default, default, default)
 
-/-- Wave 6.5 corpus marker: rooted `UMST` library is `sorry`-free in normal builds; the only
-    Lean `axiom` in `umst-formal/Lean` is `LandauerLaw.physicalSecondLaw`.  Convergence uses
-    hypothesis-driven `HydrationInUnitInterval` (no axiom).  DIB: `dib_semantic_step_admissible`,
-    `dibArtifactGateCheck_eq_true` (non-identity ψ-step + lawful `gateCheck`).
-    Prime-spectral guidance (`PrimeSpectralGuidance`, `PrimeSpectralCategory`) adds zero axioms;
-    see `Docs/PRIME_SPECTRAL_UMST_DESIGN.md`. -/
-theorem umst_formal_complete : True := trivial
-
 end UMST

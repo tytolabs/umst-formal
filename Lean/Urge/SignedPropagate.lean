@@ -158,51 +158,9 @@ theorem signedPropagateUnsignedRefused (isUnsignedCarry : Bool)
 theorem signedPropagateMorphismOkWhenNotUnsigned :
     evaluateSignedPropagateOperation false = .spvMorphismOk := rfl
 
-theorem refuseUnsignedPropagationPositive :
-    refuseUnsignedPropagation = .sprUnsignedPropagationRefused := rfl
-
 -- ================================================================
 -- SECTION 3: Signed propagate composes Excitement.select (no second argmin)
 -- ================================================================
-
-/-- Context for signed propagation over admissible history successors. -/
-structure SignedPropagateCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) where
-  successors : List (Cand (K := ℚ) src)
-
-/-- Signed propagation **is** `Excitement.select` — not a second argmin. -/
-noncomputable def signedPropagateSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (ctx : SignedPropagateCtx S src) :
-    Cand (K := ℚ) src ⊕ Residue :=
-  select src ctx.successors
-
-noncomputable def urgeSignedPropagateSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (successors : List (Cand (K := ℚ) src)) : Cand (K := ℚ) src ⊕ Residue :=
-  select src successors
-
-theorem signedPropagateSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (ctx : SignedPropagateCtx S src) :
-    signedPropagateSelect src ctx = select src ctx.successors :=
-  rfl
-
-theorem signedPropagateSelect_eq_urgeSignedPropagateSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S) (ctx : SignedPropagateCtx S src) :
-    signedPropagateSelect src ctx = urgeSignedPropagateSelect src ctx.successors :=
-  rfl
-
-theorem signedPropagateNoLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (ctx : SignedPropagateCtx S src) :
-    signedPropagateSelect src ctx = select src ctx.successors :=
-  signedPropagateSelect_eq_select src ctx
-
-theorem signedPropagateEmpty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (src : S) (ctx : SignedPropagateCtx S src)
-    (h : ctx.successors = []) :
-    signedPropagateSelect src ctx = Sum.inr Residue.noCandidates := by
-  unfold signedPropagateSelect
-  rw [h]
-  simpa using select_empty (src := src)
 
 inductive SignedPropagateComposeRefusal where
   | unsignedPropagation
@@ -213,16 +171,6 @@ inductive SignedPropagateComposeRefusal where
 def refuseUnsignedPropagationTag : SignedPropagateComposeRefusal := .unsignedPropagation
 
 def refuseSecondArgmin : SignedPropagateComposeRefusal := .secondArgmin
-
-def excitementComposePin : Nat := 0
-
-theorem excitementComposePinMarker : excitementComposePin = 0 := rfl
-
-theorem urgeSignedPropagateSelect_eq_select {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (src : S)
-    (successors : List (Cand (K := ℚ) src)) :
-    urgeSignedPropagateSelect src successors = select src successors :=
-  rfl
 
 -- ================================================================
 -- SECTION 4: §4 fixtures + witness theorems
@@ -254,9 +202,6 @@ def signedFixturePostState : SignedStampedWitnessState :=
   { signedValue := 13
     signedStamp := signedFixturePostStamp
     signedWitnessBits := 4 }
-
-theorem signedFixtureUnsignedRefused :
-    refuseUnsignedPropagation = .sprUnsignedPropagationRefused := rfl
 
 theorem signedFixturePropagateOk :
     propagateSignedState signedFixtureState signedFixtureStep signedFixtureConjunct true =
@@ -320,68 +265,10 @@ theorem admissibleSignedPropagateHistoryMove_intro (h : SignedPropagateHistoryMo
 
 abbrev admitSignedPropagateInbound := admissibleSignedPropagateHistoryMove
 
-structure SignedPropagateTransition where
-  move            : SignedPropagateHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def signedPropagateSecondLaw (t : SignedPropagateTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalSignedPropagateBridge where
-  proc : ErasureProcess
-  transition : SignedPropagateTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleSignedPropagateHistoryMove transition.move
-
-theorem signedPropagateSecondLaw_from_physical (b : PhysicalSignedPropagateBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    signedPropagateSecondLaw b.transition := by
-  unfold signedPropagateSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleSignedPropagateHistoryMove_from_physical (b : PhysicalSignedPropagateBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleSignedPropagateHistoryMove b.transition.move :=
-  b.admissible
-
-theorem landauerAnchorCited :
-    physicalSecondLawUniformBinary { bath := { bathTemp := ⟨1, by norm_num⟩ }, work := 1 } :=
-  SecondLaw_unitBathOneWork
-
 -- ================================================================
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def signedPropagatePhysicsGreen : Bool := false
-
-theorem signedPropagatePhysicsGreenFalse : signedPropagatePhysicsGreen = false := rfl
-
-def signedPropagateProductionWired : Bool := false
-
-theorem signedPropagateProductionWiredFalse : signedPropagateProductionWired = false := rfl
-
 def signedPropagateMarker : Nat := 1
-
-theorem signedPropagateMarkerEq : signedPropagateMarker = 1 := rfl
-
-theorem signedPropagateModuleWitness : True := trivial
-
-theorem signedPropagateNoNewAxiom : True := trivial
-
-theorem refuseSecondArgminIsTag : refuseSecondArgmin = .secondArgmin := rfl
 
 end UMST.Urge.SignedPropagate

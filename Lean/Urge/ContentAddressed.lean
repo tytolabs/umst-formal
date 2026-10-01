@@ -29,7 +29,6 @@ instance concreteJointThermo : JointThermo ℚ ConcreteState where
   temperature s := 1
   temperature_pos _ := by norm_num
 
-
 -- ================================================================
 -- SECTION 1: Content-addressed snapshot + typed morphism carriers
 -- ================================================================
@@ -152,61 +151,11 @@ def applyContentAddressedMorphism (snapshot : ContentAddressedSnapshot) (toSeq :
         witness := witnessFromSnapshot snapshot
         excitementSelected := excitementSelected }
 
-theorem contentAddressed_gitHashOnly_refused (gitHash : String) :
-    refuseGitHashOnlyIdentity gitHash = .gitHashOnlyIdentity gitHash := rfl
-
 theorem contentAddressed_admitted_when_not_gitHashOnly :
     evaluateGitHashOnlyIdentity false = .admitted := rfl
 
-theorem contentAddressed_hostId_refused (hostId : Nat) :
-    refuseHostIdIdentity hostId = .hostIdIdentity hostId := rfl
-
 theorem contentAddressed_admitted_when_not_hostId :
     evaluateHostIdIdentity false = .admitted := rfl
-
-theorem refuseSecondArgmin_positive :
-    refuseSecondArgmin = .secondArgminRefused := rfl
-
--- ================================================================
--- SECTION 3: Content-addressed composes Excitement.select (no second argmin)
--- ================================================================
-
-/-- Context for content-addressed history over admissible successors. -/
-structure ContentAddressedCtx where
-  prior       : ThermodynamicState
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Content-addressed history **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def contentAddressedSelect (ctx : ContentAddressedCtx) :
-    Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-noncomputable def contentAddressedSelectBare (prior : ThermodynamicState)
-    (successors : List (Cand (K := ℚ) prior)) : Cand (K := ℚ) prior ⊕ Residue :=
-  urgeRecoverySelect prior successors
-
-theorem contentAddressedSelect_eq_select (ctx : ContentAddressedCtx) :
-    contentAddressedSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem contentAddressedSelect_eq_urgeRecoverySelect (ctx : ContentAddressedCtx) :
-    contentAddressedSelect ctx = urgeRecoverySelect ctx.prior ctx.successors :=
-  rfl
-
-theorem contentAddressedSelectBare_eq_select (prior : ThermodynamicState)
-    (successors : List (Cand (K := ℚ) prior)) :
-    contentAddressedSelectBare prior successors = select prior successors :=
-  rfl
-
-theorem contentAddressed_noLocalArgmin (ctx : ContentAddressedCtx) :
-    contentAddressedSelect ctx = select ctx.prior ctx.successors :=
-  rfl
-
-theorem contentAddressed_empty (prior : ThermodynamicState)
-    (successors : List (Cand (K := ℚ) prior)) (h : successors = []) :
-    contentAddressedSelectBare prior successors = Sum.inr Residue.noCandidates := by
-  subst h
-  simpa [contentAddressedSelectBare] using select_empty (src := prior)
 
 -- ================================================================
 -- SECTION 4: §3 fixtures + witness theorems
@@ -237,12 +186,6 @@ def contentFixtureSnapshot : ContentAddressedSnapshot :=
 
 def contentFixtureConjunct : ContentAdmissibilityConjunct :=
   { gateOk := true, geometricPrimary := true, excitementPreserves := true }
-
-theorem contentFixture_gitHashOnly_refused :
-    refuseGitHashOnlyIdentity "sha1:only-hash" = .gitHashOnlyIdentity "sha1:only-hash" := rfl
-
-theorem contentFixture_hostId_refused :
-    refuseHostIdIdentity 0xdeadbeef = .hostIdIdentity 0xdeadbeef := rfl
 
 theorem contentFixture_apply_morphism_ok :
     applyContentAddressedMorphism contentFixtureSnapshot 2 contentFixtureConjunct true =
@@ -285,62 +228,6 @@ structure ContentHistoryTransition where
 
 def admissibleContentAddressed (t : ContentHistoryTransition) : Prop :=
   t.gateChecked ∧ t.geometricPrimary ∧ t.provenanceOk
-
-def contentSecondLaw (t : ContentHistoryTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalContentBridge where
-  proc : ErasureProcess
-  transition : ContentHistoryTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleContentAddressed transition
-
-theorem contentSecondLaw_from_physical (b : PhysicalContentBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    contentSecondLaw b.transition := by
-  unfold contentSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleContentAddressed_from_physical (b : PhysicalContentBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleContentAddressed b.transition :=
-  b.admissible
-
-theorem physicalSecondLaw_imported (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def contentAddressedPhysicsGreen : Bool := false
-
-theorem contentAddressedPhysicsGreenFalse : contentAddressedPhysicsGreen = false := rfl
-
-def contentAddressedProductionWired : Bool := false
-
-theorem contentAddressedProductionWiredFalse : contentAddressedProductionWired = false := rfl
-
-theorem contentAddressedModuleWitness : True := trivial
-
-theorem contentAddressed_noNewAxiom : True := trivial
-
-def contentAddressedNonClaim : String :=
-  "§3 content-addressed history; geometric identity primary, git hash compatibility; " ++
-  "compose excitement_select not local argmin; not physics GREEN; not production_wired"
 
 -- ================================================================
 -- SECTION 7: §13 content-hash provenance at block naming (S13-01)
@@ -406,9 +293,6 @@ def nameContentBlock (payload : Nat) (resolutionBits : Nat) (contentHash : Conte
           provenanceStamp := stamp
           gitCompat := gitCompat }
 
-theorem refuseProvenanceMissing_positive :
-    refuseProvenanceMissing = .provenanceMissingRefused := rfl
-
 def contentHashFixtureDigest : ContentHashDigest :=
   List.replicate 32 (UInt8.ofNat 0xCD)
 
@@ -466,15 +350,5 @@ theorem contentHashFixture_git_hash_only_refused :
   simp [carriesProvenance_fixture_ok, contentHashFixtureDigest_len, Bool.not_true]
 
 def contentHashProvenanceMarker : String := "urge_ii_s13_01_content_hash_provenance_v1"
-
-def contentHashProvenanceNonClaim : String :=
-  "URGE-II-S13-01 content hash BLAKE3 over canonical bytes; geometric identity primary; " ++
-  "git hash compatibility only; content-defined chunking; carries_provenance at block naming; " ++
-  "not physics GREEN; not production_wired"
-
-theorem contentHashProvenancePhysicsGreenFalse : contentAddressedPhysicsGreen = false := rfl
-
-theorem contentHashProvenanceModuleWitness : True := trivial
-
 
 end UMST.Urge.ContentAddressed

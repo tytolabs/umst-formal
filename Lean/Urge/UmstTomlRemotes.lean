@@ -95,14 +95,6 @@ def umstTomlRemotesConjunctAdmits (c : UmstTomlRemotesConjunct) : Bool :=
 def evaluateUmstTomlRemotesOperation (isParseRefused : Bool) : UmstTomlRemotesVerdict :=
   if isParseRefused then .parseRefused else .documentOk
 
-/-- Positive refuse: second Excitement selector — compose `select`. -/
-def refuseSecondArgminSelector : UmstTomlRemotesImportRefusal :=
-  .secondArgmin
-
-/-- Positive refuse: production wired push without root `umst.toml` policy. -/
-def refuseProductionWiredTomlPush : EntityPrePushRefusal :=
-  .productionWiredRefused
-
 /-- Apply typed root `umst.toml` row check — fail closed on inadmissibility. -/
 def applyUmstTomlRemoteRow (row : UrgeRemoteTomlRow) (host : String)
     (conjunct : UmstTomlRemotesConjunct) (excitementSelected : Bool) :
@@ -121,12 +113,6 @@ theorem umstTomlRemotesParseRefusedPositive :
 
 theorem umstTomlRemotesDocumentOkWhenNotParseRefused :
     evaluateUmstTomlRemotesOperation false = UmstTomlRemotesVerdict.documentOk := rfl
-
-theorem refuseSecondArgminSelectorPositive :
-    refuseSecondArgminSelector = UmstTomlRemotesImportRefusal.secondArgmin := rfl
-
-theorem refuseProductionWiredTomlPushPositive :
-    refuseProductionWiredTomlPush = EntityPrePushRefusal.productionWiredRefused := rfl
 
 -- ================================================================
 -- SECTION 3: Fixture document + honest parse surrogate
@@ -165,45 +151,8 @@ def parseRootUmstTomlRemotesEmpty :
 theorem rootUmstTomlFixtureDocumentTwoRows :
     rootUmstTomlFixtureDocument.rows.length = 2 := rfl
 
-theorem parseRootUmstTomlRemotesFixtureOk :
-    parseRootUmstTomlRemotesFixture = Sum.inl rootUmstTomlFixtureDocument := rfl
-
 theorem parseRootUmstTomlRemotesEmptyRefused :
     parseRootUmstTomlRemotesEmpty = Sum.inr TomlRemoteParseError.noRemoteSections := rfl
-
--- ================================================================
--- SECTION 4: Root `umst.toml` composes Excitement (no second argmin)
--- ================================================================
-
-/-- Context for root `umst.toml` remote over admissible history successors. -/
-structure UmstTomlRemotesCtx (S : Type) [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] where
-  prior       : S
-  successors  : List (Cand (K := ℚ) prior)
-
-/-- Root `umst.toml` remote selection **is** `urgeRecoverySelect` / `Excitement.select`. -/
-noncomputable def umstTomlRemotesSelect {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : UmstTomlRemotesCtx S) : Cand (K := ℚ) ctx.prior ⊕ Residue :=
-  urgeRecoverySelect ctx.prior ctx.successors
-
-theorem umstTomlRemotesSelect_eq_excitementSelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : UmstTomlRemotesCtx S) :
-    umstTomlRemotesSelect ctx = select ctx.prior ctx.successors := by
-  simp [umstTomlRemotesSelect, urgeRecoverySelect_eq_select]
-
-theorem umstTomlRemotesSelect_eq_urgeRecoverySelect {S : Type} [ThermodynamicSystem ℚ S]
-    [AdmissibleSystem ℚ S] [JointThermo ℚ S] (ctx : UmstTomlRemotesCtx S) :
-    umstTomlRemotesSelect ctx = urgeRecoverySelect ctx.prior ctx.successors := rfl
-
-theorem umstTomlRemotes_noLocalArgmin {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : UmstTomlRemotesCtx S) :
-    umstTomlRemotesSelect ctx = select ctx.prior ctx.successors :=
-  umstTomlRemotesSelect_eq_excitementSelect ctx
-
-theorem umstTomlRemotes_empty {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S]
-    [JointThermo ℚ S] (ctx : UmstTomlRemotesCtx S) (h : ctx.successors = []) :
-    umstTomlRemotesSelect ctx = Sum.inr Residue.noCandidates := by
-  simp [umstTomlRemotesSelect, urgeRecoverySelect, h, select_empty]
 
 -- ================================================================
 -- SECTION 5: §13.6 fixtures + witness theorems
@@ -271,59 +220,9 @@ theorem admissibleUmstTomlRemotes_intro (h : UmstTomlRemotesHistoryMove)
 
 abbrev admitUmstTomlRemotes := admissibleUmstTomlRemotes
 
-structure UmstTomlRemotesTransition where
-  move            : UmstTomlRemotesHistoryMove
-  bath            : HeatBath
-  dissipatedWork  : ℝ
-  entropyDrop     : ℝ
-
-def umstTomlRemotesSecondLaw (t : UmstTomlRemotesTransition) : Prop :=
-  t.entropyDrop ≤ t.dissipatedWork / t.bath.bathTemp.val
-
-structure PhysicalUmstTomlRemotesBridge where
-  proc : ErasureProcess
-  transition : UmstTomlRemotesTransition
-  bathEq : transition.bath = proc.bath
-  workEq : transition.dissipatedWork = proc.work
-  entropyDropEq :
-    transition.entropyDrop =
-      shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2))
-  admissible : admissibleUmstTomlRemotes transition.move
-
-theorem umstTomlRemotesSecondLaw_from_physical (b : PhysicalUmstTomlRemotesBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    umstTomlRemotesSecondLaw b.transition := by
-  unfold umstTomlRemotesSecondLaw
-  rw [b.entropyDropEq]
-  have hwork :
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val =
-        b.proc.work / b.proc.bath.bathTemp.val := by
-    rw [b.workEq]
-    congr 1
-    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
-  rw [hwork]
-  exact hSL
-
-theorem admissibleUmstTomlRemotes_from_physical (b : PhysicalUmstTomlRemotesBridge)
-    (_hSL : physicalSecondLawUniformBinary b.proc) :
-    admissibleUmstTomlRemotes b.transition.move :=
-  b.admissible
-
 -- ================================================================
 -- SECTION 7: Honesty flags + catalog witnesses
 -- ================================================================
-
-def umstTomlRemotesPhysicsGreen : Bool := false
-
-theorem umstTomlRemotesPhysicsGreenFalse : umstTomlRemotesPhysicsGreen = false := rfl
-
-def umstTomlRemotesProductionWired : Bool := false
-
-theorem umstTomlRemotesProductionWiredFalse : umstTomlRemotesProductionWired = false := rfl
-
-theorem umstTomlRemotesModuleWitness : True := trivial
-
-theorem umstTomlRemotes_noNewAxiom : True := trivial
 
 theorem umstTomlRemotesPositiveRefuseNotSilent :
     evaluateUmstTomlRemotesOperation true ≠ UmstTomlRemotesVerdict.documentOk := by

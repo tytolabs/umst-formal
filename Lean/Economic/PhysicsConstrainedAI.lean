@@ -13,9 +13,4 @@ namespace UMST.Economics
 
 open UMST
 
-/-- Gated pipeline is 1-step well-typed (constitutional Kleisli). -/
-theorem physicsConstrained_gate_wellTyped (propose : ThermodynamicState → ThermodynamicState) :
-    WellTyped (makeGateArrow propose) :=
-  gateArrowWellTyped propose
-
 end UMST.Economics

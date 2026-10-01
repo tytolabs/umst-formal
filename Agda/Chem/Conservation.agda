@@ -57,5 +57,3 @@ chem-admissible-from-mass-dissip :
 chem-admissible-from-mass-dissip sys old new =
   core-admissible-from-mass-dissip sys old new
 
-conservationModuleWitness : {S : Set} → ThermodynamicSystem S → S → S → Set
-conservationModuleWitness sys old new = ChemMassCond sys old new

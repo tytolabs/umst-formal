@@ -220,10 +220,6 @@ theorem coherentP0Refine_workAccounted : refineWorkAccounted coherentP0RefineMor
 noncomputable def coherentP0Contamination : RefineMorphism 2 :=
   reverseRefineMorphism coherentP0RefineMorphism
 
-theorem coherentP0Contamination_is_reverse :
-    coherentP0Contamination = reverseRefineMorphism coherentP0RefineMorphism :=
-  rfl
-
 theorem coherentP0Contamination_endpoints :
     coherentP0Contamination.source = concentrateGrade ∧
     coherentP0Contamination.target = feedstockGrade := by
@@ -236,18 +232,5 @@ theorem canonicalRefine_fixture : canonicalRefineDirection feedstockGrade concen
 theorem canonicalContamination_fixture :
     canonicalContaminationDirection concentrateGrade tailingsGrade := by
   exact ⟨rfl, rfl⟩
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def refinePhysicsGreen : Bool := false
-
-theorem refinePhysicsGreenFalse : refinePhysicsGreen = false := rfl
-
-/-- Production wiring stays open (REFINE-00 / CAT-01 lift only). -/
-def refineCostProductionWired : Bool := false
-
-theorem refineCostProductionWiredFalse : refineCostProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry refine-cost module present. -/
-theorem refineCostModuleWitness : True := trivial
 
 end UMST.Chem.RefineCost

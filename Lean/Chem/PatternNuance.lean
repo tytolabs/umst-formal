@@ -111,8 +111,6 @@ def PatternClass.index : PatternClass → Fin 25
 /-- §2 class cardinality (north-star pinned). -/
 def patternClassCardinality : ℕ := 25
 
-theorem patternClassCardinality_eq : patternClassCardinality = 25 := rfl
-
 /-- Recover class from index (partial inverse of `index`). -/
 def patternClassOfFin (i : Fin 25) : PatternClass :=
   match i.val with
@@ -151,23 +149,23 @@ theorem patternClass_index_roundtrip (c : PatternClass) :
 -- SECTION 3: Classifiers as predicates on Element (not XOR worlds)
 -- ================================================================
 
-/-- Class 0 — per-element nuance slot (Unwired scaffold). -/
+/-- Class 0 — per-element nuance slot -/
 def perElementNuanceClassifier (e : Element) : Prop :=
   1 ≤ e.z ∧ e.z ≤ 118
 
-/-- Class 1 — shared nuance leg (Unwired scaffold). -/
+/-- Class 1 — shared nuance leg -/
 def sharedClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 2 — bond-forming nuance leg (Unwired scaffold). -/
+/-- Class 2 — bond-forming nuance leg -/
 def bondFormingClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 3 — bond-repelling nuance leg (Unwired scaffold). -/
+/-- Class 3 — bond-repelling nuance leg -/
 def bondRepellingClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 4 — structure-enabling nuance leg (Unwired scaffold). -/
+/-- Class 4 — structure-enabling nuance leg -/
 def structureEnablingClassifier (_e : Element) : Prop :=
   True
 
@@ -179,11 +177,11 @@ def structureBlockingInertnessClassifier (e : Element) : Prop :=
 def naturalOreAssemblageClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 7 — assemblage-stability why leg (Unwired scaffold). -/
+/-- Class 7 — assemblage-stability why leg -/
 def assemblageStabilityWhyClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 8 — impure-component morphism leg (Unwired scaffold). -/
+/-- Class 8 — impure-component morphism leg -/
 def impureComponentMorphismClassifier (_e : Element) : Prop :=
   True
 
@@ -195,15 +193,15 @@ def processingRefiningClassifier (_e : Element) : Prop :=
 def allotropeClassifier (e : Element) : Prop :=
   e.z = 6 ∨ e.z = 14 ∨ e.z = 32
 
-/-- Class 11 — isotope nuance leg (Unwired scaffold). -/
+/-- Class 11 — isotope nuance leg -/
 def isotopeClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 12 — metastable vs equilibrium leg (Unwired scaffold). -/
+/-- Class 12 — metastable vs equilibrium leg -/
 def metastableVsEquilibriumClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 13 — phase / eutectic / solid-solution leg (Unwired scaffold). -/
+/-- Class 13 — phase / eutectic / solid-solution leg -/
 def phaseEutecticSolidSolutionClassifier (_e : Element) : Prop :=
   True
 
@@ -211,19 +209,19 @@ def phaseEutecticSolidSolutionClassifier (_e : Element) : Prop :=
 def catalysisClassifier (e : Element) : Prop :=
   e.z = 6 ∨ e.z = 26 ∨ e.z = 46
 
-/-- Class 15 — surface vs bulk SDF leg (Unwired scaffold). -/
+/-- Class 15 — surface vs bulk SDF leg -/
 def surfaceVsBulkSdfClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 16 — aqueous vs mineral leg (Unwired scaffold). -/
+/-- Class 16 — aqueous vs mineral leg -/
 def aqueousVsMineralClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 17 — redox ladder leg (Unwired scaffold). -/
+/-- Class 17 — redox ladder leg -/
 def redoxLadderClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 18 — polymorphism leg (Unwired scaffold). -/
+/-- Class 18 — polymorphism leg -/
 def polymorphismClassifier (_e : Element) : Prop :=
   True
 
@@ -239,7 +237,7 @@ def contaminationReverseRefineClassifier (_e : Element) : Prop :=
 def assayMeasurementLandauerClassifier (_e : Element) : Prop :=
   True
 
-/-- Class 22 — vacuum / inert limit leg (Unwired scaffold). -/
+/-- Class 22 — vacuum / inert limit leg -/
 def vacuumInertLimitClassifier (_e : Element) : Prop :=
   True
 
@@ -247,7 +245,7 @@ def vacuumInertLimitClassifier (_e : Element) : Prop :=
 def continuumVsDiscreteElementIdClassifier (e : Element) : Prop :=
   1 ≤ e.z ∧ e.z ≤ 118
 
-/-- Class 24 — other named nuance leg (Unwired scaffold). -/
+/-- Class 24 — other named nuance leg -/
 def otherNamedNuanceClassifier (_e : Element) : Prop :=
   True
 
@@ -288,18 +286,6 @@ theorem pattern_taxonomy_all_classifiers_present :
   intro c
   exact patternClass_index_roundtrip c
 
-/-- Catalog crosswalk: Ore sibling module witness (zero new axioms). -/
-theorem ore_module_catalog : True :=
-  oreAssemblageModuleWitness
-
-/-- Catalog crosswalk: Refine sibling module witness (zero new axioms). -/
-theorem refine_module_catalog : True :=
-  refineCostModuleWitness
-
-/-- Catalog crosswalk: Kleisli sibling module witness (zero new axioms). -/
-theorem kleisli_module_catalog : True :=
-  kleisliInteractModuleWitness
-
 /-- Sibling Ore module witness discharges the ore-assemblage classifier scaffold. -/
 theorem naturalOre_classifier_links_module (e : Element) :
     naturalOreAssemblageClassifier e :=
@@ -336,12 +322,6 @@ theorem carbon_continuum_discrete : continuumVsDiscreteElementIdClassifier carbo
 theorem helium_structure_blocking : structureBlockingInertnessClassifier heliumElement := by
   simp [structureBlockingInertnessClassifier, heliumElement]
 
-theorem carbon_concurrent_classifiers :
-    allotropeClassifier carbonElement ∧
-    catalysisClassifier carbonElement ∧
-    continuumVsDiscreteElementIdClassifier carbonElement :=
-  ⟨carbon_allotrope, carbon_catalysis, carbon_continuum_discrete⟩
-
 /-- Contamination classifier reuses reverse Refine (not a parallel axiom). -/
 theorem contamination_classifier_is_reverse_refine :
     contaminationReverseRefineClassifier carbonElement ↔
@@ -352,9 +332,9 @@ theorem contamination_classifier_is_reverse_refine :
 -- SECTION 4: PatternBundle concurrent product (Π_c — not XOR)
 -- ================================================================
 
-/-- §3 PatternBundle slot modality — concurrent product factor, not XOR bucket. -/
+/-- §3 PatternBundle slot: a class is unassessed, absent or present; the slots form a product, not an exclusive choice. -/
 inductive PatternBundleSlot where
-  | unwired
+  | unassessed
   | absent
   | present
   deriving DecidableEq, Repr
@@ -364,9 +344,9 @@ structure PatternBundle where
   slots : Fin 25 → PatternBundleSlot
   deriving Repr
 
-/-- All slots Unwired — honest scaffold baseline. -/
-def patternBundleUnwired : PatternBundle where
-  slots := fun _ => .unwired
+/-- Every class unassessed: the bundle before any evidence is recorded. -/
+def patternBundleUnassessed : PatternBundle where
+  slots := fun _ => .unassessed
 
 /-- Read slot at class index. -/
 def PatternBundle.slot (b : PatternBundle) (i : Fin 25) : PatternBundleSlot :=
@@ -395,7 +375,7 @@ def patternBundleIsConcurrentProduct (b : PatternBundle) : Prop :=
 
 /-- Carbon nuance witness: allotrope (10) + catalysis (14) + continuum (23) concurrent. -/
 def carbonNuanceWitness : PatternBundle :=
-  patternBundleUnwired
+  patternBundleUnassessed
     |>.withPresent 10
     |>.withPresent 14
     |>.withPresent 23
@@ -415,7 +395,7 @@ theorem carbon_nuance_witness_present_count :
 theorem carbon_nuance_witness_concurrent :
     patternBundleIsConcurrentProduct carbonNuanceWitness := by
   unfold patternBundleIsConcurrentProduct carbonNuanceWitness PatternBundle.presentCount
-    PatternBundle.holds PatternBundle.withPresent PatternBundle.withSlot patternBundleUnwired
+    PatternBundle.holds PatternBundle.withPresent PatternBundle.withSlot patternBundleUnassessed
   decide
 
 /-- Present slots are independent — not XOR (two distinct indices may both hold). -/
@@ -434,7 +414,7 @@ theorem assay_classifier_from_physical (b : PhysicalChemBridge)
     assayMeasurementLandauerClassifier e ∧
       chemSecondLaw b.transition := by
   refine ⟨trivial, ?_⟩
-  exact interact_chemSecondLaw_from_physical b hSL
+  exact chemSecondLaw_from_physical b hSL
 
 /-- Ore classifier inherits physical-bridge admissibility on zero composition delta. -/
 theorem ore_classifier_from_physical (b : PhysicalChemBridge)
@@ -450,18 +430,5 @@ theorem ore_classifier_from_physical (b : PhysicalChemBridge)
           cost_eq_work := rfl } := by
   refine ⟨trivial, ?_⟩
   exact admissibleRefine_from_physical_bridge b w feedstockGrade concentrateGrade hDelta hSL
-
-/-- Physics GREEN unauthorized on this scaffold. -/
-def patternNuancePhysicsGreen : Bool := false
-
-theorem patternNuancePhysicsGreenFalse : patternNuancePhysicsGreen = false := rfl
-
-/-- Production wiring stays open (PATTERN-00 / CAT-01 lift only). -/
-def patternNuanceProductionWired : Bool := false
-
-theorem patternNuanceProductionWiredFalse : patternNuanceProductionWired = false := rfl
-
-/-- Catalog witness: meso chemistry pattern-nuance module present. -/
-theorem patternNuanceModuleWitness : True := trivial
 
 end UMST.Chem.PatternNuance

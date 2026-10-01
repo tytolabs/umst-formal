@@ -68,11 +68,6 @@ theorem contentConflict_not_admissible
   have hagree := ha id hal har hL hL_in hR hR_in hidL hidR
   exact hneq hagree
 
-/-- Honest physics GREEN posture. -/
-def reconcilePhysicsGreen : Bool := false
-
-theorem reconcilePhysicsGreen_false : reconcilePhysicsGreen = false := rfl
-
 def fixtureLeft : StateSummary :=
   { heads := [{ id := 1, digest := 10 }, { id := 2, digest := 20 }] }
 

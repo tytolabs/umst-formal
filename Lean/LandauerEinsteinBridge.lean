@@ -122,13 +122,6 @@ theorem massEquivalent_three_hundred_lt_three_point_two_e_neg_thirtyEight :
   unfold kBoltzmannSI speedOfLightSI
   norm_num
 
-/-- Combined coarse interval at 300 K. -/
-theorem massEquivalent_three_hundred_interval :
-    (318 : ℝ) / 10 ^ 40 < massEquivalent 300 ∧
-      massEquivalent 300 < (320 : ℝ) / 10 ^ 40 :=
-  ⟨massEquivalent_three_hundred_gt_three_point_one_e_neg_thirtyEight,
-    massEquivalent_three_hundred_lt_three_point_two_e_neg_thirtyEight⟩
-
 /-! ### Tight bracket (`log_two_near_10`: |ln 2 − 287209/414355| ≤ 10⁻¹⁰)
 
 Rational `r ± ε` propagated through exact SI `k_B`, `c`, and `T = 300`.
@@ -180,8 +173,3 @@ theorem massEquivalent_three_hundred_lt_tight :
     norm_num
   exact lt_of_le_of_lt hdiv hstrict
 
-/-- Tight machine-checked interval at 300 K from `log_two_near_10`. -/
-theorem massEquivalent_three_hundred_interval_tight :
-    (319439481694054 : ℝ) / 10 ^ 52 < massEquivalent 300 ∧
-      massEquivalent 300 < (319439481786228 : ℝ) / 10 ^ 52 :=
-  ⟨massEquivalent_three_hundred_gt_tight, massEquivalent_three_hundred_lt_tight⟩

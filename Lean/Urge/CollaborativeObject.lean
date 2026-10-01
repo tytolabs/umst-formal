@@ -163,10 +163,6 @@ def cobHead (cob : Cob) : ThermodynamicState :=
 -- SECTION 3: Positive refuse witnesses
 -- ================================================================
 
-theorem refuse_git_hash_only_is_refused (rid : String) :
-    refuseGitHashOnlyIdentity rid = CobIdentityVerdict.gitHashOnlyIdentityRefused rid :=
-  rfl
-
 theorem empty_graph_link_node_not_found :
     (linkTypedEdge emptySocialGraph 0 0 .patch .issue).1 = CobLinkVerdict.nodeNotFound := by
   simp [linkTypedEdge, emptySocialGraph, findSocialNode]
@@ -196,86 +192,5 @@ theorem linkTypedEdge_untyped_refused (g : TypedSocialGraph) (fromId toId : Nat)
       simp [linkTypedEdge, Hnf, Hnt, kindEqb_refl, ht, Bool.true_and, ite_false]
     · have hf := (kindEqb_ne_iff nf.kind fk).mpr hne
       simp [linkTypedEdge, Hnf, Hnt, hf, Bool.false_and, ite_false]
-
--- ================================================================
--- SECTION 4: Excitement alignment (no second argmin)
--- ================================================================
-
-/-- COB history recovery composes `Excitement.select` on carrier UMST head. -/
-noncomputable def cobSelect (cob : Cob)
-    (cands : List (Cand (K := ℚ) (cobHead cob))) :
-    Cand (K := ℚ) (cobHead cob) ⊕ Residue :=
-  select (cobHead cob) cands
-
-/-- Carrier-level selection on history carrier UMST head. -/
-noncomputable def cobCarrierSelect (c : HistoryCarrier)
-    (cands : List (Cand (K := ℚ) (umstProj c).head)) :
-    Cand (K := ℚ) (umstProj c).head ⊕ Residue :=
-  select (umstProj c).head cands
-
-theorem cobSelect_eq_select (cob : Cob)
-    (cands : List (Cand (K := ℚ) (cobHead cob))) :
-    cobSelect cob cands = select (cobHead cob) cands :=
-  rfl
-
-theorem cobSelect_eq_carrierSelect (cob : Cob)
-    (cands : List (Cand (K := ℚ) (cobHead cob))) :
-    cobSelect cob cands = cobCarrierSelect (cobCarrier cob) cands :=
-  rfl
-
-theorem cob_no_local_argmin (cob : Cob)
-    (cands : List (Cand (K := ℚ) (cobHead cob))) :
-    cobSelect cob cands = select (cobHead cob) cands :=
-  rfl
-
-theorem cobSelect_eq_carrierSelect_head (cob : Cob)
-    (cands : List (Cand (K := ℚ) (cobHead cob))) :
-    cobSelect cob cands = carrierSelect (cobHead cob) cands :=
-  rfl
-
--- ================================================================
--- SECTION 5: Landauer bridge (derived — zero new axioms)
--- ================================================================
-
-theorem cob_admitSecondLaw_from_physical (b : PhysicalHistoryBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    admitSecondLaw b.transition :=
-  admitSecondLaw_from_physical b hSL
-
-theorem cob_physicalSecondLaw_discharge (T : ℝ) (hT : 0 < T) :
-    physicalSecondLawUniformBinary (landauerTightErasure T hT) :=
-  physicalSecondLaw_landauerTight T hT
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def collaborativeObjectPhysicsGreen : Bool := false
-
-theorem collaborativeObjectPhysicsGreenFalse :
-    collaborativeObjectPhysicsGreen = false := rfl
-
-def collaborativeObjectProductionWired : Bool := false
-
-theorem collaborativeObjectProductionWiredFalse :
-    collaborativeObjectProductionWired = false := rfl
-
-def collaborativeObjectNonClaim : String :=
-  "§3 COB: same carrier + typed social graph (patch, issue, review, identity); " ++
-  "geometric identity primary; not physics GREEN; not production_wired"
-
-theorem collaborativeObjectNonClaim_prefix_len :
-    ("§3 COB: same carrier + typed social graph (patch, issue, review, identity); ").length > 0 := by
-  decide
-
-theorem collaborativeObjectNonClaim_nonempty :
-    collaborativeObjectNonClaim.length > 0 := by
-  unfold collaborativeObjectNonClaim
-  rw [String.length_append]
-  exact Nat.lt_of_lt_of_le collaborativeObjectNonClaim_prefix_len (Nat.le_add_right _ _)
-
-theorem collaborativeObjectModuleWitness : True := trivial
-
-theorem collaborativeObject_noNewAxiom : True := trivial
 
 end UMST.Urge.CollaborativeObject
