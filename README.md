@@ -316,7 +316,7 @@ umst-formal/
 │   ├── Gate.agda … Helmholtz.agda  (core + CSG / Eikonal)
 │   ├── Naturality.agda, Activation.agda, DIB-Kleisli.agda
 │   ├── InfoTheory.agda, MeasurementCost.agda
-│   └── LandauerEinsteinTrace.agda  (traceability shell; proofs in Lean/Coq)
+│   └── LandauerEinsteinTrace.agda  (mass equivalent scales linearly with temperature)
 ├── Coq/                    `make` → `.vo` + OCaml extraction
 │   ├── Gate.v, Constitutional.v, LandauerEinsteinBridge.v
 │   ├── InfoTheory.v, MeasurementCost.v

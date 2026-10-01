@@ -275,7 +275,7 @@ factor) and special-relativistic \(E = m c^2\), giving
 | Linear scaling in \(T\) | `m_mass_equivalent_linear` | `massEquivalent_linear` | |
 | Coarse numeric bracket at 300 K | -- | `massEquivalent_three_hundred_interval` | \(3.18\times10^{-38} < m < 3.20\times10^{-38}\) kg. |
 | Tight numeric bracket at 300 K | -- | `massEquivalent_three_hundred_interval_tight` | `Real.log_two_near_10`; e.g. \(319439481694054/10^{52} < m < 319439481786228/10^{52}\) kg. |
-| Agda | -- | -- | `Agda/LandauerEinsteinTrace.agda` (empty traceability module; proofs in Lean/Coq). |
+| Agda | -- | -- | `Agda/LandauerEinsteinTrace.agda` (E-linear-scaling, mass-equivalent-scaling over semiring parameters; SI bounds in Lean/Coq). |
 | Haskell (engineering) | -- | -- | `cabal test landauer-einstein-sanity` — exact `Rational` check vs Lean tight numerators (`Haskell/test/LandauerEinsteinSanity.hs`); **not** a proof. |
 
 **Extension plan (not theorems yet):** `Docs/FORMAL-PHYSICS-ROADMAP.md`.  

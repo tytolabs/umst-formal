@@ -13,7 +13,7 @@ regardless of discussions elsewhere in the UMST ecosystem.
 
 **Landauer–Einstein fragment:** `Lean/LandauerEinsteinBridge.lean` (SI + coarse/tight
 300 K brackets), `Coq/LandauerEinsteinBridge.v` (algebraic fragment), Agda
-`LandauerEinsteinTrace.agda` (empty traceability module). Optional extensions are scoped in `Docs/FORMAL-PHYSICS-ROADMAP.md`; exact derivation
+`LandauerEinsteinTrace.agda` (the mass equivalent's linear scaling in temperature, over semiring parameters). Optional extensions are scoped in `Docs/FORMAL-PHYSICS-ROADMAP.md`; exact derivation
 prerequisites and the sense in which advanced claims are **not in L₀** are in
 `Docs/FORMAL-PHYSICS-DERIVATION-PLAN.md`.
 

@@ -69,7 +69,7 @@ apply. They are not substitutes for the proof assistants.
 Mathlib’s logarithm. Alignment is **policy + documentation** unless Coq gains a
 matching analysis development.
 
-**Agda:** `LandauerEinsteinTrace.agda` is an empty traceability module; no duplicate
+**Agda:** `LandauerEinsteinTrace.agda` proves the linear scaling of the Landauer energy and of its mass equivalent; no duplicate
 of real analysis.
 
 ---
