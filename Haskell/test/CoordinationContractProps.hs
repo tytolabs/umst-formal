@@ -17,12 +17,24 @@ prop_cost_nonneg = forAll nonneg $ \e -> forAll nonneg $ \bits -> cost e bits >=
 prop_cost_additive :: Property
 prop_cost_additive = forAll nonneg $ \e -> \a b -> cost e (a + b) == cost e a + cost e b
 
--- The state is built inside admission (budget = cost + slack, positive desync); a random state rarely is.
+-- The state is built inside admission (budget and desync = cost + slack); a random state rarely is.
+admitted :: Gen (Rational, Rational, ClockThermState)
+admitted = do
+  e <- nonneg
+  bits <- nonneg
+  sb <- nonneg
+  sd <- nonneg
+  spent <- nonneg
+  pure (e, bits, ClockThermState (cost e bits + sd) (cost e bits + sb) spent)
+
 prop_admitted_cost_bounded :: Property
-prop_admitted_cost_bounded =
-  forAll nonneg $ \e -> forAll nonneg $ \bits -> forAll nonneg $ \slack -> forAll nonneg $ \d ->
-    let s = ClockThermState (d + 1) (cost e bits + slack)
-     in admits e s bits && cost e bits >= 0 && cost e bits <= budget s && budget s >= 0
+prop_admitted_cost_bounded = forAll admitted $ \(e, bits, s) ->
+  admits e s bits && cost e bits >= 0 && cost e bits <= budget s && cost e bits <= desyncEnergy s && budget s >= 0
+
+prop_gatedSync_second_law :: Property
+prop_gatedSync_second_law = forAll admitted $ \(e, bits, s) ->
+  let s' = gatedSync e s bits
+   in desyncEnergy s' <= desyncEnergy s && totalSyncCost s <= totalSyncCost s'
 
 prop_clockRun_monotone :: Property
 prop_clockRun_monotone =
@@ -62,7 +74,7 @@ prop_failed_sync_drops_credit = forAll genPeer $ \p -> forAll (abs <$> arbitrary
 prop_gate_rejects_over_budget :: Property
 prop_gate_rejects_over_budget =
   forAll (abs <$> arbitrary `suchThat` (> 0)) $ \e -> forAll nonneg $ \budgetBits -> forAll nonneg $ \extra ->
-    let s = ClockThermState 5 (cost e budgetBits)
+    let s = ClockThermState (cost e (budgetBits + extra)) (cost e budgetBits) 0
      in extra > 0 ==> not (admits e s (budgetBits + extra))
 
 prop_cost_monotone_in_bits :: Property

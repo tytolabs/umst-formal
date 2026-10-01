@@ -562,6 +562,7 @@ main = do
   check r prop_cost_nonneg
   check r prop_cost_additive
   check r prop_admitted_cost_bounded
+  check r prop_gatedSync_second_law
   check r prop_clockRun_monotone
   check r prop_honestCredits_append_faulty
   check r prop_wireIter_seq

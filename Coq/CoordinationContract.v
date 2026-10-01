@@ -28,16 +28,22 @@ Proof. unfold landauer_cost. ring. Qed.
 
 (* Admission *)
 
-Record ClockThermState := { desync_energy : R; budget : R; temperature : R }.
+Record ClockThermState := { desync_energy : R; budget : R; temperature : R; total_sync_cost : R }.
 
+(* Admitted when the cost fits the budget and does not exceed the desync energy it resolves (Clausius-Duhem). *)
 Definition admits (s : ClockThermState) (bits : R) : Prop :=
-  landauer_cost bits (temperature s) <= budget s /\ 0 < desync_energy s.
+  landauer_cost bits (temperature s) <= budget s /\ landauer_cost bits (temperature s) <= desync_energy s.
+
+Definition gated_sync (s : ClockThermState) (bits : R) : ClockThermState :=
+  {| desync_energy := 0; budget := budget s; temperature := temperature s;
+     total_sync_cost := total_sync_cost s + landauer_cost bits (temperature s) |}.
 
 Theorem admitted_cost_bounded (s : ClockThermState) (bits : R) :
   0 < temperature s -> 0 <= bits -> admits s bits ->
-  0 <= landauer_cost bits (temperature s) /\ landauer_cost bits (temperature s) <= budget s.
+  0 <= landauer_cost bits (temperature s) /\ landauer_cost bits (temperature s) <= budget s
+  /\ landauer_cost bits (temperature s) <= desync_energy s.
 Proof.
-  intros HT Hb [Hbud _]. split; [apply landauer_cost_nonneg; assumption | exact Hbud].
+  intros HT Hb [Hbud Hdes]. repeat split; try assumption. apply landauer_cost_nonneg; assumption.
 Qed.
 
 Theorem admitted_budget_nonneg (s : ClockThermState) (bits : R) :
@@ -45,6 +51,14 @@ Theorem admitted_budget_nonneg (s : ClockThermState) (bits : R) :
 Proof.
   intros HT Hb [Hbud _].
   pose proof (landauer_cost_nonneg bits (temperature s) HT Hb). lra.
+Qed.
+
+Theorem gated_sync_second_law (s : ClockThermState) (bits : R) :
+  0 < temperature s -> 0 <= bits -> admits s bits ->
+  desync_energy (gated_sync s bits) <= desync_energy s /\ total_sync_cost s <= total_sync_cost (gated_sync s bits).
+Proof.
+  intros HT Hb [_ Hdes]. pose proof (landauer_cost_nonneg bits (temperature s) HT Hb).
+  simpl. split; lra.
 Qed.
 
 (* Clock drift *)

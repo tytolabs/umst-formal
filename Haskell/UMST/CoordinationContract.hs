@@ -11,6 +11,7 @@ module UMST.CoordinationContract
     -- * Admission
   , ClockThermState (..)
   , admits
+  , gatedSync
     -- * Clock drift
   , ClockState (..)
   , clockStep
@@ -34,16 +35,22 @@ import qualified Data.List as L
 cost :: Rational -> Rational -> Rational
 cost e bits = e * bits
 
--- | Thermal state of a clock sync.
+-- | Thermal state of a clock sync (the runtime's @ClockThermState@).
 data ClockThermState = ClockThermState
   { desyncEnergy :: Rational
   , budget :: Rational
+  , totalSyncCost :: Rational
   }
   deriving (Eq, Show)
 
--- | A sync of @bits@ is admitted when its cost fits the budget and there is desync to resolve.
+-- | A sync of @bits@ is admitted when its cost fits the budget and does not exceed the desync energy it resolves
+-- (Clausius–Duhem on desync).
 admits :: Rational -> ClockThermState -> Rational -> Bool
-admits e s bits = cost e bits <= budget s && desyncEnergy s > 0
+admits e s bits = cost e bits <= budget s && cost e bits <= desyncEnergy s
+
+-- | The admitted step: desync is resolved to zero and the cost is added to the total.
+gatedSync :: Rational -> ClockThermState -> Rational -> ClockThermState
+gatedSync e s bits = s {desyncEnergy = 0, totalSyncCost = totalSyncCost s + cost e bits}
 
 -- | Clock state: tick count and accumulated drift.
 data ClockState = ClockState

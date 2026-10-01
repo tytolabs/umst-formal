@@ -6,7 +6,9 @@
   The contract a coordination runtime honours (umst-ucrs implements it in Rust). Four laws, each stated over the
   Landauer cost of `CoordinationCost` and grounded in the second law through `landauerBitEnergy_pos`:
 
-  * admission: a sync admitted within its budget pays a cost in `[0, budget]`;
+  * admission (the runtime's `gate_check`): a sync is admitted when its Landauer cost fits both the budget and the
+    desync energy it resolves (Clausius–Duhem on desync); it pays a cost in `[0, min budget desync]`, and the
+    admitted step (`gated_sync`) never raises desync energy nor lowers total sync cost;
   * clock drift: drift never decreases along a trace of nonnegative increments (a fold, any length);
   * Byzantine isolation: the honest credit projection is unchanged by any faulty cohort;
   * wire order: `n` advances move the sequence number by exactly `n`.
@@ -34,21 +36,35 @@ theorem landauerCostJoules_add (a b T : ℝ) :
 
 /-! ## Admission -/
 
-/-- Thermal state of a clock sync: desync energy, budget and temperature. -/
+/-- Thermal state of a clock sync (the runtime's `ClockThermState`). -/
 structure ClockThermState where
   desyncEnergyJ : ℝ
   budgetJ : ℝ
   temperatureK : ℝ
+  totalSyncCostJ : ℝ
 
-/-- A sync of `bits` is admitted when its Landauer cost fits the budget and there is desync to resolve. -/
+/-- A sync of `bits` is admitted when its Landauer cost fits the budget and does not exceed the desync energy it
+    resolves (Clausius–Duhem on desync: the free energy after the sync is no larger than before). -/
 def admits (s : ClockThermState) (bits : ℝ) : Prop :=
-  landauerCostJoules bits s.temperatureK ≤ s.budgetJ ∧ 0 < s.desyncEnergyJ
+  landauerCostJoules bits s.temperatureK ≤ s.budgetJ ∧ landauerCostJoules bits s.temperatureK ≤ s.desyncEnergyJ
 
-/-- An admitted sync pays a cost in `[0, budget]`. -/
+/-- The admitted step: desync is resolved to zero and the cost is added to the total. -/
+noncomputable def gatedSync (s : ClockThermState) (bits : ℝ) : ClockThermState :=
+  { s with desyncEnergyJ := 0, totalSyncCostJ := s.totalSyncCostJ + landauerCostJoules bits s.temperatureK }
+
+/-- An admitted sync pays a cost in `[0, budget]` that is at most the desync energy it resolves. -/
 theorem admitted_cost_bounded (s : ClockThermState) (bits : ℝ)
     (hT : 0 < s.temperatureK) (hbits : 0 ≤ bits) (h : admits s bits) :
-    0 ≤ landauerCostJoules bits s.temperatureK ∧ landauerCostJoules bits s.temperatureK ≤ s.budgetJ :=
-  ⟨landauerCostJoules_nonneg hT hbits, h.1⟩
+    0 ≤ landauerCostJoules bits s.temperatureK ∧ landauerCostJoules bits s.temperatureK ≤ s.budgetJ ∧
+      landauerCostJoules bits s.temperatureK ≤ s.desyncEnergyJ :=
+  ⟨landauerCostJoules_nonneg hT hbits, h.1, h.2⟩
+
+/-- The second law on the admitted step: desync energy never rises and total sync cost never falls. -/
+theorem gatedSync_second_law (s : ClockThermState) (bits : ℝ)
+    (hT : 0 < s.temperatureK) (hbits : 0 ≤ bits) (h : admits s bits) :
+    (gatedSync s bits).desyncEnergyJ ≤ s.desyncEnergyJ ∧ s.totalSyncCostJ ≤ (gatedSync s bits).totalSyncCostJ := by
+  have hc := landauerCostJoules_nonneg (bits := bits) hT hbits
+  exact ⟨by simp [gatedSync]; linarith [h.2], by simp [gatedSync]; linarith⟩
 
 /-- Admission needs a nonnegative budget: no sync is admitted against a debt. -/
 theorem admitted_budget_nonneg (s : ClockThermState) (bits : ℝ)

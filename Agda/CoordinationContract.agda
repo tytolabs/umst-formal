@@ -9,7 +9,7 @@
 -}
 {-# OPTIONS --without-K --exact-split --safe #-}
 
-open import Data.Rational using (ℚ; 0ℚ; _+_; _*_; _≤_; _<_; nonNegative)
+open import Data.Rational using (ℚ; 0ℚ; _+_; _*_; _≤_; nonNegative)
 
 module CoordinationContract (e : ℚ) (0≤e : 0ℚ ≤ e) where
 
@@ -35,25 +35,41 @@ cost-nonneg {bits} 0≤b =
 cost-add : ∀ a b → cost (a + b) ≡ cost a + cost b
 cost-add a b = ℚ-Props.*-distribˡ-+ e a b
 
+private
+  ≤-+-nonneg : ∀ p {δ} → 0ℚ ≤ δ → p ≤ p + δ
+  ≤-+-nonneg p 0≤δ = subst (_≤ p + _) (ℚ-Props.+-identityʳ p) (ℚ-Props.+-mono-≤ (ℚ-Props.≤-refl {p}) 0≤δ)
+
 ------------------------------------------------------------------------
 -- Admission
 
 record ClockThermState : Set where
+  constructor thermal
   field
-    desyncEnergy : ℚ
-    budget       : ℚ
+    desyncEnergy  : ℚ
+    budget        : ℚ
+    totalSyncCost : ℚ
 
 open ClockThermState
 
--- A sync of `bits` is admitted when its cost fits the budget and there is desync to resolve.
+-- Admitted when the cost fits the budget and does not exceed the desync energy it resolves (Clausius–Duhem).
 Admits : ClockThermState → ℚ → Set
-Admits s bits = (cost bits ≤ budget s) × (0ℚ < desyncEnergy s)
+Admits s bits = (cost bits ≤ budget s) × (cost bits ≤ desyncEnergy s)
 
-admitted-cost-bounded : ∀ s {bits} → 0ℚ ≤ bits → Admits s bits → (0ℚ ≤ cost bits) × (cost bits ≤ budget s)
-admitted-cost-bounded s 0≤b (fits , _) = cost-nonneg 0≤b , fits
+-- The admitted step: desync is resolved to zero and the cost is added to the total.
+gatedSync : ClockThermState → ℚ → ClockThermState
+gatedSync (thermal d b t) bits = thermal 0ℚ b (t + cost bits)
+
+admitted-cost-bounded : ∀ s {bits} → 0ℚ ≤ bits → Admits s bits →
+  (0ℚ ≤ cost bits) × (cost bits ≤ budget s) × (cost bits ≤ desyncEnergy s)
+admitted-cost-bounded s 0≤b (fits , resolves) = cost-nonneg 0≤b , fits , resolves
 
 admitted-budget-nonneg : ∀ s {bits} → 0ℚ ≤ bits → Admits s bits → 0ℚ ≤ budget s
 admitted-budget-nonneg s 0≤b (fits , _) = ℚ-Props.≤-trans (cost-nonneg 0≤b) fits
+
+gatedSync-second-law : ∀ s {bits} → 0ℚ ≤ bits → Admits s bits →
+  (desyncEnergy (gatedSync s bits) ≤ desyncEnergy s) × (totalSyncCost s ≤ totalSyncCost (gatedSync s bits))
+gatedSync-second-law (thermal d b t) 0≤b (_ , resolves) =
+  ℚ-Props.≤-trans (cost-nonneg 0≤b) resolves , ≤-+-nonneg t (cost-nonneg 0≤b)
 
 ------------------------------------------------------------------------
 -- Clock drift
@@ -71,10 +87,6 @@ clockStep (clock t d) δ = clock (suc t) (d + δ)
 
 clockRun : ClockState → List ℚ → ClockState
 clockRun = foldl clockStep
-
-private
-  ≤-+-nonneg : ∀ p {δ} → 0ℚ ≤ δ → p ≤ p + δ
-  ≤-+-nonneg p 0≤δ = subst (_≤ p + _) (ℚ-Props.+-identityʳ p) (ℚ-Props.+-mono-≤ (ℚ-Props.≤-refl {p}) 0≤δ)
 
 clockRun-monotone : ∀ c δs → All (0ℚ ≤_) δs →
   (drift c ≤ drift (clockRun c δs)) × (tick (clockRun c δs) ≡ tick c ℕ.+ length δs)
