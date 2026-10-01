@@ -726,6 +726,86 @@
     "name": "prop_process_erasure_additive",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "powers.coefficient_balance",
+   "statement": "the Powers volume coefficients derived from the cited water parameters conserve volume",
+   "lean": {
+    "name": "coefficient_balance",
+    "file": "Lean/Concrete/PowersVolume.lean"
+   },
+   "coq": {
+    "name": "coefficient_balance",
+    "file": "Coq/Concrete/PowersVolume.v"
+   },
+   "agda": {
+    "name": "coefficient-balance",
+    "file": "Agda/Concrete/PowersVolume.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_coefficient_balance",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "powers.volume_balance",
+   "statement": "at every initial water fraction and degree of hydration the Powers phases fill the paste",
+   "lean": {
+    "name": "volume_balance",
+    "file": "Lean/Concrete/PowersVolume.lean"
+   },
+   "coq": {
+    "name": "volume_balance",
+    "file": "Coq/Concrete/PowersVolume.v"
+   },
+   "agda": {
+    "name": "volume-balance",
+    "file": "Agda/Concrete/PowersVolume.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_volume_balance",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "powers.sealed_threshold",
+   "statement": "per unit volume of cement, capillary water remains at complete hydration exactly when w ≥ (w/c)* = 0.42",
+   "lean": {
+    "name": "capillaryPerCement_nonneg_iff",
+    "file": "Lean/Concrete/PowersVolume.lean"
+   },
+   "coq": {
+    "name": "capillaryPerCement_nonneg_iff",
+    "file": "Coq/Concrete/PowersVolume.v"
+   },
+   "agda": {
+    "name": "capillaryPerCement-nonneg-iff",
+    "file": "Agda/Concrete/PowersVolume.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_per_cement_sealed",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "powers.space_threshold",
+   "statement": "per unit volume of cement, the hydration products fit at complete hydration exactly when w ≥ (w/c)_s = 0.356",
+   "lean": {
+    "name": "spacePerCement_nonneg_iff",
+    "file": "Lean/Concrete/PowersVolume.lean"
+   },
+   "coq": {
+    "name": "spacePerCement_nonneg_iff",
+    "file": "Coq/Concrete/PowersVolume.v"
+   },
+   "agda": {
+    "name": "spacePerCement-nonneg-iff",
+    "file": "Agda/Concrete/PowersVolume.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_per_cement_space",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }

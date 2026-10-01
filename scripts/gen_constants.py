@@ -11,7 +11,10 @@ language checks it by exact computation:
   measured  a cited measurement: the value and its standard uncertainty, both exact rationals
   derived   a definition by its formula, and two theorems: `<id>_value` (the formula equals the exact value) and
             `<id>_derivation` (the value times the formula's denominator equals its numerator, the statement every
-            language proves the same way; Agda proves it on unnormalised rationals by `refl`)
+            language proves the same way; Agda proves it on unnormalised rationals by `refl`). A formula is a
+            monomial (a product and quotient of constants and integers) or linear (a sum and difference of
+            constants and integers); a linear formula's `_value` is its derivation, and Agda states it as
+            `<id> ≃ <formula>` by `refl`
   crosscheck  for a derived row with a published value: |derived − published| ≤ published uncertainty
 
 Lean (umst-formal only; umst-formal-double-slit imports it through Lake), Coq, Agda and Haskell modules are written
@@ -73,6 +76,23 @@ def factors(formula: str) -> list[tuple[str, int]]:
     return expr(1)
 
 
+def linear(formula: str) -> bool:
+    """A sum or difference of constants and integers (no product or quotient)."""
+    return bool(re.search(r"[+-]", formula))
+
+
+def terms(formula: str) -> list[tuple[str, int]]:
+    """The signed terms of a linear formula."""
+    out, sign = [], 1
+    for tok in re.findall(r"[A-Za-z_]\w*|\d+|[+-]", formula):
+        if tok in "+-":
+            sign = 1 if tok == "+" else -1
+        else:
+            out.append((tok, sign))
+            sign = 1
+    return out
+
+
 def load() -> dict:
     with open(os.path.join(ROOT, "constants/constants.json"), encoding="utf-8") as f:
         return json.load(f)
@@ -85,15 +105,20 @@ def values(table: dict) -> dict[str, Fraction]:
             out[c["id"]] = Fraction(big(c["num"]), big(c["den"]))
     for c in table["constants"]:
         if c["status"] == "derived":
-            v = Fraction(1)
-            for name, sign in factors(c["formula"]):
-                f = Fraction(int(name)) if name.isdigit() else out[name]
-                v = v * f if sign > 0 else v / f
+            value = lambda name: Fraction(int(name)) if name.isdigit() else out[name]
+            if linear(c["formula"]):
+                v = sum((sign * value(name) for name, sign in terms(c["formula"])), Fraction(0))
+            else:
+                v = Fraction(1)
+                for name, sign in factors(c["formula"]):
+                    v = v * value(name) if sign > 0 else v / value(name)
             out[c["id"]] = v
     return out
 
 
 def split(c: dict) -> tuple[list[str], list[str]]:
+    if linear(c["formula"]):
+        return [], []  # a linear formula has no denominator; its `_value` is its derivation
     fs = factors(c["formula"])
     return [n for n, s in fs if s > 0], [n for n, s in fs if s < 0]
 
@@ -127,7 +152,14 @@ def lean(table: dict, vals: dict[str, Fraction]) -> str:
                   f"def {c['id']}Uncertainty : ℚ := {lean_q(frac(c, 'uncertainty_'))}", ""]
         else:
             num, den = split(c)
-            unfold = ", ".join(x for x in ids if x in c["formula"]) or c["id"]
+            deps, todo = [], [c["id"]]  # every constant the formula reaches, so norm_num evaluates it
+            formulas = {r["id"]: r.get("formula", "") for r in table["constants"]}
+            while todo:
+                for x in re.findall(r"[A-Za-z_]\w*", formulas.get(todo.pop(), "")):
+                    if x in formulas and x not in deps:
+                        deps.append(x)
+                        todo.append(x)
+            unfold = ", ".join(x for x in ids if x in deps) or c["id"]
             prod = lambda xs: " * ".join(xs) if xs else "1"
             L += [doc + f"; derived: {c['formula']}. -/", f"def {c['id']} : ℚ := {c['formula']}", "",
                   f"theorem {c['id']}_value : {c['id']} = {lean_q(vals[c['id']])} := by",
@@ -199,7 +231,7 @@ def agda(table: dict, vals: dict[str, Fraction]) -> str:
          "-- (cross-multiplication of integers, no normalisation). Twin of Lean/Constants/SI.lean.", "",
          "{-# OPTIONS --without-K --safe #-}", "", "module Constants.SI where", "",
          "open import Data.Integer using (+_; -[1+_])",
-         "open import Data.Rational.Unnormalised.Base using (ℚᵘ; mkℚᵘ; _*_; _≃_; *≡*; _≤_; *≤*)",
+         "open import Data.Rational.Unnormalised.Base using (ℚᵘ; mkℚᵘ; _*_; _+_; _-_; _≃_; *≡*; _≤_; *≤*)",
          "open import Data.Product using (_×_; _,_)",
          "open import Relation.Binary.PropositionalEquality using (refl)",
          "open import Relation.Nullary.Decidable using (toWitness)",
@@ -215,9 +247,15 @@ def agda(table: dict, vals: dict[str, Fraction]) -> str:
         else:
             num, den = split(c)
             term = lambda xs: " * ".join("two" if x == "2" else x for x in xs) if xs else "mkℚᵘ (+ 1) 0"
+            if linear(c["formula"]):
+                lit = lambda n: agda_q(Fraction(int(n))) if n.isdigit() else n
+                rhs = re.sub(r"[A-Za-z_]\w*|\d+", lambda m: lit(m.group(0)), c["formula"])
+                statement = f"{c['id']} ≃ {rhs}"
+            else:
+                statement = f"{c['id'] + (' * (' + term(den) + ')' if den else '')} ≃ {term(num)}"
             L += [f"-- {c['symbol']}: {c['name']} [{c['unit']}], derived: {c['formula']}",
                   f"{c['id']} : ℚᵘ", f"{c['id']} = {agda_q(vals[c['id']])}", "",
-                  f"{c['id']}-derivation : {c['id'] + (' * (' + term(den) + ')' if den else '')} ≃ {term(num)}",
+                  f"{c['id']}-derivation : {statement}",
                   f"{c['id']}-derivation = *≡* refl", ""]
             if "crosscheck" in c:
                 x = c["crosscheck"]

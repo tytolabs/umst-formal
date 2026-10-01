@@ -460,7 +460,25 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 | R | molar gas constant | derived | 8.31446261815324 (exact) | J mol⁻¹ K⁻¹ | `avogadro * boltzmann` | `gasConstant_value` |
 | F | Faraday constant | derived | 9.64853321233100184 × 10⁴ (exact) | C mol⁻¹ | `avogadro * elementaryCharge` | `faraday_value` |
 | c² | mass–energy conversion factor | derived | 8.9875517873681764 × 10¹⁶ (exact) | m² s⁻² | `speedOfLight * speedOfLight` | `speedOfLightSquared_value` |
+| w_n | non-evaporable water at complete hydration (Powers' model) | cited | 2.3 × 10⁻¹ (exact) | kg per kg cement | Bentz2009 | a definition (cited) |
+| w_cs | chemical shrinkage at complete hydration (Powers' model) | cited | 6.4 × 10⁻² (exact) | kg water per kg cement | Bentz2009 | a definition (cited) |
+| w_g | gel water at complete hydration (Powers' model) | cited | 1.9 × 10⁻¹ (exact) | kg per kg cement | Bentz2009 | a definition (cited) |
+| ρ_w | density of water assigned in Powers' model | cited | 1 × 10³ (exact) | kg m⁻³ | Bentz2009 | a definition (cited) |
+| ρ_c | density of cement assigned in Powers' model | cited | 3.15 × 10³ (exact) | kg m⁻³ | Bentz2009 | a definition (cited) |
+| (w/c)* | water-cement ratio at which sealed paste just hydrates completely | derived | 4.2 × 10⁻¹ (exact) | 1 | `nonEvaporableWater + gelWater` | `criticalWcSealed_value` |
+| (w/c)_s | water-cement ratio below which space limits complete hydration | derived | 3.56 × 10⁻¹ (exact) | 1 | `nonEvaporableWater + gelWater - chemicalShrinkage` | `criticalWcSpace_value` |
+| ρ_c/ρ_w | specific gravity of cement in Powers' model | derived | 3.15 (exact) | 1 | `cementDensity / waterDensity` | `densityRatio_value`, `densityRatio_derivation` |
+| v_cs | chemical-shrinkage volume per volume of cement reacted | derived | 2.016 × 10⁻¹ (exact) | 1 | `chemicalShrinkage * densityRatio` | `shrinkageVolume_value` |
+| v_gw | gel-water volume per volume of cement reacted | derived | 5.985 × 10⁻¹ (exact) | 1 | `gelWater * densityRatio` | `gelWaterVolume_value` |
+| v_cw | capillary water consumed per volume of cement reacted | derived | 1.323 (exact) | 1 | `criticalWcSealed * densityRatio` | `capillaryConsumption_value` |
+| w_n − w_cs | water bound into gel solids per mass of cement reacted | derived | 1.66 × 10⁻¹ (exact) | kg per kg cement | `nonEvaporableWater - chemicalShrinkage` | `boundWater_value` |
+| v_b | volume of water bound into gel solids per volume of cement reacted | derived | 5.229 × 10⁻¹ (exact) | 1 | `boundWater * densityRatio` | `boundWaterVolume_value` |
+| v_gs | gel-solids volume per volume of cement reacted | derived | 1.5229 (exact) | 1 | `1 + boundWaterVolume` | `gelSolidsVolume_value` |
+| A | intrinsic strength of the gel in Powers' gel-space law | cited | 2.34 × 10² (exact) | MPa | Powers1958 | a definition (cited) |
+| n | exponent of Powers' gel-space law | cited | 3 (exact) | 1 | Powers1958 | a definition (cited) |
 
+- Bentz2009: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1: An analysis based on Powers' model, Concrete International, November 2009: Powers' model applied with the values assumed by Jensen and Hansen, in mass of water per mass of cement reacted (non-evaporable water 0.23, chemical shrinkage 0.064, gel water 0.19), and densities of water and cement assigned 1000 and 3150 kg/m^3.
+- Powers1958: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined.
 - SI2019: BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition.
 
 Where these constants enter the second law:

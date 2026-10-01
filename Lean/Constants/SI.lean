@@ -124,4 +124,82 @@ theorem vacuumPermeability_within_CODATA2022 :
   rw [vacuumPermeability_value, abs_le]
   constructor <;> norm_num
 
+/-- w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
+def nonEvaporableWater : ℚ := (23 : ℚ) / 100
+
+/-- w_cs: chemical shrinkage at complete hydration (Powers' model) [kg water per kg cement]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
+def chemicalShrinkage : ℚ := (8 : ℚ) / 125
+
+/-- w_g: gel water at complete hydration (Powers' model) [kg per kg cement]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
+def gelWater : ℚ := (19 : ℚ) / 100
+
+/-- ρ_w: density of water assigned in Powers' model [kg m⁻³]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
+def waterDensity : ℚ := (1000 : ℚ)
+
+/-- ρ_c: density of cement assigned in Powers' model [kg m⁻³]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
+def cementDensity : ℚ := (3150 : ℚ)
+
+/-- (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1]; derived: nonEvaporableWater + gelWater. -/
+def criticalWcSealed : ℚ := nonEvaporableWater + gelWater
+
+theorem criticalWcSealed_value : criticalWcSealed = (21 : ℚ) / 50 := by
+  norm_num [criticalWcSealed, nonEvaporableWater, gelWater]
+
+/-- (w/c)_s: water-cement ratio below which space limits complete hydration [1]; derived: nonEvaporableWater + gelWater - chemicalShrinkage. -/
+def criticalWcSpace : ℚ := nonEvaporableWater + gelWater - chemicalShrinkage
+
+theorem criticalWcSpace_value : criticalWcSpace = (89 : ℚ) / 250 := by
+  norm_num [criticalWcSpace, nonEvaporableWater, chemicalShrinkage, gelWater]
+
+/-- ρ_c/ρ_w: specific gravity of cement in Powers' model [1]; derived: cementDensity / waterDensity. -/
+def densityRatio : ℚ := cementDensity / waterDensity
+
+theorem densityRatio_value : densityRatio = (63 : ℚ) / 20 := by
+  norm_num [densityRatio, waterDensity, cementDensity]
+
+theorem densityRatio_derivation : (63 : ℚ) / 20 * (waterDensity) = cementDensity := by
+  norm_num [waterDensity, cementDensity]
+
+/-- v_cs: chemical-shrinkage volume per volume of cement reacted [1]; derived: chemicalShrinkage * densityRatio. -/
+def shrinkageVolume : ℚ := chemicalShrinkage * densityRatio
+
+theorem shrinkageVolume_value : shrinkageVolume = (126 : ℚ) / 625 := by
+  norm_num [shrinkageVolume, chemicalShrinkage, waterDensity, cementDensity, densityRatio]
+
+/-- v_gw: gel-water volume per volume of cement reacted [1]; derived: gelWater * densityRatio. -/
+def gelWaterVolume : ℚ := gelWater * densityRatio
+
+theorem gelWaterVolume_value : gelWaterVolume = (1197 : ℚ) / 2000 := by
+  norm_num [gelWaterVolume, gelWater, waterDensity, cementDensity, densityRatio]
+
+/-- v_cw: capillary water consumed per volume of cement reacted [1]; derived: criticalWcSealed * densityRatio. -/
+def capillaryConsumption : ℚ := criticalWcSealed * densityRatio
+
+theorem capillaryConsumption_value : capillaryConsumption = (1323 : ℚ) / 1000 := by
+  norm_num [capillaryConsumption, nonEvaporableWater, gelWater, waterDensity, cementDensity, criticalWcSealed, densityRatio]
+
+/-- w_n − w_cs: water bound into gel solids per mass of cement reacted [kg per kg cement]; derived: nonEvaporableWater - chemicalShrinkage. -/
+def boundWater : ℚ := nonEvaporableWater - chemicalShrinkage
+
+theorem boundWater_value : boundWater = (83 : ℚ) / 500 := by
+  norm_num [boundWater, nonEvaporableWater, chemicalShrinkage]
+
+/-- v_b: volume of water bound into gel solids per volume of cement reacted [1]; derived: boundWater * densityRatio. -/
+def boundWaterVolume : ℚ := boundWater * densityRatio
+
+theorem boundWaterVolume_value : boundWaterVolume = (5229 : ℚ) / 10000 := by
+  norm_num [boundWaterVolume, nonEvaporableWater, chemicalShrinkage, waterDensity, cementDensity, densityRatio, boundWater]
+
+/-- v_gs: gel-solids volume per volume of cement reacted [1]; derived: 1 + boundWaterVolume. -/
+def gelSolidsVolume : ℚ := 1 + boundWaterVolume
+
+theorem gelSolidsVolume_value : gelSolidsVolume = (15229 : ℚ) / 10000 := by
+  norm_num [gelSolidsVolume, nonEvaporableWater, chemicalShrinkage, waterDensity, cementDensity, densityRatio, boundWater, boundWaterVolume]
+
+/-- A: intrinsic strength of the gel in Powers' gel-space law [MPa]; cited: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi. -/
+def powersGelStrength : ℚ := (234 : ℚ)
+
+/-- n: exponent of Powers' gel-space law [1]; cited: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi. -/
+def powersGelExponent : ℚ := (3 : ℚ)
+
 end UMST.Constants.SI

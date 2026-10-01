@@ -9,7 +9,7 @@
 module Constants.SI where
 
 open import Data.Integer using (+_; -[1+_])
-open import Data.Rational.Unnormalised.Base using (ℚᵘ; mkℚᵘ; _*_; _≃_; *≡*; _≤_; *≤*)
+open import Data.Rational.Unnormalised.Base using (ℚᵘ; mkℚᵘ; _*_; _+_; _-_; _≃_; *≡*; _≤_; *≤*)
 open import Data.Product using (_×_; _,_)
 open import Relation.Binary.PropositionalEquality using (refl)
 open import Relation.Nullary.Decidable using (toWitness)
@@ -121,3 +121,94 @@ vacuumPermeability-derivation = *≡* refl
 
 vacuumPermeability-within-CODATA2022 : ((mkℚᵘ (+ 125663706107) 99999999999999999) ≤ vacuumPermeability) × (vacuumPermeability ≤ (mkℚᵘ (+ 125663706147) 99999999999999999))
 vacuumPermeability-within-CODATA2022 = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
+-- w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009)
+nonEvaporableWater : ℚᵘ
+nonEvaporableWater = (mkℚᵘ (+ 23) 99)
+
+-- w_cs: chemical shrinkage at complete hydration (Powers' model) [kg water per kg cement], cited (Bentz2009)
+chemicalShrinkage : ℚᵘ
+chemicalShrinkage = (mkℚᵘ (+ 8) 124)
+
+-- w_g: gel water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009)
+gelWater : ℚᵘ
+gelWater = (mkℚᵘ (+ 19) 99)
+
+-- ρ_w: density of water assigned in Powers' model [kg m⁻³], cited (Bentz2009)
+waterDensity : ℚᵘ
+waterDensity = (mkℚᵘ (+ 1000) 0)
+
+-- ρ_c: density of cement assigned in Powers' model [kg m⁻³], cited (Bentz2009)
+cementDensity : ℚᵘ
+cementDensity = (mkℚᵘ (+ 3150) 0)
+
+-- (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1], derived: nonEvaporableWater + gelWater
+criticalWcSealed : ℚᵘ
+criticalWcSealed = (mkℚᵘ (+ 21) 49)
+
+criticalWcSealed-derivation : criticalWcSealed ≃ nonEvaporableWater + gelWater
+criticalWcSealed-derivation = *≡* refl
+
+-- (w/c)_s: water-cement ratio below which space limits complete hydration [1], derived: nonEvaporableWater + gelWater - chemicalShrinkage
+criticalWcSpace : ℚᵘ
+criticalWcSpace = (mkℚᵘ (+ 89) 249)
+
+criticalWcSpace-derivation : criticalWcSpace ≃ nonEvaporableWater + gelWater - chemicalShrinkage
+criticalWcSpace-derivation = *≡* refl
+
+-- ρ_c/ρ_w: specific gravity of cement in Powers' model [1], derived: cementDensity / waterDensity
+densityRatio : ℚᵘ
+densityRatio = (mkℚᵘ (+ 63) 19)
+
+densityRatio-derivation : densityRatio * (waterDensity) ≃ cementDensity
+densityRatio-derivation = *≡* refl
+
+-- v_cs: chemical-shrinkage volume per volume of cement reacted [1], derived: chemicalShrinkage * densityRatio
+shrinkageVolume : ℚᵘ
+shrinkageVolume = (mkℚᵘ (+ 126) 624)
+
+shrinkageVolume-derivation : shrinkageVolume ≃ chemicalShrinkage * densityRatio
+shrinkageVolume-derivation = *≡* refl
+
+-- v_gw: gel-water volume per volume of cement reacted [1], derived: gelWater * densityRatio
+gelWaterVolume : ℚᵘ
+gelWaterVolume = (mkℚᵘ (+ 1197) 1999)
+
+gelWaterVolume-derivation : gelWaterVolume ≃ gelWater * densityRatio
+gelWaterVolume-derivation = *≡* refl
+
+-- v_cw: capillary water consumed per volume of cement reacted [1], derived: criticalWcSealed * densityRatio
+capillaryConsumption : ℚᵘ
+capillaryConsumption = (mkℚᵘ (+ 1323) 999)
+
+capillaryConsumption-derivation : capillaryConsumption ≃ criticalWcSealed * densityRatio
+capillaryConsumption-derivation = *≡* refl
+
+-- w_n − w_cs: water bound into gel solids per mass of cement reacted [kg per kg cement], derived: nonEvaporableWater - chemicalShrinkage
+boundWater : ℚᵘ
+boundWater = (mkℚᵘ (+ 83) 499)
+
+boundWater-derivation : boundWater ≃ nonEvaporableWater - chemicalShrinkage
+boundWater-derivation = *≡* refl
+
+-- v_b: volume of water bound into gel solids per volume of cement reacted [1], derived: boundWater * densityRatio
+boundWaterVolume : ℚᵘ
+boundWaterVolume = (mkℚᵘ (+ 5229) 9999)
+
+boundWaterVolume-derivation : boundWaterVolume ≃ boundWater * densityRatio
+boundWaterVolume-derivation = *≡* refl
+
+-- v_gs: gel-solids volume per volume of cement reacted [1], derived: 1 + boundWaterVolume
+gelSolidsVolume : ℚᵘ
+gelSolidsVolume = (mkℚᵘ (+ 15229) 9999)
+
+gelSolidsVolume-derivation : gelSolidsVolume ≃ (mkℚᵘ (+ 1) 0) + boundWaterVolume
+gelSolidsVolume-derivation = *≡* refl
+
+-- A: intrinsic strength of the gel in Powers' gel-space law [MPa], cited (Powers1958)
+powersGelStrength : ℚᵘ
+powersGelStrength = (mkℚᵘ (+ 234) 0)
+
+-- n: exponent of Powers' gel-space law [1], cited (Powers1958)
+powersGelExponent : ℚᵘ
+powersGelExponent = (mkℚᵘ (+ 3) 0)

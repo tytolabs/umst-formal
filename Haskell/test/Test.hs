@@ -383,11 +383,13 @@ burdenState :: Double -> ThermodynamicState
 burdenState b = ThermodynamicState b 0 0 0 intrinsicStrength
 
 -- | Symmetric two-point noise: expectation factor is @1 + μ@ (Lean @burden_expectation_symmetric_two_point@).
+-- Rounding error grows with the size of the terms, so the tolerance is relative to them.
 prop_burden_symmetric_expectation :: Double -> Double -> Double -> Bool
 prop_burden_symmetric_expectation b mu sig =
   let lhs = 0.5 * (b * (1 + mu + sig)) + 0.5 * (b * (1 + mu - sig))
       rhs = b * (1 + mu)
-  in abs (lhs - rhs) <= 1e-12
+      magnitude = abs b * (1 + abs mu + abs sig)
+  in abs (lhs - rhs) <= 1e-12 * max 1 magnitude
 
 -- | Schematic burden step admissible when @|g - ε| ≤ massTolerance@ (density channel only).
 prop_burden_recursion_admissible :: Double -> Double -> Double -> Property
@@ -414,7 +416,8 @@ prop_econ_horizon_in_min_max alpha cL cG =
     let hc = alpha * cL + (1 - alpha) * cG
         lo = min cL cG
         hi = max cL cG
-    in hc >= lo - 1e-12 && hc <= hi + 1e-12
+        tol = 1e-12 * max 1 (abs cL + abs cG)
+    in hc >= lo - tol && hc <= hi + tol
 
 -- | @B + n g@ iteration without entropy tax (Lean @npv_as_burden_iterate_no_entropy@), small @n@.
 prop_econ_npv_iterate :: Double -> Double -> Int -> Property
@@ -510,6 +513,53 @@ prop_process_erasure_additive :: Positive Double -> Double -> Double -> Property
 prop_process_erasure_additive (Positive t) w1 w2 =
   let law w = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure P.uniform2)
    in (law w1 && law w2) ==> 2 * log 2 <= (w1 + w2) / t + 1e-12
+
+-- Powers' volume model in exact Rational arithmetic (twin of Lean/Concrete/PowersVolume.lean).
+genRat :: Gen Rational
+genRat = do { n <- choose (0, 1000 :: Integer); pure (fromInteger n / 1000) }
+
+powersPhases :: Rational -> Rational -> [Rational]
+powersPhases p a =
+  [ (1 - p) * (1 - a), SI.gelSolidsVolume * (1 - p) * a, SI.gelWaterVolume * (1 - p) * a
+  , p - SI.capillaryConsumption * (1 - p) * a, SI.shrinkageVolume * (1 - p) * a ]
+
+waterFraction :: Rational -> Rational
+waterFraction w = w * SI.densityRatio / (w * SI.densityRatio + 1)
+
+prop_powers_coefficient_balance :: Property
+prop_powers_coefficient_balance = once $
+  SI.gelSolidsVolume + SI.gelWaterVolume + SI.shrinkageVolume - SI.capillaryConsumption == 1
+
+-- Per unit volume of cement (twin of capillaryPerCement and spacePerCement).
+capillaryPerCement, spacePerCement :: Rational -> Rational
+capillaryPerCement w = w * SI.densityRatio - SI.capillaryConsumption
+spacePerCement w = capillaryPerCement w + SI.shrinkageVolume
+
+prop_powers_per_cement_sealed :: Property
+prop_powers_per_cement_sealed = forAll genRat $ \w -> (capillaryPerCement w >= 0) == (SI.criticalWcSealed <= w)
+
+prop_powers_per_cement_space :: Property
+prop_powers_per_cement_space = forAll genRat $ \w -> (spacePerCement w >= 0) == (SI.criticalWcSpace <= w)
+
+-- The paste fractions are the per-cement volumes over the paste volume w d + 1.
+prop_powers_fraction_per_cement :: Property
+prop_powers_fraction_per_cement = forAll genRat $ \w ->
+  let ph = powersPhases (waterFraction w) 1
+      paste = w * SI.densityRatio + 1
+   in ph !! 3 == capillaryPerCement w / paste && ph !! 3 + ph !! 4 == spacePerCement w / paste
+
+prop_powers_volume_balance :: Property
+prop_powers_volume_balance = forAll genRat $ \p -> forAll genRat $ \a -> sum (powersPhases p a) == 1
+
+prop_powers_sealed_threshold :: Property
+prop_powers_sealed_threshold = forAll genRat $ \w ->
+  let capillary = powersPhases (waterFraction w) 1 !! 3
+   in (capillary >= 0) == (SI.criticalWcSealed <= w)
+
+prop_powers_space_threshold :: Property
+prop_powers_space_threshold = forAll genRat $ \w ->
+  let ph = powersPhases (waterFraction w) 1
+   in (ph !! 3 + ph !! 4 >= 0) == (SI.criticalWcSpace <= w)
 
 main :: IO ()
 main = do
@@ -643,6 +693,13 @@ main = do
   check r prop_process_transition_refl
   check r prop_process_satisfiable
   check r prop_process_erasure_additive
+  check r prop_powers_coefficient_balance
+  check r prop_powers_volume_balance
+  check r prop_powers_per_cement_sealed
+  check r prop_powers_per_cement_space
+  check r prop_powers_fraction_per_cement
+  check r prop_powers_sealed_threshold
+  check r prop_powers_space_threshold
 
   putStrLn "-- CoordinationContract (Lean, Coq and Agda laws; umst-ucrs runtime model)"
   check r prop_cost_nonneg

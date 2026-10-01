@@ -94,3 +94,71 @@ Proof. vm_compute. reflexivity. Qed.
 Lemma vacuumPermeability_within_CODATA2022 :
   (Qmake 125663706107 100000000000000000) <= vacuumPermeability /\ vacuumPermeability <= (Qmake 125663706147 100000000000000000).
 Proof. split; vm_compute; discriminate. Qed.
+
+(* w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009) *)
+Definition nonEvaporableWater : Q := (Qmake 23 100).
+
+(* w_cs: chemical shrinkage at complete hydration (Powers' model) [kg water per kg cement], cited (Bentz2009) *)
+Definition chemicalShrinkage : Q := (Qmake 8 125).
+
+(* w_g: gel water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009) *)
+Definition gelWater : Q := (Qmake 19 100).
+
+(* ρ_w: density of water assigned in Powers' model [kg m⁻³], cited (Bentz2009) *)
+Definition waterDensity : Q := (Qmake 1000 1).
+
+(* ρ_c: density of cement assigned in Powers' model [kg m⁻³], cited (Bentz2009) *)
+Definition cementDensity : Q := (Qmake 3150 1).
+
+(* (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1], derived: nonEvaporableWater + gelWater *)
+Definition criticalWcSealed : Q := nonEvaporableWater + gelWater.
+Lemma criticalWcSealed_value : criticalWcSealed == (Qmake 21 50).
+Proof. vm_compute. reflexivity. Qed.
+
+(* (w/c)_s: water-cement ratio below which space limits complete hydration [1], derived: nonEvaporableWater + gelWater - chemicalShrinkage *)
+Definition criticalWcSpace : Q := nonEvaporableWater + gelWater - chemicalShrinkage.
+Lemma criticalWcSpace_value : criticalWcSpace == (Qmake 89 250).
+Proof. vm_compute. reflexivity. Qed.
+
+(* ρ_c/ρ_w: specific gravity of cement in Powers' model [1], derived: cementDensity / waterDensity *)
+Definition densityRatio : Q := cementDensity / waterDensity.
+Lemma densityRatio_value : densityRatio == (Qmake 63 20).
+Proof. vm_compute. reflexivity. Qed.
+Lemma densityRatio_derivation : (Qmake 63 20) * (waterDensity) == cementDensity.
+Proof. vm_compute. reflexivity. Qed.
+
+(* v_cs: chemical-shrinkage volume per volume of cement reacted [1], derived: chemicalShrinkage * densityRatio *)
+Definition shrinkageVolume : Q := chemicalShrinkage * densityRatio.
+Lemma shrinkageVolume_value : shrinkageVolume == (Qmake 126 625).
+Proof. vm_compute. reflexivity. Qed.
+
+(* v_gw: gel-water volume per volume of cement reacted [1], derived: gelWater * densityRatio *)
+Definition gelWaterVolume : Q := gelWater * densityRatio.
+Lemma gelWaterVolume_value : gelWaterVolume == (Qmake 1197 2000).
+Proof. vm_compute. reflexivity. Qed.
+
+(* v_cw: capillary water consumed per volume of cement reacted [1], derived: criticalWcSealed * densityRatio *)
+Definition capillaryConsumption : Q := criticalWcSealed * densityRatio.
+Lemma capillaryConsumption_value : capillaryConsumption == (Qmake 1323 1000).
+Proof. vm_compute. reflexivity. Qed.
+
+(* w_n − w_cs: water bound into gel solids per mass of cement reacted [kg per kg cement], derived: nonEvaporableWater - chemicalShrinkage *)
+Definition boundWater : Q := nonEvaporableWater - chemicalShrinkage.
+Lemma boundWater_value : boundWater == (Qmake 83 500).
+Proof. vm_compute. reflexivity. Qed.
+
+(* v_b: volume of water bound into gel solids per volume of cement reacted [1], derived: boundWater * densityRatio *)
+Definition boundWaterVolume : Q := boundWater * densityRatio.
+Lemma boundWaterVolume_value : boundWaterVolume == (Qmake 5229 10000).
+Proof. vm_compute. reflexivity. Qed.
+
+(* v_gs: gel-solids volume per volume of cement reacted [1], derived: 1 + boundWaterVolume *)
+Definition gelSolidsVolume : Q := 1 + boundWaterVolume.
+Lemma gelSolidsVolume_value : gelSolidsVolume == (Qmake 15229 10000).
+Proof. vm_compute. reflexivity. Qed.
+
+(* A: intrinsic strength of the gel in Powers' gel-space law [MPa], cited (Powers1958) *)
+Definition powersGelStrength : Q := (Qmake 234 1).
+
+(* n: exponent of Powers' gel-space law [1], cited (Powers1958) *)
+Definition powersGelExponent : Q := (Qmake 3 1).

@@ -78,6 +78,70 @@ vacuumPermittivity = elementaryCharge * elementaryCharge / (2 * fineStructure * 
 vacuumPermeability :: Rational
 vacuumPermeability = 2 * fineStructure * planck / (elementaryCharge * elementaryCharge * speedOfLight)
 
+-- | w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009).
+nonEvaporableWater :: Rational
+nonEvaporableWater = 23 % 100
+
+-- | w_cs: chemical shrinkage at complete hydration (Powers' model) [kg water per kg cement], cited (Bentz2009).
+chemicalShrinkage :: Rational
+chemicalShrinkage = 8 % 125
+
+-- | w_g: gel water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009).
+gelWater :: Rational
+gelWater = 19 % 100
+
+-- | ρ_w: density of water assigned in Powers' model [kg m⁻³], cited (Bentz2009).
+waterDensity :: Rational
+waterDensity = 1000 % 1
+
+-- | ρ_c: density of cement assigned in Powers' model [kg m⁻³], cited (Bentz2009).
+cementDensity :: Rational
+cementDensity = 3150 % 1
+
+-- | (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1], derived: nonEvaporableWater + gelWater.
+criticalWcSealed :: Rational
+criticalWcSealed = nonEvaporableWater + gelWater
+
+-- | (w/c)_s: water-cement ratio below which space limits complete hydration [1], derived: nonEvaporableWater + gelWater - chemicalShrinkage.
+criticalWcSpace :: Rational
+criticalWcSpace = nonEvaporableWater + gelWater - chemicalShrinkage
+
+-- | ρ_c/ρ_w: specific gravity of cement in Powers' model [1], derived: cementDensity / waterDensity.
+densityRatio :: Rational
+densityRatio = cementDensity / waterDensity
+
+-- | v_cs: chemical-shrinkage volume per volume of cement reacted [1], derived: chemicalShrinkage * densityRatio.
+shrinkageVolume :: Rational
+shrinkageVolume = chemicalShrinkage * densityRatio
+
+-- | v_gw: gel-water volume per volume of cement reacted [1], derived: gelWater * densityRatio.
+gelWaterVolume :: Rational
+gelWaterVolume = gelWater * densityRatio
+
+-- | v_cw: capillary water consumed per volume of cement reacted [1], derived: criticalWcSealed * densityRatio.
+capillaryConsumption :: Rational
+capillaryConsumption = criticalWcSealed * densityRatio
+
+-- | w_n − w_cs: water bound into gel solids per mass of cement reacted [kg per kg cement], derived: nonEvaporableWater - chemicalShrinkage.
+boundWater :: Rational
+boundWater = nonEvaporableWater - chemicalShrinkage
+
+-- | v_b: volume of water bound into gel solids per volume of cement reacted [1], derived: boundWater * densityRatio.
+boundWaterVolume :: Rational
+boundWaterVolume = boundWater * densityRatio
+
+-- | v_gs: gel-solids volume per volume of cement reacted [1], derived: 1 + boundWaterVolume.
+gelSolidsVolume :: Rational
+gelSolidsVolume = 1 + boundWaterVolume
+
+-- | A: intrinsic strength of the gel in Powers' gel-space law [MPa], cited (Powers1958).
+powersGelStrength :: Rational
+powersGelStrength = 234 % 1
+
+-- | n: exponent of Powers' gel-space law [1], cited (Powers1958).
+powersGelExponent :: Rational
+powersGelExponent = 3 % 1
+
 -- | Each derived constant against its exact value, and each cross-check against its published value.
 derivations :: [(String, Bool)]
 derivations =
@@ -92,4 +156,13 @@ derivations =
   , ("vacuumPermittivity within CODATA2022", abs (vacuumPermittivity - 22135469547 % 2500000000000000000000) <= 7 % 5000000000000000000000)
   , ("vacuumPermeability", vacuumPermeability == 11512564285793853725 % 9161407569998526923097522)
   , ("vacuumPermeability within CODATA2022", abs (vacuumPermeability - 125663706127 % 100000000000000000) <= 1 % 5000000000000000)
+  , ("criticalWcSealed", criticalWcSealed == 21 % 50)
+  , ("criticalWcSpace", criticalWcSpace == 89 % 250)
+  , ("densityRatio", densityRatio == 63 % 20)
+  , ("shrinkageVolume", shrinkageVolume == 126 % 625)
+  , ("gelWaterVolume", gelWaterVolume == 1197 % 2000)
+  , ("capillaryConsumption", capillaryConsumption == 1323 % 1000)
+  , ("boundWater", boundWater == 83 % 500)
+  , ("boundWaterVolume", boundWaterVolume == 5229 % 10000)
+  , ("gelSolidsVolume", gelSolidsVolume == 15229 % 10000)
   ]
