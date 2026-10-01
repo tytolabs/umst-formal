@@ -1034,7 +1034,7 @@
   },
   {
    "id": "concrete.cand_second_law",
-   "statement": "every candidate move of a cement state is a member of the second-law predicate",
+   "statement": "every candidate move of a cement state is a member of the second-law predicate (so is the candidate selection returns)",
    "lean": {
     "name": "cand_secondLaw",
     "file": "Lean/Concrete/SecondLaw.lean"
@@ -1049,26 +1049,6 @@
    },
    "haskell": {
     "name": "prop_concrete_gate_secondLaw",
-    "file": "Haskell/test/Test.hs"
-   }
-  },
-  {
-   "id": "concrete.select_second_law",
-   "statement": "selection under cost over cement candidates returns a member of the predicate, minimal among evidence-tagged candidates, lowering the joint free energy",
-   "lean": {
-    "name": "select_secondLaw",
-    "file": "Lean/Concrete/SecondLaw.lean"
-   },
-   "coq": {
-    "name": "select_secondLaw",
-    "file": "Coq/Excitement.v"
-   },
-   "agda": {
-    "name": "select-secondLaw",
-    "file": "Agda/Excitement.agda"
-   },
-   "haskell": {
-    "name": "prop_select_secondLaw",
     "file": "Haskell/test/Test.hs"
    }
   }

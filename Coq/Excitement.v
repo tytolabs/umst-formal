@@ -139,16 +139,4 @@ Proof. intro hsel. exact (proj2 (select_inl_spec cands c hsel)). Qed.
 Theorem cand_secondLaw (c : Cand) : SecondLaw transition (thermodynamic src (tgt c)).
 Proof. exact (proj1 (proj1 (admissible_iff_secondLaw src (tgt c)) (step c))). Qed.
 
-(** Selection under cost composes over the one predicate. *)
-Theorem select_secondLaw (cands : list Cand) (c : Cand) :
-  select cands = inl c ->
-  SecondLaw transition (thermodynamic src (tgt c)) /\
-    (forall c', In c' cands -> evidenceTagged c' = true -> candEnergy c <= candEnergy c') /\
-    candEnergy c < jointFreeEnergy src.
-Proof.
-  intro hsel. split; [exact (cand_secondLaw c) | split].
-  - exact (proj2 (proj2 (select_minimal cands c hsel))).
-  - exact (select_descent cands c hsel).
-Qed.
-
 End Select.

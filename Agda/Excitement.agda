@@ -170,10 +170,3 @@ module Select (jointFreeEnergy : ThermodynamicState → ℚ) (src : Thermodynami
   -- Every candidate move is a member of the second-law predicate.
   cand-secondLaw : ∀ c → SecondLaw transition (thermodynamic src (tgt c))
   cand-secondLaw c = proj₁ (Equivalence.to (admissible⇔secondLaw src (tgt c)) (step c))
-
-  -- Selection under cost composes over the one predicate.
-  select-secondLaw : ∀ cands c → select cands ≡ inj₁ c →
-    SecondLaw transition (thermodynamic src (tgt c)) ×
-    (∀ {c′} → c′ ∈ cands → evidenceTagged c′ ≡ true → candEnergy c ≤ candEnergy c′) ×
-    candEnergy c < jointFreeEnergy src
-  select-secondLaw cands c h = cand-secondLaw c , proj₂ (proj₂ (select-minimal cands c h)) , select-descent cands c h

@@ -14,8 +14,9 @@
   * for states of the Helmholtz model ψ = −Q_hyd·α, a step within the mass tolerance is a member of the predicate
     exactly when hydration does not go backwards (`helmholtz_secondLaw_iff`): the irreversibility of hydration is
     the second law, derived here and not assumed;
-  * selection under cost (`Excitement.select`) over cement candidates returns a member of the predicate that no
-    evidence-tagged candidate undercuts and that lowers the joint free energy (`select_secondLaw`).
+  * every candidate move of selection under cost (`Excitement.select`) is a member of the predicate
+    (`cand_secondLaw`), so the candidate selection returns is one, minimal among evidence-tagged candidates and
+    lowering the joint free energy (`Excitement.select_minimal`, `Excitement.select_descent`).
 -/
 
 import Process
@@ -70,17 +71,5 @@ theorem helmholtz_secondLaw_iff (old new : ConcreteState) (ho : HelmholtzState o
 theorem cand_secondLaw [JointThermo ℚ ConcreteState] {src : ConcreteState} (c : Excitement.Cand (K := ℚ) src) :
     SecondLaw .transition (.thermodynamic (toReal src) (toReal c.tgt)) :=
   ((concreteAdmissible_iff_secondLaw src c.tgt).1 c.step).1
-
-/-- **Selection under cost composes over the one predicate**: the candidate selection returns is a member of the
-    predicate, no evidence-tagged candidate has lower global free energy, and it lowers the joint free energy of the
-    source. -/
-theorem select_secondLaw [JointThermo ℚ ConcreteState] (src : ConcreteState)
-    (cands : List (Excitement.Cand (K := ℚ) src)) (c : Excitement.Cand (K := ℚ) src)
-    (hsel : Excitement.select src cands = Sum.inl c) :
-    SecondLaw .transition (.thermodynamic (toReal src) (toReal c.tgt)) ∧
-      (∀ c' ∈ cands, c'.evidenceTagged = true →
-        Excitement.candEnergy (src := src) c ≤ Excitement.candEnergy (src := src) c') ∧
-      Excitement.candEnergy (src := src) c < Excitement.jointFreeEnergy src :=
-  ⟨cand_secondLaw c, (Excitement.select_minimal src cands c hsel).2.2, Excitement.select_descent src cands c hsel⟩
 
 end UMST.Concrete.SecondLaw

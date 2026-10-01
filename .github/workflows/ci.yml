@@ -162,6 +162,9 @@ jobs:
       - name: Four-language parity of the contract (formal_parity.json)
         run: python3 scripts/check_formal_parity.py --summary
 
+      - name: No theatre in the Lean tree (literal, reflexive, alias, duplicate, definitional, trivial, table, bundle)
+        run: python3 scripts/theatre_census.py --check 0
+
       - name: Cartridge-anchor axiom baseline (Mathlib closure)
         run: bash scripts/check_print_axioms.sh
 
