@@ -79,7 +79,7 @@ lean_lib «UMST» where
   roots := #[`Core.Scalar, `Core.State, `Core.Gate, `Core.Constitutional,
     `Concrete.State, `Concrete.Gate,
     `Real.State, `Real.Gate,
-    `Concrete.Helmholtz, `Concrete.Powers, `Concrete.PowersVolume, `Concrete.StiffnessTransition,
+    `Concrete.Helmholtz, `Concrete.Powers, `Concrete.PowersVolume, `Concrete.SecondLaw, `Concrete.StiffnessTransition,
     `Concrete.MicroMechanics,
     `Concrete.Convergence, `Concrete.GraphProperties,
     `Concrete.Activation, `Concrete.EndConditions, `Concrete.EnrichedAdmissibility, `Concrete.GaloisGate,

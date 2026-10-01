@@ -12,7 +12,8 @@
 -- distribution. The predicates have the same shape:
 --   erase            ΔS ≤ W / T   (the erasure's dissipated entropy)
 --   measureFeedback  W_ext ≤ −ΔF + k_B T · I
---   transition       the gate's admissibility of the state move
+--   transition       mass within δ-mass and free energy not rising (the universal core; cement constraints compose
+--                    over it in Concrete/SecondLaw.agda)
 ------------------------------------------------------------------------
 
 {-# OPTIONS --safe #-}
@@ -26,7 +27,8 @@ open import Data.Rational.Solver using (module +-*-Solver)
 open import Relation.Binary.PropositionalEquality using (_≡_; refl; sym; subst)
 open import Relation.Nullary using (¬_)
 
-open import Concrete.Gate using (ThermodynamicState; Admissible; admissible-refl)
+open import Core.Gate using (CoreAdmissible)
+open import Concrete.Gate using (ThermodynamicState; Admissible; admissible-refl; concrete-thermodynamic-system)
 
 -- An erasure, by the entropy its work dissipates into the bath: W / T in nats.
 record ErasureProcess : Set where
@@ -57,7 +59,7 @@ SecondLaw : Process → Prior → Set
 SecondLaw (erase e)           (erasure ΔS)             = ΔS ≤ ErasureProcess.dissipatedEntropy e
 SecondLaw (measureFeedback f) (feedback I)             =
   FeedbackProcess.extWork f ≤ (- FeedbackProcess.deltaFreeEnergy f) + FeedbackProcess.kBT f * I
-SecondLaw transition          (thermodynamic old new) = Admissible old new
+SecondLaw transition          (thermodynamic old new) = CoreAdmissible concrete-thermodynamic-system old new
 SecondLaw (erase e)           (transformation Hp Hq)  = Hp - Hq ≤ ErasureProcess.dissipatedEntropy e
 SecondLaw (measureFeedback _) (transformation _ _)    = ⊥
 SecondLaw transition          (transformation _ _)    = ⊥
@@ -107,7 +109,8 @@ transformation-comp e₁ e₂ Hp Hq Hr h₁ h₂ = ≤-trans (≤-reflexive (tel
 
 -- A state move that changes nothing is admissible.
 transition-refl : ∀ s → SecondLaw transition (thermodynamic s s)
-transition-refl = admissible-refl
+transition-refl s = record { mass-conserved = Admissible.mass-conserved (admissible-refl s)
+                           ; dissipation-nonneg = Admissible.dissipation-nonneg (admissible-refl s) }
 
 -- The predicate is satisfiable: an erasure that removes no entropy and dissipates none obeys it.
 satisfiable : SecondLaw (erase idle) (erasure 0ℚ)

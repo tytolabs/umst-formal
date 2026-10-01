@@ -4,17 +4,15 @@
   UMST-Formal: Helmholtz.lean
   Lean 4 — Concrete Helmholtz free-energy model and SDF interpretation.
 
-  Mirrors Agda/Helmholtz.agda.  Imports Gate for ThermodynamicState and
-  the abstract psiAntitone axiom; provides the concrete arithmetic witness
-  for that axiom when the free-energy function is ψ(α) = −Q_hyd · α.
-
-  Proof status: ALL theorems fully proved.  Zero sorry.
+  Mirrors Agda/Concrete/Helmholtz.agda.  For the free-energy model ψ(α) = −Q_hyd · α it proves that forward
+  hydration lowers free energy (the dissipation leg of the gate); Concrete/SecondLaw.lean composes this over the
+  `SecondLaw` predicate, where hydration's irreversibility follows.  Zero sorry, zero axiom.
 
   Correspondence:
     HelmholtzState         │ Agda: HelmholtzState
     ψAntitoneHelmholtz      │ Agda: ψ-antitone-helmholtz
-    helmholtzLinear        │ Agda: helmholtz-linear (postulate there, proved here)
-    helmholtzGradientConst │ Agda: helmholtz-gradient-const (postulate, proved here)
+    helmholtzLinear        │ Agda: helmholtz-linear
+    helmholtzGradientConst │ Agda: helmholtz-gradient-const
 -/
 
 import Mathlib.Tactic
@@ -39,9 +37,8 @@ def HelmholtzState (s : ThermodynamicState) : Prop :=
 /-- For Helmholtz-consistent states, forward hydration implies
     decreasing free energy.
 
-    This is the concrete arithmetic witness for the abstract axiom
-    `psiAntitone` in Gate.lean.  It shows the axiom is not arbitrary:
-    it follows from the specific model ψ = −Q_hyd · α.
+    The dissipation leg of the gate follows from the specific model
+    ψ = −Q_hyd · α, with no further hypothesis.
 
     Physical meaning: cement hydration is exothermic — each increment
     in α releases Q_hyd J/kg of heat, lowering ψ.  The gate's
@@ -62,7 +59,7 @@ theorem ψAntitoneHelmholtz
 /-- For two Helmholtz-consistent states: if hydration advances and
     mass is conserved, the transition is admissible.
     The Clausius-Duhem condition follows from ψAntitoneHelmholtz;
-    strength monotonicity requires the abstract fcMonotone axiom. -/
+    strength monotonicity is the hypothesis `h_fc`. -/
 theorem helmholtzStateAdmissible
     (old new : ThermodynamicState)
     (ho  : HelmholtzState old)
@@ -76,7 +73,7 @@ theorem helmholtzStateAdmissible
 -- ================================================================
 -- SECTION 4: Linearity and Gradient (SDF / Eikonal Properties)
 -- ================================================================
--- These correspond to the two postulates in Agda/Helmholtz.agda §6.
+-- Twins of helmholtz-linear and helmholtz-gradient-const in Agda/Concrete/Helmholtz.agda §6.
 -- In Lean 4, both follow from `ring` since ψ is linear by definition.
 
 /-- ψ is additive (ℚ-linear):

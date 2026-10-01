@@ -11,7 +11,9 @@
 (*    erase            S(prior) - S(Dirac) <= W / T  (entropy in nats,    *)
 (*                     work in units of k_B times kelvin)                 *)
 (*    measureFeedback  W_ext <= -dF + k_B T I  (joules; I in nats)        *)
-(*    transition       the gate's admissibility of the state move         *)
+(*    transition       mass within delta_mass and free energy not rising *)
+(*                     (the universal core; cement constraints compose     *)
+(*                     over it in Concrete/SecondLaw.v)                    *)
 (*                                                                        *)
 (*  Consequences proved here: the Landauer bound T ln 2 <= W for a        *)
 (*  uniform bit, the tight erasure attaining it, and the SI bound         *)
@@ -130,7 +132,8 @@ Definition SecondLaw (proc : Process) (prior : Prior) : Prop :=
   | erase e, erasure p => eraseSecondLaw e p
   | measureFeedback f, feedback mi =>
       extWork f <= - deltaFreeEnergy f + kB * bathTemp (feedbackBath f) * mi
-  | transition, thermodynamic old new => admissible old new
+  | transition, thermodynamic old new =>
+      core_admissible (density old) (density new) (free_energy old) (free_energy new)
   | erase e, transformation p q => shannon p - shannon q <= work e / bathTemp (erasureBath e)
   | _, _ => False
   end.
@@ -195,7 +198,10 @@ Qed.
 
 (** A state move that changes nothing is admissible. *)
 Theorem SecondLaw_transition_refl (s : ThermodynamicState) : SecondLaw transition (thermodynamic s s).
-Proof. exact (admissible_refl s). Qed.
+Proof.
+  simpl. unfold core_admissible, delta_mass, Qminus. rewrite Qplus_opp_r.
+  split; [discriminate | split; [discriminate | apply Qle_refl]].
+Qed.
 
 (** The predicate is satisfiable: the Landauer-tight erasure of a uniform bit obeys it. *)
 Theorem secondLaw_process_family_satisfiable : exists p pr, SecondLaw p pr.

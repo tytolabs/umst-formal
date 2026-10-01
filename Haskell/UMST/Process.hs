@@ -92,8 +92,9 @@ secondLaw (Erase e) (Erasure p) =
   shannon2 p - shannon2 dirac0 <= work e / bathTemp (erasureBath e)
 secondLaw (MeasureFeedback f) (Feedback mi) =
   extWork f <= negate (deltaFreeEnergy f) + kB * bathTemp (feedbackBath f) * mi
-secondLaw Transition (Thermodynamic old new) = accepted (gateCheck old new 1)  -- a unit step; the verdict's
-                                                                             -- sign conditions do not depend on it
+-- The universal core of the gate's verdict: mass within tolerance and dissipation non-negative (a unit step; the
+-- sign conditions do not depend on it). Hydration and strength are cement constraints composed over it.
+secondLaw Transition (Thermodynamic old new) = let v = gateCheck old new 1 in massConserved v && energyPositive v
 secondLaw (Erase e) (Transformation p q) =
   shannon p - shannon q <= work e / bathTemp (erasureBath e)
 secondLaw _ _ = False

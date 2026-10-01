@@ -806,6 +806,66 @@
     "name": "prop_powers_per_cement_space",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "concrete.admissible_iff_second_law",
+   "statement": "cement admissibility is the transition instance of the second law with hydration and strength non-decreasing",
+   "lean": {
+    "name": "concreteAdmissible_iff_secondLaw",
+    "file": "Lean/Concrete/SecondLaw.lean"
+   },
+   "coq": {
+    "name": "admissible_iff_secondLaw",
+    "file": "Coq/Concrete/SecondLaw.v"
+   },
+   "agda": {
+    "name": "admissible⇔secondLaw",
+    "file": "Agda/Concrete/SecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_concrete_admissible_iff_secondLaw",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "concrete.gate_second_law",
+   "statement": "a step the cement gate passes is a member of the second-law predicate",
+   "lean": {
+    "name": "gateCheck_secondLaw",
+    "file": "Lean/Concrete/SecondLaw.lean"
+   },
+   "coq": {
+    "name": "gate_check_secondLaw",
+    "file": "Coq/Concrete/SecondLaw.v"
+   },
+   "agda": {
+    "name": "gate-secondLaw",
+    "file": "Agda/Concrete/SecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_concrete_gate_secondLaw",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "concrete.hydration_irreversible",
+   "statement": "for Helmholtz states within the mass tolerance, a step is a member of the second-law predicate exactly when hydration does not go backwards",
+   "lean": {
+    "name": "helmholtz_secondLaw_iff",
+    "file": "Lean/Concrete/SecondLaw.lean"
+   },
+   "coq": {
+    "name": "helmholtz_secondLaw_iff",
+    "file": "Coq/Concrete/SecondLaw.v"
+   },
+   "agda": {
+    "name": "helmholtz-secondLaw⇔",
+    "file": "Agda/Concrete/SecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_concrete_helmholtz_secondLaw_iff",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 83,
+  "lake_roots_count": 84,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -13,6 +13,7 @@
     "Concrete.Helmholtz",
     "Concrete.Powers",
     "Concrete.PowersVolume",
+    "Concrete.SecondLaw",
     "Concrete.StiffnessTransition",
     "Concrete.MicroMechanics",
     "Concrete.Convergence",
@@ -87,14 +88,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 537,
+    "theorem": 541,
     "lemma": 61,
-    "total": 598
+    "total": 602
   },
   "all_lean_glob": {
-    "theorem": 1314,
+    "theorem": 1318,
     "lemma": 61,
-    "total": 1375
+    "total": 1379
   },
   "per_root": {
     "Core.Scalar": {
@@ -139,6 +140,10 @@
     },
     "Concrete.PowersVolume": {
       "theorem": 10,
+      "lemma": 0
+    },
+    "Concrete.SecondLaw": {
+      "theorem": 4,
       "lemma": 0
     },
     "Concrete.StiffnessTransition": {

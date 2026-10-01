@@ -504,6 +504,37 @@ prop_process_transition_refl :: Property
 prop_process_transition_refl = forAll (choose (0.3, 0.6)) $ \wc -> forAll (choose (0, 0.95)) $ \a ->
   forAll (choose (5, 40)) $ \temp -> let s = fromMix wc a temp in P.secondLaw P.Transition (P.Thermodynamic s s)
 
+-- Cement admissibility is the transition instance with hydration and strength non-decreasing
+-- (twin of Lean/Concrete/SecondLaw.lean concreteAdmissible_iff_secondLaw).
+prop_concrete_admissible_iff_secondLaw :: ThermodynamicState -> ThermodynamicState -> Bool
+prop_concrete_admissible_iff_secondLaw old new =
+  let v = gateCheck old new 1
+   in accepted v == (P.secondLaw P.Transition (P.Thermodynamic old new) && hydrationOk v && strengthOk v)
+
+-- A step the gate passes is a member of the predicate (twin of gateCheck_secondLaw).
+-- The second state is a small step from the first, each component moving either way, so both verdicts occur often.
+prop_concrete_gate_secondLaw :: Property
+prop_concrete_gate_secondLaw = forAll genState $ \old -> forAll (genStepFrom old) $ \new ->
+  let passed = accepted (gateCheck old new 1)
+   in cover 5 passed "gate passes" (not passed || P.secondLaw P.Transition (P.Thermodynamic old new))
+
+genStepFrom :: ThermodynamicState -> Gen ThermodynamicState
+genStepFrom (ThermodynamicState rho psi al fc fcMax) = do
+  dRho <- choose (-150, 150)
+  dPsi <- choose (-20, 5)
+  dAl <- choose (-0.02, 0.1)
+  dFc <- choose (-2, 10)
+  pure (ThermodynamicState (rho + dRho) (psi + dPsi) (al + dAl) (fc + dFc) fcMax)
+
+-- Hydration is irreversible by the second law: for Helmholtz states (ψ = −Q_hyd·α) at one density, a step is a member
+-- of the predicate exactly when hydration does not go backwards (twin of helmholtz_secondLaw_iff). Degrees of hydration
+-- on a grid of 0.01 keep every step outside the runtime tolerance band.
+prop_concrete_helmholtz_secondLaw_iff :: Property
+prop_concrete_helmholtz_secondLaw_iff =
+  forAll (choose (1000, 3000)) $ \rho -> forAll (choose (0, 100 :: Int)) $ \i -> forAll (choose (0, 100 :: Int)) $ \j ->
+    let state k = let a = fromIntegral k / 100 in ThermodynamicState rho (negate (qHydration * a)) a 0 intrinsicStrength
+     in P.secondLaw P.Transition (P.Thermodynamic (state i) (state j)) == (i <= j)
+
 prop_process_satisfiable :: Property
 prop_process_satisfiable = once $
   P.secondLaw (P.Erase (P.landauerTightErasure (P.HeatBath 300))) (P.Erasure P.uniform2)
@@ -692,6 +723,9 @@ main = do
   check r prop_chem_secondlaw_comp
   check r prop_process_transition_refl
   check r prop_process_satisfiable
+  check r prop_concrete_admissible_iff_secondLaw
+  check r prop_concrete_gate_secondLaw
+  check r prop_concrete_helmholtz_secondLaw_iff
   check r prop_process_erasure_additive
   check r prop_powers_coefficient_balance
   check r prop_powers_volume_balance
