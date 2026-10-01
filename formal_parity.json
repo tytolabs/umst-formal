@@ -1351,6 +1351,126 @@
     "name": "sharpenMap",
     "file": "Haskell/UMST/CoarseGraining.hs"
    }
+  },
+  {
+   "id": "semantic.second_law",
+   "statement": "the semantic second law: consistency, the Clausius bound on the shared model, and information preserved above a threshold",
+   "lean": {
+    "name": "semanticSecondLaw",
+    "file": "Lean/SemanticSecondLaw.lean"
+   },
+   "coq": {
+    "name": "semanticSecondLaw",
+    "file": "Coq/SemanticSecondLaw.v"
+   },
+   "agda": {
+    "name": "semanticSecondLaw",
+    "file": "Agda/SemanticSecondLaw.agda"
+   },
+   "haskell": {
+    "name": "semanticSecondLaw",
+    "file": "Haskell/UMST/Semantic.hs"
+   }
+  },
+  {
+   "id": "semantic.iff",
+   "statement": "the semantic second law is the one predicate on the shared model with consistency and preserved information",
+   "lean": {
+    "name": "semanticSecondLaw_iff",
+    "file": "Lean/SemanticSecondLaw.lean"
+   },
+   "coq": {
+    "name": "semanticSecondLaw_iff",
+    "file": "Coq/SemanticSecondLaw.v"
+   },
+   "agda": {
+    "name": "semanticSecondLaw-iff",
+    "file": "Agda/SemanticSecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_semantic_iff",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "semantic.entropy_from_physical",
+   "statement": "the erase instance discharges the entropy clause of a physically bridged transition",
+   "lean": {
+    "name": "semantic_entropy_bound_from_physical",
+    "file": "Lean/SemanticSecondLaw.lean"
+   },
+   "coq": {
+    "name": "semantic_entropy_bound_from_physical",
+    "file": "Coq/SemanticSecondLaw.v"
+   },
+   "agda": {
+    "name": "semantic-entropy-bound-from-physical",
+    "file": "Agda/SemanticSecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_semantic_from_physical",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "semantic.from_physical_bridge",
+   "statement": "a consistent, information-preserving, physically bridged transition obeys the semantic second law",
+   "lean": {
+    "name": "semanticSecondLaw_from_physical_bridge",
+    "file": "Lean/SemanticSecondLaw.lean"
+   },
+   "coq": {
+    "name": "semanticSecondLaw_from_physical_bridge",
+    "file": "Coq/SemanticSecondLaw.v"
+   },
+   "agda": {
+    "name": "semanticSecondLaw-from-physical-bridge",
+    "file": "Agda/SemanticSecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_semantic_from_physical",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "semantic.p0_zero_drop",
+   "statement": "the consistent identity transition has no uncertainty drop",
+   "lean": {
+    "name": "consistentP0_zero_uncertainty_drop",
+    "file": "Lean/SemanticSecondLaw.lean"
+   },
+   "coq": {
+    "name": "consistentP0_zero_uncertainty_drop",
+    "file": "Coq/SemanticSecondLaw.v"
+   },
+   "agda": {
+    "name": "consistentP0-zero-uncertainty-drop",
+    "file": "Agda/SemanticSecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_semantic_p0",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "semantic.product_mi_zero",
+   "statement": "a product proposal–outcome witness carries no mutual information",
+   "lean": {
+    "name": "productWitness_mi_zero",
+    "file": "Lean/SemanticSecondLaw.lean"
+   },
+   "coq": {
+    "name": "productWitness_mi_zero",
+    "file": "Coq/SemanticSecondLaw.v"
+   },
+   "agda": {
+    "name": "productWitness-mi-zero",
+    "file": "Agda/SemanticSecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_semantic_product_mi_zero",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }

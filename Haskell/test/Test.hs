@@ -31,6 +31,7 @@ import qualified UMST.Chem.SecondLaw as CS
 import qualified UMST.Excitement as X
 import qualified UMST.OneInequality as O
 import qualified UMST.CoarseGraining as CG
+import qualified UMST.Semantic as SM
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -647,6 +648,34 @@ prop_cg_lump_coarse_from_fine = forAll (choose (1, 1000)) $ \t -> forAll genProb
   let w = t * P.jointEntropy2 (CG.productJoint2 p q) * (1 + 1e-9) + 1e-12
    in P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure p)
 
+-- The semantic second law (twins of Lean/SemanticSecondLaw.lean).
+prop_semantic_iff :: Property
+prop_semantic_iff = forAll (choose (1, 1000)) $ \t -> forAll (choose (1, 6)) $ \n -> forAll (genDist n) $ \p ->
+  forAll (genDist n) $ \q -> forAll (choose (-3, 3)) $ \w -> forAll genProb2 $ \a -> forAll genProb2 $ \b ->
+    forAll (elements [0, 1]) $ \defect -> forAll (choose (-0.1, 0.1)) $ \thr ->
+      let tr = SM.CommunicativeTransition (P.HeatBath t) p q w defect
+          j = CG.productJoint2 a b
+       in SM.semanticSecondLaw thr tr j
+            == (SM.structurallyConsistent tr && P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation p q)
+                  && SM.miPreserved thr j)
+
+prop_semantic_from_physical :: Property
+prop_semantic_from_physical = forAll physicalErasure $ \e ->
+  let tr = SM.CommunicativeTransition (P.erasureBath e) (P.asProbDist P.uniform2) (P.asProbDist P.dirac0) (P.work e) 0
+   in obeysErase e ==> SM.semanticSecondLaw (-1) tr (CG.productJoint2 P.uniform2 P.uniform2)
+
+prop_semantic_landauer_bound :: Property
+prop_semantic_landauer_bound = forAll physicalErasure $ \e ->
+  let temp = P.bathTemp (P.erasureBath e)
+   in obeysErase e ==> P.work e >= temp * log 2 - 1e-12 * temp
+
+prop_semantic_p0 :: Property
+prop_semantic_p0 = once $ SM.modelUncertaintyDrop SM.consistentP0Transition == 0 && SM.structurallyConsistent SM.consistentP0Transition
+
+prop_semantic_product_mi_zero :: Property
+prop_semantic_product_mi_zero = forAll genProb2 $ \a -> forAll genProb2 $ \b ->
+  abs (P.mutualInformation2 (CG.productJoint2 a b)) <= 1e-12
+
 -- The Szilard witness (twins of szilardJoint, its marginals, entropy and mutual information, and the engine).
 prop_szilard_joint :: Property
 prop_szilard_joint = once $
@@ -1005,6 +1034,11 @@ main = do
   check r prop_cg_refusal_sound
   check r prop_cg_product_entropy
   check r prop_cg_lump_coarse_from_fine
+  check r prop_semantic_iff
+  check r prop_semantic_from_physical
+  check r prop_semantic_landauer_bound
+  check r prop_semantic_p0
+  check r prop_semantic_product_mi_zero
   check r prop_szilard_joint
   check r prop_szilard_marginal_x
   check r prop_szilard_marginal_y

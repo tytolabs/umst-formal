@@ -28,6 +28,7 @@ library
     UMST.Excitement
     UMST.OneInequality
     UMST.CoarseGraining
+    UMST.Semantic
     UMST.Chem.SecondLaw
     UMST.CoordinationContract
     UMST.Chem.Constants.ConstantsSheaf

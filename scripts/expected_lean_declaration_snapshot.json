@@ -88,14 +88,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 547,
+    "theorem": 548,
     "lemma": 61,
-    "total": 608
+    "total": 609
   },
   "all_lean_glob": {
-    "theorem": 1335,
+    "theorem": 1336,
     "lemma": 61,
-    "total": 1396
+    "total": 1397
   },
   "per_root": {
     "Core.Scalar": {
@@ -227,7 +227,7 @@
       "lemma": 0
     },
     "SemanticSecondLaw": {
-      "theorem": 11,
+      "theorem": 12,
       "lemma": 0
     },
     "MeaningState": {

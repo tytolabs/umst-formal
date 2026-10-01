@@ -16,6 +16,7 @@ Concrete/SecondLaw.v
 Excitement.v
 OneInequalitySecondLaw.v
 CoarseGraining.v
+SemanticSecondLaw.v
 InfoTheory.v
 MeasurementCost.v
 PrimeSpectralGuidance.v

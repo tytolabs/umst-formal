@@ -5,15 +5,12 @@
 
   **HCOM-001 — Foundational semantic invariant** (Human Communication Blueprint §2).
 
-  Communicative analogue of `LandauerLaw.physicalSecondLaw`:
-    meaningful transitions preserve structural consistency in the geometric layer
-    and account for the information (Landauer) cost of understanding or updating
-    a shared model.
-
-  **Single-axiom discipline:** this module adds **zero** Lean `axiom` declarations.
-  The sole physical law (the `SecondLaw` predicate) remains `physicalSecondLaw`.  `semanticSecondLaw` is the
-  named foundational `Prop`; entropy accounting on physically bridged transitions
-  is **derived** from `physicalSecondLaw` via `semanticSecondLaw_from_physical`.
+  A meaningful communicative transition obeys the one predicate `UMST.ProcessFamily.SecondLaw` on its shared model:
+  its entropy clause ΔS_model ≤ W / T is the erase instance on the transformation of the model's distribution
+  (`semanticSecondLaw_iff`), with W in units of k_B times kelvin as for every erase instance. Structural consistency
+  and preservation of mutual information above a threshold are its two further conditions; they are informational,
+  not thermodynamic. This module adds zero Lean `axiom`s; physically bridged transitions discharge the entropy
+  clause from the erase instance (`semantic_entropy_bound_from_physical`).
 
   L₀ boundary: does **not** import `Gate.lean` or Kleisli composition.
   Connection to runtime semantic gate (P6) is via `CoordinationCost` reporting functors.
@@ -27,6 +24,7 @@
 import LandauerLaw
 import InfoTheory
 import CoordinationCost
+import Process
 
 open Real Finset UMST.LandauerLaw UMST.InfoTheory UMST.InfoTheory.JointDist
 open UMST.CoordinationCost
@@ -49,7 +47,7 @@ def semanticBathOf (hb : HeatBath) : SemanticBath where
 /-- A meaningful communicative transition on a finite shared-model alphabet.
     `prior` / `post` are distributions over geometric meaning indices;
     `consistencyDefect` is 0 iff structural shapes are mutually consistent;
-    `understandingWork` records dissipated semantic work [J] (Landauer-linked). -/
+    `understandingWork` records the dissipated work in units of k_B times kelvin, as for an erase instance. -/
 structure CommunicativeTransition (n : ℕ) where
   bath : SemanticBath
   prior : ProbDist n
@@ -95,6 +93,19 @@ def semanticSecondLaw {n m : ℕ} (miThreshold : ℝ)
   structurallyConsistent t ∧
   modelUncertaintyDrop t ≤ t.understandingWork / t.bath.bathTemp.val ∧
   miPreserved miThreshold w
+
+/-- The semantic bath as the heat bath of the one predicate (the same carrier). -/
+def SemanticBath.heatBath (b : SemanticBath) : HeatBath := ⟨b.bathTemp⟩
+
+/-- **The semantic second law is the one predicate on the shared model**, with consistency and preserved
+    information: its entropy clause is the erase instance on the transformation of the model's distribution. -/
+theorem semanticSecondLaw_iff {n m : ℕ} (miThreshold : ℝ) (t : CommunicativeTransition n)
+    (w : ProposalOutcomeWitness n m) :
+    semanticSecondLaw miThreshold t w ↔
+      structurallyConsistent t ∧
+        UMST.ProcessFamily.SecondLaw (.erase ⟨t.bath.heatBath, t.understandingWork⟩) (.transformation t.prior t.post) ∧
+        miPreserved miThreshold w :=
+  Iff.rfl
 
 /-- Admissible semantic transition: satisfies the foundational invariant. -/
 def admissibleSemanticTransition {n m : ℕ} (miThreshold : ℝ)
