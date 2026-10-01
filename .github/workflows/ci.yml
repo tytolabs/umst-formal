@@ -54,50 +54,10 @@ jobs:
     name: Formal
     uses: ./.github/workflows/formal.yml
 
-  # ── Haskell (pure: no FFI flag) ─────────────────────────────────────
-  #
-  # Builds only the pure modules (UMST, KleisliDIB) and runs QuickCheck.
-  # FFI.hs is excluded because it requires libumst_ffi, which is only
-  # built in the rust-ffi job.  Use `cabal build -f with-ffi` locally
-  # after running `cargo build --release` in ffi-bridge/.
-  haskell-pure:
-    name: Haskell pure gate tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4 # v4
-
-      - name: Install GHC & cabal
-        uses: haskell-actions/setup@cd0d9bdd65b20557f41bea4dbe43d0b5fbbfe553 # v2
-        with:
-          ghc-version: "9.6"
-          cabal-version: "3.10"
-
-      - name: Cache cabal store
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
-        with:
-          path: ~/.cabal/store
-          key: ${{ runner.os }}-cabal-${{ hashFiles('Haskell/umst-formal.cabal') }}
-          restore-keys: ${{ runner.os }}-cabal-
-
-      - name: Update package index
-        run: cabal update
-
-      - name: Build pure library (FFI disabled)
-        working-directory: Haskell
-        # -f -with-ffi: build WITHOUT the FFI flag → no Rust dep, no linker error
-        run: cabal build lib:umst-formal -f -with-ffi
-
-      - name: Run QuickCheck property tests
-        working-directory: Haskell
-        run: |
-          cabal test umst-properties \
-            -f -with-ffi \
-            --test-show-details=streaming \
-            --test-option=--qc-max-success=500
-
-      - name: Landauer–Einstein rational sanity (vs Lean tight bracket)
-        working-directory: Haskell
-        run: cabal test landauer-einstein-sanity
+  # ── Haskell (one definition, in haskell.yml) ───────────────────────
+  haskell:
+    name: Haskell
+    uses: ./.github/workflows/haskell.yml
 
   # ── Rust FFI bridge (W-62: pinned git deps on umst-manifold @ ce9828ea) ─────
   rust-ffi:

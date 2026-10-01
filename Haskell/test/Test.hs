@@ -1,5 +1,8 @@
 -- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 -- SPDX-License-Identifier: MIT
+{-# OPTIONS_GHC -Wno-orphans #-}
+-- QuickCheck generators for library types live in this test executable; nothing imports it, so
+-- the orphan instances cannot meet a second instance.
 -- |
 -- Test suite for UMST-Formal Haskell layer.
 --
@@ -13,7 +16,7 @@
 module Main where
 
 import Test.QuickCheck
-import Data.List (foldl')
+import PropertyRunner (check, finish, newRunner)
 
 import UMST
 import SDFGate
@@ -27,8 +30,7 @@ import EtaCog
 import RhoEstimator
 import MedianConvergence
 import OrderStatisticsBand
-import MeasurementCost (kBoltzmannSI, entropyBits,
-  mutualInformationBits, measurementEnergyLowerBound)
+import MeasurementCost (mutualInformationBits, measurementEnergyLowerBound)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -56,7 +58,7 @@ genProbDist :: Int -> Gen [Double]
 genProbDist n =
   do
     xs <- vectorOf n (choose (1.0e-3, 1.0))
-    let s = foldl' (+) 0 xs
+    let s = sum xs
     pure (map (/ s) xs)
 
 nearList :: Double -> [Double] -> [Double] -> Bool
@@ -145,11 +147,23 @@ prop_intersect_is_max old new =
   == max (massConservationSDF old new) (clausiusDuhemSDF old new)
 
 -- | Offset expands the admissible region: if gateSDF ≤ 0 then offsetSDF d ≤ d.
-prop_offset_admissible_expansion
-  :: ThermodynamicState -> ThermodynamicState -> Property
-prop_offset_admissible_expansion old new =
-  gateSDF old new <= 0 ==>
-    offsetSDF 10.0 gateSDF old new <= 0
+-- The pair is built inside the gate (a random pair almost never is): density moves by at most half
+-- the mass tolerance, free energy does not rise, hydration and strength do not fall.
+prop_offset_admissible_expansion :: Property
+prop_offset_admissible_expansion =
+  forAll genAdmissibleStep $ \(old, new) ->
+    gateSDF old new <= 0 && offsetSDF 10.0 gateSDF old new <= 0
+
+-- | A transition the gate admits.
+genAdmissibleStep :: Gen (ThermodynamicState, ThermodynamicState)
+genAdmissibleStep = do
+  old <- genState
+  dRho <- choose (-massTolerance / 2, massTolerance / 2)
+  dPsi <- choose (0.0, 50.0)
+  al' <- choose (hydration old, 1.0)
+  fc' <- choose (strength old, maxStrength old)
+  pure (old, old { density = density old + dRho, freeEnergy = freeEnergy old - dPsi
+                 , hydration = al', strength = fc' })
 
 -- | Helmholtz gradient is constant: ψ(α+ε) − ψ(α) = −Q_hyd · ε.
 --
@@ -193,9 +207,9 @@ prop_offset_distributive old new =
 
 -- | fromMix produces a state consistent with the Helmholtz model:
 -- freeEnergy = -Q_hyd * hydration (within floating-point tolerance).
-prop_fromMix_helmholtz_model :: Double -> Double -> Property
-prop_fromMix_helmholtz_model wc alpha =
-  wc > 0.1 && wc < 0.8 && alpha >= 0 && alpha <= 1 ==>
+prop_fromMix_helmholtz_model :: Property
+prop_fromMix_helmholtz_model =
+  forAll (choose (0.1001, 0.7999)) $ \wc -> forAll (choose (0.0, 1.0)) $ \alpha ->
     let s = fromMix wc alpha 20.0
         expected = helmholtzSDF (hydration s)
     in abs (freeEnergy s - expected) < 1e-6
@@ -380,7 +394,7 @@ prop_burden_recursion_admissible b g e =
 -- | Geometric factor @(1+μ)^n@ shrinks when @0 ≤ 1+μ < 1@ (fixed @μ = -0.4@, @n = 60@).
 prop_burden_geom_decay :: Bool
 prop_burden_geom_decay =
-  let mu = -0.4
+  let mu = -0.4 :: Double
       r = 1 + mu
       v = r ^ (60 :: Int)
   in v >= 0 && v < 1e-3
@@ -425,121 +439,122 @@ prop_econ_cost_split_nonneg qp qw =
 
 main :: IO ()
 main = do
+  r <- newRunner
   putStrLn "=== UMST-Formal Haskell Property Tests ==="
   putStrLn ""
 
   putStrLn "-- Gate Invariants"
-  quickCheck prop_gate_deterministic
-  quickCheck prop_mass_conservation_spec
-  quickCheck prop_clausius_spec
-  quickCheck prop_hydration_spec
-  quickCheck prop_strength_spec
+  check r prop_gate_deterministic
+  check r prop_mass_conservation_spec
+  check r prop_clausius_spec
+  check r prop_hydration_spec
+  check r prop_strength_spec
   putStrLn "-- Mass Non-Transitivity (formal counterexample)"
-  quickCheck prop_mass_not_transitive
+  check r prop_mass_not_transitive
 
   putStrLn ""
   putStrLn "-- SDF / FRep Properties"
-  quickCheck prop_gateSDF_matches_gateCheck
-  quickCheck prop_intersect_is_max
-  quickCheck prop_offset_admissible_expansion
-  quickCheck prop_helmholtz_gradient_const
-  quickCheck prop_helmholtz_antitone
-  quickCheck prop_rUnion_commutative
-  quickCheck prop_offset_distributive
+  check r prop_gateSDF_matches_gateCheck
+  check r prop_intersect_is_max
+  check r prop_offset_admissible_expansion
+  check r prop_helmholtz_gradient_const
+  check r prop_helmholtz_antitone
+  check r prop_rUnion_commutative
+  check r prop_offset_distributive
 
   putStrLn ""
   putStrLn "-- Constructor Properties"
-  quickCheck prop_fromMix_helmholtz_model
+  check r prop_fromMix_helmholtz_model
 
   putStrLn ""
   putStrLn "-- InfoTheory (product joint / marginals)"
-  quickCheck prop_info_product_joint_sum_one
-  quickCheck prop_info_marginal_first_product
-  quickCheck prop_info_marginal_second_product
+  check r prop_info_product_joint_sum_one
+  check r prop_info_marginal_first_product
+  check r prop_info_marginal_second_product
 
   putStrLn ""
   putStrLn "-- LandauerExtension"
-  quickCheck prop_landauer_energy_mono
-  quickCheck prop_landauer_nBit_scales
-  quickCheck prop_landauer_300K_pos
+  check r prop_landauer_energy_mono
+  check r prop_landauer_nBit_scales
+  check r prop_landauer_300K_pos
 
   putStrLn ""
   putStrLn "-- MonoidalState"
-  quickCheck prop_combine_one
-  quickCheck prop_combine_zero
-  quickCheck prop_combine_density_interp
-  quickCheck prop_combine_freeEnergy_convex
+  check r prop_combine_one
+  check r prop_combine_zero
+  check r prop_combine_density_interp
+  check r prop_combine_freeEnergy_convex
 
   putStrLn ""
   putStrLn "-- PrimeSpectralGuidance"
-  quickCheck prop_spectralFilter_id
-  quickCheck prop_spectralFilter_perturb
-  quickCheck prop_mangoldtWeightedSum_add
+  check r prop_spectralFilter_id
+  check r prop_spectralFilter_perturb
+  check r prop_mangoldtWeightedSum_add
 
   putStrLn ""
   putStrLn "-- MeasurementCost"
-  quickCheck prop_mc_uniform_joint_zero_mi
-  quickCheck prop_mc_energy_nonneg
+  check r prop_mc_uniform_joint_zero_mi
+  check r prop_mc_energy_nonneg
 
   putStrLn ""
   putStrLn "-- Burden / stochastic exploration"
-  quickCheck prop_burden_symmetric_expectation
-  quickCheck prop_burden_recursion_admissible
-  quickCheck prop_burden_geom_decay
+  check r prop_burden_symmetric_expectation
+  check r prop_burden_recursion_admissible
+  check r prop_burden_geom_decay
 
   putStrLn ""
   putStrLn "-- Economic layer (Wave 6.5.2)"
-  quickCheck prop_econ_horizon_in_min_max
-  quickCheck prop_econ_npv_iterate
-  quickCheck prop_econ_creativity_monotone
-  quickCheck prop_econ_cost_split_nonneg
+  check r prop_econ_horizon_in_min_max
+  check r prop_econ_npv_iterate
+  check r prop_econ_creativity_monotone
+  check r prop_econ_cost_split_nonneg
 
   putStrLn ""
   putStrLn "-- CreditGreedyOptimal (Phase M4)"
-  quickCheck prop_credit_greedy_optimal
-  quickCheck prop_credit_mass_nonneg
-  quickCheck prop_credit_mass_append
+  check r prop_credit_greedy_optimal
+  check r prop_credit_mass_nonneg
+  check r prop_credit_mass_append
 
   putStrLn ""
   putStrLn "-- Dignity (Phase N3-FPD-a)"
-  quickCheck prop_dignity_try_range
-  quickCheck prop_dignity_step_honest_non_decreasing
-  quickCheck prop_dignity_step_sub_landauer_fixed
-  quickCheck prop_dignity_step_monotone_mi
-  quickCheck prop_dignity_list_sum_nonneg
+  check r prop_dignity_try_range
+  check r prop_dignity_step_honest_non_decreasing
+  check r prop_dignity_step_sub_landauer_fixed
+  check r prop_dignity_step_monotone_mi
+  check r prop_dignity_list_sum_nonneg
 
   putStrLn ""
   putStrLn "-- EtaCog (Phase N3-FPD-b)"
-  quickCheck prop_eta_cog_nonneg
-  quickCheck prop_eta_cog_monotone_dignity
-  quickCheck prop_eta_cog_monotone_mi
-  quickCheck prop_eta_cog_antitone_energy
-  quickCheck prop_eta_cog_energy_zero_shape
-  quickCheck prop_eta_cog_frozen_dignity_path
+  check r prop_eta_cog_nonneg
+  check r prop_eta_cog_monotone_dignity
+  check r prop_eta_cog_monotone_mi
+  check r prop_eta_cog_antitone_energy
+  check r prop_eta_cog_energy_zero_shape
+  check r prop_eta_cog_frozen_dignity_path
 
   putStrLn ""
   putStrLn "-- RhoEstimator (Phase FPD-RhoEstimator)"
-  quickCheck prop_rho_mi_formula_matches_log2
-  quickCheck prop_rho_mi_nonneg_interior
-  quickCheck prop_rho_mi_monotone_abs_rho
-  quickCheck prop_rho_mi_zero_at_zero
-  quickCheck prop_rho_mi_bounded_by_rho_max
+  check r prop_rho_mi_formula_matches_log2
+  check r prop_rho_mi_nonneg_interior
+  check r prop_rho_mi_monotone_abs_rho
+  check r prop_rho_mi_zero_at_zero
+  check r prop_rho_mi_bounded_by_rho_max
 
   putStrLn ""
   putStrLn "-- MedianConvergence (Phase FPD-MedianConvergence)"
-  quickCheck prop_n_warmup_monotone_in_epsilon
-  quickCheck prop_n_warmup_monotone_in_delta
-  quickCheck prop_sqrt_window_matches_engine
-  quickCheck prop_n_warmup_positive
-  quickCheck prop_bound_inverse_square_epsilon
+  check r prop_n_warmup_monotone_in_epsilon
+  check r prop_n_warmup_monotone_in_delta
+  check r prop_sqrt_window_matches_engine
+  check r prop_n_warmup_positive
+  check r prop_bound_inverse_square_epsilon
 
   putStrLn ""
   putStrLn "-- OrderStatisticsBand (Phase FPD-OrderStatisticsBand)"
-  quickCheck prop_quantile_separation_split_sample
-  quickCheck prop_band_classification_surrogate_nonneg
-  quickCheck prop_flip_rate_surrogate_nonneg
-  quickCheck prop_n_quantile_monotone_in_epsilon
-  quickCheck prop_n_quantile_monotone_in_delta
+  check r prop_quantile_separation_split_sample
+  check r prop_band_classification_surrogate_nonneg
+  check r prop_flip_rate_surrogate_nonneg
+  check r prop_n_quantile_monotone_in_epsilon
+  check r prop_n_quantile_monotone_in_delta
 
   putStrLn ""
-  putStrLn "All tests passed."
+  finish r

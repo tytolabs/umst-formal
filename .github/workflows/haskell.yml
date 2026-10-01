@@ -3,6 +3,7 @@
 # Haskell QuickCheck mirror — see Haskell/README.md
 name: Haskell
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     branches: [main, master, docs/reorganize-readme]
@@ -15,7 +16,8 @@ on:
       - ".github/workflows/haskell.yml"
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # suffix keeps runs called from CI (ci.yml) from sharing, and cancelling, one group
+  group: ${{ github.workflow }}-haskell-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -40,18 +42,31 @@ jobs:
       - name: Update package index
         run: cabal update
 
-      - name: Build pure library (FFI disabled)
-        working-directory: Haskell
-        run: cabal build lib:umst-formal -f -with-ffi
-
-      - name: Run QuickCheck property tests
+      - name: Every tracked Haskell module is in the cabal file
         working-directory: Haskell
         run: |
-          cabal test umst-properties \
+          set -euo pipefail
+          missing=""
+          for f in $(git ls-files '*.hs' | grep -v '^test/\|^tools/\|^FFI.hs$'); do
+            m=$(echo "${f%.hs}" | tr / .)
+            grep -qE "^\s+$m\s*$" umst-formal.cabal || missing="$missing $f"
+          done
+          for f in $(git ls-files 'test/*.hs'); do
+            b=$(basename "${f%.hs}")
+            grep -qE "(main-is:\s+(test/)?$b\.hs|other-modules:.*\b$b\b)" umst-formal.cabal || missing="$missing $f"
+          done
+          if [ -n "$missing" ]; then echo "FAIL: not built by any cabal component:$missing"; exit 1; fi
+          echo "OK: every tracked .hs is built"
+
+      - name: Build library and test suites, warnings are errors (FFI disabled)
+        working-directory: Haskell
+        # -f -with-ffi: build WITHOUT the FFI flag → no Rust dep, no linker error
+        run: cabal build all -f -with-ffi --ghc-options=-Werror
+
+      - name: Run every test suite (a falsified or abandoned property fails the run)
+        working-directory: Haskell
+        run: |
+          cabal test all \
             -f -with-ffi \
             --test-show-details=streaming \
             --test-option=--qc-max-success=500
-
-      - name: Landauer–Einstein rational sanity (vs Lean tight bracket)
-        working-directory: Haskell
-        run: cabal test landauer-einstein-sanity

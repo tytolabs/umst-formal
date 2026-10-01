@@ -29,31 +29,46 @@ prop_dignity_try_range x =
       mk = if ok then Just x else Nothing
    in classify ok "in-range" (mk == Nothing || abs (maybe 0 id mk - x) <= 1e-15)
 
-prop_dignity_step_honest_non_decreasing :: Double -> Double -> Double -> Double -> Property
-prop_dignity_step_honest_non_decreasing tK d mi e =
-  tK > 0 && d >= 0 && d <= dMax && mi >= 0 && e >= 0 && honestSpend tK mi e ==>
-    let d' = dignityStep tK d mi e
-     in d' + 1e-12 >= d && d' <= dMax + 1e-12
+-- The step properties build their inputs inside the Lean hypotheses (temperature positive, dignity in
+-- [0, dMax], mutual information nonnegative, the spend honest or sub-Landauer) instead of filtering random
+-- Doubles with `==>`, which discarded almost every case. Floating rounding is monotone, so the
+-- conclusions hold exactly.
 
-prop_dignity_step_sub_landauer_fixed :: Double -> Double -> Double -> Double -> Property
-prop_dignity_step_sub_landauer_fixed tK d mi e =
-  tK > 0 && d >= 0 && d <= dMax && mi >= 0 && e >= 0 && not (honestSpend tK mi e) ==>
-    abs (dignityStep tK d mi e - d) <= 1e-15
+-- | Temperature in kelvin, positive.
+kelvin :: Double -> Double
+kelvin t = 1 + abs t
 
-prop_dignity_step_monotone_mi :: Double -> Double -> Double -> Double -> Double -> Property
-prop_dignity_step_monotone_mi tK d mi1 mi2 e =
-  tK > 0
-    && d >= 0
-    && d <= dMax
-    && mi1 >= 0
-    && mi2 >= 0
-    && mi1 <= mi2
-    && e >= 0
-    && honestSpend tK mi1 e
-    && honestSpend tK mi2 e ==>
-      let v1 = dignityStep tK d mi1 e
-          v2 = dignityStep tK d mi2 e
-       in v1 - 1e-12 <= v2 + 1e-12
+-- | A dignity value in [0, dMax].
+dignity :: Double -> Double
+dignity d = min dMax (abs d)
+
+prop_dignity_step_honest_non_decreasing :: Double -> Double -> Double -> Double -> Bool
+prop_dignity_step_honest_non_decreasing t0 d0 mi0 slack =
+  let tK = kelvin t0
+      d = dignity d0
+      mi = abs mi0
+      e = landauerJoulesPerBit tK * mi + abs slack
+      d' = dignityStep tK d mi e
+   in honestSpend tK mi e && d' >= d && d' <= dMax
+
+prop_dignity_step_sub_landauer_fixed :: Double -> Double -> Double -> Double -> Bool
+prop_dignity_step_sub_landauer_fixed t0 d0 mi0 frac =
+  let tK = kelvin t0
+      d = dignity d0
+      mi = 1 + abs mi0
+      e = landauerJoulesPerBit tK * mi * (abs (sin frac) * 0.5)
+   in not (honestSpend tK mi e) && dignityStep tK d mi e == d
+
+prop_dignity_step_monotone_mi :: Double -> Double -> Double -> Double -> Double -> Bool
+prop_dignity_step_monotone_mi t0 d0 a b slack =
+  let tK = kelvin t0
+      d = dignity d0
+      mi1 = abs a
+      mi2 = mi1 + abs b
+      e = landauerJoulesPerBit tK * mi2 + abs slack
+   in honestSpend tK mi1 e
+        && honestSpend tK mi2 e
+        && dignityStep tK d mi1 e <= dignityStep tK d mi2 e
 
 prop_dignity_list_sum_nonneg :: [Double] -> Property
 prop_dignity_list_sum_nonneg xs =

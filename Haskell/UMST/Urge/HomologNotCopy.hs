@@ -244,17 +244,17 @@ recoveryArrowFromSelection
   -> Bool
   -> Either ExcitementResidue HistoryCandidate
   -> Either ExcitementResidue HomologRecoveryArrow
-recoveryArrowFromSelection arrowId successorId headState ucrsSeq wallHasT sel =
+recoveryArrowFromSelection newArrowId successorId headState stampSeq stampWallHasT sel =
   case sel of
     Left r -> Left r
     Right _ ->
       Right
         HomologRecoveryArrow
-          { arrowId = arrowId
+          { arrowId = newArrowId
           , selectedSuccessorId = successorId
           , arrowHead = headState
           , provenanceIntact = True
-          , ucrs = HomologUcrsStamp {ucrsSeq = ucrsSeq, wallHasT = wallHasT}
+          , ucrs = HomologUcrsStamp {ucrsSeq = stampSeq, wallHasT = stampWallHasT}
           }
 
 -- | Attempt typed homolog recovery morphism — fail closed on inadmissibility.

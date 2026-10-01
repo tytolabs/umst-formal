@@ -23,6 +23,11 @@ library
     UMST.Core
     UMST.Chem
     UMST.Chem.Kleisli
+    UMST.Chem.Constants.ConstantsSheaf
+    UMST.Chem.Constants.EgoffHarnessAdversarial
+    UMST.Chem.Constants.TemperatureGraph
+    UMST.Chem.Environment.EnvSampleSections
+    UMST.Chem.Environment.EnvironmentContinuum
     UMST.Concrete
     UMST.Compat
     KleisliDIB
@@ -105,13 +110,13 @@ library
     base         >= 4.18 && < 5,
     mtl          >= 2.3  && < 3.0,
     transformers >= 0.6  && < 0.7
-  ghc-options:      -Wall -Wno-unused-imports
+  ghc-options:      -Wall
   default-language: Haskell2010
 
 test-suite umst-properties
   type:             exitcode-stdio-1.0
   main-is:          Test.hs
-  other-modules:    CreditGreedy, Dignity, EtaCog, MedianConvergence, OrderStatisticsBand, RhoEstimator
+  other-modules:    CreditGreedy, Dignity, EtaCog, MedianConvergence, OrderStatisticsBand, PropertyRunner, RhoEstimator
   hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,
@@ -134,6 +139,7 @@ test-suite landauer-einstein-sanity
 test-suite meaning-state-kleisli-props
   type:             exitcode-stdio-1.0
   main-is:          MeaningStateKleisliProps.hs
+  other-modules:    PropertyRunner
   hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,

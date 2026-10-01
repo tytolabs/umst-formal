@@ -19,8 +19,6 @@ module PrimeSpectralGuidance
   , vonMangoldtWeight
   ) where
 
-import Data.List (foldl')
-
 -- | Auxiliary channel: vector of values indexed 0..n-1.
 newtype MultiplicativeChannel = MC { channelValues :: [Double] }
   deriving (Show, Eq)
@@ -33,17 +31,19 @@ vonMangoldtWeight n
   | isPrimePower n = fromIntegral (minFac n)
   | otherwise = 0
   where
-    prime x = x >= 2 && all ((/= 0) . rem x) [2 .. floor (sqrt (fromIntegral x))]
+    prime x = x >= 2 && all ((/= 0) . rem x) [2 .. floor (sqrt (fromIntegral x :: Double)) :: Int]
     isPrimePower x =
       let p = minFac x
-      in p > 1 && p ^ (maxPower p x) == x
+      in p > 1 && p ^ (maxPower p x :: Int) == x
     maxPower p x = go 0 x
       where
         go k y
           | y `mod` p /= 0 = k
           | otherwise      = go (k + 1) (y `div` p)
     minFac x =
-      head [p | p <- [2 .. x], x `mod` p == 0]
+      case [p | p <- [2 .. x], x `mod` p == 0] of
+        p : _ -> p
+        []    -> x  -- x < 2: no factor in range
 
 -- | Elementwise spectral filter.
 spectralFilter :: [Double] -> MultiplicativeChannel -> MultiplicativeChannel
@@ -52,7 +52,7 @@ spectralFilter weights (MC vals) =
 
 -- | L1 deviation from identity weights.
 weightDeviationL1 :: [Double] -> Double
-weightDeviationL1 ws = foldl' (\acc w -> acc + abs (w - 1)) 0 ws
+weightDeviationL1 ws = sum (map (\w -> abs (w - 1)) ws)
 
 -- | Identity filter leaves channel unchanged.
 spectralFilter_id_check :: MultiplicativeChannel -> Bool

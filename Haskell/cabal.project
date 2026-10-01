@@ -8,9 +8,7 @@ packages: .
 -- Update this when you intentionally add new dependencies.
 -- index-state: 2026-03-09T00:00:00Z
 
--- Keep warnings as errors in CI (overridden locally by cabal.project.local).
-program-options
-  ghc-options: -Wall -Wno-unused-top-binds
+-- Every component builds with -Wall (umst-formal.cabal); CI adds -Werror.
 
 tests: True
 

@@ -82,6 +82,9 @@ module KleisliDIB
   , build
     -- * Full cycle (Kleisli composition)
   , dibCycle
+    -- * Runner
+  , runDIB
+  , initialState
   ) where
 
 import Control.Monad.State  (StateT, get, modify', runStateT)

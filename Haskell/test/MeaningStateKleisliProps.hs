@@ -1,11 +1,15 @@
 -- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 -- SPDX-License-Identifier: MIT
+{-# OPTIONS_GHC -Wno-orphans #-}
+-- QuickCheck generators for library types live in this test executable; nothing imports it, so
+-- the orphan instances cannot meet a second instance.
 -- |
 -- QuickCheck stub for HCOM-002 Kleisli dialogue composition.
 -- Run: cabal test meaning-state-kleisli-props
 module Main where
 
 import Test.QuickCheck
+import PropertyRunner (check, finish, newRunner)
 import MeaningStateKleisli
 
 instance Arbitrary MeaningState where
@@ -27,5 +31,7 @@ prop_kleisli_compose_preserves_structural_gate s =
     Nothing -> True
 
 main :: IO ()
-main =
-  quickCheck prop_kleisli_compose_preserves_structural_gate
+main = do
+  r <- newRunner
+  check r prop_kleisli_compose_preserves_structural_gate
+  finish r

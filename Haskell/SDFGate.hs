@@ -50,11 +50,8 @@ module SDFGate
 
 import UMST
   ( ThermodynamicState (..)
-  , AdmissibilityResult (..)
-  , gateCheck
   , qHydration
   , massTolerance
-  , tolerance
   )
 
 ------------------------------------------------------------------------

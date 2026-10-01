@@ -39,7 +39,7 @@ prop_eta_cog_monotone_mi tK d mi1 mi2 e =
       d' = abs (sin d) * 5
       m1 = abs (sin mi1)
       m2 = m1 + abs (cos mi2)
-      e' = landauerJoulesPerBit tK' * m2 + 1.0
+      e' = landauerJoulesPerBit tK' * m2 + abs e + 1.0
    in property $ etaCog tK' d' m1 e' <= etaCog tK' d' m2 e' + 1e-12
 
 prop_eta_cog_antitone_energy :: Double -> Double -> Double -> Double -> Double -> Property
@@ -63,14 +63,15 @@ prop_eta_cog_energy_zero_shape tK d mi =
    in property $ abs (y - y') <= 1e-9
 
 -- | Dishonest dignity step freezes value ⇒ same η on a fixed cockpit claim.
-prop_eta_cog_frozen_dignity_path :: Double -> Double -> Double -> Double -> Double -> Property
+-- The spend is below the Landauer bound by construction (a fraction under one half of it); an energy
+-- drawn from [0.01, 1.01] J exceeds the bound (about 1e-21 J per bit) and never reached the property.
+prop_eta_cog_frozen_dignity_path :: Double -> Double -> Double -> Double -> Double -> Bool
 prop_eta_cog_frozen_dignity_path tK cur mi e ecMi =
   let tK' = 260 + abs (sin tK) * 30
       cur' = abs (sin cur) * 6
       mi' = abs (sin mi) + 0.05
-      e' = abs (sin e) + 0.01
-   in not (honestSpend tK' mi' e') ==>
-        let dAfter = dignityStep tK' cur' mi' e'
-            ecMi' = abs (sin ecMi) + 0.01
-            ecE' = landauerJoulesPerBit tK' * ecMi' + abs (cos e) + 0.5
-         in property $ abs (etaCog tK' dAfter ecMi' ecE' - etaCog tK' cur' ecMi' ecE') <= 1e-12
+      e' = landauerJoulesPerBit tK' * mi' * (abs (sin e) * 0.5)
+      dAfter = dignityStep tK' cur' mi' e'
+      ecMi' = abs (sin ecMi) + 0.01
+      ecE' = landauerJoulesPerBit tK' * ecMi' + abs (cos e) + 0.5
+   in not (honestSpend tK' mi' e') && etaCog tK' dAfter ecMi' ecE' == etaCog tK' cur' ecMi' ecE'
