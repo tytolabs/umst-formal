@@ -18,8 +18,8 @@ prop_cost_additive :: Property
 prop_cost_additive = forAll nonneg $ \e -> \a b -> cost e (a + b) == cost e a + cost e b
 
 -- The state is built inside admission (budget and desync = cost + slack); a random state rarely is.
-admitted :: Gen (Rational, Rational, ClockThermState)
-admitted = do
+admittedSync :: Gen (Rational, Rational, ClockThermState)
+admittedSync = do
   e <- nonneg
   bits <- nonneg
   sb <- nonneg
@@ -28,11 +28,11 @@ admitted = do
   pure (e, bits, ClockThermState (cost e bits + sd) (cost e bits + sb) spent)
 
 prop_admitted_cost_bounded :: Property
-prop_admitted_cost_bounded = forAll admitted $ \(e, bits, s) ->
+prop_admitted_cost_bounded = forAll admittedSync $ \(e, bits, s) ->
   admits e s bits && cost e bits >= 0 && cost e bits <= budget s && cost e bits <= desyncEnergy s && budget s >= 0
 
 prop_gatedSync_second_law :: Property
-prop_gatedSync_second_law = forAll admitted $ \(e, bits, s) ->
+prop_gatedSync_second_law = forAll admittedSync $ \(e, bits, s) ->
   let s' = gatedSync e s bits
    in desyncEnergy s' <= desyncEnergy s && totalSyncCost s <= totalSyncCost s'
 
