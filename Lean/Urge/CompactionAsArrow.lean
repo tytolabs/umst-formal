@@ -256,10 +256,6 @@ theorem positiveRefuseNotSilent :
 -- SECTION 6: Honesty flags + catalog witnesses
 -- ================================================================
 
-def compactionAsArrowMarker : Nat := 175
-
-theorem compactionAsArrowMarkerPos : 0 < compactionAsArrowMarker := by decide
-
 theorem deleteOldCommitsRefused (a : CompactionAttempt)
     (h : a.attemptDeleteOldCommits = true) :
     evaluateCompactionAttemptRefuse a = Sum.inr .deleteOldCommitsTheater := by

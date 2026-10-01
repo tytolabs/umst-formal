@@ -250,6 +250,4 @@ theorem invariantWitnessPositiveRefuseNotSilent :
     evaluateInvariantWitnessOperation true ≠ .admitOk := by
   decide
 
-def invariantWitnessMarker : Nat := 3
-
 end UMST.Urge.InvariantWitness

@@ -43,8 +43,6 @@ theorem untaggedConstant_tag : residueConstructorTag .untaggedConstant = "Untagg
 theorem noStrictImprovement_tag :
     residueConstructorTag .noStrictImprovement = "NoStrictImprovement" := rfl
 
-def residueConstructorCount : Nat := 6
-
 structure ClosedLoopResidueCounts where
   noCandidates          : ℕ
   allInadmissible       : ℕ

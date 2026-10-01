@@ -19,6 +19,8 @@ Four kinds, each decided from the text of one file:
   trivial    the statement is `True`;
   table      the statement is `f c = v` for a constructor `c` and a literal `v`, proved by `rfl` or `decide`, where `f`
              is defined in the same file by cases whose every result is a literal: it reads back a row of the table;
+  unused-literal an order or arithmetic fact about this file's literals (`0 < marker`) that no other declaration of
+             the tree uses: a helper such as `0 < c ^ 2` that proofs cite is a computed fact and stays;
   bundle     the statement is a conjunction and the proof only pairs declarations of the tree applied to the
              statement's own binders (`⟨a x, (b x).symm, c x⟩`): the conjuncts are already theorems.
 
@@ -119,6 +121,9 @@ def declarations(text: str):
         yield (m, *(" ".join(x.split()) for x in (binders, stmt, proof)))
 
 
+USES: dict[str, int] = {}
+
+
 def theatre(text: str, index: dict[str, set[tuple[str, str]]] | None = None) -> list[tuple[str, int, str]]:
     """(name, line, kind: statement) for each theatre declaration of one Lean file; `index` maps each declaration
     name of the tree (last component) to its (binders, statement) forms."""
@@ -141,6 +146,10 @@ def theatre(text: str, index: dict[str, set[tuple[str, str]]] | None = None) -> 
             idents = [n.split(".")[-1] for n in re.findall(r"[A-Za-z_][\w.']*", stmt_n) if n not in KEYWORDS]
             if idents and all(n in lit for n in idents):
                 kind = "literal"
+        if kind is None and not binders_n and USES.get(m.group(2).split(".")[-1], 0) <= 1:
+            idents = [n.split(".")[-1] for n in re.findall(r"[A-Za-z_][\w.']*", stmt_n) if n not in KEYWORDS]
+            if idents and all(n in lit for n in idents) and re.search(r"[<>≤≥]", stmt_n):
+                kind = "unused-literal"
         if kind is None and not binders_n and '"' in stmt_n:
             bare = re.sub(r'"(?:[^"\\]|\\.)*"', "", stmt_n)
             rest = {n for n in re.findall(r"[A-Za-z_][\w']*", bare)} - KEYWORDS - STRING_OPS
@@ -202,6 +211,10 @@ def census() -> dict[str, list[tuple[str, int, str]]]:
         with open(os.path.join(ROOT, f), encoding="utf-8", errors="replace") as fh:
             texts[f] = strip_comments(fh.read(), "--", ("/-", "-/"))
     index: dict[str, set[tuple[str, str]]] = {}
+    alltext = "\n".join(texts.values())
+    USES.clear()
+    for word in re.findall(r"[A-Za-z_][\w']*", alltext):
+        USES[word] = USES.get(word, 0) + 1
     for text in texts.values():
         for m, binders_n, stmt_n, _ in declarations(text):
             index.setdefault(m.group(2).split(".")[-1], set()).add((binders_n, stmt_n))

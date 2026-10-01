@@ -165,9 +165,6 @@ def environmentContinuumSecondLawEq (old new : ThermodynamicState) : Prop :=
   | none => True
   | some (_, c, _) => c = gateDissipationWitness old new
 
-/-- Cardinality of named environment sections (not XOR — all three named). -/
-def environmentRegimeCardinality : ℕ := 3
-
 -- ================================================================
 -- SECTION 3: Composition interdependence (Coq dot_list mirror)
 -- ================================================================

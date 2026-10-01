@@ -303,6 +303,4 @@ theorem admissibleFabricHistoryMove_intro (h : FabricHistoryMove)
 
 abbrev admitFabricInbound := admissibleFabricHistoryMove
 
-def fabricNodesMarker : Nat := 1
-
 end UMST.Urge.FabricNodes

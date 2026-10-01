@@ -121,8 +121,6 @@ def replicaClassBlueprintRow (c : ReplicaClassLabel) : ReplicaClassTableRow :=
       replicaRowEgress := .customerPolicy
       replicaRowAuthority := .onSiteRecord }
 
-def replicaClassTableCardinality : Nat := 6
-
 def replicaClassLabelToNat (c : ReplicaClassLabel) : Nat :=
   match c with
   | .node0DevClone => 0
@@ -272,11 +270,5 @@ theorem replicaClassPositiveRefuseNotSilent :
           fabricRowAdmit := .admitted } := by
   intro h
   cases h
-
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def replicaClassMarker : Nat := 1
 
 end UMST.Urge.ReplicaClass

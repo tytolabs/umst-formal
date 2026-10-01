@@ -381,12 +381,4 @@ structure MergeTransitionLaw where
   dissipatedWork  : ℝ
   entropyDrop     : ℝ
 
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def kleisliMergeMarker : Nat := 167
-
-theorem kleisliMergeMarkerPos : 0 < kleisliMergeMarker := by decide
-
 end UMST.Urge.KleisliMerge

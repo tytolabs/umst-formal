@@ -120,8 +120,6 @@ theorem residueConstructorsDistinctHolds : residueConstructorsDistinct :=
    residueConstructorTag_allExcludedByDEC_ne_noStrictImprovement,
    residueConstructorTag_untaggedConstant_ne_noStrictImprovement⟩
 
-def residueConstructorCount : Nat := 6
-
 def pinSixResidueConstructors : List Residue :=
   [.noCandidates, .allInadmissible, .allExcludedByCBF, .allExcludedByDEC,
    .untaggedConstant, .noStrictImprovement]

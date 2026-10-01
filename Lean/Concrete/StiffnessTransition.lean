@@ -204,9 +204,6 @@ theorem stiffnessTransitionDirIsNegGrad
 /-- Schema pin — matches Rust v2 grid fixture (`lean_l1_stiffness_v2`). -/
 def l1aRationalGridSchema : String := "lean_l1_stiffness_v2"
 
-/-- Pinned rational witness row count (v2 grid 7/7). -/
-def l1aRationalGridRowCount : Nat := 7
-
 /-- Reference E₀ for grid rows 1–3, 5–6 (30 GPa as ℚ). -/
 def gridE0RefPa : ℚ := 30000000000
 

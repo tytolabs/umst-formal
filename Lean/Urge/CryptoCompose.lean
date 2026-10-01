@@ -252,10 +252,4 @@ theorem admissibleCryptoCompose_intro (h : CryptoHistoryMove)
 
 abbrev admitCryptoInbound := admissibleCryptoCompose
 
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def cryptoComposeMarker : Nat := 1
-
 end UMST.Urge.CryptoCompose

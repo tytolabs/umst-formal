@@ -68,8 +68,6 @@ theorem replicaClassesNotXorHolds : replicaClassesNotXor :=
    replicaClassTag_node0_ne_luks, replicaClassTag_node1_ne_forge,
    replicaClassTag_node1_ne_luks, replicaClassTag_forge_ne_luks⟩
 
-def replicaClassCount : Nat := 4
-
 structure ReplicaMeshSheaf where
   sectionProbe : ReplicaClass → ℕ
 

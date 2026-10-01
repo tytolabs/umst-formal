@@ -340,10 +340,4 @@ theorem latency_budget_positive_refuse_not_silent :
     evaluateWallClockSlaOperation true ≠ .admitOk := by
   simp [evaluateWallClockSlaOperation]
 
--- ================================================================
--- SECTION 7: Honesty flags + catalog witnesses
--- ================================================================
-
-def latencyBudgetMarker : Nat := 1
-
 end UMST.Urge.LatencyBudget

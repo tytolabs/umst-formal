@@ -265,10 +265,4 @@ theorem admissibleSignedPropagateHistoryMove_intro (h : SignedPropagateHistoryMo
 
 abbrev admitSignedPropagateInbound := admissibleSignedPropagateHistoryMove
 
--- ================================================================
--- SECTION 6: Honesty flags + catalog witnesses
--- ================================================================
-
-def signedPropagateMarker : Nat := 1
-
 end UMST.Urge.SignedPropagate

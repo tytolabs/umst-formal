@@ -41,9 +41,6 @@ def carbonElement : Element := ⟨6, by decide⟩
 /-- Canonical helium element (Z = 2). -/
 def heliumElement : Element := ⟨2, by decide⟩
 
-/-- IUPAC element cardinality pin. -/
-def elementCardinality : ℕ := 118
-
 theorem elementZ_in_range (e : Element) : 1 ≤ e.z ∧ e.z ≤ 118 :=
   e.hZ
 
@@ -107,9 +104,6 @@ def PatternClass.index : PatternClass → Fin 25
   | .vacuumInertLimit => 22
   | .continuumVsDiscreteElementId => 23
   | .otherNamedNuance => 24
-
-/-- §2 class cardinality (north-star pinned). -/
-def patternClassCardinality : ℕ := 25
 
 /-- Recover class from index (partial inverse of `index`). -/
 def patternClassOfFin (i : Fin 25) : PatternClass :=
@@ -278,13 +272,16 @@ def patternClassifier (c : PatternClass) (e : Element) : Prop :=
   | .continuumVsDiscreteElementId => continuumVsDiscreteElementIdClassifier e
   | .otherNamedNuance => otherNamedNuanceClassifier e
 
-/-- Every §2 class index maps to a named classifier (north-star bijection). -/
-theorem pattern_taxonomy_all_classifiers_present :
-    patternClassCardinality = 25 ∧
-    (∀ c : PatternClass, patternClassOfFin (PatternClass.index c) = c) := by
-  refine ⟨rfl, ?_⟩
-  intro c
-  exact patternClass_index_roundtrip c
+/-- Indexing is onto: every index in `Fin 25` names a class. -/
+theorem patternClass_ofFin_index (i : Fin 25) : PatternClass.index (patternClassOfFin i) = i := by
+  revert i; decide
+
+/-- The pattern classes are exactly 25: indexing is a bijection onto `Fin 25`. -/
+def patternClassEquiv : PatternClass ≃ Fin 25 where
+  toFun := PatternClass.index
+  invFun := patternClassOfFin
+  left_inv := patternClass_index_roundtrip
+  right_inv := patternClass_ofFin_index
 
 /-- Sibling Ore module witness discharges the ore-assemblage classifier scaffold. -/
 theorem naturalOre_classifier_links_module (e : Element) :

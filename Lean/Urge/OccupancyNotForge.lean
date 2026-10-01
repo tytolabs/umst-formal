@@ -111,8 +111,6 @@ def fourNamesUnfused : Prop :=
 theorem fourNamesUnfusedHolds : fourNamesUnfused :=
   ⟨occupancy_tag_ne_forge, forge_tag_ne_meta, meta_tag_ne_padma, padma_tag_ne_occupancy⟩
 
-def fourNameCount : Nat := 4
-
 /-- Classify without fusion — identity-preserving surrogate. -/
 def classifyUrgeName (n : UrgeUnfusedName) : UrgeUnfusedName := n
 

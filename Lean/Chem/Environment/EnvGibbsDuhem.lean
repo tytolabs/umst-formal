@@ -40,8 +40,6 @@ def envGibbsDuhemLegTags : List EnvGibbsDuhemLeg :=
    EnvGibbsDuhemLeg.Pressure,
    EnvGibbsDuhemLeg.ChemicalPotential]
 
-def envGibbsDuhemLegCardinality : ℕ := 3
-
 theorem envGibbsDuhemLegTemperaturePressureDistinct :
     EnvGibbsDuhemLeg.Temperature ≠ EnvGibbsDuhemLeg.Pressure := by
   rintro h; cases h
@@ -68,8 +66,6 @@ def envDebyeSquareLegTags : List EnvDebyeSquareLeg :=
   [EnvDebyeSquareLeg.DebyeTemperature,
    EnvDebyeSquareLeg.DebyeIonicStrength,
    EnvDebyeSquareLeg.DebyePermittivity]
-
-def envDebyeSquareLegCardinality : ℕ := 3
 
 theorem envDebyeLegTemperatureIonicDistinct :
     EnvDebyeSquareLeg.DebyeTemperature ≠ EnvDebyeSquareLeg.DebyeIonicStrength := by

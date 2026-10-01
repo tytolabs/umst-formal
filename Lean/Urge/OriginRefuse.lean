@@ -62,8 +62,6 @@ theorem originHostClassesNotXorHolds : originHostClassesNotXor :=
   ⟨originHostTag_originCursor_ne_github, originHostTag_originCursor_ne_forgejo,
    originHostTag_github_ne_forgejo⟩
 
-def originHostClassCount : Nat := 4
-
 def originHostIsCursor (c : OriginHostClass) : Bool :=
   match c with
   | .originCursor => true

@@ -267,9 +267,6 @@ def elementZ : Element → ℕ
   | .Ts => 117
   | .Og => 118
 
-/-- IUPAC element cardinality pin. -/
-def elementCardinality : ℕ := 118
-
 /-- Atomic numbers lie in the IUPAC closed range. -/
 theorem elementZ_in_range (e : Element) : 1 ≤ elementZ e ∧ elementZ e ≤ 118 := by
   cases e <;> decide

@@ -192,12 +192,4 @@ theorem compactionComposeAssocInherited (f g h : AdmitArrow) (s : ThermodynamicS
     compactionCompose (compactionCompose f g) h s = compactionCompose f (compactionCompose g h) s :=
   kleisliComposeAssocAt f g h s
 
--- ================================================================
--- SECTION 5: Honesty flags + catalog witnesses
--- ================================================================
-
-def compactionCompositeMarker : Nat := 175
-
-theorem compactionCompositeMarkerPos : 0 < compactionCompositeMarker := by decide
-
 end UMST.Urge.CompactionComposite
