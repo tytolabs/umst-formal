@@ -1053,6 +1053,26 @@
    }
   },
   {
+   "id": "excitement.select_perm_invariant",
+   "statement": "selection does not depend on the order of candidates with distinct ids",
+   "lean": {
+    "name": "select_perm_invariant",
+    "file": "Lean/ExcitementProofs.lean"
+   },
+   "coq": {
+    "name": "select_perm_invariant",
+    "file": "Coq/Excitement.v"
+   },
+   "agda": {
+    "name": "select-perm-invariant",
+    "file": "Agda/Excitement.agda"
+   },
+   "haskell": {
+    "name": "prop_select_perm_invariant",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
    "id": "concrete.cand_second_law",
    "statement": "every candidate move of a cement state is a member of the second-law predicate (so is the candidate selection returns)",
    "lean": {
