@@ -505,6 +505,12 @@ prop_process_satisfiable :: Property
 prop_process_satisfiable = once $
   P.secondLaw (P.Erase (P.landauerTightErasure (P.HeatBath 300))) (P.Erasure P.uniform2)
 
+-- Independent erasures: the entropy both remove is at most the entropy both dissipate.
+prop_process_erasure_additive :: Positive Double -> Double -> Double -> Property
+prop_process_erasure_additive (Positive t) w1 w2 =
+  let law w = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure P.uniform2)
+   in (law w1 && law w2) ==> 2 * log 2 <= (w1 + w2) / t + 1e-12
+
 main :: IO ()
 main = do
   r <- newRunner
@@ -636,6 +642,7 @@ main = do
   check r prop_chem_secondlaw_comp
   check r prop_process_transition_refl
   check r prop_process_satisfiable
+  check r prop_process_erasure_additive
 
   putStrLn "-- CoordinationContract (Lean, Coq and Agda laws; umst-ucrs runtime model)"
   check r prop_cost_nonneg

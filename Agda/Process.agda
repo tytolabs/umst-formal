@@ -112,3 +112,8 @@ transition-refl = admissible-refl
 -- The predicate is satisfiable: an erasure that removes no entropy and dissipates none obeys it.
 satisfiable : SecondLaw (erase idle) (erasure 0ℚ)
 satisfiable = ≤-refl
+
+-- Independent erasures: the entropy both remove is at most the entropy both dissipate.
+erasure-additive : ∀ e₁ e₂ ΔS₁ ΔS₂ → SecondLaw (erase e₁) (erasure ΔS₁) → SecondLaw (erase e₂) (erasure ΔS₂) →
+  ΔS₁ + ΔS₂ ≤ ErasureProcess.dissipatedEntropy e₁ + ErasureProcess.dissipatedEntropy e₂
+erasure-additive e₁ e₂ ΔS₁ ΔS₂ h₁ h₂ = +-mono-≤ h₁ h₂

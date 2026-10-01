@@ -706,6 +706,26 @@
    "haskell": {
     "absent": "pending: coherentP0_chemSecondLaw in Haskell"
    }
+  },
+  {
+   "id": "second_law.erasure_additive",
+   "statement": "independent erasures: the entropy both remove is at most the entropy both dissipate",
+   "lean": {
+    "name": "SecondLaw_erasure_additive",
+    "file": "Lean/Process.lean"
+   },
+   "coq": {
+    "name": "SecondLaw_erasure_additive",
+    "file": "Coq/Process.v"
+   },
+   "agda": {
+    "name": "erasure-additive",
+    "file": "Agda/Process.agda"
+   },
+   "haskell": {
+    "name": "prop_process_erasure_additive",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }

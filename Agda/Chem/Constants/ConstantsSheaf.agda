@@ -16,7 +16,7 @@
 
 module Chem.Constants.ConstantsSheaf where
 open import Chem.Conservation
-open import Chem.KleisliInteract using (admissible-step; admissible-refl)
+open import Chem.KleisliInteract using (admissible-step)
 open import Concrete.Gate
 open Concrete.Gate using
   ( ThermodynamicState

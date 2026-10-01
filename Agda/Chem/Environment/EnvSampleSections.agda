@@ -14,7 +14,7 @@
 
 module Chem.Environment.EnvSampleSections where
 open import Chem.Environment.EnvironmentContinuum
-open import Chem.KleisliInteract using (admissible-refl)
+open import Concrete.Gate using (admissible-refl)
 open import Concrete.Gate using (ThermodynamicState; gate)
 open import Data.Bool using (Bool; false)
 open import Data.List using (List; []; _∷_; length)

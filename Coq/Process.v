@@ -203,3 +203,10 @@ Proof.
   exists (erase (landauerTightErasure (mkHeatBath 300 ltac:(lra)))), (erasure uniform2).
   apply landauerTight.
 Qed.
+
+(** Independent erasures: the entropy both remove is at most the entropy both dissipate. *)
+Theorem SecondLaw_erasure_additive (e1 e2 : ErasureProcess) (p q : ProbDist2) :
+  SecondLaw (erase e1) (erasure p) -> SecondLaw (erase e2) (erasure q) ->
+  (shannon2 p - shannon2 dirac0) + (shannon2 q - shannon2 dirac0) <=
+    work e1 / bathTemp (erasureBath e1) + work e2 / bathTemp (erasureBath e2).
+Proof. simpl. unfold eraseSecondLaw. intros h1 h2. lra. Qed.

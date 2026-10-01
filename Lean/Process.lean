@@ -199,4 +199,12 @@ theorem SecondLaw_transformation_comp (b : HeatBath) {n : ℕ} (p q r : ProbDist
   show shannonEntropy p - shannonEntropy r ≤ (W₁ + W₂) / b.bathTemp.val
   rw [add_div]; linarith
 
+/-- Independent erasures: the entropy both remove is at most the entropy both dissipate. -/
+theorem SecondLaw_erasure_additive (e₁ e₂ : ErasureProcess) (p q : ProbDist 2)
+    (h₁ : SecondLaw (.erase e₁) (.erasure p)) (h₂ : SecondLaw (.erase e₂) (.erasure q)) :
+    (shannonEntropy p - shannonEntropy (diracDist (0 : Fin 2))) +
+        (shannonEntropy q - shannonEntropy (diracDist (0 : Fin 2))) ≤
+      e₁.work / e₁.bath.bathTemp.val + e₂.work / e₂.bath.bathTemp.val :=
+  add_le_add h₁ h₂
+
 end UMST.ProcessFamily
