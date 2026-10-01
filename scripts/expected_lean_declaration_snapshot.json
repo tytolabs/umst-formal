@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 81,
+  "lake_roots_count": 82,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -39,6 +39,7 @@
     "SemanticEconomicModules",
     "ClassicalMeasurementCost",
     "CoordinationCost",
+    "CoordinationContract",
     "LandauerExtension",
     "FiberedActivation",
     "MonoidalState",
@@ -85,14 +86,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 569,
+    "theorem": 578,
     "lemma": 64,
-    "total": 633
+    "total": 642
   },
   "all_lean_glob": {
-    "theorem": 2191,
+    "theorem": 2200,
     "lemma": 64,
-    "total": 2255
+    "total": 2264
   },
   "per_root": {
     "Core.Scalar": {
@@ -241,6 +242,10 @@
     },
     "CoordinationCost": {
       "theorem": 42,
+      "lemma": 0
+    },
+    "CoordinationContract": {
+      "theorem": 9,
       "lemma": 0
     },
     "LandauerExtension": {
