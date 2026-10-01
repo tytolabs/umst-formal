@@ -17,7 +17,7 @@ import Process
 open Real Finset UMST.LandauerLaw UMST.InfoTheory UMST.InfoTheory.JointDist
 open UMST.ProcessFamily UMST.Core UMST.Real
 
-/-- Disambiguate from `LandauerLaw.SecondLaw` (erasure-only abbrev). -/
+/-- The one predicate (`LandauerLaw.eraseSecondLaw` is its erase instance). -/
 local notation "SecondLawₚ" => UMST.ProcessFamily.SecondLaw
 
 namespace UMST.OneInequalitySecondLaw

@@ -161,15 +161,13 @@ def eraseSecondLawStep (proc : ErasureProcess) (prior post : ProbDist 2) : Prop 
 
     This is the membership test for physically admissible erasures — not a
     universal quantifier over every `ErasureProcess`.  Theorems take
-    `(h : SecondLaw proc prior)` (or `physicalSecondLawUniformBinary proc`). -/
+    `(h : eraseSecondLaw proc prior)` (or `physicalSecondLawUniformBinary proc`); the process-family view is
+    `UMST.ProcessFamily.SecondLaw (.erase proc) (.erasure prior)`, equal by definition. -/
 def eraseSecondLaw (proc : ErasureProcess) (prior : ProbDist 2) : Prop :=
   eraseSecondLawStep proc prior (diracDist (0 : Fin 2))
 
-/-- Erasure-only spelling retained for existing importers (`ProcessFamily.SecondLaw` generalises this). -/
-abbrev SecondLaw := eraseSecondLaw
-
-/-- Wire anchor name (runtime `axiom_anchor: "physicalSecondLaw"`) — erase-instance predicate
-    (same as `eraseSecondLaw`; process-family view in `Process.lean`). -/
+/-- Runtime anchor name (`axiom_anchor: "physicalSecondLaw"`, cited across the ecosystem): the erase instance
+    `eraseSecondLaw` of the one predicate `UMST.ProcessFamily.SecondLaw`, kept as the anchor's name. -/
 abbrev physicalSecondLaw := eraseSecondLaw
 
 /-- Uniform-binary erasure instance, spelt for binder ergonomics (Lean 4 parse issue on
