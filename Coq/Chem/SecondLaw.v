@@ -48,3 +48,43 @@ Proof.
   intros HT.
   exact (m_mass_equivalent_pos T HT).
 Qed.
+
+(* ------------------------------------------------------------------ *)
+(*  The chemical second law: an instance of the one predicate           *)
+(* ------------------------------------------------------------------ *)
+
+From UMSTFormal Require Import Process.
+
+(** A thermochemical update of an assemblage: bath, state distributions before and after, the work it
+    dissipates (units of k_B times kelvin) and a structural defect scalar. *)
+Record ThermochemicalTransition : Type := mkThermochemicalTransition {
+  tcBath : HeatBath;
+  tcPrior : ProbDist;
+  tcPost : ProbDist;
+  tcWork : R;
+  tcDefect : R
+}.
+
+Definition structurallyCoherent (t : ThermochemicalTransition) : Prop := tcDefect t = 0.
+
+(** The erasure that pays for a transition. *)
+Definition tcErasure (t : ThermochemicalTransition) : ErasureProcess := mkErasure (tcBath t) (tcWork t).
+
+(** The chemical second law: a coherent update whose erasure obeys the one second law on its transformation. *)
+Definition chemSecondLaw (t : ThermochemicalTransition) : Prop :=
+  structurallyCoherent t /\ SecondLaw (erase (tcErasure t)) (transformation (tcPrior t) (tcPost t)).
+
+Theorem chemSecondLaw_iff (t : ThermochemicalTransition) :
+  chemSecondLaw t <->
+    structurallyCoherent t /\ shannon (tcPrior t) - shannon (tcPost t) <= tcWork t / bathTemp (tcBath t).
+Proof. reflexivity. Qed.
+
+(** Two coherent updates at one bath, the second starting where the first ends, compose: the whole update obeys
+    the second law at the summed work. *)
+Theorem chemSecondLaw_comp (t1 t2 : ThermochemicalTransition) :
+  tcBath t1 = tcBath t2 -> tcPost t1 = tcPrior t2 -> chemSecondLaw t1 -> chemSecondLaw t2 ->
+  SecondLaw (erase (mkErasure (tcBath t1) (tcWork t1 + tcWork t2))) (transformation (tcPrior t1) (tcPost t2)).
+Proof.
+  intros hb hp [_ h1] [_ h2]. unfold tcErasure in *. rewrite <- hb in h2. rewrite <- hp in h2.
+  exact (SecondLaw_transformation_comp (tcBath t1) _ _ _ _ _ h1 h2).
+Qed.

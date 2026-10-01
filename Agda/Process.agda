@@ -20,11 +20,13 @@
 module Process where
 
 open import Data.Empty using (⊥)
-open import Data.Rational using (ℚ; _≤_; _+_; _*_; -_)
-open import Data.Rational.Properties using (+-mono-≤)
+open import Data.Rational using (ℚ; 0ℚ; _≤_; _+_; _*_; _-_; -_)
+open import Data.Rational.Properties using (+-mono-≤; ≤-refl; ≤-reflexive; ≤-trans)
+open import Data.Rational.Solver using (module +-*-Solver)
+open import Relation.Binary.PropositionalEquality using (_≡_; refl; sym; subst)
 open import Relation.Nullary using (¬_)
 
-open import Concrete.Gate using (ThermodynamicState; Admissible)
+open import Concrete.Gate using (ThermodynamicState; Admissible; admissible-refl)
 
 -- An erasure, by the entropy its work dissipates into the bath: W / T in nats.
 record ErasureProcess : Set where
@@ -47,6 +49,8 @@ data Prior : Set where
   erasure       : (entropyDrop : ℚ) → Prior
   feedback      : (mutualInformation : ℚ) → Prior
   thermodynamic : (old new : ThermodynamicState) → Prior
+  -- a transformation of a distribution, by the entropies (nats) before and after
+  transformation : (entropyPrior entropyPost : ℚ) → Prior
 
 -- The second law: one predicate over the process family.
 SecondLaw : Process → Prior → Set
@@ -54,6 +58,9 @@ SecondLaw (erase e)           (erasure ΔS)             = ΔS ≤ ErasureProcess
 SecondLaw (measureFeedback f) (feedback I)             =
   FeedbackProcess.extWork f ≤ (- FeedbackProcess.deltaFreeEnergy f) + FeedbackProcess.kBT f * I
 SecondLaw transition          (thermodynamic old new) = Admissible old new
+SecondLaw (erase e)           (transformation Hp Hq)  = Hp - Hq ≤ ErasureProcess.dissipatedEntropy e
+SecondLaw (measureFeedback _) (transformation _ _)    = ⊥
+SecondLaw transition          (transformation _ _)    = ⊥
 SecondLaw (erase _)           (feedback _)            = ⊥
 SecondLaw (erase _)           (thermodynamic _ _)     = ⊥
 SecondLaw (measureFeedback _) (erasure _)             = ⊥
@@ -65,8 +72,43 @@ SecondLaw transition          (feedback _)            = ⊥
 erase-feedback-refused : ∀ e I → ¬ SecondLaw (erase e) (feedback I)
 erase-feedback-refused e I ()
 
--- Erasures in sequence: the entropy removed by both is at most the entropy both dissipate
--- (twin of Lean LandauerLaw.secondLaw_sequential_compose).
-sequential : ∀ e₁ e₂ ΔS₁ ΔS₂ → SecondLaw (erase e₁) (erasure ΔS₁) → SecondLaw (erase e₂) (erasure ΔS₂) →
-  ΔS₁ + ΔS₂ ≤ ErasureProcess.dissipatedEntropy e₁ + ErasureProcess.dissipatedEntropy e₂
-sequential e₁ e₂ ΔS₁ ΔS₂ h₁ h₂ = +-mono-≤ h₁ h₂
+-- Binary erasure is the transformation whose target has zero entropy (the Dirac state).
+erasure-is-transformation : ∀ e ΔS → SecondLaw (erase e) (erasure ΔS) → SecondLaw (erase e) (transformation ΔS 0ℚ)
+erasure-is-transformation e ΔS h = ≤-trans (≤-reflexive (minus-zero ΔS)) h
+  where
+  open +-*-Solver
+  minus-zero : ∀ a → a - 0ℚ ≡ a
+  minus-zero = solve 1 (λ a → a :- con 0ℚ := a) refl
+
+private
+  open +-*-Solver
+  self-minus : ∀ a → a - a ≡ 0ℚ
+  self-minus = solve 1 (λ a → a :- a := con 0ℚ) refl
+  telescope : ∀ a b c → a - c ≡ (a - b) + (b - c)
+  telescope = solve 3 (λ a b c → a :- c := (a :- b) :+ (b :- c)) refl
+
+-- An erasure that dissipates no entropy.
+idle : ErasureProcess
+idle = record { dissipatedEntropy = 0ℚ }
+
+-- Leaving a distribution unchanged costs nothing.
+transformation-id : ∀ H → SecondLaw (erase idle) (transformation H H)
+transformation-id H = ≤-reflexive (self-minus H)
+
+-- The erasure dissipating both erasures' entropy.
+_⊕_ : ErasureProcess → ErasureProcess → ErasureProcess
+e₁ ⊕ e₂ = record { dissipatedEntropy = ErasureProcess.dissipatedEntropy e₁ + ErasureProcess.dissipatedEntropy e₂ }
+
+-- Composition: transformations p → q and q → r that obey the second law compose into p → r, whose cost is the
+-- sum (entropy drops telescope).
+transformation-comp : ∀ e₁ e₂ Hp Hq Hr → SecondLaw (erase e₁) (transformation Hp Hq) →
+  SecondLaw (erase e₂) (transformation Hq Hr) → SecondLaw (erase (e₁ ⊕ e₂)) (transformation Hp Hr)
+transformation-comp e₁ e₂ Hp Hq Hr h₁ h₂ = ≤-trans (≤-reflexive (telescope Hp Hq Hr)) (+-mono-≤ h₁ h₂)
+
+-- A state move that changes nothing is admissible.
+transition-refl : ∀ s → SecondLaw transition (thermodynamic s s)
+transition-refl = admissible-refl
+
+-- The predicate is satisfiable: an erasure that removes no entropy and dissipates none obeys it.
+satisfiable : SecondLaw (erase idle) (erasure 0ℚ)
+satisfiable = ≤-refl

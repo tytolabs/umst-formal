@@ -13,6 +13,9 @@ module UMST.Process
   , ErasureProcess (..)
   , FeedbackProcess (..)
   , ProbDist2 (..)
+  , ProbDist (..)
+  , shannon
+  , asProbDist
   , Process (..)
   , Prior (..)
   , shannon2
@@ -49,7 +52,23 @@ data Process = Erase ErasureProcess | MeasureFeedback FeedbackProcess | Transiti
 
 -- | The prior a process is judged against: a distribution to erase, the mutual information (nats) a measurement
 -- acquired, or the two states of a gate move.
-data Prior = Erasure ProbDist2 | Feedback Double | Thermodynamic ThermodynamicState ThermodynamicState
+data Prior
+  = Erasure ProbDist2
+  | Feedback Double
+  | Thermodynamic ThermodynamicState ThermodynamicState
+  | Transformation ProbDist ProbDist  -- ^ a distribution transformed into another (n states)
+
+-- | A distribution on finitely many states: nonnegative masses summing to one.
+newtype ProbDist = ProbDist { mass :: [Double] }
+  deriving (Show)
+
+-- | Shannon entropy in nats of an n-state distribution.
+shannon :: ProbDist -> Double
+shannon = negate . sum . map xlnx . mass
+
+-- | A two-state distribution as an n-state one; its entropy is the binary entropy.
+asProbDist :: ProbDist2 -> ProbDist
+asProbDist (ProbDist2 p) = ProbDist [p, 1 - p]
 
 -- | x ln x with the continuous extension 0 ln 0 = 0.
 xlnx :: Double -> Double
@@ -75,6 +94,8 @@ secondLaw (MeasureFeedback f) (Feedback mi) =
   extWork f <= negate (deltaFreeEnergy f) + kB * bathTemp (feedbackBath f) * mi
 secondLaw Transition (Thermodynamic old new) = accepted (gateCheck old new 1)  -- a unit step; the verdict's
                                                                              -- sign conditions do not depend on it
+secondLaw (Erase e) (Transformation p q) =
+  shannon p - shannon q <= work e / bathTemp (erasureBath e)
 secondLaw _ _ = False
 
 -- | The erasure that dissipates exactly T ln 2: it attains the Landauer bound.

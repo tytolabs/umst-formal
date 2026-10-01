@@ -93,7 +93,7 @@ def linearConservationPreserved {n : ℕ} (w : LinearConservationWitness n)
 /-- Admissible conserved transition: second law + linear conservation witness. -/
 def admissibleConservedTransition {n : ℕ} (w : LinearConservationWitness n)
     (t : ConservedChemTransition n) : Prop :=
-  admissibleThermochemicalTransition t.thermo ∧
+  chemSecondLaw t.thermo ∧
   linearConservationPreserved w t
 
 -- ================================================================
@@ -151,8 +151,7 @@ theorem affine_entropy_from_physical (b : PhysicalChemBridge)
     affineDissipativeWitness w b.transition.bath.bathTemp.val b.transition.dissipatedWork := by
   have hbath :
       b.transition.bath.bathTemp.val = b.proc.bath.bathTemp.val := by
-    simpa [chemHeatBathOf] using
-      congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
+    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   have hT : 0 < b.transition.bath.bathTemp.val := by rw [hbath]; exact b.proc.bath.bathTemp.property
   have hW : 0 < b.transition.dissipatedWork := by rw [b.workEq]; exact landauerBound_pos b.proc hSL
   exact affineDissipative_zero_slack w hslack _ _ (le_of_lt hT) (le_of_lt hW)

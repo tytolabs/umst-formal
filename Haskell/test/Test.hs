@@ -27,6 +27,7 @@ import qualified PrimeSpectralGuidance
 import CoordinationContractProps
 import qualified UMST.Constants.SI as SI
 import qualified UMST.Process as P
+import qualified UMST.Chem.SecondLaw as CS
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -458,14 +459,51 @@ prop_process_refuses_wrong_prior :: Double -> Double -> Property
 prop_process_refuses_wrong_prior w mi =
   property $ not (P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath 300) w)) (P.Feedback mi))
 
-prop_process_sequential :: Positive Double -> Double -> Double -> Property
-prop_process_sequential (Positive t) w1 w2 =
-  let law w = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure P.uniform2)
-   in (law w1 && law w2) ==> 2 * log 2 <= (w1 + w2) / t + 1e-12
 
 prop_process_si_bound :: Positive Double -> Double -> Property
 prop_process_si_bound (Positive t) w =
   P.eraseSecondLawSI t (log 2) w ==> P.kB * t * log 2 <= w * (1 + 1e-12) + 1e-300
+
+-- n-state transformations (UMST.Process): the binary case, identity and composition.
+genDist :: Int -> Gen P.ProbDist
+genDist n = do
+  xs <- vectorOf n (choose (0, 1 :: Double)) `suchThat` (\ys -> sum ys > 1e-6)
+  pure (P.ProbDist (map (/ sum xs) xs))
+
+prop_process_binary_is_transformation :: Property
+prop_process_binary_is_transformation = forAll (choose (0, 1)) $ \p ->
+  abs (P.shannon (P.asProbDist (P.ProbDist2 p)) - P.shannon2 (P.ProbDist2 p)) < 1e-12
+
+prop_process_transformation_id :: Positive Double -> Property
+prop_process_transformation_id (Positive t) = forAll (choose (1, 8)) $ \n -> forAll (genDist n) $ \p ->
+  P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) 0)) (P.Transformation p p)
+
+prop_process_transformation_comp :: Positive Double -> Property
+prop_process_transformation_comp (Positive t) = forAll (choose (1, 8)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q -> forAll (genDist n) $ \r ->
+    let w1 = t * (P.shannon p - P.shannon q) + 1e-9
+        w2 = t * (P.shannon q - P.shannon r) + 1e-9
+        law w a b = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation a b)
+     in (law w1 p q && law w2 q r) ==> law (w1 + w2 + 1e-9 * t) p r
+
+-- The chemical second law composes like the predicate it instantiates.
+prop_chem_secondlaw_comp :: Positive Double -> Property
+prop_chem_secondlaw_comp (Positive t) = forAll (choose (1, 8)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q -> forAll (genDist n) $ \r ->
+    let b = P.HeatBath t
+        t1 = CS.ThermochemicalTransition b p q (t * (P.shannon p - P.shannon q) + 1e-9) 0
+        t2 = CS.ThermochemicalTransition b q r (t * (P.shannon q - P.shannon r) + 1e-9) 0
+     in (CS.chemSecondLaw t1 && CS.chemSecondLaw t2) ==>
+          P.secondLaw (P.Erase (P.ErasureProcess b (CS.tcWork t1 + CS.tcWork t2 + 1e-9 * t))) (P.Transformation p r)
+
+-- A state move that changes nothing is admissible; the predicate is satisfiable.
+prop_process_transition_refl :: Property
+prop_process_transition_refl = forAll (choose (0.3, 0.6)) $ \wc -> forAll (choose (0, 0.95)) $ \a ->
+  forAll (choose (5, 40)) $ \temp -> let s = fromMix wc a temp in P.secondLaw P.Transition (P.Thermodynamic s s)
+
+prop_process_satisfiable :: Property
+prop_process_satisfiable = once $
+  P.secondLaw (P.Erase (P.landauerTightErasure (P.HeatBath 300))) (P.Erasure P.uniform2)
 
 main :: IO ()
 main = do
@@ -591,8 +629,13 @@ main = do
   check r prop_process_landauer_bound
   check r prop_process_tight
   check r prop_process_refuses_wrong_prior
-  check r prop_process_sequential
   check r prop_process_si_bound
+  check r prop_process_binary_is_transformation
+  check r prop_process_transformation_id
+  check r prop_process_transformation_comp
+  check r prop_chem_secondlaw_comp
+  check r prop_process_transition_refl
+  check r prop_process_satisfiable
 
   putStrLn "-- CoordinationContract (Lean, Coq and Agda laws; umst-ucrs runtime model)"
   check r prop_cost_nonneg

@@ -55,6 +55,8 @@ inductive Prior where
   | erasure (p : ProbDist 2)
   | feedback {n m : ℕ} (J : JointDist n m)
   | thermodynamic (old new : RealThermodynamicState)
+  /-- A transformation of an `n`-state distribution `prior` into `post` (a chemical assemblage, a register, a memory). -/
+  | transformation {n : ℕ} (prior post : ProbDist n)
 
 -- ================================================================
 -- SECTION 3: Second law — one predicate, three instances
@@ -70,6 +72,8 @@ def SecondLaw : Process → Prior → Prop
     proc.extWork ≤ -proc.deltaFreeEnergy + kB * proc.bath.bathTemp.val * mutualInformation J
   | .transition, .thermodynamic old new =>
     CoreAdmissible ℝ RealThermodynamicState old new
+  | .erase proc, .transformation prior post =>
+    shannonEntropy prior - shannonEntropy post ≤ proc.work / proc.bath.bathTemp.val
   | _, _ => False
 
 /-- SI Clausius form for erasure when `workJoules` is dissipated work in joules:
@@ -154,6 +158,10 @@ theorem SecondLaw_szilardEngine (T : ℝ) (hT : 0 < T) :
 -- SECTION 6: Transition instance (Core hook)
 -- ================================================================
 
+/-- A prior of the wrong kind is refused: an erasure is not judged against a measurement's information. -/
+theorem SecondLaw_erase_feedback (proc : ErasureProcess) {n m : ℕ} (J : JointDist n m) :
+    ¬ SecondLaw (.erase proc) (.feedback J) := id
+
 theorem SecondLaw_transition_refl (s : RealThermodynamicState) :
     SecondLaw .transition (.thermodynamic s s) := by
   dsimp [SecondLaw]
@@ -164,35 +172,31 @@ theorem secondLaw_process_family_satisfiable :
   ⟨.erase (landauerTightErasure 300 (by norm_num)), .erasure uniformBinary,
     SecondLaw_landauerTight_erase 300 (by norm_num)⟩
 
-theorem physicalSecondLaw_erase_instance (proc : ErasureProcess) (prior : ProbDist 2) :
-    SecondLaw (.erase proc) (.erasure prior) = physicalSecondLaw proc prior := rfl
-
 -- ================================================================
--- SECTION 7: Erasure sequential composition (P0-9)
+-- SECTION: Transformations of n-state distributions (Clausius form)
 -- ================================================================
 
-/-- Erasure-step admissibility `prior → post` (generalises `SecondLaw` on `.erase`). -/
-def eraseStepSecondLaw (proc : ErasureProcess) (prior post : ProbDist 2) : Prop :=
-  eraseSecondLawStep proc prior post
+/-- Binary erasure is the transformation whose target is the Dirac state. -/
+theorem SecondLaw_erasure_iff_transformation (proc : ErasureProcess) (p : ProbDist 2) :
+    SecondLaw (.erase proc) (.erasure p) ↔ SecondLaw (.erase proc) (.transformation p (diracDist (0 : Fin 2))) :=
+  Iff.rfl
 
-theorem eraseStepSecondLaw_dirac (proc : ErasureProcess) (prior : ProbDist 2) :
-    eraseStepSecondLaw proc prior (diracDist (0 : Fin 2)) = eraseSecondLaw proc prior := rfl
+/-- Leaving a distribution unchanged costs nothing: the identity transformation at zero work obeys the law. -/
+theorem SecondLaw_transformation_id (b : HeatBath) {n : ℕ} (p : ProbDist n) :
+    SecondLaw (.erase ⟨b, 0⟩) (.transformation p p) := by
+  show shannonEntropy p - shannonEntropy p ≤ 0 / b.bathTemp.val
+  simp
 
-/-- Chained erase processes: admissible `p → p'` then `p' → p''` ⇒ composite `p → p''`. -/
-theorem SecondLaw_erase_sequential_compose (proc1 proc2 : ErasureProcess)
-    (prior prior' prior'' : ProbDist 2)
-    (hT : proc1.bath.bathTemp.val = proc2.bath.bathTemp.val)
-    (h1 : eraseStepSecondLaw proc1 prior prior')
-    (h2 : eraseStepSecondLaw proc2 prior' prior'') :
-    eraseStepSecondLaw ⟨proc1.bath, proc1.work + proc2.work⟩ prior prior'' :=
-  secondLaw_sequential_compose proc1 proc2 prior prior' prior'' hT h1 h2
-
-/-- When the first step is a Dirac erasure, `SecondLaw (.erase proc1) (.erasure prior)` is the
-    same membership test as `eraseStepSecondLaw proc1 prior (diracDist 0)`. -/
-theorem SecondLaw_erase_diracStep (proc : ErasureProcess) (prior : ProbDist 2) :
-    SecondLaw (.erase proc) (.erasure prior) ↔
-      eraseStepSecondLaw proc prior (diracDist (0 : Fin 2)) := by
-  dsimp [SecondLaw, eraseStepSecondLaw]
-  rfl
+/-- **Composition.** At one bath temperature, transformations `p → q` at work `W₁` and `q → r` at work `W₂` that
+    obey the second law compose into `p → r` at work `W₁ + W₂`, which obeys it too: entropy drops telescope and
+    costs add. -/
+theorem SecondLaw_transformation_comp (b : HeatBath) {n : ℕ} (p q r : ProbDist n) (W₁ W₂ : ℝ)
+    (h₁ : SecondLaw (.erase ⟨b, W₁⟩) (.transformation p q))
+    (h₂ : SecondLaw (.erase ⟨b, W₂⟩) (.transformation q r)) :
+    SecondLaw (.erase ⟨b, W₁ + W₂⟩) (.transformation p r) := by
+  change shannonEntropy p - shannonEntropy q ≤ W₁ / b.bathTemp.val at h₁
+  change shannonEntropy q - shannonEntropy r ≤ W₂ / b.bathTemp.val at h₂
+  show shannonEntropy p - shannonEntropy r ≤ (W₁ + W₂) / b.bathTemp.val
+  rw [add_div]; linarith
 
 end UMST.ProcessFamily

@@ -15,6 +15,7 @@ open import Data.Product using (_×_; _,_; proj₁; proj₂; ∃-syntax)
 open import Data.Empty using (⊥-elim)
 open import Relation.Binary.PropositionalEquality using (_≡_; refl; cong; sym; trans)
 open import Relation.Nullary using (Dec; yes; no; ¬_)
+open import Relation.Nullary.Decidable.Core using (from-yes)
 open import Data.Sum using (_⊎_; inj₁; inj₂)
 
 open import Core.Gate as Core using (δ-mass; ThermodynamicSystem)
@@ -176,3 +177,23 @@ csg-to-admissible
   → Admissible old new
 csg-to-admissible old new (mc , diss , hyd , str) =
   mkAdmissible mc diss hyd str
+
+------------------------------------------------------------------------
+-- Reflexivity: every state is admissible to itself
+------------------------------------------------------------------------
+
+qdiff-self-≤ : ∀ x → x - x ≤ 0ℚ
+qdiff-self-≤ x rewrite +-inverseʳ x = ℚ-Props.≤-refl
+
+δ-mass-nonneg : 0ℚ ≤ δ-mass
+δ-mass-nonneg = from-yes (0ℚ ℚ.≤? δ-mass)
+
+qdiff-self-≤δ : ∀ x → x - x ≤ δ-mass
+qdiff-self-≤δ x = ℚ-Props.≤-trans (qdiff-self-≤ x) δ-mass-nonneg
+
+admissible-refl : ∀ s → Admissible s s
+admissible-refl s = mkAdmissible
+  (qdiff-self-≤δ (density s) , qdiff-self-≤δ (density s))
+  ℚ-Props.≤-refl
+  ℚ-Props.≤-refl
+  ℚ-Props.≤-refl

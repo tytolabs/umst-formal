@@ -19,8 +19,10 @@
 (*  Parameter or Admitted.                                                *)
 (* ===================================================================== *)
 
-From Stdlib Require Import Reals Lra QArith Qreals.
+From Stdlib Require Import Reals Lra QArith Qreals List.
+Import ListNotations.
 Require Import UMSTFormal.Compat.Gate.
+Require Import UMSTFormal.Constitutional.
 Require Import UMSTFormal.Constants.SI.
 
 Open Scope R_scope.
@@ -70,6 +72,25 @@ Proof.
   rewrite ln_Rinv by lra. lra.
 Qed.
 
+(** A distribution on finitely many states: nonnegative masses summing to one. *)
+Record ProbDist : Type := mkProbDist {
+  mass : list R;
+  mass_nonneg : Forall (fun x => 0 <= x) mass;
+  mass_sum : fold_right Rplus 0 mass = 1
+}.
+
+(** Shannon entropy in nats of an n-state distribution. *)
+Definition shannon (p : ProbDist) : R := - fold_right (fun x acc => xlnx x + acc) 0 (mass p).
+
+(** A two-state distribution as an n-state one; its entropy is the binary entropy. *)
+Definition asProbDist (p : ProbDist2) : ProbDist :=
+  mkProbDist [p0 p; 1 - p0 p]
+    ltac:(pose proof (p0_nonneg p); pose proof (p0_le_one p); constructor; [lra | constructor; [lra | constructor]])
+    ltac:(simpl; lra).
+
+Lemma shannon_asProbDist (p : ProbDist2) : shannon (asProbDist p) = shannon2 p.
+Proof. unfold shannon, shannon2, asProbDist; simpl. lra. Qed.
+
 (** The erase instance (Clausius form): erasing [prior] to the Dirac state lowers the entropy by at most W / T. *)
 Definition eraseSecondLaw (proc : ErasureProcess) (prior : ProbDist2) : Prop :=
   shannon2 prior - shannon2 dirac0 <= work proc / bathTemp (erasureBath proc).
@@ -100,7 +121,8 @@ Inductive Process : Type :=
 Inductive Prior : Type :=
   | erasure (p : ProbDist2)
   | feedback (mutualInformation : R)
-  | thermodynamic (old new : ThermodynamicState).
+  | thermodynamic (old new : ThermodynamicState)
+  | transformation (prior post : ProbDist).
 
 (** **The second law**: one predicate over the process family. *)
 Definition SecondLaw (proc : Process) (prior : Prior) : Prop :=
@@ -109,6 +131,7 @@ Definition SecondLaw (proc : Process) (prior : Prior) : Prop :=
   | measureFeedback f, feedback mi =>
       extWork f <= - deltaFreeEnergy f + kB * bathTemp (feedbackBath f) * mi
   | transition, thermodynamic old new => admissible old new
+  | erase e, transformation p q => shannon p - shannon q <= work e / bathTemp (erasureBath e)
   | _, _ => False
   end.
 
@@ -147,4 +170,36 @@ Proof.
   assert (hkT : 0 < kB * T) by (apply Rmult_lt_0_compat; lra).
   apply Rmult_le_compat_r with (r := kB * T) in h; [| lra].
   unfold Rdiv in h. rewrite Rmult_assoc, Rinv_l, Rmult_1_r in h by lra. lra.
+Qed.
+
+(** Binary erasure is the transformation whose target is the Dirac state. *)
+Theorem SecondLaw_erasure_iff_transformation (e : ErasureProcess) (p : ProbDist2) :
+  SecondLaw (erase e) (erasure p) <-> SecondLaw (erase e) (transformation (asProbDist p) (asProbDist dirac0)).
+Proof. simpl. unfold eraseSecondLaw. rewrite !shannon_asProbDist. tauto. Qed.
+
+(** Leaving a distribution unchanged costs nothing. *)
+Theorem SecondLaw_transformation_id (b : HeatBath) (p : ProbDist) :
+  SecondLaw (erase (mkErasure b 0)) (transformation p p).
+Proof. simpl. unfold Rdiv. rewrite Rmult_0_l. lra. Qed.
+
+(** **Composition**: at one bath, transformations p -> q at work W1 and q -> r at work W2 that obey the second law
+    compose into p -> r at work W1 + W2, which obeys it: entropy drops telescope and costs add. *)
+Theorem SecondLaw_transformation_comp (b : HeatBath) (p q r : ProbDist) (W1 W2 : R) :
+  SecondLaw (erase (mkErasure b W1)) (transformation p q) ->
+  SecondLaw (erase (mkErasure b W2)) (transformation q r) ->
+  SecondLaw (erase (mkErasure b (W1 + W2))) (transformation p r).
+Proof.
+  simpl. intros h1 h2. pose proof (bathTemp_pos b).
+  replace ((W1 + W2) / bathTemp b) with (W1 / bathTemp b + W2 / bathTemp b) by (field; lra). lra.
+Qed.
+
+(** A state move that changes nothing is admissible. *)
+Theorem SecondLaw_transition_refl (s : ThermodynamicState) : SecondLaw transition (thermodynamic s s).
+Proof. exact (admissible_refl s). Qed.
+
+(** The predicate is satisfiable: the Landauer-tight erasure of a uniform bit obeys it. *)
+Theorem secondLaw_process_family_satisfiable : exists p pr, SecondLaw p pr.
+Proof.
+  exists (erase (landauerTightErasure (mkHeatBath 300 ltac:(lra)))), (erasure uniform2).
+  apply landauerTight.
 Qed.

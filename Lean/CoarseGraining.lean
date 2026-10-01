@@ -202,6 +202,7 @@ theorem espinositoConditions_lumpPairErase :
     | erasure pd => rfl
     | feedback J => exact False.elim (hfw J rfl)
     | thermodynamic old new => rfl
+    | transformation p q => rfl
 
 /-- Joint fine admissibility ⇒ coarse erase `SecondLaw` after `Fin 2 × Fin 2` lumping (first factor). -/
 theorem lumpPair_secondLaw_coarse_from_fine_joint (proc : ErasureProcess) (p q : ProbDist 2)

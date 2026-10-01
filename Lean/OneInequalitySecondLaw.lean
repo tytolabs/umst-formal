@@ -58,23 +58,24 @@ theorem oneInequality_chain (s₁ s₂ : Step) (hT : s₁.bath.bathTemp.val = s�
 -- ================================================================
 
 /-- Entropy-grade erase account (`LandauerLaw` convention: `work / T` is nats). -/
-noncomputable def eraseStepEntropy (proc : ErasureProcess) (prior post : ProbDist 2) : Step where
+noncomputable def eraseStepEntropy (proc : ErasureProcess) {n : ℕ} (prior post : ProbDist n) : Step where
   bath := proc.bath
   deltaF := proc.bath.bathTemp.val * (shannonEntropy prior - shannonEntropy post)
   wIn := proc.work
   infoI := 0
 
 /-- **Erase (SI joules):** I = 0; ΔF = k_B T (S_prior − S_post), W_in = k_B · work. -/
-noncomputable def eraseStep (proc : ErasureProcess) (prior post : ProbDist 2) : Step :=
+noncomputable def eraseStep (proc : ErasureProcess) {n : ℕ} (prior post : ProbDist n) : Step :=
   let s := eraseStepEntropy proc prior post
   { s with deltaF := kB * s.deltaF, wIn := kB * s.wIn }
 
-@[simp] theorem eraseStep_infoI_zero (proc : ErasureProcess) (prior post : ProbDist 2) :
+@[simp] theorem eraseStep_infoI_zero (proc : ErasureProcess) {n : ℕ} (prior post : ProbDist n) :
     (eraseStep proc prior post).infoI = 0 := rfl
 
-theorem eraseStepEntropy_oneInequality_iff (proc : ErasureProcess) (prior post : ProbDist 2) :
-    eraseSecondLawStep proc prior post ↔ oneInequality (eraseStepEntropy proc prior post) := by
-  dsimp [oneInequality, eraseStepEntropy, eraseSecondLawStep]
+theorem eraseStepEntropy_oneInequality_iff (proc : ErasureProcess) {n : ℕ} (prior post : ProbDist n) :
+    SecondLawₚ (.erase proc) (.transformation prior post) ↔ oneInequality (eraseStepEntropy proc prior post) := by
+  show shannonEntropy prior - shannonEntropy post ≤ proc.work / proc.bath.bathTemp.val ↔ _
+  dsimp [oneInequality, eraseStepEntropy]
   have hT : 0 < proc.bath.bathTemp.val := proc.bath.bathTemp.property
   constructor
   · intro h
@@ -84,7 +85,7 @@ theorem eraseStepEntropy_oneInequality_iff (proc : ErasureProcess) (prior post :
     rw [mul_zero, add_zero, mul_comm] at h
     exact (le_div_iff₀ hT).2 h
 
-lemma oneInequality_erase_joules (proc : ErasureProcess) (prior post : ProbDist 2) :
+lemma oneInequality_erase_joules (proc : ErasureProcess) {n : ℕ} (prior post : ProbDist n) :
     oneInequality (eraseStepEntropy proc prior post) ↔ oneInequality (eraseStep proc prior post) := by
   dsimp [oneInequality, eraseStep, eraseStepEntropy]
   simp only [mul_zero, add_zero]
@@ -92,8 +93,8 @@ lemma oneInequality_erase_joules (proc : ErasureProcess) (prior post : ProbDist 
   · intro h; nlinarith [h, kB_pos]
   · intro h; nlinarith [h, kB_pos]
 
-theorem eraseStep_oneInequality_iff (proc : ErasureProcess) (prior post : ProbDist 2) :
-    eraseSecondLawStep proc prior post ↔ oneInequality (eraseStep proc prior post) :=
+theorem eraseStep_oneInequality_iff (proc : ErasureProcess) {n : ℕ} (prior post : ProbDist n) :
+    SecondLawₚ (.erase proc) (.transformation prior post) ↔ oneInequality (eraseStep proc prior post) :=
   (eraseStepEntropy_oneInequality_iff proc prior post).trans (oneInequality_erase_joules proc prior post)
 
 theorem eraseSecondLaw_oneInequality_iff (proc : ErasureProcess) (prior : ProbDist 2) :
@@ -189,6 +190,8 @@ noncomputable def stepOf : Process → Prior → Option Step
     some (feedbackStep proc (mutualInformation J))
   | .transition, .thermodynamic old new =>
     some (transitionStep old new)
+  | .erase proc, .transformation prior post =>
+    some (eraseStep proc prior post)
   | _, _ => none
 
 theorem eraseSecondLaw_iff_oneInequality (proc : ErasureProcess) (prior : ProbDist 2) :
@@ -207,6 +210,10 @@ theorem secondLaw_implies_oneInequality (p : Process) (pr : Prior) (h : SecondLa
   | .transition, .thermodynamic old new =>
     rcases h with ⟨_, hd⟩
     exact ⟨_, rfl, (transitionStep_oneInequality_iff old new).1 hd⟩
+  | .erase proc, .transformation prior post =>
+    exact ⟨_, rfl, (eraseStep_oneInequality_iff proc prior post).1 h⟩
+  | .measureFeedback _, .transformation _ _ => cases h
+  | .transition, .transformation _ _ => cases h
   | .erase _, .feedback _ => cases h
   | .erase _, .thermodynamic _ _ => cases h
   | .measureFeedback _, .erasure _ => cases h

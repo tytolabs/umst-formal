@@ -159,6 +159,9 @@ jobs:
       - name: Constants modules and README table match constants/constants.json
         run: python3 scripts/gen_constants.py --check
 
+      - name: Four-language parity of the contract (formal_parity.json)
+        run: python3 scripts/check_formal_parity.py --summary
+
       - name: Cartridge-anchor axiom baseline (Mathlib closure)
         run: bash scripts/check_print_axioms.sh
 

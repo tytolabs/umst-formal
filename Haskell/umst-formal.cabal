@@ -25,6 +25,7 @@ library
     UMST.Chem.Kleisli
     UMST.Constants.SI
     UMST.Process
+    UMST.Chem.SecondLaw
     UMST.CoordinationContract
     UMST.Chem.Constants.ConstantsSheaf
     UMST.Chem.Constants.TemperatureGraph

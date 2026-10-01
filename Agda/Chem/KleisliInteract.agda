@@ -32,26 +32,6 @@ open import Relation.Nullary using (Dec; yes; no; ¬_)
 open import Relation.Nullary.Decidable.Core using (from-yes)
 
 ------------------------------------------------------------------------
--- Reflexivity helpers (no new postulates)
-------------------------------------------------------------------------
-
-qdiff-self-≤ : ∀ x → x - x ≤ 0ℚ
-qdiff-self-≤ x rewrite +-inverseʳ x = ℚ-Props.≤-refl
-
-δ-mass-nonneg : 0ℚ ≤ δ-mass
-δ-mass-nonneg = from-yes (0ℚ ℚ.≤? δ-mass)
-
-qdiff-self-≤δ : ∀ x → x - x ≤ δ-mass
-qdiff-self-≤δ x = ℚ-Props.≤-trans (qdiff-self-≤ x) δ-mass-nonneg
-
-admissible-refl : ∀ s → Admissible s s
-admissible-refl s = mkAdmissible
-  (qdiff-self-≤δ (density s) , qdiff-self-≤δ (density s))
-  ℚ-Props.≤-refl
-  ℚ-Props.≤-refl
-  ℚ-Props.≤-refl
-
-------------------------------------------------------------------------
 -- Kleisli Interact arrows (mirrors `UMST.Compat.Constitutional`)
 ------------------------------------------------------------------------
 

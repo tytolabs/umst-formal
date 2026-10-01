@@ -3,14 +3,15 @@
 /-
   UMST-Formal: Chem/SecondLaw.lean
 
-  Meso acting chemistry — second-law lift for chemical assemblages under the sole
-  project axiom `LandauerLaw.physicalSecondLaw`.  Adds **zero** Lean `axiom` declarations.
+  Meso acting chemistry: a chemical assemblage update obeys the second law when its erasure is an instance of the
+  one predicate `UMST.ProcessFamily.SecondLaw` on the transformation of its state distribution.
 
   Fiber: meso/acting → `umst-formal` only.  No quantum geometry theorems.
   CALPHAD / QTAIM / SpeciesId are presentations — not new physics axioms here.
 -/
 
 import LandauerLaw
+import Process
 
 open Real Finset UMST.LandauerLaw
 
@@ -20,25 +21,12 @@ namespace UMST.Chem.SecondLaw
 -- SECTION 1: Chemical assemblage carriers (acting meso layer)
 -- ================================================================
 
-/-- Heat bath for thermochemical processes (same carrier as `HeatBath`). -/
-abbrev ChemHeatBath := HeatBath
-
-/-- Convert a physical heat bath to the chemistry reporting bath. -/
-def chemHeatBathOf (hb : HeatBath) : ChemHeatBath := hb
-
-/-- A chemical assemblage over `n` species slots (stoichiometry scaffold). -/
-structure ChemAssemblage (n : ℕ) where
-  stoichiometry : Fin n → ℤ
-
-/-- Microstate distribution over assemblage configurations. -/
-abbrev AssemblageStateDist (n : ℕ) := ProbDist n
-
 /-- A thermochemical transition on an assemblage: prior/post state distributions,
     dissipated work [entropy units, k_B = 1], and structural defect scalar. -/
 structure ThermochemicalTransition (n : ℕ) where
-  bath : ChemHeatBath
-  prior : AssemblageStateDist n
-  post : AssemblageStateDist n
+  bath : HeatBath
+  prior : ProbDist n
+  post : ProbDist n
   dissipatedWork : ℝ
   structuralDefect : ℝ
 
@@ -54,19 +42,31 @@ noncomputable def assemblageEntropyDrop {n : ℕ} (t : ThermochemicalTransition 
 -- SECTION 2: Named second-law invariant (Prop — not a Lean axiom)
 -- ================================================================
 
-/-- **Chemical Second Law** (meso acting invariant):
+/-- The erasure that pays for a transition: its bath and the work it dissipates. -/
+def ThermochemicalTransition.erasure {n : ℕ} (t : ThermochemicalTransition n) : ErasureProcess :=
+  ⟨t.bath, t.dissipatedWork⟩
 
-    Clausius entropy accounting on assemblage state updates:
-      ΔS_assemblage ≤ W_dissipated / T
-
-    Lifts `physicalSecondLaw` for chemical assemblages without re-declaring it. -/
+/-- **Chemical second law**: a structurally coherent assemblage update whose erasure is an instance of the one
+    second law, `UMST.ProcessFamily.SecondLaw (.erase _) (.transformation prior post)`. -/
 def chemSecondLaw {n : ℕ} (t : ThermochemicalTransition n) : Prop :=
   structurallyCoherent t ∧
-  assemblageEntropyDrop t ≤ t.dissipatedWork / t.bath.bathTemp.val
+  UMST.ProcessFamily.SecondLaw (.erase t.erasure) (.transformation t.prior t.post)
 
-/-- Admissible thermochemical transition: satisfies the chemical second-law invariant. -/
-def admissibleThermochemicalTransition {n : ℕ} (t : ThermochemicalTransition n) : Prop :=
-  chemSecondLaw t
+/-- Its entropy part is the Clausius bound on the assemblage: ΔS ≤ W / T. -/
+theorem chemSecondLaw_iff {n : ℕ} (t : ThermochemicalTransition n) :
+    chemSecondLaw t ↔
+      structurallyCoherent t ∧ assemblageEntropyDrop t ≤ t.dissipatedWork / t.bath.bathTemp.val :=
+  Iff.rfl
+
+/-- Two coherent updates at one bath, the second starting where the first ends, compose: the whole update obeys
+    the second law at the summed work. -/
+theorem chemSecondLaw_comp {n : ℕ} (t₁ t₂ : ThermochemicalTransition n) (hb : t₁.bath = t₂.bath)
+    (hp : t₁.post = t₂.prior) (h₁ : chemSecondLaw t₁) (h₂ : chemSecondLaw t₂) :
+    UMST.ProcessFamily.SecondLaw (.erase ⟨t₁.bath, t₁.dissipatedWork + t₂.dissipatedWork⟩)
+      (.transformation t₁.prior t₂.post) := by
+  have h₂' : UMST.ProcessFamily.SecondLaw (.erase ⟨t₁.bath, t₂.dissipatedWork⟩) (.transformation t₁.post t₂.post) := by
+    rw [hb, hp]; exact h₂.2
+  exact UMST.ProcessFamily.SecondLaw_transformation_comp t₁.bath t₁.prior t₁.post t₂.post _ _ h₁.2 h₂'
 
 -- ================================================================
 -- SECTION 3: Landauer refinement floor (dissipative refining)
@@ -88,7 +88,7 @@ def refinementWorkAccounted {n : ℕ} (t : ThermochemicalTransition n) : Prop :=
 structure PhysicalChemBridge where
   proc : ErasureProcess
   transition : ThermochemicalTransition 2
-  bathEq : transition.bath = chemHeatBathOf proc.bath
+  bathEq : transition.bath = proc.bath
   workEq : transition.dissipatedWork = proc.work
   priorEq : transition.prior = uniformBinary
   postEq : transition.post = diracDist (0 : Fin 2)
@@ -109,8 +109,7 @@ theorem chem_entropy_bound_from_physical (b : PhysicalChemBridge)
         b.proc.work / b.proc.bath.bathTemp.val := by
     have hbval :
         b.transition.bath.bathTemp.val = b.proc.bath.bathTemp.val := by
-      simpa [chemHeatBathOf] using
-        congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
+      exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
     rw [b.workEq, hbval]
   rw [hdrop, hwork]
   exact hSL
@@ -122,8 +121,7 @@ theorem refinementLandauerBound (b : PhysicalChemBridge)
       b.transition.bath.bathTemp.val * log 2 := by
   have hbath :
       b.transition.bath.bathTemp.val = b.proc.bath.bathTemp.val := by
-    simpa [chemHeatBathOf] using
-      congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
+    exact congrArg Subtype.val (congrArg HeatBath.bathTemp b.bathEq)
   have h := landauerBound b.proc hSL
   rw [b.workEq.symm] at h
   rw [hbath.symm] at h
@@ -134,16 +132,6 @@ theorem chemSecondLaw_from_physical (b : PhysicalChemBridge)
     (hSL : physicalSecondLawUniformBinary b.proc) :
     chemSecondLaw b.transition :=
   ⟨b.coherent, chem_entropy_bound_from_physical b hSL⟩
-
-/-- Entropy accounting is mandatory for admissibility. -/
-theorem chemEntropyAccounting_required {n : ℕ} (t : ThermochemicalTransition n)
-    (h : admissibleThermochemicalTransition t) :
-    assemblageEntropyDrop t ≤ t.dissipatedWork / t.bath.bathTemp.val := h.2
-
-/-- Structural coherence is mandatory for admissibility. -/
-theorem chemCoherence_required {n : ℕ} (t : ThermochemicalTransition n)
-    (h : admissibleThermochemicalTransition t) :
-    structurallyCoherent t := h.1
 
 -- ================================================================
 -- SECTION 5: Canonical fixtures (0 sorry — catalog witnesses)
@@ -166,7 +154,7 @@ theorem coherentP0_structurallyCoherent :
     structurallyCoherent coherentP0Transition := rfl
 
 theorem coherentP0_chemSecondLaw : chemSecondLaw coherentP0Transition := by
-  refine ⟨rfl, ?_⟩
+  refine (chemSecondLaw_iff _).2 ⟨rfl, ?_⟩
   unfold assemblageEntropyDrop coherentP0Transition
   simp [coherentP0_zero_entropy_drop]
 
