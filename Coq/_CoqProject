@@ -13,6 +13,7 @@ Compat/Gate.v
 Gate.v
 Constitutional.v
 LandauerEinsteinBridge.v
+CoordinationContract.v
 InfoTheory.v
 MeasurementCost.v
 PrimeSpectralGuidance.v

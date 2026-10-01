@@ -24,6 +24,7 @@ import InfoTheory
 import LandauerExtension
 import qualified MonoidalState
 import qualified PrimeSpectralGuidance
+import CoordinationContractProps
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -555,6 +556,19 @@ main = do
   check r prop_flip_rate_surrogate_nonneg
   check r prop_n_quantile_monotone_in_epsilon
   check r prop_n_quantile_monotone_in_delta
+
+  putStrLn ""
+  putStrLn "-- CoordinationContract (Lean, Coq and Agda laws; umst-ucrs runtime model)"
+  check r prop_cost_nonneg
+  check r prop_cost_additive
+  check r prop_admitted_cost_bounded
+  check r prop_clockRun_monotone
+  check r prop_honestCredits_append_faulty
+  check r prop_wireIter_seq
+  check r prop_bestPeer_highest_healthy_credit
+  check r prop_failed_sync_drops_credit
+  check r prop_gate_rejects_over_budget
+  check r prop_cost_monotone_in_bits
 
   putStrLn ""
   finish r

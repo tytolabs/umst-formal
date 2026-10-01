@@ -79,7 +79,7 @@ lean_lib «UMST» where
     `LandauerEinsteinBridge,
     `LandauerLaw, `Process, `OneInequalitySecondLaw, `ConvexPhiDissipation,
     `CoarseGraining, `InfoTheory, `SemanticSecondLaw, `MeaningState, `SemanticFormal, `InterpretationFunctor, `SemanticEconomicModules,
-    `ClassicalMeasurementCost, `CoordinationCost, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
+    `ClassicalMeasurementCost, `CoordinationCost, `CoordinationContract, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
     `SeparationBound,
     -- Meso-scale Economic layer (Lean/Economic/ folder — Wave 6.5.2)
     `Economic.EconomicDomain,
