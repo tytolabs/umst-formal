@@ -19,9 +19,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.CarrierProduct where
+import Chem.SecondLaw
 
+module Urge.CarrierProduct (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true; if_then_else_; _∧_)
 open import Data.Empty using (⊥)

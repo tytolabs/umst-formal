@@ -1,11 +1,13 @@
 # SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 # SPDX-License-Identifier: MIT
-# Coq/Rocq + Agda formal verification CI.
+# Coq/Rocq + Agda formal verification CI, the single definition of both jobs (ci.yml calls it).
 #
-# Coq: uses Docker image for reproducibility.
-# Agda: Ubuntu system packages with stdlib registration.
+# Coq: the rocq/rocq-prover:9.1 image; every tracked .v must be listed in Coq/_CoqProject (the build manifest).
+# Agda: pinned to Agda 2.8.0 (official Linux release binary) and standard-library 2.3, the versions the
+#       proofs are developed against; `make check` type-checks every tracked .agda (Agda/Makefile reads git).
 name: Formal (Agda+Coq)
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     branches: [main, master, docs/reorganize-readme]
@@ -22,45 +24,61 @@ on:
       - ".github/workflows/formal.yml"
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # suffix keeps runs called from CI (ci.yml) from sharing, and cancelling, one group
+  group: ${{ github.workflow }}-formal-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   agda:
     name: Agda proof check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4 # v4
 
-      - name: Install Agda + stdlib
+      - name: Install Agda 2.8.0 + standard-library 2.3 (pinned)
         run: |
-          sudo apt-get update -q
-          sudo apt-get install -y agda agda-stdlib
+          set -euo pipefail
+          mkdir -p "$HOME/agda-bin" "$HOME/agda-libs" ~/.agda
+          curl -fsSL -o /tmp/agda.tar.xz https://github.com/agda/agda/releases/download/v2.8.0/Agda-v2.8.0-linux.tar.xz
+          tar -xJf /tmp/agda.tar.xz -C "$HOME/agda-bin"
+          AGDA=$(find "$HOME/agda-bin" -type f -name agda -perm -u+x | head -1)
+          test -n "$AGDA"
+          echo "$(dirname "$AGDA")" >> "$GITHUB_PATH"
+          curl -fsSL -o /tmp/stdlib.tar.gz https://github.com/agda/agda-stdlib/archive/refs/tags/v2.3.tar.gz
+          tar -xzf /tmp/stdlib.tar.gz -C "$HOME/agda-libs"
+          printf '%s\n' "$HOME/agda-libs/agda-stdlib-2.3/standard-library.agda-lib" \
+            "${GITHUB_WORKSPACE}/Agda/umst-formal.agda-lib" > ~/.agda/libraries
+          "$AGDA" --version
 
-      - name: Register Agda libraries (project + standard-library)
-        run: |
-          mkdir -p ~/.agda/local-libs
-          echo "${GITHUB_WORKSPACE}/Agda/umst-formal.agda-lib" >> ~/.agda/libraries
-          rm -rf /tmp/agda-stdlib-ci
-          cp -a /usr/share/agda-stdlib /tmp/agda-stdlib-ci
-          printf '%s\n' 'name: standard-library' 'include: /tmp/agda-stdlib-ci' \
-            > ~/.agda/local-libs/standard-library.agda-lib
-          echo "${HOME}/.agda/local-libs/standard-library.agda-lib" >> ~/.agda/libraries
-          echo "Registered:" && cat ~/.agda/libraries
-
-      - name: Type-check all proofs
+      - name: Type-check every tracked Agda module
         working-directory: Agda
-        run: make check
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          echo "$(git ls-files '*.agda' | wc -l) Agda files"
+          make check 2>&1 | tee /tmp/agda.log
+          if grep -q -i "warning" /tmp/agda.log; then echo "FAIL: Agda warnings"; exit 1; fi
 
   coq:
     name: Coq proof compilation
     runs-on: ubuntu-latest
+    # Checkout runs on the GitHub runner (a job-level `container:` breaks actions/checkout with EACCES on
+    # runner file commands); Coq runs inside the official image via bind mount.
     steps:
       - uses: actions/checkout@v4 # v4
+
+      - name: Every tracked .v is in Coq/_CoqProject (the build manifest)
+        run: |
+          set -e
+          missing=$(comm -23 <(git ls-files 'Coq/*.v' 'Coq/**/*.v' | sed 's#^Coq/##' | sort -u) \
+                             <(grep -E '\.v$' Coq/_CoqProject | sed 's/^ *//' | sort -u))
+          if [ -n "$missing" ]; then echo "FAIL: not in _CoqProject:"; echo "$missing"; exit 1; fi
+          echo "OK: every tracked .v is built"
 
       - name: Compile Coq proofs + extraction (Rocq 9.1 + Stdlib in Docker)
         run: |
           set -euo pipefail
+          # `From Stdlib Require` needs Rocq ≥ 9 + rocq-stdlib (not coqorg/coq:8.20).
           chmod -R a+rwX "${GITHUB_WORKSPACE}/Coq"
           docker run --rm \
             -v "${GITHUB_WORKSPACE}:/workspace" \

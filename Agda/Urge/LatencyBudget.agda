@@ -17,9 +17,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.LatencyBudget where
+import Chem.SecondLaw
 
+module Urge.LatencyBudget (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true; if_then_else_)
 open import Data.List as List using (List; []; _∷_)

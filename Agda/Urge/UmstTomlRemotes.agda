@@ -16,11 +16,13 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.UmstTomlRemotes where
+import Chem.SecondLaw
 
-open import Urge.EntityRemote
+module Urge.UmstTomlRemotes (Φ : Chem.SecondLaw.SecondLawPhysics) where
+open import Urge.EntityRemote Φ
 
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true; if_then_else_; not; _∧_)
 open import Data.List as List using (List; []; _∷_)

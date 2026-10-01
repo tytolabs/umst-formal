@@ -17,9 +17,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.KleisliInherit where
+import Chem.SecondLaw
 
+module Urge.KleisliInherit (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true)
 open import Data.Empty using (⊥; ⊥-elim)

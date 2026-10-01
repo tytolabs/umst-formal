@@ -16,11 +16,13 @@
 -- physics_green: false — thermo witnesses remain Unwired until FORMAL BAR.
 ------------------------------------------------------------------------
 
-module Chem.Constants.ConstantsSheaf where
+import Chem.SecondLaw
 
+module Chem.Constants.ConstantsSheaf (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.Conservation
 open import Chem.KleisliInteract using (admissible-step; admissible-refl)
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 open import Concrete.Gate
 open Concrete.Gate using
   ( ThermodynamicState

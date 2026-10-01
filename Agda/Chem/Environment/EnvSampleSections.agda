@@ -12,9 +12,10 @@
 -- physics_green: false — thermo witnesses remain Unwired until FORMAL BAR.
 ------------------------------------------------------------------------
 
-module Chem.Environment.EnvSampleSections where
+import Chem.SecondLaw
 
-open import Chem.Environment.EnvironmentContinuum
+module Chem.Environment.EnvSampleSections (Φ : Chem.SecondLaw.SecondLawPhysics) where
+open import Chem.Environment.EnvironmentContinuum Φ
 open import Chem.KleisliInteract using (admissible-refl)
 open import Concrete.Gate using (ThermodynamicState; gate)
 open import Data.Bool using (Bool; false)

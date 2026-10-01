@@ -16,10 +16,12 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.ExactAlgCoeffs where
+import Chem.SecondLaw
 
+module Urge.ExactAlgCoeffs (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
-open import Urge.CarrierProduct
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
+open import Urge.CarrierProduct Φ
 
 open import Data.Bool using (Bool; false; true; if_then_else_; _∧_; not)
 open import Data.Integer using (ℤ; +_)

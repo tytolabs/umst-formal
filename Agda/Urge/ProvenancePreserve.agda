@@ -14,9 +14,11 @@
 -- physics_green: false — production wiring stays open.
 ------------------------------------------------------------------------
 
-module Urge.ProvenancePreserve where
+import Chem.SecondLaw
 
+module Urge.ProvenancePreserve (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 open import Concrete.Gate
 open Concrete.Gate using (ThermodynamicState; Admissible)
 open ThermodynamicState

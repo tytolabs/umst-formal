@@ -16,9 +16,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.FrugalMi where
+import Chem.SecondLaw
 
+module Urge.FrugalMi (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true)
 open import Data.Empty using (⊥)

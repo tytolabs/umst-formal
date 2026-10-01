@@ -74,3 +74,11 @@ Urge/ThreeDagSeparate.v
 Urge/UmstTomlRemotes.v
 Urge/UnmeasuredMeasured.v
 Urge/WorktreeExclusive.v
+Chem/Constants/ConstantsSheaf.v
+Chem/Constants/EgoffHarnessAdversarial.v
+Chem/Constants/TemperatureGraph.v
+Chem/Environment/EnvGibbsDuhem.v
+Chem/Environment/EnvSampleSections.v
+Chem/Environment/EnvironmentContinuum.v
+Chem/KleisliInteract.v
+UrgeOverlay.v

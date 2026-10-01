@@ -17,9 +17,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.HomologNotCopy where
+import Chem.SecondLaw
 
+module Urge.HomologNotCopy (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true; not; _∧_)
 open import Data.List as List using (List; []; _∷_)

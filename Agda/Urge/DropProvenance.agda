@@ -16,9 +16,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.DropProvenance where
+import Chem.SecondLaw
 
+module Urge.DropProvenance (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true; if_then_else_)
 open import Data.List as List using (List; []; _∷_)

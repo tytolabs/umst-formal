@@ -16,9 +16,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.ExactRatFreeEnergy where
+import Chem.SecondLaw
 
+module Urge.ExactRatFreeEnergy (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false)
 open import Data.List as List using (List; []; _∷_)

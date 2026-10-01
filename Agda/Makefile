@@ -9,7 +9,8 @@ AGDA       := agda
 # resolving `depend:`; silence if it appears (fields are valid for bundled libs).
 AGDA_FLAGS := --library=umst-formal -W noLibUnknownField
 
-SOURCES := Gate.agda Helmholtz.agda Naturality.agda DIB-Kleisli.agda Activation.agda LandauerEinsteinTrace.agda InfoTheory.agda MeasurementCost.agda PrimeSpectralGuidance.agda
+# Every tracked module (a hand-picked list let 67 of 76 files go unchecked).
+SOURCES := $(shell git ls-files '*.agda' | sort -u)
 
 .PHONY: all check html clean
 

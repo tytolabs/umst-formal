@@ -16,9 +16,11 @@
 
 {-# OPTIONS --without-K --exact-split #-}
 
-module Urge.SignedPropagate where
+import Chem.SecondLaw
 
+module Urge.SignedPropagate (Φ : Chem.SecondLaw.SecondLawPhysics) where
 open import Chem.SecondLaw
+open Chem.SecondLaw.SecondLawPhysics Φ using (physicalSecondLaw)
 
 open import Data.Bool using (Bool; false; true; if_then_else_; not; _∧_)
 open import Data.Integer.Base using (ℤ; _+_; +_; -[1+_])
