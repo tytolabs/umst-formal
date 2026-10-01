@@ -51,7 +51,7 @@ genState = do
   psi   <- choose (-450.0, 0.0)
   al    <- choose (0.0, 1.0)
   fc    <- choose (0.0, 100.0)
-  fcMax <- choose (fc, 230.0)
+  fcMax <- choose (fc, intrinsicStrength)
   pure (ThermodynamicState rho psi al fc fcMax)
 
 instance Arbitrary ThermodynamicState where

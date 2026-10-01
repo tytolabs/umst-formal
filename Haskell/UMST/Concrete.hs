@@ -19,6 +19,7 @@ module UMST.Concrete
   , fromMix
   ) where
 
+import qualified UMST.Constants.SI as SI
 import UMST.Core (coreDissipationOk, coreMassOk, massTolerance)
 
 ------------------------------------------------------------------------
@@ -31,8 +32,9 @@ qHydration = 450.0
 tolerance :: Double
 tolerance = 1e-6
 
+-- | The cited Powers (1958) gel–space law coefficient (MPa), from the constants table.
 intrinsicStrength :: Double
-intrinsicStrength = 230.0
+intrinsicStrength = fromRational SI.powersGelStrength
 
 ------------------------------------------------------------------------
 -- ThermodynamicState

@@ -10,23 +10,29 @@ import Mathlib.Algebra.Order.Field.Rat
 import Mathlib.Data.Complex.Exponential
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
+import Constants.SI
 
 namespace UMST
 
 open Rat
 
-def criticalWcChemPin : ℚ := 42 / 100
+/-- The sealed-curing critical water-cement ratio, derived in `Constants.SI` from the Powers–Brownyard water
+    parameters (0.23 + 0.19). -/
+def criticalWcChemPin : ℚ := Constants.SI.criticalWcSealed
+
+private lemma criticalWcChemPin_value : criticalWcChemPin = 42 / 100 := by
+  rw [criticalWcChemPin, Constants.SI.criticalWcSealed_value]; norm_num
 def b4WcLo : ℚ := 30 / 100
 def b4WcMid : ℚ := 50 / 100
 def b4WcHi : ℚ := 60 / 100
 
-lemma criticalWcChemPin_pos : 0 < criticalWcChemPin := by norm_num [criticalWcChemPin]
+lemma criticalWcChemPin_pos : 0 < criticalWcChemPin := by norm_num [criticalWcChemPin_value]
 lemma b4WcMid_le_hi : b4WcMid ≤ b4WcHi := by norm_num [b4WcMid, b4WcHi]
-lemma b4WcLo_lt_critical : b4WcLo < criticalWcChemPin := by norm_num [b4WcLo, criticalWcChemPin]
+lemma b4WcLo_lt_critical : b4WcLo < criticalWcChemPin := by norm_num [b4WcLo, criticalWcChemPin_value]
 lemma b4WcLo_le_critical : b4WcLo ≤ criticalWcChemPin := le_of_lt b4WcLo_lt_critical
-lemma critical_le_b4WcMid : criticalWcChemPin ≤ b4WcMid := by norm_num [criticalWcChemPin, b4WcMid]
+lemma critical_le_b4WcMid : criticalWcChemPin ≤ b4WcMid := by norm_num [criticalWcChemPin_value, b4WcMid]
 lemma b4WcLo_lt_mid : b4WcLo < b4WcMid := by norm_num [b4WcLo, b4WcMid]
-lemma critical_lt_mid : criticalWcChemPin < b4WcMid := by norm_num [criticalWcChemPin, b4WcMid]
+lemma critical_lt_mid : criticalWcChemPin < b4WcMid := by norm_num [criticalWcChemPin_value, b4WcMid]
 lemma b4WcLo_lt_hi : b4WcLo < b4WcHi := by norm_num [b4WcLo, b4WcHi]
 lemma b4WcMid_lt_hi : b4WcMid < b4WcHi := by norm_num [b4WcMid, b4WcHi]
 
@@ -97,16 +103,16 @@ theorem b4UltimateEnvelope_nonpos {wc : ℚ} (hwc : b4WcAdmissible wc) :
       · exact b4UltimateEnvelope_nonpos_branch_hi (lt_of_not_ge hmid)
 
 theorem b4UltimateEnvelope_at_hi : b4UltimateEnvelope b4WcHi = 0 := by
-  unfold b4UltimateEnvelope b4WcHi b4WcLo criticalWcChemPin b4WcMid; norm_num
+  unfold b4UltimateEnvelope b4WcHi b4WcLo b4WcMid; rw [criticalWcChemPin_value]; norm_num
 
 theorem b4UltimateEnvelope_at_lo : b4UltimateEnvelope b4WcLo = -1000 := by
-  unfold b4UltimateEnvelope b4WcLo b4WcHi criticalWcChemPin b4WcMid; norm_num
+  unfold b4UltimateEnvelope b4WcLo b4WcHi b4WcMid; rw [criticalWcChemPin_value]; norm_num
 
 theorem b4UltimateEnvelope_at_critical : b4UltimateEnvelope criticalWcChemPin = -600 := by
-  unfold b4UltimateEnvelope criticalWcChemPin b4WcLo b4WcHi b4WcMid; norm_num
+  unfold b4UltimateEnvelope b4WcLo b4WcHi b4WcMid; rw [criticalWcChemPin_value]; norm_num
 
 theorem b4UltimateEnvelope_at_mid : b4UltimateEnvelope b4WcMid = -200 := by
-  unfold b4UltimateEnvelope b4WcMid b4WcLo criticalWcChemPin b4WcHi; norm_num
+  unfold b4UltimateEnvelope b4WcMid b4WcLo b4WcHi; rw [criticalWcChemPin_value]; norm_num
 
 private lemma b4UltimateEnvelope_mono_branch_lo {wc₁ wc₂ : ℚ}
     (hlo₁ : wc₁ ≤ b4WcLo) (hlo₂ : wc₂ ≤ b4WcLo) (h : wc₁ ≤ wc₂) :
@@ -174,7 +180,7 @@ private lemma b4UltimateEnvelope_mono_from_lo_knot {wc : ℚ}
   · rcases le_iff_eq_or_lt.mp hcrit with rfl | _
     · exact b4UltimateEnvelope_knots_mono_lo_critical
     · have hdiff : criticalWcChemPin - wc ≤ 12 / 100 := by
-        have hpin : criticalWcChemPin - b4WcLo = 12 / 100 := by norm_num [criticalWcChemPin, b4WcLo]
+        have hpin : criticalWcChemPin - b4WcLo = 12 / 100 := by norm_num [criticalWcChemPin_value, b4WcLo]
         linarith [le_of_lt hlt, hpin]
       have hterm : 400 * (criticalWcChemPin - wc) / (12 / 100) ≤ 400 := by
         rw [div_le_iff₀ (by norm_num : (0 : ℚ) < 12 / 100)]
@@ -194,7 +200,7 @@ private lemma b4UltimateEnvelope_mono_from_critical_knot {wc : ℚ}
   · rcases le_iff_eq_or_lt.mp hmid with rfl | _
     · exact b4UltimateEnvelope_knots_mono_critical_mid
     · have hdiff : b4WcMid - wc ≤ 8 / 100 := by
-        have hpin : b4WcMid - criticalWcChemPin = 8 / 100 := by norm_num [b4WcMid, criticalWcChemPin]
+        have hpin : b4WcMid - criticalWcChemPin = 8 / 100 := by norm_num [b4WcMid, criticalWcChemPin_value]
         linarith [le_of_lt hlt, hpin]
       have hterm : 400 * (b4WcMid - wc) / (8 / 100) ≤ 400 := by
         rw [div_le_iff₀ (by norm_num : (0 : ℚ) < 8 / 100)]

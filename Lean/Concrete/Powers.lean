@@ -26,6 +26,7 @@
 import Mathlib.Algebra.Order.Field.Rat
 import Mathlib.Tactic
 import Compat.Gate
+import Constants.SI
 
 namespace UMST
 
@@ -35,11 +36,11 @@ open Rat
 -- SECTION 1: Physical Constants
 -- ================================================================
 
-/-- Intrinsic strength of fully hydrated C-S-H gel (MPa).
-    Powers (1958) gives S ≈ 234 MPa for Portland cement. -/
-def S_intrinsic : ℚ := 234
+/-- Intrinsic strength of fully hydrated C-S-H gel (MPa): the cited Powers (1958) gel–space law coefficient
+    `Constants.SI.powersGelStrength`, specific to the cements and specimens examined. -/
+def S_intrinsic : ℚ := Constants.SI.powersGelStrength
 
-lemma S_intrinsic_pos : 0 < S_intrinsic := by norm_num [S_intrinsic]
+lemma S_intrinsic_pos : 0 < S_intrinsic := by norm_num [S_intrinsic, Constants.SI.powersGelStrength]
 
 -- ================================================================
 -- SECTION 2: Gel-Space Ratio (Powers Model)
