@@ -73,10 +73,15 @@ def lean(files: list[str]) -> dict:
         text = strip_comments(read(f), "--", ("/-", "-/"))
         open_ += len(re.findall(r"\bsorry\b", text)) + len(re.findall(r"^\s*axiom\s", text, re.M))
         own = set(re.findall(r"^(?:noncomputable\s+)?(?:def|abbrev)\s+([A-Za-z_][\w.']*)", text, re.M))
-        starts = [m.start() for m in decl.finditer(text)] + [len(text)]
-        for m, end in zip(decl.finditer(text), starts[1:]):
+        # a declaration ends at the next top-level command (a column-0 keyword), not only at the next theorem
+        boundary = re.compile(r"^(?:@\[|private\s|protected\s|noncomputable\s|theorem\s|lemma\s|def\s|abbrev\s|"
+                              r"structure\s|inductive\s|class\s|instance\b|example\b|namespace\s|end\b|section\b|"
+                              r"open\s|variable\b|set_option\s|#|attribute\s|macro\b|syntax\b|notation\b|universe\s)",
+                              re.M)
+        for m in decl.finditer(text):
             proved += 1
-            body = text[m.start():end]
+            nxt = boundary.search(text, m.end())
+            body = text[m.start():nxt.start() if nxt else len(text)]
             stmt, _, proof = body.partition(":=")
             proof = proof.strip()
             one_step = bool(CLOSED.match(":= " + proof)) and "\n" not in proof
