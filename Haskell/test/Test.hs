@@ -28,6 +28,7 @@ import CoordinationContractProps
 import qualified UMST.Constants.SI as SI
 import qualified UMST.Process as P
 import qualified UMST.Chem.SecondLaw as CS
+import qualified UMST.Excitement as X
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -489,6 +490,49 @@ prop_process_transformation_comp (Positive t) = forAll (choose (1, 8)) $ \n ->
         law w a b = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation a b)
      in (law w1 p q && law w2 q r) ==> law (w1 + w2 + 1e-9 * t) p r
 
+-- Selection under cost (twins of select_empty, select_minimal, select_descent, select_perm_invariant and
+-- select_secondLaw). Candidates are moves the gate admits from a source, with distinct ids; the joint free energy is
+-- the state's free energy, exact.
+stateEnergy :: ThermodynamicState -> Rational
+stateEnergy = toRational . freeEnergy
+
+genCands :: ThermodynamicState -> Gen [X.Cand ThermodynamicState]
+genCands src = do
+  n <- choose (0, 8)
+  steps <- vectorOf n (suchThat (genStepFrom src) (\s -> accepted (gateCheck src s 1)))
+  ledgers <- vectorOf n (fromInteger <$> choose (-20, 20))
+  tags <- vectorOf n (frequency [(4, pure True), (1, pure False)])
+  ids <- shuffle [0 .. n - 1]
+  pure (zipWith4 X.Cand ids steps ledgers tags)
+  where zipWith4 f (a : as) (b : bs) (c : cs) (d : ds) = f a b c d : zipWith4 f as bs cs ds
+        zipWith4 _ _ _ _ _ = []
+
+prop_select_empty :: ThermodynamicState -> Bool
+prop_select_empty src = case X.select stateEnergy src [] of { Right X.NoCandidates -> True; _ -> False }
+
+prop_select_minimal :: Property
+prop_select_minimal = forAll genState $ \src -> forAll (genCands src) $ \cands ->
+  case X.select stateEnergy src cands of
+    Left c -> X.evidenceTagged c && any ((== X.cid c) . X.cid) cands
+      && and [X.candEnergy stateEnergy c <= X.candEnergy stateEnergy c' | c' <- cands, X.evidenceTagged c']
+    Right _ -> True
+
+prop_select_descent :: Property
+prop_select_descent = forAll genState $ \src -> forAll (genCands src) $ \cands ->
+  case X.select stateEnergy src cands of
+    Left c -> cover 5 True "selected" (X.candEnergy stateEnergy c < stateEnergy src)
+    Right _ -> property True
+
+prop_select_perm_invariant :: Property
+prop_select_perm_invariant = forAll genState $ \src -> forAll (genCands src) $ \cands -> forAll (shuffle cands) $ \cands' ->
+  let key = either (Left . X.cid) Right in key (X.select stateEnergy src cands) == key (X.select stateEnergy src cands')
+
+prop_select_secondLaw :: Property
+prop_select_secondLaw = forAll genState $ \src -> forAll (genCands src) $ \cands ->
+  case X.select stateEnergy src cands of
+    Left c -> P.secondLaw P.Transition (P.Thermodynamic src (X.tgt c))
+    Right _ -> True
+
 -- The Szilard witness (twins of szilardJoint, its marginals, entropy and mutual information, and the engine).
 prop_szilard_joint :: Property
 prop_szilard_joint = once $
@@ -813,6 +857,11 @@ main = do
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
+  check r prop_select_empty
+  check r prop_select_minimal
+  check r prop_select_descent
+  check r prop_select_perm_invariant
+  check r prop_select_secondLaw
   check r prop_szilard_joint
   check r prop_szilard_marginal_x
   check r prop_szilard_marginal_y

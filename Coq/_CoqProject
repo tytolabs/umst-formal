@@ -13,6 +13,7 @@ Constants/SI.v
 Process.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
+Excitement.v
 InfoTheory.v
 MeasurementCost.v
 PrimeSpectralGuidance.v

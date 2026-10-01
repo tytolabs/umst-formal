@@ -88,14 +88,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 541,
+    "theorem": 549,
     "lemma": 61,
-    "total": 602
+    "total": 610
   },
   "all_lean_glob": {
-    "theorem": 1320,
+    "theorem": 1328,
     "lemma": 61,
-    "total": 1381
+    "total": 1389
   },
   "per_root": {
     "Core.Scalar": {
@@ -143,7 +143,7 @@
       "lemma": 0
     },
     "Concrete.SecondLaw": {
-      "theorem": 4,
+      "theorem": 6,
       "lemma": 0
     },
     "Concrete.StiffnessTransition": {
@@ -411,7 +411,7 @@
       "lemma": 0
     },
     "ExcitementProofs": {
-      "theorem": 13,
+      "theorem": 19,
       "lemma": 0
     },
     "WaveShape": {

@@ -951,6 +951,126 @@
     "name": "prop_concrete_helmholtz_secondLaw_iff",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "excitement.select",
+   "statement": "selection under cost: the evidence-tagged candidate of least global free energy, ties by id, when it lowers the source's free energy; a residue otherwise",
+   "lean": {
+    "name": "select",
+    "file": "Lean/Excitement.lean"
+   },
+   "coq": {
+    "name": "select",
+    "file": "Coq/Excitement.v"
+   },
+   "agda": {
+    "name": "select",
+    "file": "Agda/Excitement.agda"
+   },
+   "haskell": {
+    "name": "select",
+    "file": "Haskell/UMST/Excitement.hs"
+   }
+  },
+  {
+   "id": "excitement.select_empty",
+   "statement": "selection over no candidates returns the residue noCandidates",
+   "lean": {
+    "name": "select_empty",
+    "file": "Lean/ExcitementProofs.lean"
+   },
+   "coq": {
+    "name": "select_empty",
+    "file": "Coq/Excitement.v"
+   },
+   "agda": {
+    "name": "select-empty",
+    "file": "Agda/Excitement.agda"
+   },
+   "haskell": {
+    "name": "prop_select_empty",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "excitement.select_minimal",
+   "statement": "the selected candidate is an evidence-tagged member and no evidence-tagged candidate has lower global free energy",
+   "lean": {
+    "name": "select_minimal",
+    "file": "Lean/ExcitementProofs.lean"
+   },
+   "coq": {
+    "name": "select_minimal",
+    "file": "Coq/Excitement.v"
+   },
+   "agda": {
+    "name": "select-minimal",
+    "file": "Agda/Excitement.agda"
+   },
+   "haskell": {
+    "name": "prop_select_minimal",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "excitement.select_descent",
+   "statement": "the selected candidate's global free energy is strictly below the source's",
+   "lean": {
+    "name": "select_descent",
+    "file": "Lean/ExcitementProofs.lean"
+   },
+   "coq": {
+    "name": "select_descent",
+    "file": "Coq/Excitement.v"
+   },
+   "agda": {
+    "name": "select-descent",
+    "file": "Agda/Excitement.agda"
+   },
+   "haskell": {
+    "name": "prop_select_descent",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "concrete.cand_second_law",
+   "statement": "every candidate move of a cement state is a member of the second-law predicate",
+   "lean": {
+    "name": "cand_secondLaw",
+    "file": "Lean/Concrete/SecondLaw.lean"
+   },
+   "coq": {
+    "name": "cand_secondLaw",
+    "file": "Coq/Excitement.v"
+   },
+   "agda": {
+    "name": "cand-secondLaw",
+    "file": "Agda/Excitement.agda"
+   },
+   "haskell": {
+    "name": "prop_concrete_gate_secondLaw",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "concrete.select_second_law",
+   "statement": "selection under cost over cement candidates returns a member of the predicate, minimal among evidence-tagged candidates, lowering the joint free energy",
+   "lean": {
+    "name": "select_secondLaw",
+    "file": "Lean/Concrete/SecondLaw.lean"
+   },
+   "coq": {
+    "name": "select_secondLaw",
+    "file": "Coq/Excitement.v"
+   },
+   "agda": {
+    "name": "select-secondLaw",
+    "file": "Agda/Excitement.agda"
+   },
+   "haskell": {
+    "name": "prop_select_secondLaw",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }

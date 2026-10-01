@@ -241,4 +241,106 @@ theorem select_perm_invariant {S : Type} [ThermodynamicSystem ℚ S] [Admissible
       have : (cands2.filter (·.evidenceTagged)).isEmpty = false := by simp [← hte, hT]
       simp [hT, this, hfold]
 
+/-- The lexicographic key orders energies: a smaller key has no larger energy. -/
+theorem candEnergy_le_of_key_le {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
+    {src : S} {a b : Cand (K := ℚ) src} (h : candKey (src := src) a ≤ candKey (src := src) b) :
+    candEnergy (src := src) a ≤ candEnergy (src := src) b := by
+  simp only [candKey, Prod.Lex.le_iff] at h
+  rcases h with h | h
+  · exact h.le
+  · exact h.1.le
+
+/-- One step of the fold keeps a candidate that is the new one or the accumulated one, and no more energetic than
+    either. -/
+theorem pickMin_spec {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
+    {src : S} (acc : Option (Cand (K := ℚ) src)) (x : Cand (K := ℚ) src) :
+    ∃ r, pickMin acc x = some r ∧ (r = x ∨ acc = some r) ∧
+      candEnergy (src := src) r ≤ candEnergy (src := src) x ∧
+      ∀ a, acc = some a → candEnergy (src := src) r ≤ candEnergy (src := src) a := by
+  cases acc with
+  | none => exact ⟨x, rfl, Or.inl rfl, le_rfl, fun a h => by cases h⟩
+  | some b =>
+    refine ⟨minCand (src := src) b x, pickMin_eq_lex b x, ?_, ?_, ?_⟩
+    · unfold minCand; split_ifs <;> simp
+    · unfold minCand; split_ifs with h
+      · exact le_rfl
+      · exact candEnergy_le_of_key_le (le_of_not_gt h)
+    · intro a ha
+      cases ha
+      unfold minCand; split_ifs with h
+      · exact candEnergy_le_of_key_le h.le
+      · exact le_rfl
+
+/-- The fold's result is a member of the list or the seed, and no more energetic than any member or the seed. -/
+theorem foldl_pickMin_spec {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
+    {src : S} (l : List (Cand (K := ℚ) src)) (acc : Option (Cand (K := ℚ) src)) (m : Cand (K := ℚ) src)
+    (h : l.foldl (pickMin (src := src)) acc = some m) :
+    (m ∈ l ∨ acc = some m) ∧ (∀ x ∈ l, candEnergy (src := src) m ≤ candEnergy (src := src) x) ∧
+      ∀ a, acc = some a → candEnergy (src := src) m ≤ candEnergy (src := src) a := by
+  induction l generalizing acc with
+  | nil =>
+    simp only [List.foldl_nil] at h
+    subst h
+    exact ⟨Or.inr rfl, (fun x hx => by cases hx), (fun a ha => by cases ha; exact le_rfl)⟩
+  | cons x xs ih =>
+    simp only [List.foldl_cons] at h
+    obtain ⟨r, hr, hrmem, hrx, hracc⟩ := pickMin_spec (src := src) acc x
+    rw [hr] at h
+    obtain ⟨hmem, hle, hseed⟩ := ih (some r) h
+    have hmr : candEnergy (src := src) m ≤ candEnergy (src := src) r := hseed r rfl
+    refine ⟨?_, ?_, ?_⟩
+    · rcases hmem with hm | hm
+      · exact Or.inl (List.mem_cons_of_mem x hm)
+      · cases hm
+        rcases hrmem with rfl | hacc
+        · exact Or.inl (List.mem_cons_self _ _)
+        · exact Or.inr hacc
+    · intro y hy
+      rcases List.mem_cons.1 hy with rfl | hy
+      · exact le_trans hmr hrx
+      · exact hle y hy
+    · intro a ha
+      exact le_trans hmr (hracc a ha)
+
+/-- A returned candidate is the fold's minimum over the evidence-tagged candidates, below the source's free energy. -/
+theorem select_inl_spec {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
+    (src : S) (cands : List (Cand (K := ℚ) src)) (c : Cand (K := ℚ) src)
+    (hsel : select src cands = Sum.inl c) :
+    (cands.filter (fun c => c.evidenceTagged)).foldl (pickMin (src := src)) none = some c ∧
+      candEnergy (src := src) c < jointFreeEnergy src := by
+  unfold select at hsel
+  split at hsel
+  · cases hsel
+  dsimp only at hsel
+  split at hsel
+  · split at hsel <;> cases hsel
+  split at hsel
+  · cases hsel
+  rename_i m hf
+  split at hsel
+  · cases hsel
+    exact ⟨hf, by assumption⟩
+  · cases hsel
+
+/-- **Selection is a minimum**: the selected candidate is an evidence-tagged member of the list and no evidence-tagged
+    candidate has lower global free energy. -/
+theorem select_minimal {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
+    (src : S) (cands : List (Cand (K := ℚ) src)) (c : Cand (K := ℚ) src)
+    (hsel : select src cands = Sum.inl c) :
+    c ∈ cands ∧ c.evidenceTagged = true ∧
+      ∀ c' ∈ cands, c'.evidenceTagged = true → candEnergy (src := src) c ≤ candEnergy (src := src) c' := by
+  obtain ⟨hf, -⟩ := select_inl_spec src cands c hsel
+  obtain ⟨hmem, hle, -⟩ := foldl_pickMin_spec (src := src) _ none c hf
+  have hmem' : c ∈ cands.filter (fun c => c.evidenceTagged) := hmem.resolve_right (by simp)
+  refine ⟨(List.mem_filter.1 hmem').1, (List.mem_filter.1 hmem').2, ?_⟩
+  intro c' hc' ht
+  exact hle c' (List.mem_filter.2 ⟨hc', ht⟩)
+
+/-- **Selection descends**: the selected candidate's global free energy is strictly below the source's. -/
+theorem select_descent {S : Type} [ThermodynamicSystem ℚ S] [AdmissibleSystem ℚ S] [JointThermo ℚ S]
+    (src : S) (cands : List (Cand (K := ℚ) src)) (c : Cand (K := ℚ) src)
+    (hsel : select src cands = Sum.inl c) :
+    candEnergy (src := src) c < jointFreeEnergy src :=
+  (select_inl_spec src cands c hsel).2
+
 end UMST.Excitement
