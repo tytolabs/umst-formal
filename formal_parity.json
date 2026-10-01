@@ -1091,6 +1091,166 @@
     "name": "prop_concrete_gate_secondLaw",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "one_inequality.one_inequality",
+   "statement": "the second law as one inequality: ΔF ≤ W_in + k_B·T·I",
+   "lean": {
+    "name": "oneInequality",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "oneInequality",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "oneInequality",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "oneInequality",
+    "file": "Haskell/UMST/OneInequality.hs"
+   }
+  },
+  {
+   "id": "one_inequality.chain",
+   "statement": "admissible steps at a common bath temperature compose (free energy, work and information add)",
+   "lean": {
+    "name": "oneInequality_chain",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "oneInequality_chain",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "oneInequality-chain",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_oneineq_chain",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "one_inequality.erase_iff",
+   "statement": "the erase instance is the one inequality with I = 0",
+   "lean": {
+    "name": "eraseStep_oneInequality_iff",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "eraseStep_oneInequality_iff",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "eraseStep-oneInequality-iff",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_oneineq_erase_iff",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "one_inequality.feedback_iff",
+   "statement": "the measurement-with-feedback instance is the one inequality with W_in = −W_ext",
+   "lean": {
+    "name": "SecondLaw_measureFeedback_oneInequality_iff",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "SecondLaw_measureFeedback_oneInequality_iff",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "SecondLaw-measureFeedback-oneInequality-iff",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_oneineq_feedback_iff",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "one_inequality.transition_iff",
+   "statement": "the transition instance is the one inequality with W_in = 0 and I = 0, with the mass condition",
+   "lean": {
+    "name": "SecondLaw_transition_oneInequality_iff",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "SecondLaw_transition_oneInequality_iff",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "SecondLaw-transition-oneInequality-iff",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_oneineq_transition_iff",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "one_inequality.transition_erase_chain",
+   "statement": "an admissible transition followed by an admissible erase composes at the erase's bath",
+   "lean": {
+    "name": "transition_erase_chain_oneInequality",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "transition_erase_chain_oneInequality",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "transition-erase-chain-oneInequality",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_oneineq_transition_erase_chain",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "one_inequality.secondlaw_implies",
+   "statement": "every member of the one predicate packages as a step obeying the one inequality",
+   "lean": {
+    "name": "secondLaw_implies_oneInequality",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "secondLaw_implies_oneInequality",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "secondLaw-implies-oneInequality",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_oneineq_secondlaw_implies",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "one_inequality.szilard_chain",
+   "statement": "the Szilard cycle (measure one bit, then erase it) composes at the bath",
+   "lean": {
+    "name": "szilardMixedChain_oneInequality",
+    "file": "Lean/OneInequalitySecondLaw.lean"
+   },
+   "coq": {
+    "name": "szilardMixedChain_oneInequality",
+    "file": "Coq/OneInequalitySecondLaw.v"
+   },
+   "agda": {
+    "name": "szilardMixedChain-oneInequality",
+    "file": "Agda/OneInequalitySecondLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_oneineq_szilard_chain",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }

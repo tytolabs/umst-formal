@@ -26,6 +26,7 @@ library
     UMST.Constants.SI
     UMST.Process
     UMST.Excitement
+    UMST.OneInequality
     UMST.Chem.SecondLaw
     UMST.CoordinationContract
     UMST.Chem.Constants.ConstantsSheaf

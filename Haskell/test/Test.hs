@@ -29,6 +29,7 @@ import qualified UMST.Constants.SI as SI
 import qualified UMST.Process as P
 import qualified UMST.Chem.SecondLaw as CS
 import qualified UMST.Excitement as X
+import qualified UMST.OneInequality as O
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -547,6 +548,69 @@ prop_process_units_bridge = forAll (choose (1, 1000)) $ \t -> forAll (choose (1,
      in P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation p q)
           == P.eraseSecondLawSI t d (P.kB * w)
 
+-- The one inequality dF <= W_in + k_B T I (twins of Lean/OneInequalitySecondLaw.lean). Values sit a relative margin
+-- from each bound, where floating-point comparisons agree with the exact law.
+genMargin :: Gen Double
+genMargin = elements [-0.5, -1e-3, 1e-3, 0.5]
+
+admissibleStep :: P.HeatBath -> Gen O.Step
+admissibleStep b = do
+  w <- choose (-10, 10)
+  i <- choose (0, 3)
+  slack <- choose (1e-6, 5)
+  let bound = w + P.kB * P.bathTemp b * i
+  pure (O.Step b (bound - slack * (abs bound + 1)) w i)
+
+prop_oneineq_chain :: Property
+prop_oneineq_chain = forAll (choose (1, 1000)) $ \t -> let b = P.HeatBath t in
+  forAll (admissibleStep b) $ \s1 -> forAll (admissibleStep b) $ \s2 -> O.oneInequality (O.chain s1 s2)
+
+prop_oneineq_erase_iff :: Property
+prop_oneineq_erase_iff = forAll (choose (1, 1000)) $ \t -> forAll (choose (1, 8)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q -> forAll genMargin $ \delta ->
+    let d = P.shannon p - P.shannon q
+        e = P.ErasureProcess (P.HeatBath t) (t * d + delta * (abs (t * d) + 1))
+     in P.secondLaw (P.Erase e) (P.Transformation p q) == O.oneInequality (O.eraseStep e p q)
+
+prop_oneineq_feedback_iff :: Property
+prop_oneineq_feedback_iff = forAll (choose (1, 1000)) $ \t -> forAll (choose (-5, 5)) $ \df ->
+  forAll (choose (0, 3)) $ \mi -> forAll genMargin $ \delta ->
+    let bound = negate df + P.kB * t * mi
+        f = P.FeedbackProcess (P.HeatBath t) (bound + delta * (abs bound + 1)) df
+     in P.secondLaw (P.MeasureFeedback f) (P.Feedback mi) == O.oneInequality (O.feedbackStep f mi)
+
+-- Off the gate's tolerance band: free energy moves by at least 10^-3, density by at most 50.
+prop_oneineq_transition_iff :: Property
+prop_oneineq_transition_iff = forAll genState $ \old -> forAll (genStepFrom old) $ \new ->
+  abs (freeEnergy new - freeEnergy old) > 1e-3 && abs (density new - density old) < 50 ==>
+    P.secondLaw P.Transition (P.Thermodynamic old new) == O.oneInequality (O.transitionStepAt (P.HeatBath 300) old new)
+
+prop_oneineq_transition_erase_chain :: Property
+prop_oneineq_transition_erase_chain = forAll genState $ \old -> forAll (genStepFrom old) $ \new ->
+  forAll (choose (1, 1000)) $ \t -> forAll (choose (1, 8)) $ \n -> forAll (genDist n) $ \p -> forAll (genDist n) $ \q ->
+    let d = P.shannon p - P.shannon q
+        e = P.ErasureProcess (P.HeatBath t) (t * d + 1e-3 * (abs (t * d) + 1))
+     in (P.secondLaw P.Transition (P.Thermodynamic old new) && freeEnergy new <= freeEnergy old) ==>
+          O.oneInequality (O.chain (O.transitionStepAt (P.HeatBath t) old new) (O.eraseStep e p q))
+
+prop_oneineq_secondlaw_implies :: Property
+prop_oneineq_secondlaw_implies = forAll (choose (1, 1000)) $ \t -> forAll (choose (1, 8)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q ->
+    let d = P.shannon p - P.shannon q
+        e = P.ErasureProcess (P.HeatBath t) (t * d + 1e-3 * (abs (t * d) + 1))
+     in case O.stepOf (P.Erase e) (P.Transformation p q) of
+          Just st -> P.secondLaw (P.Erase e) (P.Transformation p q) && O.oneInequality st
+          Nothing -> False
+
+prop_oneineq_szilard_chain :: Positive Double -> Bool
+prop_oneineq_szilard_chain (Positive t0) =
+  let t = 1 + t0
+      b = P.HeatBath t
+      st = O.chain (O.feedbackStep (P.szilardEngine b) (P.mutualInformation2 P.szilardJoint))
+                   (O.eraseStep (P.landauerTightErasure b) (P.asProbDist P.uniform2) (P.asProbDist P.dirac0))
+      bound = O.wIn st + P.kB * t * O.infoI st
+   in O.deltaF st <= bound + 1e-9 * abs bound
+
 -- The Szilard witness (twins of szilardJoint, its marginals, entropy and mutual information, and the engine).
 prop_szilard_joint :: Property
 prop_szilard_joint = once $
@@ -893,6 +957,13 @@ main = do
   check r prop_select_perm_invariant
   check r prop_select_secondLaw
   check r prop_process_units_bridge
+  check r prop_oneineq_chain
+  check r prop_oneineq_erase_iff
+  check r prop_oneineq_feedback_iff
+  check r prop_oneineq_transition_iff
+  check r prop_oneineq_transition_erase_chain
+  check r prop_oneineq_secondlaw_implies
+  check r prop_oneineq_szilard_chain
   check r prop_szilard_joint
   check r prop_szilard_marginal_x
   check r prop_szilard_marginal_y
