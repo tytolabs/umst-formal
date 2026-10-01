@@ -48,6 +48,16 @@ lean_lib UMST.Chem where
   Sole physical law: the `SecondLaw` predicate; `LandauerLaw.physicalSecondLaw` is its erase instance (imported, not re-declared; no project `axiom`).
   Declared before `lean_lib «UMST»` so the `UMST.Urge` target is not shadowed.
 -/
+/-!
+  Constants (`lake build UMST.Constants`): `Constants.SI` is generated from constants/constants.json by
+  scripts/gen_constants.py (exact rationals: cited SI values, measurements with uncertainty, derived constants
+  with their proofs); `Constants.SIBridge` identifies them with the real-valued constants of the Landauer chain.
+-/
+@[default_target]
+lean_lib UMST.Constants where
+  globs := #[`Constants.+]
+  srcDir := "."
+
 @[default_target]
 lean_lib UMST.Urge where
   roots := #[`Urge.AdmitKleisli]

@@ -23,6 +23,7 @@ library
     UMST.Core
     UMST.Chem
     UMST.Chem.Kleisli
+    UMST.Constants.SI
     UMST.CoordinationContract
     UMST.Chem.Constants.ConstantsSheaf
     UMST.Chem.Constants.EgoffHarnessAdversarial

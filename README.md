@@ -433,6 +433,43 @@ cd Coq && make && cd ..
 
 ---
 
+## Constants
+
+Every constant is cited, measured or derived. The seven defining constants of the SI are exact by definition and
+carry their authority; a measured constant carries its standard uncertainty; a derived constant is a theorem in Lean,
+Coq and Agda and a checked property in Haskell. All values are exact rationals, so every language checks them by exact
+arithmetic. The table below lists the constants of the acting fibre and the shared defining constants;
+`umst-formal-double-slit` lists the knowing fibre's.
+
+The single source is `constants/constants.json`. `python3 scripts/gen_constants.py` writes `Lean/Constants/SI.lean`,
+`Coq/Constants/SI.v`, `Agda/Constants/SI.agda`, `Haskell/UMST/Constants/SI.hs` and this table, and CI fails when any of
+them differs from the table. `Lean/Constants/SIBridge.lean` proves that the real-valued constants of the Landauer chain
+(`kBoltzmannSI`, `LandauerLaw.kB`, `speedOfLightSI`) are these exact values, and states the molar Landauer law and the
+Landauer mass equivalent over them. To add a constant, add its row to the table, regenerate, and build.
+
+<!-- constants:begin -->
+| Symbol | Constant | Kind | Value | Unit | Derivation or authority | Proved by |
+|---|---|---|---|---|---|---|
+| ΔνCs | caesium-133 hyperfine transition frequency | cited | 9.19263177 × 10⁹ (exact) | Hz | SI2019 | a definition (cited) |
+| c | speed of light in vacuum | cited | 2.99792458 × 10⁸ (exact) | m s⁻¹ | SI2019 | a definition (cited) |
+| h | Planck constant | cited | 6.62607015 × 10⁻³⁴ (exact) | J s | SI2019 | a definition (cited) |
+| e | elementary charge | cited | 1.602176634 × 10⁻¹⁹ (exact) | C | SI2019 | a definition (cited) |
+| k_B | Boltzmann constant | cited | 1.380649 × 10⁻²³ (exact) | J K⁻¹ | SI2019 | a definition (cited) |
+| N_A | Avogadro constant | cited | 6.02214076 × 10²³ (exact) | mol⁻¹ | SI2019 | a definition (cited) |
+| K_cd | luminous efficacy of 540 THz radiation | cited | 6.83 × 10² (exact) | lm W⁻¹ | SI2019 | a definition (cited) |
+| R | molar gas constant | derived | 8.31446261815324 (exact) | J mol⁻¹ K⁻¹ | `avogadro * boltzmann` | `gasConstant_value` |
+| F | Faraday constant | derived | 9.64853321233100184 × 10⁴ (exact) | C mol⁻¹ | `avogadro * elementaryCharge` | `faraday_value` |
+| c² | mass–energy conversion factor | derived | 8.9875517873681764 × 10¹⁶ (exact) | m² s⁻² | `speedOfLight * speedOfLight` | `speedOfLightSquared_value` |
+
+- SI2019: BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition.
+
+Where these constants enter the second law:
+
+- k_B: under the second law in SI form, erasing one bit at temperature T costs at least k_B T ln 2 joules (Constants.SIBridge.landauerBoundSI), and the bound is attained (LandauerLaw.SecondLaw_landauerTight, in units of k_B).
+- R: under the second law in SI form, erasing one mole of bits at temperature T costs at least R T ln 2 joules (Constants.SIBridge.molarLandauerBoundSI, with R = N_A k_B from Constants.SIBridge.molarLandauer).
+- c²: the mass equivalent of the Landauer energy is k_B T ln 2 / c² (Constants.SIBridge.massEquivalent_eq).
+<!-- constants:end -->
+
 ## 7. Cross-language verification
 
 | Claim | Mechanized in |

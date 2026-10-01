@@ -76,6 +76,9 @@ jobs:
       - name: Lean declaration counts match committed snapshot
         run: python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json
 
+      - name: Constants modules and README table match constants/constants.json
+        run: python3 scripts/gen_constants.py --check
+
       - name: Cartridge-anchor axiom baseline (Mathlib closure)
         run: bash scripts/check_print_axioms.sh
 

@@ -1,0 +1,198 @@
+{
+ "schema": "umst_constants_v1",
+ "rule": "Every constant is cited (a defining constant of the SI, with its authority), measured (a cited measurement with its standard uncertainty), or derived (a theorem in Lean, Coq and Agda and a property in Haskell from cited or measured rows). Values are exact rationals. scripts/gen_constants.py generates every language's module and both README tables from this file; --check fails on drift.",
+ "authorities": {
+  "SI2019": "BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition",
+  "CODATA2022": "Mohr, Tiesinga, Newell and Taylor, CODATA recommended values of the fundamental physical constants: 2022, Rev. Mod. Phys. 97 (2025)"
+ },
+ "constants": [
+  {
+   "id": "caesiumHyperfineFrequency",
+   "symbol": "ΔνCs",
+   "name": "caesium-133 hyperfine transition frequency",
+   "unit": "Hz",
+   "status": "cited",
+   "authority": "SI2019",
+   "num": "9192631770",
+   "den": "1",
+   "fibre": "both"
+  },
+  {
+   "id": "speedOfLight",
+   "symbol": "c",
+   "name": "speed of light in vacuum",
+   "unit": "m s⁻¹",
+   "status": "cited",
+   "authority": "SI2019",
+   "num": "299792458",
+   "den": "1",
+   "fibre": "both"
+  },
+  {
+   "id": "planck",
+   "symbol": "h",
+   "name": "Planck constant",
+   "unit": "J s",
+   "status": "cited",
+   "authority": "SI2019",
+   "num": "662607015",
+   "den": "10^42",
+   "fibre": "both"
+  },
+  {
+   "id": "elementaryCharge",
+   "symbol": "e",
+   "name": "elementary charge",
+   "unit": "C",
+   "status": "cited",
+   "authority": "SI2019",
+   "num": "1602176634",
+   "den": "10^28",
+   "fibre": "both"
+  },
+  {
+   "id": "boltzmann",
+   "symbol": "k_B",
+   "name": "Boltzmann constant",
+   "unit": "J K⁻¹",
+   "status": "cited",
+   "authority": "SI2019",
+   "num": "1380649",
+   "den": "10^29",
+   "fibre": "both",
+   "second_law": "under the second law in SI form, erasing one bit at temperature T costs at least k_B T ln 2 joules (Constants.SIBridge.landauerBoundSI), and the bound is attained (LandauerLaw.SecondLaw_landauerTight, in units of k_B)"
+  },
+  {
+   "id": "avogadro",
+   "symbol": "N_A",
+   "name": "Avogadro constant",
+   "unit": "mol⁻¹",
+   "status": "cited",
+   "authority": "SI2019",
+   "num": "602214076*10^15",
+   "den": "1",
+   "fibre": "both"
+  },
+  {
+   "id": "luminousEfficacy",
+   "symbol": "K_cd",
+   "name": "luminous efficacy of 540 THz radiation",
+   "unit": "lm W⁻¹",
+   "status": "cited",
+   "authority": "SI2019",
+   "num": "683",
+   "den": "1",
+   "fibre": "both"
+  },
+  {
+   "id": "gasConstant",
+   "symbol": "R",
+   "name": "molar gas constant",
+   "unit": "J mol⁻¹ K⁻¹",
+   "status": "derived",
+   "formula": "avogadro * boltzmann",
+   "fibre": "acting",
+   "second_law": "under the second law in SI form, erasing one mole of bits at temperature T costs at least R T ln 2 joules (Constants.SIBridge.molarLandauerBoundSI, with R = N_A k_B from Constants.SIBridge.molarLandauer)"
+  },
+  {
+   "id": "faraday",
+   "symbol": "F",
+   "name": "Faraday constant",
+   "unit": "C mol⁻¹",
+   "status": "derived",
+   "formula": "avogadro * elementaryCharge",
+   "fibre": "acting"
+  },
+  {
+   "id": "speedOfLightSquared",
+   "symbol": "c²",
+   "name": "mass–energy conversion factor",
+   "unit": "m² s⁻²",
+   "status": "derived",
+   "formula": "speedOfLight * speedOfLight",
+   "fibre": "acting",
+   "second_law": "the mass equivalent of the Landauer energy is k_B T ln 2 / c² (Constants.SIBridge.massEquivalent_eq)"
+  },
+  {
+   "id": "josephson",
+   "symbol": "K_J",
+   "name": "Josephson constant",
+   "unit": "Hz V⁻¹",
+   "status": "derived",
+   "formula": "2 * elementaryCharge / planck",
+   "fibre": "knowing"
+  },
+  {
+   "id": "vonKlitzing",
+   "symbol": "R_K",
+   "name": "von Klitzing constant",
+   "unit": "Ω",
+   "status": "derived",
+   "formula": "planck / (elementaryCharge * elementaryCharge)",
+   "fibre": "knowing"
+  },
+  {
+   "id": "fluxQuantum",
+   "symbol": "Φ₀",
+   "name": "magnetic flux quantum",
+   "unit": "Wb",
+   "status": "derived",
+   "formula": "planck / (2 * elementaryCharge)",
+   "fibre": "knowing"
+  },
+  {
+   "id": "conductanceQuantum",
+   "symbol": "G₀",
+   "name": "conductance quantum",
+   "unit": "S",
+   "status": "derived",
+   "formula": "2 * elementaryCharge * elementaryCharge / planck",
+   "fibre": "knowing"
+  },
+  {
+   "id": "fineStructure",
+   "symbol": "α",
+   "name": "fine-structure constant",
+   "unit": "1",
+   "status": "measured",
+   "authority": "CODATA2022",
+   "num": "72973525643",
+   "den": "10^13",
+   "uncertainty_num": "11",
+   "uncertainty_den": "10^13",
+   "fibre": "knowing"
+  },
+  {
+   "id": "vacuumPermittivity",
+   "symbol": "ε₀",
+   "name": "vacuum electric permittivity",
+   "unit": "F m⁻¹",
+   "status": "derived",
+   "formula": "elementaryCharge * elementaryCharge / (2 * fineStructure * planck * speedOfLight)",
+   "fibre": "knowing",
+   "crosscheck": {
+    "authority": "CODATA2022",
+    "num": "88541878188",
+    "den": "10^22",
+    "uncertainty_num": "14",
+    "uncertainty_den": "10^22"
+   }
+  },
+  {
+   "id": "vacuumPermeability",
+   "symbol": "μ₀",
+   "name": "vacuum magnetic permeability",
+   "unit": "N A⁻²",
+   "status": "derived",
+   "formula": "2 * fineStructure * planck / (elementaryCharge * elementaryCharge * speedOfLight)",
+   "fibre": "knowing",
+   "crosscheck": {
+    "authority": "CODATA2022",
+    "num": "125663706127",
+    "den": "10^17",
+    "uncertainty_num": "20",
+    "uncertainty_den": "10^17"
+   }
+  }
+ ]
+}

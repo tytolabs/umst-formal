@@ -25,6 +25,7 @@ import LandauerExtension
 import qualified MonoidalState
 import qualified PrimeSpectralGuidance
 import CoordinationContractProps
+import qualified UMST.Constants.SI as SI
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -558,6 +559,9 @@ main = do
   check r prop_n_quantile_monotone_in_delta
 
   putStrLn ""
+  putStrLn "-- Constants (exact SI values; derived constants and CODATA cross-checks)"
+  mapM_ (\(name, ok) -> check r (once (counterexample name ok))) SI.derivations
+
   putStrLn "-- CoordinationContract (Lean, Coq and Agda laws; umst-ucrs runtime model)"
   check r prop_cost_nonneg
   check r prop_cost_additive
