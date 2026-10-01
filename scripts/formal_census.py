@@ -17,7 +17,8 @@ For each of Lean, Coq, Agda and Haskell it counts:
   open         `sorry`, `admit`, `Admitted`, `postulate`, and `axiom`/`Axiom`/`Parameter` declarations
 
 `--json` prints the census; `--markdown` prints the README table; `--check README.md` fails when the README's
-census block (between `<!-- census:begin -->` and `<!-- census:end -->`) differs from the measurement.
+census block (between `<!-- census:begin -->` and `<!-- census:end -->`) differs from the measurement, and
+`--write README.md` regenerates that block.
 """
 from __future__ import annotations
 
@@ -147,11 +148,16 @@ def agda(files: list[str]) -> dict:
 
 
 def haskell(files: list[str]) -> dict:
+    """QuickCheck properties, plus the entries of the generated statement lists (`checks`, `derivations`) that the
+    test suite evaluates: each entry is one statement the proof languages prove, checked by evaluation."""
     props = 0
     for f in files:
-        props += len(re.findall(r"^prop_\w+\s*::", read(f), re.M))
+        text = read(f)
+        props += len(re.findall(r"^prop_\w+\s*::", text, re.M))
+        for m in re.finditer(r"^(checks|derivations)\s*::.*?\n\1\s*=\n(.*?)\n\s*\]", text, re.M | re.S):
+            props += len(re.findall(r"^\s*[\[,]\s*\(\"", m.group(2), re.M))
     return {"files": len(files), "proved": props, "definitional": 0, "substantive": props, "open": 0,
-            "note": "QuickCheck properties: tested, not proved"}
+            "note": "QuickCheck properties and checked statements: tested, not proved"}
 
 
 def census() -> dict:
@@ -172,7 +178,7 @@ def markdown(c: dict) -> str:
     rows = ["| Language | Files | Proved | Laws (over variables or hypotheses) | Closed computations | Open (sorry, admit, axiom, postulate) |",
             "|---|---:|---:|---:|---:|---:|"]
     for lang, v in c.items():
-        proved = f"{v['proved']} properties" if lang == "Haskell" else str(v["proved"])
+        proved = f"{v['proved']} checked" if lang == "Haskell" else str(v["proved"])
         rows.append(f"| {lang} | {v['files']} | {proved} | {v['substantive']} | {v['definitional']} | {v['open']} |")
     return "\n".join(rows)
 
@@ -181,6 +187,18 @@ def main() -> int:
     c = census()
     if "--json" in sys.argv:
         print(json.dumps(c, indent=2))
+        return 0
+    if "--write" in sys.argv:
+        readme = sys.argv[sys.argv.index("--write") + 1]
+        text = read(readme)
+        new, n = re.subn(r"<!-- census:begin -->\n.*?\n<!-- census:end -->",
+                         lambda _: "<!-- census:begin -->\n" + markdown(c) + "\n<!-- census:end -->", text, flags=re.S)
+        if not n:
+            print(f"FAIL: {readme} has no census block", file=sys.stderr)
+            return 1
+        with open(os.path.join(ROOT, readme), "w", encoding="utf-8") as fh:
+            fh.write(new)
+        print(f"wrote the census block of {readme}")
         return 0
     if "--check" in sys.argv:
         readme = sys.argv[sys.argv.index("--check") + 1]

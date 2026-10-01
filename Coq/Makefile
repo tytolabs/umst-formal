@@ -28,7 +28,7 @@ COQ_MAKEFILE := rocq makefile
 else
 COQ_MAKEFILE := coq_makefile
 endif
-SOURCES      := Core/Gate.v Concrete/Gate.v Compat/Gate.v Gate.v Constitutional.v LandauerEinsteinBridge.v InfoTheory.v MeasurementCost.v PrimeSpectralGuidance.v Extraction.v
+SOURCES      := _CoqProject $(shell grep -E '\.v$$' _CoqProject)
 COQMAKEFILE  := CoqMakefile
 
 .PHONY: all generate extract html clean check
@@ -42,8 +42,7 @@ generate: $(COQMAKEFILE)
 
 $(COQMAKEFILE): $(SOURCES)
 	@echo "── Generating CoqMakefile ──"
-	$(COQ_MAKEFILE) -f _CoqProject -o $(COQMAKEFILE) 2>/dev/null \
-	  || $(COQ_MAKEFILE) $(SOURCES) -o $(COQMAKEFILE)
+	$(COQ_MAKEFILE) -f _CoqProject -o $(COQMAKEFILE)
 
 # Extraction: `make all` already compiles `Extraction.v` under `CoqMakefile`, which
 # applies `_CoqProject` (`-Q . UMSTFormal`). A bare `$(COQC) Extraction.v` here

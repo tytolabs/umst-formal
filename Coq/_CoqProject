@@ -1,9 +1,5 @@
 -arg "-w"
 -arg "-abstract-large-number"
--Q Core UMSTFormal.Core
--Q Concrete UMSTFormal.Concrete
--Q Compat UMSTFormal.Compat
--Q Chem UMSTFormal.Chem
 -Q . UMSTFormal
 Core/Gate.v
 Concrete/Gate.v
@@ -22,7 +18,6 @@ Extraction.v
 Chem/SecondLaw.v
 Chem/Conservation.v
 Chem/Constants/ConstantsSheaf.v
-Chem/Constants/EgoffHarnessAdversarial.v
 Chem/Constants/TemperatureGraph.v
 Chem/Environment/EnvGibbsDuhem.v
 Chem/Environment/EnvSampleSections.v
