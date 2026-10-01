@@ -33,8 +33,12 @@ jobs:
   extract-haskell:
     name: Lean build + Haskell mirror inventory
     runs-on: ubuntu-latest
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4 # v4
+
+      - name: No ignored build artefacts are tracked
+        run: bash scripts/check_tracked_build_artefacts.sh
 
       - name: Install elan (Lean toolchain)
         run: |

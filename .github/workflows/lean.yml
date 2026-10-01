@@ -29,6 +29,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4 # v4
 
+      - name: No ignored build artefacts are tracked
+        run: bash scripts/check_tracked_build_artefacts.sh
+
       - name: Set up Lean 4 + Mathlib cache
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1
         with:
