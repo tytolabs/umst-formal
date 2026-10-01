@@ -7,7 +7,7 @@
 (*  lift.  Imports only existing UMSTFormal modules; ZERO new axioms.    *)
 (* ================================================================== *)
 
-From Stdlib Require Import Reals.
+From Stdlib Require Import Reals Lra.
 Require Import UMSTFormal.LandauerEinsteinBridge.
 Require Import UMSTFormal.MeasurementCost.
 
@@ -87,4 +87,96 @@ Theorem chemSecondLaw_comp (t1 t2 : ThermochemicalTransition) :
 Proof.
   intros hb hp [_ h1] [_ h2]. unfold tcErasure in *. rewrite <- hb in h2. rewrite <- hp in h2.
   exact (SecondLaw_transformation_comp (tcBath t1) _ _ _ _ _ h1 h2).
+Qed.
+
+(** The entropy drop of an update's state distribution (nats). *)
+Definition assemblageEntropyDrop (t : ThermochemicalTransition) : R := shannon (tcPrior t) - shannon (tcPost t).
+
+(* ------------------------------------------------------------------ *)
+(*  The Landauer refinement floor is the second law                     *)
+(* ------------------------------------------------------------------ *)
+
+(** Landauer work floor for an entropy drop at bath temperature [T]. *)
+Definition refinementWorkFloor (entropyDrop T : R) : R := T * entropyDrop.
+
+(** Dissipated work meets the floor for the update's entropy drop. *)
+Definition refinementWorkAccounted (t : ThermochemicalTransition) : Prop :=
+  refinementWorkFloor (assemblageEntropyDrop t) (bathTemp (tcBath t)) <= tcWork t.
+
+(** The floor is the entropy clause of the second law: at a positive bath temperature, T dS <= W exactly when
+    dS <= W / T. *)
+Theorem refinementWorkAccounted_iff (t : ThermochemicalTransition) :
+  refinementWorkAccounted t <-> assemblageEntropyDrop t <= tcWork t / bathTemp (tcBath t).
+Proof.
+  unfold refinementWorkAccounted, refinementWorkFloor.
+  pose proof (bathTemp_pos (tcBath t)) as hT. pose proof (Rgt_not_eq _ _ hT) as hT0.
+  split; intro h.
+  - apply (Rmult_le_reg_r (bathTemp (tcBath t))); [exact hT |]. unfold Rdiv.
+    rewrite Rmult_assoc, (Rinv_l _ hT0), Rmult_1_r, Rmult_comm. exact h.
+  - apply Rmult_le_compat_r with (r := bathTemp (tcBath t)) in h; [| exact (Rlt_le _ _ hT)]. unfold Rdiv in h.
+    rewrite Rmult_assoc, (Rinv_l _ hT0), Rmult_1_r in h. rewrite Rmult_comm. exact h.
+Qed.
+
+(** The refinement floor is the chemical second law: a coherent update obeys it exactly when its dissipated work
+    meets the Landauer floor of its entropy drop. *)
+Theorem chemSecondLaw_iff_accounted (t : ThermochemicalTransition) :
+  chemSecondLaw t <-> structurallyCoherent t /\ refinementWorkAccounted t.
+Proof. rewrite chemSecondLaw_iff, refinementWorkAccounted_iff. reflexivity. Qed.
+
+(* ------------------------------------------------------------------ *)
+(*  Bridge: a physical binary erasure realises an assemblage update     *)
+(* ------------------------------------------------------------------ *)
+
+(** Physical realisation of a binary assemblage erasure (uniform to Dirac). *)
+Record PhysicalChemBridge : Type := mkPhysicalChemBridge {
+  pcProc : ErasureProcess;
+  pcTransition : ThermochemicalTransition;
+  pcBathEq : tcBath pcTransition = erasureBath pcProc;
+  pcWorkEq : tcWork pcTransition = work pcProc;
+  pcPriorEq : tcPrior pcTransition = asProbDist uniform2;
+  pcPostEq : tcPost pcTransition = asProbDist dirac0;
+  pcCoherent : structurallyCoherent pcTransition
+}.
+
+(** The erase instance of the second law discharges the entropy clause of the chemical second law. *)
+Theorem chem_entropy_bound_from_physical (b : PhysicalChemBridge) :
+  eraseSecondLaw (pcProc b) uniform2 ->
+  assemblageEntropyDrop (pcTransition b) <= tcWork (pcTransition b) / bathTemp (tcBath (pcTransition b)).
+Proof.
+  intro h. unfold assemblageEntropyDrop.
+  rewrite (pcPriorEq b), (pcPostEq b), (pcWorkEq b), (pcBathEq b), !shannon_asProbDist. exact h.
+Qed.
+
+(** Landauer bound on the dissipated work of a physically bridged assemblage erasure. *)
+Theorem refinementLandauerBound (b : PhysicalChemBridge) :
+  eraseSecondLaw (pcProc b) uniform2 -> bathTemp (tcBath (pcTransition b)) * ln 2 <= tcWork (pcTransition b).
+Proof. intro h. rewrite (pcBathEq b), (pcWorkEq b). exact (landauerBound (pcProc b) h). Qed.
+
+(** A physically bridged coherent update obeys the chemical second law. *)
+Theorem chemSecondLaw_from_physical (b : PhysicalChemBridge) :
+  eraseSecondLaw (pcProc b) uniform2 -> chemSecondLaw (pcTransition b).
+Proof.
+  intro h. apply chemSecondLaw_iff. split; [exact (pcCoherent b) |].
+  exact (chem_entropy_bound_from_physical b h).
+Qed.
+
+(* ------------------------------------------------------------------ *)
+(*  Fixture: the coherent identity update                               *)
+(* ------------------------------------------------------------------ *)
+
+(** A coherent update of the uniform binary assemblage to itself at 300 K, dissipating nothing. *)
+Definition coherentP0Transition : ThermochemicalTransition :=
+  mkThermochemicalTransition (mkHeatBath 300 ltac:(lra)) (asProbDist uniform2) (asProbDist uniform2) 0 0.
+
+Theorem coherentP0_zero_entropy_drop : assemblageEntropyDrop coherentP0Transition = 0.
+Proof. unfold assemblageEntropyDrop. cbn [tcPrior tcPost coherentP0Transition]. ring. Qed.
+
+Theorem coherentP0_structurallyCoherent : structurallyCoherent coherentP0Transition.
+Proof. reflexivity. Qed.
+
+Theorem coherentP0_chemSecondLaw : chemSecondLaw coherentP0Transition.
+Proof.
+  apply chemSecondLaw_iff. split; [reflexivity |].
+  pose proof coherentP0_zero_entropy_drop as h. unfold assemblageEntropyDrop in h. rewrite h.
+  cbn [tcWork tcBath bathTemp coherentP0Transition]. unfold Rdiv. rewrite Rmult_0_l. lra.
 Qed.

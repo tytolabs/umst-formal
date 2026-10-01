@@ -13,8 +13,10 @@
 module Chem.SecondLaw where
 
 open import Data.Product using (_×_; _,_; proj₂)
-open import Data.Rational using (ℚ; 0ℚ)
-open import Relation.Binary.PropositionalEquality using (_≡_; subst)
+open import Data.Rational using (ℚ; 0ℚ; _-_; _≤_)
+open import Data.Rational.Solver using (module +-*-Solver)
+open import Function using (_⇔_; mk⇔; id)
+open import Relation.Binary.PropositionalEquality using (_≡_; refl; subst)
 open import Process
 
 -- A thermochemical update: entropies of the state distribution before and after (nats), the entropy its work
@@ -45,3 +47,26 @@ chemSecondLaw-comp : ∀ t₁ t₂ → entropyPost t₁ ≡ entropyPrior t₂ �
 chemSecondLaw-comp t₁ t₂ hp (_ , h₁) (_ , h₂) =
   transformation-comp (erasureOf t₁) (erasureOf t₂) (entropyPrior t₁) (entropyPost t₁) (entropyPost t₂) h₁
     (subst (λ H → SecondLaw (erase (erasureOf t₂)) (transformation H (entropyPost t₂))) (Relation.Binary.PropositionalEquality.sym hp) h₂)
+
+-- The entropy drop of an update's state distribution (nats).
+assemblageEntropyDrop : ThermochemicalTransition → ℚ
+assemblageEntropyDrop t = entropyPrior t - entropyPost t
+
+-- Its entropy part is the Clausius bound on the assemblage: ΔS ≤ W / T (carried as the dissipated entropy).
+chemSecondLaw-iff : ∀ t → chemSecondLaw t ⇔ (structurallyCoherent t × assemblageEntropyDrop t ≤ dissipatedEntropy t)
+chemSecondLaw-iff t = mk⇔ id id
+
+-- The coherent identity update of an assemblage whose distribution carries entropy H, dissipating nothing.
+coherentP0Transition : ℚ → ThermochemicalTransition
+coherentP0Transition H = record { entropyPrior = H ; entropyPost = H ; dissipatedEntropy = 0ℚ ; structuralDefect = 0ℚ }
+
+open +-*-Solver
+
+coherentP0-zero-entropy-drop : ∀ H → assemblageEntropyDrop (coherentP0Transition H) ≡ 0ℚ
+coherentP0-zero-entropy-drop = solve 1 (λ H → H :- H := con 0ℚ) refl
+
+coherentP0-structurallyCoherent : ∀ H → structurallyCoherent (coherentP0Transition H)
+coherentP0-structurallyCoherent H = refl
+
+coherentP0-chemSecondLaw : ∀ H → chemSecondLaw (coherentP0Transition H)
+coherentP0-chemSecondLaw H = refl , transformation-id H

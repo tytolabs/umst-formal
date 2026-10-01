@@ -7,7 +7,8 @@
 --
 --   erase            S(prior) - S(Dirac) <= W / T   (entropy in nats, work in units of k_B times kelvin)
 --   measureFeedback  W_ext <= -dF + k_B T I         (joules; I in nats)
---   transition       the gate's admissibility of the state move
+--   transition       mass within tolerance and dissipation non-negative (the universal core; the cement
+--                    constraints compose over it)
 module UMST.Process
   ( HeatBath (..)
   , ErasureProcess (..)

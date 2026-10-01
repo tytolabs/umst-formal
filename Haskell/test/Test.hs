@@ -489,6 +489,71 @@ prop_process_transformation_comp (Positive t) = forAll (choose (1, 8)) $ \n ->
         law w a b = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation a b)
      in (law w1 p q && law w2 q r) ==> law (w1 + w2 + 1e-9 * t) p r
 
+-- The chemical second law is coherence and the Clausius bound on the assemblage (twin of chemSecondLaw_iff).
+prop_chem_secondlaw_iff :: Positive Double -> Double -> Bool -> Property
+prop_chem_secondlaw_iff (Positive t) w coherent = forAll (choose (1, 8)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q ->
+    let tr = CS.ThermochemicalTransition (P.HeatBath t) p q w (if coherent then 0 else 1)
+     in CS.chemSecondLaw tr == (CS.structurallyCoherent tr && CS.assemblageEntropyDrop tr <= w / t)
+
+-- An update whose work sits a relative margin 'delta' from its floor T·ΔS (floating-point comparisons of T·ΔS ≤ W
+-- and ΔS ≤ W / T agree away from the boundary).
+genAccounted :: Gen (CS.ThermochemicalTransition, Bool)
+genAccounted = do
+  t <- choose (1, 1000)
+  n <- choose (1, 8)
+  p <- genDist n
+  q <- genDist n
+  delta <- elements [-0.5, -1e-3, 1e-3, 0.5]
+  coherent <- arbitrary
+  let floor' = t * (P.shannon p - P.shannon q)
+      w = floor' + delta * (abs floor' + 1)
+  pure (CS.ThermochemicalTransition (P.HeatBath t) p q w (if coherent then 0 else 1), delta > 0)
+
+-- The floor is the entropy clause of the second law (twin of refinementWorkAccounted_iff).
+prop_chem_refinement_accounted_iff :: Property
+prop_chem_refinement_accounted_iff = forAll genAccounted $ \(tr, above) ->
+  CS.refinementWorkAccounted tr == above
+    && CS.refinementWorkAccounted tr == (CS.assemblageEntropyDrop tr <= CS.tcWork tr / P.bathTemp (CS.tcBath tr))
+
+-- The refinement floor is the chemical second law (twin of chemSecondLaw_iff_accounted).
+prop_chem_secondlaw_iff_accounted :: Property
+prop_chem_secondlaw_iff_accounted = forAll genAccounted $ \(tr, _) ->
+  CS.chemSecondLaw tr == (CS.structurallyCoherent tr && CS.refinementWorkAccounted tr)
+
+-- A physical binary erasure obeying the erase instance discharges the chemical second law of the update it
+-- realises (twins of chem_entropy_bound_from_physical, refinementLandauerBound, chemSecondLaw_from_physical).
+physicalErasure :: Gen P.ErasureProcess
+physicalErasure = do { t <- choose (1, 1000); k <- choose (0, 2); pure (P.ErasureProcess (P.HeatBath t) (k * t)) }
+
+obeysErase :: P.ErasureProcess -> Bool
+obeysErase e = P.secondLaw (P.Erase e) (P.Erasure P.uniform2)
+
+prop_chem_entropy_bound_from_physical :: Property
+prop_chem_entropy_bound_from_physical = forAll physicalErasure $ \e ->
+  let tr = CS.pcTransition (CS.physicalChemBridge e)
+   in obeysErase e ==> CS.assemblageEntropyDrop tr <= CS.tcWork tr / P.bathTemp (CS.tcBath tr)
+
+prop_chem_refinement_landauer_bound :: Property
+prop_chem_refinement_landauer_bound = forAll physicalErasure $ \e ->
+  let tr = CS.pcTransition (CS.physicalChemBridge e)
+      temp = P.bathTemp (CS.tcBath tr)
+   in obeysErase e ==> CS.tcWork tr >= temp * log 2 - 1e-12 * temp
+
+prop_chem_secondlaw_from_physical :: Property
+prop_chem_secondlaw_from_physical = forAll physicalErasure $ \e ->
+  obeysErase e ==> CS.chemSecondLaw (CS.pcTransition (CS.physicalChemBridge e))
+
+-- The coherent identity fixture (twins of coherentP0_zero_entropy_drop, _structurallyCoherent, _chemSecondLaw).
+prop_chem_p0_zero_entropy_drop :: Property
+prop_chem_p0_zero_entropy_drop = once $ CS.assemblageEntropyDrop CS.coherentP0Transition == 0
+
+prop_chem_p0_coherent :: Property
+prop_chem_p0_coherent = once $ CS.structurallyCoherent CS.coherentP0Transition
+
+prop_chem_p0_secondlaw :: Property
+prop_chem_p0_secondlaw = once $ CS.chemSecondLaw CS.coherentP0Transition
+
 -- The chemical second law composes like the predicate it instantiates.
 prop_chem_secondlaw_comp :: Positive Double -> Property
 prop_chem_secondlaw_comp (Positive t) = forAll (choose (1, 8)) $ \n ->
@@ -721,6 +786,15 @@ main = do
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
   check r prop_chem_secondlaw_comp
+  check r prop_chem_secondlaw_iff
+  check r prop_chem_refinement_accounted_iff
+  check r prop_chem_secondlaw_iff_accounted
+  check r prop_chem_entropy_bound_from_physical
+  check r prop_chem_refinement_landauer_bound
+  check r prop_chem_secondlaw_from_physical
+  check r prop_chem_p0_zero_entropy_drop
+  check r prop_chem_p0_coherent
+  check r prop_chem_p0_secondlaw
   check r prop_process_transition_refl
   check r prop_process_satisfiable
   check r prop_concrete_admissible_iff_secondLaw

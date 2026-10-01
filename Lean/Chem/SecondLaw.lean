@@ -80,6 +80,19 @@ noncomputable def refinementWorkFloor (entropyDrop T : ℝ) : ℝ :=
 def refinementWorkAccounted {n : ℕ} (t : ThermochemicalTransition n) : Prop :=
   refinementWorkFloor (assemblageEntropyDrop t) t.bath.bathTemp.val ≤ t.dissipatedWork
 
+/-- The floor is the entropy clause of the second law: at a positive bath temperature, `T · ΔS ≤ W` exactly when
+    `ΔS ≤ W / T`. -/
+theorem refinementWorkAccounted_iff {n : ℕ} (t : ThermochemicalTransition n) :
+    refinementWorkAccounted t ↔ assemblageEntropyDrop t ≤ t.dissipatedWork / t.bath.bathTemp.val := by
+  unfold refinementWorkAccounted refinementWorkFloor
+  rw [le_div_iff₀ t.bath.bathTemp.property, mul_comm]
+
+/-- **The refinement floor is the chemical second law**: a coherent update obeys it exactly when its dissipated work
+    meets the Landauer floor of its entropy drop. -/
+theorem chemSecondLaw_iff_accounted {n : ℕ} (t : ThermochemicalTransition n) :
+    chemSecondLaw t ↔ structurallyCoherent t ∧ refinementWorkAccounted t := by
+  rw [chemSecondLaw_iff, refinementWorkAccounted_iff]
+
 -- ================================================================
 -- SECTION 4: Bridge to physicalSecondLaw (derived — zero new axioms)
 -- ================================================================

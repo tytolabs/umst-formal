@@ -5,7 +5,7 @@
   "Lean/Process.lean",
   "Lean/Chem/SecondLaw.lean"
  ],
- "max_absent": 60,
+ "max_absent": 33,
  "statements": [
   {
    "id": "process.feedback",
@@ -470,13 +470,16 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: named entropy drop in Coq (stated inline in chemSecondLaw_iff)"
+    "name": "assemblageEntropyDrop",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: named entropy drop in Agda"
+    "name": "assemblageEntropyDrop",
+    "file": "Agda/Chem/SecondLaw.agda"
    },
    "haskell": {
-    "absent": "pending: named entropy drop in Haskell"
+    "name": "assemblageEntropyDrop",
+    "file": "Haskell/UMST/Chem/SecondLaw.hs"
    }
   },
   {
@@ -511,10 +514,12 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: Agda chemSecondLaw-iff"
+    "name": "chemSecondLaw-iff",
+    "file": "Agda/Chem/SecondLaw.agda"
    },
    "haskell": {
-    "absent": "pending: Haskell property for chemSecondLaw_iff"
+    "name": "prop_chem_secondlaw_iff",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -545,13 +550,15 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: refinementWorkFloor in Coq"
+    "name": "refinementWorkFloor",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: refinementWorkFloor in Agda"
+    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
    },
    "haskell": {
-    "absent": "pending: refinementWorkFloor in Haskell"
+    "name": "refinementWorkFloor",
+    "file": "Haskell/UMST/Chem/SecondLaw.hs"
    }
   },
   {
@@ -562,13 +569,53 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: refinementWorkAccounted in Coq"
+    "name": "refinementWorkAccounted",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: refinementWorkAccounted in Agda"
+    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
    },
    "haskell": {
-    "absent": "pending: refinementWorkAccounted in Haskell"
+    "name": "refinementWorkAccounted",
+    "file": "Haskell/UMST/Chem/SecondLaw.hs"
+   }
+  },
+  {
+   "id": "chem.refinementWorkAccounted_iff",
+   "statement": "at a positive bath temperature the Landauer floor T·ΔS ≤ W is the Clausius bound ΔS ≤ W / T",
+   "lean": {
+    "name": "refinementWorkAccounted_iff",
+    "file": "Lean/Chem/SecondLaw.lean"
+   },
+   "coq": {
+    "name": "refinementWorkAccounted_iff",
+    "file": "Coq/Chem/SecondLaw.v"
+   },
+   "agda": {
+    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
+   },
+   "haskell": {
+    "name": "prop_chem_refinement_accounted_iff",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "chem.secondLaw_iff_accounted",
+   "statement": "a coherent update obeys the chemical second law exactly when its work meets the Landauer floor of its entropy drop",
+   "lean": {
+    "name": "chemSecondLaw_iff_accounted",
+    "file": "Lean/Chem/SecondLaw.lean"
+   },
+   "coq": {
+    "name": "chemSecondLaw_iff_accounted",
+    "file": "Coq/Chem/SecondLaw.v"
+   },
+   "agda": {
+    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
+   },
+   "haskell": {
+    "name": "prop_chem_secondlaw_iff_accounted",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -579,13 +626,15 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: PhysicalChemBridge in Coq"
+    "name": "PhysicalChemBridge",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: PhysicalChemBridge in Agda"
+    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
    },
    "haskell": {
-    "absent": "pending: PhysicalChemBridge in Haskell"
+    "name": "PhysicalChemBridge",
+    "file": "Haskell/UMST/Chem/SecondLaw.hs"
    }
   },
   {
@@ -596,13 +645,15 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: chem_entropy_bound_from_physical in Coq"
+    "name": "chem_entropy_bound_from_physical",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: chem_entropy_bound_from_physical in Agda"
+    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
    },
    "haskell": {
-    "absent": "pending: chem_entropy_bound_from_physical in Haskell"
+    "name": "prop_chem_entropy_bound_from_physical",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -613,13 +664,15 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: refinementLandauerBound in Coq"
+    "name": "refinementLandauerBound",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
    },
    "haskell": {
-    "absent": "pending: refinementLandauerBound in Haskell"
+    "name": "prop_chem_refinement_landauer_bound",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -630,13 +683,15 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: chemSecondLaw_from_physical in Coq"
+    "name": "chemSecondLaw_from_physical",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: chemSecondLaw_from_physical in Agda"
+    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
    },
    "haskell": {
-    "absent": "pending: chemSecondLaw_from_physical in Haskell"
+    "name": "prop_chem_secondlaw_from_physical",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -647,13 +702,16 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: coherentP0Transition in Coq"
+    "name": "coherentP0Transition",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: coherentP0Transition in Agda"
+    "name": "coherentP0Transition",
+    "file": "Agda/Chem/SecondLaw.agda"
    },
    "haskell": {
-    "absent": "pending: coherentP0Transition in Haskell"
+    "name": "coherentP0Transition",
+    "file": "Haskell/UMST/Chem/SecondLaw.hs"
    }
   },
   {
@@ -664,13 +722,16 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: coherentP0_zero_entropy_drop in Coq"
+    "name": "coherentP0_zero_entropy_drop",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: coherentP0_zero_entropy_drop in Agda"
+    "name": "coherentP0-zero-entropy-drop",
+    "file": "Agda/Chem/SecondLaw.agda"
    },
    "haskell": {
-    "absent": "pending: coherentP0_zero_entropy_drop in Haskell"
+    "name": "prop_chem_p0_zero_entropy_drop",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -681,13 +742,16 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: coherentP0_structurallyCoherent in Coq"
+    "name": "coherentP0_structurallyCoherent",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: coherentP0_structurallyCoherent in Agda"
+    "name": "coherentP0-structurallyCoherent",
+    "file": "Agda/Chem/SecondLaw.agda"
    },
    "haskell": {
-    "absent": "pending: coherentP0_structurallyCoherent in Haskell"
+    "name": "prop_chem_p0_coherent",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -698,13 +762,16 @@
     "file": "Lean/Chem/SecondLaw.lean"
    },
    "coq": {
-    "absent": "pending: coherentP0_chemSecondLaw in Coq"
+    "name": "coherentP0_chemSecondLaw",
+    "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "pending: coherentP0_chemSecondLaw in Agda"
+    "name": "coherentP0-chemSecondLaw",
+    "file": "Agda/Chem/SecondLaw.agda"
    },
    "haskell": {
-    "absent": "pending: coherentP0_chemSecondLaw in Haskell"
+    "name": "prop_chem_p0_secondlaw",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
