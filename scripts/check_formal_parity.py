@@ -5,7 +5,8 @@
 
 formal_parity.json lists statements by one id. For each of Lean, Coq, Agda and Haskell an entry names the
 declaration (theorem, definition, type, or Haskell QuickCheck property) and its file, or gives the reason the
-language cannot state it ("absent"). This check fails when
+language cannot state it ("absent"). A Haskell name in double quotes names an entry of a checked list
+(`("label", value)`, such as a generated module's `checks`) that the test suite runs. This check fails when
 
 - a named declaration is not declared in its file;
 - a theorem or definition of a contract module (`contract_modules`) is in no statement, so a Lean-only result
@@ -33,8 +34,11 @@ def declared(lang: str, name: str, path: str) -> bool:
     full = os.path.join(ROOT, path)
     if not os.path.exists(full):
         return False
+    text = open(full, encoding="utf-8").read()
+    if lang == "haskell" and name.startswith('"') and name.endswith('"'):
+        return re.search(r'\(\s*"' + re.escape(name[1:-1]) + r'"\s*,', text) is not None
     short = name.split(".")[-1]
-    return re.search(DECL[lang].replace("{n}", re.escape(short)), open(full, encoding="utf-8").read()) is not None
+    return re.search(DECL[lang].replace("{n}", re.escape(short)), text) is not None
 
 
 def main() -> int:

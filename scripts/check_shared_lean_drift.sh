@@ -20,7 +20,8 @@ SINGLE_SOURCE=(
 )
 # Files both repositories carry byte-identical: the constants table and its generated modules, and the census tools.
 SHARED_FILES=(
-  constants/constants.json scripts/gen_constants.py scripts/formal_census.py scripts/theatre_census.py
+  constants/constants.json scripts/gen_constants.py scripts/formal_census.py scripts/theatre_census.py \
+  scripts/check_formal_parity.py
   Coq/Constants/SI.v Agda/Constants/SI.agda
 )
 
