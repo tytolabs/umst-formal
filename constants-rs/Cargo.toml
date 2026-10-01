@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+# SPDX-License-Identifier: MIT
+[package]
+name = "umst-constants"
+version = "0.1.0"
+edition = "2021"
+authors = ["Santhosh Shyamsundar", "Santosh Prabhu Shenbagamoorthy"]
+description = "The UMST constants table as no_std const items, generated from constants/constants.json (proved in Lean, Coq, Agda; tested in Haskell)."
+license = "MIT"
+
+[dependencies]

@@ -33,6 +33,7 @@ Coq/.coq-native/
 Coq/.CoqMakefile.d
 Coq/.nia.cache
 Coq/.lia.cache
+*.nra.cache
 # OCaml modules produced by `coqc Extraction.v` (regenerate locally)
 Coq/gate_extracted.ml
 Coq/gate_extracted.mli

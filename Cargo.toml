@@ -4,6 +4,7 @@
 resolver = "2"
 members = [
     "ffi-bridge",
+    "constants-rs",
 ]
 
 # Optimize release profile for verification

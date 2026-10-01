@@ -22,7 +22,7 @@ language checks it by exact computation:
   policy    a documented model or configuration choice, never counted as a constant: its value, its reason, and the
             range it must lie in, given by two rows of the table; `<id>_in_range` proves low ≤ value ≤ high
 
-Lean (umst-formal only; umst-formal-double-slit imports it through Lake), Coq, Agda and Haskell modules are written
+Lean (umst-formal only; umst-formal-double-slit imports it through Lake), Coq, Agda and Haskell modules are written,\nand in umst-formal the no_std Rust crate constants-rs (umst-constants), each
 where the repository keeps that language. `--check` regenerates in memory and fails on any difference.
 """
 from __future__ import annotations
@@ -347,6 +347,73 @@ def haskell(table: dict, vals: dict[str, Fraction]) -> str:
     return "\n".join(L)
 
 
+# ------------------------------------------------------------------------------------------------- Rust (no_std)
+
+def rust_name(ident: str) -> str:
+    return re.sub(r"(?<=[a-z])(?=[A-Z])", "_", ident).upper()
+
+
+def rust_f64(v: Fraction) -> str:
+    """The shortest literal that round-trips to the nearest double (Fraction to float is correctly rounded), with
+    the exponent written as Rust writes it (`e16`, `e-6`)."""
+    text = repr(float(v))
+    if "e" in text:
+        mant, exp = text.split("e")
+        text = f"{mant}e{int(exp)}"
+    return text if any(ch in text for ch in ".e") else text + ".0"
+
+
+def rust(table: dict, vals: dict[str, Fraction]) -> str:
+    kinds = {"cited": "Cited", "measured": "Measured", "derived": "Derived", "policy": "Policy"}
+    L = [f"// {SPDX}", "// SPDX-License-Identifier: MIT", f"// {HEADER}",
+         "//! The constants of the UMST ecosystem for the Rust runtime: each row's value as the nearest `f64`, its exact",
+         "//! rational, provenance and unit, from constants/constants.json, the table Lean, Coq, Agda and Haskell prove.",
+         "//! Constants are `const` items: reading one costs nothing at run time.", "",
+         "#![no_std]", "#![forbid(unsafe_code)]", "",
+         "/// Provenance of a row: cited (a defining constant or cited value), measured (with standard uncertainty),",
+         "/// derived (a theorem in Lean, Coq and Agda from other rows) or policy (a model choice in a proved range).",
+         "#[derive(Clone, Copy, Debug, PartialEq, Eq)]",
+         "pub enum Kind {", "    Cited,", "    Measured,", "    Derived,", "    Policy,", "}", "",
+         "/// One row of the table.", "#[derive(Clone, Copy, Debug, PartialEq)]", "pub struct Row {",
+         "    pub id: &'static str,", "    pub symbol: &'static str,", "    pub unit: &'static str,", "    pub kind: Kind,",
+         "    /// The nearest `f64` to the exact value.", "    pub value: f64,",
+         "    /// The exact value as a rational of decimal integers.", "    pub exact_num: &'static str,",
+         "    pub exact_den: &'static str,", "    /// Standard uncertainty of a measured row.",
+         "    pub uncertainty: Option<f64>,", "}", ""]
+    for c in table["constants"]:
+        v = vals[c["id"]]
+        how = (c.get("formula") and f"derived: {c['formula']}") or (c["status"] == "policy" and f"policy: {c['reason']}") \
+            or f"{c['status']} ({c.get('authority', '')})"
+        L += [f"/// {c['symbol']}: {c['name']} [{c['unit']}]; {how}.", f"pub const {rust_name(c['id'])}: f64 = {rust_f64(v)};", ""]
+    for c in table["constants"]:
+        if c["status"] == "policy":
+            lo, hi = rust_name(c["range"]["low"]), rust_name(c["range"]["high"])
+            me = rust_name(c["id"])
+            one = f"const _: () = assert!({lo} <= {me} && {me} <= {hi});"
+            body = [one] if len(one) <= 100 else ["const _: () = assert!(", f"    {lo} <= {me}", f"        && {me} <= {hi}", ");"]
+            L += [f"/// The policy {me} lies in its range [{lo}, {hi}], checked at compile time."] + body + [""]
+    L += ["/// Every row, in table order.", "pub const ROWS: &[Row] = &["]
+    for c in table["constants"]:
+        v = vals[c["id"]]
+        unc = f"Some({rust_f64(frac(c, 'uncertainty_'))})" if c["status"] == "measured" else "None"
+        L += ["    Row {", f'        id: "{c["id"]}",', f'        symbol: "{c["symbol"]}",', f'        unit: "{c["unit"]}",',
+              f"        kind: Kind::{kinds[c['status']]},", f"        value: {rust_name(c['id'])},",
+              f'        exact_num: "{v.numerator}",', f'        exact_den: "{v.denominator}",', f"        uncertainty: {unc},", "    },"]
+    L += ["];", "", "#[cfg(test)]", "#[rustfmt::skip] // generated: one assertion per row", "mod tests {", "    use super::*;", "",
+          "    fn close(a: f64, b: f64) -> bool {", "        (a - b).abs() <= 8.0 * f64::EPSILON * a.abs().max(b.abs())", "    }", "",
+          "    /// Each derived row equals its formula evaluated on the rows it reads.", "    #[test]",
+          "    fn derived_rows_follow_their_formulas() {"]
+    for c in table["constants"]:
+        if c["status"] == "derived":
+            expr = re.sub(r"[A-Za-z_]\w*|\d+", lambda m: rust_name(m.group(0)) if not m.group(0).isdigit() else m.group(0) + ".0",
+                          c["formula"])
+            L.append(f"        assert!(close({rust_name(c['id'])}, {expr}), \"{c['id']}\");")
+    L += ["    }", "", "    #[test]", "    fn rows_name_each_constant_once() {",
+          "        for (i, a) in ROWS.iter().enumerate() {", "            for b in &ROWS[i + 1..] {",
+          "                assert_ne!(a.id, b.id);", "            }", "        }", "    }", "}", ""]
+    return "\n".join(L)
+
+
 # ------------------------------------------------------------------------------------------------- README table
 
 SUP = str.maketrans("-0123456789", "⁻⁰¹²³⁴⁵⁶⁷⁸⁹")
@@ -432,6 +499,7 @@ def outputs() -> dict[str, str]:
     out = {}
     if REPO == HOME:
         out["Lean/Constants/SI.lean"] = lean(table, vals)
+        out["constants-rs/src/lib.rs"] = rust(table, vals)
     out["Coq/Constants/SI.v"] = coq(table, vals)
     out["Agda/Constants/SI.agda"] = agda(table, vals)
     hs = "Haskell/UMST/Constants/SI.hs" if REPO == HOME else "Haskell/src/UMST/Constants/SI.hs"
