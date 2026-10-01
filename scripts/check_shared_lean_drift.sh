@@ -47,13 +47,21 @@ for f in "${SHARED_FILES[@]}"; do
     exit 1
   fi
 done
-HS_FORMAL=Haskell/UMST/Constants/SI.hs
-HS_SLIT=Haskell/src/UMST/Constants/SI.hs
-if [[ "$(basename "$ROOT")" == umst-formal-double-slit ]]; then HS_A=$HS_SLIT; HS_B=$HS_FORMAL; else HS_A=$HS_FORMAL; HS_B=$HS_SLIT; fi
-if ! cmp -s "$ROOT/$HS_A" "$SIBLING/$HS_B"; then
-  echo "FAIL: the Haskell constants module differs from the sibling's" >&2
-  exit 1
-fi
+# Haskell modules both repositories build, byte-identical, at their paths here (umst-formal) and in double-slit.
+HS_PAIRS=(
+  "Haskell/UMST/Constants/SI.hs:Haskell/src/UMST/Constants/SI.hs"
+  "Haskell/LandauerExtension.hs:Haskell/src/LandauerExtension.hs"
+  "Haskell/MonoidalState.hs:Haskell/src/MonoidalState.hs"
+  "Haskell/test/LandauerEinsteinSanity.hs:Haskell/test/LandauerEinsteinSanity.hs"
+)
+for pair in "${HS_PAIRS[@]}"; do
+  HS_FORMAL=${pair%%:*}; HS_SLIT=${pair#*:}
+  if [[ "$(basename "$ROOT")" == umst-formal-double-slit ]]; then HS_A=$HS_SLIT; HS_B=$HS_FORMAL; else HS_A=$HS_FORMAL; HS_B=$HS_SLIT; fi
+  if ! cmp -s "$ROOT/$HS_A" "$SIBLING/$HS_B"; then
+    echo "FAIL: $HS_A differs from the sibling's $HS_B (shared single source)" >&2
+    exit 1
+  fi
+done
 
 python3 - "$ROOT" "$SIBLING" "${SINGLE_SOURCE[@]}" << 'PY'
 import re, sys
