@@ -88,14 +88,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 550,
+    "theorem": 551,
     "lemma": 61,
-    "total": 611
+    "total": 612
   },
   "all_lean_glob": {
-    "theorem": 1330,
+    "theorem": 1331,
     "lemma": 61,
-    "total": 1391
+    "total": 1392
   },
   "per_root": {
     "Core.Scalar": {
@@ -207,7 +207,7 @@
       "lemma": 3
     },
     "Process": {
-      "theorem": 13,
+      "theorem": 14,
       "lemma": 0
     },
     "OneInequalitySecondLaw": {

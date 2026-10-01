@@ -81,6 +81,14 @@ def SecondLaw : Process → Prior → Prop
 def eraseSecondLawSI (T : ℝ) (_hT : 0 < T) (entropyDrop workJoules : ℝ) : Prop :=
   entropyDrop ≤ workJoules / (kB * T)
 
+/-- **Units bridge**: the erase instance states work in units of k_B times kelvin; in joules that work is k_B·W, and
+    the instance is exactly the SI Clausius form at that work. One law, two unit systems. -/
+theorem SecondLaw_transformation_iff_SI (b : HeatBath) (W : ℝ) {n : ℕ} (p q : ProbDist n) :
+    SecondLaw (.erase ⟨b, W⟩) (.transformation p q) ↔
+      eraseSecondLawSI b.bathTemp.val b.bathTemp.property (shannonEntropy p - shannonEntropy q) (kB * W) := by
+  show _ ≤ W / b.bathTemp.val ↔ _ ≤ kB * W / (kB * b.bathTemp.val)
+  rw [mul_div_mul_left W _ (ne_of_gt kB_pos)]
+
 -- ================================================================
 -- SECTION 4: Witness — Landauer-tight erasure
 -- ================================================================

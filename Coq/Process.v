@@ -279,3 +279,14 @@ Definition szilardEngine (b : HeatBath) : FeedbackProcess := mkFeedback b (kB * 
 Theorem SecondLaw_szilardEngine (b : HeatBath) :
   SecondLaw (measureFeedback (szilardEngine b)) (feedback (mutualInformation2 szilardJoint)).
 Proof. simpl. rewrite szilardJoint_mutualInformation. lra. Qed.
+
+(** Units bridge: the erase instance states work in units of k_B times kelvin; in joules that work is k_B W, and the
+    instance is exactly the SI Clausius form at that work. One law, two unit systems. *)
+Theorem SecondLaw_transformation_iff_SI (b : HeatBath) (W : R) (p q : ProbDist) :
+  SecondLaw (erase (mkErasure b W)) (transformation p q) <->
+    eraseSecondLawSI (bathTemp b) (shannon p - shannon q) (kB * W).
+Proof.
+  simpl. unfold eraseSecondLawSI. pose proof kB_pos as hk. pose proof (bathTemp_pos b) as hT.
+  replace (kB * W / (kB * bathTemp b)) with (W / bathTemp b) by (field; split; lra).
+  reflexivity.
+Qed.

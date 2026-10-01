@@ -108,6 +108,26 @@
    }
   },
   {
+   "id": "second_law.units_bridge",
+   "statement": "the erase instance at work W in units of k_B·K is exactly the SI Clausius form at k_B·W joules",
+   "lean": {
+    "name": "SecondLaw_transformation_iff_SI",
+    "file": "Lean/Process.lean"
+   },
+   "coq": {
+    "name": "SecondLaw_transformation_iff_SI",
+    "file": "Coq/Process.v"
+   },
+   "agda": {
+    "name": "transformation-iff-SI",
+    "file": "Agda/Process.agda"
+   },
+   "haskell": {
+    "name": "prop_process_units_bridge",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
    "id": "second_law.wrong_prior_refused",
    "statement": "a prior of the wrong kind is refused",
    "lean": {

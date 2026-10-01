@@ -176,3 +176,22 @@ instance
 
 eraseSecondLawSI : (T : ℚ) → .{{Positive T}} → (dS W : ℚ) → Set
 eraseSecondLawSI T dS W = dS ≤ _÷_ W (kB * T) {{pos⇒nonZero (kB * T) {{pos*pos⇒pos kB T}}}}
+
+-- Units bridge: the erase instance carries the dissipated entropy σ = W / T (natural units); in joules the work is
+-- k_B T σ, and the instance is exactly the SI Clausius form at that work. One law, two unit systems.
+open import Data.Rational using (NonZero; 1/_)
+open import Data.Rational.Properties using (*-inverseʳ; *-identityʳ)
+open import Function using (_⇔_; mk⇔)
+open import Relation.Binary.PropositionalEquality using (trans; cong)
+
+private
+  ÷-cancel : ∀ a .{{_ : NonZero a}} σ → _÷_ (a * σ) a ≡ σ
+  ÷-cancel a σ = trans (solve 3 (λ a σ i → (a :* σ) :* i := σ :* (a :* i)) refl a σ (1/ a))
+                       (trans (cong (σ *_) (*-inverseʳ a)) (*-identityʳ σ))
+
+transformation-iff-SI : ∀ T .{{_ : Positive T}} σ Hp Hq →
+  SecondLaw (erase (record { dissipatedEntropy = σ })) (transformation Hp Hq) ⇔ eraseSecondLawSI T (Hp - Hq) (kB * T * σ)
+transformation-iff-SI T σ Hp Hq = mk⇔
+  (λ h → subst (Hp - Hq ≤_) (sym (÷-cancel (kB * T) {{nz}} σ)) h)
+  (λ h → subst (Hp - Hq ≤_) (÷-cancel (kB * T) {{nz}} σ) h)
+  where nz = pos⇒nonZero (kB * T) {{pos*pos⇒pos kB T}}

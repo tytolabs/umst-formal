@@ -537,6 +537,16 @@ prop_select_secondLaw = forAll genState $ \src -> forAll (genCands src) $ \cands
     Left c -> P.secondLaw P.Transition (P.Thermodynamic src (X.tgt c))
     Right _ -> True
 
+-- Units bridge: the erase instance at work W (k_B·K) is the SI form at k_B·W joules (twin of
+-- SecondLaw_transformation_iff_SI); work sits a relative margin from the bound, where both comparisons agree.
+prop_process_units_bridge :: Property
+prop_process_units_bridge = forAll (choose (1, 1000)) $ \t -> forAll (choose (1, 8)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q -> forAll (elements [-0.5, -1e-3, 1e-3, 0.5]) $ \delta ->
+    let d = P.shannon p - P.shannon q
+        w = t * d + delta * (abs (t * d) + 1)
+     in P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation p q)
+          == P.eraseSecondLawSI t d (P.kB * w)
+
 -- The Szilard witness (twins of szilardJoint, its marginals, entropy and mutual information, and the engine).
 prop_szilard_joint :: Property
 prop_szilard_joint = once $
@@ -882,6 +892,7 @@ main = do
   check r prop_select_descent
   check r prop_select_perm_invariant
   check r prop_select_secondLaw
+  check r prop_process_units_bridge
   check r prop_szilard_joint
   check r prop_szilard_marginal_x
   check r prop_szilard_marginal_y
