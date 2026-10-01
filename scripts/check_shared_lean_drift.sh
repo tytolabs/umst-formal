@@ -16,7 +16,12 @@ SIBLING="${UMST_FORMAL_SIBLING_DIR:-$ROOT/../$SIBLING_NAME}"
 # FORMAL-DS-SECOND-LAW-DEDUP-L, double-slit 4f2b53f). A copy in the sibling is a second
 # statement of the one law and fails; a sibling that imports the module passes.
 SINGLE_SOURCE=(
-  LandauerLaw LandauerEinsteinBridge LandauerExtension
+  LandauerLaw LandauerEinsteinBridge LandauerExtension Constants/SI Constants/SIBridge
+)
+# Files both repositories carry byte-identical: the constants table and its generated modules, and the census tools.
+SHARED_FILES=(
+  constants/constants.json scripts/gen_constants.py scripts/formal_census.py scripts/theatre_census.py
+  Coq/Constants/SI.v Agda/Constants/SI.agda
 )
 
 if [[ ! -d "$SIBLING/Lean" ]]; then
@@ -32,6 +37,20 @@ if [[ ! -f "$STATS_A" || ! -f "$STATS_B" ]]; then
 fi
 if ! cmp -s "$STATS_A" "$STATS_B"; then
   echo "FAIL: lean_declaration_stats.py differs from sibling (sync double-slit → formal)" >&2
+  exit 1
+fi
+
+for f in "${SHARED_FILES[@]}"; do
+  if ! cmp -s "$ROOT/$f" "$SIBLING/$f"; then
+    echo "FAIL: $f differs from the sibling's copy (shared single source)" >&2
+    exit 1
+  fi
+done
+HS_FORMAL=Haskell/UMST/Constants/SI.hs
+HS_SLIT=Haskell/src/UMST/Constants/SI.hs
+if [[ "$(basename "$ROOT")" == umst-formal-double-slit ]]; then HS_A=$HS_SLIT; HS_B=$HS_FORMAL; else HS_A=$HS_FORMAL; HS_B=$HS_SLIT; fi
+if ! cmp -s "$ROOT/$HS_A" "$SIBLING/$HS_B"; then
+  echo "FAIL: the Haskell constants module differs from the sibling's" >&2
   exit 1
 fi
 
