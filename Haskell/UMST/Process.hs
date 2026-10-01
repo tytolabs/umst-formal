@@ -26,6 +26,13 @@ module UMST.Process
   , secondLaw
   , landauerTightErasure
   , eraseSecondLawSI
+  , JointDist2 (..)
+  , marginalX2
+  , marginalY2
+  , jointEntropy2
+  , mutualInformation2
+  , szilardJoint
+  , szilardEngine
   ) where
 
 import UMST.Concrete (ThermodynamicState, AdmissibilityResult (..), gateCheck)
@@ -107,3 +114,27 @@ landauerTightErasure b = ErasureProcess b (bathTemp b * log 2)
 -- | SI Clausius form: an entropy drop dS (nats) with work W in joules at T obeys dS <= W / (k_B T).
 eraseSecondLawSI :: Double -> Double -> Double -> Bool
 eraseSecondLawSI t dS w = dS <= w / (kB * t)
+
+-- | A joint distribution on two binary variables, by the masses of (0,0), (0,1), (1,0), (1,1).
+data JointDist2 = JointDist2 { j00 :: Double, j01 :: Double, j10 :: Double, j11 :: Double }
+  deriving (Show)
+
+-- | Marginals, by the probability of the first state.
+marginalX2, marginalY2 :: JointDist2 -> ProbDist2
+marginalX2 j = ProbDist2 (j00 j + j01 j)
+marginalY2 j = ProbDist2 (j00 j + j10 j)
+
+jointEntropy2 :: JointDist2 -> Double
+jointEntropy2 j = negate (xlnx (j00 j) + xlnx (j01 j) + xlnx (j10 j) + xlnx (j11 j))
+
+-- | Mutual information (nats): H(X) + H(Y) - H(X, Y).
+mutualInformation2 :: JointDist2 -> Double
+mutualInformation2 j = shannon2 (marginalX2 j) + shannon2 (marginalY2 j) - jointEntropy2 j
+
+-- | The deterministic Szilard copy joint: one bit of correlation.
+szilardJoint :: JointDist2
+szilardJoint = JointDist2 0.5 0 0 0.5
+
+-- | Szilard-limited feedback work at the bath: W_ext = k_B T ln 2, dF = 0.
+szilardEngine :: HeatBath -> FeedbackProcess
+szilardEngine b = FeedbackProcess b (kB * bathTemp b * log 2) 0

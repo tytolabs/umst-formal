@@ -120,3 +120,59 @@ satisfiable = ≤-refl
 erasure-additive : ∀ e₁ e₂ ΔS₁ ΔS₂ → SecondLaw (erase e₁) (erasure ΔS₁) → SecondLaw (erase e₂) (erasure ΔS₂) →
   ΔS₁ + ΔS₂ ≤ ErasureProcess.dissipatedEntropy e₁ + ErasureProcess.dissipatedEntropy e₂
 erasure-additive e₁ e₂ ΔS₁ ΔS₂ h₁ h₂ = +-mono-≤ h₁ h₂
+
+------------------------------------------------------------------------
+-- Witness: the Szilard joint (one bit of correlation). Its entropy and mutual information are ln 2, which is not
+-- rational; the joint and its uniform marginals are.
+------------------------------------------------------------------------
+
+open import Data.Rational using (½; 1ℚ; _≤?_)
+open import Relation.Nullary.Decidable.Core using (toWitness)
+
+-- A joint distribution on two binary variables, by the masses of (0,0), (0,1), (1,0), (1,1).
+record JointDist2 : Set where
+  field
+    j00 j01 j10 j11 : ℚ
+    j00-nonneg : 0ℚ ≤ j00
+    j01-nonneg : 0ℚ ≤ j01
+    j10-nonneg : 0ℚ ≤ j10
+    j11-nonneg : 0ℚ ≤ j11
+    j-sum      : j00 + j01 + j10 + j11 ≡ 1ℚ
+
+open JointDist2
+
+-- Marginals, by the probability of the first state.
+marginalX2 marginalY2 : JointDist2 → ℚ
+marginalX2 J = j00 J + j01 J
+marginalY2 J = j00 J + j10 J
+
+szilardJoint : JointDist2
+szilardJoint = record
+  { j00 = ½ ; j01 = 0ℚ ; j10 = 0ℚ ; j11 = ½
+  ; j00-nonneg = toWitness {a? = 0ℚ ≤? ½} _ ; j01-nonneg = ≤-refl ; j10-nonneg = ≤-refl
+  ; j11-nonneg = toWitness {a? = 0ℚ ≤? ½} _ ; j-sum = refl }
+
+szilardJoint-marginalX : marginalX2 szilardJoint ≡ ½
+szilardJoint-marginalX = refl
+
+szilardJoint-marginalY : marginalY2 szilardJoint ≡ ½
+szilardJoint-marginalY = refl
+
+------------------------------------------------------------------------
+-- SI Clausius form: an entropy drop dS (nats) with work W in joules at a positive temperature T obeys
+-- dS ≤ W / (k_B T), with the exact k_B of Constants/SI.agda.
+------------------------------------------------------------------------
+
+open import Data.Rational using (Positive; fromℚᵘ; _÷_)
+open import Data.Rational.Properties using (pos*pos⇒pos; pos⇒nonZero)
+import Constants.SI as SI
+
+kB : ℚ
+kB = fromℚᵘ SI.boltzmann
+
+instance
+  kB-pos : Positive kB
+  kB-pos = _
+
+eraseSecondLawSI : (T : ℚ) → .{{Positive T}} → (dS W : ℚ) → Set
+eraseSecondLawSI T dS W = dS ≤ _÷_ W (kB * T) {{pos⇒nonZero (kB * T) {{pos*pos⇒pos kB T}}}}

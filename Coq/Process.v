@@ -216,3 +216,66 @@ Theorem SecondLaw_erasure_additive (e1 e2 : ErasureProcess) (p q : ProbDist2) :
   (shannon2 p - shannon2 dirac0) + (shannon2 q - shannon2 dirac0) <=
     work e1 / bathTemp (erasureBath e1) + work e2 / bathTemp (erasureBath e2).
 Proof. simpl. unfold eraseSecondLaw. intros h1 h2. lra. Qed.
+
+(* --------------------------------------------------------------------- *)
+(*  Witness: the Szilard engine at I = ln 2                               *)
+(* --------------------------------------------------------------------- *)
+
+(** A joint distribution on two binary variables, by the masses of (0,0), (0,1), (1,0), (1,1). *)
+Record JointDist2 : Type := mkJointDist2 {
+  j00 : R; j01 : R; j10 : R; j11 : R;
+  j00_nonneg : 0 <= j00; j01_nonneg : 0 <= j01; j10_nonneg : 0 <= j10; j11_nonneg : 0 <= j11;
+  j_sum : j00 + j01 + j10 + j11 = 1
+}.
+
+(** Marginals, by the probability of the first state. *)
+Definition marginalX2 (J : JointDist2) : ProbDist2 :=
+  mkProbDist2 (j00 J + j01 J)
+    ltac:(pose proof (j00_nonneg J); pose proof (j01_nonneg J); lra)
+    ltac:(pose proof (j10_nonneg J); pose proof (j11_nonneg J); pose proof (j_sum J); lra).
+Definition marginalY2 (J : JointDist2) : ProbDist2 :=
+  mkProbDist2 (j00 J + j10 J)
+    ltac:(pose proof (j00_nonneg J); pose proof (j10_nonneg J); lra)
+    ltac:(pose proof (j01_nonneg J); pose proof (j11_nonneg J); pose proof (j_sum J); lra).
+
+Definition jointEntropy2 (J : JointDist2) : R := - (xlnx (j00 J) + xlnx (j01 J) + xlnx (j10 J) + xlnx (j11 J)).
+
+(** Mutual information (nats): H(X) + H(Y) - H(X, Y). *)
+Definition mutualInformation2 (J : JointDist2) : R :=
+  shannon2 (marginalX2 J) + shannon2 (marginalY2 J) - jointEntropy2 J.
+
+(** The deterministic Szilard copy joint: one bit of correlation. *)
+Definition szilardJoint : JointDist2 :=
+  mkJointDist2 (1 / 2) 0 0 (1 / 2) ltac:(lra) ltac:(lra) ltac:(lra) ltac:(lra) ltac:(lra).
+
+Theorem szilardJoint_marginalX : p0 (marginalX2 szilardJoint) = p0 uniform2.
+Proof. simpl. lra. Qed.
+
+Theorem szilardJoint_marginalY : p0 (marginalY2 szilardJoint) = p0 uniform2.
+Proof. simpl. lra. Qed.
+
+Lemma shannon2_ext (p q : ProbDist2) : p0 p = p0 q -> shannon2 p = shannon2 q.
+Proof. intro h. unfold shannon2. rewrite h. reflexivity. Qed.
+
+Theorem szilardJoint_entropy : jointEntropy2 szilardJoint = ln 2.
+Proof.
+  unfold jointEntropy2, szilardJoint, xlnx; simpl.
+  destruct (Rle_dec (1 / 2) 0) as [h | _]; [lra |].
+  destruct (Rle_dec 0 0) as [_ | h]; [| lra].
+  replace (1 / 2) with (/ 2) by lra. rewrite ln_Rinv by lra. lra.
+Qed.
+
+Theorem szilardJoint_mutualInformation : mutualInformation2 szilardJoint = ln 2.
+Proof.
+  unfold mutualInformation2.
+  rewrite (shannon2_ext _ _ szilardJoint_marginalX), (shannon2_ext _ _ szilardJoint_marginalY),
+    shannon2_uniform2, szilardJoint_entropy. lra.
+Qed.
+
+(** Szilard-limited feedback work at the bath: W_ext = k_B T ln 2, dF = 0. *)
+Definition szilardEngine (b : HeatBath) : FeedbackProcess := mkFeedback b (kB * bathTemp b * ln 2) 0.
+
+(** The Szilard engine obeys the second law at equality, judged against the information of its joint. *)
+Theorem SecondLaw_szilardEngine (b : HeatBath) :
+  SecondLaw (measureFeedback (szilardEngine b)) (feedback (mutualInformation2 szilardJoint)).
+Proof. simpl. rewrite szilardJoint_mutualInformation. lra. Qed.

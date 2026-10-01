@@ -5,7 +5,7 @@
   "Lean/Process.lean",
   "Lean/Chem/SecondLaw.lean"
  ],
- "max_absent": 33,
+ "max_absent": 15,
  "statements": [
   {
    "id": "process.feedback",
@@ -99,7 +99,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "pending: Agda SI form over rationals with the exact k_B of Constants/SI.agda"
+    "name": "eraseSecondLawSI",
+    "file": "Agda/Process.agda"
    },
    "haskell": {
     "name": "eraseSecondLawSI",
@@ -191,13 +192,16 @@
     "file": "Lean/Process.lean"
    },
    "coq": {
-    "absent": "pending: joint distributions and mutual information in Coq"
+    "name": "szilardJoint",
+    "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "pending: joint distributions over rationals in Agda"
+    "name": "szilardJoint",
+    "file": "Agda/Process.agda"
    },
    "haskell": {
-    "absent": "pending: Szilard engine property in Haskell"
+    "name": "prop_szilard_joint",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -208,13 +212,16 @@
     "file": "Lean/Process.lean"
    },
    "coq": {
-    "absent": "pending: joint distributions and mutual information in Coq"
+    "name": "szilardJoint_marginalX",
+    "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "pending: joint distributions over rationals in Agda"
+    "name": "szilardJoint-marginalX",
+    "file": "Agda/Process.agda"
    },
    "haskell": {
-    "absent": "pending: Szilard engine property in Haskell"
+    "name": "prop_szilard_marginal_x",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -225,13 +232,16 @@
     "file": "Lean/Process.lean"
    },
    "coq": {
-    "absent": "pending: joint distributions and mutual information in Coq"
+    "name": "szilardJoint_marginalY",
+    "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "pending: joint distributions over rationals in Agda"
+    "name": "szilardJoint-marginalY",
+    "file": "Agda/Process.agda"
    },
    "haskell": {
-    "absent": "pending: Szilard engine property in Haskell"
+    "name": "prop_szilard_marginal_y",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -242,13 +252,15 @@
     "file": "Lean/Process.lean"
    },
    "coq": {
-    "absent": "pending: joint distributions and mutual information in Coq"
+    "name": "szilardJoint_entropy",
+    "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "absent": "the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
    },
    "haskell": {
-    "absent": "pending: Szilard engine property in Haskell"
+    "name": "prop_szilard_entropy",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -259,13 +271,15 @@
     "file": "Lean/Process.lean"
    },
    "coq": {
-    "absent": "pending: joint distributions and mutual information in Coq"
+    "name": "szilardJoint_mutualInformation",
+    "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "absent": "the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
    },
    "haskell": {
-    "absent": "pending: Szilard engine property in Haskell"
+    "name": "prop_szilard_mutual_information",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -276,13 +290,15 @@
     "file": "Lean/Process.lean"
    },
    "coq": {
-    "absent": "pending: joint distributions and mutual information in Coq"
+    "name": "szilardEngine",
+    "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "absent": "its work is k_B T ln 2; the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
    },
    "haskell": {
-    "absent": "pending: Szilard engine property in Haskell"
+    "name": "prop_szilard_engine",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {
@@ -293,13 +309,15 @@
     "file": "Lean/Process.lean"
    },
    "coq": {
-    "absent": "pending: joint distributions and mutual information in Coq"
+    "name": "SecondLaw_szilardEngine",
+    "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "absent": "the engine's work and information are ln 2 multiples; the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
    },
    "haskell": {
-    "absent": "pending: Szilard engine property in Haskell"
+    "name": "prop_szilard_second_law",
+    "file": "Haskell/test/Test.hs"
    }
   },
   {

@@ -489,6 +489,34 @@ prop_process_transformation_comp (Positive t) = forAll (choose (1, 8)) $ \n ->
         law w a b = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation a b)
      in (law w1 p q && law w2 q r) ==> law (w1 + w2 + 1e-9 * t) p r
 
+-- The Szilard witness (twins of szilardJoint, its marginals, entropy and mutual information, and the engine).
+prop_szilard_joint :: Property
+prop_szilard_joint = once $
+  let j = P.szilardJoint in all (>= 0) [P.j00 j, P.j01 j, P.j10 j, P.j11 j] && P.j00 j + P.j01 j + P.j10 j + P.j11 j == 1
+
+prop_szilard_marginal_x :: Property
+prop_szilard_marginal_x = once $ P.p0 (P.marginalX2 P.szilardJoint) == P.p0 P.uniform2
+
+prop_szilard_marginal_y :: Property
+prop_szilard_marginal_y = once $ P.p0 (P.marginalY2 P.szilardJoint) == P.p0 P.uniform2
+
+prop_szilard_entropy :: Property
+prop_szilard_entropy = once $ abs (P.jointEntropy2 P.szilardJoint - log 2) <= 1e-15
+
+prop_szilard_mutual_information :: Property
+prop_szilard_mutual_information = once $ abs (P.mutualInformation2 P.szilardJoint - log 2) <= 1e-15
+
+prop_szilard_engine :: Positive Double -> Bool
+prop_szilard_engine (Positive t) = P.extWork (P.szilardEngine (P.HeatBath t)) == P.kB * t * log 2
+
+-- The engine obeys the second law, at equality up to rounding, judged against its joint's information.
+prop_szilard_second_law :: Positive Double -> Bool
+prop_szilard_second_law (Positive t) =
+  let e = P.szilardEngine (P.HeatBath t)
+      e' = e {P.extWork = P.extWork e * (1 - 1e-12)}
+   in P.secondLaw (P.MeasureFeedback e') (P.Feedback (P.mutualInformation2 P.szilardJoint))
+        && not (P.secondLaw (P.MeasureFeedback e {P.extWork = P.extWork e * (1 + 1e-9)}) (P.Feedback (P.mutualInformation2 P.szilardJoint)))
+
 -- The chemical second law is coherence and the Clausius bound on the assemblage (twin of chemSecondLaw_iff).
 prop_chem_secondlaw_iff :: Positive Double -> Double -> Bool -> Property
 prop_chem_secondlaw_iff (Positive t) w coherent = forAll (choose (1, 8)) $ \n ->
@@ -785,6 +813,13 @@ main = do
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
+  check r prop_szilard_joint
+  check r prop_szilard_marginal_x
+  check r prop_szilard_marginal_y
+  check r prop_szilard_entropy
+  check r prop_szilard_mutual_information
+  check r prop_szilard_engine
+  check r prop_szilard_second_law
   check r prop_chem_secondlaw_comp
   check r prop_chem_secondlaw_iff
   check r prop_chem_refinement_accounted_iff
