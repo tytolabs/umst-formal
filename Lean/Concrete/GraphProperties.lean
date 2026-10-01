@@ -58,8 +58,7 @@ theorem admissibleTrans_refuted :
       Admissible s₁ s₂ ∧ Admissible s₂ s₃ ∧ ¬ Admissible s₁ s₃ := by
   -- Construct three states where density increases by 99 each step,
   -- hydration is non-decreasing, free energy is non-increasing, strength non-decreasing.
-  -- psiAntitone and fcMonotone are required for Admissible but here we use
-  -- states where freeEnergy is already non-increasing and strength non-decreasing.
+  -- Admissibility needs free energy non-increasing and strength non-decreasing; these states have both.
   refine ⟨⟨0, 0, 0, 0⟩, ⟨99, -225, (1 : ℚ) / 2, 50⟩, ⟨198, -450, 1, 100⟩, ?_, ?_, ?_⟩
   · -- Admissible s₁ s₂
     exact

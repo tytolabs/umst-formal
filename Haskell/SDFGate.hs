@@ -146,7 +146,7 @@ gateSDF old new = maximum
 -- @helmholtzSDF α = −Q_hyd · α@
 --
 -- This is a signed distance function in the one-dimensional hydration
--- axis with constant gradient magnitude @Q_hyd = 450 J/kg@ everywhere
+-- axis with constant gradient magnitude @Q_hyd@ (the table's default, 450 J/g) everywhere
 -- on [0, 1].  The Eikonal condition @|∂ψ/∂α| = Q_hyd@ holds.
 --
 -- Proved in Coq/Gate.v: @helmholtz_gradient@ (Section 8b).

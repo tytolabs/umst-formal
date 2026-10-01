@@ -43,13 +43,13 @@ import MeasurementCost (mutualInformationBits, measurementEnergyLowerBound)
 
 -- | Generate a valid-range ThermodynamicState.
 --   density ∈ [1000, 3000]  kg/m³
---   freeEnergy ∈ [-450, 0]   J/kg
+--   freeEnergy ∈ [-Q_hyd, 0]  J/g (Q_hyd the table's default)
 --   hydration ∈ [0, 1]
 --   strength ∈ [0, 100]      MPa
 genState :: Gen ThermodynamicState
 genState = do
   rho   <- choose (1000.0, 3000.0)
-  psi   <- choose (-450.0, 0.0)
+  psi   <- choose (negate qHydration, 0.0)
   al    <- choose (0.0, 1.0)
   fc    <- choose (0.0, 100.0)
   fcMax <- choose (fc, intrinsicStrength)
@@ -85,23 +85,27 @@ prop_mass_conservation_spec old new =
   massConserved (gateCheck old new 1.0)
   == (abs (density new - density old) < massTolerance + UMST.tolerance)
 
--- | Clausius-Duhem: admissible iff ψ_new ≤ ψ_old.
+-- The gate admits a step within its tolerance of each order law (UMST.tolerance); outside that band it agrees with
+-- the exact law (Lean ConcreteAdmissible): a step obeying the law passes, a step breaking it by more than the band
+-- fails.
+
+-- | Clausius-Duhem: ψ_new ≤ ψ_old passes; ψ rising beyond the band fails.
 prop_clausius_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_clausius_spec old new =
-  energyPositive (gateCheck old new 1.0)
-  == (freeEnergy new <= freeEnergy old)
+  let ok = energyPositive (gateCheck old new 1.0)
+   in (freeEnergy new <= freeEnergy old) <= ok && (freeEnergy new - freeEnergy old > UMST.tolerance) <= not ok
 
--- | Hydration irreversibility: admissible iff α_new ≥ α_old.
+-- | Hydration irreversibility: α_new ≥ α_old passes; α falling beyond the band fails.
 prop_hydration_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_hydration_spec old new =
-  hydrationOk (gateCheck old new 1.0)
-  == (hydration new >= hydration old)
+  let ok = hydrationOk (gateCheck old new 1.0)
+   in (hydration new >= hydration old) <= ok && (hydration old - hydration new > UMST.tolerance) <= not ok
 
--- | Strength monotonicity: admissible iff fc_new ≥ fc_old.
+-- | Strength monotonicity: fc_new ≥ fc_old passes; fc falling beyond the band fails.
 prop_strength_spec :: ThermodynamicState -> ThermodynamicState -> Bool
 prop_strength_spec old new =
-  strengthOk (gateCheck old new 1.0)
-  == (strength new >= strength old)
+  let ok = strengthOk (gateCheck old new 1.0)
+   in (strength new >= strength old) <= ok && (strength old - strength new > UMST.tolerance) <= not ok
 
 -- | Formal counterexample: mass admissibility is NOT transitive.
 -- Two consecutive single-step admissible transitions need not compose
@@ -682,6 +686,22 @@ prop_process_erasure_additive (Positive t) w1 w2 =
   let law w = P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Erasure P.uniform2)
    in (law w1 && law w2) ==> 2 * log 2 <= (w1 + w2) / t + 1e-12
 
+-- Powers' gel-space ratio x = 68·α / (32·α + 100·w) (twin of Lean/Concrete/Powers.lean gelSpaceRatio).
+gelSpaceRatioQ :: Rational -> Rational -> Rational
+gelSpaceRatioQ alpha wc = 68 * alpha / (32 * alpha + 100 * wc)
+
+-- The gel fits its space exactly when w ≥ 0.36·α (twin of gelSpaceRatio_le_one_iff).
+prop_powers_gel_fits_iff :: Property
+prop_powers_gel_fits_iff = forAll genRat $ \alpha -> forAll (suchThat genRat (> 0)) $ \wc ->
+  (gelSpaceRatioQ alpha wc <= 1) == (36 * alpha <= 100 * wc)
+
+-- The runtime strength of a mix is S·x³ with the same x (the cited S = 234 MPa).
+prop_powers_runtime_strength :: Property
+prop_powers_runtime_strength = forAll (choose (0.3, 0.6)) $ \wc -> forAll (choose (0, 1)) $ \alpha ->
+  let x = fromRational (gelSpaceRatioQ (toRational alpha) (toRational wc)) :: Double
+      expected = fromRational SI.powersGelStrength * x ^ (3 :: Int)
+   in abs (strength (fromMix wc alpha 20) - expected) <= 1e-9 * (1 + expected)
+
 -- Powers' volume model in exact Rational arithmetic (twin of Lean/Concrete/PowersVolume.lean).
 genRat :: Gen Rational
 genRat = do { n <- choose (0, 1000 :: Integer); pure (fromInteger n / 1000) }
@@ -887,6 +907,8 @@ main = do
   check r prop_process_erasure_additive
   check r prop_powers_coefficient_balance
   check r prop_powers_volume_balance
+  check r prop_powers_gel_fits_iff
+  check r prop_powers_runtime_strength
   check r prop_powers_per_cement_sealed
   check r prop_powers_per_cement_space
   check r prop_powers_fraction_per_cement

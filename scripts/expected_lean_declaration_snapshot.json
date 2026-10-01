@@ -88,14 +88,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 548,
+    "theorem": 550,
     "lemma": 61,
-    "total": 609
+    "total": 611
   },
   "all_lean_glob": {
-    "theorem": 1327,
+    "theorem": 1330,
     "lemma": 61,
-    "total": 1388
+    "total": 1391
   },
   "per_root": {
     "Core.Scalar": {
@@ -119,7 +119,7 @@
       "lemma": 0
     },
     "Concrete.Gate": {
-      "theorem": 15,
+      "theorem": 16,
       "lemma": 0
     },
     "Real.State": {
@@ -135,7 +135,7 @@
       "lemma": 0
     },
     "Concrete.Powers": {
-      "theorem": 3,
+      "theorem": 4,
       "lemma": 5
     },
     "Concrete.PowersVolume": {

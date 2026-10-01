@@ -18,20 +18,22 @@ open import Relation.Binary.PropositionalEquality
 open import Data.Product using (_×_; _,_)
 
 open import Concrete.Gate using (ThermodynamicState)
+import Constants.SI as SI
 open ThermodynamicState
 
 ------------------------------------------------------------------------
 -- 1. Physical Constants
 ------------------------------------------------------------------------
 
--- 450 J/kg latent heat (normalize 450/1 ≡ mkℚ (+ 450) 1).
+-- Heat of complete hydration [J/g = kJ/kg]: the policy row hydrationHeatDefault of Constants/SI.agda, proved to lie
+-- between the least and greatest cited phase heats (hydrationHeatDefault-in-range).
 Q-hyd : ℚ
-Q-hyd = normalize 450 1
+Q-hyd = ℚ.fromℚᵘ SI.hydrationHeatDefault
 
 private
   instance
     nonNeg-Q-hyd : NonNegative Q-hyd
-    nonNeg-Q-hyd = ℚ-Props.normalize-nonNeg 450 1
+    nonNeg-Q-hyd = _
 
 ------------------------------------------------------------------------
 -- 2. The Helmholtz Free-Energy Model

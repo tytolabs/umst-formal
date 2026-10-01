@@ -2,25 +2,16 @@
 -- SPDX-License-Identifier: MIT
 /-
   UMST-Formal: Powers.lean
-  Lean 4 — Concrete witness for fcMonotone via the Powers gel-space ratio model.
+  Lean 4 — the Powers gel-space ratio model of strength.
 
   The Powers (1958) model relates compressive strength to the degree of hydration:
     x(α, w/c) = 0.68·α / (0.32·α + w/c)   (gel-space ratio)
-    fc(α, w/c) = S · x³                     (strength, S ≈ 234 MPa)
+    fc(α, w/c) = S · x³                     (strength, S = 234 MPa, `Constants.SI.powersGelStrength`)
 
-  At fixed water-cement ratio w/c > 0, x is strictly increasing in α, so fc
-  is strictly increasing in α.  This is the concrete physical justification for
-  the abstract axiom `fcMonotone` in Gate.lean.
-
-  NOTE: `fcMonotone` in Gate.lean is an abstract interface axiom covering all
-  physically reasonable material models.  This file provides the concrete
-  WITNESS for Portland cement (OPC) under the Powers model at fixed w/c.
-  A fully constructive treatment would carry `PowersState` hypotheses through
-  the gate (analogous to `HelmholtzState` for `psiAntitone`).
-
-  Physical constants:
-    S_intrinsic = 234 MPa   (Powers intrinsic strength of C-S-H gel)
-    The w/c ratio is carried as a parameter (not in ThermodynamicState).
+  At fixed water-cement ratio w/c > 0, x is increasing in α, so fc is increasing in α
+  (`powers_monotone`): for states of the model the strength leg of the cement gate is derived, not
+  assumed (`powersStateFcMonotone`). The gel fits its space, x ≤ 1, exactly when w/c ≥ 0.36·α
+  (`gelSpaceRatio_le_one_iff`). The w/c ratio is carried as a parameter (not in ThermodynamicState).
 -/
 
 import Mathlib.Algebra.Order.Field.Rat
@@ -46,10 +37,10 @@ lemma S_intrinsic_pos : 0 < S_intrinsic := by norm_num [S_intrinsic, Constants.S
 -- SECTION 2: Gel-Space Ratio (Powers Model)
 -- ================================================================
 
-/-- Gel-space ratio x(α, wc) = 0.68·α / (0.32·α + wc).
+/-- Gel-space ratio x(α, wc) = 0.68·α / (0.32·α + wc), written over integers as 68·α / (32·α + 100·wc).
     Requires wc > 0 (positive water-cement ratio). -/
 noncomputable def gelSpaceRatio (α wc : ℚ) : ℚ :=
-  (68 * α) / (100 * (32 * α + 100 * wc))
+  (68 * α) / (32 * α + 100 * wc)
 
 /-- Denominator of gel-space ratio is positive for α ≥ 0, wc > 0. -/
 lemma gelSpaceRatioDenom_pos {α wc : ℚ} (hα : 0 ≤ α) (hwc : 0 < wc) :
@@ -64,6 +55,14 @@ lemma gelSpaceRatio_nonneg {α wc : ℚ} (hα : 0 ≤ α) (hwc : 0 < wc) :
   apply div_nonneg
   · exact mul_nonneg (by norm_num) hα
   · positivity
+
+/-- **The gel fits its space** exactly when wc ≥ 0.36·α: the gel-space ratio is at most one exactly then
+    (Powers' rounding of the space threshold `Constants.SI.criticalWcSpace` = 0.356). -/
+theorem gelSpaceRatio_le_one_iff {α wc : ℚ} (hα : 0 ≤ α) (hwc : 0 < wc) :
+    gelSpaceRatio α wc ≤ 1 ↔ 36 * α ≤ 100 * wc := by
+  unfold gelSpaceRatio
+  rw [div_le_one (gelSpaceRatioDenom_pos hα hwc)]
+  constructor <;> intro h <;> linarith
 
 -- ================================================================
 -- SECTION 3: Strength Model
@@ -91,12 +90,10 @@ lemma gelSpaceRatio_mono {α₁ α₂ wc : ℚ}
     gelSpaceRatio α₁ wc ≤ gelSpaceRatio α₂ wc := by
   unfold gelSpaceRatio
   have hα₂ : 0 ≤ α₂ := le_trans hα₁ hα₁₂
-  have hd₁ : 0 < 100 * (32 * α₁ + 100 * wc) := by positivity
-  have hd₂ : 0 < 100 * (32 * α₂ + 100 * wc) := by positivity
+  have hd₁ : 0 < 32 * α₁ + 100 * wc := by positivity
+  have hd₂ : 0 < 32 * α₂ + 100 * wc := by positivity
   rw [div_le_div_iff₀ hd₁ hd₂]
-  -- Goal: 68 * α₁ * (100 * (32 * α₂ + 100 * wc)) ≤ 68 * α₂ * (100 * (32 * α₁ + 100 * wc))
-  -- Expand: 68 * 100 * (α₁ * 32 * α₂ + α₁ * 100 * wc) ≤ 68 * 100 * (α₂ * 32 * α₁ + α₂ * 100 * wc)
-  -- Simplify: α₁ * 100 * wc ≤ α₂ * 100 * wc (since α₁ ≤ α₂ and wc > 0)
+  -- Goal: 68 * α₁ * (32 * α₂ + 100 * wc) ≤ 68 * α₂ * (32 * α₁ + 100 * wc), i.e. α₁ * wc ≤ α₂ * wc
   nlinarith [mul_nonneg hα₁ (le_of_lt hwc),
              mul_nonneg hα₂ (le_of_lt hwc)]
 
@@ -105,7 +102,7 @@ lemma gelSpaceRatio_mono {α₁ α₂ wc : ℚ}
 -- ================================================================
 
 /-- Strength is monotone in hydration at fixed wc > 0.
-    This is the concrete Powers-model witness for the abstract `fcMonotone` axiom. -/
+    The strength leg of the cement gate follows from the Powers model, with no further hypothesis. -/
 theorem powers_monotone {α₁ α₂ wc : ℚ}
     (hα₁ : 0 ≤ α₁) (hα₁₂ : α₁ ≤ α₂) (hwc : 0 < wc) :
     powersStrength α₁ wc ≤ powersStrength α₂ wc := by
@@ -125,7 +122,7 @@ def PowersState (s : ThermodynamicState) (wc : ℚ) : Prop :=
   s.strength = powersStrength s.hydration wc
 
 /-- For states satisfying the Powers model, advancing hydration cannot
-    decrease strength.  This is the concrete witness for `fcMonotone`. -/
+    decrease strength. -/
 theorem powersStateFcMonotone
     (s₁ s₂ : ThermodynamicState) (wc : ℚ)
     (hp₁ : PowersState s₁ wc)

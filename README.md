@@ -476,10 +476,17 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 | v_gs | gel-solids volume per volume of cement reacted | derived | 1.5229 (exact) | 1 | `1 + boundWaterVolume` | `gelSolidsVolume_value` |
 | A | intrinsic strength of the gel in Powers' gel-space law | cited | 2.34 × 10² (exact) | MPa | Powers1958 | a definition (cited) |
 | n | exponent of Powers' gel-space law | cited | 3 (exact) | 1 | Powers1958 | a definition (cited) |
+| Q_C3S | heat released by complete hydration of tricalcium silicate (alite) | measured | 5.17 × 10² ± 1.3 × 10¹ | J/g | Taylor1997 | a definition with its uncertainty (cited) |
+| Q_C2S | heat released by complete hydration of dicalcium silicate (belite) | cited | 2.62 × 10² (exact) | J/g | Taylor1997 | a definition (cited) |
+| Q_C3A,AFm | heat released by complete hydration of tricalcium aluminate to AFm | cited | 1.144 × 10³ (exact) | J/g | Taylor1997 | a definition (cited) |
+| Q_C3A,AFt | heat released by complete hydration of tricalcium aluminate to AFt | cited | 1.672 × 10³ (exact) | J/g | Taylor1997 | a definition (cited) |
+| Q_C4AF | heat released by complete hydration of tetracalcium aluminoferrite | cited | 4.18 × 10² (exact) | J/g | Taylor1997 | a definition (cited) |
+| Q_hyd | heat of complete hydration of a portland cement (model default) | policy | 4.5 × 10² (exact) | J/g | model choice: a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement; range [hydrationHeatC2S, hydrationHeatC3AtoAFt] | `hydrationHeatDefault_in_range` |
 
 - Bentz2009: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1: An analysis based on Powers' model, Concrete International, November 2009: Powers' model applied with the values assumed by Jensen and Hansen, in mass of water per mass of cement reacted (non-evaporable water 0.23, chemical shrinkage 0.064, gel water 0.19), and densities of water and cement assigned 1000 and 3150 kg/m^3.
 - Powers1958: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined.
 - SI2019: BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition.
+- Taylor1997: H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1: C3S -517 ± 13, C2S -262, C3A -1144 (to AFm) and -1672 (to AFt), C4AF -418 kJ/kg; the heat released is the negative of the enthalpy.
 
 Where these constants enter the second law:
 

@@ -202,4 +202,28 @@ def powersGelStrength : ℚ := (234 : ℚ)
 /-- n: exponent of Powers' gel-space law [1]; cited: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi. -/
 def powersGelExponent : ℚ := (3 : ℚ)
 
+/-- Q_C3S: heat released by complete hydration of tricalcium silicate (alite) [J/g]; measured, cited from Taylor1997. -/
+def hydrationHeatC3S : ℚ := (517 : ℚ)
+/-- Standard uncertainty of Q_C3S (Taylor1997). -/
+def hydrationHeatC3SUncertainty : ℚ := (13 : ℚ)
+
+/-- Q_C2S: heat released by complete hydration of dicalcium silicate (belite) [J/g]; cited: H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1. -/
+def hydrationHeatC2S : ℚ := (262 : ℚ)
+
+/-- Q_C3A,AFm: heat released by complete hydration of tricalcium aluminate to AFm [J/g]; cited: H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1. -/
+def hydrationHeatC3AtoAFm : ℚ := (1144 : ℚ)
+
+/-- Q_C3A,AFt: heat released by complete hydration of tricalcium aluminate to AFt [J/g]; cited: H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1. -/
+def hydrationHeatC3AtoAFt : ℚ := (1672 : ℚ)
+
+/-- Q_C4AF: heat released by complete hydration of tetracalcium aluminoferrite [J/g]; cited: H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1. -/
+def hydrationHeatC4AF : ℚ := (418 : ℚ)
+
+/-- Q_hyd: heat of complete hydration of a portland cement (model default) [J/g]; policy (a model choice, not a constant): a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement. -/
+def hydrationHeatDefault : ℚ := (450 : ℚ)
+
+/-- The choice lies in its range [hydrationHeatC2S, hydrationHeatC3AtoAFt]. -/
+theorem hydrationHeatDefault_in_range : hydrationHeatC2S ≤ hydrationHeatDefault ∧ hydrationHeatDefault ≤ hydrationHeatC3AtoAFt := by
+  norm_num [hydrationHeatDefault, hydrationHeatC2S, hydrationHeatC3AtoAFt]
+
 end UMST.Constants.SI

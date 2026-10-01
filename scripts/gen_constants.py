@@ -16,6 +16,8 @@ language checks it by exact computation:
             constants and integers); a linear formula's `_value` is its derivation, and Agda states it as
             `<id> ≃ <formula>` by `refl`
   crosscheck  for a derived row with a published value: |derived − published| ≤ published uncertainty
+  policy    a documented model or configuration choice, never counted as a constant: its value, its reason, and the
+            range it must lie in, given by two rows of the table; `<id>_in_range` proves low ≤ value ≤ high
 
 Lean (umst-formal only; umst-formal-double-slit imports it through Lake), Coq, Agda and Haskell modules are written
 where the repository keeps that language. `--check` regenerates in memory and fails on any difference.
@@ -101,7 +103,7 @@ def load() -> dict:
 def values(table: dict) -> dict[str, Fraction]:
     out: dict[str, Fraction] = {}
     for c in table["constants"]:
-        if c["status"] in ("cited", "measured"):
+        if c["status"] in ("cited", "measured", "policy"):
             out[c["id"]] = Fraction(big(c["num"]), big(c["den"]))
     for c in table["constants"]:
         if c["status"] == "derived":
@@ -150,6 +152,13 @@ def lean(table: dict, vals: dict[str, Fraction]) -> str:
             L += [doc + f"; measured, cited from {c['authority']}. -/", f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}",
                   f"/-- Standard uncertainty of {c['symbol']} ({c['authority']}). -/",
                   f"def {c['id']}Uncertainty : ℚ := {lean_q(frac(c, 'uncertainty_'))}", ""]
+        elif c["status"] == "policy":
+            lo, hi = c["range"]["low"], c["range"]["high"]
+            L += [doc + f"; policy (a model choice, not a constant): {c['reason']}. -/",
+                  f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}", "",
+                  f"/-- The choice lies in its range [{lo}, {hi}]. -/",
+                  f"theorem {c['id']}_in_range : {lo} ≤ {c['id']} ∧ {c['id']} ≤ {hi} := by",
+                  f"  norm_num [{c['id']}, {lo}, {hi}]", ""]
         else:
             num, den = split(c)
             deps, todo = [], [c["id"]]  # every constant the formula reaches, so norm_num evaluates it
@@ -197,6 +206,12 @@ def coq(table: dict, vals: dict[str, Fraction]) -> str:
             if c["status"] == "measured":
                 L.append(f"Definition {c['id']}Uncertainty : Q := {coq_q(frac(c, 'uncertainty_'))}.")
             L.append("")
+        elif c["status"] == "policy":
+            lo, hi = c["range"]["low"], c["range"]["high"]
+            L += [f"(* {c['symbol']}: {c['name']} [{c['unit']}], policy (a model choice, not a constant): {c['reason']} *)",
+                  f"Definition {c['id']} : Q := {coq_q(frac(c, ''))}.",
+                  f"Lemma {c['id']}_in_range : {lo} <= {c['id']} /\\ {c['id']} <= {hi}.",
+                  "Proof. split; vm_compute; discriminate. Qed.", ""]
         else:
             num, den = split(c)
             prod = lambda xs: " * ".join(xs) if xs else "1"
@@ -244,6 +259,12 @@ def agda(table: dict, vals: dict[str, Fraction]) -> str:
             if c["status"] == "measured":
                 L += [f"{c['id']}Uncertainty : ℚᵘ", f"{c['id']}Uncertainty = {agda_q(frac(c, 'uncertainty_'))}"]
             L.append("")
+        elif c["status"] == "policy":
+            lo, hi = c["range"]["low"], c["range"]["high"]
+            L += [f"-- {c['symbol']}: {c['name']} [{c['unit']}], policy (a model choice, not a constant): {c['reason']}",
+                  f"{c['id']} : ℚᵘ", f"{c['id']} = {agda_q(frac(c, ''))}", "",
+                  f"{c['id']}-in-range : ({lo} ≤ {c['id']}) × ({c['id']} ≤ {hi})",
+                  f"{c['id']}-in-range = *≤* (toWitness {{a? = _ ℤ.≤? _}} _) , *≤* (toWitness {{a? = _ ℤ.≤? _}} _)", ""]
         else:
             num, den = split(c)
             term = lambda xs: " * ".join("two" if x == "2" else x for x in xs) if xs else "mkℚᵘ (+ 1) 0"
@@ -281,6 +302,10 @@ def haskell(table: dict, vals: dict[str, Fraction]) -> str:
                 u = frac(c, "uncertainty_")
                 L += [f"{c['id']}Uncertainty :: Rational", f"{c['id']}Uncertainty = {u.numerator} % {u.denominator}"]
             L.append("")
+        elif c["status"] == "policy":
+            v = frac(c, "")
+            L += [f"-- | {c['symbol']}: {c['name']} [{c['unit']}], policy (a model choice, not a constant): {c['reason']}.",
+                  f"{c['id']} :: Rational", f"{c['id']} = {v.numerator} % {v.denominator}", ""]
         else:
             v = vals[c["id"]]
             L += [f"-- | {c['symbol']}: {c['name']} [{c['unit']}], derived: {c['formula']}.",
@@ -296,6 +321,8 @@ def haskell(table: dict, vals: dict[str, Fraction]) -> str:
                 x = c["crosscheck"]
                 pub, u = frac(x, ""), frac(x, "uncertainty_")
                 rows.append(f'("{c["id"]} within {x["authority"]}", abs ({c["id"]} - {pub.numerator} % {pub.denominator}) <= {u.numerator} % {u.denominator})')
+        if c["status"] == "policy":
+            rows.append(f'("{c["id"]} in its range", {c["range"]["low"]} <= {c["id"]} && {c["id"]} <= {c["range"]["high"]})')
     L += ["  [ " + "\n  , ".join(rows), "  ]", ""]
     return "\n".join(L)
 
@@ -361,6 +388,9 @@ def readme(table: dict, vals: dict[str, Fraction]) -> str:
                 f", `{c['id']}_within_{c['crosscheck']['authority']}`" if "crosscheck" in c else "")
             if "crosscheck" in c:
                 used.add(c["crosscheck"]["authority"])
+        elif c["status"] == "policy":
+            how = f"model choice: {c['reason']}; range [{c['range']['low']}, {c['range']['high']}]"
+            proof = f"`{c['id']}_in_range`"
         else:
             how = c["authority"]
             used.add(c["authority"])

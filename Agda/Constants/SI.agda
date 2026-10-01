@@ -212,3 +212,32 @@ powersGelStrength = (mkℚᵘ (+ 234) 0)
 -- n: exponent of Powers' gel-space law [1], cited (Powers1958)
 powersGelExponent : ℚᵘ
 powersGelExponent = (mkℚᵘ (+ 3) 0)
+
+-- Q_C3S: heat released by complete hydration of tricalcium silicate (alite) [J/g], measured (Taylor1997)
+hydrationHeatC3S : ℚᵘ
+hydrationHeatC3S = (mkℚᵘ (+ 517) 0)
+hydrationHeatC3SUncertainty : ℚᵘ
+hydrationHeatC3SUncertainty = (mkℚᵘ (+ 13) 0)
+
+-- Q_C2S: heat released by complete hydration of dicalcium silicate (belite) [J/g], cited (Taylor1997)
+hydrationHeatC2S : ℚᵘ
+hydrationHeatC2S = (mkℚᵘ (+ 262) 0)
+
+-- Q_C3A,AFm: heat released by complete hydration of tricalcium aluminate to AFm [J/g], cited (Taylor1997)
+hydrationHeatC3AtoAFm : ℚᵘ
+hydrationHeatC3AtoAFm = (mkℚᵘ (+ 1144) 0)
+
+-- Q_C3A,AFt: heat released by complete hydration of tricalcium aluminate to AFt [J/g], cited (Taylor1997)
+hydrationHeatC3AtoAFt : ℚᵘ
+hydrationHeatC3AtoAFt = (mkℚᵘ (+ 1672) 0)
+
+-- Q_C4AF: heat released by complete hydration of tetracalcium aluminoferrite [J/g], cited (Taylor1997)
+hydrationHeatC4AF : ℚᵘ
+hydrationHeatC4AF = (mkℚᵘ (+ 418) 0)
+
+-- Q_hyd: heat of complete hydration of a portland cement (model default) [J/g], policy (a model choice, not a constant): a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement
+hydrationHeatDefault : ℚᵘ
+hydrationHeatDefault = (mkℚᵘ (+ 450) 0)
+
+hydrationHeatDefault-in-range : (hydrationHeatC2S ≤ hydrationHeatDefault) × (hydrationHeatDefault ≤ hydrationHeatC3AtoAFt)
+hydrationHeatDefault-in-range = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)

@@ -31,7 +31,7 @@ def HelmholtzState (s : ThermodynamicState) : Prop :=
   s.freeEnergy = helmholtz s.hydration
 
 -- ================================================================
--- SECTION 2: Concrete Witness for psiAntitone
+-- SECTION 2: Free-Energy Descent for Helmholtz States
 -- ================================================================
 
 /-- For Helmholtz-consistent states, forward hydration implies

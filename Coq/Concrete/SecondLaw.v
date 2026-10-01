@@ -34,7 +34,7 @@ Theorem helmholtz_secondLaw_iff (old new_ : ThermodynamicState) :
   density new_ - density old <= delta_mass -> density old - density new_ <= delta_mass ->
   (SecondLaw transition (thermodynamic old new_) <-> hydration old <= hydration new_).
 Proof.
-  unfold helmholtz_state, helmholtz, Q_hyd. intros ho hn m1 m2. simpl. unfold core_admissible.
+  unfold helmholtz_state, helmholtz, Q_hyd, UMSTFormal.Constants.SI.hydrationHeatDefault. intros ho hn m1 m2. simpl. unfold core_admissible.
   rewrite ho, hn. split.
   - intros [_ [_ h]]. lra.
   - intro h. split; [exact m1 | split; [exact m2 | lra]].

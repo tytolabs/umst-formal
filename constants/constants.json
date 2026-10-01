@@ -1,11 +1,12 @@
 {
  "schema": "umst_constants_v1",
- "rule": "Every constant is cited (a defining constant of the SI, with its authority), measured (a cited measurement with its standard uncertainty), or derived (a theorem in Lean, Coq and Agda and a property in Haskell from cited or measured rows). Values are exact rationals. scripts/gen_constants.py generates every language's module and both README tables from this file; --check fails on drift.",
+ "rule": "Every constant is cited (a defining constant of the SI, with its authority), measured (a cited measurement with its standard uncertainty), or derived (a theorem in Lean, Coq and Agda and a property in Haskell from cited or measured rows). A policy row is a documented model choice, never a constant: its value, its reason, and the range of table rows it must lie in, proved in each language. Values are exact rationals. scripts/gen_constants.py generates every language's module and both README tables from this file; --check fails on drift.",
  "authorities": {
   "SI2019": "BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition",
   "CODATA2022": "Mohr, Tiesinga, Newell and Taylor, CODATA recommended values of the fundamental physical constants: 2022, Rev. Mod. Phys. 97 (2025)",
   "Bentz2009": "D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1: An analysis based on Powers' model, Concrete International, November 2009: Powers' model applied with the values assumed by Jensen and Hansen, in mass of water per mass of cement reacted (non-evaporable water 0.23, chemical shrinkage 0.064, gel water 0.19), and densities of water and cement assigned 1000 and 3150 kg/m^3",
-  "Powers1958": "T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined"
+  "Powers1958": "T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined",
+  "Taylor1997": "H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1: C3S -517 ± 13, C2S -262, C3A -1144 (to AFm) and -1672 (to AFt), C4AF -418 kJ/kg; the heat released is the negative of the enthalpy"
  },
  "constants": [
   {
@@ -353,6 +354,78 @@
    "num": "3",
    "den": "1",
    "fibre": "acting"
+  },
+  {
+   "id": "hydrationHeatC3S",
+   "symbol": "Q_C3S",
+   "name": "heat released by complete hydration of tricalcium silicate (alite)",
+   "unit": "J/g",
+   "status": "measured",
+   "authority": "Taylor1997",
+   "num": "517",
+   "den": "1",
+   "fibre": "acting",
+   "uncertainty_num": "13",
+   "uncertainty_den": "1"
+  },
+  {
+   "id": "hydrationHeatC2S",
+   "symbol": "Q_C2S",
+   "name": "heat released by complete hydration of dicalcium silicate (belite)",
+   "unit": "J/g",
+   "status": "cited",
+   "authority": "Taylor1997",
+   "num": "262",
+   "den": "1",
+   "fibre": "acting"
+  },
+  {
+   "id": "hydrationHeatC3AtoAFm",
+   "symbol": "Q_C3A,AFm",
+   "name": "heat released by complete hydration of tricalcium aluminate to AFm",
+   "unit": "J/g",
+   "status": "cited",
+   "authority": "Taylor1997",
+   "num": "1144",
+   "den": "1",
+   "fibre": "acting"
+  },
+  {
+   "id": "hydrationHeatC3AtoAFt",
+   "symbol": "Q_C3A,AFt",
+   "name": "heat released by complete hydration of tricalcium aluminate to AFt",
+   "unit": "J/g",
+   "status": "cited",
+   "authority": "Taylor1997",
+   "num": "1672",
+   "den": "1",
+   "fibre": "acting"
+  },
+  {
+   "id": "hydrationHeatC4AF",
+   "symbol": "Q_C4AF",
+   "name": "heat released by complete hydration of tetracalcium aluminoferrite",
+   "unit": "J/g",
+   "status": "cited",
+   "authority": "Taylor1997",
+   "num": "418",
+   "den": "1",
+   "fibre": "acting"
+  },
+  {
+   "id": "hydrationHeatDefault",
+   "symbol": "Q_hyd",
+   "name": "heat of complete hydration of a portland cement (model default)",
+   "unit": "J/g",
+   "status": "policy",
+   "num": "450",
+   "den": "1",
+   "fibre": "acting",
+   "reason": "a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement",
+   "range": {
+    "low": "hydrationHeatC2S",
+    "high": "hydrationHeatC3AtoAFt"
+   }
   }
  ]
 }

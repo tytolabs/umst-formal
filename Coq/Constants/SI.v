@@ -162,3 +162,24 @@ Definition powersGelStrength : Q := (Qmake 234 1).
 
 (* n: exponent of Powers' gel-space law [1], cited (Powers1958) *)
 Definition powersGelExponent : Q := (Qmake 3 1).
+
+(* Q_C3S: heat released by complete hydration of tricalcium silicate (alite) [J/g], measured (Taylor1997) *)
+Definition hydrationHeatC3S : Q := (Qmake 517 1).
+Definition hydrationHeatC3SUncertainty : Q := (Qmake 13 1).
+
+(* Q_C2S: heat released by complete hydration of dicalcium silicate (belite) [J/g], cited (Taylor1997) *)
+Definition hydrationHeatC2S : Q := (Qmake 262 1).
+
+(* Q_C3A,AFm: heat released by complete hydration of tricalcium aluminate to AFm [J/g], cited (Taylor1997) *)
+Definition hydrationHeatC3AtoAFm : Q := (Qmake 1144 1).
+
+(* Q_C3A,AFt: heat released by complete hydration of tricalcium aluminate to AFt [J/g], cited (Taylor1997) *)
+Definition hydrationHeatC3AtoAFt : Q := (Qmake 1672 1).
+
+(* Q_C4AF: heat released by complete hydration of tetracalcium aluminoferrite [J/g], cited (Taylor1997) *)
+Definition hydrationHeatC4AF : Q := (Qmake 418 1).
+
+(* Q_hyd: heat of complete hydration of a portland cement (model default) [J/g], policy (a model choice, not a constant): a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement *)
+Definition hydrationHeatDefault : Q := (Qmake 450 1).
+Lemma hydrationHeatDefault_in_range : hydrationHeatC2S <= hydrationHeatDefault /\ hydrationHeatDefault <= hydrationHeatC3AtoAFt.
+Proof. split; vm_compute; discriminate. Qed.

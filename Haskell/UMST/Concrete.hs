@@ -26,8 +26,10 @@ import UMST.Core (coreDissipationOk, coreMassOk, massTolerance)
 -- Constants
 ------------------------------------------------------------------------
 
+-- | Heat of complete hydration [J/g]: the policy row of the constants table, proved to lie between the least and
+-- greatest cited phase heats.
 qHydration :: Double
-qHydration = 450.0
+qHydration = fromRational SI.hydrationHeatDefault
 
 tolerance :: Double
 tolerance = 1e-6

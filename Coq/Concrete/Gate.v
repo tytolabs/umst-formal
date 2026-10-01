@@ -12,6 +12,7 @@ From Stdlib Require Import Lia.
 From Stdlib Require Import ZArith.
 
 Require Import UMSTFormal.Core.Gate.
+Require UMSTFormal.Constants.SI.
 Export UMSTFormal.Core.Gate.
 
 Open Scope Q_scope.
@@ -23,7 +24,9 @@ Record ThermodynamicState : Set := mkState {
   strength    : Q
 }.
 
-Definition Q_hyd : Q := 450 # 1.
+(** Heat of complete hydration [J/g]: the policy row hydrationHeatDefault of Constants/SI.v, proved to lie between
+    the least and greatest cited phase heats (hydrationHeatDefault_in_range). *)
+Definition Q_hyd : Q := UMSTFormal.Constants.SI.hydrationHeatDefault.
 
 Definition helmholtz (alpha : Q) : Q := (-Q_hyd) * alpha.
 
@@ -62,7 +65,7 @@ Lemma helmholtz_antitone : forall a1 a2 : Q,
   a1 <= a2 -> helmholtz a2 <= helmholtz a1.
 Proof.
   intros a1 a2 H.
-  unfold helmholtz, Q_hyd.
+  unfold helmholtz, Q_hyd, UMSTFormal.Constants.SI.hydrationHeatDefault.
   assert (e2 : (- (450 # 1)) * a2 == - ((450 # 1) * a2)) by field.
   assert (e1 : (- (450 # 1)) * a1 == - ((450 # 1) * a1)) by field.
   assert (Hmul : (450 # 1) * a1 <= (450 # 1) * a2).
@@ -80,7 +83,7 @@ Lemma helmholtz_gradient : forall alpha eps : Q,
   helmholtz (alpha + eps) - helmholtz alpha == - (Q_hyd * eps).
 Proof.
   intros alpha eps.
-  unfold helmholtz, Q_hyd.
+  unfold helmholtz, Q_hyd, UMSTFormal.Constants.SI.hydrationHeatDefault.
   ring.
 Qed.
 
@@ -88,7 +91,7 @@ Lemma helmholtz_additive : forall a1 a2 : Q,
   helmholtz (a1 + a2) == helmholtz a1 + helmholtz a2.
 Proof.
   intros a1 a2.
-  unfold helmholtz, Q_hyd.
+  unfold helmholtz, Q_hyd, UMSTFormal.Constants.SI.hydrationHeatDefault.
   ring.
 Qed.
 

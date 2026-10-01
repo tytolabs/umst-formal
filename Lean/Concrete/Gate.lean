@@ -9,6 +9,7 @@ import Mathlib.Tactic
 import Core.Gate
 import Core.State
 import Concrete.State
+import Constants.SI
 
 open Rat
 open UMST.Core
@@ -20,25 +21,32 @@ def δMass : ℚ := @UMST.Core.δMass ℚ _ _
 
 @[simp] theorem δMass_val : δMass = 100 := UMST.Core.δMass_def_rat
 
-/-- Latent heat of hydration (kJ/kg = J/g); SSOT with Rust `OPC_REACTION_ENTHALPY_KJ_PER_KG`. -/
-def Q_hyd : ℚ := 450
+/-- Heat of complete hydration (kJ/kg = J/g): the policy row `Constants.SI.hydrationHeatDefault`, a model default
+    proved to lie between the least and greatest cited phase heats (`hydrationHeatDefault_in_range`); SSOT with Rust
+    `OPC_REACTION_ENTHALPY_KJ_PER_KG`. -/
+def Q_hyd : ℚ := UMST.Constants.SI.hydrationHeatDefault
 
 def helmholtz (α : ℚ) : ℚ := -(Q_hyd * α)
+
+/-- The hydration heat is positive: it lies above the least cited phase heat (`hydrationHeatDefault_in_range`).
+    The laws below use only this, so they hold for any cement whose heat lies in the cited range. -/
+theorem Q_hyd_pos : 0 < Q_hyd :=
+  lt_of_lt_of_le (by norm_num [UMST.Constants.SI.hydrationHeatC2S]) UMST.Constants.SI.hydrationHeatDefault_in_range.1
 
 /-- Free energy is antitone in hydration: more hydration never raises `ψ`. -/
 theorem helmholtzAntitone : ∀ α₁ α₂ : ℚ, α₁ ≤ α₂ → helmholtz α₂ ≤ helmholtz α₁ := by
   intro α₁ α₂ h
-  unfold helmholtz Q_hyd
-  nlinarith
+  unfold helmholtz
+  exact neg_le_neg (mul_le_mul_of_nonneg_left h Q_hyd_pos.le)
 
 /-- Free-energy descent ↔ hydration ascent (Q_hyd > 0). -/
 theorem helmholtz_le_iff : ∀ α₁ α₂ : ℚ, helmholtz α₂ ≤ helmholtz α₁ ↔ α₁ ≤ α₂ := by
   intro α₁ α₂
-  unfold helmholtz Q_hyd
-  constructor <;> intro h <;> linarith
+  unfold helmholtz
+  rw [neg_le_neg_iff, mul_le_mul_left Q_hyd_pos]
 
 theorem helmholtz_one : helmholtz 1 = -(Q_hyd) := by
-  unfold helmholtz Q_hyd
+  unfold helmholtz
   ring
 
 theorem helmholtz_ge_neg_Q_hyd {α : ℚ} (hα : α ≤ 1) : -(Q_hyd) ≤ helmholtz α := by

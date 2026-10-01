@@ -15,8 +15,8 @@
     • `jennings_strength_monotone`
     • `jennings_strength_nonneg`
 
-  This is a **parallel** concrete witness to the abstract `fcMonotone` interface (see
-  `Powers.lean` for the OPC Powers gel-space ratio line); both are admissible models.
+  This is a model of strength parallel to `Concrete/Powers.lean` (the OPC Powers gel-space ratio line); in each,
+  strength is monotone in hydration.
   Reference: Jennings & Johnson, *Cement and Concrete Research* 38 (2008) — CCR 38.
 -/
 

@@ -142,6 +142,32 @@ powersGelStrength = 234 % 1
 powersGelExponent :: Rational
 powersGelExponent = 3 % 1
 
+-- | Q_C3S: heat released by complete hydration of tricalcium silicate (alite) [J/g], measured (Taylor1997).
+hydrationHeatC3S :: Rational
+hydrationHeatC3S = 517 % 1
+hydrationHeatC3SUncertainty :: Rational
+hydrationHeatC3SUncertainty = 13 % 1
+
+-- | Q_C2S: heat released by complete hydration of dicalcium silicate (belite) [J/g], cited (Taylor1997).
+hydrationHeatC2S :: Rational
+hydrationHeatC2S = 262 % 1
+
+-- | Q_C3A,AFm: heat released by complete hydration of tricalcium aluminate to AFm [J/g], cited (Taylor1997).
+hydrationHeatC3AtoAFm :: Rational
+hydrationHeatC3AtoAFm = 1144 % 1
+
+-- | Q_C3A,AFt: heat released by complete hydration of tricalcium aluminate to AFt [J/g], cited (Taylor1997).
+hydrationHeatC3AtoAFt :: Rational
+hydrationHeatC3AtoAFt = 1672 % 1
+
+-- | Q_C4AF: heat released by complete hydration of tetracalcium aluminoferrite [J/g], cited (Taylor1997).
+hydrationHeatC4AF :: Rational
+hydrationHeatC4AF = 418 % 1
+
+-- | Q_hyd: heat of complete hydration of a portland cement (model default) [J/g], policy (a model choice, not a constant): a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement.
+hydrationHeatDefault :: Rational
+hydrationHeatDefault = 450 % 1
+
 -- | Each derived constant against its exact value, and each cross-check against its published value.
 derivations :: [(String, Bool)]
 derivations =
@@ -165,4 +191,5 @@ derivations =
   , ("boundWater", boundWater == 83 % 500)
   , ("boundWaterVolume", boundWaterVolume == 5229 % 10000)
   , ("gelSolidsVolume", gelSolidsVolume == 15229 % 10000)
+  , ("hydrationHeatDefault in its range", hydrationHeatC2S <= hydrationHeatDefault && hydrationHeatDefault <= hydrationHeatC3AtoAFt)
   ]

@@ -171,7 +171,7 @@ theorem ψAntitoneStiffnessTransition
 
 /-- For two stiffness-transition-consistent states: forward hydration + mass
     conservation implies an admissible gate transition.
-    Strength monotonicity uses the abstract `fcMonotone` slot (as in `HelmholtzState`). -/
+    Strength monotonicity is a hypothesis (as for `HelmholtzState`). -/
 theorem stiffnessTransitionStateAdmissible
     (old new : ThermodynamicState) (e0 epsilon : ℚ)
     (ho : StiffnessTransitionState old e0 epsilon)
