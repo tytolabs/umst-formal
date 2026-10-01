@@ -9,8 +9,8 @@
 mod agap_2350_l1_inventory;
 mod agap_2350_l2_attestation;
 mod agap_2350_l6_attestation;
-mod formal_swarm_deepen;
 mod extract_runtime;
+mod formal_swarm_deepen;
 mod lcert;
 mod lcert_capstone;
 mod lean_l1_bridge_prep;
