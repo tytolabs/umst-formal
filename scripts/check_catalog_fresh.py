@@ -18,9 +18,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-# The exporter's declaration grammar (umst-formal-double-slit tools/lean_export/export_catalog.py), plus abbrev.
-DECL_RE = re.compile(r"^\s*(theorem|lemma|axiom|def|instance|inductive|structure|class)\s+([^\s:]+)", re.MULTILINE)
-ABBREV_RE = re.compile(r"^\s*abbrev\s+([^\s:]+)", re.MULTILINE)
+# The exporter's declaration grammar (umst-formal-double-slit tools/lean_export/export_catalog.py).
+DECL_RE = re.compile(
+    # Attributes (`@[simp]`) and modifiers (`noncomputable`, `private`) may precede the keyword.
+    r"^\s*(?:@\[[^\]]*\]\s*)*(?:(?:private|protected|noncomputable|partial|unsafe)\s+)*"
+    r"(theorem|lemma|axiom|def|abbrev|instance|inductive|structure|class)\s+([^\s:]+)",
+    re.MULTILINE,
+)
 
 
 def main() -> int:
@@ -43,7 +47,7 @@ def main() -> int:
             problems.append(f"content_sha256 stale: Lean/{rel}")
             continue
         text = raw.decode("utf-8", errors="replace")
-        want = {n for _, n in DECL_RE.findall(text)} | set(ABBREV_RE.findall(text))
+        want = {n for _, n in DECL_RE.findall(text)}
         have = {n for names in (m.get("declarations") or {}).values() for n in names}
         if want != have:
             problems.append(f"declarations stale: Lean/{rel}")

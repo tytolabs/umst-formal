@@ -7,6 +7,9 @@
       "path": "Adjoint.lean",
       "content_sha256": "c7325b5607925ea6aa0b9129f6d1080bb46ba41d5c197b4563e30938cdeca1c1",
       "declarations": {
+        "def": [
+          "adjointClosedForm"
+        ],
         "theorem": [
           "adjoint_recovers_gradient"
         ]
@@ -23,15 +26,15 @@
       "path": "Behavior/SDFCanonical.lean",
       "content_sha256": "b80fbf49bde2e78cee64178ae89a1a683c20f3cf3ce8a5b0d024cd626e858768",
       "declarations": {
+        "abbrev": [
+          "Action"
+        ],
         "def": [
           "canonical_sdf",
           "BehaviorEquiv"
         ],
         "theorem": [
           "SDFCanonical"
-        ],
-        "abbrev": [
-          "Action"
         ]
       },
       "import_lines": [],
@@ -43,6 +46,9 @@
       "declarations": {
         "inductive": [
           "ConservationAxis"
+        ],
+        "abbrev": [
+          "Composition"
         ],
         "def": [
           "compositionDelta",
@@ -68,9 +74,6 @@
           "conserved_second_law_required",
           "conserved_linear_required",
           "affine_entropy_from_physical"
-        ],
-        "abbrev": [
-          "Composition"
         ]
       },
       "import_lines": [
@@ -82,6 +85,12 @@
       "path": "Chem/Constants/ConstantsSheaf.lean",
       "content_sha256": "6814de0b45ef4d8fb54b7be9d225163af989f86a452c44c4c5228828d0edbf2d",
       "declarations": {
+        "abbrev": [
+          "PressureGraphField",
+          "ChemicalPotentialGraphField",
+          "InteractGraphEdge",
+          "temperatureSectionOnEdge"
+        ],
         "structure": [
           "MesoConstantsSheaf"
         ],
@@ -104,7 +113,9 @@
           "gibbsDuhemBalance",
           "gibbsDuhemInterdependenceEq",
           "dotList",
-          "gibbsDuhemInterdependence"
+          "gibbsDuhemInterdependence",
+          "landauerFloorAtSheaf",
+          "measurementFloorAtSheaf"
         ],
         "theorem": [
           "dotList_zero_map",
@@ -116,12 +127,6 @@
           "constantsSheafOnEdge_admissible",
           "chemSecondLaw_uses_sheaf_temperature",
           "constantsSheaf_linear_conservation_zero"
-        ],
-        "abbrev": [
-          "PressureGraphField",
-          "ChemicalPotentialGraphField",
-          "InteractGraphEdge",
-          "temperatureSectionOnEdge"
         ]
       },
       "import_lines": [
@@ -140,6 +145,10 @@
         "inductive": [
           "InteractGraphVertex"
         ],
+        "abbrev": [
+          "TemperatureGraphField",
+          "InteractGraphEdge"
+        ],
         "def": [
           "temperatureFieldPositive",
           "ambientGraphVertex",
@@ -149,7 +158,12 @@
           "inverseTemperatureBeta",
           "temperatureSheafSection",
           "temperatureGraphFunction",
-          "temperatureGraphWellTyped"
+          "temperatureGraphWellTyped",
+          "chemLandauerFloor",
+          "chemMeasurementFloor",
+          "landauerFloorAt",
+          "measurementFloorAt",
+          "inverseTemperatureAt"
         ],
         "theorem": [
           "landauerFloorAt_pos",
@@ -162,10 +176,6 @@
           "refinementWorkFloor_eq_chemLandauer",
           "chemSecondLaw_uses_inverse_temperature",
           "temperature_linear_conservation_zero"
-        ],
-        "abbrev": [
-          "TemperatureGraphField",
-          "InteractGraphEdge"
         ]
       },
       "import_lines": [
@@ -193,7 +203,13 @@
           "isSecondLawPresentation",
           "convexHullSecondLawAdmissible",
           "convexHullLinearConservationPreserved",
-          "admissibleConvexHullEquilibrium"
+          "admissibleConvexHullEquilibrium",
+          "canonicalBinaryCommonTangent",
+          "canonicalBinaryAlpha",
+          "canonicalBinaryBeta",
+          "canonicalBinaryCommonTangentCoexistence",
+          "coherentP0ConvexHullEquilibrium",
+          "coherentP0CommonTangentEquilibrium"
         ],
         "inductive": [
           "GibbsPresentationKind"
@@ -340,7 +356,8 @@
           "messySampleSectionOnEdge",
           "sampleSectionOnEdge",
           "envSampleSectionsOnEdge",
-          "envSampleSectionsWellTypedOnEdge"
+          "envSampleSectionsWellTypedOnEdge",
+          "envSampleFixtureSheaf"
         ],
         "structure": [
           "EnvSampleSectionBundle"
@@ -369,6 +386,12 @@
       "path": "Chem/Environment/EnvironmentContinuum.lean",
       "content_sha256": "6ff4692129bc03770c8e07441812da375442b0a975ad6f3af76dc9e99998cf1d",
       "declarations": {
+        "abbrev": [
+          "SampleScaleGraphField",
+          "ThermoContinuumGraphField",
+          "NeighborCouplingGraphField",
+          "InteractGraphEdge"
+        ],
         "structure": [
           "MesoEnvironmentSheaf"
         ],
@@ -386,6 +409,7 @@
           "messyThermoContinuumSection",
           "envSampleSectionsNotXor",
           "vacuumDoesNotCloseMessy",
+          "witnessEnvironmentSheaf",
           "gateDissipationWitness",
           "hydrationIrreversibilityWitness",
           "vacuumSectionOnEdge",
@@ -395,7 +419,9 @@
           "environmentContinuumWellTyped",
           "environmentContinuumSecondLawEq",
           "dotList",
-          "envCompositionInterdependence"
+          "envCompositionInterdependence",
+          "landauerFloorAtEnvSheaf",
+          "measurementFloorAtEnvSheaf"
         ],
         "theorem": [
           "vacuumDoesNotCloseMessyHolds",
@@ -408,12 +434,6 @@
           "environmentSheafOnEdge_admissible",
           "environmentContinuumSecondLawEq_ungated",
           "environmentContinuum_linear_conservation_zero"
-        ],
-        "abbrev": [
-          "SampleScaleGraphField",
-          "ThermoContinuumGraphField",
-          "NeighborCouplingGraphField",
-          "InteractGraphEdge"
         ]
       },
       "import_lines": [
@@ -429,6 +449,12 @@
       "path": "Chem/KleisliInteract.lean",
       "content_sha256": "92aeb9b7ec933ea62bd0ca3c036b7bb3861f7a25715132cfbaddf0816e84fa7c",
       "declarations": {
+        "abbrev": [
+          "KleisliArrow",
+          "makeGateArrow",
+          "kleisliCompose",
+          "kleisliFold"
+        ],
         "def": [
           "admissibleStep",
           "wellTypedAt",
@@ -442,12 +468,6 @@
           "kleisliRightUnit",
           "kleisliComposeWellTypedAt",
           "kleisliCoherenceUnits"
-        ],
-        "abbrev": [
-          "KleisliArrow",
-          "makeGateArrow",
-          "kleisliCompose",
-          "kleisliFold"
         ]
       },
       "import_lines": [
@@ -471,7 +491,8 @@
           "hematiteGangueTensor",
           "oreSecondLawAdmissible",
           "oreLinearConservationPreserved",
-          "admissibleOreMorphism"
+          "admissibleOreMorphism",
+          "coherentP0OreMorphism"
         ],
         "structure": [
           "OreMorphism"
@@ -594,7 +615,9 @@
           "refineLinearConservationPreserved",
           "admissibleRefineMorphism",
           "reverseRefineMorphism",
-          "contaminationMorphism"
+          "contaminationMorphism",
+          "coherentP0RefineMorphism",
+          "coherentP0Contamination"
         ],
         "structure": [
           "RefineMorphism"
@@ -634,9 +657,12 @@
         ],
         "def": [
           "structurallyCoherent",
+          "assemblageEntropyDrop",
           "ThermochemicalTransition.erasure",
           "chemSecondLaw",
-          "refinementWorkAccounted"
+          "refinementWorkFloor",
+          "refinementWorkAccounted",
+          "coherentP0Transition"
         ],
         "theorem": [
           "chemSecondLaw_iff",
@@ -661,6 +687,9 @@
       "path": "ClassicalMeasurementCost.lean",
       "content_sha256": "28ca96862d045b3d50848a2afc4b491d30b022fc7a4b6ba8b97d8d689a209349",
       "declarations": {
+        "def": [
+          "measurementEnergyLowerBound"
+        ],
         "theorem": [
           "zero_info_zero_energy"
         ]
@@ -682,11 +711,17 @@
         "def": [
           "idCoarseGrainMap",
           "CoarseGrainMap.comp",
+          "eraseEntropyDrop",
           "lumpPairFirst",
+          "lumpPairEraseCoarseGrainMap",
           "jointEraseFineSecondLaw",
           "scaleMapQuantumToStochastic",
           "scaleMapStochasticToContinuum",
-          "scaleMapQuantumToContinuumDirect"
+          "scaleMapQuantumToContinuumDirect",
+          "scaleMapStochasticPairLump"
+        ],
+        "lemma": [
+          "eraseSecondLaw_of_entropy_drop_le"
         ],
         "theorem": [
           "secondLaw_coarse_from_fine",
@@ -745,6 +780,25 @@
       "path": "Compat/Gate.lean",
       "content_sha256": "dbf01f88d1955bbd912a402134ccbe1e2a03280fef184bbea0ac26bdaea4979c",
       "declarations": {
+        "abbrev": [
+          "ThermodynamicState",
+          "Admissible",
+          "AdmissibleN",
+          "helmholtzAntitone",
+          "helmholtz_le_iff",
+          "helmholtzGradient",
+          "helmholtzAdditive",
+          "gateCheck",
+          "gateCheckSound",
+          "gateCheckComplete",
+          "clausiusDuhemFwd",
+          "forwardHydrationAdmissible",
+          "admissibleRefl",
+          "admissibleIffCSG",
+          "admissible_iff_admissibleN1",
+          "admissibleNRefl",
+          "ConstitutionalSeq"
+        ],
         "def": [
           "\u03b4Mass",
           "Q_hyd",
@@ -762,16 +816,11 @@
         ],
         "theorem": [
           "\u03b4Mass_eq",
+          "Q_hyd_eq",
           "helmholtz_ge_neg_Q_hyd",
           "admissibleN_compose",
           "subjectReduction",
           "kleisliAdmissibility"
-        ],
-        "abbrev": [
-          "ThermodynamicState",
-          "Admissible",
-          "AdmissibleN",
-          "ConstitutionalSeq"
         ]
       },
       "import_lines": [
@@ -789,8 +838,12 @@
         "inductive": [
           "Engine"
         ],
+        "abbrev": [
+          "EngineSet"
+        ],
         "def": [
           "engineMember",
+          "mkEngineSet",
           "opcEngines",
           "racEngines",
           "geoEngines",
@@ -822,9 +875,6 @@
         ],
         "instance": [
           "activationDecidable"
-        ],
-        "abbrev": [
-          "EngineSet"
         ]
       },
       "import_lines": [
@@ -916,11 +966,16 @@
       "path": "Concrete/GaloisGate.lean",
       "content_sha256": "cae89ce3be6f6f4d934950e021b68c65f8d36bf72835bff12288da04c6809750",
       "declarations": {
+        "instance": [
+          "(p"
+        ],
         "inductive": [
           "GateCond"
         ],
         "def": [
-          "evalCond"
+          "evalCond",
+          "condMeet",
+          "condExtract"
         ],
         "theorem": [
           "condMeet_full_iff_admissible",
@@ -953,6 +1008,7 @@
           "StrengthCond"
         ],
         "theorem": [
+          "\u03b4Mass_val",
           "Q_hyd_pos",
           "helmholtzAntitone",
           "helmholtz_le_iff",
@@ -1040,6 +1096,9 @@
         "def": [
           "damageDMax",
           "damageAdmissible",
+          "e_eff_mt",
+          "psi_elastic_base",
+          "microMechanicsEnergy",
           "MicroMechanicsState",
           "gridE0RefPa",
           "gridE0AltPa"
@@ -1049,7 +1108,9 @@
           "damageDMax_le_one",
           "damageAdmissible_zero",
           "damageAdmissible_one_sub_nonneg",
-          "damageAdmissible_one_sub_le_one"
+          "damageAdmissible_one_sub_le_one",
+          "one_sub_sq_antitone",
+          "psi_elastic_base_factor_nonneg"
         ],
         "theorem": [
           "e_eff_mt_nonneg",
@@ -1096,10 +1157,17 @@
           "g0PowersCoeffs",
           "coeffsAdmissible",
           "capillaryPorosityAdmissible",
+          "capillaryPorosityRaw",
+          "capillaryPorosity",
           "life365DiffusivityCoeffs",
           "chlorideDiffusivityCoeffsAdmissible",
           "flowPorosityAdmissible",
+          "tortuosityWitness",
+          "chlorideDiffusivityWitness",
+          "flowWitnessAtPorosity",
+          "isotropicDiffusivityTensor",
           "flowTransportTensorBridge",
+          "flowWitnessAtPorosityLife365",
           "slice1DissipationCoeffs",
           "dissipationCoeffsAdmissible",
           "dissipationTermIdStr",
@@ -1115,12 +1183,16 @@
           "slice1EnergyCoeffs",
           "energyCoeffsAdmissible",
           "unitIntervalAdmissible",
-          "psiTransportAdmissible"
+          "psiTransportAdmissible",
+          "psiTransport",
+          "psiTransportPhiComponent",
+          "psiTransportSaturationComponent"
         ],
         "lemma": [
           "g0PowersCoeffs_admissible",
           "denom_pos_of_admissible",
           "capillaryPorosity_g0_eq_jennings",
+          "capillaryPorosityRaw_mono_in_alpha",
           "life365DiffusivityCoeffs_admissible",
           "clamp01_flow_admissible",
           "tortuosityWitness_nonpos",
@@ -1129,7 +1201,8 @@
           "dissipationTransport_nonneg",
           "dissipationReaction_nonneg",
           "slice1EnergyCoeffs_admissible",
-          "psiTransport_summand_identity"
+          "psiTransport_summand_identity",
+          "psiTransport_factor_nonneg"
         ],
         "theorem": [
           "capillaryPorosity_unit_interval",
@@ -1148,12 +1221,12 @@
           "psiTransport_slice1_fixture_value",
           "psiTransportSaturationComponent_antitone_in_s"
         ],
+        "abbrev": [
+          "TransportAxis"
+        ],
         "inductive": [
           "DissipationTermId",
           "B3OpenObligation"
-        ],
-        "abbrev": [
-          "TransportAxis"
         ]
       },
       "import_lines": [
@@ -1171,6 +1244,8 @@
       "declarations": {
         "def": [
           "S_intrinsic",
+          "gelSpaceRatio",
+          "powersStrength",
           "PowersState"
         ],
         "lemma": [
@@ -1220,6 +1295,9 @@
           "capillaryWater_full_eq",
           "space_full_eq",
           "space_full_nonneg_iff"
+        ],
+        "lemma": [
+          "denom_pos"
         ]
       },
       "import_lines": [
@@ -1232,6 +1310,9 @@
       "path": "Concrete/SecondLaw.lean",
       "content_sha256": "71c4c22220b06354f9727438d301a953854df4c86eee053e57c2882b87710671",
       "declarations": {
+        "def": [
+          "toReal"
+        ],
         "theorem": [
           "coreAdmissible_iff_secondLaw",
           "concreteAdmissible_iff_secondLaw",
@@ -1257,9 +1338,17 @@
           "b4WcMid",
           "b4WcHi",
           "b4WcAdmissible",
-          "shrinkageInputAdmissible"
+          "b4UltimateEnvelope",
+          "alphaUlt",
+          "shrinkageDevelopment",
+          "shrinkageDevelopmentExp",
+          "pasteFactor",
+          "scmFactor",
+          "shrinkageInputAdmissible",
+          "autogenousShrinkageMicrostrain"
         ],
         "lemma": [
+          "criticalWcChemPin_value",
           "criticalWcChemPin_pos",
           "b4WcMid_le_hi",
           "b4WcLo_lt_critical",
@@ -1269,11 +1358,33 @@
           "critical_lt_mid",
           "b4WcLo_lt_hi",
           "b4WcMid_lt_hi",
+          "b4UltimateEnvelope_nonpos_branch_lo",
+          "b4UltimateEnvelope_nonpos_branch_critical",
+          "b4UltimateEnvelope_nonpos_branch_mid",
+          "b4UltimateEnvelope_nonpos_branch_hi",
+          "b4UltimateEnvelope_mono_branch_lo",
+          "b4UltimateEnvelope_mono_branch_critical",
+          "b4UltimateEnvelope_mono_branch_mid",
+          "b4UltimateEnvelope_mono_branch_hi",
+          "b4UltimateEnvelope_mono_from_lo_knot",
+          "b4UltimateEnvelope_mono_from_critical_knot",
+          "b4UltimateEnvelope_mono_from_mid_knot",
+          "b4UltimateEnvelope_mono_on_critical_closed",
+          "b4UltimateEnvelope_mono_on_mid_closed",
+          "b4UltimateEnvelope_mono_on_hi_closed",
+          "b4UltimateEnvelope_mono_to_lo_knot",
+          "b4UltimateEnvelope_mono_cross_lo_critical",
+          "b4UltimateEnvelope_mono_cross_lo_mid",
+          "b4UltimateEnvelope_mono_cross_lo_hi",
+          "b4UltimateEnvelope_mono_cross_critical_mid",
+          "b4UltimateEnvelope_mono_cross_critical_hi",
+          "b4UltimateEnvelope_mono_cross_mid_hi",
           "shrinkageDevelopment_nonneg",
           "shrinkageDevelopment_le_one",
           "alphaUlt_mono",
           "shrinkageDevelopment_mono_in_degree",
           "shrinkageDevelopment_mono_in_degree_admissible",
+          "one_sub_exp_neg_three_div_mono",
           "shrinkageDevelopmentExp_nonneg",
           "shrinkageDevelopmentExp_le_one",
           "shrinkageDevelopmentExp_mono_in_degree",
@@ -1328,6 +1439,9 @@
         "def": [
           "stiffnessAlphaThreshold",
           "stiffnessCoupling",
+          "stiffnessScale",
+          "psi_stiffness_alpha",
+          "stiffnessTransitionEnergy",
           "StiffnessTransitionState",
           "l1aRationalGridSchema",
           "gridE0RefPa",
@@ -1336,7 +1450,8 @@
         ],
         "lemma": [
           "stiffnessCoupling_nonneg",
-          "stiffnessCoupling_pos"
+          "stiffnessCoupling_pos",
+          "psi_stiffness_alpha_factor_nonneg"
         ],
         "theorem": [
           "stiffnessScale_nonneg",
@@ -1501,6 +1616,9 @@
           "GsmCartridge",
           "PassiveGsmEnergyBalance"
         ],
+        "def": [
+          "dissipationPower"
+        ],
         "theorem": [
           "convex_phi_le_dissipationPower",
           "convex_phi_dissipation_nonneg",
@@ -1539,6 +1657,7 @@
         ],
         "def": [
           "admits",
+          "gatedSync",
           "clockStep",
           "clockRun",
           "honestCredits",
@@ -1554,6 +1673,25 @@
       "path": "CoordinationCost.lean",
       "content_sha256": "03e2dc5a4b3e8feb7c3653416b2048bf7a58bc35ae565f7c474e03300b9763c7",
       "declarations": {
+        "def": [
+          "mutualInformationBits",
+          "coordinationSavingJoules",
+          "landauerCostJoules",
+          "coordinationMassEquivalentKg",
+          "multiInformationNats",
+          "multiInformationBits",
+          "coordinationSavingGlobalJoules",
+          "globalCoordinationSavingJoules",
+          "independentMinusJointDelta",
+          "mkReport",
+          "physicalMiBits",
+          "epistemicMiBits",
+          "physicalMultiInfoBits",
+          "epistemicMultiInfoBits",
+          "physicalMultiInfoChannel_pair",
+          "mkGlobalReport",
+          "openObligationDescription"
+        ],
         "structure": [
           "CoordinationReport",
           "PhysicalMiChannel",
@@ -1604,9 +1742,6 @@
         ],
         "inductive": [
           "OpenObligation"
-        ],
-        "def": [
-          "openObligationDescription"
         ]
       },
       "import_lines": [
@@ -1634,6 +1769,9 @@
         ],
         "def": [
           "semanticCostLegsDomainValid",
+          "semanticDissipation",
+          "semanticPowerInput",
+          "semanticNetDissipation",
           "semanticDomainValid",
           "miDeficitGateDomainValid",
           "miDeficitGatePrecondition",
@@ -1644,6 +1782,15 @@
           "miShortfallResponse",
           "inconsistentNoBackResponse",
           "overBudgetResponse",
+          "witnessLegs",
+          "semanticWitnessLegsNet",
+          "entropyProductionP0",
+          "entropyProduction",
+          "physicalUnderstandingFloorJoules",
+          "epistemicUnderstandingFloorJoules?",
+          "mkSemanticFloorReport",
+          "mkEpistemicOnlyReport",
+          "understandingFloorFromResponse?",
           "mkMiDeficitGateBindStub",
           "p6OpenObligationDescription",
           "fromA7OpenObligation"
@@ -1733,19 +1880,22 @@
       "path": "Core/Gate.lean",
       "content_sha256": "966fdbe5ee6515e288ba1034dc50367d584ee3a82e7af3af614d6fde9b795806",
       "declarations": {
-        "structure": [
-          "CoreAdmissible",
-          "CoreAdmissibleN"
-        ],
-        "def": [
-          "CoreMassCond",
-          "CoreDissipCond"
-        ],
         "theorem": [
+          "\u03b4Mass_def_rat",
           "coreAdmissible_iff_mass_dissip",
           "coreAdmissibleN_compose",
           "coreAdmissibleN_refl",
           "coreAdmissibleN_one"
+        ],
+        "def": [
+          "densityAt",
+          "freeEnergyAt",
+          "CoreMassCond",
+          "CoreDissipCond"
+        ],
+        "structure": [
+          "CoreAdmissible",
+          "CoreAdmissibleN"
         ]
       },
       "import_lines": [
@@ -1769,6 +1919,10 @@
         "instance": [
           "thermodynamicScalarRat",
           "thermodynamicScalarReal"
+        ],
+        "theorem": [
+          "\u03b4Mass_rat_def",
+          "\u03b4Mass_real_def"
         ]
       },
       "import_lines": [
@@ -1826,6 +1980,13 @@
       "declarations": {
         "structure": [
           "CreditCandidate"
+        ],
+        "def": [
+          "creditMass"
+        ],
+        "abbrev": [
+          "greedyMass",
+          "exhaustiveOptimalMass"
         ],
         "theorem": [
           "credit_greedy_optimal",
@@ -1960,8 +2121,17 @@
       "path": "DEC.lean",
       "content_sha256": "c77e072353ad5c66990a8d65c75a6ce038c8f03c72809423817521fc42431a29",
       "declarations": {
+        "abbrev": [
+          "V",
+          "E",
+          "F"
+        ],
         "def": [
           "D",
+          "d",
+          "B1",
+          "B1Lin",
+          "\u0394\u2080",
           "B2",
           "oneV"
         ],
@@ -1974,11 +2144,6 @@
           "laplacian_row_sum_zero",
           "boundary_squared_zero",
           "discrete_stokes"
-        ],
-        "abbrev": [
-          "V",
-          "E",
-          "F"
         ]
       },
       "import_lines": [
@@ -2005,6 +2170,7 @@
           "pureM",
           "bindM",
           "kleisliArrowCompose",
+          "dib",
           "interpretArtifact",
           "artifactSemanticStep",
           "dibArtifactGateCheck"
@@ -2037,15 +2203,20 @@
       "path": "Dignity.lean",
       "content_sha256": "fea1d449e7cfc6caf4806628f5680929b386a8dd7d63aa8eefc12dd213eb856d",
       "declarations": {
+        "def": [
+          "d_max",
+          "landauer_joules_per_bit",
+          "honest_spend",
+          "tryDignity",
+          "dignity_step",
+          "dignity_avg"
+        ],
         "lemma": [
           "landauer_joules_per_bit_pos"
         ],
         "structure": [
           "Dignity",
           "DignityClaim"
-        ],
-        "def": [
-          "honest_spend"
         ],
         "theorem": [
           "tryDignity_eq_none_of_neg",
@@ -2171,6 +2342,9 @@
       "path": "Economic/DynamicEpsilonCalibration.lean",
       "content_sha256": "c9c94bcc0a619cf9eab8baa84f48fa7cf8957feeea48da417daa22b158748f8e",
       "declarations": {
+        "def": [
+          "epsilonFromObservable"
+        ],
         "theorem": [
           "landauerBitEnergy_pos_of_T_pos",
           "epsilon_calibrated_energy_nonneg"
@@ -2204,6 +2378,11 @@
       "path": "Economic/EconomicTemperature.lean",
       "content_sha256": "7fe61055ec659067f2c7b0152521dfc2e006df16b7e1c04c16c8df27a1f03eb9",
       "declarations": {
+        "def": [
+          "adoptionInformation",
+          "Tecon_joules",
+          "Tecon_landauerBitEquivalent"
+        ],
         "theorem": [
           "Tecon_joules_product",
           "adoptionInformation_product",
@@ -2251,6 +2430,9 @@
       "path": "Economic/HorizonAwareGrounding.lean",
       "content_sha256": "c399786e9bf8ef9f3f2aa3ba50f37f0ce3ece159a37fc3d81fe0ce7f7c4651a1",
       "declarations": {
+        "def": [
+          "horizonCost"
+        ],
         "theorem": [
           "horizonCost_mem_Icc"
         ]
@@ -2363,6 +2545,9 @@
         "structure": [
           "ThermodynamicUncertaintyCertificate"
         ],
+        "def": [
+          "mkCertificate"
+        ],
         "theorem": [
           "mkCertificate_adoption"
         ]
@@ -2380,6 +2565,10 @@
       "declarations": {
         "structure": [
           "EtaCogClaim"
+        ],
+        "def": [
+          "etaDenom",
+          "eta_cog"
         ],
         "lemma": [
           "etaDenom_pos"
@@ -2508,12 +2697,24 @@
         "structure": [
           "JointDist"
         ],
+        "def": [
+          "marginalX",
+          "marginalY",
+          "jointEntropy",
+          "mutualInformation",
+          "productJoint"
+        ],
         "theorem": [
           "marginalX_product",
           "marginalY_product",
           "jointEntropy_product",
           "mutualInformation_product_zero",
+          "prob_mass_le_one",
+          "shannonEntropy_nonneg",
           "shannonEntropy_marginalX_le_jointEntropy_product"
+        ],
+        "lemma": [
+          "entropy_term_product"
         ]
       },
       "import_lines": [
@@ -2536,14 +2737,15 @@
           "Interpretation",
           "RightAdjoint"
         ],
+        "abbrev": [
+          "Geom"
+        ],
         "def": [
-          "chairEnSurface"
+          "chairEnSurface",
+          "chairEnglishFunctor"
         ],
         "theorem": [
           "chair_en_admits"
-        ],
-        "abbrev": [
-          "Geom"
         ]
       },
       "import_lines": [
@@ -2555,6 +2757,11 @@
       "path": "JenningsGelSpace.lean",
       "content_sha256": "dba962b15c1b49e0fda250bbd1ac633f43778565682045ef0a0d56150e1b6379",
       "declarations": {
+        "def": [
+          "clamp01",
+          "\u03c6_cap",
+          "jenningsStrength"
+        ],
         "lemma": [
           "denom_pos",
           "clamp01_mono",
@@ -2579,12 +2786,25 @@
       "path": "LandauerEinsteinBridge.lean",
       "content_sha256": "d38279ef976a53f59613bf89d7460c820f88ca5f5c584e05e2eba1141243e681",
       "declarations": {
+        "def": [
+          "kBoltzmannSI",
+          "speedOfLightSI",
+          "landauerBitEnergy",
+          "massEquivalent"
+        ],
         "lemma": [
           "kBoltzmannSI_pos",
           "speedOfLightSI_pos",
           "speedOfLightSI_sq_pos",
           "landauerBitEnergy_pos",
-          "massEquivalent_pos"
+          "massEquivalent_pos",
+          "log_two_lo_val",
+          "log_two_hi_val",
+          "log_two_lo_lt",
+          "log_two_hi_lt",
+          "log_two_ge_r_sub_eps",
+          "log_two_le_r_add_eps",
+          "kB_mul_three_hundred_nonneg"
         ],
         "theorem": [
           "massEquivalent_linear",
@@ -2643,15 +2863,22 @@
           "landauerBound_300K",
           "landauerEnergy_300K_pos"
         ],
+        "def": [
+          "uniformDist",
+          "diracDist",
+          "shannonEntropy",
+          "uniformBinary",
+          "eraseSecondLawStep",
+          "eraseSecondLaw",
+          "physicalSecondLawUniformBinary",
+          "landauerTightErasure",
+          "kB",
+          "landauerEnergyAt"
+        ],
         "lemma": [
           "two_pos",
           "log_two_pos",
           "kB_pos"
-        ],
-        "def": [
-          "eraseSecondLawStep",
-          "eraseSecondLaw",
-          "physicalSecondLawUniformBinary"
         ],
         "abbrev": [
           "physicalSecondLaw"
@@ -2695,7 +2922,14 @@
           "MeaningKleisliArrow",
           "MeaningWellTyped",
           "MeaningWellTypedN",
+          "meaningStructuralGateCheck",
+          "makeMeaningGateArrow",
+          "meaningKleisliCompose",
+          "consistentP0Meaning",
           "meaningIdentityArrow"
+        ],
+        "abbrev": [
+          "CoreAdmissible"
         ],
         "theorem": [
           "coreAdmissible_semanticSecondLaw",
@@ -2711,9 +2945,6 @@
         ],
         "inductive": [
           "MeaningAdmissibleSteps"
-        ],
-        "abbrev": [
-          "CoreAdmissible"
         ]
       },
       "import_lines": [
@@ -2725,15 +2956,24 @@
       "path": "MedianConvergence.lean",
       "content_sha256": "27f00714ccf710578ba2a4a6aa0c35c8665edcb4090e3b5debc5e28bce223983",
       "declarations": {
+        "def": [
+          "nWarmupBound",
+          "nWarmup"
+        ],
+        "lemma": [
+          "log_two_div_delta_pos",
+          "nWarmupBound_pos",
+          "sqrt_32_bounds",
+          "ceil_sqrt_32",
+          "nWarmup_one_half_one_eq_three",
+          "empirical_cdf_tail_nonneg"
+        ],
         "theorem": [
           "median_convergence_sample_size",
           "n_warmup_positive",
           "n_warmup_monotone_in_epsilon",
           "n_warmup_monotone_in_delta",
           "sqrt_window_warmup_is_admissible"
-        ],
-        "lemma": [
-          "empirical_cdf_tail_nonneg"
         ]
       },
       "import_lines": [
@@ -2820,15 +3060,24 @@
         ],
         "def": [
           "oneInequality",
-          "Step.chain"
+          "Step.chain",
+          "eraseStepEntropy",
+          "eraseStep",
+          "feedbackStep",
+          "transitionStep",
+          "transitionStepAt",
+          "stepOf"
         ],
         "theorem": [
           "oneInequality_chain",
+          "eraseStep_infoI_zero",
           "eraseStepEntropy_oneInequality_iff",
           "eraseStep_oneInequality_iff",
           "eraseSecondLaw_oneInequality_iff",
+          "feedbackStep_wIn_neg_extWork",
           "feedbackStep_oneInequality_iff",
           "SecondLaw_measureFeedback_oneInequality_iff",
+          "transitionStep_vanishing",
           "transitionStep_oneInequality_iff",
           "SecondLaw_transition_oneInequality_iff",
           "transitionStepAt_oneInequality_iff",
@@ -2851,6 +3100,10 @@
       "path": "OrderStatisticsBand.lean",
       "content_sha256": "062708cb4f22f2bc748e32396fb7f6eedcf694a843b9d31d03bc011b8639d9c2",
       "declarations": {
+        "def": [
+          "nQuantileBound",
+          "nQuantile"
+        ],
         "theorem": [
           "order_statistic_concentration",
           "quantile_separation_preserved",
@@ -2902,7 +3155,8 @@
           "weightDeviationL1",
           "mangoldtWeightedSum",
           "gateProjection",
-          "applyChannelFilter"
+          "applyChannelFilter",
+          "zetaOscillator"
         ],
         "theorem": [
           "vonMangoldtWeight_zero",
@@ -2945,7 +3199,9 @@
         ],
         "def": [
           "SecondLaw",
-          "eraseSecondLawSI"
+          "eraseSecondLawSI",
+          "szilardJoint",
+          "szilardEngine"
         ],
         "theorem": [
           "SecondLaw_transformation_iff_SI",
@@ -2976,11 +3232,11 @@
       "path": "Real/Gate.lean",
       "content_sha256": "f9e08cb53177dab57e2025347e11462c547007fe1626ab7d6f2dda3f949674ce",
       "declarations": {
-        "theorem": [
-          "realAdmissibleRefl"
-        ],
         "abbrev": [
           "RealAdmissible"
+        ],
+        "theorem": [
+          "realAdmissibleRefl"
         ]
       },
       "import_lines": [
@@ -3032,7 +3288,12 @@
       "content_sha256": "ccce912866496b269f21cf7763ade0adecbe27692a65789cc9354fc9a1086fa4",
       "declarations": {
         "def": [
-          "ValidRho"
+          "ValidRho",
+          "rhoMiOfSq",
+          "rhoMi"
+        ],
+        "lemma": [
+          "logb_two_nonpos_of_mem_unit_interval"
         ],
         "theorem": [
           "rhoMiOfSq_nonneg",
@@ -3070,10 +3331,17 @@
           "interpretationWithinTolerance",
           "meaningConsistencyWithinTolerance",
           "defaultMaxMisunderstandingCharge",
+          "defaultHallucinationTheta",
           "defaultCreativitySlackDelta",
+          "defaultInterpretationEpsilon",
           "defaultInterpretationEpsilonQ",
           "defaultMisunderstandingBurden",
+          "defaultHallucinationThreshold",
           "defaultCreativityMeaningSlack",
+          "defaultInterpretationTolerance",
+          "defaultSemanticEconomicParams",
+          "catalogReadSemanticEconomicParams",
+          "gateReadSemanticEconomicParams",
           "interpretationWithinToleranceQ",
           "meaningGateReadsTolerance"
         ],
@@ -3102,7 +3370,8 @@
       "content_sha256": "7bb8f6409e2527b4b0c7f6f26ee6e4d44370c54bf32189dc84a2a5112269df7a",
       "declarations": {
         "def": [
-          "anchorModule"
+          "anchorModule",
+          "consistentP0"
         ]
       },
       "import_lines": [
@@ -3124,11 +3393,16 @@
         "def": [
           "semanticBathOf",
           "structurallyConsistent",
+          "modelUncertaintyDrop",
           "miPreserved",
           "semanticSecondLaw",
           "SemanticBath.heatBath",
           "admissibleSemanticTransition",
-          "understandingCostAccounted"
+          "understandingCostFloorJoules",
+          "understandingCostForDropJoules",
+          "understandingCostAccounted",
+          "consistentP0Transition",
+          "productWitness"
         ],
         "theorem": [
           "semanticSecondLaw_iff",
@@ -3400,7 +3674,9 @@
           "carrierMk",
           "carrierWellFormed",
           "extendStamp",
-          "carrierAlongTransition"
+          "carrierAlongTransition",
+          "carrierSelect",
+          "carrierRecovery"
         ],
         "theorem": [
           "carrierMk_umstProj",
@@ -4098,6 +4374,9 @@
       "path": "Urge/ExactRatFreeEnergy.lean",
       "content_sha256": "da79658919059264d86e743abc308a66e1c2d6e90939a9d98e4c7abf1b058096",
       "declarations": {
+        "abbrev": [
+          "ExecutableFCarrier"
+        ],
         "def": [
           "executableF",
           "executableCandEnergy",
@@ -4109,9 +4388,6 @@
           "exactRatFreeEnergyIdentityHolds",
           "select_strictImprovement_exact_rat",
           "pickMin_uses_exact_rat_energy"
-        ],
-        "abbrev": [
-          "ExecutableFCarrier"
         ]
       },
       "import_lines": [
@@ -4127,15 +4403,17 @@
         "structure": [
           "HistoryRecoveryCtx"
         ],
+        "def": [
+          "urgeRecovery",
+          "urgeRecoverySelect",
+          "excitementImportProductionWired"
+        ],
         "theorem": [
           "urgeRecovery_eq_select",
           "urgeRecoverySelect_eq_select",
           "urgeRecovery_eq_urgeRecoverySelect",
           "urgeRecovery_empty",
           "urgeRecovery_admissible"
-        ],
-        "def": [
-          "excitementImportProductionWired"
         ]
       },
       "import_lines": [
@@ -4170,6 +4448,7 @@
           "refuseForgejoInstallClaim",
           "admitFabricNodePin",
           "applyFabricNodeMorphism",
+          "urgeRecoverySelect",
           "fabricFixtureState",
           "fabricFixtureUcrs",
           "fabricFixtureMergeSafe",
@@ -4229,6 +4508,8 @@
           "refuseWallClockSlaTheater",
           "budgetWitnessFor",
           "checkTypedBudget",
+          "slowPathRecovery",
+          "excitementSelect",
           "classifySlowPath"
         ],
         "inductive": [
@@ -4496,6 +4777,9 @@
       "path": "Urge/HistoryFunctor.lean",
       "content_sha256": "706eccb5e6f696c7b1d71d1dffcdf6d6e69d5a9334241ccdc18d0dabd5277cc5",
       "declarations": {
+        "abbrev": [
+          "RawCommitBytes"
+        ],
         "structure": [
           "RawGitCommit",
           "RepoStateSlice",
@@ -4526,9 +4810,6 @@
           "catalogDecode_fixture",
           "catalogDecode_preserveCommitId",
           "catalog_decode_fixture"
-        ],
-        "abbrev": [
-          "RawCommitBytes"
         ]
       },
       "import_lines": [
@@ -4706,6 +4987,9 @@
           "cloneFixtureRemoteForge",
           "cloneFixtureRemoteGithub"
         ],
+        "abbrev": [
+          "CloneArrow"
+        ],
         "theorem": [
           "cloneVerbRowMergeSafeNotRequired",
           "cloneVerbRowExcitementNotRequired",
@@ -4718,9 +5002,6 @@
           "cloneFixtureParseLabs",
           "cloneFixtureParseComposeCaseInsensitive",
           "kleisliClonePositiveRefuseNotSilent"
-        ],
-        "abbrev": [
-          "CloneArrow"
         ]
       },
       "import_lines": [
@@ -4793,6 +5074,12 @@
       "path": "Urge/KleisliInherit.lean",
       "content_sha256": "cb06b8d51f5590dea33f8a4199e019848ea9c3cac7d3c0d92fd2fb41ef907fe6",
       "declarations": {
+        "abbrev": [
+          "InheritArrow",
+          "inheritIdentity",
+          "inheritCompose",
+          "inheritFold"
+        ],
         "theorem": [
           "kleisli_compose_preserves_admissibility",
           "kleisli_compose_preserves_admissibility_step",
@@ -4804,12 +5091,6 @@
         ],
         "def": [
           "kleisli_associativity_probe_holds"
-        ],
-        "abbrev": [
-          "InheritArrow",
-          "inheritIdentity",
-          "inheritCompose",
-          "inheritFold"
         ]
       },
       "import_lines": [
@@ -5508,6 +5789,9 @@
       "path": "Urge/ProvenancePreserve.lean",
       "content_sha256": "aa2b4ce021f0b740ff785ebe97e3972cb4a337cef7fa4ed1cd2f06319c6a9252",
       "declarations": {
+        "abbrev": [
+          "Transition"
+        ],
         "structure": [
           "Provenance"
         ],
@@ -5520,9 +5804,6 @@
           "preserves_chain_append",
           "preserves_witness_retained",
           "postProvenance_preserves"
-        ],
-        "abbrev": [
-          "Transition"
         ]
       },
       "import_lines": [
@@ -5639,8 +5920,10 @@
           "luksSampleSection",
           "sampleSectionAt",
           "replicaCoalgebraObserve",
+          "witnessReplicaSheaf",
           "networkEgress",
-          "admissibleReplicaCoalgebra"
+          "admissibleReplicaCoalgebra",
+          "typedRecoveryMorphism"
         ],
         "theorem": [
           "replicaClassTag_node0_ne_node1",
@@ -5688,8 +5971,11 @@
           "ResidueCounts.record",
           "ResidueCounts.total",
           "observedDeltaF",
+          "observedDeltaFFromCand",
           "exactRatObservedDeltaF",
           "ReturnPayload.empty",
+          "residueReturnSelect",
+          "recordRecoveryAttempt",
           "refuseSeventhConstructor"
         ],
         "theorem": [
@@ -6170,7 +6456,10 @@
           "Completes"
         ],
         "theorem": [
+          "foldl_add_pos",
+          "totalWeight_pos",
           "waveDistance_nonneg",
+          "missingWeightList_zero_iff_list",
           "missingWeight_zero_iff",
           "missingWeightList_antimono",
           "missingWeight_antimono",
@@ -6190,6 +6479,9 @@
       "path": "Web/WebMat.lean",
       "content_sha256": "64e25fe151ecc95823b0721296f4e9d1c2de3689d001b13dc87a58bfe0a03778",
       "declarations": {
+        "abbrev": [
+          "Obj"
+        ],
         "structure": [
           "Hom"
         ],
@@ -6198,7 +6490,9 @@
           "compHom",
           "ProposalPreserves",
           "mapObj",
-          "mapHom"
+          "mapHom",
+          "classify",
+          "gateNT"
         ],
         "theorem": [
           "hom_id_comp",
@@ -6221,9 +6515,6 @@
           "proposal_gate_functoriality_neutral_gate",
           "proposal_gate_functoriality_neutral_map",
           "ProposalPreserves_const"
-        ],
-        "abbrev": [
-          "Obj"
         ]
       },
       "import_lines": [
@@ -6238,10 +6529,15 @@
         "def": [
           "defaultComplexityWeight",
           "defaultLandauerWeight",
+          "defaultIntTolerance",
+          "D_web_int",
           "isAdmissible",
           "neutral",
           "heavyPresentation",
           "WebWellTyped",
+          "webGateCheck",
+          "makeWebGateArrow",
+          "webKleisliCompose",
           "monotoneBaseline",
           "monotoneDegraded",
           "monotoneHooksInBounds",
@@ -6254,6 +6550,10 @@
           "MonotoneHooks",
           "WebStateTensor",
           "WebRenderWitness"
+        ],
+        "abbrev": [
+          "informationalSecondLaw",
+          "WebKleisliArrow"
         ],
         "theorem": [
           "D_web_int_neutral",
@@ -6280,10 +6580,6 @@
           "neutral_with_monotone_admissible",
           "monotone_transition_rejects_a11y_regression",
           "transitionRespectsMonotone_trans_chained"
-        ],
-        "abbrev": [
-          "informationalSecondLaw",
-          "WebKleisliArrow"
         ]
       },
       "import_lines": [
@@ -6332,7 +6628,8 @@
       "content_sha256": "ac29a155f0f5d6f6437afb15325c53ee7eaa6a40b0e086040f741e4b3a3dde83",
       "declarations": {
         "def": [
-          "axiomClosure"
+          "axiomClosure",
+          "main"
         ]
       },
       "import_lines": [
@@ -8729,5 +9026,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "687d52de6e2cc60aa118c52f567342b4bfd4f46a5a3ed1115800d569f074db16"
+  "digest": "3e467aa9542265ee2d0dad7d2bcf9d06e106d030fdfd9dd3bc13afcdc7cc763a"
 }
