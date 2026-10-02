@@ -83,6 +83,10 @@ jobs:
         working-directory: ffi-bridge
         run: cargo test --test integration
 
+      - name: Run library tests (gate, constants and Lean grid witnesses)
+        working-directory: ffi-bridge
+        run: cargo test --lib
+
       - name: Constants crate formatting (generated from constants/constants.json)
         working-directory: constants-rs
         run: cargo fmt --check

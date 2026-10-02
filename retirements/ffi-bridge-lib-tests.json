@@ -1,0 +1,327 @@
+{
+ "schema": "umst_retirement_v1",
+ "retired": "ffi-bridge library tests whose only claim was an id, a receipt or file existence, a literal count or a self-comparison",
+ "date": "2026-10-02",
+ "classification": "Each test of `cargo test --lib` in a module with a failing test was read with the code it exercises and classified by content. A test that computes (a gate decision, a constant from the generated table, a value a Lean theorem proves) is kept and repaired against the current sources; a test whose only claim is a fleet, wave or receipt id, the existence of a file or receipt, a literal count, a constant-false status flag or a comparison of a constant with its own definition is retired, with the code that existed only to feed it. Before: 84 lib tests, 32 failing. After: 42 lib tests, all passing.",
+ "repaired": [
+  {
+   "from": "ffi-bridge/src/formal_swarm_deepen.rs::q_hyd_registry_row_is_j_per_kg",
+   "to": "ffi-bridge/src/helmholtz_witness.rs::q_hyd_is_the_generated_hydration_heat_default",
+   "change": "Q_hyd was looked up as q_hyd_j_per_kg in the umst-math registry at the pinned umst-manifold rev, which has no such row. It is now read from umst-constants (row hydrationHeatDefault, the value Lean Concrete.Gate.Q_hyd is defined as), in its table unit J/g; the test checks the row, its exact rational and the Lean binding."
+  },
+  {
+   "from": "ffi-bridge/src/formal_swarm_deepen.rs::psi_antitone_helmholtz_scenario_matches_lean_q_hyd",
+   "to": "ffi-bridge/src/helmholtz_witness.rs::helmholtz_psi_follows_the_lean_gradient_and_additivity_laws",
+   "change": "checks ψ against Lean helmholtzGradient, helmholtz_one and helmholtzAdditive in terms of Q_hyd instead of literal values of one constant"
+  },
+  {
+   "from": "ffi-bridge/src/formal_swarm_deepen.rs::formal_swarm_deepen_one_witness_honest_partial",
+   "to": "ffi-bridge/src/helmholtz_witness.rs::gate_admits_forward_and_rejects_reverse_helmholtz_transition",
+   "change": "keeps the computed claims (witness holds, gate admits the forward transition), adds that the gate rejects the reverse transition, and drops the id and constant-false status fields"
+  }
+ ],
+ "added": {
+  "ffi-bridge/src/lean_l1_stiffness_adopt.rs::rust_constants_match_lean_definitions": "stiffnessCoupling and stiffnessAlphaThreshold parsed from StiffnessTransition.lean equal the Rust constants",
+  "ffi-bridge/src/lean_l1_stiffness_adopt.rs::every_lean_psi_grid_theorem_is_a_rust_grid_row": "each psi_stiffness_alpha_grid_row* statement in Lean is a Rust grid row with the same value",
+  "ffi-bridge/src/lean_l1_stiffness_adopt.rs::every_lean_scale_grid_theorem_is_a_rust_grid_row": "each stiffness_scale_grid_row* statement in Lean is a Rust grid row with the same value",
+  "ffi-bridge/src/lean_l1_stiffness_adopt.rs::psi_is_nonpositive_and_vanishes_at_threshold": "ψ ≤ 0 on the grid and scale(1/2) = 0, formerly two audit probes",
+  "ffi-bridge/src/lean_l1_bridge_prep.rs::l1b_psi_elastic_base_nonpos_on_admissible_domain": "ψ_elastic_base ≤ 0 on the admissible damage domain, formerly a pbm_007 audit probe",
+  "ffi-bridge/src/lib.rs::credit_greedy_sum_adds_admissible_weights_only": "the credit aggregate through the safe and the C entry points"
+ },
+ "removed_modules": [
+  "ffi-bridge/src/lean_rs_cold_path.rs",
+  "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+  "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+  "ffi-bridge/src/pbm_010_atoms_scalar.rs"
+ ],
+ "tests": [
+  {
+   "file": "ffi-bridge/src/formal_swarm_deepen.rs",
+   "test": "swarm_0831_92_metadata",
+   "failing_before": false,
+   "reason": "compares a job id, a receipt path and a catalog digest literal with their own definitions"
+  },
+  {
+   "file": "ffi-bridge/src/lean_l1_stiffness_adopt.rs",
+   "test": "y41_metadata",
+   "failing_before": false,
+   "reason": "compares a job id, a workstream id and a probe count with their own definitions"
+  },
+  {
+   "file": "ffi-bridge/src/lean_l1_stiffness_adopt.rs",
+   "test": "l1a_lean_source_on_disk_at_umst_formal",
+   "failing_before": false,
+   "reason": "claims only that two Lean files exist; the grid tests now read StiffnessTransition.lean and compare its theorems with the Rust rows"
+  },
+  {
+   "file": "ffi-bridge/src/lean_l1_stiffness_adopt.rs",
+   "test": "lean_source_decl_counts_match_pin",
+   "failing_before": true,
+   "reason": "compares a literal count of theorem/lemma lines (27 + 2) with the source; the count guards no Rust behaviour, the Lean inventory is held by artifacts/catalog.json and scripts/check_catalog_fresh.py, and the grid values the count stood for are now compared statement by statement (every_lean_psi_grid_theorem_is_a_rust_grid_row, every_lean_scale_grid_theorem_is_a_rust_grid_row)"
+  },
+  {
+   "file": "ffi-bridge/src/lean_l1_stiffness_adopt.rs",
+   "test": "l1_adopt_audit_10_probes_green",
+   "failing_before": true,
+   "reason": "aggregates ten probes, of which the computational ones (grid, monotone scale, threshold, ψ ≤ 0) are kept as their own tests; the rest are a declaration-count pin, file existence and constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/lean_l1_stiffness_adopt.rs",
+   "test": "fleet_composer_y41_lean_l1_honest",
+   "failing_before": true,
+   "reason": "honesty gate over a fleet id, receipt path, prior slot id, a caller-supplied lake_build_green flag and constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/lean_l1_stiffness_adopt.rs",
+   "test": "lean_l1_adopt_audit_closed_measured",
+   "failing_before": true,
+   "reason": "restates the ten-probe audit aggregate (see l1_adopt_audit_10_probes_green)"
+  },
+  {
+   "file": "ffi-bridge/src/lean_l1_stiffness_adopt.rs",
+   "test": "fleet_composer_z37_lean_l1_adopt_closed",
+   "failing_before": true,
+   "reason": "honesty gate over a wave id, receipt path, workstream id and the audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/lean_rs_cold_path.rs",
+   "test": "y42_metadata",
+   "failing_before": false,
+   "reason": "compares a job id, schema string and receipt path with their own definitions"
+  },
+  {
+   "file": "ffi-bridge/src/lean_rs_cold_path.rs",
+   "test": "l1a_l1b_lean_sources_on_disk",
+   "failing_before": false,
+   "reason": "claims only that two Lean files exist"
+  },
+  {
+   "file": "ffi-bridge/src/lean_rs_cold_path.rs",
+   "test": "pending_inventory_census_locked",
+   "failing_before": false,
+   "reason": "counts the Closed/Pending statuses of a hand-written table against literals (9, 5, 4); self-comparison"
+  },
+  {
+   "file": "ffi-bridge/src/lean_rs_cold_path.rs",
+   "test": "stiffness_v2_row_closed_via_z37_absorb",
+   "failing_before": true,
+   "reason": "reads a hand-written status Closed and the retired adopt-audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/lean_rs_cold_path.rs",
+   "test": "fleet_composer_z65_lean_rs_cold_path_z37_absorb",
+   "failing_before": true,
+   "reason": "honesty gate over wave and receipt ids, the hand-written inventory counts and the retired adopt-audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/lean_rs_cold_path.rs",
+   "test": "fleet_composer_y42_lean_rs_cold_path_v2",
+   "failing_before": false,
+   "reason": "honesty gate over job and receipt ids, the hand-written inventory counts and file existence"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_ac55_metadata_wired",
+   "failing_before": false,
+   "reason": "compares fleet, job, receipt and workstream ids and frozen counts with their own definitions"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_ws_cert_proved_probe_honest_fences_hold",
+   "failing_before": true,
+   "reason": "asserts the fields of a posture record built from constants and constant-false status functions; the one measured field greps Lean for posture defs (expectedProvedCount, catalogExportDeferred) that the status-scaffold retirement removed"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_done_when_residue_measured",
+   "failing_before": true,
+   "reason": "asserts constant-false status fields and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_formal_cert_proved_fence_audit_10_green",
+   "failing_before": true,
+   "reason": "ten probes of file existence under sibling repositories (umst-bench, umst-manifold, umst-meta), substring greps of their sources and fixtures, literal counts and constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_wire_hops_cover_cert_proved_surfaces",
+   "failing_before": false,
+   "reason": "compares a hand-written list of file paths with the constants it was built from"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_formal_fence_closed_measured",
+   "failing_before": true,
+   "reason": "conjunction of the fence audit aggregate with constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_k1938_formal_fence_closed",
+   "failing_before": true,
+   "reason": "honesty gate over fleet, job and receipt ids, receipt files under outputs/.tmp and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_d3_structural_honest",
+   "failing_before": true,
+   "reason": "asserts a Lean posture grep (defs removed with the status scaffold) and that a receipt file exists"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_k1941_formal_fence_deepen",
+   "failing_before": true,
+   "reason": "honesty gate over fleet, job and receipt ids, receipt files under outputs/.tmp and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "pbm_007_ac55_formal_fence_deepen",
+   "failing_before": true,
+   "reason": "honesty gate over fleet, job and receipt ids, receipt files under outputs/.tmp and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "probe_pbm_007_k1941_fence_deepen_witness_on_disk",
+   "failing_before": true,
+   "reason": "requires a receipt file under outputs/.tmp and the fence audit aggregate; the formatted message is built from constants"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "probe_pbm_007_ac55_fence_deepen_witness_on_disk",
+   "failing_before": true,
+   "reason": "requires a receipt file under outputs/.tmp and the fence audit aggregate; the formatted message is built from constants"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_007_ws_cert_proved.rs",
+   "test": "probe_pbm_007_formal_filesystem_honest_residue",
+   "failing_before": false,
+   "reason": "checks that sibling-repository files exist and contain posture strings; skips itself when they are absent"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_ac03_metadata_wired",
+   "failing_before": false,
+   "reason": "compares fleet, job, receipt and workstream ids and frozen counts with their own definitions"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_ws_faithful_all_probe_honest_fences_hold",
+   "failing_before": true,
+   "reason": "asserts the fields of a posture record built from constants and constant-false status functions; the one measured field greps Lean for posture defs (expectedProvedCount, catalogExportDeferred) that the status-scaffold retirement removed"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_done_when_residue_measured",
+   "failing_before": true,
+   "reason": "asserts constant-false status fields and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_formal_faithful_fence_audit_10_green",
+   "failing_before": true,
+   "reason": "ten probes of file existence under sibling repositories (umst-bench, umst-manifold, umst-meta), substring greps of their sources and fixtures, literal counts and constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_wire_hops_cover_faithful_surfaces",
+   "failing_before": false,
+   "reason": "compares a hand-written list of file paths with the constants it was built from"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_formal_fence_closed_measured",
+   "failing_before": true,
+   "reason": "conjunction of the fence audit aggregate with constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_j4_absorb_probe_honest",
+   "failing_before": true,
+   "reason": "chains receipt files under outputs/.tmp (no longer present) and greps of sibling-repository sources"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "pbm_009_ac03_formal_fence_deepen",
+   "failing_before": true,
+   "reason": "honesty gate over fleet, job and receipt ids, receipt files under outputs/.tmp and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "probe_pbm_009_ac03_fence_deepen_witness_on_disk",
+   "failing_before": true,
+   "reason": "requires a receipt file under outputs/.tmp and the fence audit aggregate; the formatted message is built from constants"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_009_ws_faithful_all.rs",
+   "test": "probe_pbm_009_formal_filesystem_honest_residue",
+   "failing_before": false,
+   "reason": "checks that sibling-repository files exist and contain posture strings; skips itself when they are absent"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "pbm_010_accel_ac04_metadata_wired",
+   "failing_before": false,
+   "reason": "compares fleet, job, receipt and workstream ids and frozen counts with their own definitions"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "pbm_010_atoms_scalar_probe_honest_fences_hold",
+   "failing_before": false,
+   "reason": "asserts the fields of a posture record built from constants and constant-false status functions; the one measured field greps Lean for posture defs (expectedProvedCount, catalogExportDeferred) that the status-scaffold retirement removed"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "pbm_010_done_when_residue_measured",
+   "failing_before": true,
+   "reason": "asserts constant-false status fields and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "pbm_010_formal_atoms_scalar_fence_audit_10_green",
+   "failing_before": true,
+   "reason": "ten probes of file existence under sibling repositories (umst-bench, umst-manifold, umst-meta), substring greps of their sources and fixtures, literal counts and constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "pbm_010_wire_hops_cover_atoms_scalar_surfaces",
+   "failing_before": false,
+   "reason": "compares a hand-written list of file paths with the constants it was built from"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "pbm_010_formal_fence_closed_measured",
+   "failing_before": true,
+   "reason": "conjunction of the fence audit aggregate with constant-false status flags"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "pbm_010_accel_ac04_formal_fence_deepen",
+   "failing_before": true,
+   "reason": "honesty gate over fleet, job and receipt ids, receipt files under outputs/.tmp and the fence audit aggregate"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "probe_pbm_010_accel_ac04_fence_deepen_witness_on_disk",
+   "failing_before": true,
+   "reason": "requires a receipt file under outputs/.tmp and the fence audit aggregate; the formatted message is built from constants"
+  },
+  {
+   "file": "ffi-bridge/src/pbm_010_atoms_scalar.rs",
+   "test": "probe_pbm_010_formal_filesystem_honest_residue",
+   "failing_before": false,
+   "reason": "checks that sibling-repository files exist and contain posture strings; skips itself when they are absent"
+  },
+  {
+   "file": "ffi-bridge/src/lib.rs",
+   "test": "agap_2350_formal_night_metadata",
+   "failing_before": false,
+   "reason": "compares a job id and a receipt path with their own definitions"
+  },
+  {
+   "file": "ffi-bridge/src/lib.rs",
+   "test": "formal_night_deepen_honest_ground1_not_full_green",
+   "failing_before": false,
+   "reason": "honesty gate over a job id, receipt path and literal true/false status fields"
+  }
+ ]
+}

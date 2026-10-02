@@ -984,6 +984,7 @@ name = "umst-ffi-bridge"
 version = "0.1.0"
 dependencies = [
  "ordered-float",
+ "umst-constants",
  "umst-manifold",
  "umst-math",
 ]

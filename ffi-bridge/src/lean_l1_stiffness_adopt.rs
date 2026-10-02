@@ -1,63 +1,17 @@
 // SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
 // SPDX-License-Identifier: MIT
 //
-// FLEET-COMPOSER-Y Y41 — LIB-ADOPT-F-LEAN-L1 adopt audit in umst-formal crate.
-// ℚ L1 `StiffnessTransition` v2 grid 7/7 + 10-probe adopt audit (witnessed-not-proved).
+// Rational witness grid for Lean `Concrete.StiffnessTransition` (L1a): the stiffness scale
+// max(α − 1/2, 0) and the M1-negative elastic summand ψ = −c · E₀ · ε² · scale(α), evaluated in
+// Rust on the seven grid rows whose values Lean proves (`stiffness_scale_grid_row*`,
+// `psi_stiffness_alpha_grid_row*`).
 
-use super::{stiffness_scale, stiffness_scale_mono_holds, STIFFNESS_ALPHA_THRESHOLD};
+use super::stiffness_scale;
 
-/// Y41 fleet slot id.
-pub const JOB_ID: &str = "FLEET-COMPOSER-Y41-LEAN-L1";
-
-/// Z37 Wave-Z slot id.
-pub const Z37_JOB_ID: &str = "FLEET-COMPOSER-Z37-LEAN-L1";
-
-/// Z37 Wave-Z slot label.
-pub const Z37_WAVE_SLOT: &str = "Z37";
-
-/// Z37 completion receipt cross-ref.
-pub const Z37_RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_Z37_0928.md";
-
-/// Y41 completion receipt cross-ref.
-pub const RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_Y41_0808.md";
-
-/// Prior X-wave slot (lake build absorb — no X37 receipt on disk).
-pub const PRIOR_X_SLOT: &str = "X37";
-
-/// Prior H50 bridge prep receipt.
-pub const PRIOR_H50_RECEIPT_PATH: &str = "outputs/.tmp/COMPOSER_H50_2242.md";
-
-/// Honest adoption tier.
-pub const POSTURE_TAG: &str = "witnessed-not-proved";
-
-/// LIB adoption workstream id.
-pub const WORKSTREAM_ID: &str = "LIB-ADOPT-F-LEAN-L1";
-
-/// L1 adopt audit probe count.
-pub const L1_PROBE_COUNT: usize = 10;
-
-/// v2 rational grid rows required for 7/7 conformance pin.
+/// v2 rational grid row count.
 pub const V2_GRID_ROW_COUNT: usize = 7;
 
-/// Expected theorem count @ StiffnessTransition L1a.
-pub const EXPECTED_THEOREM_COUNT: u32 = 27;
-
-/// Expected lemma count @ StiffnessTransition L1a.
-pub const EXPECTED_LEMMA_COUNT: u32 = 2;
-
-/// Frozen proved-count posture.
-pub const EXPECTED_PROVED_COUNT: u32 = 0;
-
-/// Lean module authority.
-pub const L1A_LEAN_MODULE: &str = "Concrete.StiffnessTransition";
-
-/// Lean source path relative to `umst-formal/` workspace root.
-pub const LEAN_SOURCE_RELPATH: &str = "Lean/Concrete/StiffnessTransition.lean";
-
-/// L1b Lean source path relative to `umst-formal/` workspace root.
-pub const L1B_LEAN_SOURCE_RELPATH: &str = "Lean/Concrete/MicroMechanics.lean";
-
-/// Elastic coupling in ψ summand — mirrors Lean `stiffnessCoupling`.
+/// Elastic coupling in the ψ summand — mirrors Lean `stiffnessCoupling`.
 pub const STIFFNESS_COUPLING: f64 = 0.1;
 
 /// One v2 rational witness row (pinned from cartridge fixture v2 first 7 rows).
@@ -145,54 +99,7 @@ pub fn v2_grid_conformance_mismatch() -> Option<usize> {
     None
 }
 
-/// Resolve `umst-formal/` workspace root from this crate manifest.
-#[must_use]
-pub fn umst_formal_root() -> std::path::PathBuf {
-    std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-        .parent()
-        .expect("ffi-bridge parent")
-        .to_path_buf()
-}
-
-/// L1a Lean source on disk @ workspace `umst-formal`.
-#[must_use]
-pub fn l1a_lean_source_on_disk() -> bool {
-    umst_formal_root().join(LEAN_SOURCE_RELPATH).is_file()
-}
-
-/// L1b Lean source on disk @ workspace `umst-formal`.
-#[must_use]
-pub fn l1b_lean_source_on_disk() -> bool {
-    umst_formal_root().join(L1B_LEAN_SOURCE_RELPATH).is_file()
-}
-
-/// Count top-level `theorem` / `lemma` in on-disk StiffnessTransition.lean.
-#[must_use]
-pub fn lean_source_decl_counts() -> Option<(u32, u32)> {
-    let text = std::fs::read_to_string(umst_formal_root().join(LEAN_SOURCE_RELPATH)).ok()?;
-    let mut thm = 0u32;
-    let mut lem = 0u32;
-    for line in text.lines() {
-        let trimmed = line.trim_start();
-        if trimmed.starts_with("theorem ") {
-            thm = thm.saturating_add(1);
-        } else if trimmed.starts_with("lemma ") {
-            lem = lem.saturating_add(1);
-        }
-    }
-    Some((thm, lem))
-}
-
-/// On-disk decl counts match inventory pin (27 thm + 2 lem).
-#[must_use]
-pub fn lean_source_decl_counts_honest() -> bool {
-    matches!(
-        lean_source_decl_counts(),
-        Some((t, l)) if t == EXPECTED_THEOREM_COUNT && l == EXPECTED_LEMMA_COUNT
-    )
-}
-
-/// M1-negative ψ≤0 on all v2 grid rows.
+/// M1-negative ψ ≤ 0 on every v2 grid row (Lean `psi_stiffness_alpha_nonpos`).
 #[must_use]
 pub fn psi_nonpos_witness_holds() -> bool {
     V2_GRID_ROWS.iter().all(|row| {
@@ -201,230 +108,73 @@ pub fn psi_nonpos_witness_holds() -> bool {
     })
 }
 
-/// `true` when catalog `[proved]` export remains deferred.
-#[must_use]
-pub const fn catalog_export_deferred() -> bool {
-    true
-}
-
-/// L1 adoption fully closed — always `false` until operator catalog export.
-#[must_use]
-pub const fn lean_l1_fully_closed() -> bool {
-    false
-}
-
-/// Adopt audit closed — v2 grid 7/7 + all 10 probes green (master TODO slice).
-#[must_use]
-pub fn lean_l1_adopt_audit_closed() -> bool {
-    v2_grid_conformance_mismatch().is_none() && run_l1_adopt_audit().all_green()
-}
-
-/// One L1 adopt probe outcome.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct L1AdoptProbe {
-    pub probe: &'static str,
-    pub green: bool,
-    pub detail: &'static str,
-}
-
-/// L1 adopt audit report.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct L1AdoptAudit {
-    pub job_id: &'static str,
-    pub posture: &'static str,
-    pub expected_proved_count: u32,
-    pub probes: Vec<L1AdoptProbe>,
-}
-
-impl L1AdoptAudit {
-    #[must_use]
-    pub fn all_green(&self) -> bool {
-        self.probes.iter().all(|p| p.green)
-    }
-}
-
-/// Run the 10-probe L1 adopt audit (stdlib only — no Lean FFI).
-#[must_use]
-pub fn run_l1_adopt_audit() -> L1AdoptAudit {
-    let probes = vec![
-        L1AdoptProbe {
-            probe: "l1_rational_grid",
-            green: v2_grid_conformance_mismatch().is_none(),
-            detail: "v2 grid 7/7 ℚ closed-form witness",
-        },
-        L1AdoptProbe {
-            probe: "l1_stiffness_scale_mono",
-            green: stiffness_scale_mono_holds(0.5, 0.8),
-            detail: "stiffnessScale monotone in α",
-        },
-        L1AdoptProbe {
-            probe: "l1_theorem_inventory",
-            green: lean_source_decl_counts_honest(),
-            detail: "14 thm + 2 lem on-disk pin",
-        },
-        L1AdoptProbe {
-            probe: "l1_lean_source_on_disk",
-            green: l1a_lean_source_on_disk(),
-            detail: "StiffnessTransition.lean @ umst-formal",
-        },
-        L1AdoptProbe {
-            probe: "l1_non_claims",
-            green: catalog_export_deferred() && !lean_l1_fully_closed(),
-            detail: "no Proved invent · catalog deferred",
-        },
-        L1AdoptProbe {
-            probe: "l1_lean_source_decl_counts",
-            green: lean_source_decl_counts_honest(),
-            detail: "on-disk Lean decl counts match pin",
-        },
-        L1AdoptProbe {
-            probe: "l1b_micro_mechanics_cross_link",
-            green: l1b_lean_source_on_disk(),
-            detail: "MicroMechanics.lean on disk",
-        },
-        L1AdoptProbe {
-            probe: "l1_threshold_boundary",
-            green: stiffness_scale(STIFFNESS_ALPHA_THRESHOLD).abs() < 1e-12,
-            detail: "stiffnessScale(0.5) = 0",
-        },
-        L1AdoptProbe {
-            probe: "l1_psi_nonpos",
-            green: psi_nonpos_witness_holds(),
-            detail: "M1-negative ψ≤0 on v2 grid",
-        },
-        L1AdoptProbe {
-            probe: "l1_expected_proved_zero",
-            green: EXPECTED_PROVED_COUNT == 0,
-            detail: "EXPECTED_PROVED_COUNT=0 posture",
-        },
-    ];
-
-    L1AdoptAudit {
-        job_id: JOB_ID,
-        posture: POSTURE_TAG,
-        expected_proved_count: EXPECTED_PROVED_COUNT,
-        probes,
-    }
-}
-
-/// Y41 operator probe — chains X37 lake build + H50 bridge prep absorb.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct LeanL1Y41Probe {
-    pub job_id: &'static str,
-    pub receipt_path: &'static str,
-    pub prior_x_slot: &'static str,
-    pub prior_h50_receipt_deduped: bool,
-    pub l1a_lean_module: &'static str,
-    pub lake_build_green: bool,
-    pub v2_grid_7_of_7: bool,
-    pub l1_audit_all_green: bool,
-    pub probe_count: usize,
-    pub lean_l1_fully_closed: bool,
-    pub production_wired: bool,
-}
-
-/// Build FLEET-COMPOSER-Y41 probe.
-#[must_use]
-pub fn lean_l1_y41_probe(lake_build_green: bool) -> LeanL1Y41Probe {
-    let audit = run_l1_adopt_audit();
-    LeanL1Y41Probe {
-        job_id: JOB_ID,
-        receipt_path: RECEIPT_PATH,
-        prior_x_slot: PRIOR_X_SLOT,
-        prior_h50_receipt_deduped: PRIOR_H50_RECEIPT_PATH.contains("COMPOSER_H50_2242"),
-        l1a_lean_module: L1A_LEAN_MODULE,
-        lake_build_green,
-        v2_grid_7_of_7: v2_grid_conformance_mismatch().is_none(),
-        l1_audit_all_green: audit.all_green() && audit.probes.len() == L1_PROBE_COUNT,
-        probe_count: audit.probes.len(),
-        lean_l1_fully_closed: lean_l1_fully_closed(),
-        production_wired: false,
-    }
-}
-
-/// Z37 operator probe — chains Y41; pins adopt-audit close predicate for master TODO.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct LeanL1Z37Probe {
-    pub job_id: &'static str,
-    pub receipt_path: &'static str,
-    pub wave_slot: &'static str,
-    pub prior_y41_receipt: &'static str,
-    pub workstream_id: &'static str,
-    pub lake_build_green: bool,
-    pub v2_grid_7_of_7: bool,
-    pub l1_audit_all_green: bool,
-    pub adopt_audit_closed: bool,
-    pub probe_count: usize,
-    pub lean_l1_fully_closed: bool,
-    pub production_wired: bool,
-    pub y41_absorbed: bool,
-}
-
-/// Build FLEET-COMPOSER-Z37 probe.
-#[must_use]
-pub fn lean_l1_z37_probe(lake_build_green: bool) -> LeanL1Z37Probe {
-    let y41 = lean_l1_y41_probe(lake_build_green);
-    LeanL1Z37Probe {
-        job_id: Z37_JOB_ID,
-        receipt_path: Z37_RECEIPT_PATH,
-        wave_slot: Z37_WAVE_SLOT,
-        prior_y41_receipt: RECEIPT_PATH,
-        workstream_id: WORKSTREAM_ID,
-        lake_build_green,
-        v2_grid_7_of_7: y41.v2_grid_7_of_7,
-        l1_audit_all_green: y41.l1_audit_all_green,
-        adopt_audit_closed: lean_l1_adopt_audit_closed(),
-        probe_count: y41.probe_count,
-        lean_l1_fully_closed: lean_l1_fully_closed(),
-        production_wired: false,
-        y41_absorbed: lean_l1_y41_honest(&y41),
-    }
-}
-
-/// Z37 honesty gate — adopt audit closed; catalog export still deferred.
-#[must_use]
-pub fn lean_l1_z37_honest(probe: &LeanL1Z37Probe) -> bool {
-    probe.job_id == Z37_JOB_ID
-        && probe.receipt_path == Z37_RECEIPT_PATH
-        && probe.wave_slot == Z37_WAVE_SLOT
-        && probe.prior_y41_receipt.contains("COMPOSER_Y41_0808")
-        && probe.workstream_id == WORKSTREAM_ID
-        && probe.lake_build_green
-        && probe.v2_grid_7_of_7
-        && probe.l1_audit_all_green
-        && probe.adopt_audit_closed
-        && probe.probe_count == L1_PROBE_COUNT
-        && probe.y41_absorbed
-        && !probe.lean_l1_fully_closed
-        && !probe.production_wired
-        && EXPECTED_PROVED_COUNT == 0
-}
-
-/// Y41 honesty gate — Partial max; no Proved inflation.
-#[must_use]
-pub fn lean_l1_y41_honest(probe: &LeanL1Y41Probe) -> bool {
-    probe.job_id == JOB_ID
-        && probe.receipt_path.contains("COMPOSER_Y41_0808")
-        && probe.prior_x_slot == PRIOR_X_SLOT
-        && probe.prior_h50_receipt_deduped
-        && probe.lake_build_green
-        && probe.v2_grid_7_of_7
-        && probe.l1_audit_all_green
-        && probe.probe_count == L1_PROBE_COUNT
-        && !probe.lean_l1_fully_closed
-        && !probe.production_wired
-        && EXPECTED_PROVED_COUNT == 0
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::STIFFNESS_ALPHA_THRESHOLD;
+    use std::collections::HashMap;
 
-    #[test]
-    fn y41_metadata() {
-        assert_eq!(JOB_ID, "FLEET-COMPOSER-Y41-LEAN-L1");
-        assert_eq!(WORKSTREAM_ID, "LIB-ADOPT-F-LEAN-L1");
-        assert_eq!(L1_PROBE_COUNT, 10);
+    /// Lean source of the grid theorems, relative to the `umst-formal/` root.
+    const LEAN_SOURCE_RELPATH: &str = "Lean/Concrete/StiffnessTransition.lean";
+
+    fn lean_source() -> String {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join(LEAN_SOURCE_RELPATH);
+        std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))
+    }
+
+    /// A Lean rational literal: `p`, `-p` or `p / q`.
+    fn rational(term: &str) -> Option<f64> {
+        let term = term.trim();
+        match term.split_once('/') {
+            Some((p, q)) => Some(p.trim().parse::<f64>().ok()? / q.trim().parse::<f64>().ok()?),
+            None => term.parse().ok(),
+        }
+    }
+
+    /// Values of `def NAME : ℚ := LITERAL` lines.
+    fn rational_defs(src: &str) -> HashMap<String, f64> {
+        src.lines()
+            .filter_map(|line| {
+                let rest = line.trim().strip_prefix("def ")?;
+                let (name, rhs) = rest.split_once(" : ℚ := ")?;
+                Some((name.trim().to_string(), rational(rhs)?))
+            })
+            .collect()
+    }
+
+    /// Arguments of an application: parenthesised groups or bare tokens.
+    fn args(s: &str, defs: &HashMap<String, f64>) -> Option<Vec<f64>> {
+        let mut out = Vec::new();
+        let mut rest = s.trim();
+        while !rest.is_empty() {
+            let (tok, tail) = if let Some(inner) = rest.strip_prefix('(') {
+                let close = inner.find(')')?;
+                (&inner[..close], &inner[close + 1..])
+            } else {
+                rest.split_at(rest.find(' ').unwrap_or(rest.len()))
+            };
+            out.push(defs.get(tok.trim()).copied().or_else(|| rational(tok))?);
+            rest = tail.trim();
+        }
+        Some(out)
+    }
+
+    /// Statements `HEAD args = value := by` in the Lean source, evaluated.
+    fn lean_grid_statements(src: &str, head: &str) -> Vec<(Vec<f64>, f64)> {
+        let defs = rational_defs(src);
+        src.lines()
+            .filter_map(|line| {
+                let stmt = line.trim().strip_prefix(head)?.strip_suffix(":= by")?;
+                let (lhs, rhs) = stmt.rsplit_once(" = ")?;
+                Some((args(lhs, &defs)?, rational(rhs)?))
+            })
+            .collect()
+    }
+
+    fn close(a: f64, b: f64) -> bool {
+        (a - b).abs() <= 1e-9 * a.abs().max(b.abs()).max(1.0)
     }
 
     #[test]
@@ -434,53 +184,75 @@ mod tests {
     }
 
     #[test]
-    fn l1a_lean_source_on_disk_at_umst_formal() {
-        assert!(l1a_lean_source_on_disk());
-        assert!(l1b_lean_source_on_disk());
-    }
-
-    #[test]
-    fn lean_source_decl_counts_match_pin() {
+    fn rust_constants_match_lean_definitions() {
+        let defs = rational_defs(&lean_source());
+        assert_eq!(defs.get("stiffnessCoupling"), Some(&STIFFNESS_COUPLING));
         assert_eq!(
-            lean_source_decl_counts(),
-            Some((EXPECTED_THEOREM_COUNT, EXPECTED_LEMMA_COUNT))
+            defs.get("stiffnessAlphaThreshold"),
+            Some(&STIFFNESS_ALPHA_THRESHOLD)
         );
     }
 
     #[test]
-    fn l1_adopt_audit_10_probes_green() {
-        let audit = run_l1_adopt_audit();
-        assert_eq!(audit.probes.len(), L1_PROBE_COUNT);
-        for p in &audit.probes {
-            assert!(p.green, "probe {p:?} failed");
+    fn every_lean_psi_grid_theorem_is_a_rust_grid_row() {
+        let src = lean_source();
+        let stmts = lean_grid_statements(&src, "psi_stiffness_alpha ");
+        let theorems = src
+            .lines()
+            .filter(|l| l.starts_with("theorem psi_stiffness_alpha_grid_row"))
+            .count();
+        assert!(theorems > 0, "no psi_stiffness_alpha grid theorems in Lean");
+        assert_eq!(
+            stmts.len(),
+            theorems,
+            "every Lean psi grid statement parses"
+        );
+        for (a, value) in &stmts {
+            let [eps, e0, alpha] = a[..] else {
+                panic!("psi_stiffness_alpha takes three arguments: {a:?}");
+            };
+            let row = V2_GRID_ROWS
+                .iter()
+                .find(|r| close(r.epsilon, eps) && close(r.e0_pa, e0) && close(r.alpha, alpha))
+                .unwrap_or_else(|| panic!("Lean grid point {a:?} missing from V2_GRID_ROWS"));
+            assert!(close(row.expected_psi, *value), "{row:?} vs Lean {value}");
+            assert!(close(
+                psi_stiffness_alpha_closed_form(eps, e0, alpha),
+                *value
+            ));
         }
     }
 
     #[test]
-    fn fleet_composer_y41_lean_l1_honest() {
-        let probe = lean_l1_y41_probe(true);
-        assert!(lean_l1_y41_honest(&probe));
-        assert!(!probe.production_wired);
-        assert!(!probe.lean_l1_fully_closed);
+    fn every_lean_scale_grid_theorem_is_a_rust_grid_row() {
+        let src = lean_source();
+        let stmts = lean_grid_statements(&src, "stiffnessScale ");
+        let theorems = src
+            .lines()
+            .filter(|l| l.starts_with("theorem stiffness_scale_grid_row"))
+            .count();
+        assert!(theorems > 0, "no stiffness_scale grid theorems in Lean");
+        assert_eq!(
+            stmts.len(),
+            theorems,
+            "every Lean scale grid statement parses"
+        );
+        for (a, value) in &stmts {
+            let [alpha] = a[..] else {
+                panic!("stiffnessScale takes one argument: {a:?}");
+            };
+            let row = V2_GRID_ROWS
+                .iter()
+                .find(|r| close(r.alpha, alpha))
+                .unwrap_or_else(|| panic!("Lean grid alpha {alpha} missing from V2_GRID_ROWS"));
+            assert!(close(row.expected_scale, *value), "{row:?} vs Lean {value}");
+            assert!(close(stiffness_scale(alpha), *value));
+        }
     }
 
     #[test]
-    fn lean_l1_adopt_audit_closed_measured() {
-        assert!(lean_l1_adopt_audit_closed());
-        assert!(v2_grid_conformance_mismatch().is_none());
-        let audit = run_l1_adopt_audit();
-        assert_eq!(audit.probes.len(), L1_PROBE_COUNT);
-        assert!(audit.all_green());
-    }
-
-    #[test]
-    fn fleet_composer_z37_lean_l1_adopt_closed() {
-        let probe = lean_l1_z37_probe(true);
-        assert!(lean_l1_z37_honest(&probe));
-        assert!(probe.adopt_audit_closed);
-        assert!(probe.v2_grid_7_of_7);
-        assert_eq!(probe.probe_count, L1_PROBE_COUNT);
-        assert!(!probe.lean_l1_fully_closed);
-        assert!(!probe.production_wired);
+    fn psi_is_nonpositive_and_vanishes_at_threshold() {
+        assert!(psi_nonpos_witness_holds());
+        assert_eq!(stiffness_scale(STIFFNESS_ALPHA_THRESHOLD), 0.0);
     }
 }

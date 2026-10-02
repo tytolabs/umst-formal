@@ -10,15 +10,11 @@ mod agap_2350_l1_inventory;
 mod agap_2350_l2_attestation;
 mod agap_2350_l6_attestation;
 mod extract_runtime;
-mod formal_swarm_deepen;
+mod helmholtz_witness;
 mod lcert;
 mod lcert_capstone;
 mod lean_l1_bridge_prep;
 mod lean_l1_stiffness_adopt;
-mod lean_rs_cold_path;
-mod pbm_007_ws_cert_proved;
-mod pbm_009_ws_faithful_all;
-mod pbm_010_atoms_scalar;
 mod theorem_crosswalk_shim;
 
 pub use agap_2350_l1_inventory::{
@@ -45,18 +41,6 @@ pub use agap_2350_l6_attestation::{
     PRIOR_Y_RECEIPT_PATH as AGAP_L6_PRIOR_Y_RECEIPT, RECEIPT_PATH as AGAP_2350_L6_RECEIPT_PATH,
 };
 
-pub use lean_rs_cold_path::{
-    formal_root as lean_rs_formal_root, l1_on_disk_sources, lean_rs_cold_path_v2_honest,
-    lean_rs_cold_path_v2_probe, lean_rs_cold_path_z65_honest, lean_rs_cold_path_z65_probe,
-    lean_source_on_disk, pending_inventory_census, LeanRsColdPathV2Probe, LeanRsColdPathZ65Probe,
-    LeanRsPendingRow, LeanRsPendingStatus, H50_RUST_SURFACE, JOB_ID as LEAN_RS_COLD_PATH_JOB_ID,
-    L1A_LEAN_SOURCE, L1B_LEAN_SOURCE, PENDING_INVENTORY as LEAN_RS_PENDING_INVENTORY,
-    POSTURE_TAG as LEAN_RS_COLD_PATH_POSTURE, PRIOR_H50_RECEIPT_PATH, PRIOR_J31_RECEIPT_PATH,
-    PRIOR_X37_RECEIPT_PATH, RECEIPT_PATH as LEAN_RS_COLD_PATH_RECEIPT_PATH, SCHEMA_VERSION,
-    WORKSTREAM_ID as LEAN_RS_WORKSTREAM_ID, Z65_JOB_ID as LEAN_RS_Z65_JOB_ID,
-    Z65_RECEIPT_PATH as LEAN_RS_Z65_RECEIPT_PATH, Z65_WAVE_SLOT as LEAN_RS_Z65_WAVE_SLOT,
-};
-
 pub use lean_l1_bridge_prep::{
     e_eff_mt_at_zero_holds, effective_modulus_mt, l1_bridge_witness_rows,
     lean_l1_bridge_j31_honest, lean_l1_bridge_j31_probe, lean_l1_bridge_prep_honest,
@@ -70,26 +54,14 @@ pub use lean_l1_bridge_prep::{
 };
 
 pub use lean_l1_stiffness_adopt::{
-    l1a_lean_source_on_disk, l1b_lean_source_on_disk, lean_l1_adopt_audit_closed,
-    lean_l1_y41_honest, lean_l1_y41_probe, lean_l1_z37_honest, lean_l1_z37_probe,
-    run_l1_adopt_audit, v2_grid_conformance_mismatch, L1AdoptAudit, L1AdoptProbe, LeanL1Y41Probe,
-    LeanL1Z37Probe, EXPECTED_LEMMA_COUNT as L1_ADOPT_EXPECTED_LEMMA_COUNT,
-    EXPECTED_PROVED_COUNT as L1_ADOPT_EXPECTED_PROVED_COUNT,
-    EXPECTED_THEOREM_COUNT as L1_ADOPT_EXPECTED_THEOREM_COUNT, JOB_ID as LEAN_L1_Y41_JOB_ID,
-    L1_PROBE_COUNT as L1_ADOPT_PROBE_COUNT, POSTURE_TAG as L1_ADOPT_POSTURE,
-    PRIOR_H50_RECEIPT_PATH as L1_ADOPT_PRIOR_H50_RECEIPT, PRIOR_X_SLOT as L1_ADOPT_PRIOR_X_SLOT,
-    RECEIPT_PATH as LEAN_L1_Y41_RECEIPT_PATH, V2_GRID_ROW_COUNT as L1_V2_GRID_ROW_COUNT,
-    WORKSTREAM_ID as L1_ADOPT_WORKSTREAM_ID, Z37_JOB_ID as LEAN_L1_Z37_JOB_ID,
-    Z37_RECEIPT_PATH as LEAN_L1_Z37_RECEIPT_PATH, Z37_WAVE_SLOT as LEAN_L1_Z37_WAVE_SLOT,
+    psi_nonpos_witness_holds, psi_stiffness_alpha_closed_form, v2_grid_conformance_mismatch,
+    V2GridRow, STIFFNESS_COUPLING, V2_GRID_ROWS, V2_GRID_ROW_COUNT as L1_V2_GRID_ROW_COUNT,
 };
 
-pub use formal_swarm_deepen::{
-    formal_swarm_deepen_honest, formal_swarm_deepen_probe, helmholtz_gate_correspondence,
-    helmholtz_psi, psi_antitone_helmholtz_holds, psi_antitone_helmholtz_scenario, q_hyd_j_per_kg,
-    FormalSwarmDeepenProbe, HelmholtzWitnessScenario, JOB_ID as FORMAL_SWARM_JOB_ID,
-    LEAN_WITNESS_MODULE, LEAN_WITNESS_THEOREM, PINNED_CATALOG_DIGEST_HEX,
-    POSTURE_TAG as FORMAL_SWARM_POSTURE, PRIOR_RECEIPT_AGAP_2350, Q_HYD_REGISTRY_NAME,
-    RECEIPT_PATH as FORMAL_SWARM_RECEIPT_PATH,
+pub use helmholtz_witness::{
+    helmholtz_gate_correspondence, helmholtz_psi, psi_antitone_helmholtz_holds,
+    psi_antitone_helmholtz_scenario, q_hyd, HelmholtzWitnessScenario, LEAN_WITNESS_MODULE,
+    LEAN_WITNESS_THEOREM,
 };
 
 pub use extract_runtime::{
@@ -114,57 +86,6 @@ pub use lcert_capstone::{
     JOB_ID as L7_LCERT_JOB_ID, LCERT_EXPECTED_GATE_EXIT, L_CERT_LEDGER_REL,
     POSTURE_TAG as L7_LCERT_POSTURE, PRIOR_RECEIPT_PATH as L7_PRIOR_RECEIPT,
     RECEIPT_PATH as L7_LCERT_RECEIPT_PATH,
-};
-
-pub use pbm_009_ws_faithful_all::{
-    bench_consumer_posture_pins_honest, lean_faithful_gate_on_disk,
-    pbm_009_ac03_fence_deepen_closed, pbm_009_ac03_honest, pbm_009_ac03_probe,
-    pbm_009_done_when_probe, pbm_009_formal_fence_closed, pbm_009_fully_closed,
-    pbm_009_j4_absorb_honest, pbm_009_j4_absorb_probe, pbm_009_production_tensor_closed,
-    pbm_009_production_wired, pbm_009_ws_faithful_all_probe_honest,
-    probe_pbm_009_ac03_fence_deepen, probe_pbm_009_formal_ws_faithful_all,
-    run_formal_faithful_fence_audit, Pbm009Ac03Probe, Pbm009DoneWhenProbe, Pbm009FaithfulWireHop,
-    Pbm009FormalAudit, Pbm009FormalProbe, Pbm009J4AbsorbProbe, Pbm009WsFaithfulAllProbe,
-    ATOM_TOTAL as PBM_009_ATOM_TOTAL, B6_DISSIPATION_DEFER_SURFACE as PBM_009_B6_DISSIPATION,
-    BENCH_CONSUMER_PATH as PBM_009_BENCH_PATH, BENCH_POSTURE_FIXTURE as PBM_009_POSTURE_FIXTURE,
-    DEFER_BLOCKER_PINNED_COUNT as PBM_009_DEFER_BLOCKER_COUNT,
-    D_EVALUATOR_LANDED_COUNT as PBM_009_D_LANDED_COUNT, FLEET_PARENT as PBM_009_FLEET_PARENT,
-    FORMAL_PROBE_COUNT as PBM_009_FORMAL_PROBE_COUNT,
-    FORMAL_WITNESS_RELPATH as PBM_009_FORMAL_WITNESS,
-    J4_WIRE_HOP_COUNT as PBM_009_J4_WIRE_HOP_COUNT, JOB_ID as PBM_009_JOB_ID,
-    LEAN_SOURCE_RELPATH as PBM_009_LEAN_SOURCE, PARENT_WORKSTREAM_ID as PBM_009_PARENT_ID,
-    POSTURE_TAG as PBM_009_POSTURE, PRIOR_E4_RECEIPT as PBM_009_PRIOR_E4_RECEIPT,
-    PRIOR_J4_JOB_ID as PBM_009_PRIOR_J4_JOB_ID, PRIOR_J4_RECEIPT as PBM_009_PRIOR_J4_RECEIPT,
-    PRIOR_Y59_RECEIPT as PBM_009_PRIOR_Y59_RECEIPT, PRIOR_Z68_RECEIPT as PBM_009_PRIOR_Z68_RECEIPT,
-    PSI_WITNESSED_COUNT as PBM_009_PSI_WITNESSED, RECEIPT_PATH as PBM_009_RECEIPT_PATH,
-    WIRE_HOPS as PBM_009_WIRE_HOPS, WITNESSED_ATOM_COUNT as PBM_009_WITNESSED_COUNT,
-    WORKSTREAM_ID as PBM_009_WORKSTREAM_ID,
-};
-
-pub use pbm_007_ws_cert_proved::{
-    catalog_export_deferred as pbm_007_catalog_export_deferred, lean_cert_proved_posture_on_disk,
-    pbm_007_d1650_honest, pbm_007_done_when_probe, pbm_007_formal_fence_closed,
-    pbm_007_fully_closed, pbm_007_k1938_honest, pbm_007_k1938_probe,
-    pbm_007_k1941_fence_deepen_closed, pbm_007_k1941_honest, pbm_007_k1941_probe,
-    pbm_007_production_wired, pbm_007_ws_cert_proved_probe_honest,
-    probe_pbm_007_formal_ws_cert_proved, probe_pbm_007_k1941_fence_deepen,
-    run_formal_cert_proved_fence_audit, Pbm007CertProvedWireHop, Pbm007DoneWhenProbe,
-    Pbm007FormalAudit, Pbm007FormalProbe, Pbm007K1938Probe, Pbm007K1941Probe,
-    Pbm007WsCertProvedProbe, ABSORBED_J39_RECEIPT as PBM_007_ABSORBED_J39_RECEIPT,
-    ABSORBED_Y58_RECEIPT as PBM_007_ABSORBED_Y58_RECEIPT,
-    ABSORBED_Z100_RECEIPT as PBM_007_ABSORBED_Z100_RECEIPT,
-    ABSORBED_Z43_RECEIPT as PBM_007_ABSORBED_Z43_RECEIPT,
-    BENCH_CONSUMER_PATH as PBM_007_BENCH_PATH, BENCH_POSTURE_FIXTURE as PBM_007_POSTURE_FIXTURE,
-    EXPECTED_PROVED_COUNT as PBM_007_EXPECTED_PROVED, FLEET_PARENT as PBM_007_FLEET_PARENT,
-    FORMAL_PROBE_COUNT as PBM_007_FORMAL_PROBE_COUNT,
-    FORMAL_WITNESS_RELPATH as PBM_007_FORMAL_WITNESS, JOB_ID as PBM_007_JOB_ID,
-    K2_WIRE_HOP_COUNT as PBM_007_K2_WIRE_HOP_COUNT, LEAN_SOURCE_RELPATH as PBM_007_LEAN_SOURCE,
-    META_OWNER_PATH as PBM_007_META_OWNER, PARENT_WORKSTREAM_ID as PBM_007_PARENT_ID,
-    POSTH_02_BARC_SURFACE as PBM_007_POSTH_02_SURFACE, POSTURE_TAG as PBM_007_POSTURE,
-    PRIOR_D3_JOB_ID as PBM_007_PRIOR_D3_JOB_ID, PRIOR_D3_RECEIPT as PBM_007_PRIOR_D3_RECEIPT,
-    PRIOR_K2_JOB_ID as PBM_007_PRIOR_K2_JOB_ID, PRIOR_K2_RECEIPT as PBM_007_PRIOR_K2_RECEIPT,
-    PROBE_COUNT as PBM_007_PROBE_COUNT, RECEIPT_PATH as PBM_007_RECEIPT_PATH,
-    WIRE_HOPS as PBM_007_WIRE_HOPS, WORKSTREAM_ID as PBM_007_WORKSTREAM_ID,
 };
 
 use umst_manifold::gate::thermodynamic_transition_admissible;
@@ -257,32 +178,31 @@ pub unsafe extern "C" fn umst_credit_greedy_sum(
     weights: *const f64,
     admissible: *const u8,
 ) -> f64 {
-    credit_greedy_sum_slices(n, weights, admissible)
-}
-
-/// Safe slice wrapper — shared by C ABI and `umst-ffi` correspondence tests.
-#[must_use]
-pub fn credit_greedy_sum_slices(n: usize, weights: *const f64, admissible: *const u8) -> f64 {
     if n == 0 || weights.is_null() || admissible.is_null() {
         return 0.0;
     }
-    let mut s = 0.0;
-    for i in 0..n {
-        // SAFETY: caller guarantees `n` valid elements in each slice.
-        if unsafe { *admissible.add(i) != 0 } {
-            s += unsafe { *weights.add(i) };
-        }
-    }
-    s
+    // SAFETY: the caller guarantees `n` valid, initialised elements behind each non-null pointer.
+    let (weights, admissible) = unsafe {
+        (
+            std::slice::from_raw_parts(weights, n),
+            std::slice::from_raw_parts(admissible, n),
+        )
+    };
+    credit_greedy_sum_safe(weights, admissible)
 }
 
-/// Safe slice wrapper for Rust callers (`weights.len()` must equal `admissible.len()`).
+/// Sum `weights[i]` for each `i` with `admissible[i] != 0`; 0 when the lengths differ.
 #[must_use]
 pub fn credit_greedy_sum_safe(weights: &[f64], admissible: &[u8]) -> f64 {
-    if weights.is_empty() || weights.len() != admissible.len() {
+    if weights.len() != admissible.len() {
         return 0.0;
     }
-    credit_greedy_sum_slices(weights.len(), weights.as_ptr(), admissible.as_ptr())
+    weights
+        .iter()
+        .zip(admissible)
+        .filter(|(_, &a)| a != 0)
+        .map(|(w, _)| w)
+        .sum()
 }
 
 // ---------------------------------------------------------------------------
@@ -377,71 +297,21 @@ pub extern "C" fn umst_ffi_abi_version_expected() -> u32 {
     UMST_FFI_ABI_VERSION_MIN_COMPATIBLE
 }
 
-// ---------------------------------------------------------------------------
-// AGAP-2350-FORMAL night residual deepen (honest GROUND-1 posture)
-// ---------------------------------------------------------------------------
-
-/// AGAP-2350 night slot id.
-pub const FORMAL_NIGHT_2350_JOB_ID: &str = "AGAP-2350-FORMAL";
-
-/// Completion receipt cross-ref for AGAP-2350 night wave.
-pub const FORMAL_RECEIPT_PATH_2350: &str =
-    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL_2350.md";
-
-/// Prior formal crypto deepen receipt.
-pub const FORMAL_PRIOR_RECEIPT_PATH: &str =
-    "old/residuals/residuals/misc-outputs-tmp/COMPLETION_AGAP_AGENT_FORMAL-CRYPTO_2033.md";
-
-/// Night deepen probe — Lean crypto GROUND-1 tier posture (no fake theorem GREEN).
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct FormalNight2350DeepenProbe {
-    pub job_id: &'static str,
-    pub receipt_path: &'static str,
-    pub ffi_abi_version: u32,
-    pub ground1_crypto_wired: bool,
-    pub full_meso_sorry_free: bool,
-    pub production_wired: bool,
-}
-
-/// AGAP-2350 FORMAL night deepen — honest partial formal posture.
-#[must_use]
-pub fn formal_night_2350_deepen_probe() -> FormalNight2350DeepenProbe {
-    FormalNight2350DeepenProbe {
-        job_id: FORMAL_NIGHT_2350_JOB_ID,
-        receipt_path: FORMAL_RECEIPT_PATH_2350,
-        ffi_abi_version: UMST_FFI_ABI_VERSION,
-        ground1_crypto_wired: true,
-        full_meso_sorry_free: false,
-        production_wired: false,
-    }
-}
-
-/// Honesty gate for operator receipts.
-#[must_use]
-pub fn formal_night_2350_deepen_honest(probe: &FormalNight2350DeepenProbe) -> bool {
-    probe.job_id == FORMAL_NIGHT_2350_JOB_ID
-        && probe.receipt_path.contains("FORMAL_2350")
-        && probe.ffi_abi_version == UMST_FFI_ABI_VERSION
-        && probe.ground1_crypto_wired
-        && !probe.full_meso_sorry_free
-        && !probe.production_wired
-}
-
 #[cfg(test)]
-mod formal_night_2350_tests {
+mod tests {
     use super::*;
 
     #[test]
-    fn agap_2350_formal_night_metadata() {
-        assert_eq!(FORMAL_NIGHT_2350_JOB_ID, "AGAP-2350-FORMAL");
-        assert!(FORMAL_PRIOR_RECEIPT_PATH.contains("FORMAL-CRYPTO_2033"));
-    }
-
-    #[test]
-    fn formal_night_deepen_honest_ground1_not_full_green() {
-        let probe = formal_night_2350_deepen_probe();
-        assert!(formal_night_2350_deepen_honest(&probe));
-        assert!(!probe.full_meso_sorry_free);
-        assert!(!probe.production_wired);
+    fn credit_greedy_sum_adds_admissible_weights_only() {
+        let w = [1.5, 2.0, 4.0];
+        let a = [1u8, 0, 1];
+        assert_eq!(credit_greedy_sum_safe(&w, &a), 5.5);
+        assert_eq!(credit_greedy_sum_safe(&w, &a[..2]), 0.0, "length mismatch");
+        // SAFETY: both arrays hold three elements.
+        let c = unsafe { umst_credit_greedy_sum(3, w.as_ptr(), a.as_ptr()) };
+        assert_eq!(c, 5.5);
+        // SAFETY: null pointers are rejected before any read.
+        let z = unsafe { umst_credit_greedy_sum(3, std::ptr::null(), a.as_ptr()) };
+        assert_eq!(z, 0.0);
     }
 }

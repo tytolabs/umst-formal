@@ -61,7 +61,7 @@ pub fn e_eff_mt_at_zero_holds(e0: f64) -> bool {
 /// MT-4 witness: ψ ≤ 0 when E₀ ≥ 0 and damage admissible.
 #[must_use]
 pub fn psi_elastic_base_nonpos_holds(epsilon: f64, d: f64, e0: f64) -> bool {
-    e0 >= 0.0 && d >= 0.0 && d <= DAMAGE_D_MAX && psi_elastic_base(epsilon, d, e0) <= 0.0
+    e0 >= 0.0 && (0.0..=DAMAGE_D_MAX).contains(&d) && psi_elastic_base(epsilon, d, e0) <= 0.0
 }
 
 /// L1b softening witness: ψ antitone in damage at fixed ε, E₀.
@@ -256,6 +256,17 @@ mod tests {
     fn l1b_effective_modulus_at_zero_damage() {
         assert!(e_eff_mt_at_zero_holds(30e9));
         assert!((effective_modulus_mt(30e9, 0.25) - 30e9 * 0.75_f64.powi(2)).abs() < 1.0);
+    }
+
+    #[test]
+    fn l1b_psi_elastic_base_nonpos_on_admissible_domain() {
+        assert!(psi_elastic_base_nonpos_holds(0.01, 0.5, 30e9));
+        assert!(psi_elastic_base_nonpos_holds(0.015, DAMAGE_D_MAX, 30e9));
+        assert!(
+            !psi_elastic_base_nonpos_holds(0.01, 1.0, 30e9),
+            "d above damageDMax"
+        );
+        assert_eq!(psi_elastic_base(0.0, 0.5, 30e9), 0.0);
     }
 
     #[test]
