@@ -177,6 +177,9 @@ jobs:
       - name: Wording matches the formal state (no axiom; physicalSecondLaw is the erase instance)
         run: python3 scripts/check_stale_wording.py
 
+      - name: Lean catalog describes the tracked sources (pins check against it)
+        run: python3 scripts/check_catalog_fresh.py
+
       - name: No theatre in the Lean tree (literal, reflexive, alias, duplicate, definitional, trivial, table, bundle)
         run: python3 scripts/theatre_census.py --check 0
 
