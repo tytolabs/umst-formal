@@ -565,7 +565,6 @@ Flagship identifiers: `admissibleN_compose`, `gateCheckSound`, `kleisliFoldWellT
 
 See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index.
 
-
 <details>
 <summary><strong>Catalog consume discipline (agents)</strong></summary>
 
