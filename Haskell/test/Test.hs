@@ -32,6 +32,7 @@ import qualified UMST.Excitement as X
 import qualified UMST.OneInequality as O
 import qualified UMST.CoarseGraining as CG
 import qualified UMST.Semantic as SM
+import qualified UMST.CostOfInformation as CI
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -676,6 +677,54 @@ prop_semantic_product_mi_zero :: Property
 prop_semantic_product_mi_zero = forAll genProb2 $ \a -> forAll genProb2 $ \b ->
   abs (P.mutualInformation2 (CG.productJoint2 a b)) <= 1e-12
 
+-- The cost of information (twins of Lean/CostOfInformation.lean).
+prop_cost_uniform_entropy :: Property
+prop_cost_uniform_entropy = forAll (choose (1, 64)) $ \n ->
+  abs (P.shannon (CI.uniformN n) - log (fromIntegral n)) <= 1e-12 * (1 + log (fromIntegral n))
+
+prop_cost_entropy_drop_joules :: Property
+prop_cost_entropy_drop_joules = forAll (choose (1, 1000)) $ \t -> forAll (choose (1, 6)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q -> forAll (choose (-3, 3)) $ \w ->
+    let b = P.HeatBath t
+     in P.secondLaw (P.Erase (P.ErasureProcess b w)) (P.Transformation p q)
+          ==> CI.entropyDropJoules b p q <= P.kB * w * (1 + 1e-12) + 1e-35
+
+prop_cost_info_per_joule :: Property
+prop_cost_info_per_joule = forAll (choose (1, 1000)) $ \t -> forAll (choose (1, 6)) $ \n ->
+  forAll (genDist n) $ \p -> forAll (genDist n) $ \q -> forAll (choose (1e-3, 3)) $ \w ->
+    let b = P.HeatBath t
+     in P.secondLaw (P.Erase (P.ErasureProcess b w)) (P.Transformation p q)
+          ==> CI.informationPerJoule w p q <= (1 / (P.kB * t)) * (1 + 1e-9)
+
+prop_cost_bit_erasure :: Property
+prop_cost_bit_erasure = forAll (choose (1, 1000)) $ \t -> forAll (choose (0, 6)) $ \bits -> forAll (choose (0, 3000)) $ \w ->
+  let b = P.HeatBath t
+   in P.secondLaw (P.Erase (P.ErasureProcess b w)) (CI.bitErasure bits)
+        ==> fromIntegral bits * landauerJoulesPerBit t <= P.kB * w * (1 + 1e-12) + 1e-35
+
+-- A claim of b bits paid by an erasure obeying the predicate spends honestly, and its score is at most its dignity
+-- over the Landauer bit energy.
+prop_cost_honest_spend_of_secondLaw :: Property
+prop_cost_honest_spend_of_secondLaw = forAll (choose (1, 1000)) $ \t -> forAll (choose (0, 6)) $ \bits ->
+  forAll (choose (0, 3000)) $ \w ->
+    let b = P.HeatBath t
+        mi = fromIntegral bits
+        e = P.kB * w * (1 + 1e-12) + 1e-35
+     in P.secondLaw (P.Erase (P.ErasureProcess b w)) (CI.bitErasure bits) ==> honestSpend t mi e
+
+prop_cost_eta_cog_le_of_honest :: Property
+prop_cost_eta_cog_le_of_honest = forAll (choose (1, 1000)) $ \t -> forAll (choose (0, 10)) $ \d ->
+  forAll (choose (0, 64)) $ \mi -> forAll (choose (0, 10)) $ \slack ->
+    let e = landauerJoulesPerBit t * (mi + slack)
+     in honestSpend t mi e ==> etaCog t d mi e <= d / landauerJoulesPerBit t * (1 + 1e-12)
+
+prop_cost_eta_cog_le_of_secondLaw :: Property
+prop_cost_eta_cog_le_of_secondLaw = forAll (choose (1, 1000)) $ \t -> forAll (choose (0, 10)) $ \d ->
+  forAll (choose (0, 6)) $ \bits -> forAll (choose (0, 3000)) $ \w ->
+    let b = P.HeatBath t
+     in P.secondLaw (P.Erase (P.ErasureProcess b w)) (CI.bitErasure bits)
+          ==> etaCog t d (fromIntegral bits) (P.kB * w) <= d / landauerJoulesPerBit t * (1 + 1e-9)
+
 -- The Szilard witness (twins of szilardJoint, its marginals, entropy and mutual information, and the engine).
 prop_szilard_joint :: Property
 prop_szilard_joint = once $
@@ -1039,6 +1088,13 @@ main = do
   check r prop_semantic_landauer_bound
   check r prop_semantic_p0
   check r prop_semantic_product_mi_zero
+  check r prop_cost_uniform_entropy
+  check r prop_cost_entropy_drop_joules
+  check r prop_cost_info_per_joule
+  check r prop_cost_bit_erasure
+  check r prop_cost_honest_spend_of_secondLaw
+  check r prop_cost_eta_cog_le_of_honest
+  check r prop_cost_eta_cog_le_of_secondLaw
   check r prop_szilard_joint
   check r prop_szilard_marginal_x
   check r prop_szilard_marginal_y

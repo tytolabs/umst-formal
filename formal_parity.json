@@ -1471,6 +1471,126 @@
     "name": "prop_semantic_product_mi_zero",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "cost.entropy_drop_joules",
+   "statement": "an erasure obeying the predicate dissipates at least k_B T times the entropy it removes, in joules",
+   "lean": {
+    "name": "entropyDrop_joules_le",
+    "file": "Lean/CostOfInformation.lean"
+   },
+   "coq": {
+    "name": "entropyDrop_joules_le",
+    "file": "Coq/CostOfInformation.v"
+   },
+   "agda": {
+    "name": "entropyDrop-joules-le",
+    "file": "Agda/CostOfInformation.agda"
+   },
+   "haskell": {
+    "name": "prop_cost_entropy_drop_joules",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "cost.info_per_joule",
+   "statement": "an erasure obeying the predicate removes at most 1/(k_B T) nats per joule (Agda states it with the denominators cleared, as the joule bound)",
+   "lean": {
+    "name": "informationPerJoule_le",
+    "file": "Lean/CostOfInformation.lean"
+   },
+   "coq": {
+    "name": "informationPerJoule_le",
+    "file": "Coq/CostOfInformation.v"
+   },
+   "agda": {
+    "name": "entropyDrop-joules-le",
+    "file": "Agda/CostOfInformation.agda"
+   },
+   "haskell": {
+    "name": "prop_cost_info_per_joule",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "cost.bit_erasure",
+   "statement": "erasing b bits to a point under the predicate costs at least b k_B T ln 2 joules (Agda carries the information of one bit as data)",
+   "lean": {
+    "name": "bitErasure_cost",
+    "file": "Lean/CostOfInformation.lean"
+   },
+   "coq": {
+    "name": "bitErasure_cost",
+    "file": "Coq/CostOfInformation.v"
+   },
+   "agda": {
+    "name": "bitErasure-cost",
+    "file": "Agda/CostOfInformation.agda"
+   },
+   "haskell": {
+    "name": "prop_cost_bit_erasure",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "cost.honest_spend_of_secondLaw",
+   "statement": "a claim of b bits paid by an erasure of b bits obeying the predicate spends honestly",
+   "lean": {
+    "name": "honest_spend_of_secondLaw",
+    "file": "Lean/CostOfInformation.lean"
+   },
+   "coq": {
+    "name": "honest_spend_of_secondLaw",
+    "file": "Coq/CostOfInformation.v"
+   },
+   "agda": {
+    "name": "honest-spend-of-secondLaw",
+    "file": "Agda/CostOfInformation.agda"
+   },
+   "haskell": {
+    "name": "prop_cost_honest_spend_of_secondLaw",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "cost.eta_cog_le_of_honest",
+   "statement": "an honest claim's information-per-joule score is at most its dignity over the Landauer bit energy (Agda: denominators cleared)",
+   "lean": {
+    "name": "eta_cog_le_of_honest",
+    "file": "Lean/CostOfInformation.lean"
+   },
+   "coq": {
+    "name": "eta_cog_le_of_honest",
+    "file": "Coq/CostOfInformation.v"
+   },
+   "agda": {
+    "name": "eta-cog-le-of-honest",
+    "file": "Agda/CostOfInformation.agda"
+   },
+   "haskell": {
+    "name": "prop_cost_eta_cog_le_of_honest",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "cost.eta_cog_le_of_secondLaw",
+   "statement": "a claim paid by an erasure obeying the predicate scores at most its dignity over the Landauer bit energy (Agda: denominators cleared)",
+   "lean": {
+    "name": "eta_cog_le_of_secondLaw",
+    "file": "Lean/CostOfInformation.lean"
+   },
+   "coq": {
+    "name": "eta_cog_le_of_secondLaw",
+    "file": "Coq/CostOfInformation.v"
+   },
+   "agda": {
+    "name": "eta-cog-le-of-secondLaw",
+    "file": "Agda/CostOfInformation.agda"
+   },
+   "haskell": {
+    "name": "prop_cost_eta_cog_le_of_secondLaw",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }

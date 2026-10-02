@@ -5,11 +5,10 @@ module Dignity where
 
 import Test.QuickCheck
 
+import UMST.Process (kB)
+
 dMax :: Double
 dMax = 10.0
-
-kB :: Double
-kB = 1.380649e-23
 
 landauerJoulesPerBit :: Double -> Double
 landauerJoulesPerBit t = kB * max t 0 * log 2

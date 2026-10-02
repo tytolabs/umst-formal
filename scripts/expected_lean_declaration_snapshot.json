@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 84,
+  "lake_roots_count": 85,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -32,6 +32,7 @@
     "Process",
     "OneInequalitySecondLaw",
     "ConvexPhiDissipation",
+    "CostOfInformation",
     "CoarseGraining",
     "InfoTheory",
     "SemanticSecondLaw",
@@ -88,14 +89,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 548,
-    "lemma": 61,
-    "total": 609
+    "theorem": 555,
+    "lemma": 62,
+    "total": 617
   },
   "all_lean_glob": {
-    "theorem": 1336,
-    "lemma": 61,
-    "total": 1397
+    "theorem": 1343,
+    "lemma": 62,
+    "total": 1405
   },
   "per_root": {
     "Core.Scalar": {
@@ -217,6 +218,10 @@
     "ConvexPhiDissipation": {
       "theorem": 6,
       "lemma": 0
+    },
+    "CostOfInformation": {
+      "theorem": 7,
+      "lemma": 1
     },
     "CoarseGraining": {
       "theorem": 8,

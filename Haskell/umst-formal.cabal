@@ -29,6 +29,7 @@ library
     UMST.OneInequality
     UMST.CoarseGraining
     UMST.Semantic
+    UMST.CostOfInformation
     UMST.Chem.SecondLaw
     UMST.CoordinationContract
     UMST.Chem.Constants.ConstantsSheaf
