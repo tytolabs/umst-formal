@@ -198,7 +198,7 @@ theorem stiffnessTransitionDirIsNegGrad
 -- ================================================================
 -- SECTION 5: L1a rational witness grid (Rust↔Lean ℚ conformance pin)
 -- ================================================================
--- Pins mirror `lean_l1_stiffness_adopt::V2_GRID_ROWS` (7 rows · Z37/Y41 adopt audit).
+-- `lean_l1_stiffness_adopt::V2_GRID_ROWS` mirrors these rows; ffi-bridge parses this file and tests every row.
 -- Fixture GREEN ≠ catalog `[proved]`; continuum tensor stiffness is **not** claimed here.
 
 /-- Schema pin — matches Rust v2 grid fixture (`lean_l1_stiffness_v2`). -/

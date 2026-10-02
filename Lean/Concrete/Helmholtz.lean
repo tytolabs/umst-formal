@@ -41,7 +41,7 @@ def HelmholtzState (s : ThermodynamicState) : Prop :=
     ψ = −Q_hyd · α, with no further hypothesis.
 
     Physical meaning: cement hydration is exothermic — each increment
-    in α releases Q_hyd J/kg of heat, lowering ψ.  The gate's
+    in α releases Q_hyd kJ/kg (= J/g) of heat, lowering ψ.  The gate's
     Clausius-Duhem check captures this exactly. -/
 theorem ψAntitoneHelmholtz
     (s₁ s₂ : ThermodynamicState)
@@ -89,7 +89,7 @@ theorem helmholtzLinear (α₁ α₂ : ℚ) :
 
     SDF / Eikonal interpretation:
     ψ is a 1D signed distance function in hydration state space with
-    constant gradient magnitude Q_hyd = 450 J/kg.  The Eikonal
+    constant gradient magnitude Q_hyd = 450 kJ/kg (= J/g).  The Eikonal
     condition |∂ψ/∂α| = Q_hyd holds everywhere.
 
     Proof: direct from helmholtzGradient (proved in Gate.lean by ring). -/

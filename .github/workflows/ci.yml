@@ -181,6 +181,9 @@ jobs:
       - name: Wording matches the formal state (no axiom; physicalSecondLaw is the erase instance)
         run: python3 scripts/check_stale_wording.py
 
+      - name: README census and four-language matrix match the sources
+        run: python3 scripts/gen_readme_blocks.py --check
+
       - name: Lean catalog describes the tracked sources (pins check against it)
         run: python3 scripts/check_catalog_fresh.py
 
