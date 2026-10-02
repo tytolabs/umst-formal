@@ -11,14 +11,14 @@ What can be refuted here, what is assumed once, what is a named shell, and what 
 
 ## Core L₀ (default `lake` roots, excluding `Economic/*`)
 
-| Claim class | Status | Where checked |
+| Claim class | Status | Checked in |
 |-------------|--------|---------------|
 | Gate admissibility (`Admissible`, `AdmissibleN`) | Machine-checked | `Gate.lean`, `Constitutional.lean` |
 | Kleisli composition / graded mass budget | Machine-checked | `Constitutional.lean`; `Gate.admissibleN_compose` |
 | Material-agnostic gate, naturality square | Machine-checked | `Naturality.lean` — `gateMaterialAgnostic`, `naturalitySquare` |
 | Helmholtz / activation / fibered engines | Machine-checked | `Helmholtz.lean`, `Activation.lean`, `FiberedActivation.lean` |
 | DIB artifact semantics ↔ `gateCheck` | Machine-checked | `DIBKleisli.lean` (opaque `DIBState`, `discover` / `invent` / `build`) |
-| Landauer / erasure layer | **Axiom** `physicalSecondLaw` + derived lemmas | `LandauerLaw.lean`, `LandauerExtension.lean`, `MeasurementCost.lean` |
+| Landauer / erasure layer | Machine-checked under the hypothesis `SecondLaw` (erase instance, anchor `physicalSecondLaw`) | `LandauerLaw.lean`, `LandauerExtension.lean`, `MeasurementCost.lean` |
 | Finite Shannon / mutual information (product case) | Machine-checked | `InfoTheory.lean` |
 | Graph, convergence, Galois gate, enriched admissibility | Machine-checked | `GraphProperties.lean`, `Convergence.lean`, `GaloisGate.lean`, `EnrichedAdmissibility.lean` |
 | Monoidal state, accuracy–safety separation | Machine-checked | `MonoidalState.lean`, `SeparationBound.lean` |

@@ -4,13 +4,14 @@ SPDX-License-Identifier: MIT
 
 **Version:** Wave 6.5.2 — **2026-04-04** (Lean declaration totals refreshed **2026-05-10** — **51** lake roots, cartridge anchors `DEC` / `Adjoint` / `RegimeSoundness` / `JenningsGelSpace`, `scripts/check_print_axioms.sh` in CI; see audit table)
 
-## Single physical axiom (Lean `axiom`)
+## The one physical law (a predicate; no Lean `axiom`)
 
 | Location | Name | Role |
 |----------|------|------|
-| `Lean/LandauerLaw.lean` | `physicalSecondLaw` | Second law input for the Landauer / erasure bound (`T_LandauerLaw`). |
+| `Lean/Process.lean` | `UMST.ProcessFamily.SecondLaw` | The one predicate over the process family (erase, measure-and-feedback, gate transition, n-state transformation). Physical results take it as a hypothesis. |
+| `Lean/LandauerLaw.lean` | `physicalSecondLaw` | The anchor name of the erase instance cited by the runtime (`abbrev physicalSecondLaw := eraseSecondLaw`). |
 
-No other `axiom` declarations remain under `umst-formal/Lean/`.
+`umst-formal/Lean/` declares no `axiom`; `scripts/check_lean_axioms.py` holds the count at zero.
 
 ## Domain constraints (not axioms)
 
@@ -59,7 +60,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 | **I. Clausius–Duhem / rational gate** | Transitions satisfy mass, dissipation (ψ), hydration monotone, strength monotone | `Compat.Gate.Admissible` / `Concrete.Gate.ConcreteAdmissible`; `helmholtz`, `helmholtzAntitone` in `Concrete.Gate`; B1 α-stiffness witness `StiffnessTransitionState` / `stiffnessTransitionStateAdmissible` in `Concrete.StiffnessTransition` |
 | **II. 100% admissibility for checked steps** | Any transition accepted by the boolean gate satisfies `Admissible` | `Concrete.Gate.gateCheckSound` |
 | **III. Graded compositional safety** | Multi-step mass budget composes (triangle inequality); Kleisli lifting | `Concrete.Gate.admissibleN_compose`; `Core.Constitutional` / `Compat.Constitutional` Kleisli lemmas |
-| **IV. Landauer / observation / erasure** | Erasure obeys second-law input → Landauer-style bound; coordination saving as **floor projection** | `LandauerLaw.physicalSecondLaw` (only project `axiom`); `LandauerExtension`, `ClassicalMeasurementCost`, `CoordinationCost` (scaffold — see `Docs/COORDINATION_COST_SEMANTICS.md`) |
+| **IV. Landauer / observation / erasure** | Erasure obeys second-law input → Landauer-style bound; coordination saving as **floor projection** | `SecondLaw`, erase instance (anchor `LandauerLaw.physicalSecondLaw`, a hypothesis); `LandauerExtension`, `ClassicalMeasurementCost`, `CoordinationCost` (scaffold — see `Docs/COORDINATION_COST_SEMANTICS.md`) |
 | **V. Double-slit, TMI, epistemic layer** | Complementarity, fringe visibility bound, dephasing, trajectory MI | Package **`umst-formal-double-slit`**: `GeneralVisibility.fringeVisibility_n_le_one`, `LindbladDynamics.dephasingSolution_tendsto_diagonal`, `EpistemicMI` / `EpistemicTrajectoryMI` |
 | **VI. Classical economic / burden layer (meso)** | Shannon–Landauer “economic temperature”, burden steps vs `Admissible`, stochastic drift, classical surrogates for exploration cost | **`Lean/Economic/`** (17 named modules + `EconomicDomain`); **no** new physics axioms; surrogates and shells classified in [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md) and [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) |
 
@@ -68,7 +69,7 @@ Index of **major published themes** (five-paper programme) to **in-repo** anchor
 | Check | Result |
 |--------|--------|
 | `lake build` (all `lakefile` roots) | **Succeeded** (verified in workspace) |
-| `^axiom ` in `Lean/*.lean` (excluding `.lake`) | **1** — `LandauerLaw.physicalSecondLaw` only |
+| `^axiom ` in `Lean/*.lean` (excluding `.lake`) | **0** — the law is the predicate `SecondLaw` |
 | Tactic `sorry` / `admit` / `Admitted` in `Lean/*.lean` | **None** (the word “sorry” appears only in **comments** in core modules) |
 | `theorem` / `lemma` in **`lakefile` roots only** (59 modules) | **294** `theorem`, **24** `lemma` (total **318**) — regenerate via `python3 scripts/lean_declaration_stats.py` |
 | Modules **not** in `lakefile` roots | `_check_ext.lean` — **not** part of `lake build` |
@@ -83,7 +84,7 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 |--------|----------------|------|
 | Clausius–Duhem / gate | `Compat.Gate.Admissible`, `Admissible.clausiusDuhem`, `Concrete.Gate.gateCheckSound` / `gateCheckComplete` | Predicate = universal core (`CoreAdmissible`) + cement conjuncts (`ConcreteAdmissible`); checked transitions satisfy it by `gateCheck` definition. |
 | Graded composition | `Concrete.Gate.admissibleN_compose`, `Core.Constitutional` Kleisli lemmas | Replaces removed `admissibleTrans`; proved (triangle inequality), not axiomatized. |
-| Landauer / observation cost | `LandauerLaw`, `ClassicalMeasurementCost`, extensions | **Single** project `axiom`: `physicalSecondLaw` (Clausius inequality input). |
+| Landauer / observation cost | `LandauerLaw`, `ClassicalMeasurementCost`, extensions | The Clausius inequality enters as the hypothesis `SecondLaw` (erase instance, anchor `physicalSecondLaw`); no project `axiom`. |
 | Hydration | `Concrete.Convergence.HydrationInUnitInterval`, `ConstitutionalStream` | Hypothesis-driven; no hydration axiom. |
 | DIB ↔ gate | `dib_semantic_step_admissible`, `dibArtifactGateCheck_eq_true` | **Non-identity** `artifactSemanticStep` (ψ decreases); `gateCheck` always **true** on the interpreted step. Opaque `discover`/`invent`/`build` still unlinked from concrete thermo traces. |
 
@@ -111,7 +112,7 @@ Procedure: `rm -rf .lake && lake build` under `Lean/` (fresh Mathlib checkout + 
 |:-----|:----------|
 | Lean default roots | `lake build UMST` — **59** modules in `lakefile.lean` |
 | Tactic gaps | **Zero** `sorry` / `admit` in `Lean/**/*.lean` (excl. `.lake`); CI: `scripts/check_lean_sorry.sh` |
-| Project axiom | Exactly **`LandauerLaw.physicalSecondLaw`**; CI: `scripts/check_lean_axioms.py` |
+| Project axioms | **Zero**; the law is the hypothesis `SecondLaw`; CI: `scripts/check_lean_axioms.py` |
 | Declaration drift | Totals match `scripts/expected_lean_declaration_snapshot.json`; CI: `lean_declaration_stats.py --verify-snapshot` |
 | Mathlib axiom baseline (cartridge anchors) | CI: `scripts/check_print_axioms.sh` after `lake build` (headline theorems only; see `Lean/scripts/print_axioms.lean`) |
 | Coq / Agda / Haskell | CI jobs per `.github/workflows/ci.yml` (see `Docs/PROOF-REPLAY.md`) |

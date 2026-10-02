@@ -12,7 +12,7 @@
   **Not claimed:** neural NLU, semantic truth detection, or deployed safety products.
   See `SAFETY-LIMITS.md`.
 
-  Single-axiom discipline: zero new Lean `axiom` declarations.
+  One-law discipline: zero Lean `axiom` declarations; physics enters only through `SecondLaw`.
   L₀ boundary: imports `SemanticSecondLaw` + Economic scaffolding only.
 -/
 

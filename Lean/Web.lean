@@ -4,8 +4,8 @@
   UMST-Formal: Web.lean
   Phase 0 — informational web domain foundation (Umst-Web v0.1 blueprint §10).
 
-  Single-axiom discipline: informational admissibility embeds in `physicalSecondLaw` via
-  the Landauer rendering leg — no additional project axioms.
+  One-law discipline: informational admissibility embeds in `physicalSecondLaw` (the erase instance of
+  `SecondLaw`) via the Landauer rendering leg; no project axiom.
 -/
 
 import LandauerLaw
@@ -124,7 +124,7 @@ theorem web_rendering_n_bit_floor {n : ℕ} (T : ℝ) (hT : 0 < T)
   landauerBound_nBit n T hT procs hbath hSL
 
 /-- **Embedding lemma**: informational rendering cost is bounded below by the physical
-    Landauer scale anchored in `physicalSecondLaw` (single-axiom discipline). -/
+    Landauer scale anchored in `physicalSecondLaw`, the erase instance of `SecondLaw`. -/
 theorem landauer_rendering_embeds_physical (w : WebRenderWitness)
     (hSL : physicalSecondLawUniformBinary w.proc)
     (hbit : w.bits.val = 1) :

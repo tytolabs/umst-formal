@@ -85,7 +85,7 @@ This matches the W9 agnostic-kernel pattern: modulation in cartridge/spatial lay
 
 ## No new axioms
 
-Increment 1 adds **zero** Lean axioms. The sole project axiom remains `LandauerLaw.physicalSecondLaw` per `FORMAL_FOUNDATIONS.md`.
+Increment 1 adds **zero** Lean axioms. The project declares no axiom; the physical law is the predicate `SecondLaw` per `FORMAL_FOUNDATIONS.md`.
 
 The rational von Mangoldt surrogate `vonMangoldtWeight` uses `IsPrimePow` and `minFac` from Mathlib; it is **not** identified with the real-valued `Λ n = log p` in the ℚ layer (log lives in `ArithmeticFunction.vonMangoldt : ArithmeticFunction ℝ`).
 
@@ -116,7 +116,7 @@ Modules register via `umst-formal-double-slit/tools/lean_export/export_catalog.p
 
 1. H. Davenport, *Multiplicative Number Theory* (3rd ed.) — von Mangoldt, explicit formula.
 2. H. L. Montgomery, R. C. Vaughan, *Multiplicative Number Theory I* — prime distribution statistics.
-3. TYTO `umst-formal/FORMAL_FOUNDATIONS.md` — single-axiom policy, DIB Kleisli semantics.
+3. TYTO `umst-formal/FORMAL_FOUNDATIONS.md` — one-law policy, DIB Kleisli semantics.
 4. TYTO `umst-formal/Lean/Compat/Gate.lean` + `Lean/Concrete/Gate.lean` — four-conjunct admissibility, graded `AdmissibleN`.
 5. TYTO `umst-manifold/docs/GOD_GRADE_WITNESS_LADDER.md` — proof library vs gate law split.
 

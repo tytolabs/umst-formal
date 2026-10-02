@@ -9,7 +9,7 @@
 
   **BridgeHypothesis:** `amplitude_bound_le_one` (Tier-2; `R-LS3-bridge-prove`).
 
-  Physics: sole axiom `LandauerLaw.physicalSecondLaw` — crypto and bridge rows do not extend it.
+  Physics: the one predicate `SecondLaw` (erase-instance anchor `LandauerLaw.physicalSecondLaw`); crypto and bridge rows do not extend it.
 
   **No axiom.** The bound is a field of `Spec`, discharged where a channel model is supplied.
 -/

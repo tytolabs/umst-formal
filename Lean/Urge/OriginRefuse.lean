@@ -172,7 +172,7 @@ def applyOriginRefuseMorphism (remote : OriginRemoteDescriptor)
     | .refused r => ((none : Option OriginRefuseMorphism), some r)
 
 -- ================================================================
--- SECTION 4: Landauer bridge (sole physics axiom — imported)
+-- SECTION 4: Landauer bridge (the erase instance of `SecondLaw` — imported)
 -- ================================================================
 
 structure OriginHistoryMove where

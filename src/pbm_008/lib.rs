@@ -33,7 +33,7 @@ pub const WORKSTREAM_ID: &str = "WS-formal-anchors";
 /// `umst.toml` manifest owner for formal anchor pins.
 pub const UMST_TOML_RELPATH: &str = "umst-formal/umst.toml";
 
-/// Lean sole physics axiom surface.
+/// Lean surface of `physicalSecondLaw`, the erase instance of the one predicate `SecondLaw`.
 pub const LEAN_PHYSICAL_SECOND_LAW: &str = "Lean/LandauerLaw.lean";
 
 /// Lean mechanised sequential-composition anchor.
@@ -126,7 +126,7 @@ pub const FORMAL_ANCHOR_WIRE_HOPS: [Pbm008FormalAnchorWireHop; WIRE_HOP_COUNT] =
         hop: 1,
         wire_id: "lean_axiom_anchor",
         surface: LEAN_PHYSICAL_SECOND_LAW,
-        delegate: "sole physics axiom `physicalSecondLaw` — honestly [assumed]",
+        delegate: "erase instance `physicalSecondLaw` of the predicate `SecondLaw` — a hypothesis, no axiom",
         status: "LANDED",
         wired: true,
     },

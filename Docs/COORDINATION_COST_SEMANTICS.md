@@ -44,12 +44,12 @@ Label every UI / cert string that surfaces this number as **projection** or **fl
 | **A7-4 n-ary** | `multiInformationBits`, `multiInformationNats`, `coordinationSavingGlobalJoules` | Total correlation `I_n = Σᵢ H(Xᵢ) − H(joint)` in bits |
 | **A7-4 channel split** | `PhysicalMultiInfoChannel`, `EpistemicMultiInfoDraft`, `PhysicalMiChannel`, `EpistemicMiDraft` | N-ary + pairwise physical vs epistemic (no epistemic→thermo slip) |
 | **n=2 reduction** | `multiInformationBits_pair_eq_mutualInformationBits`, `global_floor_pair_agrees` | Global scalar reduces to pairwise SSOT on `JointDist` |
-| **Thermodynamic bound** | `landauerBound` (`LandauerLaw`) | Erasure work ≥ \(T \ln 2\) (uses sole project axiom `physicalSecondLaw`) |
+| **Thermodynamic bound** | `landauerBound` (`LandauerLaw`) | Erasure work ≥ \(T \ln 2\) (under the hypothesis `physicalSecondLawUniformBinary`, the erase instance of `SecondLaw`) |
 | **Operational orthogonality** | `kleisli_compose_preserves_admissibility` tests (Rust) | `coordination_saving` does not alter `gate<R>` |
 
 ---
 
-## 3. What is proved in the scaffold
+## 3. Proved content of the scaffold
 
 All of the following are machine-checked without new axioms or `sorry` (42 theorems):
 

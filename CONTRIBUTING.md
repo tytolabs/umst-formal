@@ -52,7 +52,7 @@ person familiar with the relevant layer (Agda, Coq, Lean 4, Haskell, or Rust).
 
 ## Commit Messages
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+Follow [Conventional Commits][conventional-commits]:
 
 ```text
 feat(agda): add monoidal structure proof for Activation layer
@@ -127,3 +127,5 @@ Open a GitHub issue with:
 - Which layer (Agda / Coq / Lean 4 / Haskell / Rust) is affected.
 - The minimal reproducer.
 - Which invariant is (potentially) violated.
+
+[conventional-commits]: https://www.conventionalcommits.org/

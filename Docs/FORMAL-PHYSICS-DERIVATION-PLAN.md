@@ -12,7 +12,7 @@ classifies claims by **logical and model-theoretic prerequisites** only.
 
 ---
 
-## 0. How “cannot be proven” is stated mathematically
+## 0. Mathematical statement of “cannot be proven”
 
 Let **L₀** be the formal language of the current mechanized core: discrete (or
 rational-scoped) thermodynamic states, the `admissible` transition predicate,
@@ -50,7 +50,7 @@ To **derive** a physical statement **S** means:
 *mathematical model*.  Validity of **A_ext** relative to experiment is **external**
 to the formal proof.
 
-### 0.3 What this document does *not* claim
+### 0.3 Claims outside this document
 
 - It does **not** assert that any **A_ext** is “true in reality.”
 - It does **not** replace textbooks or peer-reviewed derivations; it lists **proof
@@ -83,7 +83,7 @@ A typical formal shape (schematic):
 |------------|------|
 | Type of **microstates** / device + reservoir | state space \(\Omega\) |
 | **Entropy** functional \(S\) (Gibbs, von Neumann, or operational) | second-law bookkeeping |
-| Class **𝒞** of **processes** (CPTP maps, stochastic kernels, …) | what “erasure” means |
+| Class **𝒞** of **processes** (CPTP maps, stochastic kernels, …) | the meaning of “erasure” |
 | **Logical irreversibility** predicate on maps | distinguishes reset-to-zero from reversible maps |
 | **Second law** as axiom or as **theorem** from microscopic dynamics | supplies \(\Delta S \ge 0\) style input |
 
@@ -231,7 +231,7 @@ No edge implies **“true in Nature”**; edges are **proof dependencies** only.
 
 ## 8. Summary table
 
-| Topic | In L₀ today? | To derive as a theorem | Typical alternative (honest) |
+| Topic | In L₀ today | To derive as a theorem | Typical alternative (honest) |
 |-------|----------------|-------------------------|------------------------------|
 | Landauer **scale** + SR mass | Yes (definitions + analysis) | N/A (already algebraic) | — |
 | Landauer **law** for processes | **No** | Extend with **𝒞**, \(S\), second law / microdynamics | Axiom bundle for **𝒞** + \(S\) |

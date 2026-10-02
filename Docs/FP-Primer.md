@@ -1295,7 +1295,7 @@ combinator: the proof term is present but its specific value is discarded.
 
 ---
 
-## How These Concepts Combine in UMST-Formal
+## Composition of These Concepts in UMST-Formal
 
 The table below maps each formal concept to its concrete role in this codebase.
 

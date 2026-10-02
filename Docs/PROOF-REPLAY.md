@@ -30,7 +30,7 @@ prerequisites and the sense in which advanced claims are **not in L₀** are in
 | 6b. Haskell Landauer sanity | `cd Haskell && cabal test landauer-einstein-sanity` | Lean tight bracket (engineering check) |
 | 7. Haskell ↔ Rust FFI | Build bridge, then `cd Haskell && cabal test umst-ffi-correspondence -f with-ffi` | Optional test suite (see below) |
 | 8. Lean declaration stats | `make lean-stats` (repo root) or `python3 scripts/lean_declaration_stats.py` | Regenerates counts; CI compares to `scripts/expected_lean_declaration_snapshot.json` |
-| 8b. Axiom invariant | `python3 scripts/check_lean_axioms.py` | Exactly `LandauerLaw.physicalSecondLaw` |
+| 8b. Axiom invariant | `python3 scripts/check_lean_axioms.py` | Zero project axioms |
 | 8c. Snapshot drift | `python3 scripts/lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json` | Same gate as CI Lean job |
 | 8d. Cartridge-anchor axiom baseline | `make lean-print-axioms` (repo root) or `bash scripts/check_print_axioms.sh` | After `lake build`; same as CI step on headline theorems |
 | 8e. Markdown links | `bash scripts/check-markdown-links.sh` | Curated corpus; same as CI docs job |

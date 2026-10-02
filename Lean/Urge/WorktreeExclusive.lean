@@ -134,7 +134,7 @@ theorem evaluateClaimOperation_exclusiveAdmit :
     evaluateClaimOperation false = .exclusiveAdmit := rfl
 
 -- ================================================================
--- SECTION 4: Landauer bridge (sole physics axiom — imported)
+-- SECTION 4: Landauer bridge (the erase instance of `SecondLaw` — imported)
 -- ================================================================
 
 structure WorktreeHistoryMove where

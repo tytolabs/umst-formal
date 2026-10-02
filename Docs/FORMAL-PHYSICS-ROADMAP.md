@@ -38,7 +38,7 @@ a `PROOF-STATUS.md` row.
 
 ---
 
-## 2. What this repository already proves (relevant background)
+## 2. Results this repository already proves (relevant background)
 
 | Layer | Content |
 |-------|---------|
@@ -140,7 +140,7 @@ Use this list when **adding** new physics to the tree.
 
 ---
 
-## 6. What this roadmap explicitly does **not** do
+## 6. Work outside this roadmap
 
 - It does not rate truth claims about Nature beyond what is **proved or axiomatized**
   in this repository.

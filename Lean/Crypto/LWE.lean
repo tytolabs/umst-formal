@@ -7,7 +7,7 @@
   Warrant: egoff §14bis.f-S-0 Measurement — `s0_crypto_kem_kat`, `s0_crypto_kem_roundtrip`,
     `s0_crypto_kem_constant_time`, `s0_crypto_registry_constants`, `s0_crypto_malformed_input`
     (umst-algebra/tests).
-  Physics stack: unchanged — sole physics axiom `LandauerLaw.physicalSecondLaw`.
+  Physics stack: unchanged — the one predicate `SecondLaw`, a hypothesis (erase-instance anchor `LandauerLaw.physicalSecondLaw`).
   Full lattice proof: research-frontier residue `R-LS0-full` (very low priority).
 
   **No axiom.** Hardness is a field of `Spec`, discharged where a lattice family is supplied.

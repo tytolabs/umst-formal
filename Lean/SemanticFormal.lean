@@ -9,7 +9,7 @@
   `SemanticEconomicModules`.  This module is the canonical home for the semantic-formal
   extension anchor in `umst-formal`; `umst-semantics/formal` is a retired husk.
 
-  Single-axiom discipline: zero new Lean `axiom` declarations.
+  One-law discipline: zero Lean `axiom` declarations; physics enters only through `SecondLaw`.
 -/
 
 import MeaningState

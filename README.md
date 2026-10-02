@@ -127,7 +127,7 @@ Growth can outrun friction in the stories people tell. The formal layer does not
 
 ## Seventeen Economic modules — one sentence each
 
-Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/EconomicDomain.lean). Each file below is a **lake** root; proofs **compose** existing gate, Landauer, and information theory lemmas (**no** new physics axioms beyond the single project axiom above).
+Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/EconomicDomain.lean). Each file below is a **lake** root; proofs **compose** existing gate, Landauer, and information theory lemmas (**no** project axioms; physics enters only as the hypothesis `SecondLaw`).
 
 | # | Module | Plain-English purpose |
 |---|--------|------------------------|
@@ -531,7 +531,7 @@ See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index.
 | **Agda** | `Gate.agda`, `Naturality.agda`, `Activation.agda`, `DIB-Kleisli.agda`, `InfoTheory.agda`, … | `make check` in CI | `cd Agda && make check` |
 | **Coq** | `Gate.v`, `Constitutional.v`, `LandauerEinsteinBridge.v`, `Extraction.v` | `.vo` build + extraction | `cd Coq && make` |
 | **Haskell** | `Haskell/test/Test.hs` — **33** `prop_*` | QuickCheck + optional FFI | `cabal test umst-properties` |
-| **Lean** | **76** roots, **514** thm + **63** lem (roots-only) | **0** sorry; **1** `axiom` in the repository — `physicalSecondLaw` | `cd Lean && lake build` |
+| **Lean** | **76** roots, **514** thm + **63** lem (roots-only) | **0** sorry; **0** `axiom` (the law is the predicate `SecondLaw`) | `cd Lean && lake build` |
 
 Cross-layer claim map: four gate invariants, naturality, subject reduction, Landauer–Einstein bridge, SDF/FRep — see table in §7 above. **Do not** conflate Agda specification modules with runtime MCP behavior.
 
@@ -625,7 +625,7 @@ Lake roots: 76 modules
 Roots-only:  514 theorem, 63 lemma, total 577
 All Lean/*:  587 theorem, 63 lemma, total 650
 Axioms (^axiom ):
-  LandauerLaw.lean:155  physicalSecondLaw          — the only axiom in this repository
+  (none — the law is the predicate SecondLaw; physicalSecondLaw names its erase instance)
 ```
 
 The 28 former `Crypto/` axioms are gone. Carriers, hardness assumptions and the coverage claim are
@@ -636,8 +636,8 @@ scheme is instantiated instead of asserted globally, and each abstraction now ad
 against the previous all-files count.
 
 - **0** tactic `sorry` in the default rooted closure (`bash scripts/check_lean_sorry.sh`).
-- **1** physical project `axiom`: `physicalSecondLaw` in [`Lean/LandauerLaw.lean:155`](Lean/LandauerLaw.lean).
-- **0** other `axiom` declarations. `Lean/Crypto/` formerly carried 28 (Tier-1 hardness and statement stubs, never Second-Law physics); each is now a field of a `structure`, discharged where a scheme is instantiated. `python3 ../../workspace/scripts/check_axiom_floor.py` enforces the floor across every repository.
+- **0** project `axiom` declarations. The second law is the predicate `SecondLaw` ([`Lean/Process.lean`](Lean/Process.lean)), a hypothesis of every physical result; `physicalSecondLaw` in [`Lean/LandauerLaw.lean`](Lean/LandauerLaw.lean) names its erase instance.
+- `Lean/Crypto/` formerly carried 28 (Tier-1 hardness and statement stubs, never Second-Law physics); each is now a field of a `structure`, discharged where a scheme is instantiated. `python3 ../../workspace/scripts/check_axiom_floor.py` enforces the floor across every repository.
 - After `lake build`, CI runs **`scripts/check_print_axioms.sh`** (Mathlib axiom baseline on headline cartridge-anchor theorems). Paste (same SHA):
 
 ```text
@@ -657,7 +657,7 @@ Counts must match [`PROOF-STATUS.md`](PROOF-STATUS.md) and the pasted script out
 
 ### Inferences from the work
 - **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` _sound_ like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
-- **One physical axiom carries the thermodynamic spine.** Economic-admissibility rests on a single explicit physical axiom, `physicalSecondLaw`, with gate/Kleisli results derived against a Mathlib axiom baseline in CI. `Lean/Crypto/` once carried 28 Tier-1 hardness `axiom`s beside it, and counting them honestly was the right first step; typing them was the better second one. A hardness assumption is not an axiom of the theory — it is an obligation on whoever instantiates the scheme, and expressing it as a `structure` field says so in the type. The repository now declares exactly one `axiom`.
+- **One physical law carries the thermodynamic spine.** Economic-admissibility rests on one predicate, `SecondLaw`, taken as a hypothesis, with gate/Kleisli results derived against a Mathlib axiom baseline in CI. `Lean/Crypto/` once carried 28 Tier-1 hardness `axiom`s beside it, and counting them honestly was the right first step; typing them was the better second one. A hardness assumption is not an axiom of the theory — it is an obligation on whoever instantiates the scheme, and expressing it as a `structure` field says so in the type. The repository now declares no `axiom`: the second law itself became a predicate.
 - **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when _every_ step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
 
 ### Forward path

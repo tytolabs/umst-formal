@@ -35,7 +35,7 @@ Repeat before marking any documentation wave “closed.”
 
 - [x] **Lean:** `cd Lean && lake build` — success (verified 2026-04-03).
 - [x] **Lean:** `rg '^\s*(sorry|admit)\b' Lean --glob '*.lean'` — empty in default closure (re-run before release).
-- [x] **Lean:** `rg '^axiom ' Lean --glob '*.lean'` — `physicalSecondLaw` only (`LandauerLaw.lean`).
+- [x] **Lean:** `rg '^axiom ' Lean --glob '*.lean'` — empty; the law is the predicate `SecondLaw`.
 - [x] **Coq:** `cd Coq && make` — success; `rg 'Admitted' Coq --glob '*.v'` — empty (re-run before release).
 - [x] **Agda:** `cd Agda && make check` — success (re-run before release); `--safe` policy in `PROOF-STATUS`.
 - [x] **Haskell:** `cd Haskell && cabal test umst-properties -f -with-ffi` — pass (re-run before release); optional FFI suite for Rust parity.
@@ -87,7 +87,7 @@ For **each** `UMST.*` root in `lakefile.lean`:
 ## Layer 3 — `FORMAL_FOUNDATIONS.md`
 
 - [x] **Version / wave** — 6.5.2.
-- [x] **Single axiom** — `physicalSecondLaw` only.
+- [x] **One law, no axiom** — the predicate `SecondLaw`, a hypothesis of every physical result.
 - [x] **Paper Claims ↔ Formal Lemmas** — row **VI** + double-slit external package.
 - [x] **Wave verification audit** — **51** roots, **237**/**24**/**261** (roots-only) and **244**/**24**/**268** (all `Lean/*`), matches script.
 - [x] **DIB** — matches `DIBKleisli.lean`.
@@ -148,7 +148,7 @@ For maintainers who open source first:
 ## Layer 7 — Automation & drift control
 
 - [x] **Declaration snapshot:** CI runs `lean_declaration_stats.py --verify-snapshot scripts/expected_lean_declaration_snapshot.json` (update JSON in the same commit as intentional root/count changes).
-- [x] **Single-axiom gate:** CI runs [`scripts/check_lean_axioms.py`](../scripts/check_lean_axioms.py).
+- [x] **Zero-axiom gate:** CI runs [`scripts/check_lean_axioms.py`](../scripts/check_lean_axioms.py).
 - [x] **Sorry/admit gate:** [`scripts/check_lean_sorry.sh`](../scripts/check_lean_sorry.sh) after `lake build`.
 - [x] **Cartridge-anchor axiom baseline:** CI runs [`scripts/check_print_axioms.sh`](../scripts/check_print_axioms.sh) after `lake build` (uses `Lean/scripts/print_axioms.lean`).
 - [x] **Markdown link check:** [`scripts/check-markdown-links.sh`](../scripts/check-markdown-links.sh) + [`scripts/markdown-link-check.json`](../scripts/markdown-link-check.json) in the **Docs lint + Markdown links** CI job (optional private sibling checkout ignored in isolated CI; in-file `#` anchors ignored).

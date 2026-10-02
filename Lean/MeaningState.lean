@@ -13,7 +13,7 @@
   Kleisli composition theorem mirrors `Web.lean` / `KleisliAdmissibilityComposition`
   naming parity (`meaningKleisliComposeWellTyped`).
 
-  Single-axiom discipline: zero new Lean `axiom` declarations.
+  One-law discipline: zero Lean `axiom` declarations; physics enters only through `SecondLaw`.
 -/
 
 import SemanticSecondLaw

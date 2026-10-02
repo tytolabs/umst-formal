@@ -3,7 +3,7 @@
 /-
   UMST — crypto hypothesis metadata (NOT `PhysicsAxiom`).
 
-  Physics stack: sole axiom `LandauerLaw.physicalSecondLaw` (umst-formal / double-slit).
+  Physics stack: the one predicate `SecondLaw` (erase-instance anchor `LandauerLaw.physicalSecondLaw`), a hypothesis; no axiom.
   Crypto warrant: egoff §14bis.f-S-0 Measurement witnesses (umst-algebra `s0_crypto_*` tests).
   Bridge rows: Tier-2 compose targets (e.g. L-S3 amplitude bound) — not Landauer.
 -/

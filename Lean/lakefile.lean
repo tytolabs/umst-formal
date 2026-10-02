@@ -11,10 +11,10 @@ require mathlib from git
   "https://github.com/leanprover-community/mathlib4" @ "v4.14.0"
 
 /-
-  **Lean `roots` (65 modules)** — default `lake build` closure for `UMST`.  Science-cartridge layout:
+  **Lean `roots`** — default `lake build` closure for `UMST`.  Science-cartridge layout:
   `Core.*` (universal laws), `Concrete.*` (OPC cement), `Compat.*` (legacy `UMST` API).
-  (Wave 6.5.2 meso-layer).  Sole physics `axiom`: `LandauerLaw.physicalSecondLaw`;
-  tier-tagged crypto axioms live under `Crypto/` (GROUND-1 / §14bis.f-S-0).
+  (Wave 6.5.2 meso-layer).  No `axiom`: physics enters as the hypothesis `SecondLaw` (erase-instance anchor
+  `LandauerLaw.physicalSecondLaw`); hardness assumptions under `Crypto/` are structure fields.
 
   Examples (single-module builds):
     lake build UMST.Compat.Gate

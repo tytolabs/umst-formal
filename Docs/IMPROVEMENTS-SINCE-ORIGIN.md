@@ -3,7 +3,7 @@ SPDX-License-Identifier: MIT
 # Improvements since `origin/master` (GitHub cloud)
 
 This note summarizes **local** `umst-formal` advances versus the published
-[`tytolabs/umst-formal`](https://github.com/tytolabs/umst-formal) default branch.
+[`tytolabs/umst-formal`][umst-formal] default branch.
 For an exact file list and line counts, run:
 
 ```bash
@@ -110,3 +110,5 @@ cd ../Haskell && cabal build all && cabal test all --test-show-details=streaming
 **Green flag:** run the above in a clean tree; only then commit. Exclude build
 artifacts (e.g. `Coq/.CoqMakefile.d`, `Coq/.nia.cache`, extracted `.ml` if any)
 unless you intend to version them—prefer extending **`.gitignore`**.
+
+[umst-formal]: https://github.com/tytolabs/umst-formal

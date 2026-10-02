@@ -234,7 +234,7 @@ theorem cryptoComposePositiveRefuseNotSilent :
   decide
 
 -- ================================================================
--- SECTION 5: Landauer bridge (sole physics axiom — imported)
+-- SECTION 5: Landauer bridge (the erase instance of `SecondLaw` — imported)
 -- ================================================================
 
 structure CryptoHistoryMove where

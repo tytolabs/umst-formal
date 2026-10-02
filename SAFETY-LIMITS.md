@@ -22,8 +22,9 @@ bookkeeping, and Kleisli composition. It does **not** import the quantum double-
 
 ## Axioms
 
-The only physical `axiom` in `umst-formal/Lean` remains **`LandauerLaw.physicalSecondLaw`** (see
-`FORMAL_FOUNDATIONS.md`). The Economic layer adds **no** new physics axioms.
+`umst-formal/Lean` declares no `axiom`: the second law is the predicate `SecondLaw`, a hypothesis of every physical
+result, and `LandauerLaw.physicalSecondLaw` names its erase instance (see `FORMAL_FOUNDATIONS.md`). The Economic layer
+adds no physics assumption.
 
 ## Build
 

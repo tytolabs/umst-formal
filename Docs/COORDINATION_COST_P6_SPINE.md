@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 |-------|-------|
 | **Job** | `LEAN-COORD-COST` @ 11:42 IST |
 | **Status** | **PARTIAL** — A7 physical floor GREEN; P6 semantic/L10 bridge OPEN |
-| **SSOT** | [`BLUEPRINT_STEELMAN_RESEARCH.md`](../../../docs/BLUEPRINT_STEELMAN_RESEARCH.md) II.5 · VIII.5–VIII.7 · [`CARTRIDGE_REORG_BLUEPRINT.md`](../../../docs/CARTRIDGE_REORG_BLUEPRINT.md) §17.6 |
+| **SSOT** | [`BLUEPRINT_STEELMAN_RESEARCH.md`](../../../workspace/docs/BLUEPRINT_STEELMAN_RESEARCH.md) II.5 · VIII.5–VIII.7 · [`CARTRIDGE_REORG_BLUEPRINT.md`](../../../workspace/docs/CARTRIDGE_REORG_BLUEPRINT.md) §17.6 |
 | **Lean (A7)** | [`Lean/CoordinationCost.lean`](../Lean/CoordinationCost.lean) — **42 thm · 0 sorry** |
 | **Lean (P6 stub)** | [`Lean/CoordinationCostP6.lean`](../Lean/CoordinationCostP6.lean) — standalone; **24 thm · 0 sorry** (G75-L07 A10 gate bind) |
 | **Rust SSOT** | `umst-arcs/crates/umst-arcs/src/coordination_cost.rs` |

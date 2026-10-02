@@ -5,8 +5,8 @@
 
 All notable changes to `umst-formal` are documented here.
 
-The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-Versions follow [Semantic Versioning](https://semver.org/).
+The format follows [Keep a Changelog][keepachangelog].
+Versions follow [Semantic Versioning][semver].
 
 ## [Unreleased]
 
@@ -25,7 +25,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **Coq `Makefile`** — align **`SOURCES`** with `_CoqProject` (`MeasurementCost.v`); fix **`extract`** so it no longer re-runs bare `coqc Extraction.v` (drops `-Q . UMSTFormal` vs `CoqMakefile`), only verifies **`gate_extracted.ml`/`mli`** after **`make all`**.
 - **Lean sources** — `Powers.lean`: `div_le_div_iff₀`, `pow_le_pow_left₀` (Mathlib deprecations); `LandauerExtension.lean`: underscore binders for unused hypotheses (warning-clean under `lake build`).
 - **Docs CI (`markdownlint`)** — relax `MD060` (compact GitHub-style tables), widen default `MD013` line budget for narrative docs, add `README.md` `markdownlint-disable-file` for hero-only rules (`MD001`/`MD026`), fix `CHANGELOG.md` / `Coq/README.md` spacing and fenced-code languages, `CONTRIBUTING.md` fenced language; restore green **`docs`** job.
-- **README** — add single [**CI**](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml) workflow badge (pass/fail visible on GitHub like sibling double-slit repo).
+- **README** — add single [**CI**][ci-workflow] workflow badge (pass/fail visible on GitHub like sibling double-slit repo).
 
 ### Documentation / CI (2026-04-22)
 
@@ -129,3 +129,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - `ffi-bridge/` Rust crate exposing `umst-core` over a C ABI.
 - `Docs/` with `Architecture-Invariants.md` and `OnePager-Categorical.tex`.
 - `README.md` with scientific overview and build instructions.
+
+[keepachangelog]: https://keepachangelog.com/en/1.1.0/
+[semver]: https://semver.org/
+[ci-workflow]: https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml

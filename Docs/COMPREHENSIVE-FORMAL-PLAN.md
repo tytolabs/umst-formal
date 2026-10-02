@@ -87,7 +87,7 @@ Before the axiom was removed, every theorem downstream of `admissibleTrans` was 
 
 ### Axioms (Complete Inventory)
 
-| Axiom | Type | Classification | Witness? |
+| Axiom | Type | Classification | Witness |
 |-------|------|----------------|----------|
 | `psiAntitone` | `∀ s₁ s₂, s₁.hydration ≤ s₂.hydration → s₂.freeEnergy ≤ s₁.freeEnergy` | Physical (over-quantified) | Partial: `ψAntitoneHelmholtz` (conditioned on `HelmholtzState`) |
 | `fcMonotone` | `∀ s₁ s₂, s₁.hydration ≤ s₂.hydration → s₁.strength ≤ s₂.strength` | Physical (over-quantified) | **NONE** |
@@ -120,7 +120,7 @@ s'' = { density := 198, freeEnergy := -450,  hydration := 1,   strength := 100 }
 
 Yet `admissibleTrans` would derive `Admissible s s''`, from which we extract `|198 - 0| ≤ 100`, i.e., `198 ≤ 100` in ℚ — **False**.
 
-### 3.2 Why This Happens
+### 3.2 Cause
 
 The `Admissible` predicate conjoins four conditions. Three are order-theoretic (transitive by `≤`-transitivity):
 - `freeEnergy new ≤ freeEnergy old` (Clausius-Duhem)
@@ -351,9 +351,9 @@ A transition where all four invariants pass but the state is unphysical (e.g., n
 
 ### 6.1 Enriched Category (Lawvere Metric Space)
 
-**What:** Formalize the admissibility relation as a category enriched over `([0,∞], ≥, +)`.
+**Scope:** Formalize the admissibility relation as a category enriched over `([0,∞], ≥, +)`.
 
-**Why:** The mass condition is metric (not order-theoretic). The Lawvere perspective makes the non-transitivity explicit and motivates the graded monad repair from §3.
+**Motivation:** The mass condition is metric (not order-theoretic). The Lawvere perspective makes the non-transitivity explicit and motivates the graded monad repair from §3.
 
 **Implementation:**
 ```lean
@@ -374,9 +374,9 @@ theorem massDistance_triangle (s₁ s₂ s₃ : ThermodynamicState) :
 
 ### 6.2 Fibration (ActivatedUMST)
 
-**What:** Formalize `ActivatedUMST` as a fibration `p : E → MaterialClass` using Mathlib's `CategoryTheory.FiberedCategory`.
+**Scope:** Formalize `ActivatedUMST` as a fibration `p : E → MaterialClass` using Mathlib's `CategoryTheory.FiberedCategory`.
 
-**Why:** Sets up the path toward non-trivial sheaf structure when `MaterialClass` gets subclass ordering.
+**Motivation:** Sets up the path toward non-trivial sheaf structure when `MaterialClass` gets subclass ordering.
 
 **Implementation:**
 ```lean
@@ -396,9 +396,9 @@ theorem fiber_subsingleton (M : MaterialClass) :
 
 ### 6.3 Monoidal Structure
 
-**What:** Define tensor product on `ThermodynamicState` via volume-weighted averaging.
+**Scope:** Define tensor product on `ThermodynamicState` via volume-weighted averaging.
 
-**Why:** Mass conservation is claimed as monoidal coherence (Naturality.agda §8), but nothing is formalized.
+**Motivation:** Mass conservation is claimed as monoidal coherence (Naturality.agda §8), but nothing is formalized.
 
 **Key negative result to prove:**
 ```lean
@@ -413,7 +413,7 @@ theorem gate_not_monoidal :
 
 ### 6.4 Galois Connection
 
-**What:** The four gate conditions form a Galois connection between the lattice of condition-subsets and the lattice of transition-pair predicates.
+**Scope:** The four gate conditions form a Galois connection between the lattice of condition-subsets and the lattice of transition-pair predicates.
 
 **Implementation:**
 ```lean
@@ -434,9 +434,9 @@ theorem galois_connection :
 
 ### 6.5 Non-Discrete Naturality (Future)
 
-**What:** Extend `MaterialClass` to a poset with subclass morphisms (e.g., `CEM_I ≤ CEM_II`). Prove non-trivial naturality.
+**Scope:** Extend `MaterialClass` to a poset with subclass morphisms (e.g., `CEM_I ≤ CEM_II`). Prove non-trivial naturality.
 
-**Why:** The current naturality proof is `rfl`. A non-discrete category would require proving that the gate commutes with material refinement functors — a genuinely non-trivial claim.
+**Motivation:** The current naturality proof is `rfl`. A non-discrete category would require proving that the gate commutes with material refinement functors — a genuinely non-trivial claim.
 
 **Difficulty:** High | **Value:** Very High (but future work)
 
@@ -601,7 +601,7 @@ theorem landauer_bound (n : Nat) (proc : ErasureProcess n)
 
 **ΔL:** `FLRWAnsatz` (scale factor + curvature parameter), `FluidComponent` (ρ, p, w), stress-energy decomposition.
 
-**Where information density enters:** As one `FluidComponent` with ρ_info derived from `massEquivalent`:
+**Entry point of information density:** As one `FluidComponent` with ρ_info derived from `massEquivalent`:
 ```lean
 def informationFluid (bitDensity : ℝ → ℝ) (T : ℝ) : FluidComponent where
   rho := fun t => bitDensity t * massEquivalent T
@@ -784,7 +784,7 @@ Legend: * = physical axiom (interface spec)
 
 These are physically motivated but NOT derivable within any reasonable T_ext:
 
-| Claim | Why It's an Axiom |
+| Claim | Reason for axiom status |
 |-------|-------------------|
 | Second Law of Thermodynamics (in T_LandauerLaw) | Derivation requires full statistical mechanics / microscopic dynamics |
 | Clausius relation on horizons (in T_Jacobson) | Founding physical postulate of Jacobson program |

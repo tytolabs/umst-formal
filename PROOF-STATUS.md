@@ -78,7 +78,7 @@ Phase B (2026-07): Agda / Coq / Haskell **Core / Concrete / Compat** mirrors lan
 
 ### Known follow-on asymmetries (harmless; organizational only)
 
-| Item | Status | Why it is safe |
+| Item | Status | Safety reason |
 |------|--------|----------------|
 | Coq `Constitutional.v` not split into Core/Compat | Deferred | Imports `UMSTFormal.Gate` shim; graded Kleisli lemmas unchanged; concrete-only |
 | No separate Coq `Concrete/Helmholtz.v` | Deferred | `helmholtz_antitone` proved in `Concrete/Gate.v` §8 |
@@ -285,7 +285,7 @@ why claims are not in the core language):** `Docs/FORMAL-PHYSICS-DERIVATION-PLAN
 **Coq axioms:** `kB_SI_pos`, `c_SI_pos`, `ln2_pos`. The parameter `ln2` is not defined
 as `ln(2)` inside Coq; Lean binds `ln 2` via Mathlib.
 
-**What the 300 K brackets entail.** They follow from the **definitions** above,
+**Consequences of the 300 K brackets.** They follow from the **definitions** above,
 special-relativistic \(E=mc^2\), the **SI** formalization used in Lean, **fixed**
 \(T=300\) K, and Mathlib’s bounds on \(\ln 2\) (the tight interval uses
 `Real.log_two_near_10`, \(\sim 10^{-10}\) on \(\ln 2\); finer bounds require a
@@ -481,7 +481,7 @@ job `lean`.
 The Haskell property tests provide an additional computational layer that
 validates the formal proofs against randomly generated states.
 
-| Property | What it checks |
+| Property | Check |
 |----------|---------------|
 | `prop_gate_deterministic` | Gate is a pure function (same inputs, same output) |
 | `prop_mass_conservation_spec` | Gate accepts iff mass condition holds |
