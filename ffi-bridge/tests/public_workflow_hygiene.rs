@@ -7,10 +7,12 @@ use std::fs;
 use std::path::PathBuf;
 
 fn formal_repo_root() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .parent()
-        .expect("ffi-bridge parent is umst-formal root")
-        .to_path_buf()
+    PathBuf::from(
+        std::env::var("CARGO_MANIFEST_DIR").expect("cargo sets CARGO_MANIFEST_DIR for tests"),
+    )
+    .parent()
+    .expect("ffi-bridge parent is umst-formal root")
+    .to_path_buf()
 }
 
 #[test]

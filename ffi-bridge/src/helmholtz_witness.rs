@@ -82,7 +82,10 @@ mod tests {
     use super::*;
 
     fn formal_root() -> std::path::PathBuf {
-        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..")
+        std::path::PathBuf::from(
+            std::env::var("CARGO_MANIFEST_DIR").expect("cargo sets CARGO_MANIFEST_DIR for tests"),
+        )
+        .join("..")
     }
 
     #[test]

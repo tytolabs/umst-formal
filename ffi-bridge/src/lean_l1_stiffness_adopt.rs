@@ -118,9 +118,11 @@ mod tests {
     const LEAN_SOURCE_RELPATH: &str = "Lean/Concrete/StiffnessTransition.lean";
 
     fn lean_source() -> String {
-        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("..")
-            .join(LEAN_SOURCE_RELPATH);
+        let path = std::path::PathBuf::from(
+            std::env::var("CARGO_MANIFEST_DIR").expect("cargo sets CARGO_MANIFEST_DIR for tests"),
+        )
+        .join("..")
+        .join(LEAN_SOURCE_RELPATH);
         std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))
     }
 
