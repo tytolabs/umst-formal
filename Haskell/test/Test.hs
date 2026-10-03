@@ -33,6 +33,9 @@ import qualified UMST.OneInequality as O
 import qualified UMST.CoarseGraining as CG
 import qualified UMST.Semantic as SM
 import qualified UMST.CostOfInformation as CI
+import qualified UMST.Chem.Kleisli as K
+import qualified UMST.UrgeAdmitKleisli as UA
+import qualified UMST.UrgeProvenancePreserve as UP
 import CreditGreedy
 import Dignity
 import EtaCog
@@ -448,6 +451,94 @@ prop_econ_cost_split_nonneg :: Double -> Double -> Property
 prop_econ_cost_split_nonneg qp qw =
   qp >= 0 && qw >= 0 ==>
     qp + qw >= 0 - 1e-15
+
+------------------------------------------------------------------------
+-- Urge history moves on the one second law (UMST.UrgeAdmitKleisli, UMST.UrgeProvenancePreserve)
+------------------------------------------------------------------------
+
+-- A history move whose head move passes the gate (the identity step or a small step) and whose erasure dissipates
+-- between half and twice the Landauer floor of the erased distribution, so both verdicts occur often.
+genTransition :: Gen UA.HistoryTransition
+genTransition = do
+  old <- genState
+  new <- oneof [pure old, genStepFrom old]
+  c0 <- choose (0, 50)
+  c1 <- choose (0, 50)
+  temp <- choose (1, 1000)
+  p <- choose (0, 1)
+  factor <- choose (0.5, 2)
+  let erased = P.ProbDist2 p
+      e = P.ErasureProcess (P.HeatBath temp) (factor * temp * P.shannon2 erased)
+  maybe discard pure (UA.mkHistoryTransition (UA.HistorySnapshot c0 old) (UA.HistorySnapshot c1 new) e erased)
+
+-- Admissibility is the Clausius bound of the erasure (twin of admissibleHistoryTransition_iff).
+prop_urge_admit_clausius :: Property
+prop_urge_admit_clausius = forAll genTransition $ \t ->
+  let e = UA.erasureProcess t
+      adm = UA.admissibleHistoryTransition t
+   in cover 20 adm "admissible" $ cover 20 (not adm) "refused" $
+        adm === (P.shannon2 (UA.erasedDist t) <= P.work e / P.bathTemp (P.erasureBath e))
+
+-- Head moves are Kleisli arrows over thermodynamic states: the identity, a shift, a gate-checked shift, a shift
+-- below a density cutoff, and the arrow that always refuses.
+genArrow :: Gen K.KleisliArrow
+genArrow = do
+  dRho <- choose (-150, 150)
+  dAl <- choose (-0.02, 0.1)
+  cutoff <- choose (1000, 3000)
+  let shift (ThermodynamicState rho psi al fc fcMax) = ThermodynamicState (rho + dRho) psi (al + dAl) fc fcMax
+  frequency
+    [ (3, pure UA.admitIdentity)
+    , (4, pure (Just . shift))
+    , (2, pure (K.makeGateArrow shift))
+    , (2, pure (\s -> if density s < cutoff then Just (shift s) else Nothing))
+    , (1, pure (const Nothing))
+    ]
+
+forAllArrow :: Testable p => (K.KleisliArrow -> p) -> Property
+forAllArrow = forAllShow genArrow (const "<arrow>")
+
+prop_urge_kleisli_assoc :: Property
+prop_urge_kleisli_assoc = forAllArrow $ \f -> forAllArrow $ \g -> forAllArrow $ \h -> forAll genState $ \s ->
+  let r = K.kleisliCompose (K.kleisliCompose f g) h s
+   in cover 25 (r /= Nothing) "composite succeeds" $ r === K.kleisliCompose f (K.kleisliCompose g h) s
+
+prop_urge_kleisli_left_unit :: Property
+prop_urge_kleisli_left_unit = forAllArrow $ \f -> forAll genState $ \s ->
+  cover 40 (f s /= Nothing) "arrow succeeds" $ K.kleisliCompose UA.admitIdentity f s === f s
+
+prop_urge_kleisli_right_unit :: Property
+prop_urge_kleisli_right_unit = forAllArrow $ \f -> forAll genState $ \s ->
+  cover 40 (f s /= Nothing) "arrow succeeds" $ K.kleisliCompose f UA.admitIdentity s === f s
+
+-- Provenance aligned to a move's prior commit, with a random stamp chain and witness.
+genProvenanceAt :: Int -> Gen UP.Provenance
+genProvenanceAt c = UP.Provenance <$> listOf (choose (0, 50)) <*> pure c <*> frequency [(7, pure True), (3, pure False)]
+
+-- A candidate post provenance: the one the move produces, the same without its witness, or an arbitrary one.
+genPost :: UA.HistoryTransition -> UP.Provenance -> Gen UP.Provenance
+genPost t prior = frequency
+  [ (5, pure (UP.postProvenance t prior))
+  , (2, pure (UP.postProvenance t prior) { UP.landauerWitness = False })
+  , (1, UP.Provenance <$> listOf (choose (0, 50)) <*> choose (0, 50) <*> arbitrary)
+  ]
+
+prop_urge_preserves_chain_append :: Property
+prop_urge_preserves_chain_append = forAll genTransition $ \t ->
+  forAll (genProvenanceAt (UA.commitId (UA.priorSnapshot t))) $ \prior -> forAll (genPost t prior) $ \post ->
+    UP.preserves t prior post ==> UP.ucrsChain post === UP.ucrsChain prior ++ [UP.dagCommit prior]
+
+prop_urge_preserves_witness_retained :: Property
+prop_urge_preserves_witness_retained = forAll genTransition $ \t ->
+  forAll (genProvenanceAt (UA.commitId (UA.priorSnapshot t))) $ \prior -> forAll (genPost t prior) $ \post ->
+    UP.preserves t prior post && UP.landauerWitness prior ==> UP.landauerWitness post
+
+prop_urge_post_provenance_preserves :: Property
+prop_urge_post_provenance_preserves = forAll genTransition $ \t ->
+  forAll (oneof [pure (UA.commitId (UA.priorSnapshot t)), choose (0, 50)]) $ \c ->
+  forAll (genProvenanceAt c) $ \prior ->
+    UP.dagCommit prior == UA.commitId (UA.priorSnapshot t) && UA.admissibleHistoryTransition t
+      ==> UP.preserves t prior (UP.postProvenance t prior)
 
 ------------------------------------------------------------------------
 -- Runner
@@ -1118,6 +1209,13 @@ main = do
   check r prop_concrete_gate_secondLaw
   check r prop_concrete_helmholtz_secondLaw_iff
   check r prop_process_erasure_additive
+  check r prop_urge_admit_clausius
+  check r prop_urge_kleisli_assoc
+  check r prop_urge_kleisli_left_unit
+  check r prop_urge_kleisli_right_unit
+  check r prop_urge_preserves_chain_append
+  check r prop_urge_preserves_witness_retained
+  check r prop_urge_post_provenance_preserves
   check r prop_powers_coefficient_balance
   check r prop_powers_volume_balance
   check r prop_powers_gel_fits_iff

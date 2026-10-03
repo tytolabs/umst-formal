@@ -30,6 +30,8 @@ library
     UMST.CoarseGraining
     UMST.Semantic
     UMST.CostOfInformation
+    UMST.UrgeAdmitKleisli
+    UMST.UrgeProvenancePreserve
     UMST.Chem.SecondLaw
     UMST.CoordinationContract
     UMST.Chem.Constants.ConstantsSheaf

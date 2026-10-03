@@ -1591,6 +1591,146 @@
     "name": "prop_cost_eta_cog_le_of_secondLaw",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "urge.admit_kleisli.admissibleHistoryTransition_iff",
+   "statement": "a history move is admissible under the one predicate exactly when the entropy of the erased distribution is at most the work over the bath temperature (Agda carries the erased distribution by its entropy and the erasure by the entropy W/T it dissipates, so the bound reads erased entropy ≤ dissipated entropy)",
+   "lean": {
+    "name": "admissibleHistoryTransition_iff",
+    "file": "Lean/Urge/AdmitKleisli.lean"
+   },
+   "coq": {
+    "name": "admissibleHistoryTransition_iff",
+    "file": "Coq/UrgeAdmitKleisli.v"
+   },
+   "agda": {
+    "name": "admissible-history-transition-iff",
+    "file": "Agda/UrgeAdmitKleisli.agda"
+   },
+   "haskell": {
+    "name": "prop_urge_admit_clausius",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "urge.admit_kleisli.kleisliComposeAssocAt",
+   "statement": "Kleisli composition of history head moves is associative at every state",
+   "lean": {
+    "name": "kleisliComposeAssocAt",
+    "file": "Lean/Urge/AdmitKleisli.lean"
+   },
+   "coq": {
+    "name": "kleisliComposeAssocAt",
+    "file": "Coq/UrgeAdmitKleisli.v"
+   },
+   "agda": {
+    "name": "kleisli-compose-assoc-at",
+    "file": "Agda/UrgeAdmitKleisli.agda"
+   },
+   "haskell": {
+    "name": "prop_urge_kleisli_assoc",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "urge.admit_kleisli.kleisliLeftUnitAt",
+   "statement": "the Kleisli identity is a left unit of composition at every state",
+   "lean": {
+    "name": "kleisliLeftUnitAt",
+    "file": "Lean/Urge/AdmitKleisli.lean"
+   },
+   "coq": {
+    "name": "kleisliLeftUnitAt",
+    "file": "Coq/UrgeAdmitKleisli.v"
+   },
+   "agda": {
+    "name": "kleisli-left-unit-at",
+    "file": "Agda/UrgeAdmitKleisli.agda"
+   },
+   "haskell": {
+    "name": "prop_urge_kleisli_left_unit",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "urge.admit_kleisli.kleisliRightUnitAt",
+   "statement": "the Kleisli identity is a right unit of composition at every state",
+   "lean": {
+    "name": "kleisliRightUnitAt",
+    "file": "Lean/Urge/AdmitKleisli.lean"
+   },
+   "coq": {
+    "name": "kleisliRightUnitAt",
+    "file": "Coq/UrgeAdmitKleisli.v"
+   },
+   "agda": {
+    "name": "kleisli-right-unit-at",
+    "file": "Agda/UrgeAdmitKleisli.agda"
+   },
+   "haskell": {
+    "name": "prop_urge_kleisli_right_unit",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "urge.provenance_preserve.preserves_chain_append",
+   "statement": "a move that preserves provenance extends the stamp chain by the prior commit",
+   "lean": {
+    "name": "preserves_chain_append",
+    "file": "Lean/Urge/ProvenancePreserve.lean"
+   },
+   "coq": {
+    "name": "preserves_chain_append",
+    "file": "Coq/UrgeProvenancePreserve.v"
+   },
+   "agda": {
+    "name": "preserves-chain-append",
+    "file": "Agda/UrgeProvenancePreserve.agda"
+   },
+   "haskell": {
+    "name": "prop_urge_preserves_chain_append",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "urge.provenance_preserve.preserves_witness_retained",
+   "statement": "a move that preserves provenance retains a held second-law witness (the Haskell witness slot is a Boolean)",
+   "lean": {
+    "name": "preserves_witness_retained",
+    "file": "Lean/Urge/ProvenancePreserve.lean"
+   },
+   "coq": {
+    "name": "preserves_witness_retained",
+    "file": "Coq/UrgeProvenancePreserve.v"
+   },
+   "agda": {
+    "name": "preserves-witness-retained",
+    "file": "Agda/UrgeProvenancePreserve.agda"
+   },
+   "haskell": {
+    "name": "prop_urge_preserves_witness_retained",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "urge.provenance_preserve.postProvenance_preserves",
+   "statement": "an admissible history move from the prior's commit preserves provenance; the one predicate discharges the witness (the Haskell witness slot is a Boolean)",
+   "lean": {
+    "name": "postProvenance_preserves",
+    "file": "Lean/Urge/ProvenancePreserve.lean"
+   },
+   "coq": {
+    "name": "postProvenance_preserves",
+    "file": "Coq/UrgeProvenancePreserve.v"
+   },
+   "agda": {
+    "name": "postProvenance-preserves",
+    "file": "Agda/UrgeProvenancePreserve.agda"
+   },
+   "haskell": {
+    "name": "prop_urge_post_provenance_preserves",
+    "file": "Haskell/test/Test.hs"
+   }
   }
  ]
 }
