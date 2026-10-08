@@ -86,7 +86,7 @@ lean_lib «UMST» where
     `Compat.Gate, `Compat.Constitutional,
     `MaterialClass, `DIBKleisli, `FormalFoundations,
     `LandauerEinsteinBridge,
-    `LandauerLaw, `Process, `OneInequalitySecondLaw, `ConvexPhiDissipation, `CostOfInformation,
+    `LandauerLaw, `Process, `OneInequalitySecondLaw, `ConvexPhiDissipation, `ConvexPhiChannels, `CostOfInformation,
     `CoarseGraining, `InfoTheory, `SemanticSecondLaw, `MeaningState, `SemanticFormal, `InterpretationFunctor, `SemanticEconomicModules,
     `ClassicalMeasurementCost, `CoordinationCost, `CoordinationContract, `LandauerExtension, `FiberedActivation, `MonoidalState, `PrimeSpectralGuidance, `PrimeSpectralCategory,
     `SeparationBound,

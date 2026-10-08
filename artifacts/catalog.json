@@ -1608,6 +1608,36 @@
       "module": "Constants.SIBridge"
     },
     {
+      "path": "ConvexPhiChannels.lean",
+      "content_sha256": "cc0efa96000e6e317eea26c508093dda0027b8b92a64bf570c85686e13cc09db",
+      "declarations": {
+        "structure": [
+          "GsmMultiPotential",
+          "PassiveGsmEnergyInequality"
+        ],
+        "def": [
+          "multiDissipationPower",
+          "pronyPotential",
+          "pronySeries"
+        ],
+        "theorem": [
+          "multi_dissipation_nonneg",
+          "inequality_secondLaw",
+          "supplied_inequality_secondLaw",
+          "multi_secondLaw",
+          "prony_dissipationPower_eq",
+          "prony_dissipation_nonneg",
+          "prony_secondLaw",
+          "restitution_le_one",
+          "restitution_energy_loss_nonneg"
+        ]
+      },
+      "import_lines": [
+        "ConvexPhiDissipation"
+      ],
+      "module": "ConvexPhiChannels"
+    },
+    {
       "path": "ConvexPhiDissipation.lean",
       "content_sha256": "256309c298beeb34daf489d88243252c05be73069f8794ecbb838493c97cd4b2",
       "declarations": {
@@ -6616,7 +6646,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "33a12445a8e2416d16ef27a582d0b9cac34fdd3e3483156c03408a6d34411404",
+      "content_sha256": "7860472a64d4c09434f3aaba3649280c4f494ca3c4f84b29e9aaa4f14627a714",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7164,6 +7194,11 @@
       "from": "Constants.SIBridge",
       "import": "Process",
       "to_approx": "Process"
+    },
+    {
+      "from": "ConvexPhiChannels",
+      "import": "ConvexPhiDissipation",
+      "to_approx": "ConvexPhiDissipation"
     },
     {
       "from": "ConvexPhiDissipation",
@@ -9026,5 +9061,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "a852c8b27b79df49f31dcae1cd3a38614d226e8ad01fd26e2a55f106109a91e5"
+  "digest": "72593457f1b31264e8da3e8297c945f99cf5651e0aa993328ff581bf9ad0610d"
 }
