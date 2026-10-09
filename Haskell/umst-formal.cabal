@@ -29,6 +29,8 @@ library
     UMST.Process
     UMST.Excitement
     UMST.OneInequality
+    UMST.FluctuationTheorem
+    UMST.UncertaintyRelation
     UMST.CoarseGraining
     UMST.Semantic
     UMST.CostOfInformation
@@ -73,7 +75,7 @@ library
 test-suite umst-properties
   type:             exitcode-stdio-1.0
   main-is:          Test.hs
-  other-modules:    ChemProcessFunctorProps, ConstantsBoundsProps, CoordinationContractProps, CreditGreedy, Dignity, EtaCog, GsmMonoidProps, MedianConvergence, OrderStatisticsBand, PhiGrammarProps, PowersCapillaryProps, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
+  other-modules:    ChemProcessFunctorProps, ConstantsBoundsProps, CoordinationContractProps, CreditGreedy, Dignity, EtaCog, FluctuationProps, GsmMonoidProps, MedianConvergence, OrderStatisticsBand, PhiGrammarProps, PowersCapillaryProps, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
   hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,

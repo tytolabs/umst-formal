@@ -53,6 +53,7 @@ import PhiGrammarProps
 import GsmMonoidProps (gsmMonoidProps)
 import PowersCapillaryProps (powersCapillaryProps)
 import ChemProcessFunctorProps (chemProcessFunctorProps)
+import FluctuationProps (fluctuationProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1250,6 +1251,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) powersCapillaryProps
   putStrLn "-- Chemistry as an instance of the one predicate (Chem.ProcessFunctor)"
   mapM_ (\(name, p) -> check r (counterexample name p)) chemProcessFunctorProps
+  putStrLn "-- Fluctuation theorem and thermodynamic uncertainty relation (Lean, Coq and Agda twins)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) fluctuationProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
