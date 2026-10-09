@@ -25,7 +25,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DECL = {
     "lean": r"(?m)^(?:@\[[^\]]*\]\s*)?(?:private\s+|protected\s+|noncomputable\s+)*(?:theorem|lemma|def|abbrev|structure|inductive|class)\s+(?:[\w.]*\.)?{n}(?![\w'])",
     "coq": r"(?m)^\s*(?:Theorem|Lemma|Corollary|Definition|Fixpoint|Record|Inductive|Class)\s+{n}(?![\w'])",
-    "agda": r"(?m)^[ \t]*(?:record\s+|data\s+)?{n}\s+:",  # declarations inside a parameterised module are indented
+    # declarations inside a parameterised module are indented; a record or data type may take parameters
+    "agda": r"(?m)^[ \t]*(?:(?:record|data)\s+{n}(?:\s+[({][^)}]*[)}])*|{n})\s+:",
     "haskell": r"(?m)^(?:{n}\s+::|(?:data|newtype|type)\s+{n}\b)",
 }
 

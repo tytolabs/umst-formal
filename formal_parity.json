@@ -5,7 +5,7 @@
   "Lean/Process.lean",
   "Lean/Chem/SecondLaw.lean"
  ],
- "max_absent": 12,
+ "max_absent": 0,
  "statements": [
   {
    "id": "process.feedback",
@@ -279,7 +279,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
+    "name": "szilardJoint-entropy",
+    "file": "Agda/SzilardEngine.agda"
    },
    "haskell": {
     "name": "prop_szilard_entropy",
@@ -298,7 +299,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
+    "name": "szilardJoint-mutualInformation",
+    "file": "Agda/SzilardEngine.agda"
    },
    "haskell": {
     "name": "prop_szilard_mutual_information",
@@ -317,7 +319,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "its work is k_B T ln 2; the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
+    "name": "szilardEngine",
+    "file": "Agda/SzilardEngine.agda"
    },
    "haskell": {
     "name": "prop_szilard_engine",
@@ -336,7 +339,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the engine's work and information are ln 2 multiples; the value is ln 2, which is not rational; Agda carries entropies and information as rationals"
+    "name": "SecondLaw-szilardEngine",
+    "file": "Agda/SzilardEngine.agda"
    },
    "haskell": {
     "name": "prop_szilard_second_law",
@@ -595,7 +599,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
+    "name": "refinementWorkFloor",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "refinementWorkFloor",
@@ -614,7 +619,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
+    "name": "refinementWorkAccounted",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "refinementWorkAccounted",
@@ -633,7 +639,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
+    "name": "refinementWorkAccounted-iff",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "prop_chem_refinement_accounted_iff",
@@ -652,7 +659,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "Agda carries the dissipated work as one rational W/T with no separate temperature; the floor T·ΔS ≤ W is then the clause ΔS ≤ W/T of chemSecondLaw-iff"
+    "name": "chemSecondLaw-iff-accounted",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "prop_chem_secondlaw_iff_accounted",
@@ -671,7 +679,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
+    "name": "PhysicalChemBridge",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "PhysicalChemBridge",
@@ -690,7 +699,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
+    "name": "chem-entropy-bound-from-physical",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "prop_chem_entropy_bound_from_physical",
@@ -709,7 +719,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
+    "name": "refinementLandauerBound",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "prop_chem_refinement_landauer_bound",
@@ -728,7 +739,8 @@
     "file": "Coq/Chem/SecondLaw.v"
    },
    "agda": {
-    "absent": "the bridge fixes the prior to the uniform binary distribution, whose entropy ln 2 is not rational; Agda carries entropies as rationals"
+    "name": "chemSecondLaw-from-physical",
+    "file": "Agda/Chem/SecondLawAtBath.agda"
    },
    "haskell": {
     "name": "prop_chem_secondlaw_from_physical",
