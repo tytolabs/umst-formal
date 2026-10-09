@@ -3122,6 +3122,60 @@
       "module": "FiberedActivation"
     },
     {
+      "path": "FluctuationTheorem.lean",
+      "content_sha256": "d6f06137522b79cf2f849c279f6459d513f412e8d02726e727bbd1154de3c4f0",
+      "declarations": {
+        "def": [
+          "Path",
+          "Path.last",
+          "weight",
+          "partition",
+          "freeEnergy",
+          "deltaF",
+          "pathProb",
+          "work",
+          "tiltedForward",
+          "quench",
+          "meanWork",
+          "step",
+          "asFeedback"
+        ],
+        "instance": [
+          "Path.fintype"
+        ],
+        "theorem": [
+          "sum_path_succ",
+          "weight_pos",
+          "partition_pos",
+          "pathProb_nonneg",
+          "sum_pathProb",
+          "weight_tilt",
+          "gibbs_tilt_stage",
+          "tilted_sum",
+          "tiltedForward_eq",
+          "jarzynski",
+          "partition_ratio_eq_exp",
+          "integral_fluctuation",
+          "jensen_bridge",
+          "mean_work_ge_deltaF",
+          "cyclic_mean_work_nonneg",
+          "jarzynski_oneInequality",
+          "jarzynski_secondLaw_feedback",
+          "jarzynski_secondLaw_uncorrelated",
+          "jarzynski_secondLaw_transition"
+        ],
+        "structure": [
+          "Protocol",
+          "BathProtocol"
+        ]
+      },
+      "import_lines": [
+        "OneInequalitySecondLaw",
+        "Process"
+      ],
+      "module": "FluctuationTheorem"
+    },
+    {
       "path": "FormalFoundations.lean",
       "content_sha256": "129f7802674c4cf77d69e993d6ce617fee6647e5953d7c012647800060ab7f24",
       "declarations": {},
@@ -3963,6 +4017,31 @@
       },
       "import_lines": [],
       "module": "Solver.ProblemSize"
+    },
+    {
+      "path": "UncertaintyRelation.lean",
+      "content_sha256": "7c19d595fecfe815937703e3aa2a406c89d49ccf67ec767952e685aa96722598",
+      "declarations": {
+        "theorem": [
+          "two_mul_div_le_log",
+          "log_mean_bound",
+          "entropyProduction_nonneg",
+          "tur_biasedWalk",
+          "tur_biasedWalk_ratio"
+        ],
+        "structure": [
+          "BiasedWalk"
+        ],
+        "def": [
+          "meanCurrent",
+          "varCurrent",
+          "entropyProduction"
+        ]
+      },
+      "import_lines": [
+        "Mathlib.Analysis.SpecialFunctions.Log.Deriv"
+      ],
+      "module": "UncertaintyRelation"
     },
     {
       "path": "Urge/AdmitKleisli.lean",
@@ -7101,7 +7180,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "a79565743e14e3cf23870999e18f330c9dc3eefce565851a488130fecc042804",
+      "content_sha256": "9e22735c6fe2605532c55d0b0883584b1980279e79793ef58a6c06f7a01e0709",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -8186,6 +8265,16 @@
       "to_approx": "Concrete.Activation"
     },
     {
+      "from": "FluctuationTheorem",
+      "import": "OneInequalitySecondLaw",
+      "to_approx": "OneInequalitySecondLaw"
+    },
+    {
+      "from": "FluctuationTheorem",
+      "import": "Process",
+      "to_approx": "Process"
+    },
+    {
       "from": "FormalFoundations",
       "import": "Compat.Gate",
       "to_approx": "Compat.Gate"
@@ -8574,6 +8663,11 @@
       "from": "SeparationBound",
       "import": "Mathlib.Tactic.Ring",
       "to_approx": "Mathlib.Tactic.Ring"
+    },
+    {
+      "from": "UncertaintyRelation",
+      "import": "Mathlib.Analysis.SpecialFunctions.Log.Deriv",
+      "to_approx": "Mathlib.Analysis.SpecialFunctions.Log.Deriv"
     },
     {
       "from": "Urge.AdmitKleisli",
@@ -9686,5 +9780,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "38c087c88ea7c4b512c32f18bd210b046400538e33484101fa19a013a800c711"
+  "digest": "2be9c58b77ffd953eb854144dc6fd49d46433ef34572bbf8c3ccae53a3834d64"
 }
