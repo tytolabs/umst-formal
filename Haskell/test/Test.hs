@@ -46,6 +46,7 @@ import MeasurementCost (mutualInformationBits, measurementEnergyLowerBound)
 import SecondLawBoundsProps
 import SecondLawConstantsProps
 import SecondLawSolidInelasticProps
+import SecondLawPoroContinuumProps
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1214,6 +1215,14 @@ main = do
   check r prop_bound_norton
   check r prop_bound_parabolic_rate
   check r prop_bound_frictional_bond
+  putStrLn "-- Second-law bounds on transport, reaction and poroelastic constants (Constants.SecondLawPoroContinuum)"
+  check r prop_bound_reaction_rate
+  check r prop_bound_reaction_rate_constant
+  check r prop_bound_fick_diffusivity
+  check r prop_bound_darcy_permeability
+  check r prop_bound_biot_coefficient
+  check r prop_bound_biot_storage
+  check r prop_bound_isotropic_moduli_pos
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

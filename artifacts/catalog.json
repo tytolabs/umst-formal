@@ -1691,6 +1691,27 @@
       "module": "Constants.SecondLawLandauerFactor"
     },
     {
+      "path": "Constants/SecondLawPoroContinuum.lean",
+      "content_sha256": "0ff656e5552b954f029474c1014ced25ff70d6b11f35469f93bf25eef8862161",
+      "declarations": {
+        "theorem": [
+          "reaction_rate_nonneg",
+          "reaction_rate_constant_nonneg",
+          "fick_diffusivity_nonneg",
+          "darcy_permeability_nonneg",
+          "biot_coefficient_bounds",
+          "biot_storage_pos",
+          "isotropic_moduli_pos"
+        ]
+      },
+      "import_lines": [
+        "Constants.SecondLawDissipation",
+        "Constants.SecondLawElastic",
+        "Process"
+      ],
+      "module": "Constants.SecondLawPoroContinuum"
+    },
+    {
       "path": "Constants/SecondLawSolidInelastic.lean",
       "content_sha256": "aa798880dce21390b8a49b74f870f84235346e1047330cb67a6686a3d902aeea",
       "declarations": {
@@ -7390,6 +7411,21 @@
       "to_approx": "Process"
     },
     {
+      "from": "Constants.SecondLawPoroContinuum",
+      "import": "Constants.SecondLawDissipation",
+      "to_approx": "Constants.SecondLawDissipation"
+    },
+    {
+      "from": "Constants.SecondLawPoroContinuum",
+      "import": "Constants.SecondLawElastic",
+      "to_approx": "Constants.SecondLawElastic"
+    },
+    {
+      "from": "Constants.SecondLawPoroContinuum",
+      "import": "Process",
+      "to_approx": "Process"
+    },
+    {
       "from": "Constants.SecondLawSolidInelastic",
       "import": "Constants.SecondLawDissipation",
       "to_approx": "Constants.SecondLawDissipation"
@@ -9285,5 +9321,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "e4da60fcd8baf553728c01f985cadf91c5939bcdc1cea26585ca5a1f53a66512"
+  "digest": "f434092dc93ba3e5a6d2a5e7aa53dccfc338a371bd5373892d43ee13bb97b870"
 }

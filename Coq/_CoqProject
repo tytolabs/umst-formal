@@ -20,6 +20,7 @@ Constants/SecondLawElectromagnetic.v
 Dignity.v
 RhoEstimator.v
 MedianConvergence.v
+Constants/SecondLawPoroContinuum.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v
