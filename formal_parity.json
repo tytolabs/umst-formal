@@ -629,7 +629,7 @@
   },
   {
    "id": "chem.refinementWorkAccounted_iff",
-   "statement": "at a positive bath temperature the Landauer floor T·ΔS ≤ W is the Clausius bound ΔS ≤ W / T (Agda: the update carries the entropies of its distributions before and after)",
+   "statement": "refinement work is the erase case of the second law: at a positive bath temperature the Landauer floor T·ΔS ≤ W holds exactly when the update's erasure obeys SecondLaw on its transformation, the Clausius bound ΔS ≤ W / T (Agda: the update carries the entropies of its distributions before and after)",
    "lean": {
     "name": "refinementWorkAccounted_iff",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -689,7 +689,7 @@
   },
   {
    "id": "chem.chem_entropy_bound_from_physical",
-   "statement": "the erasure instance bounds the bridged update's entropy drop (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
+   "statement": "the erase case of SecondLaw on the uniform bit discharges the erase case of SecondLaw on the bridged update's transformation (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "chem_entropy_bound_from_physical",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -709,7 +709,7 @@
   },
   {
    "id": "chem.refinementLandauerBound",
-   "statement": "a bridged update dissipates at least T ln 2 (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
+   "statement": "a bridged update whose erasure obeys the erase case of SecondLaw on the uniform bit dissipates at least T ln 2 (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "refinementLandauerBound",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -729,7 +729,7 @@
   },
   {
    "id": "chem.chemSecondLaw_from_physical",
-   "statement": "a bridged coherent update obeys the chemical second law (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
+   "statement": "a bridged coherent update whose erasure obeys the erase case of SecondLaw on the uniform bit obeys the chemical second law (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "chemSecondLaw_from_physical",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -3045,6 +3045,206 @@
    "haskell": {
     "name": "prop_powers_paste_offset_coeff_err",
     "file": "Haskell/test/PowersCapillaryProps.hs"
+   }
+  },
+  {
+   "id": "chem.secondLaw_iff_process",
+   "statement": "the chemical second law is coherence together with membership of the update's image, its erasure judged against the transformation of its state distribution, in SecondLaw",
+   "lean": {
+    "name": "chemSecondLaw_iff_process",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "chemSecondLaw_iff_process",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "chemSecondLaw-iff-process",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_iff_process",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.secondLaw_iff_entropyDrop",
+   "statement": "an update's erasure obeys the erase case of SecondLaw on its transformation exactly when the entropy drop of its assemblage is at most W / T",
+   "lean": {
+    "name": "secondLaw_iff_entropyDrop",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "secondLaw_iff_entropyDrop",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "secondLaw-iff-entropyDrop",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_secondlaw_iff",
+    "file": "Haskell/test/Test.hs"
+   }
+  },
+  {
+   "id": "chem.secondLaw_iff_workFloor",
+   "statement": "an update's erasure obeys the erase case of SecondLaw on its transformation exactly when its dissipated work meets the Landauer floor T·ΔS of its entropy drop",
+   "lean": {
+    "name": "secondLaw_iff_workFloor",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "secondLaw_iff_workFloor",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "secondLaw-iff-workFloor",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_iff_work_floor",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.secondLaw_idAt",
+   "statement": "the functor to the process family sends an identity update to the identity transformation at zero work, a member of SecondLaw: identities are admissible",
+   "lean": {
+    "name": "chemSecondLaw_idAt",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "chemSecondLaw_idAt",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "chemSecondLaw-idAt",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_admissible",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.secondLaw_seq",
+   "statement": "admissibility is closed under composition: two coherent updates at one bath that obey the chemical second law, the second starting where the first ends, compose into an update that obeys it",
+   "lean": {
+    "name": "chemSecondLaw_seq",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "chemSecondLaw_seq",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "chemSecondLaw-seq",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_admissible",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.bridge_secondLaw_iff",
+   "statement": "the binary bridge preserves and reflects admissibility: an erasure obeys the erase case of SecondLaw on the uniform bit exactly when the update it realises obeys SecondLaw on its transformation",
+   "lean": {
+    "name": "PhysicalChemBridge.secondLaw_iff",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "PhysicalChemBridge_secondLaw_iff",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "PhysicalChemBridge-secondLaw-iff",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_bridge_iff",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.identity_work_nonneg",
+   "statement": "an identity transformation obeys the erase case of SecondLaw exactly at non-negative work (Agda: non-negative dissipated entropy W / T)",
+   "lean": {
+    "name": "secondLaw_identity_iff_work_nonneg",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "secondLaw_identity_iff_work_nonneg",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "secondLaw-identity-iff-nonneg",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_identity_work_nonneg",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.zeroWork_reversible_iff",
+   "statement": "an update and its reverse both obey the erase case of SecondLaw at zero work exactly when the update removes no entropy",
+   "lean": {
+    "name": "zeroWork_reversible_iff",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "zeroWork_reversible_iff",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "zeroWork-reversible-iff",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_zero_work_reversible",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.coherentP0_secondLaw_iff_work_nonneg",
+   "statement": "the P0 update obeys the erase case of SecondLaw at work W exactly when W is non-negative (Agda: dissipated entropy)",
+   "lean": {
+    "name": "coherentP0_secondLaw_iff_work_nonneg",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "coherentP0_secondLaw_iff_work_nonneg",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "coherentP0-secondLaw-iff-nonneg",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_p0",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
+   }
+  },
+  {
+   "id": "chem.coherentP0_reversible",
+   "statement": "the P0 update is reversible at zero work: it and its reverse both obey the erase case of SecondLaw",
+   "lean": {
+    "name": "coherentP0_reversible",
+    "file": "Lean/Chem/ProcessFunctor.lean"
+   },
+   "coq": {
+    "name": "coherentP0_reversible",
+    "file": "Coq/Chem/ProcessFunctor.v"
+   },
+   "agda": {
+    "name": "coherentP0-reversible",
+    "file": "Agda/Chem/ProcessFunctor.agda"
+   },
+   "haskell": {
+    "name": "prop_chem_functor_p0",
+    "file": "Haskell/test/ChemProcessFunctorProps.hs"
    }
   }
  ]
