@@ -44,18 +44,18 @@ sameUpdate s t =
     && P.mass (CS.tcPost s) == P.mass (CS.tcPost t) && CS.tcWork s == CS.tcWork t && CS.tcDefect s == CS.tcDefect t
 
 -- The chemical second law is coherence and membership of the image in SecondLaw (chemSecondLaw_iff_process).
-prop_iff_process :: Property
-prop_iff_process = forAll genUpdate $ \t ->
+prop_chem_functor_iff_process :: Property
+prop_chem_functor_iff_process = forAll genUpdate $ \t ->
   CS.chemSecondLaw t == (CS.structurallyCoherent t && P.secondLaw (F.processOf t) (F.transformationOf t))
 
 -- The Landauer work floor is the erase case (secondLaw_iff_workFloor, refinementWorkAccounted_iff).
-prop_iff_workFloor :: Property
-prop_iff_workFloor = forAll genUpdate $ \t ->
+prop_chem_functor_iff_work_floor :: Property
+prop_chem_functor_iff_work_floor = forAll genUpdate $ \t ->
   P.secondLaw (F.processOf t) (F.transformationOf t) == CS.refinementWorkAccounted t
 
 -- The updates form a category: identities on both sides and associativity of the composite.
-prop_category :: Property
-prop_category = forAll (choose (1, 1000)) $ \temp -> forAll (choose (1, 6)) $ \n ->
+prop_chem_functor_category :: Property
+prop_chem_functor_category = forAll (choose (1, 1000)) $ \temp -> forAll (choose (1, 6)) $ \n ->
   forAll (vectorOf 4 (genDist n)) $ \ds -> case ds of
     [p, q, r, s] ->
       let b = P.HeatBath temp
@@ -65,8 +65,8 @@ prop_category = forAll (choose (1, 1000)) $ \temp -> forAll (choose (1, 6)) $ \n
     _ -> property False
 
 -- Identities are admissible (chemSecondLaw_idAt) and admissibility is closed under composition (chemSecondLaw_seq).
-prop_functor_admissible :: Positive Double -> Property
-prop_functor_admissible (Positive temp) = forAll (choose (1, 8)) $ \n ->
+prop_chem_functor_admissible :: Positive Double -> Property
+prop_chem_functor_admissible (Positive temp) = forAll (choose (1, 8)) $ \n ->
   forAll (genDist n) $ \p -> forAll (genDist n) $ \q -> forAll (genDist n) $ \r ->
     let b = P.HeatBath temp
         t1 = CS.ThermochemicalTransition b p q (temp * (P.shannon p - P.shannon q) + 1e-9) 0
@@ -76,21 +76,21 @@ prop_functor_admissible (Positive temp) = forAll (choose (1, 8)) $ \n ->
 
 -- The bridge preserves and reflects admissibility (PhysicalChemBridge.secondLaw_iff); the work sits away from the
 -- Landauer floor T ln 2.
-prop_bridge_iff :: Property
-prop_bridge_iff = forAll (choose (1, 1000)) $ \temp -> forAll (elements [0, 0.5, 0.69, 0.7, 1, 2]) $ \k ->
+prop_chem_functor_bridge_iff :: Property
+prop_chem_functor_bridge_iff = forAll (choose (1, 1000)) $ \temp -> forAll (elements [0, 0.5, 0.69, 0.7, 1, 2]) $ \k ->
   let b = CS.physicalChemBridge (P.ErasureProcess (P.HeatBath temp) (k * temp))
    in F.bridgeSecondLaw b == F.realisedSecondLaw b
 
 -- An identity transformation obeys the erase case exactly at non-negative work (secondLaw_identity_iff_work_nonneg).
-prop_identity_work_nonneg :: Property
-prop_identity_work_nonneg = forAll (choose (1, 1000)) $ \temp -> forAll (choose (1, 8)) $ \n ->
+prop_chem_functor_identity_work_nonneg :: Property
+prop_chem_functor_identity_work_nonneg = forAll (choose (1, 1000)) $ \temp -> forAll (choose (1, 8)) $ \n ->
   forAll (genDist n) $ \p -> forAll (choose (-10, 10)) $ \w ->
     P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath temp) w)) (P.Transformation p p) == (w >= 0)
 
 -- An update and its reverse obey the erase case at zero work exactly when it removes no entropy
 -- (zeroWork_reversible_iff); the generator draws the post equal to the prior half the time.
-prop_zero_work_reversible :: Property
-prop_zero_work_reversible = forAll (choose (1, 1000)) $ \temp -> forAll (choose (1, 8)) $ \n ->
+prop_chem_functor_zero_work_reversible :: Property
+prop_chem_functor_zero_work_reversible = forAll (choose (1, 1000)) $ \temp -> forAll (choose (1, 8)) $ \n ->
   forAll (genDist n) $ \p -> forAll (oneof [pure p, genDist n]) $ \q ->
     let b = P.HeatBath temp
         t = CS.ThermochemicalTransition b p q 0 0
@@ -99,8 +99,8 @@ prop_zero_work_reversible = forAll (choose (1, 1000)) $ \temp -> forAll (choose 
           == (CS.assemblageEntropyDrop t == 0)
 
 -- The P0 fixture is the identity update; it is admissible exactly at non-negative work and reversible at zero work.
-prop_p0 :: Property
-prop_p0 = forAll (choose (-10, 10)) $ \w ->
+prop_chem_functor_p0 :: Property
+prop_chem_functor_p0 = forAll (choose (-10, 10)) $ \w ->
   let p0 = CS.coherentP0Transition
       at w' = P.Erase (P.ErasureProcess (CS.tcBath p0) w')
    in sameUpdate p0 (F.idAt (CS.tcBath p0) (CS.tcPrior p0))
@@ -110,12 +110,12 @@ prop_p0 = forAll (choose (-10, 10)) $ \w ->
 
 chemProcessFunctorProps :: [(String, Property)]
 chemProcessFunctorProps =
-  [ ("chem_functor_iff_process", prop_iff_process)
-  , ("chem_functor_iff_work_floor", prop_iff_workFloor)
-  , ("chem_functor_category", prop_category)
-  , ("chem_functor_admissible", property prop_functor_admissible)
-  , ("chem_functor_bridge_iff", prop_bridge_iff)
-  , ("chem_functor_identity_work_nonneg", prop_identity_work_nonneg)
-  , ("chem_functor_zero_work_reversible", prop_zero_work_reversible)
-  , ("chem_functor_p0", prop_p0)
+  [ ("chem_functor_iff_process", prop_chem_functor_iff_process)
+  , ("chem_functor_iff_work_floor", prop_chem_functor_iff_work_floor)
+  , ("chem_functor_category", prop_chem_functor_category)
+  , ("chem_functor_admissible", property prop_chem_functor_admissible)
+  , ("chem_functor_bridge_iff", prop_chem_functor_bridge_iff)
+  , ("chem_functor_identity_work_nonneg", prop_chem_functor_identity_work_nonneg)
+  , ("chem_functor_zero_work_reversible", prop_chem_functor_zero_work_reversible)
+  , ("chem_functor_p0", prop_chem_functor_p0)
   ]
