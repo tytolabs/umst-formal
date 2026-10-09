@@ -40,6 +40,7 @@ MeasurementCost.v
 PrimeSpectralGuidance.v
 Extraction.v
 Chem/SecondLaw.v
+Chem/ProcessFunctor.v
 Chem/Conservation.v
 Chem/Constants/ConstantsSheaf.v
 Chem/Constants/TemperatureGraph.v

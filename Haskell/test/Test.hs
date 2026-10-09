@@ -52,6 +52,7 @@ import ConstantsBoundsProps (boundProperties)
 import PhiGrammarProps
 import GsmMonoidProps (gsmMonoidProps)
 import PowersCapillaryProps (powersCapillaryProps)
+import ChemProcessFunctorProps (chemProcessFunctorProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -891,11 +892,11 @@ genAccounted = do
       w = floor' + delta * (abs floor' + 1)
   pure (CS.ThermochemicalTransition (P.HeatBath t) p q w (if coherent then 0 else 1), delta > 0)
 
--- The floor is the entropy clause of the second law (twin of refinementWorkAccounted_iff).
+-- Refinement work is the erase case of the second law (twin of refinementWorkAccounted_iff).
 prop_chem_refinement_accounted_iff :: Property
 prop_chem_refinement_accounted_iff = forAll genAccounted $ \(tr, above) ->
   CS.refinementWorkAccounted tr == above
-    && CS.refinementWorkAccounted tr == (CS.assemblageEntropyDrop tr <= CS.tcWork tr / P.bathTemp (CS.tcBath tr))
+    && CS.refinementWorkAccounted tr == P.secondLaw (P.Erase (CS.erasureOf tr)) (P.Transformation (CS.tcPrior tr) (CS.tcPost tr))
 
 -- The refinement floor is the chemical second law (twin of chemSecondLaw_iff_accounted).
 prop_chem_secondlaw_iff_accounted :: Property
@@ -913,7 +914,7 @@ obeysErase e = P.secondLaw (P.Erase e) (P.Erasure P.uniform2)
 prop_chem_entropy_bound_from_physical :: Property
 prop_chem_entropy_bound_from_physical = forAll physicalErasure $ \e ->
   let tr = CS.pcTransition (CS.physicalChemBridge e)
-   in obeysErase e ==> CS.assemblageEntropyDrop tr <= CS.tcWork tr / P.bathTemp (CS.tcBath tr)
+   in obeysErase e ==> P.secondLaw (P.Erase (CS.erasureOf tr)) (P.Transformation (CS.tcPrior tr) (CS.tcPost tr))
 
 prop_chem_refinement_landauer_bound :: Property
 prop_chem_refinement_landauer_bound = forAll physicalErasure $ \e ->
@@ -1247,6 +1248,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) gsmMonoidProps
   putStrLn "-- Powers' capillary porosity and its rounded coefficients (Concrete.PowersCapillary)"
   mapM_ (\(name, p) -> check r (counterexample name p)) powersCapillaryProps
+  putStrLn "-- Chemistry as an instance of the one predicate (Chem.ProcessFunctor)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) chemProcessFunctorProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

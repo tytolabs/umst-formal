@@ -80,21 +80,24 @@ noncomputable def refinementWorkFloor (entropyDrop T : ℝ) : ℝ :=
 def refinementWorkAccounted {n : ℕ} (t : ThermochemicalTransition n) : Prop :=
   refinementWorkFloor (assemblageEntropyDrop t) t.bath.bathTemp.val ≤ t.dissipatedWork
 
-/-- The floor is the entropy clause of the second law: at a positive bath temperature, `T · ΔS ≤ W` exactly when
-    `ΔS ≤ W / T`. -/
+/-- **Refinement work is the erase case of the second law.** At a positive bath temperature the Landauer floor
+    `T · ΔS ≤ W` holds exactly when the update's erasure obeys `UMST.ProcessFamily.SecondLaw` on the transformation
+    of its state distribution, the Clausius bound `ΔS ≤ W / T`. -/
 theorem refinementWorkAccounted_iff {n : ℕ} (t : ThermochemicalTransition n) :
-    refinementWorkAccounted t ↔ assemblageEntropyDrop t ≤ t.dissipatedWork / t.bath.bathTemp.val := by
+    refinementWorkAccounted t ↔
+      UMST.ProcessFamily.SecondLaw (.erase t.erasure) (.transformation t.prior t.post) := by
+  show _ ↔ assemblageEntropyDrop t ≤ t.dissipatedWork / t.bath.bathTemp.val
   unfold refinementWorkAccounted refinementWorkFloor
   rw [le_div_iff₀ t.bath.bathTemp.property, mul_comm]
 
 /-- **The refinement floor is the chemical second law**: a coherent update obeys it exactly when its dissipated work
     meets the Landauer floor of its entropy drop. -/
 theorem chemSecondLaw_iff_accounted {n : ℕ} (t : ThermochemicalTransition n) :
-    chemSecondLaw t ↔ structurallyCoherent t ∧ refinementWorkAccounted t := by
-  rw [chemSecondLaw_iff, refinementWorkAccounted_iff]
+    chemSecondLaw t ↔ structurallyCoherent t ∧ refinementWorkAccounted t :=
+  and_congr_right fun _ => (refinementWorkAccounted_iff t).symm
 
 -- ================================================================
--- SECTION 4: Bridge to physicalSecondLaw (derived — zero new axioms)
+-- SECTION 4: Bridge from the erase case on the bit (derived — zero new axioms)
 -- ================================================================
 
 /-- Physical realization of a binary assemblage erasure (uniform → Dirac). -/
@@ -107,11 +110,13 @@ structure PhysicalChemBridge where
   postEq : transition.post = diracDist (0 : Fin 2)
   coherent : structurallyCoherent transition
 
-/-- `physicalSecondLaw` discharges the entropy-accounting conjunct of `chemSecondLaw`. -/
+/-- The erase case of `UMST.ProcessFamily.SecondLaw` on the uniform bit discharges the erase case on the bridged
+    update's transformation: the entropy-accounting conjunct of `chemSecondLaw`. -/
 theorem chem_entropy_bound_from_physical (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
-    assemblageEntropyDrop b.transition ≤
-      b.transition.dissipatedWork / b.transition.bath.bathTemp.val := by
+    (hSL : UMST.ProcessFamily.SecondLaw (.erase b.proc) (.erasure uniformBinary)) :
+    UMST.ProcessFamily.SecondLaw (.erase b.transition.erasure)
+      (.transformation b.transition.prior b.transition.post) := by
+  show assemblageEntropyDrop b.transition ≤ b.transition.dissipatedWork / b.transition.bath.bathTemp.val
   have hdrop :
       assemblageEntropyDrop b.transition =
         shannonEntropy uniformBinary - shannonEntropy (diracDist (0 : Fin 2)) := by
@@ -127,9 +132,10 @@ theorem chem_entropy_bound_from_physical (b : PhysicalChemBridge)
   rw [hdrop, hwork]
   exact hSL
 
-/-- Landauer bound on dissipated work for a physically bridged assemblage erasure. -/
+/-- Landauer bound on dissipated work for a physically bridged assemblage erasure whose erasure obeys the erase
+    case of `UMST.ProcessFamily.SecondLaw` on the uniform bit. -/
 theorem refinementLandauerBound (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
+    (hSL : UMST.ProcessFamily.SecondLaw (.erase b.proc) (.erasure uniformBinary)) :
     b.transition.dissipatedWork ≥
       b.transition.bath.bathTemp.val * log 2 := by
   have hbath :
@@ -140,9 +146,10 @@ theorem refinementLandauerBound (b : PhysicalChemBridge)
   rw [hbath.symm] at h
   exact h
 
-/-- Physically bridged coherent transition satisfies `chemSecondLaw`. -/
+/-- A physically bridged coherent transition whose erasure obeys the erase case on the uniform bit satisfies
+    `chemSecondLaw`. -/
 theorem chemSecondLaw_from_physical (b : PhysicalChemBridge)
-    (hSL : physicalSecondLawUniformBinary b.proc) :
+    (hSL : UMST.ProcessFamily.SecondLaw (.erase b.proc) (.erasure uniformBinary)) :
     chemSecondLaw b.transition :=
   ⟨b.coherent, chem_entropy_bound_from_physical b hSL⟩
 
