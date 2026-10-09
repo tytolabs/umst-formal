@@ -567,6 +567,23 @@ prop_process_si_bound :: Positive Double -> Double -> Property
 prop_process_si_bound (Positive t) w =
   P.eraseSecondLawSI t (log 2) w ==> P.kB * t * log 2 <= w * (1 + 1e-12) + 1e-300
 
+-- The Landauer bounds for every entropy drop (twins of Agda landauerBound and landauerBoundSI, whose erasure prior
+-- carries the entropy it removes): an erasure of an n-state prior to a point mass that obeys the law dissipates at
+-- least T times the entropy removed, and k_B T times it in joules. Work is drawn on both sides of that floor.
+prop_process_landauer_bound_any_drop :: Positive Double -> Property
+prop_process_landauer_bound_any_drop (Positive t) = forAll (choose (1, 8)) $ \n -> forAll (genDist n) $ \p ->
+  forAll (choose (0, 2)) $ \k ->
+    let point = P.ProbDist (1 : replicate (n - 1) 0)
+        dS = P.shannon p - P.shannon point
+        w = k * t * dS
+     in P.secondLaw (P.Erase (P.ErasureProcess (P.HeatBath t) w)) (P.Transformation p point)
+          ==> t * dS <= w * (1 + 1e-12) + 1e-300
+
+prop_process_si_bound_any_drop :: Positive Double -> Property
+prop_process_si_bound_any_drop (Positive t) = forAll (choose (0, 3)) $ \dS -> forAll (choose (0, 2)) $ \k ->
+  let w = k * P.kB * t * dS
+   in P.eraseSecondLawSI t dS w ==> P.kB * t * dS <= w * (1 + 1e-12) + 1e-300
+
 -- n-state transformations (UMST.Process): the binary case, identity and composition.
 genDist :: Int -> Gen P.ProbDist
 genDist n = do
@@ -1153,6 +1170,8 @@ main = do
   check r prop_process_tight
   check r prop_process_refuses_wrong_prior
   check r prop_process_si_bound
+  check r prop_process_landauer_bound_any_drop
+  check r prop_process_si_bound_any_drop
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

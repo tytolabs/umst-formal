@@ -195,3 +195,40 @@ transformation-iff-SI T σ Hp Hq = mk⇔
   (λ h → subst (Hp - Hq ≤_) (sym (÷-cancel (kB * T) {{nz}} σ)) h)
   (λ h → subst (Hp - Hq ≤_) (÷-cancel (kB * T) {{nz}} σ) h)
   where nz = pos⇒nonZero (kB * T) {{pos*pos⇒pos kB T}}
+
+------------------------------------------------------------------------
+-- The Landauer bound, twin of LandauerLaw.landauerBound / Constants.SIBridge.landauerBoundSI (Lean) and
+-- landauerBound / landauerBoundSI (Coq/Process.v). An erasure prior carries the entropy its erasure removes, so the
+-- bound is stated for every entropy drop ΔS; the uniform bit is the case ΔS = ln 2, which Lean and Coq compute from
+-- the distribution and which is not rational. Each bound is a consequence of the SecondLaw case in its hypothesis.
+------------------------------------------------------------------------
+
+open import Data.Rational.Properties using (*-monoˡ-≤-nonNeg; pos⇒nonNeg)
+
+-- An erasure at a bath of positive temperature T that dissipates work W (units of k_B times kelvin): the entropy it
+-- dissipates is W / T.
+atBath : (T : ℚ) → .{{Positive T}} → (W : ℚ) → ErasureProcess
+atBath T W = record { dissipatedEntropy = _÷_ W T {{pos⇒nonZero T}} }
+
+private
+  mul-÷-cancel : ∀ a .{{_ : NonZero a}} W → a * (_÷_ W a) ≡ W
+  mul-÷-cancel a W = trans (solve 3 (λ a W i → a :* (W :* i) := W :* (a :* i)) refl a W (1/ a))
+                           (trans (cong (W *_) (*-inverseʳ a)) (*-identityʳ W))
+
+  -- Clearing a positive denominator: x ≤ W / a gives a · x ≤ W.
+  ≤÷⇒*≤ : ∀ a .{{_ : Positive a}} x W → x ≤ _÷_ W a {{pos⇒nonZero a}} → a * x ≤ W
+  ≤÷⇒*≤ a x W h = ≤-trans (*-monoˡ-≤-nonNeg a {{pos⇒nonNeg a}} h) (≤-reflexive (mul-÷-cancel a {{pos⇒nonZero a}} W))
+
+-- Landauer bound: an erasure at temperature T with work W that obeys the second law against a prior whose erasure
+-- removes ΔS nats dissipates at least T · ΔS; for the uniform bit (ΔS = ln 2) this is T ln 2 ≤ W.
+landauerBound : ∀ T .{{_ : Positive T}} W ΔS → SecondLaw (erase (atBath T W)) (erasure ΔS) → T * ΔS ≤ W
+landauerBound T W ΔS h = ≤÷⇒*≤ T ΔS W h
+
+-- The bound is attained: the erasure dissipating exactly T · ΔS obeys the second law.
+landauerTight : ∀ T .{{_ : Positive T}} ΔS → SecondLaw (erase (atBath T (T * ΔS))) (erasure ΔS)
+landauerTight T ΔS = ≤-reflexive (sym (÷-cancel T {{pos⇒nonZero T}} ΔS))
+
+-- SI Landauer bound: under the SI Clausius form, an entropy drop of dS nats at T costs at least k_B T dS joules, with
+-- the exact k_B of Constants/SI.agda; for one bit (dS = ln 2) this is k_B T ln 2 ≤ W.
+landauerBoundSI : ∀ T .{{_ : Positive T}} W dS → eraseSecondLawSI T dS W → kB * T * dS ≤ W
+landauerBoundSI T W dS h = ≤÷⇒*≤ (kB * T) {{pos*pos⇒pos kB T}} dS W h

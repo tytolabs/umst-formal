@@ -5,7 +5,7 @@
   "Lean/Process.lean",
   "Lean/Chem/SecondLaw.lean"
  ],
- "max_absent": 15,
+ "max_absent": 12,
  "statements": [
   {
    "id": "process.feedback",
@@ -149,7 +149,7 @@
   },
   {
    "id": "second_law.landauer_tight",
-   "statement": "the erasure dissipating T ln 2 obeys the law for a uniform bit",
+   "statement": "the erasure dissipating T ln 2 obeys the law for a uniform bit (Agda: for every entropy drop ΔS of the prior; the uniform bit is ΔS = ln 2)",
    "lean": {
     "name": "SecondLaw_landauerTight_erase",
     "file": "Lean/Process.lean"
@@ -159,7 +159,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "name": "landauerTight",
+    "file": "Agda/Process.agda"
    },
    "haskell": {
     "name": "prop_process_tight",
@@ -168,7 +169,7 @@
   },
   {
    "id": "second_law.landauer_bound",
-   "statement": "the Landauer bound T ln 2 ≤ W for a uniform bit",
+   "statement": "the Landauer bound T ln 2 ≤ W for a uniform bit (Agda: for every entropy drop ΔS of the prior; the uniform bit is ΔS = ln 2)",
    "lean": {
     "name": "UMST.LandauerLaw.landauerBound",
     "file": "Lean/LandauerLaw.lean"
@@ -178,7 +179,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "name": "landauerBound",
+    "file": "Agda/Process.agda"
    },
    "haskell": {
     "name": "prop_process_landauer_bound",
@@ -187,7 +189,7 @@
   },
   {
    "id": "second_law.landauer_bound_si",
-   "statement": "the SI Landauer bound k_B T ln 2 ≤ W",
+   "statement": "the SI Landauer bound k_B T ln 2 ≤ W (Agda: for every entropy drop ΔS of the prior; the uniform bit is ΔS = ln 2)",
    "lean": {
     "name": "landauerBoundSI",
     "file": "Lean/Constants/SIBridge.lean"
@@ -197,7 +199,8 @@
     "file": "Coq/Process.v"
    },
    "agda": {
-    "absent": "the content is the value of a real logarithm (ln 2); Agda's standard library has no real logarithm, and Agda states this law over rational entropies"
+    "name": "landauerBoundSI",
+    "file": "Agda/Process.agda"
    },
    "haskell": {
     "name": "prop_process_si_bound",
