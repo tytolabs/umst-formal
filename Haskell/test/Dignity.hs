@@ -74,3 +74,7 @@ prop_dignity_list_sum_nonneg xs =
   let ys = map (max 0 . min dMax) xs
       s = sum ys
    in property (s >= 0 - 1e-12 && s <= fromIntegral (length ys) * dMax + 1e-9)
+
+-- | The upper end of the dignity range is 10 (twin of Dignity.d_max).
+prop_dignity_d_max :: Property
+prop_dignity_d_max = once $ dMax == 10

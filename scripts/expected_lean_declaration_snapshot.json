@@ -97,9 +97,9 @@
     "total": 650
   },
   "all_lean_glob": {
-    "theorem": 1387,
+    "theorem": 1398,
     "lemma": 62,
-    "total": 1449
+    "total": 1460
   },
   "per_root": {
     "Core.Scalar": {

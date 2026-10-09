@@ -64,3 +64,9 @@ prop_bound_inverse_square_epsilon =
       b1 = nWarmupBound e1 del rho
       b2 = nWarmupBound e2 del rho
    in property $ b1 >= 4 * b2 - 1e-9
+
+-- | The default window W = 32 warms up after max 3 ⌈√32⌉ = 6 samples, at least the reference count
+-- ⌈2·ln 4⌉ = 3 (twin of sqrt_window_warmup_is_admissible).
+prop_sqrt_window_warmup_is_admissible :: Property
+prop_sqrt_window_warmup_is_admissible =
+  once $ sqrtWindowThreshold 32 == 6 && nWarmup 1 0.5 1 == 3 && sqrtWindowThreshold 32 >= nWarmup 1 0.5 1

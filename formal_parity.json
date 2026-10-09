@@ -1994,6 +1994,306 @@
     "name": "prop_bound_restitution_energy_loss",
     "file": "Haskell/test/SecondLawBoundsProps.hs"
    }
+  },
+  {
+   "id": "landauer.uniform_binary_entropy",
+   "statement": "the uniform bit carries ln 2 nats: H(½, ½) = log 2",
+   "lean": {
+    "name": "UMST.LandauerLaw.uniformBinaryEntropy",
+    "file": "Lean/LandauerLaw.lean"
+   },
+   "coq": {
+    "name": "shannon2_uniform2",
+    "file": "Coq/Process.v"
+   },
+   "agda": {
+    "name": "uniformBinaryEntropy",
+    "file": "Agda/LandauerLaw.agda"
+   },
+   "haskell": {
+    "name": "prop_uniform_binary_entropy",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "dignity.d_max",
+   "statement": "the upper end of the dignity range [0, d_max] is 10",
+   "lean": {
+    "name": "UMST.Formal.Dignity.d_max",
+    "file": "Lean/Dignity.lean"
+   },
+   "coq": {
+    "name": "d_max",
+    "file": "Coq/Dignity.v"
+   },
+   "agda": {
+    "name": "d-max",
+    "file": "Agda/Dignity.agda"
+   },
+   "haskell": {
+    "name": "prop_dignity_d_max",
+    "file": "Haskell/test/Dignity.hs"
+   }
+  },
+  {
+   "id": "dignity.monotone_under_mi_gain",
+   "statement": "with both steps honest, the dignity step is monotone in the claimed information",
+   "lean": {
+    "name": "UMST.Formal.Dignity.dignity_monotone_under_mi_gain",
+    "file": "Lean/Dignity.lean"
+   },
+   "coq": {
+    "name": "dignity_monotone_under_mi_gain",
+    "file": "Coq/Dignity.v"
+   },
+   "agda": {
+    "name": "dignity-monotone-under-mi-gain",
+    "file": "Agda/Dignity.agda"
+   },
+   "haskell": {
+    "name": "prop_dignity_step_monotone_mi",
+    "file": "Haskell/test/Dignity.hs"
+   }
+  },
+  {
+   "id": "rho_estimator.mi_formula",
+   "statement": "Gaussian mutual information in bits from the correlation: MI(ρ) = −½·log₂(1 − ρ²) for ρ² < 1",
+   "lean": {
+    "name": "UMST.Formal.RhoEstimator.rho_based_mi_formula",
+    "file": "Lean/RhoEstimator.lean"
+   },
+   "coq": {
+    "name": "rho_based_mi_formula",
+    "file": "Coq/RhoEstimator.v"
+   },
+   "agda": {
+    "name": "rho-based-mi-formula",
+    "file": "Agda/RhoEstimator.agda"
+   },
+   "haskell": {
+    "name": "prop_rho_mi_formula_matches_log2",
+    "file": "Haskell/test/RhoEstimator.hs"
+   }
+  },
+  {
+   "id": "median.sqrt_window_warmup",
+   "statement": "the default window W = 32 warms up after max 3 ⌈√32⌉ = 6 samples, at least the reference count ⌈2·ln 4⌉",
+   "lean": {
+    "name": "UMST.Formal.MedianConvergence.sqrt_window_warmup_is_admissible",
+    "file": "Lean/MedianConvergence.lean"
+   },
+   "coq": {
+    "name": "sqrt_window_warmup_is_admissible",
+    "file": "Coq/MedianConvergence.v"
+   },
+   "agda": {
+    "name": "sqrt-window-warmup-is-admissible",
+    "file": "Agda/MedianConvergence.agda"
+   },
+   "haskell": {
+    "name": "prop_sqrt_window_warmup_is_admissible",
+    "file": "Haskell/test/MedianConvergence.hs"
+   }
+  },
+  {
+   "id": "second_law_fixes.uniform_bit_iff",
+   "statement": "erasing the uniform bit with work per kelvin r obeys the second law exactly when ln 2 ≤ r",
+   "lean": {
+    "name": "UMST.Constants.SecondLawLandauerFactor.secondLaw_uniformBit_iff",
+    "file": "Lean/Constants/SecondLawLandauerFactor.lean"
+   },
+   "coq": {
+    "name": "secondLaw_uniformBit_iff",
+    "file": "Coq/Constants/SecondLawLandauerFactor.v"
+   },
+   "agda": {
+    "name": "secondLaw-uniformBit-⇔",
+    "file": "Agda/Constants/SecondLawLandauerFactor.agda"
+   },
+   "haskell": {
+    "name": "prop_landauer_factor_iff",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_fixes.landauer_factor",
+   "statement": "ln 2 is the least work per kelvin the second law admits for erasing one uniform bit",
+   "lean": {
+    "name": "UMST.Constants.SecondLawLandauerFactor.landauerFactor_isLeast",
+    "file": "Lean/Constants/SecondLawLandauerFactor.lean"
+   },
+   "coq": {
+    "name": "landauerFactor_isLeast",
+    "file": "Coq/Constants/SecondLawLandauerFactor.v"
+   },
+   "agda": {
+    "name": "landauerFactor-isLeast",
+    "file": "Agda/Constants/SecondLawLandauerFactor.agda"
+   },
+   "haskell": {
+    "name": "prop_landauer_factor_least",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.electric_relaxation",
+   "statement": "a vacuum field storing ½·ε·E² relaxes passively from every field exactly when ε ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.electricRelaxation_secondLaw_iff",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "electricRelaxation_secondLaw_iff",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "electricRelaxation-secondLaw-⇔",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_electric_relaxation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.magnetic_relaxation",
+   "statement": "a field storing B²/(2μ), μ ≠ 0, relaxes passively from every flux density exactly when μ > 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.magneticRelaxation_secondLaw_iff",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "magneticRelaxation_secondLaw_iff",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "magneticRelaxation-secondLaw-⇔",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_magnetic_relaxation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.conductance_dissipation",
+   "statement": "every Joule step dissipating G·V²·dt is admitted exactly when the conductance G ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.conductanceDissipation_secondLaw_iff",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "conductanceDissipation_secondLaw_iff",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "conductanceDissipation-secondLaw-⇔",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_conductance_dissipation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.resistance_dissipation",
+   "statement": "every Joule step dissipating R·I²·dt is admitted exactly when the resistance R ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.resistanceDissipation_secondLaw_iff",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "resistanceDissipation_secondLaw_iff",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "resistanceDissipation-secondLaw-⇔",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_resistance_dissipation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.vacuum_permittivity",
+   "statement": "at the exact SI ε₀ every vacuum field relaxes under the second law (ε₀ inside the bound ε ≥ 0)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.vacuumPermittivity_relaxation_secondLaw",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "vacuumPermittivity_relaxation_secondLaw",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "vacuumPermittivity-relaxation-secondLaw",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_si_vacuum_permittivity_relaxation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.vacuum_permeability",
+   "statement": "at the exact SI μ₀ every vacuum field relaxes under the second law (μ₀ inside the bound μ > 0)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.vacuumPermeability_relaxation_secondLaw",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "vacuumPermeability_relaxation_secondLaw",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "vacuumPermeability-relaxation-secondLaw",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_si_vacuum_permeability_relaxation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.conductance_quantum",
+   "statement": "at the exact G₀ = 2e²/h every Joule step is admitted (G₀ inside the bound G ≥ 0)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.conductanceQuantum_dissipation_secondLaw",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "conductanceQuantum_dissipation_secondLaw",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "conductanceQuantum-dissipation-secondLaw",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_si_conductance_quantum_dissipation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.von_klitzing",
+   "statement": "at the exact R_K = h/e² every Joule step is admitted (R_K inside the bound R ≥ 0)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElectromagnetic.vonKlitzing_dissipation_secondLaw",
+    "file": "Lean/Constants/SecondLawElectromagnetic.lean"
+   },
+   "coq": {
+    "name": "vonKlitzing_dissipation_secondLaw",
+    "file": "Coq/Constants/SecondLawElectromagnetic.v"
+   },
+   "agda": {
+    "name": "vonKlitzing-dissipation-secondLaw",
+    "file": "Agda/Constants/SecondLawElectromagnetic.agda"
+   },
+   "haskell": {
+    "name": "prop_si_von_klitzing_dissipation",
+    "file": "Haskell/test/SecondLawConstantsProps.hs"
+   }
   }
  ]
 }

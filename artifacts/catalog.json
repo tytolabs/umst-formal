@@ -1649,6 +1649,48 @@
       "module": "Constants.SecondLawElastic"
     },
     {
+      "path": "Constants/SecondLawElectromagnetic.lean",
+      "content_sha256": "58db31cd97e6880b29acb4e8437363f38656cad059dd1d2f29e04aaea9a38965",
+      "declarations": {
+        "def": [
+          "passiveStep"
+        ],
+        "theorem": [
+          "passiveStep_secondLaw_iff",
+          "electricRelaxation_secondLaw_iff",
+          "magneticRelaxation_secondLaw_iff",
+          "conductanceDissipation_secondLaw_iff",
+          "resistanceDissipation_secondLaw_iff",
+          "vacuumPermittivity_relaxation_secondLaw",
+          "vacuumPermeability_relaxation_secondLaw",
+          "conductanceQuantum_dissipation_secondLaw",
+          "vonKlitzing_dissipation_secondLaw"
+        ]
+      },
+      "import_lines": [
+        "Constants.SI",
+        "Process"
+      ],
+      "module": "Constants.SecondLawElectromagnetic"
+    },
+    {
+      "path": "Constants/SecondLawLandauerFactor.lean",
+      "content_sha256": "5eff065426bae42564386f55ce5a85f8f8563a73112e4b5b6ba0a37794778018",
+      "declarations": {
+        "def": [
+          "erasureAtFactor"
+        ],
+        "theorem": [
+          "secondLaw_uniformBit_iff",
+          "landauerFactor_isLeast"
+        ]
+      },
+      "import_lines": [
+        "Process"
+      ],
+      "module": "Constants.SecondLawLandauerFactor"
+    },
+    {
       "path": "ConvexPhiChannels.lean",
       "content_sha256": "cc0efa96000e6e317eea26c508093dda0027b8b92a64bf570c85686e13cc09db",
       "declarations": {
@@ -7311,6 +7353,21 @@
       "to_approx": "Process"
     },
     {
+      "from": "Constants.SecondLawElectromagnetic",
+      "import": "Constants.SI",
+      "to_approx": "Constants.SI"
+    },
+    {
+      "from": "Constants.SecondLawElectromagnetic",
+      "import": "Process",
+      "to_approx": "Process"
+    },
+    {
+      "from": "Constants.SecondLawLandauerFactor",
+      "import": "Process",
+      "to_approx": "Process"
+    },
+    {
       "from": "ConvexPhiChannels",
       "import": "ConvexPhiDissipation",
       "to_approx": "ConvexPhiDissipation"
@@ -9201,5 +9258,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "33b8d28a5c3ea1b28487e790c4195f1576f35287b58b4943f6e06148c2282463"
+  "digest": "1827672d1c8ff548978b9ac4272de1ccdc266e8c5cef3ccaf76b5a48e98891e6"
 }

@@ -14,6 +14,11 @@ Process.v
 Constants/SecondLawElastic.v
 Constants/SecondLawDissipation.v
 Constants/SecondLawRestitution.v
+Constants/SecondLawLandauerFactor.v
+Constants/SecondLawElectromagnetic.v
+Dignity.v
+RhoEstimator.v
+MedianConvergence.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v

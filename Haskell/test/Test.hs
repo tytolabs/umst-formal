@@ -44,6 +44,7 @@ import MedianConvergence
 import OrderStatisticsBand
 import MeasurementCost (mutualInformationBits, measurementEnergyLowerBound)
 import SecondLawBoundsProps
+import SecondLawConstantsProps
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1131,6 +1132,7 @@ main = do
   check r prop_dignity_step_sub_landauer_fixed
   check r prop_dignity_step_monotone_mi
   check r prop_dignity_list_sum_nonneg
+  check r prop_dignity_d_max
 
   putStrLn ""
   putStrLn "-- EtaCog (Phase N3-FPD-b)"
@@ -1156,6 +1158,7 @@ main = do
   check r prop_sqrt_window_matches_engine
   check r prop_n_warmup_positive
   check r prop_bound_inverse_square_epsilon
+  check r prop_sqrt_window_warmup_is_admissible
 
   putStrLn ""
   putStrLn "-- OrderStatisticsBand (Phase FPD-OrderStatisticsBand)"
@@ -1189,6 +1192,19 @@ main = do
   putStrLn "-- Second-law bound on restitution (ConvexPhiChannels, Constants.SecondLawRestitution)"
   check r prop_bound_restitution
   check r prop_bound_restitution_energy_loss
+  putStrLn "-- The Landauer factor fixed by the second law (Constants.SecondLawLandauerFactor)"
+  check r prop_uniform_binary_entropy
+  check r prop_landauer_factor_iff
+  check r prop_landauer_factor_least
+  putStrLn "-- Second-law bounds on electromagnetic constants (Constants.SecondLawElectromagnetic)"
+  check r prop_bound_electric_relaxation
+  check r prop_bound_magnetic_relaxation
+  check r prop_bound_conductance_dissipation
+  check r prop_bound_resistance_dissipation
+  check r prop_si_vacuum_permittivity_relaxation
+  check r prop_si_vacuum_permeability_relaxation
+  check r prop_si_conductance_quantum_dissipation
+  check r prop_si_von_klitzing_dissipation
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
