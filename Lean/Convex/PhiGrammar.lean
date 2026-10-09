@@ -7,9 +7,9 @@
   `PhiExpr n` is an inductive family of expressions over the rate space `Fin n → ℝ`. Its atoms are the
   positive-semidefinite quadratic form xᵀ·A·x, the absolute rate |xᵢ|, the power law |xᵢ|^p (p ≥ 1) and
   the Norton law a·|xᵢ|^(m+1) (a ≥ 0, m ≥ 0); its combinators are nonnegative scaling, sum, pointwise
-  maximum and precomposition with a linear map. Every constructor preserves the three properties, so the
-  denotation theorem `denote_admissible` holds for every expression and a nonconvex potential has no
-  expression (`no_expr_denotes_capped`).
+  maximum and precomposition with a linear map. Every constructor preserves the three properties, so every
+  expression denotes a `PassivePotential` (`toPassivePotential`) and a nonconvex potential has no expression
+  (`no_expr_denotes_capped`).
 
   Two routes reach the passive `.transition` case of `UMST.ProcessFamily.SecondLaw`:
   * `phiExpr_passive_secondLaw` pairs the rate with any subgradient g of the potential: D = g·x ≥ φ(x) ≥ 0,
@@ -158,26 +158,33 @@ theorem denote_convex : ∀ {n : ℕ} (e : PhiExpr n), ConvexOn ℝ univ (denote
   | _, .precomp L e => by
       simpa [denote, Function.comp_def] using (denote_convex e).comp_linearMap L
 
-/-- **Denotation theorem**: every expression denotes a convex, nonnegative potential with φ(0) = 0. -/
-theorem denote_admissible {n : ℕ} (e : PhiExpr n) :
-    ConvexOn ℝ univ (denote e) ∧ (∀ x, 0 ≤ denote e x) ∧ denote e 0 = 0 :=
-  ⟨denote_convex e, denote_nonneg e, denote_zero e⟩
+/-- The semantic domain of the grammar: a potential on `Rate n` that is convex, nonnegative and zero at zero. -/
+structure PassivePotential (n : ℕ) where
+  φ : Rate n → ℝ
+  convex : ConvexOn ℝ univ φ
+  nonneg : ∀ x, 0 ≤ φ x
+  zero : φ 0 = 0
+
+/-- **Denotation**: every expression is a passive potential; the three fields are `denote_convex`,
+    `denote_nonneg` and `denote_zero`. -/
+noncomputable def toPassivePotential {n : ℕ} (e : PhiExpr n) : PassivePotential n :=
+  ⟨denote e, denote_convex e, denote_nonneg e, denote_zero e⟩
 
 /-- `g` is a subgradient of `φ` at `x`: φ(x) + g·(y − x) ≤ φ(y) for every rate y. -/
 def IsSubgradient {n : ℕ} (φ : Rate n → ℝ) (x g : Rate n) : Prop :=
   ∀ y, φ x + g ⬝ᵥ (y - x) ≤ φ y
 
 /-- The dissipation g·x paired with a subgradient dominates the potential: φ(x) ≤ g·x. -/
-theorem phi_le_subgradient_power {n : ℕ} (e : PhiExpr n) {x g : Rate n}
-    (hg : IsSubgradient (denote e) x g) : denote e x ≤ g ⬝ᵥ x := by
+theorem phi_le_subgradient_power {n : ℕ} (P : PassivePotential n) {x g : Rate n}
+    (hg : IsSubgradient P.φ x g) : P.φ x ≤ g ⬝ᵥ x := by
   have h := hg 0
-  rw [denote_zero e, zero_sub, dotProduct_neg] at h
+  rw [P.zero, zero_sub, dotProduct_neg] at h
   linarith
 
-/-- **Nonnegative dissipation** for every expression and every subgradient: 0 ≤ g·x. -/
-theorem subgradient_power_nonneg {n : ℕ} (e : PhiExpr n) {x g : Rate n}
-    (hg : IsSubgradient (denote e) x g) : 0 ≤ g ⬝ᵥ x :=
-  le_trans (denote_nonneg e x) (phi_le_subgradient_power e hg)
+/-- **Nonnegative dissipation** for every passive potential and every subgradient: 0 ≤ g·x. -/
+theorem subgradient_power_nonneg {n : ℕ} (P : PassivePotential n) {x g : Rate n}
+    (hg : IsSubgradient P.φ x g) : 0 ≤ g ⬝ᵥ x :=
+  le_trans (P.nonneg x) (phi_le_subgradient_power P hg)
 
 /-- **Passive second law, subgradient route**: a step whose dissipation g·x pairs the rate with a subgradient of
     any grammar potential, under the passive balance Δψ + g·x ≤ 0, is a `.transition` instance of `SecondLaw`. -/
@@ -186,7 +193,7 @@ theorem phiExpr_passive_secondLaw {n : ℕ} (e : PhiExpr n) {x g : Rate n}
     (hm : CoreMassCond ℝ RealThermodynamicState old new)
     (hb : (new.freeEnergy - old.freeEnergy) + g ⬝ᵥ x ≤ 0) :
     SecondLawₚ .transition (.thermodynamic old new) :=
-  UMST.ConvexPhiChannels.inequality_secondLaw ⟨hm, subgradient_power_nonneg e hg, hb⟩
+  UMST.ConvexPhiChannels.inequality_secondLaw ⟨hm, subgradient_power_nonneg (toPassivePotential e) hg, hb⟩
 
 /-- The scalar rate s seen as a one-channel rate vector. -/
 noncomputable def scalarRate : ℝ →ₗ[ℝ] Rate 1 := LinearMap.pi fun _ => LinearMap.id
