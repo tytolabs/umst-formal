@@ -2,7 +2,7 @@
   "version": 1,
   "role": "lean_catalog_lock",
   "catalog_path": "artifacts/catalog.json",
-  "catalog_digest_hex": "f434092dc93ba3e5a6d2a5e7aa53dccfc338a371bd5373892d43ee13bb97b870",
-  "module_count": 181,
+  "catalog_digest_hex": "fa78ce8da5e88e5d02019c80b36bddc6a27793c3bc06c6e2e3933a51ee82b857",
+  "module_count": 182,
   "notes": "Canonical digest from tools/lean_export/export_catalog.py (SHA-256 of JSON body before the digest key). Regenerate with: make lean-catalog-export"
 }

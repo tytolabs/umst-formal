@@ -26,6 +26,7 @@ import qualified MonoidalState
 import qualified PrimeSpectralGuidance
 import CoordinationContractProps
 import qualified UMST.Constants.SI as SI
+import qualified UMST.Constants.Bounds as Bounds
 import qualified UMST.Process as P
 import qualified UMST.Chem.SecondLaw as CS
 import qualified UMST.Excitement as X
@@ -47,6 +48,7 @@ import SecondLawBoundsProps
 import SecondLawConstantsProps
 import SecondLawSolidInelasticProps
 import SecondLawPoroContinuumProps
+import ConstantsBoundsProps (boundProperties)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1223,6 +1225,9 @@ main = do
   check r prop_bound_biot_coefficient
   check r prop_bound_biot_storage
   check r prop_bound_isotropic_moduli_pos
+  putStrLn "-- Second-law bounds of the constants table (Constants.Bounds): each bound with its theorem's property"
+  mapM_ (\(name, p) -> check r (counterexample name p)) boundProperties
+  mapM_ (\(name, ok) -> check r (once (counterexample name ok))) Bounds.boundChecks
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

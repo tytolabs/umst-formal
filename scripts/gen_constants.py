@@ -22,19 +22,47 @@ language checks it by exact computation:
   policy    a documented model or configuration choice, never counted as a constant: its value, its reason, and the
             range it must lie in, given by two rows of the table; `<id>_in_range` proves low ≤ value ≤ high
 
-Lean (umst-formal only; umst-formal-double-slit imports it through Lake), Coq, Agda and Haskell modules are written,\nand in umst-formal the no_std Rust crate constants-rs (umst-constants), each
-where the repository keeps that language. `--check` regenerates in memory and fails on any difference.
+A second table, `bounds`, holds the second-law bounds: each entry ("kind": "bound") confines a quantity to an
+interval with exact rational endpoints (`lower`, `upper`, each {num, den, strict} or null) and names the theorem that
+proves it ("theorem", a Lean name listed in formal_parity.json) and the languages that state it ("languages", which
+must equal the languages formal_parity.json lists for that theorem). A bound fixes no value: the value stays cited,
+measured or chosen, and the bound states the interval the second law admits. "unit" is null only when every finite
+endpoint is zero (a sign, the same in every unit). An entry with "row" confines that row of the constants table, and
+each language proves the row's exact value lies inside (`<id>_admits`). In umst-formal each language gains a bounds
+module (Lean `Constants.Bounds`, Coq `Constants/Bounds.v`, Agda `Constants.Bounds`, Haskell `UMST.Constants.Bounds`
+and the test module `ConstantsBoundsProps`) that names the theorem itself, so renaming or removing it breaks the
+build, and umst-constants gains `Bound` with a `const fn admits`. umst-formal-double-slit carries neither the
+theorems nor the bounds modules and generates nothing from this table.
+
+Lean (umst-formal only; umst-formal-double-slit imports it through Lake), Coq, Agda and Haskell modules are written,
+and in umst-formal the no_std Rust crate constants-rs (umst-constants), each where the repository keeps that
+language. `--check` regenerates in memory and fails on any difference.
 """
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import sys
+import textwrap
 from fractions import Fraction
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-REPO = os.path.basename(ROOT)
+
+
+def repo_name(root: str) -> str:
+    """The repository by its Lake package name, so a worktree or a copy under another directory name generates the
+    same files; the directory name when no lakefile names a package."""
+    try:
+        with open(os.path.join(root, "Lean/lakefile.lean"), encoding="utf-8") as f:
+            m = re.search(r"(?m)^package\s+«?([\w-]+)»?", f.read())
+    except OSError:
+        m = None
+    return m.group(1) if m else os.path.basename(root)
+
+
+REPO = repo_name(ROOT)
 HOME = "umst-formal"  # the Lean module lives here; the sibling imports it
 FIBRE = {"umst-formal": "acting", "umst-formal-double-slit": "knowing"}.get(REPO, "acting")
 SPDX = "SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar"
@@ -211,7 +239,8 @@ def lean(table: dict, vals: dict[str, Fraction]) -> str:
 # ------------------------------------------------------------------------------------------------- Coq (Q)
 
 def coq_q(v: Fraction) -> str:
-    return f"(Qmake {v.numerator} {v.denominator})"
+    num = f"({v.numerator})" if v.numerator < 0 else str(v.numerator)  # `Qmake -1 1` parses as a subtraction
+    return f"(Qmake {num} {v.denominator})"
 
 
 def coq(table: dict, vals: dict[str, Fraction]) -> str:
@@ -399,7 +428,9 @@ def rust(table: dict, vals: dict[str, Fraction]) -> str:
         L += ["    Row {", f'        id: "{c["id"]}",', f'        symbol: "{c["symbol"]}",', f'        unit: "{c["unit"]}",',
               f"        kind: Kind::{kinds[c['status']]},", f"        value: {rust_name(c['id'])},",
               f'        exact_num: "{v.numerator}",', f'        exact_den: "{v.denominator}",', f"        uncertainty: {unc},", "    },"]
-    L += ["];", "", "#[cfg(test)]", "#[rustfmt::skip] // generated: one assertion per row", "mod tests {", "    use super::*;", "",
+    L += ["];", ""]
+    L += rust_bounds(table, vals)
+    L += ["#[cfg(test)]", "#[rustfmt::skip] // generated: one assertion per row", "mod tests {", "    use super::*;", "",
           "    fn close(a: f64, b: f64) -> bool {", "        (a - b).abs() <= 8.0 * f64::EPSILON * a.abs().max(b.abs())", "    }", "",
           "    /// Each derived row equals its formula evaluated on the rows it reads.", "    #[test]",
           "    fn derived_rows_follow_their_formulas() {"]
@@ -410,8 +441,339 @@ def rust(table: dict, vals: dict[str, Fraction]) -> str:
             L.append(f"        assert!(close({rust_name(c['id'])}, {expr}), \"{c['id']}\");")
     L += ["    }", "", "    #[test]", "    fn rows_name_each_constant_once() {",
           "        for (i, a) in ROWS.iter().enumerate() {", "            for b in &ROWS[i + 1..] {",
-          "                assert_ne!(a.id, b.id);", "            }", "        }", "    }", "}", ""]
+          "                assert_ne!(a.id, b.id);", "            }", "        }", "    }"]
+    if bound_rows(table):
+        L += ["", "    /// `admits` refuses NaN and the infinity past each endpoint, and takes an endpoint exactly when it is",
+              "    /// not strict.", "    #[test]", "    fn bounds_admit_by_their_endpoints() {", "        for b in BOUNDS {",
+              "            assert!(!b.admits(f64::NAN), \"{}\", b.id);", "            if let Some(e) = b.lower {",
+              "                assert!(!b.admits(f64::NEG_INFINITY), \"{}\", b.id);",
+              "                if b.upper.is_none() {",
+              "                    assert_eq!(b.admits(e.at), !e.strict, \"{}\", b.id);", "                }",
+              "            }", "            if let Some(e) = b.upper {",
+              "                assert!(!b.admits(f64::INFINITY), \"{}\", b.id);",
+              "                if b.lower.is_none() {",
+              "                    assert_eq!(b.admits(e.at), !e.strict, \"{}\", b.id);", "                }",
+              "            }", "        }", "    }"]
+    L += ["}", ""]
     return "\n".join(L)
+
+
+# ------------------------------------------------------------------------------------------------- second-law bounds
+
+LANGS = ("lean", "coq", "agda", "haskell")
+
+
+def bound_rows(table: dict) -> list[dict]:
+    """The second-law bounds, each in umst-formal only (umst-formal-double-slit holds none of their theorems)."""
+    return table.get("bounds", []) if REPO == HOME else []
+
+
+def endpoint(e: dict | None) -> tuple[Fraction, bool] | None:
+    return None if e is None else (Fraction(big(e["num"]), big(e["den"])), bool(e["strict"]))
+
+
+def admitted(b: dict, v: Fraction) -> bool:
+    """Whether the exact value `v` lies in the bound's interval."""
+    lo, hi = endpoint(b.get("lower")), endpoint(b.get("upper"))
+    return (lo is None or (lo[0] < v if lo[1] else lo[0] <= v)) and (hi is None or (v < hi[0] if hi[1] else v <= hi[0]))
+
+
+def parity_statements(root: str = ROOT) -> dict[str, dict]:
+    """formal_parity.json statements by Lean declaration name."""
+    path = os.path.join(root, "formal_parity.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        doc = json.load(f)
+    return {st["lean"]["name"]: st for st in doc.get("statements", []) if "name" in (st.get("lean") or {})}
+
+
+def stated_in(st: dict) -> list[str]:
+    return [lang for lang in LANGS if "absent" not in (st.get(lang) or {"absent": True})]
+
+
+def bound_problems(table: dict, vals: dict[str, Fraction], parity: dict[str, dict]) -> list[str]:
+    """Every reason the bounds table cannot be generated; empty when each entry is well formed and proved."""
+    out, seen = [], {c["id"] for c in table["constants"]}
+    units = {c["id"]: c["unit"] for c in table["constants"]}
+    for b in table.get("bounds", []):
+        i = b.get("id", "?")
+        if b.get("kind") != "bound":
+            out.append(f"{i}: kind must be \"bound\"")
+        if i in seen:
+            out.append(f"{i}: the id is already a row or a bound")
+        seen.add(i)
+        lo, hi = endpoint(b.get("lower")), endpoint(b.get("upper"))
+        if lo is None and hi is None:
+            out.append(f"{i}: a bound needs a lower or an upper endpoint")
+        if lo and hi and (lo[0] > hi[0] or lo[0] == hi[0] and (lo[1] or hi[1])):
+            out.append(f"{i}: the interval is empty")
+        if b.get("unit") is None and any(e and e[0] != 0 for e in (lo, hi)):
+            out.append(f"{i}: a bound without a unit may only have zero endpoints")
+        st = parity.get(b.get("theorem", ""))
+        if st is None:
+            out.append(f"{i}: theorem {b.get('theorem')} is not a Lean name in formal_parity.json")
+        elif sorted(b.get("languages", [])) != sorted(stated_in(st)):
+            out.append(f"{i}: languages {b.get('languages')} differ from formal_parity.json {stated_in(st)}")
+        r = b.get("row")
+        if r is not None:
+            if r not in vals:
+                out.append(f"{i}: row {r} is not in the constants table")
+            elif units[r] != b.get("unit"):
+                out.append(f"{i}: row {r} is in {units[r]}, the bound in {b.get('unit')}")
+            elif not admitted(b, vals[r]):
+                out.append(f"{i}: row {r} = {vals[r]} lies outside the bound")
+    return out
+
+
+def interval(b: dict) -> str:
+    lo, hi = endpoint(b.get("lower")), endpoint(b.get("upper"))
+    left = "(−∞" if lo is None else ("(" if lo[1] else "[") + str(lo[0])
+    right = "∞)" if hi is None else str(hi[0]) + (")" if hi[1] else "]")
+    return f"{left}, {right}"
+
+
+def unit_text(b: dict) -> str:
+    return b["unit"] if b.get("unit") is not None else "any unit"
+
+
+def bound_doc(b: dict, st: dict, first: str, rest: str, end: str = "", width: int = 116) -> list[str]:
+    """The bound's description, wrapped: quantity, unit, interval, and the formal_parity.json statement that proves
+    it."""
+    text = (f"{b['symbol']}: {b['quantity']} [{unit_text(b)}] lies in {interval(b)}; proved by {b['theorem']} "
+            f"({st['id']}: {st['statement']}).{end}")
+    lines = textwrap.wrap(text, width - len(first), break_on_hyphens=False)
+    return [first + lines[0]] + [rest + x for x in lines[1:]]
+
+
+def module_of(path: str, prefix: str, suffix: str) -> str:
+    return path[len(prefix):-len(suffix)].replace("/", ".")
+
+
+def lean_bounds(table: dict, parity: dict[str, dict]) -> str:
+    bs = bound_rows(table)
+    mods = sorted({module_of(parity[b["theorem"]]["lean"]["file"], "Lean/", ".lean") for b in bs})
+    L = [f"-- {SPDX}", "-- SPDX-License-Identifier: MIT", "/-", f"  {HEADER}", "",
+         "  The second-law bounds of the constants table. Each bound confines a quantity to an interval with exact",
+         "  rational endpoints and names, as `<id>_theorem`, the theorem of formal_parity.json that proves it: a",
+         "  renamed or removed theorem fails this module. A bound on a row of the table proves the row's exact value",
+         "  lies inside (`<id>_admits`). A bound fixes no value; the value stays cited, measured or chosen.", "-/", "",
+         "import Constants.SI"] + [f"import {m}" for m in mods] + ["", "namespace UMST.Constants.Bounds", ""]
+    for b in bs:
+        st = parity[b["theorem"]]
+        L += bound_doc(b, st, "/-- ", "    ", " -/")
+        for side in ("lower", "upper"):
+            e = endpoint(b.get(side))
+            if e:
+                L += [f"def {b['id']}_{side} : ℚ := {lean_q(e[0])}"]
+        L += [f"alias {b['id']}_theorem := {b['theorem']}", ""]
+        if b.get("row"):
+            row = f"UMST.Constants.SI.{b['row']}"
+            conj = []
+            lo, hi = endpoint(b.get("lower")), endpoint(b.get("upper"))
+            if lo:
+                conj.append(f"{b['id']}_lower {'<' if lo[1] else '≤'} {row}")
+            if hi:
+                conj.append(f"{row} {'<' if hi[1] else '≤'} {b['id']}_upper")
+            unfold = (f"rw [{row}_value]; norm_num [{', '.join(b['id'] + '_' + s for s in ('lower', 'upper') if b.get(s))}]"
+                      if any(c["id"] == b["row"] and c["status"] == "derived" for c in table["constants"]) else
+                      f"norm_num [{row}, {', '.join(b['id'] + '_' + s for s in ('lower', 'upper') if b.get(s))}]")
+            L += [f"/-- The table's {b['row']} lies in the bound. -/",
+                  f"theorem {b['id']}_admits :", "    " + " ∧\n    ".join(conj) + " := by", f"  {unfold}", ""]
+    L += ["end UMST.Constants.Bounds", ""]
+    return "\n".join(L)
+
+
+def coq_bounds(table: dict, parity: dict[str, dict]) -> str:
+    bs = bound_rows(table)
+    mods = sorted({"UMSTFormal." + module_of(parity[b["theorem"]]["coq"]["file"], "Coq/", ".v") for b in bs})
+    L = [f"(* {SPDX} *)", "(* SPDX-License-Identifier: MIT *)", f"(* {HEADER} *)",
+         "(* The second-law bounds of the constants table (twin of Lean/Constants/Bounds.lean): exact endpoints,   *)",
+         "(* the theorem that proves each bound by name, and for a bound on a table row its value inside.        *)",
+         "(* Zero Axiom, Parameter or Admitted.                                                                  *)", "",
+         "From Stdlib Require Import QArith.", "Require UMSTFormal.Constants.SI."] + \
+        [f"Require {m}." for m in mods] + ["Open Scope Q_scope.", ""]
+    for b in bs:
+        st = parity[b["theorem"]]
+        mod = "UMSTFormal." + module_of(st["coq"]["file"], "Coq/", ".v")
+        L += bound_doc(b, st, "(* ", "   ", " *)")
+        for side in ("lower", "upper"):
+            e = endpoint(b.get(side))
+            if e:
+                L.append(f"Definition {b['id']}_{side} : Q := {coq_q(e[0])}.")
+        L.append(f"Definition {b['id']}_theorem := @{mod}.{st['coq']['name']}.")
+        if b.get("row"):
+            row = f"UMSTFormal.Constants.SI.{b['row']}"
+            lo, hi = endpoint(b.get("lower")), endpoint(b.get("upper"))
+            conj, tac = [], []
+            if lo:
+                conj.append(f"{b['id']}_lower {'<' if lo[1] else '<='} {row}")
+                tac.append("reflexivity" if lo[1] else "discriminate")
+            if hi:
+                conj.append(f"{row} {'<' if hi[1] else '<='} {b['id']}_upper")
+                tac.append("reflexivity" if hi[1] else "discriminate")
+            proof = f"vm_compute; {tac[0]}" if len(tac) == 1 else f"split; [vm_compute; {tac[0]} | vm_compute; {tac[1]}]"
+            L += [f"Lemma {b['id']}_admits : {' /\\ '.join(conj)}.", f"Proof. {proof}. Qed."]
+        L.append("")
+    return "\n".join(L)
+
+
+def agda_bounds(table: dict, parity: dict[str, dict]) -> str:
+    bs = bound_rows(table)
+    mods = sorted({module_of(parity[b["theorem"]]["agda"]["file"], "Agda/", ".agda") for b in bs})
+    L = [f"-- {SPDX}", "-- SPDX-License-Identifier: MIT", f"-- {HEADER}",
+         "-- The second-law bounds of the constants table (twin of Lean/Constants/Bounds.lean): exact endpoints on",
+         "-- unnormalised rationals, each bound's theorem re-exported under `<id>-theorem` (a renamed or removed theorem",
+         "-- fails this module), and for a bound on a table row its value inside.", "",
+         "module Constants.Bounds where", "",
+         "open import Data.Integer using (+_; -[1+_])",
+         "open import Data.Rational.Unnormalised.Base using (ℚᵘ; mkℚᵘ; _≤_; _<_; *≤*; *<*)",
+         "open import Data.Product using (_×_; _,_)",
+         "open import Relation.Nullary.Decidable using (toWitness)",
+         "import Data.Integer.Properties as ℤ", "import Constants.SI as SI"] + [f"import {m}" for m in mods] + [""]
+    for b in bs:
+        st = parity[b["theorem"]]
+        mod = module_of(st["agda"]["file"], "Agda/", ".agda")
+        L += bound_doc(b, st, "-- ", "-- ") + [
+              f"open {mod} public using () renaming ({st['agda']['name']} to {b['id']}-theorem)"]
+        for side in ("lower", "upper"):
+            e = endpoint(b.get(side))
+            if e:
+                L += [f"{b['id']}-{side} : ℚᵘ", f"{b['id']}-{side} = {agda_q(e[0])}"]
+        if b.get("row"):
+            row = f"SI.{b['row']}"
+            lo, hi = endpoint(b.get("lower")), endpoint(b.get("upper"))
+            conj, prf = [], []
+            if lo:
+                conj.append(f"({b['id']}-lower {'<' if lo[1] else '≤'} {row})")
+                prf.append("*<* (toWitness {a? = _ ℤ.<? _} _)" if lo[1] else "*≤* (toWitness {a? = _ ℤ.≤? _} _)")
+            if hi:
+                conj.append(f"({row} {'<' if hi[1] else '≤'} {b['id']}-upper)")
+                prf.append("*<* (toWitness {a? = _ ℤ.<? _} _)" if hi[1] else "*≤* (toWitness {a? = _ ℤ.≤? _} _)")
+            L += [f"{b['id']}-admits : {' × '.join(conj)}", f"{b['id']}-admits = {' , '.join(prf)}"]
+        L.append("")
+    return "\n".join(L)
+
+
+def hs_q(v: Fraction) -> str:
+    return f"({v.numerator} % {v.denominator})"
+
+
+def haskell_bounds(table: dict, parity: dict[str, dict]) -> str:
+    bs = bound_rows(table)
+    L = [f"-- {SPDX}", "-- SPDX-License-Identifier: MIT", f"-- {HEADER}", "-- |",
+         "-- The second-law bounds of the constants table (twin of Lean/Constants/Bounds.lean): exact endpoints, the",
+         "-- theorem that proves each bound, and 'admits'. A bound fixes no value; the value stays cited, measured or",
+         "-- chosen. 'boundChecks' lists each bound on a table row against the row's exact value.",
+         "module UMST.Constants.Bounds where", "", "import Data.Ratio ((%))"]
+    if any(b.get("row") for b in bs):
+        L.append("import qualified UMST.Constants.SI as SI")
+    L += ["", "-- | One endpoint: the exact value and whether the endpoint itself is excluded.",
+          "data Endpoint = Endpoint { endpointAt :: Rational, endpointStrict :: Bool } deriving (Eq, Show)", "",
+          "-- | A second-law bound: the interval a quantity must lie in and the theorem (Lean name) that proves it.",
+          "data Bound = Bound", "  { boundId :: String", "  , boundSymbol :: String", "  , boundUnit :: Maybe String",
+          "  , boundLower :: Maybe Endpoint", "  , boundUpper :: Maybe Endpoint", "  , boundTheorem :: String",
+          "  , boundLanguages :: [String]", "  } deriving (Eq, Show)", "",
+          "-- | Whether a value lies in the bound.", "admits :: Bound -> Rational -> Bool",
+          "admits b v = maybe True above (boundLower b) && maybe True below (boundUpper b)", "  where",
+          "    above (Endpoint a s) = if s then a < v else a <= v",
+          "    below (Endpoint a s) = if s then v < a else v <= a", ""]
+    for b in bs:
+        st = parity[b["theorem"]]
+        ep = lambda side: "Nothing" if not b.get(side) else \
+            f"(Just (Endpoint {hs_q(endpoint(b[side])[0])} {endpoint(b[side])[1]}))"
+        unit = "Nothing" if b.get("unit") is None else f"(Just {json.dumps(b['unit'], ensure_ascii=False)})"
+        L += bound_doc(b, st, "-- | ", "-- ") + [
+              f"{b['id']} :: Bound",
+              f"{b['id']} = Bound {json.dumps(b['id'])} {json.dumps(b['symbol'], ensure_ascii=False)} {unit} "
+              f"{ep('lower')} {ep('upper')}",
+              f"  {json.dumps(b['theorem'])} {json.dumps(b['languages'])}", ""]
+    L += ["-- | Every bound, in table order.", "bounds :: [Bound]", "bounds = [" + ", ".join(b["id"] for b in bs) + "]",
+          "", "-- | Each bound on a table row against the row's exact value.", "boundChecks :: [(String, Bool)]"]
+    rows = [f'("{b["id"]} admits {b["row"]}", admits {b["id"]} SI.{b["row"]})' for b in bs if b.get("row")]
+    L += (["boundChecks =", "  [ " + "\n  , ".join(rows), "  ]", ""] if rows else ["boundChecks = []", ""])
+    return "\n".join(L)
+
+
+def haskell_bound_props(table: dict, parity: dict[str, dict]) -> str:
+    bs = bound_rows(table)
+    by_mod: dict[str, list[str]] = {}
+    for b in bs:
+        h = parity[b["theorem"]]["haskell"]
+        names = by_mod.setdefault(module_of(h["file"], "Haskell/test/", ".hs"), [])
+        if h["name"] not in names:
+            names.append(h["name"])
+    L = [f"-- {SPDX}", "-- SPDX-License-Identifier: MIT", f"-- {HEADER}",
+         "-- | Each second-law bound of the constants table with the property that tests its theorem's statement",
+         "-- (the Haskell column of formal_parity.json): a renamed or removed property fails this module.",
+         "module ConstantsBoundsProps (boundProperties) where", "", "import Test.QuickCheck (Property)", ""]
+    L += [f"import {m} ({', '.join(n)})" for m, n in sorted(by_mod.items())]
+    L += ["", "-- | Bound id and property, in table order.", "boundProperties :: [(String, Property)]",
+          "boundProperties ="]
+    rows = [f'("{b["id"]}", {parity[b["theorem"]]["haskell"]["name"]})' for b in bs]
+    L += ["  [ " + "\n  , ".join(rows), "  ]", ""]
+    return "\n".join(L)
+
+
+def rust_endpoint(e: tuple[Fraction, bool] | None, side: str) -> str:
+    """`Some(Endpoint { … })` with the f64 rounded into the interval: up for a lower endpoint, down for an upper one,
+    so `admits` never takes a value outside the exact bound."""
+    if e is None:
+        return "None"
+    x = float(e[0])
+    if side == "lower" and Fraction(x) < e[0]:
+        x = math.nextafter(x, math.inf)
+    if side == "upper" and Fraction(x) > e[0]:
+        x = math.nextafter(x, -math.inf)
+    return (f"Some(Endpoint {{\n        at: {rust_f64(Fraction(x))},\n        exact_num: \"{e[0].numerator}\",\n"
+            f"        exact_den: \"{e[0].denominator}\",\n        strict: {str(e[1]).lower()},\n    }})")
+
+
+def rust_bounds(table: dict, vals: dict[str, Fraction]) -> list[str]:
+    bs = bound_rows(table)
+    if not bs:
+        return []
+    parity = parity_statements()
+    L = ["/// One endpoint of a bound: the exact rational, its `f64` rounded into the interval (up for a lower",
+         "/// endpoint, down for an upper one, so `admits` never takes a value outside the exact bound), and whether",
+         "/// the endpoint itself is excluded.", "#[derive(Clone, Copy, Debug, PartialEq)]", "pub struct Endpoint {",
+         "    pub at: f64,", "    pub exact_num: &'static str,", "    pub exact_den: &'static str,", "    pub strict: bool,",
+         "}", "",
+         "/// A second-law bound: the interval a quantity must lie in and the theorem (a Lean name, with the languages",
+         "/// formal_parity.json states it in) that proves it. A bound fixes no value; the value stays cited, measured",
+         "/// or chosen.", "#[derive(Clone, Copy, Debug, PartialEq)]", "pub struct Bound {", "    pub id: &'static str,",
+         "    pub symbol: &'static str,", "    /// `None` for a sign bound, the same in every unit.",
+         "    pub unit: Option<&'static str>,", "    pub lower: Option<Endpoint>,", "    pub upper: Option<Endpoint>,",
+         "    pub theorem: &'static str,", "    pub parity: &'static str,", "    pub languages: &'static [&'static str],",
+         "}", "", "impl Bound {",
+         "    /// Whether `v` lies in the bound; NaN never does. A `const fn`, so a consumer checks its value at compile",
+         "    /// time: `const _: () = assert!(umst_constants::X_BOUND.admits(V));`.",
+         "    pub const fn admits(&self, v: f64) -> bool {", "        if v.is_nan() {", "            return false;",
+         "        }", "        let above = match self.lower {", "            Some(e) if e.strict => v > e.at,",
+         "            Some(e) => v >= e.at,", "            None => true,", "        };",
+         "        let below = match self.upper {", "            Some(e) if e.strict => v < e.at,",
+         "            Some(e) => v <= e.at,", "            None => true,", "        };", "        above && below", "    }",
+         "}", ""]
+    for b in bs:
+        st = parity[b["theorem"]]
+        unit = "None" if b.get("unit") is None else f'Some("{b["unit"]}")'
+        langs = ", ".join(f'"{x}"' for x in b["languages"])
+        L += bound_doc(b, st, "/// ", "/// ", width=100) + [
+              f"pub const {rust_name(b['id'])}_BOUND: Bound = Bound {{", f'    id: "{b["id"]}",',
+              f'    symbol: "{b["symbol"]}",', f"    unit: {unit},",
+              f"    lower: {rust_endpoint(endpoint(b.get('lower')), 'lower')},",
+              f"    upper: {rust_endpoint(endpoint(b.get('upper')), 'upper')},", f'    theorem: "{b["theorem"]}",',
+              f'    parity: "{st["id"]}",', f"    languages: &[{langs}],", "};", ""]
+    for b in bs:
+        if b.get("row"):
+            one = f"const _: () = assert!({rust_name(b['id'])}_BOUND.admits({rust_name(b['row'])}));"
+            body = [one] if len(one) <= 100 else ["const _: () = assert!(",
+                                                  f"    {rust_name(b['id'])}_BOUND.admits({rust_name(b['row'])})", ");"]
+            L += [f"/// The table's {b['row']} lies in its bound, checked at compile time."] + body + [""]
+    L += ["/// Every bound, in table order.", "pub const BOUNDS: &[Bound] = &["]
+    L += [f"    {rust_name(b['id'])}_BOUND," for b in bs]
+    L += ["];", ""]
+    return L
 
 
 # ------------------------------------------------------------------------------------------------- README table
@@ -496,6 +858,10 @@ def readme(table: dict, vals: dict[str, Fraction]) -> str:
 def outputs() -> dict[str, str]:
     table = load()
     vals = values(table)
+    parity = parity_statements() if bound_rows(table) else {}
+    problems = bound_problems(table, vals, parity) if bound_rows(table) else []
+    if problems:
+        raise SystemExit("FAIL: constants/constants.json bounds:\n  " + "\n  ".join(problems))
     out = {}
     if REPO == HOME:
         out["Lean/Constants/SI.lean"] = lean(table, vals)
@@ -504,6 +870,12 @@ def outputs() -> dict[str, str]:
     out["Agda/Constants/SI.agda"] = agda(table, vals)
     hs = "Haskell/UMST/Constants/SI.hs" if REPO == HOME else "Haskell/src/UMST/Constants/SI.hs"
     out[hs] = haskell(table, vals)
+    if bound_rows(table):
+        out["Lean/Constants/Bounds.lean"] = lean_bounds(table, parity)
+        out["Coq/Constants/Bounds.v"] = coq_bounds(table, parity)
+        out["Agda/Constants/Bounds.agda"] = agda_bounds(table, parity)
+        out["Haskell/UMST/Constants/Bounds.hs"] = haskell_bounds(table, parity)
+        out["Haskell/test/ConstantsBoundsProps.hs"] = haskell_bound_props(table, parity)
     return out
 
 

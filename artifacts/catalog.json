@@ -1488,6 +1488,33 @@
       "module": "Concrete.StiffnessTransition"
     },
     {
+      "path": "Constants/Bounds.lean",
+      "content_sha256": "a2c86960d554eb44fa760eb6bd14a9a730ce302ebb053261fbc5b3b630607812",
+      "declarations": {
+        "def": [
+          "elasticModulusPositive_lower",
+          "quadraticStiffnessNonneg_lower",
+          "isotropicPoissonRatio_lower",
+          "isotropicPoissonRatio_upper",
+          "isotropicYoungModulusNonneg_lower",
+          "relaxedModulusNonneg_lower",
+          "dissipationCoefficientNonneg_lower",
+          "viscosityNonneg_lower",
+          "binghamYieldStressNonneg_lower",
+          "binghamPlasticViscosityNonneg_lower",
+          "lossModulusNonneg_lower",
+          "restitutionAtMostOne_upper"
+        ]
+      },
+      "import_lines": [
+        "Constants.SI",
+        "Constants.SecondLawDissipation",
+        "Constants.SecondLawElastic",
+        "ConvexPhiChannels"
+      ],
+      "module": "Constants.Bounds"
+    },
+    {
       "path": "Constants/SI.lean",
       "content_sha256": "bbefa3a73b365b153e0ced82b5590049b1fc11aacf5980bec9ee1711788c7268",
       "declarations": {
@@ -7356,6 +7383,26 @@
       "to_approx": "Mathlib.Tactic"
     },
     {
+      "from": "Constants.Bounds",
+      "import": "Constants.SI",
+      "to_approx": "Constants.SI"
+    },
+    {
+      "from": "Constants.Bounds",
+      "import": "Constants.SecondLawDissipation",
+      "to_approx": "Constants.SecondLawDissipation"
+    },
+    {
+      "from": "Constants.Bounds",
+      "import": "Constants.SecondLawElastic",
+      "to_approx": "Constants.SecondLawElastic"
+    },
+    {
+      "from": "Constants.Bounds",
+      "import": "ConvexPhiChannels",
+      "to_approx": "ConvexPhiChannels"
+    },
+    {
       "from": "Constants.SI",
       "import": "Mathlib.Algebra.Order.Group.Abs",
       "to_approx": "Mathlib.Algebra.Order.Group.Abs"
@@ -9321,5 +9368,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "f434092dc93ba3e5a6d2a5e7aa53dccfc338a371bd5373892d43ee13bb97b870"
+  "digest": "fa78ce8da5e88e5d02019c80b36bddc6a27793c3bc06c6e2e3933a51ee82b857"
 }

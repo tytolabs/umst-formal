@@ -603,6 +603,298 @@ pub const ROWS: &[Row] = &[
     },
 ];
 
+/// One endpoint of a bound: the exact rational, its `f64` rounded into the interval (up for a lower
+/// endpoint, down for an upper one, so `admits` never takes a value outside the exact bound), and whether
+/// the endpoint itself is excluded.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Endpoint {
+    pub at: f64,
+    pub exact_num: &'static str,
+    pub exact_den: &'static str,
+    pub strict: bool,
+}
+
+/// A second-law bound: the interval a quantity must lie in and the theorem (a Lean name, with the languages
+/// formal_parity.json states it in) that proves it. A bound fixes no value; the value stays cited, measured
+/// or chosen.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Bound {
+    pub id: &'static str,
+    pub symbol: &'static str,
+    /// `None` for a sign bound, the same in every unit.
+    pub unit: Option<&'static str>,
+    pub lower: Option<Endpoint>,
+    pub upper: Option<Endpoint>,
+    pub theorem: &'static str,
+    pub parity: &'static str,
+    pub languages: &'static [&'static str],
+}
+
+impl Bound {
+    /// Whether `v` lies in the bound; NaN never does. A `const fn`, so a consumer checks its value at compile
+    /// time: `const _: () = assert!(umst_constants::X_BOUND.admits(V));`.
+    pub const fn admits(&self, v: f64) -> bool {
+        if v.is_nan() {
+            return false;
+        }
+        let above = match self.lower {
+            Some(e) if e.strict => v > e.at,
+            Some(e) => v >= e.at,
+            None => true,
+        };
+        let below = match self.upper {
+            Some(e) if e.strict => v < e.at,
+            Some(e) => v <= e.at,
+            None => true,
+        };
+        above && below
+    }
+}
+
+/// E: an elastic modulus holding a body at a nonzero stress (Young's modulus in uniaxial stress,
+/// the shear modulus in pure shear) [Pa] lies in (0, ∞); proved by
+/// UMST.Constants.SecondLawElastic.relaxation_modulus_pos (second_law_bound.modulus_pos: a body
+/// held at stress σ ≠ 0 by a modulus E ≠ 0 stores σ²/(2E); its passive relaxation under the second
+/// law forces E > 0 (Agda: the stored energy ψ is given by 2·E·ψ = σ², σ² a positive rational, and
+/// E ≠ 0 follows)).
+pub const ELASTIC_MODULUS_POSITIVE_BOUND: Bound = Bound {
+    id: "elasticModulusPositive",
+    symbol: "E",
+    unit: Some("Pa"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: true,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElastic.relaxation_modulus_pos",
+    parity: "second_law_bound.modulus_pos",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// k: the stiffness of a mode storing ½·k·s² [any unit] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawElastic.relaxation_stiffness_nonneg (second_law_bound.stiffness_nonneg:
+/// a mode storing ½·k·s² (s ≠ 0) whose passive relaxation to the natural state obeys the second law
+/// (transition case) has k ≥ 0 (Agda: the squared strain enters as a positive rational q)).
+pub const QUADRATIC_STIFFNESS_NONNEG_BOUND: Bound = Bound {
+    id: "quadraticStiffnessNonneg",
+    symbol: "k",
+    unit: None,
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElastic.relaxation_stiffness_nonneg",
+    parity: "second_law_bound.stiffness_nonneg",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// ν: the Poisson ratio of an isotropic solid with 3K + G > 0 [1] lies in [-1, 1/2]; proved by
+/// UMST.Constants.SecondLawElastic.isotropic_poisson_bounds (second_law_bound.isotropic_poisson: an
+/// isotropic solid storing ½·K·e² + ½·G·γ² relaxing passively under the second law from every
+/// volumetric strain and shear, with 3K + G > 0, has −1 ≤ ν ≤ 1/2 for ν = (3K − 2G)/(2(3K + G))
+/// (Agda: the denominator cleared, −2(3K + G) ≤ 3K − 2G ≤ 3K + G)).
+pub const ISOTROPIC_POISSON_RATIO_BOUND: Bound = Bound {
+    id: "isotropicPoissonRatio",
+    symbol: "ν",
+    unit: Some("1"),
+    lower: Some(Endpoint {
+        at: -1.0,
+        exact_num: "-1",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: Some(Endpoint {
+        at: 0.5,
+        exact_num: "1",
+        exact_den: "2",
+        strict: false,
+    }),
+    theorem: "UMST.Constants.SecondLawElastic.isotropic_poisson_bounds",
+    parity: "second_law_bound.isotropic_poisson",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// E: Young's modulus 9KG/(3K + G) of an isotropic solid with 3K + G > 0 [Pa] lies in [0, ∞);
+/// proved by UMST.Constants.SecondLawElastic.isotropic_young_nonneg
+/// (second_law_bound.isotropic_young: under the same relaxation Young's modulus E = 9KG/(3K + G) is
+/// nonnegative (Agda: the denominator cleared, 9·K·G ≥ 0)).
+pub const ISOTROPIC_YOUNG_MODULUS_NONNEG_BOUND: Bound = Bound {
+    id: "isotropicYoungModulusNonneg",
+    symbol: "E",
+    unit: Some("Pa"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElastic.isotropic_young_nonneg",
+    parity: "second_law_bound.isotropic_young",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// G∞: the relaxed modulus of a standard linear solid (it is also at most the instantaneous modulus
+/// G∞ + G₁) [Pa] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawElastic.sls_relaxed_le_instantaneous (second_law_bound.sls_relaxed: a
+/// standard linear solid storing ½·G∞·ε² + ½·G₁·ξ² relaxing passively under the second law from
+/// every total and arm strain has 0 ≤ G∞ ≤ G∞ + G₁ = G₀).
+pub const RELAXED_MODULUS_NONNEG_BOUND: Bound = Bound {
+    id: "relaxedModulusNonneg",
+    symbol: "G∞",
+    unit: Some("Pa"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElastic.sls_relaxed_le_instantaneous",
+    parity: "second_law_bound.sls_relaxed",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// c: a dissipation coefficient c in a dissipated energy c·q, q > 0 [any unit] lies in [0, ∞);
+/// proved by UMST.Constants.SecondLawDissipation.dissipation_coefficient_nonneg
+/// (second_law_bound.dissipation_coefficient: a passive step dissipating c·q (q > 0) out of the
+/// free energy obeys the second law (transition case) only when c ≥ 0).
+pub const DISSIPATION_COEFFICIENT_NONNEG_BOUND: Bound = Bound {
+    id: "dissipationCoefficientNonneg",
+    symbol: "c",
+    unit: None,
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawDissipation.dissipation_coefficient_nonneg",
+    parity: "second_law_bound.dissipation_coefficient",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// η: a dashpot viscosity [Pa s] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawDissipation.viscosity_nonneg (second_law_bound.viscosity: a dashpot at
+/// rate r ≠ 0 over dt > 0 dissipating η·r²·dt obeys the second law only when η ≥ 0 (Agda: r² enters
+/// as a positive rational q)).
+pub const VISCOSITY_NONNEG_BOUND: Bound = Bound {
+    id: "viscosityNonneg",
+    symbol: "η",
+    unit: Some("Pa s"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawDissipation.viscosity_nonneg",
+    parity: "second_law_bound.viscosity",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// τ₀: the yield stress of a Bingham fluid [Pa] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawDissipation.bingham_nonneg (second_law_bound.bingham: a Bingham fluid
+/// dissipating (τ₀·|r| + η_p·r²)·dt that obeys the second law at every rate has τ₀ ≥ 0 and η_p ≥ 0
+/// (Agda: at every positive rate, where |r| = r)).
+pub const BINGHAM_YIELD_STRESS_NONNEG_BOUND: Bound = Bound {
+    id: "binghamYieldStressNonneg",
+    symbol: "τ₀",
+    unit: Some("Pa"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawDissipation.bingham_nonneg",
+    parity: "second_law_bound.bingham",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// η_p: the plastic viscosity of a Bingham fluid [Pa s] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawDissipation.bingham_nonneg (second_law_bound.bingham: a Bingham fluid
+/// dissipating (τ₀·|r| + η_p·r²)·dt that obeys the second law at every rate has τ₀ ≥ 0 and η_p ≥ 0
+/// (Agda: at every positive rate, where |r| = r)).
+pub const BINGHAM_PLASTIC_VISCOSITY_NONNEG_BOUND: Bound = Bound {
+    id: "binghamPlasticViscosityNonneg",
+    symbol: "η_p",
+    unit: Some("Pa s"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawDissipation.bingham_nonneg",
+    parity: "second_law_bound.bingham",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// E″: the loss modulus of a harmonic strain cycle [Pa] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawDissipation.lossModulus_nonneg (second_law_bound.loss_modulus: a
+/// harmonic strain cycle dissipating π·E″·ε₀² (ε₀ ≠ 0) obeys the second law only when E″ ≥ 0, and
+/// then E″/E′ ≥ 0 for E′ > 0 (Coq, Agda: the cycle measure π·ε₀² enters as a positive rational q)).
+pub const LOSS_MODULUS_NONNEG_BOUND: Bound = Bound {
+    id: "lossModulusNonneg",
+    symbol: "E″",
+    unit: Some("Pa"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawDissipation.lossModulus_nonneg",
+    parity: "second_law_bound.loss_modulus",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// e: a coefficient of restitution e ≥ 0 of a passive impact [1] lies in (−∞, 1]; proved by
+/// UMST.ConvexPhiChannels.restitution_le_one (second_law_bound.restitution: a passive impact with
+/// free energy ½·μ·v² before and ½·μ·(e·v)² after that obeys the second law (transition case) has e
+/// ≤ 1 for e ≥ 0 and μ·v² > 0 (Agda: μ·v² enters as a positive rational m)).
+pub const RESTITUTION_AT_MOST_ONE_BOUND: Bound = Bound {
+    id: "restitutionAtMostOne",
+    symbol: "e",
+    unit: Some("1"),
+    lower: None,
+    upper: Some(Endpoint {
+        at: 1.0,
+        exact_num: "1",
+        exact_den: "1",
+        strict: false,
+    }),
+    theorem: "UMST.ConvexPhiChannels.restitution_le_one",
+    parity: "second_law_bound.restitution",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// Every bound, in table order.
+pub const BOUNDS: &[Bound] = &[
+    ELASTIC_MODULUS_POSITIVE_BOUND,
+    QUADRATIC_STIFFNESS_NONNEG_BOUND,
+    ISOTROPIC_POISSON_RATIO_BOUND,
+    ISOTROPIC_YOUNG_MODULUS_NONNEG_BOUND,
+    RELAXED_MODULUS_NONNEG_BOUND,
+    DISSIPATION_COEFFICIENT_NONNEG_BOUND,
+    VISCOSITY_NONNEG_BOUND,
+    BINGHAM_YIELD_STRESS_NONNEG_BOUND,
+    BINGHAM_PLASTIC_VISCOSITY_NONNEG_BOUND,
+    LOSS_MODULUS_NONNEG_BOUND,
+    RESTITUTION_AT_MOST_ONE_BOUND,
+];
+
 #[cfg(test)]
 #[rustfmt::skip] // generated: one assertion per row
 mod tests {
@@ -643,6 +935,27 @@ mod tests {
         for (i, a) in ROWS.iter().enumerate() {
             for b in &ROWS[i + 1..] {
                 assert_ne!(a.id, b.id);
+            }
+        }
+    }
+
+    /// `admits` refuses NaN and the infinity past each endpoint, and takes an endpoint exactly when it is
+    /// not strict.
+    #[test]
+    fn bounds_admit_by_their_endpoints() {
+        for b in BOUNDS {
+            assert!(!b.admits(f64::NAN), "{}", b.id);
+            if let Some(e) = b.lower {
+                assert!(!b.admits(f64::NEG_INFINITY), "{}", b.id);
+                if b.upper.is_none() {
+                    assert_eq!(b.admits(e.at), !e.strict, "{}", b.id);
+                }
+            }
+            if let Some(e) = b.upper {
+                assert!(!b.admits(f64::INFINITY), "{}", b.id);
+                if b.lower.is_none() {
+                    assert_eq!(b.admits(e.at), !e.strict, "{}", b.id);
+                }
             }
         }
     }

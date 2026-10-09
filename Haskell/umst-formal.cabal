@@ -24,6 +24,7 @@ library
     UMST.Chem
     UMST.Chem.Kleisli
     UMST.Constants.SI
+    UMST.Constants.Bounds
     UMST.Process
     UMST.Excitement
     UMST.OneInequality
@@ -70,7 +71,7 @@ library
 test-suite umst-properties
   type:             exitcode-stdio-1.0
   main-is:          Test.hs
-  other-modules:    CoordinationContractProps, CreditGreedy, Dignity, EtaCog, MedianConvergence, OrderStatisticsBand, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
+  other-modules:    ConstantsBoundsProps, CoordinationContractProps, CreditGreedy, Dignity, EtaCog, MedianConvergence, OrderStatisticsBand, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
   hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,
