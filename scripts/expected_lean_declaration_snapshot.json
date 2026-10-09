@@ -1,5 +1,5 @@
 {
-  "repo": "umst-formal",
+  "repo": "formal",
   "lake_roots_count": 92,
   "lake_roots": [
     "Core.Scalar",
@@ -101,9 +101,9 @@
     "total": 701
   },
   "all_lean_glob": {
-    "theorem": 1467,
+    "theorem": 1485,
     "lemma": 62,
-    "total": 1529
+    "total": 1547
   },
   "per_root": {
     "Core.Scalar": {

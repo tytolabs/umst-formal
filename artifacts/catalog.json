@@ -598,6 +598,42 @@
       "module": "Chem.PatternNuance"
     },
     {
+      "path": "Chem/ProcessFunctor.lean",
+      "content_sha256": "f3ebf0d6aee7622aa928311f8f802e88f5067a416332b0b50dddf68da351143c",
+      "declarations": {
+        "def": [
+          "ThermochemicalTransition.process",
+          "ThermochemicalTransition.transformation",
+          "ThermochemicalTransition.idAt",
+          "ThermochemicalTransition.seq"
+        ],
+        "theorem": [
+          "chemSecondLaw_iff_process",
+          "secondLaw_iff_entropyDrop",
+          "secondLaw_iff_workFloor",
+          "ThermochemicalTransition.seq_idAt_left",
+          "ThermochemicalTransition.seq_idAt_right",
+          "ThermochemicalTransition.seq_assoc",
+          "process_idAt",
+          "process_seq",
+          "chemSecondLaw_idAt",
+          "chemSecondLaw_seq",
+          "PhysicalChemBridge.process_eq",
+          "PhysicalChemBridge.transformation_eq",
+          "PhysicalChemBridge.secondLaw_iff",
+          "secondLaw_identity_iff_work_nonneg",
+          "zeroWork_reversible_iff",
+          "coherentP0_eq_idAt",
+          "coherentP0_secondLaw_iff_work_nonneg",
+          "coherentP0_reversible"
+        ]
+      },
+      "import_lines": [
+        "Chem.SecondLaw"
+      ],
+      "module": "Chem.ProcessFunctor"
+    },
+    {
       "path": "Chem/RefineCost.lean",
       "content_sha256": "b2a2863144a4bf2f7064a8248f7787f2bfc99dbc50370711f003767b05f1e5ae",
       "declarations": {
@@ -649,7 +685,7 @@
     },
     {
       "path": "Chem/SecondLaw.lean",
-      "content_sha256": "a53528cf7835aab7a3c4d4bcf41f40ed44ce7454a72c4eacf17ea1ce399f0f09",
+      "content_sha256": "a61389820917a8be5286ffa4933ed7a88af981c6c6f386f77037aca4c0edff31",
       "declarations": {
         "structure": [
           "ThermochemicalTransition",
@@ -7275,6 +7311,11 @@
       "to_approx": "Chem.RefineCost"
     },
     {
+      "from": "Chem.ProcessFunctor",
+      "import": "Chem.SecondLaw",
+      "to_approx": "Chem.SecondLaw"
+    },
+    {
       "from": "Chem.RefineCost",
       "import": "Chem.Conservation",
       "to_approx": "Chem.Conservation"
@@ -9645,5 +9686,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "4a3d8d2a6fadabf0e836690175cdbf391bdaa5e29bd7acf7e54734d05c97389e"
+  "digest": "38c087c88ea7c4b512c32f18bd210b046400538e33484101fa19a013a800c711"
 }
