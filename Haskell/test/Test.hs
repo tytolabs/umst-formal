@@ -43,6 +43,7 @@ import RhoEstimator
 import MedianConvergence
 import OrderStatisticsBand
 import MeasurementCost (mutualInformationBits, measurementEnergyLowerBound)
+import SecondLawBoundsProps
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1172,6 +1173,14 @@ main = do
   check r prop_process_si_bound
   check r prop_process_landauer_bound_any_drop
   check r prop_process_si_bound_any_drop
+  putStrLn "-- Second-law bounds on elastic constants (Constants.SecondLawElastic)"
+  check r prop_bound_stiffness_nonneg
+  check r prop_bound_modulus_pos
+  check r prop_bound_two_mode_nonneg
+  check r prop_bound_isotropic_poisson
+  check r prop_bound_isotropic_young
+  check r prop_bound_sls_relaxed
+  check r prop_bound_orthotropic_poisson
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

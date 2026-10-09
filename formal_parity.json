@@ -1734,6 +1734,146 @@
     "name": "prop_urge_post_provenance_preserves",
     "file": "Haskell/test/Test.hs"
    }
+  },
+  {
+   "id": "second_law_bound.stiffness_nonneg",
+   "statement": "a mode storing ½·k·s² (s ≠ 0) whose passive relaxation to the natural state obeys the second law (transition case) has k ≥ 0 (Agda: the squared strain enters as a positive rational q)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElastic.relaxation_stiffness_nonneg",
+    "file": "Lean/Constants/SecondLawElastic.lean"
+   },
+   "coq": {
+    "name": "relaxation_stiffness_nonneg",
+    "file": "Coq/Constants/SecondLawElastic.v"
+   },
+   "agda": {
+    "name": "relaxation-stiffness-nonneg",
+    "file": "Agda/Constants/SecondLawElastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_stiffness_nonneg",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.modulus_pos",
+   "statement": "a body held at stress σ ≠ 0 by a modulus E ≠ 0 stores σ²/(2E); its passive relaxation under the second law forces E > 0 (Agda: the stored energy ψ is given by 2·E·ψ = σ², σ² a positive rational, and E ≠ 0 follows)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElastic.relaxation_modulus_pos",
+    "file": "Lean/Constants/SecondLawElastic.lean"
+   },
+   "coq": {
+    "name": "relaxation_modulus_pos",
+    "file": "Coq/Constants/SecondLawElastic.v"
+   },
+   "agda": {
+    "name": "relaxation-modulus-pos",
+    "file": "Agda/Constants/SecondLawElastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_modulus_pos",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.two_mode_nonneg",
+   "statement": "two quadratic modes ½·a·x² + ½·b·y² relaxing passively under the second law from every (x, y) have a ≥ 0 and b ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElastic.twoMode_stiffness_nonneg",
+    "file": "Lean/Constants/SecondLawElastic.lean"
+   },
+   "coq": {
+    "name": "twoMode_stiffness_nonneg",
+    "file": "Coq/Constants/SecondLawElastic.v"
+   },
+   "agda": {
+    "name": "twoMode-stiffness-nonneg",
+    "file": "Agda/Constants/SecondLawElastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_two_mode_nonneg",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.isotropic_poisson",
+   "statement": "an isotropic solid storing ½·K·e² + ½·G·γ² relaxing passively under the second law from every volumetric strain and shear, with 3K + G > 0, has −1 ≤ ν ≤ 1/2 for ν = (3K − 2G)/(2(3K + G)) (Agda: the denominator cleared, −2(3K + G) ≤ 3K − 2G ≤ 3K + G)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElastic.isotropic_poisson_bounds",
+    "file": "Lean/Constants/SecondLawElastic.lean"
+   },
+   "coq": {
+    "name": "isotropic_poisson_bounds",
+    "file": "Coq/Constants/SecondLawElastic.v"
+   },
+   "agda": {
+    "name": "isotropic-poisson-bounds",
+    "file": "Agda/Constants/SecondLawElastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_isotropic_poisson",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.isotropic_young",
+   "statement": "under the same relaxation Young's modulus E = 9KG/(3K + G) is nonnegative (Agda: the denominator cleared, 9·K·G ≥ 0)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElastic.isotropic_young_nonneg",
+    "file": "Lean/Constants/SecondLawElastic.lean"
+   },
+   "coq": {
+    "name": "isotropic_young_nonneg",
+    "file": "Coq/Constants/SecondLawElastic.v"
+   },
+   "agda": {
+    "name": "isotropic-young-nonneg",
+    "file": "Agda/Constants/SecondLawElastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_isotropic_young",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.sls_relaxed",
+   "statement": "a standard linear solid storing ½·G∞·ε² + ½·G₁·ξ² relaxing passively under the second law from every total and arm strain has 0 ≤ G∞ ≤ G∞ + G₁ = G₀",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElastic.sls_relaxed_le_instantaneous",
+    "file": "Lean/Constants/SecondLawElastic.lean"
+   },
+   "coq": {
+    "name": "sls_relaxed_le_instantaneous",
+    "file": "Coq/Constants/SecondLawElastic.v"
+   },
+   "agda": {
+    "name": "sls-relaxed-le-instantaneous",
+    "file": "Agda/Constants/SecondLawElastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_sls_relaxed",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.orthotropic_poisson",
+   "statement": "an orthotropic lamina with nonzero moduli relaxing passively under the second law from every plane stress state has E₁ > 0, E₂ > 0 and ν₁₂² ≤ E₁/E₂ (Agda: on the compliance entries with S₂₂ > 0, S₁₂² ≤ S₁₁·S₂₂)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawElastic.orthotropic_poisson_sq_le",
+    "file": "Lean/Constants/SecondLawElastic.lean"
+   },
+   "coq": {
+    "name": "orthotropic_poisson_sq_le",
+    "file": "Coq/Constants/SecondLawElastic.v"
+   },
+   "agda": {
+    "name": "orthotropic-compliance-sq-le",
+    "file": "Agda/Constants/SecondLawElastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_orthotropic_poisson",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
   }
  ]
 }

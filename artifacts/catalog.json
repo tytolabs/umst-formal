@@ -1608,6 +1608,31 @@
       "module": "Constants.SIBridge"
     },
     {
+      "path": "Constants/SecondLawElastic.lean",
+      "content_sha256": "827ef321ffc412b6e64fc2732a5d2e3f8ecdad862cd6640c37a9ea4493160bae",
+      "declarations": {
+        "theorem": [
+          "takes",
+          "relaxation_stiffness_nonneg",
+          "relaxation_modulus_pos",
+          "twoMode_stiffness_nonneg",
+          "isotropic_poisson_bounds",
+          "isotropic_young_nonneg",
+          "sls_relaxed_le_instantaneous",
+          "orthotropic_poisson_sq_le"
+        ],
+        "def": [
+          "poissonRatio",
+          "youngModulus",
+          "orthotropicEnergy"
+        ]
+      },
+      "import_lines": [
+        "Process"
+      ],
+      "module": "Constants.SecondLawElastic"
+    },
+    {
       "path": "ConvexPhiChannels.lean",
       "content_sha256": "cc0efa96000e6e317eea26c508093dda0027b8b92a64bf570c85686e13cc09db",
       "declarations": {
@@ -7260,6 +7285,11 @@
       "to_approx": "Process"
     },
     {
+      "from": "Constants.SecondLawElastic",
+      "import": "Process",
+      "to_approx": "Process"
+    },
+    {
       "from": "ConvexPhiChannels",
       "import": "ConvexPhiDissipation",
       "to_approx": "ConvexPhiDissipation"
@@ -9150,5 +9180,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "eb8d552d1a43d36e9c3260f2c2c4325726dd3f05633388d99873ca6625604b9d"
+  "digest": "c29a645f104639a94af807a75aff258022c42296964685bf7bd05a9881042778"
 }

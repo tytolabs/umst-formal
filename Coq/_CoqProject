@@ -11,6 +11,7 @@ LandauerEinsteinBridge.v
 CoordinationContract.v
 Constants/SI.v
 Process.v
+Constants/SecondLawElastic.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v
