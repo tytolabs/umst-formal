@@ -49,6 +49,7 @@ import SecondLawConstantsProps
 import SecondLawSolidInelasticProps
 import SecondLawPoroContinuumProps
 import ConstantsBoundsProps (boundProperties)
+import PhiGrammarProps
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1228,6 +1229,18 @@ main = do
   putStrLn "-- Second-law bounds of the constants table (Constants.Bounds): each bound with its theorem's property"
   mapM_ (\(name, p) -> check r (counterexample name p)) boundProperties
   mapM_ (\(name, ok) -> check r (once (counterexample name ok))) Bounds.boundChecks
+  putStrLn "-- Convex-by-construction dissipation potentials (Convex.PhiGrammar)"
+  check r prop_phi_zero
+  check r prop_phi_nonneg
+  check r prop_phi_chord_convex
+  check r prop_phi_subgradient
+  check r prop_phi_dissipation_nonneg
+  check r prop_phi_passive_second_law
+  check r prop_phi_capped_not_convex
+  putStrLn "-- GENERIC entropy production (Generic.EntropyProduction)"
+  check r prop_generic_energy_rate_zero
+  check r prop_generic_entropy_rate_nonneg
+  check r prop_generic_free_energy_descent
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

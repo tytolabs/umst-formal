@@ -22,6 +22,8 @@ RhoEstimator.v
 MedianConvergence.v
 Constants/SecondLawPoroContinuum.v
 Constants/Bounds.v
+Convex/PhiGrammar.v
+Generic/EntropyProduction.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v
