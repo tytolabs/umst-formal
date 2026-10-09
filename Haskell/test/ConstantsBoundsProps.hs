@@ -8,6 +8,8 @@ module ConstantsBoundsProps (boundProperties) where
 import Test.QuickCheck (Property)
 
 import SecondLawBoundsProps (prop_bound_modulus_pos, prop_bound_stiffness_nonneg, prop_bound_isotropic_poisson, prop_bound_isotropic_young, prop_bound_sls_relaxed, prop_bound_dissipation_coefficient, prop_bound_viscosity, prop_bound_bingham, prop_bound_loss_modulus, prop_bound_restitution)
+import SecondLawConstantsProps (prop_bound_electric_relaxation, prop_bound_magnetic_relaxation, prop_bound_conductance_dissipation, prop_bound_resistance_dissipation)
+import SecondLawSolidInelasticProps (prop_bound_coupled_well, prop_bound_double_well, prop_bound_griffith_energy, prop_bound_griffith_toughness, prop_bound_norton, prop_bound_parabolic_rate, prop_bound_frictional_bond)
 
 -- | Bound id and property, in table order.
 boundProperties :: [(String, Property)]
@@ -23,4 +25,16 @@ boundProperties =
   , ("binghamPlasticViscosityNonneg", prop_bound_bingham)
   , ("lossModulusNonneg", prop_bound_loss_modulus)
   , ("restitutionAtMostOne", prop_bound_restitution)
+  , ("permittivityNonneg", prop_bound_electric_relaxation)
+  , ("permeabilityPositive", prop_bound_magnetic_relaxation)
+  , ("conductanceNonneg", prop_bound_conductance_dissipation)
+  , ("resistanceNonneg", prop_bound_resistance_dissipation)
+  , ("coupledWellModulusPositive", prop_bound_coupled_well)
+  , ("coupledWellCrossCoupling", prop_bound_coupled_well)
+  , ("doubleWellModulusNonneg", prop_bound_double_well)
+  , ("griffithFractureEnergyNonneg", prop_bound_griffith_energy)
+  , ("fractureToughnessNonneg", prop_bound_griffith_toughness)
+  , ("nortonCoefficientNonneg", prop_bound_norton)
+  , ("parabolicRateConstantNonneg", prop_bound_parabolic_rate)
+  , ("frictionalBondPrefactorNonneg", prop_bound_frictional_bond)
   ]

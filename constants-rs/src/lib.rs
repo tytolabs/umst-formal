@@ -880,6 +880,271 @@ pub const RESTITUTION_AT_MOST_ONE_BOUND: Bound = Bound {
     languages: &["lean", "coq", "agda", "haskell"],
 };
 
+/// ε: the permittivity of a medium storing the field energy ½·ε·E² that relaxes passively from
+/// every field [F m⁻¹] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawElectromagnetic.electricRelaxation_secondLaw_iff
+/// (second_law_bound.electric_relaxation: a vacuum field storing ½·ε·E² relaxes passively from
+/// every field exactly when ε ≥ 0).
+pub const PERMITTIVITY_NONNEG_BOUND: Bound = Bound {
+    id: "permittivityNonneg",
+    symbol: "ε",
+    unit: Some("F m⁻¹"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElectromagnetic.electricRelaxation_secondLaw_iff",
+    parity: "second_law_bound.electric_relaxation",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// μ: the permeability of a medium storing the field energy B²/(2μ) that relaxes passively from
+/// every flux density [N A⁻²] lies in (0, ∞); proved by
+/// UMST.Constants.SecondLawElectromagnetic.magneticRelaxation_secondLaw_iff
+/// (second_law_bound.magnetic_relaxation: a field storing B²/(2μ), μ ≠ 0, relaxes passively from
+/// every flux density exactly when μ > 0).
+pub const PERMEABILITY_POSITIVE_BOUND: Bound = Bound {
+    id: "permeabilityPositive",
+    symbol: "μ",
+    unit: Some("N A⁻²"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: true,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElectromagnetic.magneticRelaxation_secondLaw_iff",
+    parity: "second_law_bound.magnetic_relaxation",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// G: the conductance of a Joule step dissipating G·V²·dt [S] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawElectromagnetic.conductanceDissipation_secondLaw_iff
+/// (second_law_bound.conductance_dissipation: every Joule step dissipating G·V²·dt is admitted
+/// exactly when the conductance G ≥ 0).
+pub const CONDUCTANCE_NONNEG_BOUND: Bound = Bound {
+    id: "conductanceNonneg",
+    symbol: "G",
+    unit: Some("S"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElectromagnetic.conductanceDissipation_secondLaw_iff",
+    parity: "second_law_bound.conductance_dissipation",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// R: the resistance of a Joule step dissipating R·I²·dt [Ω] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawElectromagnetic.resistanceDissipation_secondLaw_iff
+/// (second_law_bound.resistance_dissipation: every Joule step dissipating R·I²·dt is admitted
+/// exactly when the resistance R ≥ 0).
+pub const RESISTANCE_NONNEG_BOUND: Bound = Bound {
+    id: "resistanceNonneg",
+    symbol: "R",
+    unit: Some("Ω"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawElectromagnetic.resistanceDissipation_secondLaw_iff",
+    parity: "second_law_bound.resistance_dissipation",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// k: the modulus k of a plastic and hardening free energy ½·k·(x² + y² + 2c·x·y) that relaxes from
+/// every state [J m⁻³] lies in (0, ∞); proved by
+/// UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds (second_law_bound.coupled_well: a
+/// plastic strain and a hardening variable storing ½·k·(x² + y² + 2c·x·y) that relax from every (x,
+/// y), with k ≠ 0, have k > 0 and −1 ≤ c ≤ 1 (Agda: takes k > 0 and states 0 ≤ 1 + c and 0 ≤ 1 −
+/// c)).
+pub const COUPLED_WELL_MODULUS_POSITIVE_BOUND: Bound = Bound {
+    id: "coupledWellModulusPositive",
+    symbol: "k",
+    unit: Some("J m⁻³"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: true,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds",
+    parity: "second_law_bound.coupled_well",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// c: the cross coupling c of a plastic and hardening free energy ½·k·(x² + y² + 2c·x·y) that
+/// relaxes from every state [1] lies in [-1, 1]; proved by
+/// UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds (second_law_bound.coupled_well: a
+/// plastic strain and a hardening variable storing ½·k·(x² + y² + 2c·x·y) that relax from every (x,
+/// y), with k ≠ 0, have k > 0 and −1 ≤ c ≤ 1 (Agda: takes k > 0 and states 0 ≤ 1 + c and 0 ≤ 1 −
+/// c)).
+pub const COUPLED_WELL_CROSS_COUPLING_BOUND: Bound = Bound {
+    id: "coupledWellCrossCoupling",
+    symbol: "c",
+    unit: Some("1"),
+    lower: Some(Endpoint {
+        at: -1.0,
+        exact_num: "-1",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: Some(Endpoint {
+        at: 1.0,
+        exact_num: "1",
+        exact_den: "1",
+        strict: false,
+    }),
+    theorem: "UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds",
+    parity: "second_law_bound.coupled_well",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// k: the modulus k of a phase-field double well k·φ²·(1 − φ)² that relaxes [J m⁻³] lies in [0, ∞);
+/// proved by UMST.Constants.SecondLawSolidInelastic.doubleWell_modulus_nonneg
+/// (second_law_bound.double_well: a phase field φ ∉ {0, 1} storing k·φ²·(1 − φ)² that relaxes has k
+/// ≥ 0 (Agda: the envelope enters as a positive rational q)).
+pub const DOUBLE_WELL_MODULUS_NONNEG_BOUND: Bound = Bound {
+    id: "doubleWellModulusNonneg",
+    symbol: "k",
+    unit: Some("J m⁻³"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawSolidInelastic.doubleWell_modulus_nonneg",
+    parity: "second_law_bound.double_well",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// G_c: the Griffith fracture energy dissipated per unit crack area [J m⁻²] lies in [0, ∞); proved
+/// by UMST.Constants.SecondLawSolidInelastic.griffith_fracture_energy_nonneg
+/// (second_law_bound.griffith_energy: a crack extension ΔA > 0 dissipating G_c·ΔA obeys the second
+/// law only when G_c ≥ 0).
+pub const GRIFFITH_FRACTURE_ENERGY_NONNEG_BOUND: Bound = Bound {
+    id: "griffithFractureEnergyNonneg",
+    symbol: "G_c",
+    unit: Some("J m⁻²"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawSolidInelastic.griffith_fracture_energy_nonneg",
+    parity: "second_law_bound.griffith_energy",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// K: the fracture toughness K = √(E·G_c) [Pa m^(1/2)] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawSolidInelastic.griffith_toughness_nonneg
+/// (second_law_bound.griffith_toughness: with G_c ≥ 0 from a crack extension and E > 0 from an
+/// elastic relaxation, K = √(E·G_c) ≥ 0 and K² = E·G_c (Coq and Agda: the radicand E·G_c ≥ 0)).
+pub const FRACTURE_TOUGHNESS_NONNEG_BOUND: Bound = Bound {
+    id: "fractureToughnessNonneg",
+    symbol: "K",
+    unit: Some("Pa m^(1/2)"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawSolidInelastic.griffith_toughness_nonneg",
+    parity: "second_law_bound.griffith_toughness",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// A: the Norton creep coefficient A of the rate A·σⁿ, for every exponent n [any unit] lies in [0,
+/// ∞); proved by UMST.Constants.SecondLawSolidInelastic.norton_coefficient_nonneg
+/// (second_law_bound.norton: steady creep at stress σ > 0 with rate A·σⁿ over dt > 0 dissipates
+/// σ·A·σⁿ·dt and obeys the second law only when A ≥ 0 (Coq and Agda: σⁿ enters as a positive
+/// rational p)).
+pub const NORTON_COEFFICIENT_NONNEG_BOUND: Bound = Bound {
+    id: "nortonCoefficientNonneg",
+    symbol: "A",
+    unit: None,
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawSolidInelastic.norton_coefficient_nonneg",
+    parity: "second_law_bound.norton",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// k_p: the parabolic scaling constant k_p of a scale growing at k_p/(2x) under a positive affinity
+/// [m² s⁻¹] lies in [0, ∞); proved by UMST.Constants.SecondLawSolidInelastic.parabolic_rate_nonneg
+/// (second_law_bound.parabolic_rate: a scale of thickness x > 0 growing at k_p/(2x) under a
+/// reaction affinity a > 0 dissipates a·k_p/(2x)·dt and obeys the second law only when k_p ≥ 0
+/// (Agda: 1/(2x) enters as a positive rational w)).
+pub const PARABOLIC_RATE_CONSTANT_NONNEG_BOUND: Bound = Bound {
+    id: "parabolicRateConstantNonneg",
+    symbol: "k_p",
+    unit: Some("m² s⁻¹"),
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawSolidInelastic.parabolic_rate_nonneg",
+    parity: "second_law_bound.parabolic_rate",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// b: the prefactor b of a frictional fibre bond stress b·√f_c [any unit] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawSolidInelastic.frictional_bond_nonneg (second_law_bound.frictional_bond:
+/// a fibre with bond stress b·√f_c (f_c > 0) sliding over a slip area s > 0 dissipates b·√f_c·s and
+/// obeys the second law only when b ≥ 0 (Coq and Agda: √f_c enters as a positive rational r)).
+pub const FRICTIONAL_BOND_PREFACTOR_NONNEG_BOUND: Bound = Bound {
+    id: "frictionalBondPrefactorNonneg",
+    symbol: "b",
+    unit: None,
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawSolidInelastic.frictional_bond_nonneg",
+    parity: "second_law_bound.frictional_bond",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
+/// The table's vacuumPermittivity lies in its bound, checked at compile time.
+const _: () = assert!(PERMITTIVITY_NONNEG_BOUND.admits(VACUUM_PERMITTIVITY));
+
+/// The table's vacuumPermeability lies in its bound, checked at compile time.
+const _: () = assert!(PERMEABILITY_POSITIVE_BOUND.admits(VACUUM_PERMEABILITY));
+
+/// The table's conductanceQuantum lies in its bound, checked at compile time.
+const _: () = assert!(CONDUCTANCE_NONNEG_BOUND.admits(CONDUCTANCE_QUANTUM));
+
+/// The table's vonKlitzing lies in its bound, checked at compile time.
+const _: () = assert!(RESISTANCE_NONNEG_BOUND.admits(VON_KLITZING));
+
 /// Every bound, in table order.
 pub const BOUNDS: &[Bound] = &[
     ELASTIC_MODULUS_POSITIVE_BOUND,
@@ -893,6 +1158,18 @@ pub const BOUNDS: &[Bound] = &[
     BINGHAM_PLASTIC_VISCOSITY_NONNEG_BOUND,
     LOSS_MODULUS_NONNEG_BOUND,
     RESTITUTION_AT_MOST_ONE_BOUND,
+    PERMITTIVITY_NONNEG_BOUND,
+    PERMEABILITY_POSITIVE_BOUND,
+    CONDUCTANCE_NONNEG_BOUND,
+    RESISTANCE_NONNEG_BOUND,
+    COUPLED_WELL_MODULUS_POSITIVE_BOUND,
+    COUPLED_WELL_CROSS_COUPLING_BOUND,
+    DOUBLE_WELL_MODULUS_NONNEG_BOUND,
+    GRIFFITH_FRACTURE_ENERGY_NONNEG_BOUND,
+    FRACTURE_TOUGHNESS_NONNEG_BOUND,
+    NORTON_COEFFICIENT_NONNEG_BOUND,
+    PARABOLIC_RATE_CONSTANT_NONNEG_BOUND,
+    FRICTIONAL_BOND_PREFACTOR_NONNEG_BOUND,
 ];
 
 #[cfg(test)]

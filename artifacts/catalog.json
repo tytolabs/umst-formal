@@ -1489,7 +1489,7 @@
     },
     {
       "path": "Constants/Bounds.lean",
-      "content_sha256": "a2c86960d554eb44fa760eb6bd14a9a730ce302ebb053261fbc5b3b630607812",
+      "content_sha256": "d3bc78de1a7595bac66ba31cf44694755477f41162931be7a84b3a30df72c52f",
       "declarations": {
         "def": [
           "elasticModulusPositive_lower",
@@ -1503,13 +1503,34 @@
           "binghamYieldStressNonneg_lower",
           "binghamPlasticViscosityNonneg_lower",
           "lossModulusNonneg_lower",
-          "restitutionAtMostOne_upper"
+          "restitutionAtMostOne_upper",
+          "permittivityNonneg_lower",
+          "permeabilityPositive_lower",
+          "conductanceNonneg_lower",
+          "resistanceNonneg_lower",
+          "coupledWellModulusPositive_lower",
+          "coupledWellCrossCoupling_lower",
+          "coupledWellCrossCoupling_upper",
+          "doubleWellModulusNonneg_lower",
+          "griffithFractureEnergyNonneg_lower",
+          "fractureToughnessNonneg_lower",
+          "nortonCoefficientNonneg_lower",
+          "parabolicRateConstantNonneg_lower",
+          "frictionalBondPrefactorNonneg_lower"
+        ],
+        "theorem": [
+          "permittivityNonneg_admits",
+          "permeabilityPositive_admits",
+          "conductanceNonneg_admits",
+          "resistanceNonneg_admits"
         ]
       },
       "import_lines": [
         "Constants.SI",
         "Constants.SecondLawDissipation",
         "Constants.SecondLawElastic",
+        "Constants.SecondLawElectromagnetic",
+        "Constants.SecondLawSolidInelastic",
         "ConvexPhiChannels"
       ],
       "module": "Constants.Bounds"
@@ -7399,6 +7420,16 @@
     },
     {
       "from": "Constants.Bounds",
+      "import": "Constants.SecondLawElectromagnetic",
+      "to_approx": "Constants.SecondLawElectromagnetic"
+    },
+    {
+      "from": "Constants.Bounds",
+      "import": "Constants.SecondLawSolidInelastic",
+      "to_approx": "Constants.SecondLawSolidInelastic"
+    },
+    {
+      "from": "Constants.Bounds",
       "import": "ConvexPhiChannels",
       "to_approx": "ConvexPhiChannels"
     },
@@ -9368,5 +9399,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "fa78ce8da5e88e5d02019c80b36bddc6a27793c3bc06c6e2e3933a51ee82b857"
+  "digest": "f2eccfa77e68bffb7e549598141006cf3b3bc53ba8a35ae1793f781a0b88ba6b"
 }

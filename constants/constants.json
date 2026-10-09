@@ -715,6 +715,254 @@
     "agda",
     "haskell"
    ]
+  },
+  {
+   "id": "permittivityNonneg",
+   "kind": "bound",
+   "symbol": "ε",
+   "quantity": "the permittivity of a medium storing the field energy ½·ε·E² that relaxes passively from every field",
+   "unit": "F m⁻¹",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawElectromagnetic.electricRelaxation_secondLaw_iff",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ],
+   "row": "vacuumPermittivity"
+  },
+  {
+   "id": "permeabilityPositive",
+   "kind": "bound",
+   "symbol": "μ",
+   "quantity": "the permeability of a medium storing the field energy B²/(2μ) that relaxes passively from every flux density",
+   "unit": "N A⁻²",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": true
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawElectromagnetic.magneticRelaxation_secondLaw_iff",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ],
+   "row": "vacuumPermeability"
+  },
+  {
+   "id": "conductanceNonneg",
+   "kind": "bound",
+   "symbol": "G",
+   "quantity": "the conductance of a Joule step dissipating G·V²·dt",
+   "unit": "S",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawElectromagnetic.conductanceDissipation_secondLaw_iff",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ],
+   "row": "conductanceQuantum"
+  },
+  {
+   "id": "resistanceNonneg",
+   "kind": "bound",
+   "symbol": "R",
+   "quantity": "the resistance of a Joule step dissipating R·I²·dt",
+   "unit": "Ω",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawElectromagnetic.resistanceDissipation_secondLaw_iff",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ],
+   "row": "vonKlitzing"
+  },
+  {
+   "id": "coupledWellModulusPositive",
+   "kind": "bound",
+   "symbol": "k",
+   "quantity": "the modulus k of a plastic and hardening free energy ½·k·(x² + y² + 2c·x·y) that relaxes from every state",
+   "unit": "J m⁻³",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": true
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
+  },
+  {
+   "id": "coupledWellCrossCoupling",
+   "kind": "bound",
+   "symbol": "c",
+   "quantity": "the cross coupling c of a plastic and hardening free energy ½·k·(x² + y² + 2c·x·y) that relaxes from every state",
+   "unit": "1",
+   "lower": {
+    "num": "-1",
+    "den": "1",
+    "strict": false
+   },
+   "upper": {
+    "num": "1",
+    "den": "1",
+    "strict": false
+   },
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
+  },
+  {
+   "id": "doubleWellModulusNonneg",
+   "kind": "bound",
+   "symbol": "k",
+   "quantity": "the modulus k of a phase-field double well k·φ²·(1 − φ)² that relaxes",
+   "unit": "J m⁻³",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.doubleWell_modulus_nonneg",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
+  },
+  {
+   "id": "griffithFractureEnergyNonneg",
+   "kind": "bound",
+   "symbol": "G_c",
+   "quantity": "the Griffith fracture energy dissipated per unit crack area",
+   "unit": "J m⁻²",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.griffith_fracture_energy_nonneg",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
+  },
+  {
+   "id": "fractureToughnessNonneg",
+   "kind": "bound",
+   "symbol": "K",
+   "quantity": "the fracture toughness K = √(E·G_c)",
+   "unit": "Pa m^(1/2)",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.griffith_toughness_nonneg",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
+  },
+  {
+   "id": "nortonCoefficientNonneg",
+   "kind": "bound",
+   "symbol": "A",
+   "quantity": "the Norton creep coefficient A of the rate A·σⁿ, for every exponent n",
+   "unit": null,
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.norton_coefficient_nonneg",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
+  },
+  {
+   "id": "parabolicRateConstantNonneg",
+   "kind": "bound",
+   "symbol": "k_p",
+   "quantity": "the parabolic scaling constant k_p of a scale growing at k_p/(2x) under a positive affinity",
+   "unit": "m² s⁻¹",
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.parabolic_rate_nonneg",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
+  },
+  {
+   "id": "frictionalBondPrefactorNonneg",
+   "kind": "bound",
+   "symbol": "b",
+   "quantity": "the prefactor b of a frictional fibre bond stress b·√f_c",
+   "unit": null,
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawSolidInelastic.frictional_bond_nonneg",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
   }
  ]
 }

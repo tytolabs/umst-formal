@@ -15,7 +15,9 @@ import Data.Integer.Properties as ℤ
 import Constants.SI as SI
 import Constants.SecondLawDissipation
 import Constants.SecondLawElastic
+import Constants.SecondLawElectromagnetic
 import Constants.SecondLawRestitution
+import Constants.SecondLawSolidInelastic
 
 -- E: an elastic modulus holding a body at a nonzero stress (Young's modulus in uniaxial stress, the shear modulus
 -- in pure shear) [Pa] lies in (0, ∞); proved by UMST.Constants.SecondLawElastic.relaxation_modulus_pos
@@ -106,3 +108,109 @@ lossModulusNonneg-lower = (mkℚᵘ (+ 0) 0)
 open Constants.SecondLawRestitution public using () renaming (restitution-le-one to restitutionAtMostOne-theorem)
 restitutionAtMostOne-upper : ℚᵘ
 restitutionAtMostOne-upper = (mkℚᵘ (+ 1) 0)
+
+-- ε: the permittivity of a medium storing the field energy ½·ε·E² that relaxes passively from every field [F m⁻¹]
+-- lies in [0, ∞); proved by UMST.Constants.SecondLawElectromagnetic.electricRelaxation_secondLaw_iff
+-- (second_law_bound.electric_relaxation: a vacuum field storing ½·ε·E² relaxes passively from every field exactly
+-- when ε ≥ 0).
+open Constants.SecondLawElectromagnetic public using () renaming (electricRelaxation-secondLaw-⇔ to permittivityNonneg-theorem)
+permittivityNonneg-lower : ℚᵘ
+permittivityNonneg-lower = (mkℚᵘ (+ 0) 0)
+permittivityNonneg-admits : (permittivityNonneg-lower ≤ SI.vacuumPermittivity)
+permittivityNonneg-admits = *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
+-- μ: the permeability of a medium storing the field energy B²/(2μ) that relaxes passively from every flux density
+-- [N A⁻²] lies in (0, ∞); proved by UMST.Constants.SecondLawElectromagnetic.magneticRelaxation_secondLaw_iff
+-- (second_law_bound.magnetic_relaxation: a field storing B²/(2μ), μ ≠ 0, relaxes passively from every flux density
+-- exactly when μ > 0).
+open Constants.SecondLawElectromagnetic public using () renaming (magneticRelaxation-secondLaw-⇔ to permeabilityPositive-theorem)
+permeabilityPositive-lower : ℚᵘ
+permeabilityPositive-lower = (mkℚᵘ (+ 0) 0)
+permeabilityPositive-admits : (permeabilityPositive-lower < SI.vacuumPermeability)
+permeabilityPositive-admits = *<* (toWitness {a? = _ ℤ.<? _} _)
+
+-- G: the conductance of a Joule step dissipating G·V²·dt [S] lies in [0, ∞); proved by
+-- UMST.Constants.SecondLawElectromagnetic.conductanceDissipation_secondLaw_iff
+-- (second_law_bound.conductance_dissipation: every Joule step dissipating G·V²·dt is admitted exactly when the
+-- conductance G ≥ 0).
+open Constants.SecondLawElectromagnetic public using () renaming (conductanceDissipation-secondLaw-⇔ to conductanceNonneg-theorem)
+conductanceNonneg-lower : ℚᵘ
+conductanceNonneg-lower = (mkℚᵘ (+ 0) 0)
+conductanceNonneg-admits : (conductanceNonneg-lower ≤ SI.conductanceQuantum)
+conductanceNonneg-admits = *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
+-- R: the resistance of a Joule step dissipating R·I²·dt [Ω] lies in [0, ∞); proved by
+-- UMST.Constants.SecondLawElectromagnetic.resistanceDissipation_secondLaw_iff
+-- (second_law_bound.resistance_dissipation: every Joule step dissipating R·I²·dt is admitted exactly when the
+-- resistance R ≥ 0).
+open Constants.SecondLawElectromagnetic public using () renaming (resistanceDissipation-secondLaw-⇔ to resistanceNonneg-theorem)
+resistanceNonneg-lower : ℚᵘ
+resistanceNonneg-lower = (mkℚᵘ (+ 0) 0)
+resistanceNonneg-admits : (resistanceNonneg-lower ≤ SI.vonKlitzing)
+resistanceNonneg-admits = *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
+-- k: the modulus k of a plastic and hardening free energy ½·k·(x² + y² + 2c·x·y) that relaxes from every state [J
+-- m⁻³] lies in (0, ∞); proved by UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds
+-- (second_law_bound.coupled_well: a plastic strain and a hardening variable storing ½·k·(x² + y² + 2c·x·y) that
+-- relax from every (x, y), with k ≠ 0, have k > 0 and −1 ≤ c ≤ 1 (Agda: takes k > 0 and states 0 ≤ 1 + c and 0 ≤ 1
+-- − c)).
+open Constants.SecondLawSolidInelastic public using () renaming (coupledWell-bounds to coupledWellModulusPositive-theorem)
+coupledWellModulusPositive-lower : ℚᵘ
+coupledWellModulusPositive-lower = (mkℚᵘ (+ 0) 0)
+
+-- c: the cross coupling c of a plastic and hardening free energy ½·k·(x² + y² + 2c·x·y) that relaxes from every
+-- state [1] lies in [-1, 1]; proved by UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds
+-- (second_law_bound.coupled_well: a plastic strain and a hardening variable storing ½·k·(x² + y² + 2c·x·y) that
+-- relax from every (x, y), with k ≠ 0, have k > 0 and −1 ≤ c ≤ 1 (Agda: takes k > 0 and states 0 ≤ 1 + c and 0 ≤ 1
+-- − c)).
+open Constants.SecondLawSolidInelastic public using () renaming (coupledWell-bounds to coupledWellCrossCoupling-theorem)
+coupledWellCrossCoupling-lower : ℚᵘ
+coupledWellCrossCoupling-lower = (mkℚᵘ (-[1+ 0 ]) 0)
+coupledWellCrossCoupling-upper : ℚᵘ
+coupledWellCrossCoupling-upper = (mkℚᵘ (+ 1) 0)
+
+-- k: the modulus k of a phase-field double well k·φ²·(1 − φ)² that relaxes [J m⁻³] lies in [0, ∞); proved by
+-- UMST.Constants.SecondLawSolidInelastic.doubleWell_modulus_nonneg (second_law_bound.double_well: a phase field φ ∉
+-- {0, 1} storing k·φ²·(1 − φ)² that relaxes has k ≥ 0 (Agda: the envelope enters as a positive rational q)).
+open Constants.SecondLawSolidInelastic public using () renaming (doubleWell-modulus-nonneg to doubleWellModulusNonneg-theorem)
+doubleWellModulusNonneg-lower : ℚᵘ
+doubleWellModulusNonneg-lower = (mkℚᵘ (+ 0) 0)
+
+-- G_c: the Griffith fracture energy dissipated per unit crack area [J m⁻²] lies in [0, ∞); proved by
+-- UMST.Constants.SecondLawSolidInelastic.griffith_fracture_energy_nonneg (second_law_bound.griffith_energy: a crack
+-- extension ΔA > 0 dissipating G_c·ΔA obeys the second law only when G_c ≥ 0).
+open Constants.SecondLawSolidInelastic public using () renaming (griffith-fracture-energy-nonneg to griffithFractureEnergyNonneg-theorem)
+griffithFractureEnergyNonneg-lower : ℚᵘ
+griffithFractureEnergyNonneg-lower = (mkℚᵘ (+ 0) 0)
+
+-- K: the fracture toughness K = √(E·G_c) [Pa m^(1/2)] lies in [0, ∞); proved by
+-- UMST.Constants.SecondLawSolidInelastic.griffith_toughness_nonneg (second_law_bound.griffith_toughness: with G_c ≥
+-- 0 from a crack extension and E > 0 from an elastic relaxation, K = √(E·G_c) ≥ 0 and K² = E·G_c (Coq and Agda: the
+-- radicand E·G_c ≥ 0)).
+open Constants.SecondLawSolidInelastic public using () renaming (griffith-toughness-nonneg to fractureToughnessNonneg-theorem)
+fractureToughnessNonneg-lower : ℚᵘ
+fractureToughnessNonneg-lower = (mkℚᵘ (+ 0) 0)
+
+-- A: the Norton creep coefficient A of the rate A·σⁿ, for every exponent n [any unit] lies in [0, ∞); proved by
+-- UMST.Constants.SecondLawSolidInelastic.norton_coefficient_nonneg (second_law_bound.norton: steady creep at stress
+-- σ > 0 with rate A·σⁿ over dt > 0 dissipates σ·A·σⁿ·dt and obeys the second law only when A ≥ 0 (Coq and Agda: σⁿ
+-- enters as a positive rational p)).
+open Constants.SecondLawSolidInelastic public using () renaming (norton-coefficient-nonneg to nortonCoefficientNonneg-theorem)
+nortonCoefficientNonneg-lower : ℚᵘ
+nortonCoefficientNonneg-lower = (mkℚᵘ (+ 0) 0)
+
+-- k_p: the parabolic scaling constant k_p of a scale growing at k_p/(2x) under a positive affinity [m² s⁻¹] lies in
+-- [0, ∞); proved by UMST.Constants.SecondLawSolidInelastic.parabolic_rate_nonneg (second_law_bound.parabolic_rate:
+-- a scale of thickness x > 0 growing at k_p/(2x) under a reaction affinity a > 0 dissipates a·k_p/(2x)·dt and obeys
+-- the second law only when k_p ≥ 0 (Agda: 1/(2x) enters as a positive rational w)).
+open Constants.SecondLawSolidInelastic public using () renaming (parabolic-rate-nonneg to parabolicRateConstantNonneg-theorem)
+parabolicRateConstantNonneg-lower : ℚᵘ
+parabolicRateConstantNonneg-lower = (mkℚᵘ (+ 0) 0)
+
+-- b: the prefactor b of a frictional fibre bond stress b·√f_c [any unit] lies in [0, ∞); proved by
+-- UMST.Constants.SecondLawSolidInelastic.frictional_bond_nonneg (second_law_bound.frictional_bond: a fibre with
+-- bond stress b·√f_c (f_c > 0) sliding over a slip area s > 0 dissipates b·√f_c·s and obeys the second law only
+-- when b ≥ 0 (Coq and Agda: √f_c enters as a positive rational r)).
+open Constants.SecondLawSolidInelastic public using () renaming (frictional-bond-nonneg to frictionalBondPrefactorNonneg-theorem)
+frictionalBondPrefactorNonneg-lower : ℚᵘ
+frictionalBondPrefactorNonneg-lower = (mkℚᵘ (+ 0) 0)
