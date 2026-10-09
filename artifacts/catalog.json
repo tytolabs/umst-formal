@@ -1608,6 +1608,22 @@
       "module": "Constants.SIBridge"
     },
     {
+      "path": "Constants/SecondLawDissipation.lean",
+      "content_sha256": "e715431b4568b83aa3d7461722e15a9320b36d54e76cd0a08a7830997bf1729e",
+      "declarations": {
+        "theorem": [
+          "dissipation_coefficient_nonneg",
+          "viscosity_nonneg",
+          "bingham_nonneg",
+          "lossModulus_nonneg"
+        ]
+      },
+      "import_lines": [
+        "Process"
+      ],
+      "module": "Constants.SecondLawDissipation"
+    },
+    {
       "path": "Constants/SecondLawElastic.lean",
       "content_sha256": "827ef321ffc412b6e64fc2732a5d2e3f8ecdad862cd6640c37a9ea4493160bae",
       "declarations": {
@@ -7285,6 +7301,11 @@
       "to_approx": "Process"
     },
     {
+      "from": "Constants.SecondLawDissipation",
+      "import": "Process",
+      "to_approx": "Process"
+    },
+    {
       "from": "Constants.SecondLawElastic",
       "import": "Process",
       "to_approx": "Process"
@@ -9180,5 +9201,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "c29a645f104639a94af807a75aff258022c42296964685bf7bd05a9881042778"
+  "digest": "33b8d28a5c3ea1b28487e790c4195f1576f35287b58b4943f6e06148c2282463"
 }

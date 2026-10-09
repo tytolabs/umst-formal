@@ -12,6 +12,7 @@ CoordinationContract.v
 Constants/SI.v
 Process.v
 Constants/SecondLawElastic.v
+Constants/SecondLawDissipation.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v

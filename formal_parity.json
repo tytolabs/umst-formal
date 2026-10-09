@@ -1874,6 +1874,86 @@
     "name": "prop_bound_orthotropic_poisson",
     "file": "Haskell/test/SecondLawBoundsProps.hs"
    }
+  },
+  {
+   "id": "second_law_bound.dissipation_coefficient",
+   "statement": "a passive step dissipating c·q (q > 0) out of the free energy obeys the second law (transition case) only when c ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawDissipation.dissipation_coefficient_nonneg",
+    "file": "Lean/Constants/SecondLawDissipation.lean"
+   },
+   "coq": {
+    "name": "dissipation_coefficient_nonneg",
+    "file": "Coq/Constants/SecondLawDissipation.v"
+   },
+   "agda": {
+    "name": "dissipation-coefficient-nonneg",
+    "file": "Agda/Constants/SecondLawDissipation.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_dissipation_coefficient",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.viscosity",
+   "statement": "a dashpot at rate r ≠ 0 over dt > 0 dissipating η·r²·dt obeys the second law only when η ≥ 0 (Agda: r² enters as a positive rational q)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawDissipation.viscosity_nonneg",
+    "file": "Lean/Constants/SecondLawDissipation.lean"
+   },
+   "coq": {
+    "name": "viscosity_nonneg",
+    "file": "Coq/Constants/SecondLawDissipation.v"
+   },
+   "agda": {
+    "name": "viscosity-nonneg",
+    "file": "Agda/Constants/SecondLawDissipation.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_viscosity",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.bingham",
+   "statement": "a Bingham fluid dissipating (τ₀·|r| + η_p·r²)·dt that obeys the second law at every rate has τ₀ ≥ 0 and η_p ≥ 0 (Agda: at every positive rate, where |r| = r)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawDissipation.bingham_nonneg",
+    "file": "Lean/Constants/SecondLawDissipation.lean"
+   },
+   "coq": {
+    "name": "bingham_nonneg",
+    "file": "Coq/Constants/SecondLawDissipation.v"
+   },
+   "agda": {
+    "name": "bingham-nonneg",
+    "file": "Agda/Constants/SecondLawDissipation.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_bingham",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.loss_modulus",
+   "statement": "a harmonic strain cycle dissipating π·E″·ε₀² (ε₀ ≠ 0) obeys the second law only when E″ ≥ 0, and then E″/E′ ≥ 0 for E′ > 0 (Coq, Agda: the cycle measure π·ε₀² enters as a positive rational q)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawDissipation.lossModulus_nonneg",
+    "file": "Lean/Constants/SecondLawDissipation.lean"
+   },
+   "coq": {
+    "name": "lossModulus_nonneg",
+    "file": "Coq/Constants/SecondLawDissipation.v"
+   },
+   "agda": {
+    "name": "lossModulus-nonneg",
+    "file": "Agda/Constants/SecondLawDissipation.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_loss_modulus",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
   }
  ]
 }
