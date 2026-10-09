@@ -2434,6 +2434,146 @@
     "name": "prop_bound_frictional_bond",
     "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
    }
+  },
+  {
+   "id": "second_law_bound.reaction_rate",
+   "statement": "a reaction with affinity A > 0 advancing at rate ξ̇ over dt > 0 dissipates A·ξ̇·dt and obeys the second law only when ξ̇ ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawPoroContinuum.reaction_rate_nonneg",
+    "file": "Lean/Constants/SecondLawPoroContinuum.lean"
+   },
+   "coq": {
+    "name": "reaction_rate_nonneg",
+    "file": "Coq/Constants/SecondLawPoroContinuum.v"
+   },
+   "agda": {
+    "name": "reaction-rate-nonneg",
+    "file": "Agda/Constants/SecondLawPoroContinuum.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_reaction_rate",
+    "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.reaction_rate_constant",
+   "statement": "with affinity A > 0 and rate law ξ̇ = k·g, g > 0, the step dissipates A·(k·g)·dt and obeys the second law only when k ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg",
+    "file": "Lean/Constants/SecondLawPoroContinuum.lean"
+   },
+   "coq": {
+    "name": "reaction_rate_constant_nonneg",
+    "file": "Coq/Constants/SecondLawPoroContinuum.v"
+   },
+   "agda": {
+    "name": "reaction-rate-constant-nonneg",
+    "file": "Agda/Constants/SecondLawPoroContinuum.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_reaction_rate_constant",
+    "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.fick_diffusivity",
+   "statement": "Fickian diffusion at a gradient g ≠ 0 with thermodynamic factor χ > 0 over dt > 0 dissipates D·χ·g²·dt and obeys the second law only when D ≥ 0 (Agda: g² enters as a positive rational q)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawPoroContinuum.fick_diffusivity_nonneg",
+    "file": "Lean/Constants/SecondLawPoroContinuum.lean"
+   },
+   "coq": {
+    "name": "fick_diffusivity_nonneg",
+    "file": "Coq/Constants/SecondLawPoroContinuum.v"
+   },
+   "agda": {
+    "name": "fick-diffusivity-nonneg",
+    "file": "Agda/Constants/SecondLawPoroContinuum.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_fick_diffusivity",
+    "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.darcy_permeability",
+   "statement": "Darcy flow at a pressure gradient g ≠ 0 through a fluid of viscosity μ > 0 over dt > 0 dissipates (κ/μ)·g²·dt and obeys the second law only when κ ≥ 0 (Agda: 1/μ enters as a positive fluidity f and g² as a positive q)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawPoroContinuum.darcy_permeability_nonneg",
+    "file": "Lean/Constants/SecondLawPoroContinuum.lean"
+   },
+   "coq": {
+    "name": "darcy_permeability_nonneg",
+    "file": "Coq/Constants/SecondLawPoroContinuum.v"
+   },
+   "agda": {
+    "name": "darcy-permeability-nonneg",
+    "file": "Agda/Constants/SecondLawPoroContinuum.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_darcy_permeability",
+    "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.biot_coefficient",
+   "statement": "with K = K_s·(1 − b), b − φ = K_s·n and K_s > 0, a drained mode ½·K·s² and a pore mode ½·n·s² that relax passively give φ ≤ b ≤ 1",
+   "lean": {
+    "name": "UMST.Constants.SecondLawPoroContinuum.biot_coefficient_bounds",
+    "file": "Lean/Constants/SecondLawPoroContinuum.lean"
+   },
+   "coq": {
+    "name": "biot_coefficient_bounds",
+    "file": "Coq/Constants/SecondLawPoroContinuum.v"
+   },
+   "agda": {
+    "name": "biot-coefficient-bounds",
+    "file": "Agda/Constants/SecondLawPoroContinuum.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_biot_coefficient",
+    "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.biot_storage",
+   "statement": "with m = n + φ·c_f, φ > 0 and c_f ≠ 0, a pore mode ½·n·s² and a fluid mode ½·c_f·s² that relax passively give a storage coefficient m = 1/M > 0 and a Biot modulus M > 0 (Coq and Lean also conclude M > 0 from M·m = 1; Agda states m > 0)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawPoroContinuum.biot_storage_pos",
+    "file": "Lean/Constants/SecondLawPoroContinuum.lean"
+   },
+   "coq": {
+    "name": "biot_storage_pos",
+    "file": "Coq/Constants/SecondLawPoroContinuum.v"
+   },
+   "agda": {
+    "name": "biot-storage-pos",
+    "file": "Agda/Constants/SecondLawPoroContinuum.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_biot_storage",
+    "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.isotropic_moduli_pos",
+   "statement": "an isotropic solid storing ½·K·e² + ½·G·γ² with K ≠ 0 and G ≠ 0 that relaxes passively from every (e, γ) has K > 0, G > 0 and −1 < ν < 1/2 (Agda: the Poisson bounds with the positive denominator cleared)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawPoroContinuum.isotropic_moduli_pos",
+    "file": "Lean/Constants/SecondLawPoroContinuum.lean"
+   },
+   "coq": {
+    "name": "isotropic_moduli_pos",
+    "file": "Coq/Constants/SecondLawPoroContinuum.v"
+   },
+   "agda": {
+    "name": "isotropic-moduli-pos",
+    "file": "Agda/Constants/SecondLawPoroContinuum.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_isotropic_moduli_pos",
+    "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
+   }
   }
  ]
 }
