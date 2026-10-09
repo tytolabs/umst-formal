@@ -1181,6 +1181,14 @@ main = do
   check r prop_bound_isotropic_young
   check r prop_bound_sls_relaxed
   check r prop_bound_orthotropic_poisson
+  putStrLn "-- Second-law bounds on dissipation coefficients (Constants.SecondLawDissipation)"
+  check r prop_bound_dissipation_coefficient
+  check r prop_bound_viscosity
+  check r prop_bound_bingham
+  check r prop_bound_loss_modulus
+  putStrLn "-- Second-law bound on restitution (ConvexPhiChannels, Constants.SecondLawRestitution)"
+  check r prop_bound_restitution
+  check r prop_bound_restitution_energy_loss
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
