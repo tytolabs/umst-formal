@@ -2648,6 +2648,70 @@
       "module": "Excitement"
     },
     {
+      "path": "ExcitementBy.lean",
+      "content_sha256": "380161e6ae3471a468c845181cb111b1ba76168d9495b4960137b36764dda83a",
+      "declarations": {
+        "inductive": [
+          "Baseline"
+        ],
+        "def": [
+          "map",
+          "improves",
+          "pickMinBy",
+          "candKeyBy",
+          "minCandBy",
+          "selectBy"
+        ],
+        "theorem": [
+          "map_incumbent",
+          "map_open",
+          "pickMin_eq_pickMinBy",
+          "select_eq_selectBy"
+        ]
+      },
+      "import_lines": [
+        "Excitement",
+        "Mathlib.Data.Prod.Lex"
+      ],
+      "module": "ExcitementBy"
+    },
+    {
+      "path": "ExcitementByProofs.lean",
+      "content_sha256": "2c234ef54b4d762679bc337d4174ae5422923a542f62166b00307e26a7b6272d",
+      "declarations": {
+        "theorem": [
+          "selectBy_empty",
+          "selectBy_admissible_from_result",
+          "selectBy_result_cbf",
+          "selectBy_result_dec",
+          "pickMinBy_eq_lex",
+          "pickMinBy_comm_of_ne_id",
+          "minCandBy_comm_of_ne_id",
+          "minCandBy_assoc",
+          "pickMinBy_right_comm_of_ne_id",
+          "pairwise_id_ne_of_mem",
+          "foldl_pickMinBy_perm",
+          "selectBy_perm_invariant",
+          "pickMinBy_strictMono",
+          "Baseline.improves_map_strictMono",
+          "selectBy_strictMono_invariant",
+          "pickMinBy_spec",
+          "foldl_pickMinBy_spec",
+          "selectBy_inl_spec",
+          "selectBy_mem",
+          "selectBy_minimal",
+          "selectBy_improves_incumbent",
+          "select_minimal_of_selectBy"
+        ]
+      },
+      "import_lines": [
+        "ExcitementBy",
+        "Mathlib.Data.List.Perm.Basic",
+        "Mathlib.Order.Monotone.Basic"
+      ],
+      "module": "ExcitementByProofs"
+    },
+    {
       "path": "ExcitementProofs.lean",
       "content_sha256": "ca75600f5831cd4a9bc42055e8372e50808da03ca54aa3821bd23d629f27b4c7",
       "declarations": {
@@ -6646,7 +6710,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "7860472a64d4c09434f3aaba3649280c4f494ca3c4f84b29e9aaa4f14627a714",
+      "content_sha256": "512a766baff4733a444ee760bac8f74f41c194089a256092532798aa7afcf0e6",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7564,6 +7628,31 @@
       "from": "Excitement",
       "import": "DualLedger",
       "to_approx": "DualLedger"
+    },
+    {
+      "from": "ExcitementBy",
+      "import": "Excitement",
+      "to_approx": "Excitement"
+    },
+    {
+      "from": "ExcitementBy",
+      "import": "Mathlib.Data.Prod.Lex",
+      "to_approx": "Mathlib.Data.Prod.Lex"
+    },
+    {
+      "from": "ExcitementByProofs",
+      "import": "ExcitementBy",
+      "to_approx": "ExcitementBy"
+    },
+    {
+      "from": "ExcitementByProofs",
+      "import": "Mathlib.Data.List.Perm.Basic",
+      "to_approx": "Mathlib.Data.List.Perm.Basic"
+    },
+    {
+      "from": "ExcitementByProofs",
+      "import": "Mathlib.Order.Monotone.Basic",
+      "to_approx": "Mathlib.Order.Monotone.Basic"
     },
     {
       "from": "ExcitementProofs",
@@ -9061,5 +9150,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "72593457f1b31264e8da3e8297c945f99cf5651e0aa993328ff581bf9ad0610d"
+  "digest": "eb8d552d1a43d36e9c3260f2c2c4325726dd3f05633388d99873ca6625604b9d"
 }

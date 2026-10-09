@@ -506,7 +506,7 @@ declaration, and `scripts/check_formal_parity.py` (CI) checks that every named d
 <!-- census:begin -->
 | Language | Files | Declarations | Gaps |
 |---|---:|---|---|
-| Lean 4 | 172 (86 Lake roots) | 564 theorems + 62 lemmas in the roots; 1352 + 62 over all files | 0 `sorry` or `admit` holes; 0 `axiom` |
+| Lean 4 | 174 (88 Lake roots) | 588 theorems + 62 lemmas in the roots; 1376 + 62 over all files | 0 `sorry` or `admit` holes; 0 `axiom` |
 | Coq | 31 | 282 theorems and lemmas | 0 `Admitted` |
 | Agda (`--safe`) | 31 | 389 top-level typed definitions | `--safe` admits no postulate |
 | Haskell | 44 | 153 QuickCheck properties | — |

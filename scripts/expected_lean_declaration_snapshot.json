@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 86,
+  "lake_roots_count": 88,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -83,6 +83,8 @@
     "DualLedger",
     "Excitement",
     "ExcitementProofs",
+    "ExcitementBy",
+    "ExcitementByProofs",
     "WaveShape",
     "Concrete.PoromechanicsB3",
     "Concrete.ShrinkageB4",
@@ -90,14 +92,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 564,
+    "theorem": 588,
     "lemma": 62,
-    "total": 626
+    "total": 650
   },
   "all_lean_glob": {
-    "theorem": 1352,
+    "theorem": 1376,
     "lemma": 62,
-    "total": 1414
+    "total": 1438
   },
   "per_root": {
     "Core.Scalar": {
@@ -422,6 +424,14 @@
     },
     "ExcitementProofs": {
       "theorem": 19,
+      "lemma": 0
+    },
+    "ExcitementBy": {
+      "theorem": 2,
+      "lemma": 0
+    },
+    "ExcitementByProofs": {
+      "theorem": 22,
       "lemma": 0
     },
     "WaveShape": {
