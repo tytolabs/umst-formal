@@ -26,6 +26,7 @@ Convex/PhiGrammar.v
 Generic/EntropyProduction.v
 Composition/GsmMonoid.v
 Concrete/PowersVolume.v
+Concrete/PowersCapillary.v
 Concrete/SecondLaw.v
 Excitement.v
 UrgeAdmitKleisli.v

@@ -2926,6 +2926,126 @@
     "name": "prop_gsm_glue_fraction_gt_one_negative",
     "file": "Haskell/test/GsmMonoidProps.hs"
    }
+  },
+  {
+   "id": "powers_capillary.porosity_closed_form",
+   "statement": "the capillary porosity of Powers' paste, capillary water plus shrinkage voids, is (w − (w/c)_s·α)/(w + ρ_w/ρ_c) (Agda: p − (w/c)_s·(ρ_c/ρ_w)·(1 − p)·α, the denominator cleared)",
+   "lean": {
+    "name": "UMST.Concrete.PowersCapillary.capillaryPorosity_eq",
+    "file": "Lean/Concrete/PowersCapillary.lean"
+   },
+   "coq": {
+    "name": "capillaryPorosity_eq",
+    "file": "Coq/Concrete/PowersCapillary.v"
+   },
+   "agda": {
+    "name": "capillaryPorosity-eq",
+    "file": "Agda/Concrete/PowersCapillary.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_capillary_porosity_eq",
+    "file": "Haskell/test/PowersCapillaryProps.hs"
+   }
+  },
+  {
+   "id": "powers_capillary.water_coeff",
+   "statement": "the capillary-water coefficient of the rounded closure, (w/c)_s at two decimals, is 0.36",
+   "lean": {
+    "name": "UMST.Concrete.PowersCapillary.powersCapillaryWaterCoeff_value",
+    "file": "Lean/Concrete/PowersCapillary.lean"
+   },
+   "coq": {
+    "name": "powersCapillaryWaterCoeff_value",
+    "file": "Coq/Concrete/PowersCapillary.v"
+   },
+   "agda": {
+    "name": "powersCapillaryWaterCoeff-value",
+    "file": "Agda/Concrete/PowersCapillary.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_capillary_water_coeff",
+    "file": "Haskell/test/PowersCapillaryProps.hs"
+   }
+  },
+  {
+   "id": "powers_capillary.paste_offset_coeff",
+   "statement": "the paste-offset coefficient of the rounded closure, ρ_w/ρ_c at two decimals, is 0.32",
+   "lean": {
+    "name": "UMST.Concrete.PowersCapillary.powersPasteOffsetCoeff_value",
+    "file": "Lean/Concrete/PowersCapillary.lean"
+   },
+   "coq": {
+    "name": "powersPasteOffsetCoeff_value",
+    "file": "Coq/Concrete/PowersCapillary.v"
+   },
+   "agda": {
+    "name": "powersPasteOffsetCoeff-value",
+    "file": "Agda/Concrete/PowersCapillary.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_paste_offset_coeff",
+    "file": "Haskell/test/PowersCapillaryProps.hs"
+   }
+  },
+  {
+   "id": "powers_capillary.cement_volume_coeff",
+   "statement": "the cement volume per unit water volume at unit w/c, ρ_w/ρ_c at three decimals, is 0.317",
+   "lean": {
+    "name": "UMST.Concrete.PowersCapillary.powersCementVolumeCoeff_value",
+    "file": "Lean/Concrete/PowersCapillary.lean"
+   },
+   "coq": {
+    "name": "powersCementVolumeCoeff_value",
+    "file": "Coq/Concrete/PowersCapillary.v"
+   },
+   "agda": {
+    "name": "powersCementVolumeCoeff-value",
+    "file": "Agda/Concrete/PowersCapillary.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_cement_volume_coeff",
+    "file": "Haskell/test/PowersCapillaryProps.hs"
+   }
+  },
+  {
+   "id": "powers_capillary.water_coeff_err",
+   "statement": "the rounded capillary-water coefficient lies within 1/200 of (w/c)_s",
+   "lean": {
+    "name": "UMST.Concrete.PowersCapillary.powersCapillaryWaterCoeff_err",
+    "file": "Lean/Concrete/PowersCapillary.lean"
+   },
+   "coq": {
+    "name": "powersCapillaryWaterCoeff_err",
+    "file": "Coq/Concrete/PowersCapillary.v"
+   },
+   "agda": {
+    "name": "powersCapillaryWaterCoeff-err",
+    "file": "Agda/Concrete/PowersCapillary.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_capillary_water_coeff_err",
+    "file": "Haskell/test/PowersCapillaryProps.hs"
+   }
+  },
+  {
+   "id": "powers_capillary.paste_offset_coeff_err",
+   "statement": "the rounded paste-offset coefficient lies within 1/200 of ρ_w/ρ_c",
+   "lean": {
+    "name": "UMST.Concrete.PowersCapillary.powersPasteOffsetCoeff_err",
+    "file": "Lean/Concrete/PowersCapillary.lean"
+   },
+   "coq": {
+    "name": "powersPasteOffsetCoeff_err",
+    "file": "Coq/Concrete/PowersCapillary.v"
+   },
+   "agda": {
+    "name": "powersPasteOffsetCoeff-err",
+    "file": "Agda/Concrete/PowersCapillary.agda"
+   },
+   "haskell": {
+    "name": "prop_powers_paste_offset_coeff_err",
+    "file": "Haskell/test/PowersCapillaryProps.hs"
+   }
   }
  ]
 }

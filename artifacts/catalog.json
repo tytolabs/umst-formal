@@ -1337,6 +1337,33 @@
       "module": "Concrete.Powers"
     },
     {
+      "path": "Concrete/PowersCapillary.lean",
+      "content_sha256": "167eb16f33b0558fa9d469cc74508ef97090cdd64dae20106a67d94761914a29",
+      "declarations": {
+        "def": [
+          "capillaryPorosity",
+          "round2",
+          "round3",
+          "powersCapillaryWaterCoeff",
+          "powersPasteOffsetCoeff",
+          "powersCementVolumeCoeff"
+        ],
+        "theorem": [
+          "capillaryPorosity_eq",
+          "powersCapillaryWaterCoeff_value",
+          "powersPasteOffsetCoeff_value",
+          "powersCementVolumeCoeff_value",
+          "powersCapillaryWaterCoeff_err",
+          "powersPasteOffsetCoeff_err"
+        ]
+      },
+      "import_lines": [
+        "Concrete.PowersVolume",
+        "Mathlib.Tactic"
+      ],
+      "module": "Concrete.PowersCapillary"
+    },
+    {
       "path": "Concrete/PowersVolume.lean",
       "content_sha256": "63e3a12480c149e516705ed6245ac504ad7adfbf7baeab25701081adac5e2ae1",
       "declarations": {
@@ -7038,7 +7065,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "75111469ed5157a5ea7f966855474885dcea3224d16a4ce45563a367ee90ebd0",
+      "content_sha256": "a79565743e14e3cf23870999e18f330c9dc3eefce565851a488130fecc042804",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7489,6 +7516,16 @@
     },
     {
       "from": "Concrete.Powers",
+      "import": "Mathlib.Tactic",
+      "to_approx": "Mathlib.Tactic"
+    },
+    {
+      "from": "Concrete.PowersCapillary",
+      "import": "Concrete.PowersVolume",
+      "to_approx": "Concrete.PowersVolume"
+    },
+    {
+      "from": "Concrete.PowersCapillary",
       "import": "Mathlib.Tactic",
       "to_approx": "Mathlib.Tactic"
     },
@@ -9608,5 +9645,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "deeef50f40c4c3c019f8a25e2e75791ee194af24a1017f452d02b1825f35ecbc"
+  "digest": "4a3d8d2a6fadabf0e836690175cdbf391bdaa5e29bd7acf7e54734d05c97389e"
 }

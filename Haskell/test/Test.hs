@@ -51,6 +51,7 @@ import SecondLawPoroContinuumProps
 import ConstantsBoundsProps (boundProperties)
 import PhiGrammarProps
 import GsmMonoidProps (gsmMonoidProps)
+import PowersCapillaryProps (powersCapillaryProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1244,6 +1245,8 @@ main = do
   check r prop_generic_free_energy_descent
   putStrLn "-- Composition law of GSM atoms and the glue fraction (Composition.GsmMonoid)"
   mapM_ (\(name, p) -> check r (counterexample name p)) gsmMonoidProps
+  putStrLn "-- Powers' capillary porosity and its rounded coefficients (Concrete.PowersCapillary)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) powersCapillaryProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
