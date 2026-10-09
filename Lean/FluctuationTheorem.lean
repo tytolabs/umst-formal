@@ -141,6 +141,14 @@ theorem weight_tilt (k : ℕ) (x : α) :
   congr 1
   ring
 
+/-- **One stage**: the weight of stage `k`, tilted by the work of the switch and relaxed by the kernel, is the weight
+    of stage `k + 1`. -/
+theorem gibbs_tilt_stage (k : ℕ) (y : α) :
+    ∑ x, P.weight k x * Real.exp (-P.beta * (P.energy (k + 1) x - P.energy k x)) * P.kernel k x y =
+      P.weight (k + 1) y := by
+  simp_rw [P.weight_tilt]
+  exact P.kernel_balance k y
+
 -- ================================================================
 -- SECTION 3: The integral fluctuation theorem
 -- ================================================================
