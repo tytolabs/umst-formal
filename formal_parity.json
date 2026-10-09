@@ -2574,6 +2574,346 @@
     "name": "prop_bound_isotropic_moduli_pos",
     "file": "Haskell/test/SecondLawPoroContinuumProps.hs"
    }
+  },
+  {
+   "id": "convex_phi_grammar.zero",
+   "statement": "every dissipation-potential expression (PSD quadratic, |x|, |x|^p with p ≥ 1, Norton a·|x|^(m+1), nonnegative scaling, sum, max, linear precomposition) denotes φ with φ(0) = 0 (Lean over Fin n → ℝ with real exponents p ≥ 1, m ≥ 0; Coq, Agda and Haskell over one rational rate with natural exponents)",
+   "lean": {
+    "name": "UMST.Convex.PhiGrammar.denote_zero",
+    "file": "Lean/Convex/PhiGrammar.lean"
+   },
+   "coq": {
+    "name": "denote_zero",
+    "file": "Coq/Convex/PhiGrammar.v"
+   },
+   "agda": {
+    "name": "denote-zero",
+    "file": "Agda/Convex/PhiGrammar.agda"
+   },
+   "haskell": {
+    "name": "prop_phi_zero",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "convex_phi_grammar.nonneg",
+   "statement": "every expression denotes φ ≥ 0",
+   "lean": {
+    "name": "UMST.Convex.PhiGrammar.denote_nonneg",
+    "file": "Lean/Convex/PhiGrammar.lean"
+   },
+   "coq": {
+    "name": "denote_nonneg",
+    "file": "Coq/Convex/PhiGrammar.v"
+   },
+   "agda": {
+    "name": "denote-nonneg",
+    "file": "Agda/Convex/PhiGrammar.agda"
+   },
+   "haskell": {
+    "name": "prop_phi_nonneg",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "convex_phi_grammar.convex",
+   "statement": "every expression denotes φ convex: φ(t·x + (1 − t)·y) ≤ t·φ(x) + (1 − t)·φ(y) for t ∈ [0, 1] (Haskell: random chords in exact rationals)",
+   "lean": {
+    "name": "UMST.Convex.PhiGrammar.denote_convex",
+    "file": "Lean/Convex/PhiGrammar.lean"
+   },
+   "coq": {
+    "name": "denote_convex",
+    "file": "Coq/Convex/PhiGrammar.v"
+   },
+   "agda": {
+    "name": "denote-convex",
+    "file": "Agda/Convex/PhiGrammar.agda"
+   },
+   "haskell": {
+    "name": "prop_phi_chord_convex",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "convex_phi_grammar.subgradient_dissipation_nonneg",
+   "statement": "for a subgradient g of an expression's φ at the rate x, φ(x) ≤ g·x and the dissipation g·x is nonnegative (Lean states it for every PassivePotential)",
+   "lean": {
+    "name": "UMST.Convex.PhiGrammar.subgradient_power_nonneg",
+    "file": "Lean/Convex/PhiGrammar.lean"
+   },
+   "coq": {
+    "name": "subgradient_power_nonneg",
+    "file": "Coq/Convex/PhiGrammar.v"
+   },
+   "agda": {
+    "name": "subgradient-power-nonneg",
+    "file": "Agda/Convex/PhiGrammar.agda"
+   },
+   "haskell": {
+    "name": "prop_phi_dissipation_nonneg",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "convex_phi_grammar.passive_second_law",
+   "statement": "a step dissipating g·x (g a subgradient of a grammar potential) under the passive balance (ψ_new − ψ_old) + g·x ≤ 0 and the mass condition is a transition case of SecondLaw",
+   "lean": {
+    "name": "UMST.Convex.PhiGrammar.phiExpr_passive_secondLaw",
+    "file": "Lean/Convex/PhiGrammar.lean"
+   },
+   "coq": {
+    "name": "phi_expr_passive_second_law",
+    "file": "Coq/Convex/PhiGrammar.v"
+   },
+   "agda": {
+    "name": "phi-expr-passive-second-law",
+    "file": "Agda/Convex/PhiGrammar.agda"
+   },
+   "haskell": {
+    "name": "prop_phi_passive_second_law",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "convex_phi_grammar.capped_unrepresentable",
+   "statement": "the capped potential min(|x|, 1), nonnegative and zero at zero but not convex, is the denotation of no expression (Haskell: its chord inequality fails at x = 0, y = 2, t = ½)",
+   "lean": {
+    "name": "UMST.Convex.PhiGrammar.no_expr_denotes_capped",
+    "file": "Lean/Convex/PhiGrammar.lean"
+   },
+   "coq": {
+    "name": "no_expr_denotes_capped",
+    "file": "Coq/Convex/PhiGrammar.v"
+   },
+   "agda": {
+    "name": "no-expr-denotes-capped",
+    "file": "Agda/Convex/PhiGrammar.agda"
+   },
+   "haskell": {
+    "name": "prop_phi_capped_not_convex",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "generic.energy_rate_zero",
+   "statement": "with L antisymmetric, M symmetric positive semidefinite, L·∇S = 0 and M·∇E = 0, the energy rate ∇E·(L∇E + M∇S) is zero (Lean over Fin n → ℝ with Mathlib matrices; Coq and Agda over n rational coordinates; Haskell over exact rationals with operators built to satisfy the conditions)",
+   "lean": {
+    "name": "UMST.Generic.energy_rate_zero",
+    "file": "Lean/Generic/EntropyProduction.lean"
+   },
+   "coq": {
+    "name": "energy_rate_zero",
+    "file": "Coq/Generic/EntropyProduction.v"
+   },
+   "agda": {
+    "name": "energy-rate-zero",
+    "file": "Agda/Generic/EntropyProduction.agda"
+   },
+   "haskell": {
+    "name": "prop_generic_energy_rate_zero",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "generic.entropy_rate_nonneg",
+   "statement": "under the GENERIC conditions the entropy rate ∇S·(L∇E + M∇S) equals ∇S·M∇S and is nonnegative",
+   "lean": {
+    "name": "UMST.Generic.entropy_rate_nonneg",
+    "file": "Lean/Generic/EntropyProduction.lean"
+   },
+   "coq": {
+    "name": "entropy_rate_nonneg",
+    "file": "Coq/Generic/EntropyProduction.v"
+   },
+   "agda": {
+    "name": "entropy-rate-nonneg",
+    "file": "Agda/Generic/EntropyProduction.agda"
+   },
+   "haskell": {
+    "name": "prop_generic_entropy_rate_nonneg",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "generic.second_law",
+   "statement": "read at a reservoir temperature T ≥ 0 with free energy ψ = E − T·S and endpoint states meeting the mass condition, a GENERIC step is a transition case of SecondLaw (Lean: along a differentiable trajectory from t₀ to t₁ ≥ t₀, with E constant and S nondecreasing; Coq, Agda and Haskell: a step of length h ≥ 0 whose ψ changes by h times the free-energy rate)",
+   "lean": {
+    "name": "UMST.Generic.generic_secondLaw",
+    "file": "Lean/Generic/EntropyProduction.lean"
+   },
+   "coq": {
+    "name": "generic_second_law",
+    "file": "Coq/Generic/EntropyProduction.v"
+   },
+   "agda": {
+    "name": "generic-second-law",
+    "file": "Agda/Generic/EntropyProduction.agda"
+   },
+   "haskell": {
+    "name": "prop_generic_free_energy_descent",
+    "file": "Haskell/test/PhiGrammarProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.cartridge_monoid",
+   "statement": "GSM cartridges (dissipation potentials convex, non-negative, zero at zero) form a commutative monoid under pointwise sum, closed under non-negative scaling (Lean: AddCommMonoid and ℝ≥0-module over ℝ; Coq, Agda and Haskell: the monoid and cone laws pointwise over the rationals, potentials in supporting-line form)",
+   "lean": {
+    "name": "UMST.Composition.cartridgeAddCommMonoid",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "pot_add_comm",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "pot-add-comm",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_potential_monoid_laws",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.dissipation_homomorphism",
+   "statement": "the dissipation power D = ṡ·φ′(ṡ) of a composite is the sum of the parts' powers, zero for the empty composite and c·D under scaling by c ≥ 0, with every value ≥ 0: a monoid homomorphism into the non-negative reals (Lean: ℝ≥0-linear map dissipationHom)",
+   "lean": {
+    "name": "UMST.Composition.dissipationHom",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "power_add",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "power-add",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_power_homomorphism",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.admissible_cone",
+   "statement": "the atoms (convex ψ with a GSM potential) whose passive balance Δψ + D ≤ 0 holds on one step are closed under sum, non-negative scaling and the empty composite (Lean: a Submodule over ℝ≥0)",
+   "lean": {
+    "name": "UMST.Composition.admissibleCone",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "passive_add",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "passive-add",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_residual_homomorphism",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.combination_secondLaw",
+   "statement": "a finite non-negative combination of atoms that each pass a passive step passes it, and the composite step satisfies SecondLaw .transition (Lean: also D_total = Σ cᵢ·Dᵢ with each summand ≥ 0; Coq and Agda: list of pre-scaled atoms)",
+   "lean": {
+    "name": "UMST.Composition.combination_secondLaw",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "combination_secondLaw",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "combination-secondLaw",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_combination_admissible",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.convex_glue",
+   "statement": "a glue term that is itself a GSM potential composes as an atom with zero free energy: D_glue ≥ 0 and a passive balance with D_total = D_atoms + D_glue satisfies SecondLaw .transition",
+   "lean": {
+    "name": "UMST.Composition.convexGlue_secondLaw",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "convexGlue_secondLaw",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "convexGlue-secondLaw",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_convex_glue_admissible",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.arbitrary_glue_refused",
+   "statement": "an arbitrary glue term needs its own witness: under the passive equality balance a negative total dissipation D_atoms + D_glue < 0 is refused by SecondLaw .transition",
+   "lean": {
+    "name": "UMST.Composition.glued_refused_of_negative_total",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "glued_refused_of_negative_total",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "glued-refused-of-negative-total",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_negative_glue_refused",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.glue_fraction_unit",
+   "statement": "for non-negative atom and glue dissipations the glue fraction |D_glue| / D_total lies in [0, 1] (Lean and Coq with the division-by-zero convention 0; Agda cross-multiplied: 0 ≤ |D_glue| ≤ D_total)",
+   "lean": {
+    "name": "UMST.Composition.glueFraction_mem_unit",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "glueFraction_mem_unit",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "glue-within-total",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_convex_glue_admissible",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
+  },
+  {
+   "id": "gsm_composition.glue_fraction_gt_one",
+   "statement": "with non-negative atom dissipation, a glue fraction above one forces D_glue < 0 (Agda cross-multiplied: D_total < |D_glue| forces D_glue < 0)",
+   "lean": {
+    "name": "UMST.Composition.glue_neg_of_fraction_gt_one",
+    "file": "Lean/Composition/GsmMonoid.lean"
+   },
+   "coq": {
+    "name": "glue_neg_of_fraction_gt_one",
+    "file": "Coq/Composition/GsmMonoid.v"
+   },
+   "agda": {
+    "name": "glue-neg-of-exceeds-total",
+    "file": "Agda/Composition/GsmMonoid.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_glue_fraction_gt_one_negative",
+    "file": "Haskell/test/GsmMonoidProps.hs"
+   }
   }
  ]
 }

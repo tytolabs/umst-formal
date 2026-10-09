@@ -5,7 +5,7 @@
   "modules": [
     {
       "path": "Adjoint.lean",
-      "content_sha256": "c7325b5607925ea6aa0b9129f6d1080bb46ba41d5c197b4563e30938cdeca1c1",
+      "content_sha256": "c854a86c18e2a9d63fac7ce64733921aa7999852412b3136a0c34b643c3362dc",
       "declarations": {
         "def": [
           "adjointClosedForm"
@@ -830,6 +830,72 @@
         "Core.Gate"
       ],
       "module": "Compat.Gate"
+    },
+    {
+      "path": "Composition/GsmMonoid.lean",
+      "content_sha256": "26759d3a379b298ed1c672365e2655f44238fe6666a5f5d1f8abc8bdeeaff0fd",
+      "declarations": {
+        "theorem": [
+          "potential_ext",
+          "zero_\u03c6",
+          "add_\u03c6",
+          "smul_\u03c6",
+          "dissipationPower_zero",
+          "dissipationPower_add",
+          "dissipationPower_smul",
+          "dissipationHom_apply",
+          "dissipationPower_sum",
+          "combination_summand_nonneg",
+          "cartridge_ext",
+          "cartridge_zero_dissip",
+          "cartridge_add_dissip",
+          "cartridge_smul_dissip",
+          "composite_passive_secondLaw",
+          "atom_ext",
+          "atom_zero_\u03c8",
+          "atom_zero_pot",
+          "atom_add_\u03c8",
+          "atom_add_pot",
+          "atom_smul_\u03c8",
+          "atom_smul_pot",
+          "atom_sum_\u03c8",
+          "atom_sum_pot",
+          "mem_admissibleCone",
+          "passiveStep_secondLaw",
+          "combination_secondLaw",
+          "tensor_power",
+          "tensor_secondLaw",
+          "convexGlue_secondLaw",
+          "glued_secondLaw_of_witness",
+          "glued_refused_of_negative_total",
+          "arbitrary_glue_not_closed",
+          "glueFraction_mem_unit",
+          "glueFraction_eq_zero_iff",
+          "glue_neg_of_fraction_gt_one",
+          "convexGlue_fraction_mem_unit"
+        ],
+        "def": [
+          "dissipationHom",
+          "dissipationAddHom",
+          "cartridgeDissipationHom",
+          "GsmAtom.toCartridge",
+          "PassiveStep",
+          "admissibleCone",
+          "tensor",
+          "glueFraction",
+          "glueAtom"
+        ],
+        "abbrev": [
+          "cartridgeAddCommMonoid"
+        ],
+        "structure": [
+          "GsmAtom"
+        ]
+      },
+      "import_lines": [
+        "ConvexPhiChannels"
+      ],
+      "module": "Composition.GsmMonoid"
     },
     {
       "path": "Concrete/Activation.lean",
@@ -1780,6 +1846,53 @@
         "Constants.SecondLawDissipation"
       ],
       "module": "Constants.SecondLawSolidInelastic"
+    },
+    {
+      "path": "Convex/PhiGrammar.lean",
+      "content_sha256": "c7b0036bcf5c8a112fc0b7b9ec28558f9fc0a807076ffa20edfef2958ea839e3",
+      "declarations": {
+        "abbrev": [
+          "Rate"
+        ],
+        "def": [
+          "PSD",
+          "denote",
+          "coord",
+          "toPassivePotential",
+          "IsSubgradient",
+          "scalarRate",
+          "scalarPhi",
+          "toGsmPotential"
+        ],
+        "inductive": [
+          "PhiExpr"
+        ],
+        "theorem": [
+          "quad_nonneg",
+          "quad_convex",
+          "absRpow_convex",
+          "denote_zero",
+          "denote_nonneg",
+          "denote_convex",
+          "phi_le_subgradient_power",
+          "subgradient_power_nonneg",
+          "phiExpr_passive_secondLaw",
+          "phiExpr_gsmCartridge_secondLaw",
+          "no_expr_denotes_capped",
+          "no_expr_denotes_neg_sq"
+        ],
+        "structure": [
+          "PassivePotential"
+        ]
+      },
+      "import_lines": [
+        "ConvexPhiChannels",
+        "ConvexPhiDissipation",
+        "Mathlib.Analysis.Convex.Normed",
+        "Mathlib.Analysis.Convex.SpecificFunctions.Basic",
+        "Mathlib.Data.Matrix.Mul"
+      ],
+      "module": "Convex.PhiGrammar"
     },
     {
       "path": "ConvexPhiChannels.lean",
@@ -2957,6 +3070,47 @@
         "PrimeSpectralCategory"
       ],
       "module": "FormalFoundations"
+    },
+    {
+      "path": "Generic/EntropyProduction.lean",
+      "content_sha256": "9b140ce65ae444ae7bad76d858ce178bd21f917014313aa9b45ecaeea91cfc99",
+      "declarations": {
+        "abbrev": [
+          "State"
+        ],
+        "def": [
+          "genericField",
+          "gradCLM",
+          "freeEnergyAt"
+        ],
+        "structure": [
+          "GenericAt",
+          "GenericSystem",
+          "GenericTrajectory"
+        ],
+        "theorem": [
+          "pair_transpose",
+          "antisymm_pair_self",
+          "energy_rate_zero",
+          "entropy_rate_eq",
+          "entropy_rate_nonneg",
+          "gradCLM_apply",
+          "energy_hasDerivAt",
+          "entropy_hasDerivAt",
+          "generic_energy_const",
+          "generic_entropy_monotone",
+          "generic_freeEnergy_descent",
+          "generic_secondLaw"
+        ]
+      },
+      "import_lines": [
+        "Mathlib.Analysis.Calculus.Deriv.Comp",
+        "Mathlib.Analysis.Calculus.MeanValue",
+        "Mathlib.Data.Matrix.Mul",
+        "Mathlib.Topology.Algebra.Module.FiniteDimension",
+        "Process"
+      ],
+      "module": "Generic.EntropyProduction"
     },
     {
       "path": "InfoTheory.lean",
@@ -6884,7 +7038,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "512a766baff4733a444ee760bac8f74f41c194089a256092532798aa7afcf0e6",
+      "content_sha256": "75111469ed5157a5ea7f966855474885dcea3224d16a4ce45563a367ee90ebd0",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -6893,7 +7047,7 @@
     },
     {
       "path": "scripts/print_axioms.lean",
-      "content_sha256": "ac29a155f0f5d6f6437afb15325c53ee7eaa6a40b0e086040f741e4b3a3dde83",
+      "content_sha256": "d56e68fc2e8051066381c7ab6ef8090bd053fad3a12d3c7657dd861c7721d579",
       "declarations": {
         "def": [
           "axiomClosure",
@@ -7152,6 +7306,11 @@
       "from": "Compat.Gate",
       "import": "Core.Gate",
       "to_approx": "Core.Gate"
+    },
+    {
+      "from": "Composition.GsmMonoid",
+      "import": "ConvexPhiChannels",
+      "to_approx": "ConvexPhiChannels"
     },
     {
       "from": "Concrete.Activation",
@@ -7507,6 +7666,31 @@
       "from": "Constants.SecondLawSolidInelastic",
       "import": "Constants.SecondLawDissipation",
       "to_approx": "Constants.SecondLawDissipation"
+    },
+    {
+      "from": "Convex.PhiGrammar",
+      "import": "ConvexPhiChannels",
+      "to_approx": "ConvexPhiChannels"
+    },
+    {
+      "from": "Convex.PhiGrammar",
+      "import": "ConvexPhiDissipation",
+      "to_approx": "ConvexPhiDissipation"
+    },
+    {
+      "from": "Convex.PhiGrammar",
+      "import": "Mathlib.Analysis.Convex.Normed",
+      "to_approx": "Mathlib.Analysis.Convex.Normed"
+    },
+    {
+      "from": "Convex.PhiGrammar",
+      "import": "Mathlib.Analysis.Convex.SpecificFunctions.Basic",
+      "to_approx": "Mathlib.Analysis.Convex.SpecificFunctions.Basic"
+    },
+    {
+      "from": "Convex.PhiGrammar",
+      "import": "Mathlib.Data.Matrix.Mul",
+      "to_approx": "Mathlib.Data.Matrix.Mul"
     },
     {
       "from": "ConvexPhiChannels",
@@ -7947,6 +8131,31 @@
       "from": "FormalFoundations",
       "import": "PrimeSpectralCategory",
       "to_approx": "PrimeSpectralCategory"
+    },
+    {
+      "from": "Generic.EntropyProduction",
+      "import": "Mathlib.Analysis.Calculus.Deriv.Comp",
+      "to_approx": "Mathlib.Analysis.Calculus.Deriv.Comp"
+    },
+    {
+      "from": "Generic.EntropyProduction",
+      "import": "Mathlib.Analysis.Calculus.MeanValue",
+      "to_approx": "Mathlib.Analysis.Calculus.MeanValue"
+    },
+    {
+      "from": "Generic.EntropyProduction",
+      "import": "Mathlib.Data.Matrix.Mul",
+      "to_approx": "Mathlib.Data.Matrix.Mul"
+    },
+    {
+      "from": "Generic.EntropyProduction",
+      "import": "Mathlib.Topology.Algebra.Module.FiniteDimension",
+      "to_approx": "Mathlib.Topology.Algebra.Module.FiniteDimension"
+    },
+    {
+      "from": "Generic.EntropyProduction",
+      "import": "Process",
+      "to_approx": "Process"
     },
     {
       "from": "InfoTheory",
@@ -9399,5 +9608,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "f2eccfa77e68bffb7e549598141006cf3b3bc53ba8a35ae1793f781a0b88ba6b"
+  "digest": "deeef50f40c4c3c019f8a25e2e75791ee194af24a1017f452d02b1825f35ecbc"
 }

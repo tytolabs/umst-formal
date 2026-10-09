@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 88,
+  "lake_roots_count": 91,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -33,6 +33,9 @@
     "OneInequalitySecondLaw",
     "ConvexPhiDissipation",
     "ConvexPhiChannels",
+    "Convex.PhiGrammar",
+    "Generic.EntropyProduction",
+    "Composition.GsmMonoid",
     "CostOfInformation",
     "CoarseGraining",
     "InfoTheory",
@@ -92,14 +95,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 588,
+    "theorem": 633,
     "lemma": 62,
-    "total": 650
+    "total": 695
   },
   "all_lean_glob": {
-    "theorem": 1416,
+    "theorem": 1461,
     "lemma": 62,
-    "total": 1478
+    "total": 1523
   },
   "per_root": {
     "Core.Scalar": {
@@ -224,6 +227,18 @@
     },
     "ConvexPhiChannels": {
       "theorem": 9,
+      "lemma": 0
+    },
+    "Convex.PhiGrammar": {
+      "theorem": 12,
+      "lemma": 0
+    },
+    "Generic.EntropyProduction": {
+      "theorem": 12,
+      "lemma": 0
+    },
+    "Composition.GsmMonoid": {
+      "theorem": 21,
       "lemma": 0
     },
     "CostOfInformation": {

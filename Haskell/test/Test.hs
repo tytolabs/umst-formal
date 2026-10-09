@@ -50,6 +50,7 @@ import SecondLawSolidInelasticProps
 import SecondLawPoroContinuumProps
 import ConstantsBoundsProps (boundProperties)
 import PhiGrammarProps
+import GsmMonoidProps (gsmMonoidProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1241,6 +1242,8 @@ main = do
   check r prop_generic_energy_rate_zero
   check r prop_generic_entropy_rate_nonneg
   check r prop_generic_free_energy_descent
+  putStrLn "-- Composition law of GSM atoms and the glue fraction (Composition.GsmMonoid)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) gsmMonoidProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp
