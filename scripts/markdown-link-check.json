@@ -2,7 +2,11 @@
   "timeout": "20s",
   "retryOn429": true,
   "retryCount": 2,
-  "aliveStatusCodes": [200, 206, 403],
+  "aliveStatusCodes": [
+    200,
+    206,
+    403
+  ],
   "ignorePatterns": [
     {
       "pattern": "^\\.\\./\\.\\./private-application-runtime",
@@ -15,6 +19,13 @@
     {
       "pattern": "badge\\.svg",
       "comment": "GitHub Actions badge URLs return 502 when workflow has no runs yet"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^https://doi\\.org/(10\\.[^?#]+)$",
+      "replacement": "https://doi.org/api/handles/$1",
+      "comment": "A DOI link asserts that the DOI is registered; doi.org's handle API answers that directly. Following the redirect to the landing host (zenodo.org) times out from GitHub-hosted runners (status 0)."
     }
   ]
 }
