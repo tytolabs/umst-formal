@@ -24,6 +24,7 @@ Constants/SecondLawPoroContinuum.v
 Constants/Bounds.v
 Convex/PhiGrammar.v
 Generic/EntropyProduction.v
+Composition/GsmMonoid.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v

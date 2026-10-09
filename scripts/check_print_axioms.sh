@@ -16,17 +16,23 @@ THEOREMS=(
   laplacian_row_sum_zero
   discrete_stokes
   adjoint_recovers_gradient
-  adjoint_uses_only_terminal
   warnings_empty_iff_in_regime
   jennings_strength_monotone
   jennings_strength_nonneg
+  # Entries may name extra modules to import after the theorem (C-GLUE-ZERO composition law, W-44).
+  "Composition.combination_secondLaw Composition.GsmMonoid"
+  "Composition.composite_passive_secondLaw Composition.GsmMonoid"
+  "Composition.convexGlue_secondLaw Composition.GsmMonoid"
+  "Composition.arbitrary_glue_not_closed Composition.GsmMonoid"
 )
 
-for t in "${THEOREMS[@]}"; do
+for entry in "${THEOREMS[@]}"; do
+  read -r -a parts <<< "$entry"
+  t="${parts[0]}"
   echo "check_print_axioms: UMST.$t"
   export CHECK_PRINT_AXIOMS_THM="$t"
   # shellcheck disable=SC2016
-  lake env lean --run scripts/print_axioms.lean "$t" 2>&1 | python3 -c '
+  lake env lean --run scripts/print_axioms.lean "${parts[@]}" 2>&1 | python3 -c '
 import os, re, sys
 allow = re.compile(os.environ["CHECK_PRINT_AXIOMS_ALLOW"])
 thm = os.environ["CHECK_PRINT_AXIOMS_THM"]

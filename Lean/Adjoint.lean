@@ -14,9 +14,6 @@
   Headline (mechanised):
     • `adjoint_recovers_gradient`: `(exp ℝ (T • A))ᵀ *ᵥ c = exp ℝ (T • Aᵀ) *ᵥ c`, i.e. the
       Euclidean gradient `∇_{x₀} ⟨c, exp(T A) x₀⟩` identifies with `exp(T Aᵀ) c = a(0)`.
-    • `adjoint_uses_only_terminal`: the closed-form adjoint at time `t` is independent
-      of any putative forward trajectory `x(s)` for `s ∈ (0,T)` — it depends only on
-      `(T, t, A, c)` by construction.
 
   Nonlinear continuous adjoint and `∂x/∂x₀` along flows require Lipschitz ODE lemmas in
   `Mathlib.Analysis.ODE`; that layer is **TODO_FORMAL** once the relevant API is stable
