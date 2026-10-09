@@ -13,6 +13,7 @@ Constants/SI.v
 Process.v
 Constants/SecondLawElastic.v
 Constants/SecondLawDissipation.v
+Constants/SecondLawRestitution.v
 Concrete/PowersVolume.v
 Concrete/SecondLaw.v
 Excitement.v

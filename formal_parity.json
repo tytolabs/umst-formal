@@ -1954,6 +1954,46 @@
     "name": "prop_bound_loss_modulus",
     "file": "Haskell/test/SecondLawBoundsProps.hs"
    }
+  },
+  {
+   "id": "second_law_bound.restitution",
+   "statement": "a passive impact with free energy ½·μ·v² before and ½·μ·(e·v)² after that obeys the second law (transition case) has e ≤ 1 for e ≥ 0 and μ·v² > 0 (Agda: μ·v² enters as a positive rational m)",
+   "lean": {
+    "name": "UMST.ConvexPhiChannels.restitution_le_one",
+    "file": "Lean/ConvexPhiChannels.lean"
+   },
+   "coq": {
+    "name": "restitution_le_one",
+    "file": "Coq/Constants/SecondLawRestitution.v"
+   },
+   "agda": {
+    "name": "restitution-le-one",
+    "file": "Agda/Constants/SecondLawRestitution.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_restitution",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.restitution_energy_loss",
+   "statement": "the kinetic energy lost in such an impact, ½·μ·v²·(1 − e²), is nonnegative",
+   "lean": {
+    "name": "UMST.ConvexPhiChannels.restitution_energy_loss_nonneg",
+    "file": "Lean/ConvexPhiChannels.lean"
+   },
+   "coq": {
+    "name": "restitution_energy_loss_nonneg",
+    "file": "Coq/Constants/SecondLawRestitution.v"
+   },
+   "agda": {
+    "name": "restitution-energy-loss-nonneg",
+    "file": "Agda/Constants/SecondLawRestitution.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_restitution_energy_loss",
+    "file": "Haskell/test/SecondLawBoundsProps.hs"
+   }
   }
  ]
 }
