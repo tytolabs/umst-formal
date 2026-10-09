@@ -169,12 +169,14 @@ noncomputable instance : SMul ℝ≥0 GsmCartridge := ⟨fun c C => ⟨c • C.d
 @[simp] theorem cartridge_smul_dissip (c : ℝ≥0) (C : GsmCartridge) : (c • C).dissip = c • C.dissip := rfl
 
 /-- **GSM cartridges form a commutative monoid** under composition (sum of dissipation potentials). -/
-instance : AddCommMonoid GsmCartridge where
+abbrev cartridgeAddCommMonoid : AddCommMonoid GsmCartridge where
   add_assoc C D E := by ext1; simp [add_assoc]
   zero_add C := by ext1; simp
   add_zero C := by ext1; simp
   add_comm C D := by ext1; simp [add_comm]
   nsmul := nsmulRec
+
+instance : AddCommMonoid GsmCartridge := cartridgeAddCommMonoid
 
 /-- GSM cartridges form a convex cone. -/
 noncomputable instance : Module ℝ≥0 GsmCartridge where
