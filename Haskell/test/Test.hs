@@ -45,6 +45,7 @@ import OrderStatisticsBand
 import MeasurementCost (mutualInformationBits, measurementEnergyLowerBound)
 import SecondLawBoundsProps
 import SecondLawConstantsProps
+import SecondLawSolidInelasticProps
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1205,6 +1206,14 @@ main = do
   check r prop_si_vacuum_permeability_relaxation
   check r prop_si_conductance_quantum_dissipation
   check r prop_si_von_klitzing_dissipation
+  putStrLn "-- Second-law bounds on inelastic-solid parameters (Constants.SecondLawSolidInelastic)"
+  check r prop_bound_coupled_well
+  check r prop_bound_double_well
+  check r prop_bound_griffith_energy
+  check r prop_bound_griffith_toughness
+  check r prop_bound_norton
+  check r prop_bound_parabolic_rate
+  check r prop_bound_frictional_bond
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

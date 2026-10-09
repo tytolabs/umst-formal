@@ -2294,6 +2294,146 @@
     "name": "prop_si_von_klitzing_dissipation",
     "file": "Haskell/test/SecondLawConstantsProps.hs"
    }
+  },
+  {
+   "id": "second_law_bound.coupled_well",
+   "statement": "a plastic strain and a hardening variable storing ½·k·(x² + y² + 2c·x·y) that relax from every (x, y), with k ≠ 0, have k > 0 and −1 ≤ c ≤ 1 (Agda: takes k > 0 and states 0 ≤ 1 + c and 0 ≤ 1 − c)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawSolidInelastic.coupledWell_bounds",
+    "file": "Lean/Constants/SecondLawSolidInelastic.lean"
+   },
+   "coq": {
+    "name": "coupledWell_bounds",
+    "file": "Coq/Constants/SecondLawSolidInelastic.v"
+   },
+   "agda": {
+    "name": "coupledWell-bounds",
+    "file": "Agda/Constants/SecondLawSolidInelastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_coupled_well",
+    "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.double_well",
+   "statement": "a phase field φ ∉ {0, 1} storing k·φ²·(1 − φ)² that relaxes has k ≥ 0 (Agda: the envelope enters as a positive rational q)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawSolidInelastic.doubleWell_modulus_nonneg",
+    "file": "Lean/Constants/SecondLawSolidInelastic.lean"
+   },
+   "coq": {
+    "name": "doubleWell_modulus_nonneg",
+    "file": "Coq/Constants/SecondLawSolidInelastic.v"
+   },
+   "agda": {
+    "name": "doubleWell-modulus-nonneg",
+    "file": "Agda/Constants/SecondLawSolidInelastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_double_well",
+    "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.griffith_energy",
+   "statement": "a crack extension ΔA > 0 dissipating G_c·ΔA obeys the second law only when G_c ≥ 0",
+   "lean": {
+    "name": "UMST.Constants.SecondLawSolidInelastic.griffith_fracture_energy_nonneg",
+    "file": "Lean/Constants/SecondLawSolidInelastic.lean"
+   },
+   "coq": {
+    "name": "griffith_fracture_energy_nonneg",
+    "file": "Coq/Constants/SecondLawSolidInelastic.v"
+   },
+   "agda": {
+    "name": "griffith-fracture-energy-nonneg",
+    "file": "Agda/Constants/SecondLawSolidInelastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_griffith_energy",
+    "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.griffith_toughness",
+   "statement": "with G_c ≥ 0 from a crack extension and E > 0 from an elastic relaxation, K = √(E·G_c) ≥ 0 and K² = E·G_c (Coq and Agda: the radicand E·G_c ≥ 0)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawSolidInelastic.griffith_toughness_nonneg",
+    "file": "Lean/Constants/SecondLawSolidInelastic.lean"
+   },
+   "coq": {
+    "name": "griffith_toughness_nonneg",
+    "file": "Coq/Constants/SecondLawSolidInelastic.v"
+   },
+   "agda": {
+    "name": "griffith-toughness-nonneg",
+    "file": "Agda/Constants/SecondLawSolidInelastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_griffith_toughness",
+    "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.norton",
+   "statement": "steady creep at stress σ > 0 with rate A·σⁿ over dt > 0 dissipates σ·A·σⁿ·dt and obeys the second law only when A ≥ 0 (Coq and Agda: σⁿ enters as a positive rational p)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawSolidInelastic.norton_coefficient_nonneg",
+    "file": "Lean/Constants/SecondLawSolidInelastic.lean"
+   },
+   "coq": {
+    "name": "norton_coefficient_nonneg",
+    "file": "Coq/Constants/SecondLawSolidInelastic.v"
+   },
+   "agda": {
+    "name": "norton-coefficient-nonneg",
+    "file": "Agda/Constants/SecondLawSolidInelastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_norton",
+    "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.parabolic_rate",
+   "statement": "a scale of thickness x > 0 growing at k_p/(2x) under a reaction affinity a > 0 dissipates a·k_p/(2x)·dt and obeys the second law only when k_p ≥ 0 (Agda: 1/(2x) enters as a positive rational w)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawSolidInelastic.parabolic_rate_nonneg",
+    "file": "Lean/Constants/SecondLawSolidInelastic.lean"
+   },
+   "coq": {
+    "name": "parabolic_rate_nonneg",
+    "file": "Coq/Constants/SecondLawSolidInelastic.v"
+   },
+   "agda": {
+    "name": "parabolic-rate-nonneg",
+    "file": "Agda/Constants/SecondLawSolidInelastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_parabolic_rate",
+    "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
+   }
+  },
+  {
+   "id": "second_law_bound.frictional_bond",
+   "statement": "a fibre with bond stress b·√f_c (f_c > 0) sliding over a slip area s > 0 dissipates b·√f_c·s and obeys the second law only when b ≥ 0 (Coq and Agda: √f_c enters as a positive rational r)",
+   "lean": {
+    "name": "UMST.Constants.SecondLawSolidInelastic.frictional_bond_nonneg",
+    "file": "Lean/Constants/SecondLawSolidInelastic.lean"
+   },
+   "coq": {
+    "name": "frictional_bond_nonneg",
+    "file": "Coq/Constants/SecondLawSolidInelastic.v"
+   },
+   "agda": {
+    "name": "frictional-bond-nonneg",
+    "file": "Agda/Constants/SecondLawSolidInelastic.agda"
+   },
+   "haskell": {
+    "name": "prop_bound_frictional_bond",
+    "file": "Haskell/test/SecondLawSolidInelasticProps.hs"
+   }
   }
  ]
 }

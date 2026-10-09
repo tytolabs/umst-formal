@@ -13,6 +13,7 @@ Constants/SI.v
 Process.v
 Constants/SecondLawElastic.v
 Constants/SecondLawDissipation.v
+Constants/SecondLawSolidInelastic.v
 Constants/SecondLawRestitution.v
 Constants/SecondLawLandauerFactor.v
 Constants/SecondLawElectromagnetic.v

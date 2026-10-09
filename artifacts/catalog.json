@@ -1691,6 +1691,28 @@
       "module": "Constants.SecondLawLandauerFactor"
     },
     {
+      "path": "Constants/SecondLawSolidInelastic.lean",
+      "content_sha256": "aa798880dce21390b8a49b74f870f84235346e1047330cb67a6686a3d902aeea",
+      "declarations": {
+        "def": [
+          "coupledWell"
+        ],
+        "theorem": [
+          "coupledWell_bounds",
+          "doubleWell_modulus_nonneg",
+          "griffith_fracture_energy_nonneg",
+          "griffith_toughness_nonneg",
+          "norton_coefficient_nonneg",
+          "parabolic_rate_nonneg",
+          "frictional_bond_nonneg"
+        ]
+      },
+      "import_lines": [
+        "Constants.SecondLawDissipation"
+      ],
+      "module": "Constants.SecondLawSolidInelastic"
+    },
+    {
       "path": "ConvexPhiChannels.lean",
       "content_sha256": "cc0efa96000e6e317eea26c508093dda0027b8b92a64bf570c85686e13cc09db",
       "declarations": {
@@ -7368,6 +7390,11 @@
       "to_approx": "Process"
     },
     {
+      "from": "Constants.SecondLawSolidInelastic",
+      "import": "Constants.SecondLawDissipation",
+      "to_approx": "Constants.SecondLawDissipation"
+    },
+    {
       "from": "ConvexPhiChannels",
       "import": "ConvexPhiDissipation",
       "to_approx": "ConvexPhiDissipation"
@@ -9258,5 +9285,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "1827672d1c8ff548978b9ac4272de1ccdc266e8c5cef3ccaf76b5a48e98891e6"
+  "digest": "e4da60fcd8baf553728c01f985cadf91c5939bcdc1cea26585ca5a1f53a66512"
 }
