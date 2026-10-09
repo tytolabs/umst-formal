@@ -269,7 +269,7 @@
   },
   {
    "id": "second_law.szilard.szilardJoint_entropy",
-   "statement": "its joint entropy is ln 2",
+   "statement": "its joint entropy is ln 2 (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "szilardJoint_entropy",
     "file": "Lean/Process.lean"
@@ -289,7 +289,7 @@
   },
   {
    "id": "second_law.szilard.szilardJoint_mutualInformation",
-   "statement": "its mutual information is ln 2",
+   "statement": "its mutual information is ln 2 (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "szilardJoint_mutualInformation",
     "file": "Lean/Process.lean"
@@ -309,7 +309,7 @@
   },
   {
    "id": "second_law.szilard.szilardEngine",
-   "statement": "the Szilard engine at temperature T",
+   "statement": "the Szilard engine at temperature T (Agda: extracting k_B T ln 2 under a logarithm L of NaturalLog.agda, the parameter that stands for the real logarithm; the process carries k_B T in place of the bath)",
    "lean": {
     "name": "szilardEngine",
     "file": "Lean/Process.lean"
@@ -329,7 +329,7 @@
   },
   {
    "id": "second_law.szilard.SecondLaw_szilardEngine",
-   "statement": "the Szilard engine obeys the second law at equality",
+   "statement": "the Szilard engine obeys the second law at equality (Agda: the feedback prior is the mutual information computed from the joint, for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "SecondLaw_szilardEngine",
     "file": "Lean/Process.lean"
@@ -609,7 +609,7 @@
   },
   {
    "id": "chem.refinementWorkAccounted",
-   "statement": "an update's work meets its floor",
+   "statement": "an update's work meets its floor (Agda: the update carries the entropies of its distributions before and after, as Chem/SecondLaw.agda does)",
    "lean": {
     "name": "refinementWorkAccounted",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -629,7 +629,7 @@
   },
   {
    "id": "chem.refinementWorkAccounted_iff",
-   "statement": "at a positive bath temperature the Landauer floor T·ΔS ≤ W is the Clausius bound ΔS ≤ W / T",
+   "statement": "at a positive bath temperature the Landauer floor T·ΔS ≤ W is the Clausius bound ΔS ≤ W / T (Agda: the update carries the entropies of its distributions before and after)",
    "lean": {
     "name": "refinementWorkAccounted_iff",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -649,7 +649,7 @@
   },
   {
    "id": "chem.secondLaw_iff_accounted",
-   "statement": "a coherent update obeys the chemical second law exactly when its work meets the Landauer floor of its entropy drop",
+   "statement": "a coherent update obeys the chemical second law exactly when its work meets the Landauer floor of its entropy drop (Agda: the update carries the entropies of its distributions before and after)",
    "lean": {
     "name": "chemSecondLaw_iff_accounted",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -669,7 +669,7 @@
   },
   {
    "id": "chem.PhysicalChemBridge",
-   "statement": "a binary assemblage erasure realised by an erasure process",
+   "statement": "a binary assemblage erasure realised by an erasure process (Agda: the bridge fixes the prior and post entropies to those of the uniform bit and the Dirac state under a logarithm L; Lean and Coq fix the distributions)",
    "lean": {
     "name": "PhysicalChemBridge",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -689,7 +689,7 @@
   },
   {
    "id": "chem.chem_entropy_bound_from_physical",
-   "statement": "the erasure instance bounds the bridged update's entropy drop",
+   "statement": "the erasure instance bounds the bridged update's entropy drop (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "chem_entropy_bound_from_physical",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -709,7 +709,7 @@
   },
   {
    "id": "chem.refinementLandauerBound",
-   "statement": "a bridged update dissipates at least T ln 2",
+   "statement": "a bridged update dissipates at least T ln 2 (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "refinementLandauerBound",
     "file": "Lean/Chem/SecondLaw.lean"
@@ -729,7 +729,7 @@
   },
   {
    "id": "chem.chemSecondLaw_from_physical",
-   "statement": "a bridged coherent update obeys the chemical second law",
+   "statement": "a bridged coherent update obeys the chemical second law (Agda: for every logarithm L of NaturalLog.agda (ln 1 = 0, ln ½ = −ln 2), the standard library having no real logarithm; the real logarithm instantiates it outside Agda)",
    "lean": {
     "name": "chemSecondLaw_from_physical",
     "file": "Lean/Chem/SecondLaw.lean"
