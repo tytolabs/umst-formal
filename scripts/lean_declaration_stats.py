@@ -206,7 +206,9 @@ def main() -> int:
     ap.add_argument("--json", action="store_true", help="print JSON only")
     ap.add_argument(
         "--verify-snapshot",
+        "--check",
         metavar="PATH",
+        dest="verify_snapshot",
         help="exit 1 if committed JSON snapshot does not match current Lean tree",
     )
     args = ap.parse_args()
