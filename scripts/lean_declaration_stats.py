@@ -18,12 +18,31 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
+
+RENAMED_CHECKOUT_SCRATCH = Path("/Volumes/Darwin/umst-scratch/lean-snapshot-repo-name")
+RENAMED_CHECKOUT_DIRNAME = "tyto-worktree-alias-not-package-name"
 
 
 def repo_root() -> Path:
     return Path(__file__).resolve().parent.parent
+
+
+def parse_lake_package_name(lakefile_text: str) -> str | None:
+    """Lake `package «name»` identifier (ASCII), matching scripts/gen_constants.py."""
+    m = re.search(r"(?m)^package\s+«?([\w-]+)»?", lakefile_text)
+    return m.group(1) if m else None
+
+
+def snapshot_repo_name(root: Path, lakefile_text: str) -> str:
+    """Snapshot `repo` is the Lake package name, not the checkout directory name."""
+    name = parse_lake_package_name(lakefile_text)
+    if name:
+        return name
+    return root.name
 
 
 def parse_lake_roots(lakefile_text: str) -> list[str]:
@@ -93,7 +112,8 @@ def collect_stats(root: Path) -> dict:
     if not lakefile.is_file():
         raise FileNotFoundError(f"missing {lakefile}")
 
-    roots = parse_lake_roots(lakefile.read_text(encoding="utf-8"))
+    lakefile_text = lakefile.read_text(encoding="utf-8")
+    roots = parse_lake_roots(lakefile_text)
     per_root: dict[str, dict[str, int]] = {}
     rt = rl = 0
     missing: list[str] = []
@@ -118,7 +138,7 @@ def collect_stats(root: Path) -> dict:
 
     axioms = find_axioms(lean)
     return {
-        "repo": root.name,
+        "repo": snapshot_repo_name(root, lakefile_text),
         "lake_roots_count": len(roots),
         "lake_roots": roots,
         "roots_only": {"theorem": rt, "lemma": rl, "total": rt + rl},
@@ -132,11 +152,52 @@ def collect_stats(root: Path) -> dict:
 def verify_snapshot(expected_path: Path, got: dict) -> list[str]:
     expected = json.loads(expected_path.read_text(encoding="utf-8"))
     errors: list[str] = []
-    for key in ("lake_roots_count", "lake_roots", "roots_only", "all_lean_glob", "per_root"):
+    for key in ("repo", "lake_roots_count", "lake_roots", "roots_only", "all_lean_glob", "per_root"):
         if expected.get(key) != got.get(key):
             errors.append(f"drift in {key}")
     if got.get("missing_root_files"):
         errors.append(f"missing root files: {got['missing_root_files']}")
+    return errors
+
+
+def _ignore_lake_tree(_dir: str, names: list[str]) -> set[str]:
+    return {n for n in names if n == ".lake"}
+
+
+def verify_renamed_checkout_regenerates_snapshot(source_root: Path, expected_path: Path) -> list[str]:
+    """Regenerate stats from a copy whose directory name differs from the Lake package."""
+    alias_root = RENAMED_CHECKOUT_SCRATCH / RENAMED_CHECKOUT_DIRNAME
+    errors: list[str] = []
+    if alias_root.name == snapshot_repo_name(source_root, (source_root / "Lean" / "lakefile.lean").read_text(encoding="utf-8")):
+        errors.append("renamed checkout fixture directory name must differ from Lake package name")
+        return errors
+
+    if alias_root.exists():
+        shutil.rmtree(alias_root)
+    alias_root.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source_root / "Lean", alias_root / "Lean", ignore=_ignore_lake_tree, dirs_exist_ok=True)
+    (alias_root / "scripts").mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source_root / "scripts" / "lean_declaration_stats.py", alias_root / "scripts" / "lean_declaration_stats.py")
+
+    proc = subprocess.run(
+        [sys.executable, "scripts/lean_declaration_stats.py", "--json"],
+        cwd=alias_root,
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        errors.append(f"renamed checkout stats failed: {proc.stderr.strip() or proc.stdout.strip()}")
+        return errors
+
+    try:
+        regenerated = json.loads(proc.stdout)
+    except json.JSONDecodeError as exc:
+        errors.append(f"renamed checkout stats JSON: {exc}")
+        return errors
+
+    expected = json.loads(expected_path.read_text(encoding="utf-8"))
+    if regenerated != expected:
+        errors.append("renamed checkout snapshot differs from expected_lean_declaration_snapshot.json")
     return errors
 
 
@@ -163,11 +224,15 @@ def main() -> int:
             print(f"error: missing snapshot {snap}", file=sys.stderr)
             return 1
         errors = verify_snapshot(snap, data)
+        errors.extend(verify_renamed_checkout_regenerates_snapshot(root, snap))
         if errors:
             for err in errors:
                 print(f"FAIL: {err}", file=sys.stderr)
             return 1
-        print(f"OK: snapshot matches ({data['all_lean_glob']['total']} all-Lean declarations)")
+        print(
+            f"OK: snapshot matches ({data['all_lean_glob']['total']} all-Lean declarations); "
+            f"repo={data['repo']!r}; renamed-checkout byte parity"
+        )
         return 0
 
     missing = data["missing_root_files"]
@@ -183,7 +248,7 @@ def main() -> int:
         print(json.dumps(data, indent=2))
         return 1 if missing else 0
 
-    print(f"Repository: {root.name}")
+    print(f"Repository: {data['repo']} (Lake package; checkout dir {root.name})")
     print(f"Lake roots: {len(roots)} modules")
     if missing:
         print(f"WARNING missing .lean files for roots: {missing}")
