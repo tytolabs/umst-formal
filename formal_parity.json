@@ -3246,6 +3246,126 @@
     "name": "prop_chem_functor_p0",
     "file": "Haskell/test/ChemProcessFunctorProps.hs"
    }
+  },
+  {
+   "id": "fluctuation.gibbs_tilt_stage",
+   "statement": "one stage of a finite protocol: the Boltzmann weight of stage k, tilted by the exponentiated work of the energy switch and relaxed by a kernel that preserves the next weight, is the weight of stage k+1",
+   "lean": {
+    "name": "UMST.FluctuationTheorem.Protocol.gibbs_tilt_stage",
+    "file": "Lean/FluctuationTheorem.lean"
+   },
+   "coq": {
+    "name": "gibbs_tilt_stage",
+    "file": "Coq/FluctuationTheorem.v"
+   },
+   "agda": {
+    "name": "gibbs-tilt-stage",
+    "file": "Agda/FluctuationTheorem.agda"
+   },
+   "haskell": {
+    "name": "prop_ft_gibbs_tilt_stage",
+    "file": "Haskell/test/FluctuationProps.hs"
+   }
+  },
+  {
+   "id": "fluctuation.tilted_forward_eq",
+   "statement": "transfer form of the Jarzynski identity: after k stages of a finite Gibbs-preserving protocol the unnormalised work-tilted forward vector equals the Boltzmann weight of stage k",
+   "lean": {
+    "name": "UMST.FluctuationTheorem.Protocol.tiltedForward_eq",
+    "file": "Lean/FluctuationTheorem.lean"
+   },
+   "coq": {
+    "name": "tiltedForward_eq",
+    "file": "Coq/FluctuationTheorem.v"
+   },
+   "agda": {
+    "name": "tiltedForward-eq",
+    "file": "Agda/FluctuationTheorem.agda"
+   },
+   "haskell": {
+    "name": "prop_ft_tilted_forward_eq",
+    "file": "Haskell/test/FluctuationProps.hs"
+   }
+  },
+  {
+   "id": "fluctuation.jarzynski",
+   "statement": "Jarzynski equality on a finite Gibbs-preserving protocol: the work-exponential average over K stages is Z_K / Z_0 (Lean over every trajectory; Coq and Agda in transfer form, total of the tilted forward vector equal to Z_K; Haskell checks the trajectory sum exactly in Rational)",
+   "lean": {
+    "name": "UMST.FluctuationTheorem.Protocol.jarzynski",
+    "file": "Lean/FluctuationTheorem.lean"
+   },
+   "coq": {
+    "name": "jarzynski_transfer",
+    "file": "Coq/FluctuationTheorem.v"
+   },
+   "agda": {
+    "name": "jarzynski-transfer",
+    "file": "Agda/FluctuationTheorem.agda"
+   },
+   "haskell": {
+    "name": "prop_ft_jarzynski_paths",
+    "file": "Haskell/test/FluctuationProps.hs"
+   }
+  },
+  {
+   "id": "fluctuation.jensen_bridge",
+   "statement": "Jensen bridge: on a finite ensemble with non-negative weights summing to one, the integral fluctuation theorem <exp(-beta (W - dF))> = 1 at beta > 0 forces <W> >= dF (Agda for every exponential on Q with 1 + t <= exp t)",
+   "lean": {
+    "name": "UMST.FluctuationTheorem.jensen_bridge",
+    "file": "Lean/FluctuationTheorem.lean"
+   },
+   "coq": {
+    "name": "jensen_bridge",
+    "file": "Coq/FluctuationTheorem.v"
+   },
+   "agda": {
+    "name": "jensen-bridge",
+    "file": "Agda/FluctuationTheorem.agda"
+   },
+   "haskell": {
+    "name": "prop_ft_jensen_bridge",
+    "file": "Haskell/test/FluctuationProps.hs"
+   }
+  },
+  {
+   "id": "fluctuation.secondLaw_feedback",
+   "statement": "the measureFeedback case of SecondLaw derived from the fluctuation theorem: an ensemble obeying the integral fluctuation theorem at beta = 1/(k_B T), read as a feedback process extracting -<W>, obeys SecondLaw against any measurement of non-negative mutual information",
+   "lean": {
+    "name": "UMST.FluctuationTheorem.BathProtocol.jarzynski_secondLaw_feedback",
+    "file": "Lean/FluctuationTheorem.lean"
+   },
+   "coq": {
+    "name": "jarzynski_secondLaw_feedback",
+    "file": "Coq/FluctuationTheorem.v"
+   },
+   "agda": {
+    "name": "jarzynski-secondLaw-feedback",
+    "file": "Agda/FluctuationTheorem.agda"
+   },
+   "haskell": {
+    "name": "prop_ft_secondLaw_feedback",
+    "file": "Haskell/test/FluctuationProps.hs"
+   }
+  },
+  {
+   "id": "uncertainty.tur_biased_walk",
+   "statement": "thermodynamic uncertainty relation (Barato and Seifert 2015) for the biased random walk with rates k+, k- > 0: 2 <J_t>^2 <= Var(J_t) sigma_t with Skellam cumulants and Schnakenberg entropy production (Agda from the logarithmic-mean bound carried by the LogMean record)",
+   "lean": {
+    "name": "UMST.UncertaintyRelation.BiasedWalk.tur_biasedWalk",
+    "file": "Lean/UncertaintyRelation.lean"
+   },
+   "coq": {
+    "name": "tur_biasedWalk",
+    "file": "Coq/UncertaintyRelation.v"
+   },
+   "agda": {
+    "name": "tur-biasedWalk",
+    "file": "Agda/UncertaintyRelation.agda"
+   },
+   "haskell": {
+    "name": "prop_tur_biased_walk",
+    "file": "Haskell/test/FluctuationProps.hs"
+   }
   }
  ]
 }
