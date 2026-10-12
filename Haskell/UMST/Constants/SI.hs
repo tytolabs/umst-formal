@@ -96,6 +96,10 @@ vacuumPermittivity = elementaryCharge * elementaryCharge / (2 * fineStructure * 
 vacuumPermeability :: Rational
 vacuumPermeability = 2 * fineStructure * planck / (elementaryCharge * elementaryCharge * speedOfLight)
 
+-- | g_n: standard acceleration of free fall [m s⁻²], cited (CGPM1901).
+standardGravity :: Rational
+standardGravity = 196133 % 20000
+
 -- | w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009).
 nonEvaporableWater :: Rational
 nonEvaporableWater = 23 % 100

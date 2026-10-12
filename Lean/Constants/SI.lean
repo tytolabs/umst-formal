@@ -171,6 +171,9 @@ theorem vacuumPermeability_within_CODATA2022 :
   rw [vacuumPermeability_value, abs_le]
   constructor <;> norm_num
 
+/-- g_n: standard acceleration of free fall [m s⁻²]; cited: 3rd CGPM (1901), Declaration on the unit of mass and on the definition of weight; conventional value of g_n. -/
+def standardGravity : ℚ := (196133 : ℚ) / 20000
+
 /-- w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
 def nonEvaporableWater : ℚ := (23 : ℚ) / 100
 

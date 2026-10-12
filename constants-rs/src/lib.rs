@@ -97,6 +97,9 @@ pub const VACUUM_PERMITTIVITY: f64 = 8.85418781884006e-12;
 /// μ₀: vacuum magnetic permeability [N A⁻²]; derived: 2 * fineStructure * planck / (elementaryCharge * elementaryCharge * speedOfLight).
 pub const VACUUM_PERMEABILITY: f64 = 1.2566370612628147e-6;
 
+/// g_n: standard acceleration of free fall [m s⁻²]; cited (CGPM1901).
+pub const STANDARD_GRAVITY: f64 = 9.80665;
+
 /// w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement]; cited (Bentz2009).
 pub const NON_EVAPORABLE_WATER: f64 = 0.23;
 
@@ -379,6 +382,16 @@ pub const ROWS: &[Row] = &[
         value: VACUUM_PERMEABILITY,
         exact_num: "11512564285793853725",
         exact_den: "9161407569998526923097522",
+        uncertainty: None,
+    },
+    Row {
+        id: "standardGravity",
+        symbol: "g_n",
+        unit: "m s⁻²",
+        kind: Kind::Cited,
+        value: STANDARD_GRAVITY,
+        exact_num: "196133",
+        exact_den: "20000",
         uncertainty: None,
     },
     Row {

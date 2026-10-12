@@ -158,6 +158,10 @@ vacuumPermeability-derivation = *≡* refl
 vacuumPermeability-within-CODATA2022 : ((mkℚᵘ (+ 125663706107) 99999999999999999) ≤ vacuumPermeability) × (vacuumPermeability ≤ (mkℚᵘ (+ 125663706147) 99999999999999999))
 vacuumPermeability-within-CODATA2022 = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)
 
+-- g_n: standard acceleration of free fall [m s⁻²], cited (CGPM1901)
+standardGravity : ℚᵘ
+standardGravity = (mkℚᵘ (+ 196133) 19999)
+
 -- w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009)
 nonEvaporableWater : ℚᵘ
 nonEvaporableWater = (mkℚᵘ (+ 23) 99)
