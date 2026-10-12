@@ -8,11 +8,13 @@
 #![no_std]
 #![forbid(unsafe_code)]
 
-/// Provenance of a row: cited (a defining constant or cited value), measured (with standard uncertainty),
+/// Provenance of a row: cited (a defining constant or cited value), definition (a convention, counted apart from
+/// physics), measured (with standard uncertainty),
 /// derived (a theorem in Lean, Coq and Agda from other rows) or policy (a model choice in a proved range).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Kind {
     Cited,
+    Definition,
     Measured,
     Derived,
     Policy,
@@ -97,7 +99,7 @@ pub const VACUUM_PERMITTIVITY: f64 = 8.85418781884006e-12;
 /// μ₀: vacuum magnetic permeability [N A⁻²]; derived: 2 * fineStructure * planck / (elementaryCharge * elementaryCharge * speedOfLight).
 pub const VACUUM_PERMEABILITY: f64 = 1.2566370612628147e-6;
 
-/// g_n: standard acceleration of free fall [m s⁻²]; cited (CGPM1901).
+/// g_n: standard acceleration of free fall [m s⁻²]; definition (convention) (CGPM1901).
 pub const STANDARD_GRAVITY: f64 = 9.80665;
 
 /// w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement]; cited (Bentz2009).
@@ -388,7 +390,7 @@ pub const ROWS: &[Row] = &[
         id: "standardGravity",
         symbol: "g_n",
         unit: "m s⁻²",
-        kind: Kind::Cited,
+        kind: Kind::Definition,
         value: STANDARD_GRAVITY,
         exact_num: "196133",
         exact_den: "20000",

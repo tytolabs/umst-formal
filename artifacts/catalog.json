@@ -1666,7 +1666,7 @@
     },
     {
       "path": "Constants/SI.lean",
-      "content_sha256": "d6122ccc4b4537bc2a570a4e41aa6418a6f41712b6ab15152933907fe7ead85c",
+      "content_sha256": "bd123ca2b8193335e7a4ede398aafca10c7ce39864547556fc27ccbb1cca10ba",
       "declarations": {
         "def": [
           "caesiumHyperfineFrequency",
@@ -3188,6 +3188,30 @@
         "PrimeSpectralCategory"
       ],
       "module": "FormalFoundations"
+    },
+    {
+      "path": "FreeFall.lean",
+      "content_sha256": "7e49691aa4e7863dcdad1d22b2c24c33f6a4c9fc88ed9651bc2de11970c984c9",
+      "declarations": {
+        "def": [
+          "fallWork",
+          "fallDissipation",
+          "fallStep",
+          "impactStep",
+          "reboundStep"
+        ],
+        "theorem": [
+          "freeFall_gravity_lower_bound",
+          "freeFallRebound_chain_oneInequality",
+          "freeFallRebound_height_le",
+          "freeFallRebound_restitution"
+        ]
+      },
+      "import_lines": [
+        "ConvexPhiChannels",
+        "OneInequalitySecondLaw"
+      ],
+      "module": "FreeFall"
     },
     {
       "path": "Generic/EntropyProduction.lean",
@@ -7181,7 +7205,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "9e22735c6fe2605532c55d0b0883584b1980279e79793ef58a6c06f7a01e0709",
+      "content_sha256": "47611e52b940d7112d9590c042825967fe44d16607031c0ccf663f01f130d95f",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -8299,6 +8323,16 @@
       "from": "FormalFoundations",
       "import": "PrimeSpectralCategory",
       "to_approx": "PrimeSpectralCategory"
+    },
+    {
+      "from": "FreeFall",
+      "import": "ConvexPhiChannels",
+      "to_approx": "ConvexPhiChannels"
+    },
+    {
+      "from": "FreeFall",
+      "import": "OneInequalitySecondLaw",
+      "to_approx": "OneInequalitySecondLaw"
     },
     {
       "from": "Generic.EntropyProduction",
@@ -9781,5 +9815,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "88e11147788cfd04e00c27b9e384d4a4e58cd2b1414a1a29cb7b7cbd29da253d"
+  "digest": "0500196b273b162419a8c7460578da909b080d1d3265a8946f5a9181ef722b7a"
 }

@@ -158,7 +158,7 @@ vacuumPermeability-derivation = *≡* refl
 vacuumPermeability-within-CODATA2022 : ((mkℚᵘ (+ 125663706107) 99999999999999999) ≤ vacuumPermeability) × (vacuumPermeability ≤ (mkℚᵘ (+ 125663706147) 99999999999999999))
 vacuumPermeability-within-CODATA2022 = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)
 
--- g_n: standard acceleration of free fall [m s⁻²], cited (CGPM1901)
+-- g_n: standard acceleration of free fall [m s⁻²], definition (convention) (CGPM1901)
 standardGravity : ℚᵘ
 standardGravity = (mkℚᵘ (+ 196133) 19999)
 

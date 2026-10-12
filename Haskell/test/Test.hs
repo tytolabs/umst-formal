@@ -50,6 +50,7 @@ import SecondLawSolidInelasticProps
 import SecondLawPoroContinuumProps
 import ConstantsBoundsProps (boundProperties)
 import PhiGrammarProps
+import FreeFallProps
 import GsmMonoidProps (gsmMonoidProps)
 import PowersCapillaryProps (powersCapillaryProps)
 import ChemProcessFunctorProps (chemProcessFunctorProps)
@@ -1201,6 +1202,10 @@ main = do
   putStrLn "-- Second-law bound on restitution (ConvexPhiChannels, Constants.SecondLawRestitution)"
   check r prop_bound_restitution
   check r prop_bound_restitution_energy_loss
+  putStrLn "-- Free fall as a passive transition (FreeFall)"
+  check r prop_free_fall_gravity_bound
+  check r prop_free_fall_rebound_chain
+  check r prop_free_fall_restitution_heights
   putStrLn "-- The Landauer factor fixed by the second law (Constants.SecondLawLandauerFactor)"
   check r prop_uniform_binary_entropy
   check r prop_landauer_factor_iff

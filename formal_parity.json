@@ -3366,6 +3366,26 @@
     "name": "prop_tur_biased_walk",
     "file": "Haskell/test/FluctuationProps.hs"
    }
+  },
+  {
+   "id": "free_fall.gravity_lower_bound",
+   "statement": "a body of mass m > 0 falling from rest through h > 0, with free energy m·g·h before (gravity as the linear, hence convex, potential m·g·z) and ½·m·v² after, that obeys the second law (transition case) has dissipation D = m·g·h − ½·m·v² ≥ 0, ½·m·v² = W_in − D ≤ W_in = m·g·h, v² ≤ 2·g·h and g ≥ v²/(2·h) (Lean over ℝ, Coq over ℚ; Agda carries the kinetic measure K = m·v² as a rational and states v² ≤ 2·g·h without division; Haskell: the runtime law on Double energies away from the bound)",
+   "lean": {
+    "name": "UMST.FreeFall.freeFall_gravity_lower_bound",
+    "file": "Lean/FreeFall.lean"
+   },
+   "coq": {
+    "name": "freeFall_gravity_lower_bound",
+    "file": "Coq/FreeFall.v"
+   },
+   "agda": {
+    "name": "freeFall-gravity-lower-bound",
+    "file": "Agda/FreeFall.agda"
+   },
+   "haskell": {
+    "name": "prop_free_fall_gravity_bound",
+    "file": "Haskell/test/FreeFallProps.hs"
+   }
   }
  ]
 }

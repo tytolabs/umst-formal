@@ -266,7 +266,7 @@
    "symbol": "g_n",
    "name": "standard acceleration of free fall",
    "unit": "m s⁻²",
-   "status": "cited",
+   "status": "definition",
    "authority": "CGPM1901",
    "num": "980665",
    "den": "10^5",

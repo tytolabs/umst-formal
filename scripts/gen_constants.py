@@ -8,6 +8,8 @@ Byte-identical in umst-formal and umst-formal-double-slit, and so is constants/c
 language checks it by exact computation:
 
   cited     a defining constant of the SI (or another cited authority): a definition with its authority
+  definition  a convention fixed by a named authority (a choice, not a physical fact: the 1901 CGPM conventional g_n):
+            emitted like a cited row, its docstring says "definition (convention)", and it is counted apart from physics
   measured  a cited measurement: the value and its standard uncertainty, both exact rationals
   derived   a definition by its formula, and two theorems: `<id>_value` (the formula equals the exact value) and
             `<id>_derivation` (the value times the formula's denominator equals its numerator, the statement every
@@ -126,6 +128,11 @@ def terms(formula: str) -> list[tuple[str, int]]:
     return out
 
 
+def status_label(c: dict) -> str:
+    """The status a generated docstring shows: a `definition` row is a convention, counted apart from physics."""
+    return "definition (convention)" if c["status"] == "definition" else c["status"]
+
+
 def load() -> dict:
     with open(os.path.join(ROOT, "constants/constants.json"), encoding="utf-8") as f:
         return json.load(f)
@@ -134,7 +141,7 @@ def load() -> dict:
 def values(table: dict) -> dict[str, Fraction]:
     out: dict[str, Fraction] = {}
     for c in table["constants"]:
-        if c["status"] in ("cited", "measured", "policy"):
+        if c["status"] in ("cited", "definition", "measured", "policy"):
             out[c["id"]] = Fraction(big(c["num"]), big(c["den"]))
     for c in table["constants"]:
         if c["status"] == "derived":
@@ -196,6 +203,9 @@ def lean(table: dict, vals: dict[str, Fraction]) -> str:
         if c["status"] == "cited":
             L += [doc + f"; cited: {table['authorities'][c['authority']].split(':')[0]}. -/",
                   f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}", ""]
+        elif c["status"] == "definition":
+            L += [doc + f"; definition (convention): {table['authorities'][c['authority']].split(':')[0]}. -/",
+                  f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}", ""]
         elif c["status"] == "measured":
             L += [doc + f"; measured, cited from {c['authority']}. -/", f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}",
                   f"/-- Standard uncertainty of {c['symbol']} ({c['authority']}). -/",
@@ -249,8 +259,8 @@ def coq(table: dict, vals: dict[str, Fraction]) -> str:
          "(* computation (twin of Lean/Constants/SI.lean). Zero Axiom, Parameter or Admitted.                  *)", "",
          "From Stdlib Require Import QArith.", "Open Scope Q_scope.", ""]
     for c in table["constants"]:
-        if c["status"] in ("cited", "measured"):
-            L.append(f"(* {c['symbol']}: {c['name']} [{c['unit']}], {c['status']} ({c['authority']}) *)")
+        if c["status"] in ("cited", "definition", "measured"):
+            L.append(f"(* {c['symbol']}: {c['name']} [{c['unit']}], {status_label(c)} ({c['authority']}) *)")
             L.append(f"Definition {c['id']} : Q := {coq_q(frac(c, ''))}.")
             if c["status"] == "measured":
                 L.append(f"Definition {c['id']}Uncertainty : Q := {coq_q(frac(c, 'uncertainty_'))}.")
@@ -302,8 +312,8 @@ def agda(table: dict, vals: dict[str, Fraction]) -> str:
          "import Data.Integer.Properties as ℤ", "",
          "private", "  two : ℚᵘ", "  two = mkℚᵘ (+ 2) 0", ""]
     for c in table["constants"]:
-        if c["status"] in ("cited", "measured"):
-            L += [f"-- {c['symbol']}: {c['name']} [{c['unit']}], {c['status']} ({c['authority']})",
+        if c["status"] in ("cited", "definition", "measured"):
+            L += [f"-- {c['symbol']}: {c['name']} [{c['unit']}], {status_label(c)} ({c['authority']})",
                   f"{c['id']} : ℚᵘ", f"{c['id']} = {agda_q(frac(c, ''))}"]
             if c["status"] == "measured":
                 L += [f"{c['id']}Uncertainty : ℚᵘ", f"{c['id']}Uncertainty = {agda_q(frac(c, 'uncertainty_'))}"]
@@ -343,9 +353,9 @@ def haskell(table: dict, vals: dict[str, Fraction]) -> str:
          "-- 'derivations' lists every derived constant's defining equation, checked by the test suite.",
          "module UMST.Constants.SI where", "", "import Data.Ratio ((%))", ""]
     for c in table["constants"]:
-        if c["status"] in ("cited", "measured"):
+        if c["status"] in ("cited", "definition", "measured"):
             v = frac(c, "")
-            L += [f"-- | {c['symbol']}: {c['name']} [{c['unit']}], {c['status']} ({c['authority']}).",
+            L += [f"-- | {c['symbol']}: {c['name']} [{c['unit']}], {status_label(c)} ({c['authority']}).",
                   f"{c['id']} :: Rational", f"{c['id']} = {v.numerator} % {v.denominator}"]
             if c["status"] == "measured":
                 u = frac(c, "uncertainty_")
@@ -393,16 +403,17 @@ def rust_f64(v: Fraction) -> str:
 
 
 def rust(table: dict, vals: dict[str, Fraction]) -> str:
-    kinds = {"cited": "Cited", "measured": "Measured", "derived": "Derived", "policy": "Policy"}
+    kinds = {"cited": "Cited", "definition": "Definition", "measured": "Measured", "derived": "Derived", "policy": "Policy"}
     L = [f"// {SPDX}", "// SPDX-License-Identifier: MIT", f"// {HEADER}",
          "//! The constants of the UMST ecosystem for the Rust runtime: each row's value as the nearest `f64`, its exact",
          "//! rational, provenance and unit, from constants/constants.json, the table Lean, Coq, Agda and Haskell prove.",
          "//! Constants are `const` items: reading one costs nothing at run time.", "",
          "#![no_std]", "#![forbid(unsafe_code)]", "",
-         "/// Provenance of a row: cited (a defining constant or cited value), measured (with standard uncertainty),",
+         "/// Provenance of a row: cited (a defining constant or cited value), definition (a convention, counted apart from",
+         "/// physics), measured (with standard uncertainty),",
          "/// derived (a theorem in Lean, Coq and Agda from other rows) or policy (a model choice in a proved range).",
          "#[derive(Clone, Copy, Debug, PartialEq, Eq)]",
-         "pub enum Kind {", "    Cited,", "    Measured,", "    Derived,", "    Policy,", "}", "",
+         "pub enum Kind {", "    Cited,", "    Definition,", "    Measured,", "    Derived,", "    Policy,", "}", "",
          "/// One row of the table.", "#[derive(Clone, Copy, Debug, PartialEq)]", "pub struct Row {",
          "    pub id: &'static str,", "    pub symbol: &'static str,", "    pub unit: &'static str,", "    pub kind: Kind,",
          "    /// The nearest `f64` to the exact value.", "    pub value: f64,",
@@ -412,7 +423,7 @@ def rust(table: dict, vals: dict[str, Fraction]) -> str:
     for c in table["constants"]:
         v = vals[c["id"]]
         how = (c.get("formula") and f"derived: {c['formula']}") or (c["status"] == "policy" and f"policy: {c['reason']}") \
-            or f"{c['status']} ({c.get('authority', '')})"
+            or f"{status_label(c)} ({c.get('authority', '')})"
         L += [f"/// {c['symbol']}: {c['name']} [{c['unit']}]; {how}.", f"pub const {rust_name(c['id'])}: f64 = {rust_f64(v)};", ""]
     for c in table["constants"]:
         if c["status"] == "policy":
@@ -843,7 +854,8 @@ def readme(table: dict, vals: dict[str, Fraction]) -> str:
         else:
             how = c["authority"]
             used.add(c["authority"])
-            proof = "a definition (cited)" if c["status"] == "cited" else "a definition with its uncertainty (cited)"
+            proof = {"cited": "a definition (cited)", "definition": "a definition (convention)"}.get(
+                c["status"], "a definition with its uncertainty (cited)")
         rows.append(f"| {c['symbol']} | {c['name']} | {c['status']} | {value} | {c['unit']} | {how} | {proof} |")
         if c.get("second_law"):
             links.append(f"- {c['symbol']}: {c['second_law']}.")

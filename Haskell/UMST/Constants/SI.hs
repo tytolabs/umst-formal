@@ -96,7 +96,7 @@ vacuumPermittivity = elementaryCharge * elementaryCharge / (2 * fineStructure * 
 vacuumPermeability :: Rational
 vacuumPermeability = 2 * fineStructure * planck / (elementaryCharge * elementaryCharge * speedOfLight)
 
--- | g_n: standard acceleration of free fall [m s⁻²], cited (CGPM1901).
+-- | g_n: standard acceleration of free fall [m s⁻²], definition (convention) (CGPM1901).
 standardGravity :: Rational
 standardGravity = 196133 % 20000
 

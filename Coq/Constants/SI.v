@@ -127,7 +127,7 @@ Lemma vacuumPermeability_within_CODATA2022 :
   (Qmake 125663706107 100000000000000000) <= vacuumPermeability /\ vacuumPermeability <= (Qmake 125663706147 100000000000000000).
 Proof. split; vm_compute; discriminate. Qed.
 
-(* g_n: standard acceleration of free fall [m s⁻²], cited (CGPM1901) *)
+(* g_n: standard acceleration of free fall [m s⁻²], definition (convention) (CGPM1901) *)
 Definition standardGravity : Q := (Qmake 196133 20000).
 
 (* w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009) *)
