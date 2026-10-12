@@ -1666,7 +1666,7 @@
     },
     {
       "path": "Constants/SI.lean",
-      "content_sha256": "bd123ca2b8193335e7a4ede398aafca10c7ce39864547556fc27ccbb1cca10ba",
+      "content_sha256": "d1589c0351c3654b0e0b749e92ac1f874482ffe69eac43b97dadd04a4813b365",
       "declarations": {
         "def": [
           "caesiumHyperfineFrequency",
@@ -1693,6 +1693,10 @@
           "vacuumPermittivity",
           "vacuumPermeability",
           "standardGravity",
+          "wgs84SemiMajorAxis",
+          "wgs84InverseFlattening",
+          "wgs84GM",
+          "wgs84AngularVelocity",
           "nonEvaporableWater",
           "chemicalShrinkage",
           "gelWater",
@@ -9815,5 +9819,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "0500196b273b162419a8c7460578da909b080d1d3265a8946f5a9181ef722b7a"
+  "digest": "1edad64fe4fb8be928c5b3f589f01805d95240b3f7631ae9a272f6698b849c74"
 }

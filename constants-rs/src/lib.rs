@@ -102,6 +102,18 @@ pub const VACUUM_PERMEABILITY: f64 = 1.2566370612628147e-6;
 /// g_n: standard acceleration of free fall [m s⁻²]; definition (convention) (CGPM1901).
 pub const STANDARD_GRAVITY: f64 = 9.80665;
 
+/// a: WGS 84 semi-major axis [m]; definition (convention) (NGA2014).
+pub const WGS84SEMI_MAJOR_AXIS: f64 = 6378137.0;
+
+/// 1/f: WGS 84 inverse flattening [1]; definition (convention) (NGA2014).
+pub const WGS84INVERSE_FLATTENING: f64 = 298.257223563;
+
+/// GM: WGS 84 geocentric gravitational constant [m³ s⁻²]; definition (convention) (NGA2014).
+pub const WGS84GM: f64 = 398600441800000.0;
+
+/// ω: WGS 84 nominal mean angular velocity of the Earth [rad s⁻¹]; definition (convention) (NGA2014).
+pub const WGS84ANGULAR_VELOCITY: f64 = 7.292115e-5;
+
 /// w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement]; cited (Bentz2009).
 pub const NON_EVAPORABLE_WATER: f64 = 0.23;
 
@@ -394,6 +406,46 @@ pub const ROWS: &[Row] = &[
         value: STANDARD_GRAVITY,
         exact_num: "196133",
         exact_den: "20000",
+        uncertainty: None,
+    },
+    Row {
+        id: "wgs84SemiMajorAxis",
+        symbol: "a",
+        unit: "m",
+        kind: Kind::Definition,
+        value: WGS84SEMI_MAJOR_AXIS,
+        exact_num: "6378137",
+        exact_den: "1",
+        uncertainty: None,
+    },
+    Row {
+        id: "wgs84InverseFlattening",
+        symbol: "1/f",
+        unit: "1",
+        kind: Kind::Definition,
+        value: WGS84INVERSE_FLATTENING,
+        exact_num: "298257223563",
+        exact_den: "1000000000",
+        uncertainty: None,
+    },
+    Row {
+        id: "wgs84GM",
+        symbol: "GM",
+        unit: "m³ s⁻²",
+        kind: Kind::Definition,
+        value: WGS84GM,
+        exact_num: "398600441800000",
+        exact_den: "1",
+        uncertainty: None,
+    },
+    Row {
+        id: "wgs84AngularVelocity",
+        symbol: "ω",
+        unit: "rad s⁻¹",
+        kind: Kind::Definition,
+        value: WGS84ANGULAR_VELOCITY,
+        exact_num: "1458423",
+        exact_den: "20000000000",
         uncertainty: None,
     },
     Row {

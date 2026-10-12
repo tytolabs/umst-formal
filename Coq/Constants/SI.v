@@ -130,6 +130,18 @@ Proof. split; vm_compute; discriminate. Qed.
 (* g_n: standard acceleration of free fall [m s⁻²], definition (convention) (CGPM1901) *)
 Definition standardGravity : Q := (Qmake 196133 20000).
 
+(* a: WGS 84 semi-major axis [m], definition (convention) (NGA2014) *)
+Definition wgs84SemiMajorAxis : Q := (Qmake 6378137 1).
+
+(* 1/f: WGS 84 inverse flattening [1], definition (convention) (NGA2014) *)
+Definition wgs84InverseFlattening : Q := (Qmake 298257223563 1000000000).
+
+(* GM: WGS 84 geocentric gravitational constant [m³ s⁻²], definition (convention) (NGA2014) *)
+Definition wgs84GM : Q := (Qmake 398600441800000 1).
+
+(* ω: WGS 84 nominal mean angular velocity of the Earth [rad s⁻¹], definition (convention) (NGA2014) *)
+Definition wgs84AngularVelocity : Q := (Qmake 1458423 20000000000).
+
 (* w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009) *)
 Definition nonEvaporableWater : Q := (Qmake 23 100).
 

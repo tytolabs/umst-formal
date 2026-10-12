@@ -162,6 +162,22 @@ vacuumPermeability-within-CODATA2022 = *≤* (toWitness {a? = _ ℤ.≤? _} _) ,
 standardGravity : ℚᵘ
 standardGravity = (mkℚᵘ (+ 196133) 19999)
 
+-- a: WGS 84 semi-major axis [m], definition (convention) (NGA2014)
+wgs84SemiMajorAxis : ℚᵘ
+wgs84SemiMajorAxis = (mkℚᵘ (+ 6378137) 0)
+
+-- 1/f: WGS 84 inverse flattening [1], definition (convention) (NGA2014)
+wgs84InverseFlattening : ℚᵘ
+wgs84InverseFlattening = (mkℚᵘ (+ 298257223563) 999999999)
+
+-- GM: WGS 84 geocentric gravitational constant [m³ s⁻²], definition (convention) (NGA2014)
+wgs84GM : ℚᵘ
+wgs84GM = (mkℚᵘ (+ 398600441800000) 0)
+
+-- ω: WGS 84 nominal mean angular velocity of the Earth [rad s⁻¹], definition (convention) (NGA2014)
+wgs84AngularVelocity : ℚᵘ
+wgs84AngularVelocity = (mkℚᵘ (+ 1458423) 19999999999)
+
 -- w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement], cited (Bentz2009)
 nonEvaporableWater : ℚᵘ
 nonEvaporableWater = (mkℚᵘ (+ 23) 99)

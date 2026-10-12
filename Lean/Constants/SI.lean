@@ -174,6 +174,18 @@ theorem vacuumPermeability_within_CODATA2022 :
 /-- g_n: standard acceleration of free fall [m s⁻²]; definition (convention): 3rd CGPM (1901), Declaration on the unit of mass and on the definition of weight; conventional value of g_n. -/
 def standardGravity : ℚ := (196133 : ℚ) / 20000
 
+/-- a: WGS 84 semi-major axis [m]; definition (convention): NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1. -/
+def wgs84SemiMajorAxis : ℚ := (6378137 : ℚ)
+
+/-- 1/f: WGS 84 inverse flattening [1]; definition (convention): NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1. -/
+def wgs84InverseFlattening : ℚ := (298257223563 : ℚ) / 1000000000
+
+/-- GM: WGS 84 geocentric gravitational constant [m³ s⁻²]; definition (convention): NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1. -/
+def wgs84GM : ℚ := (398600441800000 : ℚ)
+
+/-- ω: WGS 84 nominal mean angular velocity of the Earth [rad s⁻¹]; definition (convention): NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1. -/
+def wgs84AngularVelocity : ℚ := (1458423 : ℚ) / 20000000000
+
 /-- w_n: non-evaporable water at complete hydration (Powers' model) [kg per kg cement]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
 def nonEvaporableWater : ℚ := (23 : ℚ) / 100
 
