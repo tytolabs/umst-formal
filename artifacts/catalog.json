@@ -3822,6 +3822,34 @@
       "module": "OrderStatisticsBand"
     },
     {
+      "path": "PredictionFeedback.lean",
+      "content_sha256": "8336738a5b5f3646ddc8bfbfff0c81eb3f67d0e76950b6ad393af44de382fbab",
+      "declarations": {
+        "structure": [
+          "Turn"
+        ],
+        "def": [
+          "Turn.process",
+          "Turn.Admissible",
+          "Turn.against"
+        ],
+        "theorem": [
+          "turn_admissible_iff",
+          "turn_work_le",
+          "turn_cyclic_work_le",
+          "turn_pair_work_le",
+          "summary_admitted_receipts",
+          "receipts_refused_summary",
+          "gated_error_le"
+        ]
+      },
+      "import_lines": [
+        "Process",
+        "SeparationBound"
+      ],
+      "module": "PredictionFeedback"
+    },
+    {
       "path": "PrimeSpectralCategory.lean",
       "content_sha256": "d024ad02dabd2eb336bb091d413787f95815f544cb147615fbe66845e0909cc1",
       "declarations": {
@@ -7343,7 +7371,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "9eed848fd74d2df4ea582904d70ddae96a49aba797ee2e950f17128f0fb01446",
+      "content_sha256": "4df3f8d44922fa1cd9bfd1fb43686aa07f98e12cdcf5b180bf00238c4fcea60a",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -8703,6 +8731,16 @@
       "to_approx": "MedianConvergence"
     },
     {
+      "from": "PredictionFeedback",
+      "import": "Process",
+      "to_approx": "Process"
+    },
+    {
+      "from": "PredictionFeedback",
+      "import": "SeparationBound",
+      "to_approx": "SeparationBound"
+    },
+    {
       "from": "PrimeSpectralCategory",
       "import": "PrimeSpectralGuidance",
       "to_approx": "PrimeSpectralGuidance"
@@ -10003,5 +10041,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "61f1b0877b5dacd6e0d76e127b4ed42fa209d8e1b6f43702aadfaabbbd40a392"
+  "digest": "7b523480be352355039de9c2d275d630c723d196c397730b22307fcc77b1550f"
 }

@@ -107,6 +107,8 @@ lean_lib «UMST» where
     `EtaCog,
     -- The laws the learning-loop kernel of umst-adk relies on (FORMAL-LEARNING-LOOP-LAWS).
     `LearningLoopLaws,
+    -- A prediction-then-observation turn as a measureFeedback instance (FORMAL-PREDICTION-AS-MEASURE-FEEDBACK).
+    `PredictionFeedback,
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,

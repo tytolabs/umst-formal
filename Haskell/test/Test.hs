@@ -58,6 +58,7 @@ import FluctuationProps (fluctuationProps)
 import PassiveRouteProps (passiveRouteProps)
 import CoordinationProps (agentColimitProps)
 import LearningLoopProps (learningLoopProps)
+import PredictionFeedbackProps (predictionFeedbackProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1267,6 +1268,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) agentColimitProps
   putStrLn "-- The learning-loop laws (LearningLoopLaws)"
   mapM_ (\(name, p) -> check r (counterexample name p)) learningLoopProps
+  putStrLn "-- A prediction-then-observation turn as measureFeedback (PredictionFeedback)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) predictionFeedbackProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

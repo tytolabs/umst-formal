@@ -1,0 +1,100 @@
+-- SPDX-FileCopyrightText: 2026 Santosh Prabhu Shenbagamoorthy and Santhosh Shyamsundar
+-- SPDX-License-Identifier: Apache-2.0
+/-
+  UMST-Formal: PredictionFeedback.lean
+
+  A turn of the learning loop states a prediction, observes the outcome and acts on what it predicted. The turn is
+  an instance of the `measureFeedback` case of the one predicate `UMST.ProcessFamily.SecondLaw`, judged against the
+  joint distribution of prediction and outcome:
+
+  * the work the loop extracts by acting on its prediction is at most the free-energy drop plus k_B T times the
+    mutual information between prediction and outcome (`turn_work_le`), and at most k_B T times that information
+    for a cyclic turn (`turn_cyclic_work_le`); two admissible turns at one bath add (`turn_pair_work_le`);
+  * a summary of the receipts carries no more mutual information about the outcome than the receipts (the
+    data-processing inequality, a hypothesis here: umst-formal states no classical data-processing inequality, and
+    umst-formal-double-slit's `DataProcessingInequality` is the entropy monotonicity of unital quantum channels, so the
+    classical form stays a typed absence until a cell proves it). Under it, every work admitted against the summary
+    is admitted against the receipts and every work the receipts refuse the summary refuses
+    (`summary_admitted_receipts`, `receipts_refused_summary`): the meter reads the receipts, the close-guard reading;
+  * the gated choice errs by at most the prediction's error plus the gate's move δ (`gated_error_le`, through
+    `SeparationBound.accuracy_safety_separation_real`).
+
+  Zero `axiom`, zero `sorry`.
+-/
+
+import Process
+import SeparationBound
+
+open Real UMST.LandauerLaw UMST.ProcessFamily UMST.InfoTheory UMST.InfoTheory.JointDist
+
+namespace UMST.PredictionFeedback
+
+/-- One prediction-then-observation turn: the bath, the work the loop extracts by acting on its prediction, the free
+    energy change of the system, and the joint distribution of prediction (rows) and outcome (columns). -/
+structure Turn where
+  bath : HeatBath
+  extWork : ℝ
+  deltaFreeEnergy : ℝ
+  {n m : ℕ}
+  joint : JointDist n m
+
+/-- The turn as a process of the family: a measurement with feedback. -/
+def Turn.process (t : Turn) : Process := .measureFeedback ⟨t.bath, t.extWork, t.deltaFreeEnergy⟩
+
+/-- A turn is admissible when it obeys the one predicate against its prediction–outcome joint. -/
+def Turn.Admissible (t : Turn) : Prop := SecondLaw t.process (.feedback t.joint)
+
+/-- **The turn is a `measureFeedback` instance**: admissibility is the Sagawa–Ueda inequality at the mutual
+    information between prediction and outcome. -/
+theorem turn_admissible_iff (t : Turn) :
+    t.Admissible ↔
+      t.extWork ≤ -t.deltaFreeEnergy + kB * t.bath.bathTemp.val * mutualInformation t.joint :=
+  Iff.rfl
+
+theorem turn_work_le (t : Turn) (h : t.Admissible) :
+    t.extWork ≤ -t.deltaFreeEnergy + kB * t.bath.bathTemp.val * mutualInformation t.joint := h
+
+/-- A cyclic turn (no free-energy change) extracts at most k_B T times the information its prediction carries. -/
+theorem turn_cyclic_work_le (t : Turn) (h : t.Admissible) (hF : t.deltaFreeEnergy = 0) :
+    t.extWork ≤ kB * t.bath.bathTemp.val * mutualInformation t.joint := by
+  have := turn_work_le t h
+  rw [hF, neg_zero, zero_add] at this
+  exact this
+
+/-- Two admissible turns at one bath: their works add under the summed free-energy drops and informations. -/
+theorem turn_pair_work_le (s t : Turn) (hT : s.bath.bathTemp.val = t.bath.bathTemp.val)
+    (hs : s.Admissible) (ht : t.Admissible) :
+    s.extWork + t.extWork ≤
+      -(s.deltaFreeEnergy + t.deltaFreeEnergy) +
+        kB * s.bath.bathTemp.val * (mutualInformation s.joint + mutualInformation t.joint) := by
+  have h1 := turn_work_le s hs
+  have h2 := turn_work_le t ht
+  rw [← hT] at h2
+  linarith
+
+/-- The same turn judged against another joint (the receipts, or a summary of them). -/
+def Turn.against (t : Turn) {n' m' : ℕ} (J : JointDist n' m') : Turn :=
+  { bath := t.bath, extWork := t.extWork, deltaFreeEnergy := t.deltaFreeEnergy, joint := J }
+
+/-- **Data-processing corollary**: when a summary carries no more information about the outcome than the receipts,
+    every work admitted against the summary is admitted against the receipts. -/
+theorem summary_admitted_receipts (t : Turn) {n' m' n'' m'' : ℕ} (summary : JointDist n' m')
+    (receipts : JointDist n'' m'') (hDPI : mutualInformation summary ≤ mutualInformation receipts)
+    (h : (t.against summary).Admissible) : (t.against receipts).Admissible := by
+  have hk : 0 ≤ kB * t.bath.bathTemp.val := mul_nonneg kB_pos.le t.bath.bathTemp.property.le
+  have h' : t.extWork ≤ -t.deltaFreeEnergy + kB * t.bath.bathTemp.val * mutualInformation summary := h
+  show t.extWork ≤ -t.deltaFreeEnergy + kB * t.bath.bathTemp.val * mutualInformation receipts
+  nlinarith [mul_le_mul_of_nonneg_left hDPI hk]
+
+/-- **Data-processing corollary**, contrapositive: a work the receipts refuse, the summary refuses. -/
+theorem receipts_refused_summary (t : Turn) {n' m' n'' m'' : ℕ} (summary : JointDist n' m')
+    (receipts : JointDist n'' m'') (hDPI : mutualInformation summary ≤ mutualInformation receipts)
+    (h : ¬ (t.against receipts).Admissible) : ¬ (t.against summary).Admissible :=
+  fun hs => h (summary_admitted_receipts t summary receipts hDPI hs)
+
+/-- **Separation corollary**: the gated choice `g` errs from the outcome `y` by at most the prediction `p`'s error
+    plus the gate's move `δ`. -/
+theorem gated_error_le (p g y δ : ℝ) (hδ : |g - p| ≤ δ) : |g - y| ≤ |p - y| + δ :=
+  UMST.accuracy_safety_separation_real p g y δ hδ
+
+end UMST.PredictionFeedback

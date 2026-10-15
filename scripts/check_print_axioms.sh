@@ -42,6 +42,10 @@ THEOREMS=(
   "LearningLoop.barrier_floor_tendsto_zero LearningLoopLaws"
   "LearningLoop.ppoStep_simplex LearningLoopLaws"
   "LearningLoop.verified_bit_costs_landauer LearningLoopLaws"
+  # A prediction-then-observation turn as measureFeedback (FORMAL-PREDICTION-AS-MEASURE-FEEDBACK).
+  "PredictionFeedback.turn_pair_work_le PredictionFeedback"
+  "PredictionFeedback.summary_admitted_receipts PredictionFeedback"
+  "PredictionFeedback.gated_error_le PredictionFeedback"
 )
 
 for entry in "${THEOREMS[@]}"; do

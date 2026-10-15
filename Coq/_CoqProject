@@ -42,6 +42,7 @@ CostOfInformation.v
 InfoTheory.v
 Coordination/AgentColimit.v
 LearningLoopLaws.v
+PredictionFeedback.v
 MeasurementCost.v
 PrimeSpectralGuidance.v
 Extraction.v

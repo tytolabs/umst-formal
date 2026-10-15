@@ -56,6 +56,7 @@ library
     PrimeSpectralGuidance
     MeaningStateKleisli
     LearningLoopLaws
+    PredictionFeedback
 
 
   -- FFI module exposed only when Rust library is available.
@@ -78,7 +79,7 @@ library
 test-suite umst-properties
   type:             exitcode-stdio-1.0
   main-is:          Test.hs
-  other-modules:    ChemProcessFunctorProps, ConstantsBoundsProps, CoordinationContractProps, CoordinationProps, CreditGreedy, Dignity, EtaCog, FluctuationProps, FreeFallProps, GsmMonoidProps, LearningLoopProps, MedianConvergence, OrderStatisticsBand, PassiveRouteProps, PhiGrammarProps, PowersCapillaryProps, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
+  other-modules:    ChemProcessFunctorProps, ConstantsBoundsProps, CoordinationContractProps, CoordinationProps, CreditGreedy, Dignity, EtaCog, FluctuationProps, FreeFallProps, GsmMonoidProps, LearningLoopProps, MedianConvergence, PredictionFeedbackProps, OrderStatisticsBand, PassiveRouteProps, PhiGrammarProps, PowersCapillaryProps, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
   hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,

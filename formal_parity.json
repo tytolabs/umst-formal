@@ -3906,6 +3906,86 @@
     "name": "prop_verified_bit_costs_landauer",
     "file": "Haskell/test/LearningLoopProps.hs"
    }
+  },
+  {
+   "id": "prediction.turn_cyclic_work_le",
+   "statement": "a prediction-then-observation turn of the learning loop is an instance of SecondLaw.measureFeedback: a cyclic turn (no free-energy change) extracts at most k_B T times the mutual information between prediction and outcome (Lean over the prediction-outcome JointDist; Coq, Agda and Haskell carry the information as data)",
+   "lean": {
+    "name": "UMST.PredictionFeedback.turn_cyclic_work_le",
+    "file": "Lean/PredictionFeedback.lean"
+   },
+   "coq": {
+    "name": "turn_cyclic_work_le",
+    "file": "Coq/PredictionFeedback.v"
+   },
+   "agda": {
+    "name": "turn-cyclic-work-le",
+    "file": "Agda/PredictionFeedback.agda"
+   },
+   "haskell": {
+    "name": "prop_turn_cyclic_work_le",
+    "file": "Haskell/test/PredictionFeedbackProps.hs"
+   }
+  },
+  {
+   "id": "prediction.turn_pair_work_le",
+   "statement": "two admissible turns at one bath add: the summed work is at most the summed free-energy drop plus k_B T times the summed information",
+   "lean": {
+    "name": "UMST.PredictionFeedback.turn_pair_work_le",
+    "file": "Lean/PredictionFeedback.lean"
+   },
+   "coq": {
+    "name": "turn_pair_work_le",
+    "file": "Coq/PredictionFeedback.v"
+   },
+   "agda": {
+    "name": "turn-pair-work-le",
+    "file": "Agda/PredictionFeedback.agda"
+   },
+   "haskell": {
+    "name": "prop_turn_pair_work_le",
+    "file": "Haskell/test/PredictionFeedbackProps.hs"
+   }
+  },
+  {
+   "id": "prediction.summary_admitted_receipts",
+   "statement": "under the data-processing inequality as a hypothesis (I(summary; outcome) <= I(receipts; outcome); umst-formal states no classical DPI and umst-formal-double-slit's DataProcessingInequality is quantum unital-channel entropy monotonicity), every work admitted against a summary of receipts is admitted against the receipts, so the receipts' reading fixes the meter",
+   "lean": {
+    "name": "UMST.PredictionFeedback.summary_admitted_receipts",
+    "file": "Lean/PredictionFeedback.lean"
+   },
+   "coq": {
+    "name": "summary_admitted_receipts",
+    "file": "Coq/PredictionFeedback.v"
+   },
+   "agda": {
+    "name": "summary-admitted-receipts",
+    "file": "Agda/PredictionFeedback.agda"
+   },
+   "haskell": {
+    "name": "prop_summary_admitted_receipts",
+    "file": "Haskell/test/PredictionFeedbackProps.hs"
+   }
+  },
+  {
+   "id": "prediction.gated_error_le",
+   "statement": "the gated choice errs from the outcome by at most the prediction's error plus the gate's move delta (Lean through SeparationBound.accuracy_safety_separation_real)",
+   "lean": {
+    "name": "UMST.PredictionFeedback.gated_error_le",
+    "file": "Lean/PredictionFeedback.lean"
+   },
+   "coq": {
+    "name": "gated_error_le",
+    "file": "Coq/PredictionFeedback.v"
+   },
+   "agda": {
+    "name": "gated-error-le",
+    "file": "Agda/PredictionFeedback.agda"
+   },
+   "haskell": {
+    "name": "prop_gated_error_le",
+    "file": "Haskell/test/PredictionFeedbackProps.hs"
+   }
   }
  ]
 }
