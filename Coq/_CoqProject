@@ -41,6 +41,7 @@ SemanticSecondLaw.v
 CostOfInformation.v
 InfoTheory.v
 Coordination/AgentColimit.v
+LearningLoopLaws.v
 MeasurementCost.v
 PrimeSpectralGuidance.v
 Extraction.v
