@@ -82,27 +82,30 @@ passiveBalance-released {old} {new} m = record { mass = m ; balance = e (free-en
     e : ∀ a b → (b - a) + (a - b) ≡ 0ℚ
     e = solve 2 (λ a b → (b :- a) :+ (a :- b) := con 0ℚ) refl
 
--- Bounds through the passive route: a SecondLaw step whose balance names its dissipation d has d ≥ 0.
-dissipation-nonneg-of-secondLaw : ∀ {d old new} → SecondLaw transition (thermodynamic old new) →
-  (free-energy new - free-energy old) + d ≡ 0ℚ → 0ℚ ≤ d
-dissipation-nonneg-of-secondLaw s hb =
-  Equivalence.to (passive-secondLaw-⇔ (record { mass = CoreAdmissible.mass-conserved s ; balance = hb })) s
+-- The bounds below are propositions; they stay opaque (abstract) so a caller never normalises the solver proofs
+-- behind them (cause, 15 October 2026: unfolding them made Constants/SecondLawElastic take over 30 CPU-minutes).
+abstract
+  -- Bounds through the passive route: a SecondLaw step whose balance names its dissipation d has d ≥ 0.
+  dissipation-nonneg-of-secondLaw : ∀ {d old new} → SecondLaw transition (thermodynamic old new) →
+    (free-energy new - free-energy old) + d ≡ 0ℚ → 0ℚ ≤ d
+  dissipation-nonneg-of-secondLaw s hb =
+    Equivalence.to (passive-secondLaw-⇔ (record { mass = CoreAdmissible.mass-conserved s ; balance = hb })) s
 
--- A step from free energy ψ that dissipates d obeys the second law only with d ≥ 0.
-step-dissipation-nonneg : ∀ ρ ρ' ψ d →
-  SecondLaw transition (thermodynamic (mkState ρ ψ 0ℚ 0ℚ) (mkState ρ' (ψ - d) 0ℚ 0ℚ)) → 0ℚ ≤ d
-step-dissipation-nonneg ρ ρ' ψ d s = dissipation-nonneg-of-secondLaw s (e ψ d)
-  where
-    e : ∀ ψ d → ((ψ - d) - ψ) + d ≡ 0ℚ
-    e = solve 2 (λ ψ d → ((ψ :- d) :- ψ) :+ d := con 0ℚ) refl
+  -- A step from free energy ψ that dissipates d obeys the second law only with d ≥ 0.
+  step-dissipation-nonneg : ∀ ρ ρ' ψ d →
+    SecondLaw transition (thermodynamic (mkState ρ ψ 0ℚ 0ℚ) (mkState ρ' (ψ - d) 0ℚ 0ℚ)) → 0ℚ ≤ d
+  step-dissipation-nonneg ρ ρ' ψ d s = dissipation-nonneg-of-secondLaw s (e ψ d)
+    where
+      e : ∀ ψ d → ((ψ - d) - ψ) + d ≡ 0ℚ
+      e = solve 2 (λ ψ d → ((ψ :- d) :- ψ) :+ d := con 0ℚ) refl
 
--- A passive relaxation from a stored free energy ψ to the natural state dissipates ψ: ψ ≥ 0.
-relaxation-stored-nonneg : ∀ ρ ρ' ψ →
-  SecondLaw transition (thermodynamic (mkState ρ ψ 0ℚ 0ℚ) (mkState ρ' 0ℚ 0ℚ 0ℚ)) → 0ℚ ≤ ψ
-relaxation-stored-nonneg ρ ρ' ψ s = dissipation-nonneg-of-secondLaw s (e ψ)
-  where
-    e : ∀ ψ → (0ℚ - ψ) + ψ ≡ 0ℚ
-    e = solve 1 (λ ψ → (con 0ℚ :- ψ) :+ ψ := con 0ℚ) refl
+  -- A passive relaxation from a stored free energy ψ to the natural state dissipates ψ: ψ ≥ 0.
+  relaxation-stored-nonneg : ∀ ρ ρ' ψ →
+    SecondLaw transition (thermodynamic (mkState ρ ψ 0ℚ 0ℚ) (mkState ρ' 0ℚ 0ℚ 0ℚ)) → 0ℚ ≤ ψ
+  relaxation-stored-nonneg ρ ρ' ψ s = dissipation-nonneg-of-secondLaw s (e ψ)
+    where
+      e : ∀ ψ → (0ℚ - ψ) + ψ ≡ 0ℚ
+      e = solve 1 (λ ψ → (con 0ℚ :- ψ) :+ ψ := con 0ℚ) refl
 
 -- Inequality form: Δψ + d ≤ 0 with d ≥ 0 and the mass condition is a SecondLaw step.
 passive-inequality-secondLaw : ∀ {d old new} → MassBall old new → 0ℚ ≤ d →
