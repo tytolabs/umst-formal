@@ -56,6 +56,7 @@ import PowersCapillaryProps (powersCapillaryProps)
 import ChemProcessFunctorProps (chemProcessFunctorProps)
 import FluctuationProps (fluctuationProps)
 import PassiveRouteProps (passiveRouteProps)
+import CoordinationProps (agentColimitProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1261,6 +1262,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) fluctuationProps
   putStrLn "-- The passive route (Convex.PassiveRoute, ConvexPhiDissipation)"
   mapM_ (\(name, p) -> check r (counterexample name p)) passiveRouteProps
+  putStrLn "-- Gluing of agents: the join in the knowledge preorder (Coordination.AgentColimit)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) agentColimitProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

@@ -177,3 +177,10 @@ lean_lib «Crypto.SanitizePatternCoverage» where
 @[default_target]
 lean_lib Experiments where
   globs := #[`experiments.+]
+
+/-- H-COLIMIT-1 (W-30) — `Coordination.*`: the gluing of agents, the join in the knowledge preorder
+    (`lake build UMST.Coordination`). -/
+@[default_target]
+lean_lib UMST.Coordination where
+  globs := #[`Coordination.+]
+  srcDir := "."

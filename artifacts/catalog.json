@@ -2045,6 +2045,34 @@
       "module": "ConvexPhiDissipation"
     },
     {
+      "path": "Coordination/AgentColimit.lean",
+      "content_sha256": "58133a184cc0fe5d30738e272cd902371c3277de2dbf681ffaa2d4bed7b8384b",
+      "declarations": {
+        "def": [
+          "Knows",
+          "glue"
+        ],
+        "theorem": [
+          "knows_refl",
+          "knows_trans",
+          "glue_knows_left",
+          "glue_knows_right",
+          "glue_universal",
+          "knows_glue_iff",
+          "factors_knows",
+          "knows_iff_factors",
+          "knows_iff_ker_le",
+          "ker_glue_iff",
+          "ker_glue"
+        ]
+      },
+      "import_lines": [
+        "Mathlib.Data.Setoid.Basic",
+        "Mathlib.Logic.Function.Basic"
+      ],
+      "module": "Coordination.AgentColimit"
+    },
+    {
       "path": "CoordinationContract.lean",
       "content_sha256": "3599bee647b40256c27f2a73c703103f538b21e4ad86d8b097dfb8c6f032dbbe",
       "declarations": {
@@ -7234,7 +7262,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "486ca81e55b784f9d71acbf2195ef809ebad60f60a13f6197d62cbca0007ac5f",
+      "content_sha256": "3ff0f111e16bf23ce0a7e9d74d3f6c45bed5f453177bd789b5c1a38493238426",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7937,6 +7965,16 @@
       "from": "ConvexPhiDissipation",
       "import": "Process",
       "to_approx": "Process"
+    },
+    {
+      "from": "Coordination.AgentColimit",
+      "import": "Mathlib.Data.Setoid.Basic",
+      "to_approx": "Mathlib.Data.Setoid.Basic"
+    },
+    {
+      "from": "Coordination.AgentColimit",
+      "import": "Mathlib.Logic.Function.Basic",
+      "to_approx": "Mathlib.Logic.Function.Basic"
     },
     {
       "from": "CoordinationContract",
@@ -9864,5 +9902,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "587849e377ebd067e63b4dd47a20a806f9cdea8d341a95a83961b49b5f8f6242"
+  "digest": "275de2f3b49c412b31333f745393c780647411c56e38b5ca1c9f453706460b1c"
 }

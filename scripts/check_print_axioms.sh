@@ -34,6 +34,9 @@ THEOREMS=(
   "Constants.SecondLawElastic.orthotropic_poisson_sq_le Constants.SecondLawElastic"
   "ConvexPhiChannels.restitution_le_one ConvexPhiChannels"
   "Convex.PhiGrammar.phiExpr_gsmCartridge_secondLaw Convex.PhiGrammar"
+  # Gluing of agents (FORMAL-AGENT-COLIMIT).
+  "Coordination.knows_glue_iff Coordination.AgentColimit"
+  "Coordination.ker_glue Coordination.AgentColimit"
 )
 
 for entry in "${THEOREMS[@]}"; do

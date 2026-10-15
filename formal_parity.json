@@ -3526,6 +3526,86 @@
     "name": "prop_free_fall_gravity_bound",
     "file": "Haskell/test/FreeFallProps.hs"
    }
+  },
+  {
+   "id": "coordination.glue_knows_parts",
+   "statement": "the glued agent w -> (a w, b w) knows each of the two agents (equal glued readings give equal readings of each)",
+   "lean": {
+    "name": "UMST.Coordination.glue_knows_left",
+    "file": "Lean/Coordination/AgentColimit.lean"
+   },
+   "coq": {
+    "name": "glue_knows_left",
+    "file": "Coq/Coordination/AgentColimit.v"
+   },
+   "agda": {
+    "name": "glue-knows-left",
+    "file": "Agda/Coordination/AgentColimit.agda"
+   },
+   "haskell": {
+    "name": "prop_glue_knows",
+    "file": "Haskell/test/CoordinationProps.hs"
+   }
+  },
+  {
+   "id": "coordination.glue_join",
+   "statement": "an agent knows the glued agent iff it knows both agents: the glued agent is the join of the two in the knowledge preorder, the colimit of the discrete two-object diagram in the thin category of agents (Haskell: decided on a finite world)",
+   "lean": {
+    "name": "UMST.Coordination.knows_glue_iff",
+    "file": "Lean/Coordination/AgentColimit.lean"
+   },
+   "coq": {
+    "name": "knows_glue_iff",
+    "file": "Coq/Coordination/AgentColimit.v"
+   },
+   "agda": {
+    "name": "knows-glue-⇔",
+    "file": "Agda/Coordination/AgentColimit.agda"
+   },
+   "haskell": {
+    "name": "prop_knows_glue_iff",
+    "file": "Haskell/test/CoordinationProps.hs"
+   }
+  },
+  {
+   "id": "coordination.knows_trans",
+   "statement": "knowing is transitive: an agent that knows b, where b knows a, knows a",
+   "lean": {
+    "name": "UMST.Coordination.knows_trans",
+    "file": "Lean/Coordination/AgentColimit.lean"
+   },
+   "coq": {
+    "name": "knows_trans",
+    "file": "Coq/Coordination/AgentColimit.v"
+   },
+   "agda": {
+    "name": "knows-trans",
+    "file": "Agda/Coordination/AgentColimit.agda"
+   },
+   "haskell": {
+    "name": "prop_knows_trans",
+    "file": "Haskell/test/CoordinationProps.hs"
+   }
+  },
+  {
+   "id": "coordination.ker_glue",
+   "statement": "the kernel of the glued agent is the meet of the two kernels (Lean in Mathlib's Setoid lattice; Coq, Agda and Haskell pointwise at every pair of worlds)",
+   "lean": {
+    "name": "UMST.Coordination.ker_glue",
+    "file": "Lean/Coordination/AgentColimit.lean"
+   },
+   "coq": {
+    "name": "ker_glue",
+    "file": "Coq/Coordination/AgentColimit.v"
+   },
+   "agda": {
+    "name": "ker-glue",
+    "file": "Agda/Coordination/AgentColimit.agda"
+   },
+   "haskell": {
+    "name": "prop_ker_glue",
+    "file": "Haskell/test/CoordinationProps.hs"
+   }
   }
  ]
 }
