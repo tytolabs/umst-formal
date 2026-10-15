@@ -55,6 +55,7 @@ import GsmMonoidProps (gsmMonoidProps)
 import PowersCapillaryProps (powersCapillaryProps)
 import ChemProcessFunctorProps (chemProcessFunctorProps)
 import FluctuationProps (fluctuationProps)
+import PassiveRouteProps (passiveRouteProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1258,6 +1259,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) chemProcessFunctorProps
   putStrLn "-- Fluctuation theorem and thermodynamic uncertainty relation (Lean, Coq and Agda twins)"
   mapM_ (\(name, p) -> check r (counterexample name p)) fluctuationProps
+  putStrLn "-- The passive route (Convex.PassiveRoute, ConvexPhiDissipation)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) passiveRouteProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

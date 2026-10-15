@@ -1916,6 +1916,28 @@
       "module": "Constants.SecondLawSolidInelastic"
     },
     {
+      "path": "Convex/PassiveRoute.lean",
+      "content_sha256": "42fa3ebaa99d141c43b83c63eecc52f77344a0dee7ba8938a298cf357a94d1a2",
+      "declarations": {
+        "structure": [
+          "PassiveBalance"
+        ],
+        "theorem": [
+          "passive_secondLaw_iff",
+          "passiveBalance_released",
+          "dissipation_nonneg_of_secondLaw",
+          "step_dissipation_nonneg",
+          "relaxation_stored_nonneg",
+          "passive_inequality_secondLaw",
+          "passive_refused_of_neg"
+        ]
+      },
+      "import_lines": [
+        "Process"
+      ],
+      "module": "Convex.PassiveRoute"
+    },
+    {
       "path": "Convex/PhiGrammar.lean",
       "content_sha256": "c7b0036bcf5c8a112fc0b7b9ec28558f9fc0a807076ffa20edfef2958ea839e3",
       "declarations": {
@@ -7209,7 +7231,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "47611e52b940d7112d9590c042825967fe44d16607031c0ccf663f01f130d95f",
+      "content_sha256": "486ca81e55b784f9d71acbf2195ef809ebad60f60a13f6197d62cbca0007ac5f",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7852,6 +7874,11 @@
       "from": "Constants.SecondLawSolidInelastic",
       "import": "Constants.SecondLawDissipation",
       "to_approx": "Constants.SecondLawDissipation"
+    },
+    {
+      "from": "Convex.PassiveRoute",
+      "import": "Process",
+      "to_approx": "Process"
     },
     {
       "from": "Convex.PhiGrammar",
@@ -9819,5 +9846,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "1edad64fe4fb8be928c5b3f589f01805d95240b3f7631ae9a272f6698b849c74"
+  "digest": "698d097cfd22fbb5c9d9da9c7cc6e63a7bfae2e43a8dc68b46348f3b518d1e63"
 }

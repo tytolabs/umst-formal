@@ -2588,6 +2588,146 @@
    }
   },
   {
+   "id": "passive_route.secondLaw_iff",
+   "statement": "the passive route: on a passive balance (mass within the gate ball, Δψ + D = 0, no supplied power) the transition case of SecondLaw holds exactly when the dissipation D ≥ 0; every dissipative statement enters the law through this one statement",
+   "lean": {
+    "name": "UMST.Convex.PassiveRoute.passive_secondLaw_iff",
+    "file": "Lean/Convex/PassiveRoute.lean"
+   },
+   "coq": {
+    "name": "passive_secondLaw_iff",
+    "file": "Coq/Convex/PassiveRoute.v"
+   },
+   "agda": {
+    "name": "passive-secondLaw-⇔",
+    "file": "Agda/Convex/PassiveRoute.agda"
+   },
+   "haskell": {
+    "name": "prop_passive_secondLaw_iff",
+    "file": "Haskell/test/PassiveRouteProps.hs"
+   }
+  },
+  {
+   "id": "passive_route.dissipation_nonneg_of_secondLaw",
+   "statement": "the passive route read backward: a SecondLaw transition step whose energy balance Δψ + D = 0 names its dissipation has D ≥ 0 (the form the second_law_bound statements use)",
+   "lean": {
+    "name": "UMST.Convex.PassiveRoute.dissipation_nonneg_of_secondLaw",
+    "file": "Lean/Convex/PassiveRoute.lean"
+   },
+   "coq": {
+    "name": "dissipation_nonneg_of_secondLaw",
+    "file": "Coq/Convex/PassiveRoute.v"
+   },
+   "agda": {
+    "name": "dissipation-nonneg-of-secondLaw",
+    "file": "Agda/Convex/PassiveRoute.agda"
+   },
+   "haskell": {
+    "name": "prop_passive_dissipation_nonneg_of_secondLaw",
+    "file": "Haskell/test/PassiveRouteProps.hs"
+   }
+  },
+  {
+   "id": "passive_route.inequality_secondLaw",
+   "statement": "inequality form of the passive route: Δψ + D ≤ 0 with D ≥ 0 and the mass condition is a SecondLaw transition step (the released free energy, at least D, is the dissipation of the passive balance)",
+   "lean": {
+    "name": "UMST.Convex.PassiveRoute.passive_inequality_secondLaw",
+    "file": "Lean/Convex/PassiveRoute.lean"
+   },
+   "coq": {
+    "name": "passive_inequality_secondLaw",
+    "file": "Coq/Convex/PassiveRoute.v"
+   },
+   "agda": {
+    "name": "passive-inequality-secondLaw",
+    "file": "Agda/Convex/PassiveRoute.agda"
+   },
+   "haskell": {
+    "name": "prop_passive_inequality_secondLaw",
+    "file": "Haskell/test/PassiveRouteProps.hs"
+   }
+  },
+  {
+   "id": "passive_route.refused_of_neg",
+   "statement": "a step whose energy balance Δψ + D = 0 names a negative dissipation is refused by the transition case of SecondLaw",
+   "lean": {
+    "name": "UMST.Convex.PassiveRoute.passive_refused_of_neg",
+    "file": "Lean/Convex/PassiveRoute.lean"
+   },
+   "coq": {
+    "name": "passive_refused_of_neg",
+    "file": "Coq/Convex/PassiveRoute.v"
+   },
+   "agda": {
+    "name": "passive-refused-of-neg",
+    "file": "Agda/Convex/PassiveRoute.agda"
+   },
+   "haskell": {
+    "name": "prop_passive_refused_of_neg",
+    "file": "Haskell/test/PassiveRouteProps.hs"
+   }
+  },
+  {
+   "id": "passive_route.relaxation_stored_nonneg",
+   "statement": "a passive relaxation from a stored free energy ψ to the natural state (free energy zero) dissipates ψ, so under SecondLaw ψ ≥ 0 (the form the elastic second_law_bound statements use)",
+   "lean": {
+    "name": "UMST.Convex.PassiveRoute.relaxation_stored_nonneg",
+    "file": "Lean/Convex/PassiveRoute.lean"
+   },
+   "coq": {
+    "name": "relaxation_stored_nonneg",
+    "file": "Coq/Convex/PassiveRoute.v"
+   },
+   "agda": {
+    "name": "relaxation-stored-nonneg",
+    "file": "Agda/Convex/PassiveRoute.agda"
+   },
+   "haskell": {
+    "name": "prop_passive_relaxation_stored_nonneg",
+    "file": "Haskell/test/PassiveRouteProps.hs"
+   }
+  },
+  {
+   "id": "passive_route.convex_phi_dissipation_nonneg",
+   "statement": "a dissipation potential φ convex, non-negative and zero at zero dissipates non-negatively: φ(ṡ) ≤ ṡ·φ′(ṡ) and 0 ≤ ṡ·φ′(ṡ) (Coq, Agda: φ over the rationals in supporting-line form with slope dφ, the rational twin of the derivative)",
+   "lean": {
+    "name": "UMST.ConvexPhiDissipation.convex_phi_dissipation_nonneg",
+    "file": "Lean/ConvexPhiDissipation.lean"
+   },
+   "coq": {
+    "name": "convex_phi_dissipation_nonneg",
+    "file": "Coq/Convex/PassiveRoute.v"
+   },
+   "agda": {
+    "name": "convex-phi-dissipation-nonneg",
+    "file": "Agda/Convex/PassiveRoute.agda"
+   },
+   "haskell": {
+    "name": "prop_convex_phi_dissipation_nonneg",
+    "file": "Haskell/test/PassiveRouteProps.hs"
+   }
+  },
+  {
+   "id": "passive_route.gsm_cartridge_passive_secondLaw",
+   "statement": "the passive cartridge law: a GSM cartridge (φ convex, φ ≥ 0, φ(0) = 0) under its passive energy balance Δψ + ṡ·φ′(ṡ) = 0 is a SecondLaw transition step, through passive_route.secondLaw_iff",
+   "lean": {
+    "name": "UMST.ConvexPhiDissipation.gsmCartridge_passive_secondLaw",
+    "file": "Lean/ConvexPhiDissipation.lean"
+   },
+   "coq": {
+    "name": "gsmCartridge_passive_secondLaw",
+    "file": "Coq/Convex/PassiveRoute.v"
+   },
+   "agda": {
+    "name": "gsmCartridge-passive-secondLaw",
+    "file": "Agda/Convex/PassiveRoute.agda"
+   },
+   "haskell": {
+    "name": "prop_gsm_cartridge_passive_secondLaw",
+    "file": "Haskell/test/PassiveRouteProps.hs"
+   }
+  },
+  {
    "id": "convex_phi_grammar.zero",
    "statement": "every dissipation-potential expression (PSD quadratic, |x|, |x|^p with p ≥ 1, Norton a·|x|^(m+1), nonnegative scaling, sum, max, linear precomposition) denotes φ with φ(0) = 0 (Lean over Fin n → ℝ with real exponents p ≥ 1, m ≥ 0; Coq, Agda and Haskell over one rational rate with natural exponents)",
    "lean": {

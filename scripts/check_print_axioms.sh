@@ -24,6 +24,12 @@ THEOREMS=(
   "Composition.composite_passive_secondLaw Composition.GsmMonoid"
   "Composition.convexGlue_secondLaw Composition.GsmMonoid"
   "Composition.arbitrary_glue_not_closed Composition.GsmMonoid"
+  # The passive route (FORMAL-PASSIVE-ROUTE-4LANG): the one statement every dissipative bound and composite uses.
+  "Convex.PassiveRoute.passive_secondLaw_iff Convex.PassiveRoute"
+  "Convex.PassiveRoute.dissipation_nonneg_of_secondLaw Convex.PassiveRoute"
+  "Convex.PassiveRoute.passive_inequality_secondLaw Convex.PassiveRoute"
+  "Convex.PassiveRoute.passive_refused_of_neg Convex.PassiveRoute"
+  "ConvexPhiDissipation.gsmCartridge_passive_secondLaw ConvexPhiDissipation"
 )
 
 for entry in "${THEOREMS[@]}"; do

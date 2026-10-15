@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 95,
+  "lake_roots_count": 96,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -32,6 +32,7 @@
     "LandauerLaw",
     "Process",
     "OneInequalitySecondLaw",
+    "Convex.PassiveRoute",
     "FluctuationTheorem",
     "UncertaintyRelation",
     "ConvexPhiDissipation",
@@ -99,14 +100,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 667,
+    "theorem": 674,
     "lemma": 62,
-    "total": 729
+    "total": 736
   },
   "all_lean_glob": {
-    "theorem": 1513,
+    "theorem": 1520,
     "lemma": 62,
-    "total": 1575
+    "total": 1582
   },
   "per_root": {
     "Core.Scalar": {
@@ -228,6 +229,10 @@
     "OneInequalitySecondLaw": {
       "theorem": 14,
       "lemma": 1
+    },
+    "Convex.PassiveRoute": {
+      "theorem": 7,
+      "lemma": 0
     },
     "FluctuationTheorem": {
       "theorem": 19,
