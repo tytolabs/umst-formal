@@ -74,7 +74,7 @@ data Outcome : Set where
 record Evidence : Set where
   constructor evidence
   field
-    guard verified landed moved : Bool
+    hasGuard hasVerified hasLanded hasMoved : Bool
 open Evidence
 
 _⇒ᵇ_ : Bool → Bool → Set
@@ -83,7 +83,7 @@ a ⇒ᵇ b = a ≡ true → b ≡ true
 -- More evidence: every piece e holds, f holds too.
 EvidenceLe : Evidence → Evidence → Set
 EvidenceLe e f =
-  (guard e ⇒ᵇ guard f) × (verified e ⇒ᵇ verified f) × (landed e ⇒ᵇ landed f) × (moved e ⇒ᵇ moved f)
+  (hasGuard e ⇒ᵇ hasGuard f) × (hasVerified e ⇒ᵇ hasVerified f) × (hasLanded e ⇒ᵇ hasLanded f) × (hasMoved e ⇒ᵇ hasMoved f)
 
 -- The highest rung a COMPLETE claim's evidence holds (outcome.rs level_of).
 completeLevel : Evidence → Level
@@ -193,13 +193,13 @@ module Counting {k} (K : Set k) where
   -- Law 2: every reordering of the rows folds to the same counts.
   fold-perm : ∀ {xs ys} → xs ↭ ys → ∀ x → cfold xs x ≡ cfold ys x
   fold-perm ↭-refl x = refl
-  fold-perm (↭-prep y p) x =
-    ≡-trans (fold-cons y _ x) (≡-trans (cong (y x ℕ.+_) (fold-perm p x)) (sym (fold-cons y _ x)))
-  fold-perm (↭-swap y z p) x =
-    ≡-trans (fold-cons y _ x)
-      (≡-trans (cong (y x ℕ.+_) (fold-cons z _ x))
-        (≡-trans (swap-sum (y x) (z x) _ _ (fold-perm p x))
-          (≡-trans (cong (z x ℕ.+_) (sym (fold-cons y _ x))) (sym (fold-cons z _ x)))))
+  fold-perm {xs = _ ∷ as} {ys = _ ∷ bs} (↭-prep y p) x =
+    ≡-trans (fold-cons y as x) (≡-trans (cong (y x ℕ.+_) (fold-perm p x)) (sym (fold-cons y bs x)))
+  fold-perm {xs = _ ∷ _ ∷ as} {ys = _ ∷ _ ∷ bs} (↭-swap y z p) x =
+    ≡-trans (fold-cons y (z ∷ as) x)
+      (≡-trans (cong (y x ℕ.+_) (fold-cons z as x))
+        (≡-trans (swap-sum (y x) (z x) (cfold as x) (cfold bs x) (fold-perm p x))
+          (≡-trans (cong (z x ℕ.+_) (sym (fold-cons y bs x))) (sym (fold-cons z (y ∷ bs) x)))))
   fold-perm (↭-trans p q) x = ≡-trans (fold-perm p x) (fold-perm q x)
 
   keySum : List K → Counts → ℕ
