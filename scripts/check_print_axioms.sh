@@ -30,6 +30,10 @@ THEOREMS=(
   "Convex.PassiveRoute.passive_inequality_secondLaw Convex.PassiveRoute"
   "Convex.PassiveRoute.passive_refused_of_neg Convex.PassiveRoute"
   "ConvexPhiDissipation.gsmCartridge_passive_secondLaw ConvexPhiDissipation"
+  "Constants.SecondLawDissipation.viscosity_nonneg Constants.SecondLawDissipation"
+  "Constants.SecondLawElastic.orthotropic_poisson_sq_le Constants.SecondLawElastic"
+  "ConvexPhiChannels.restitution_le_one ConvexPhiChannels"
+  "Convex.PhiGrammar.phiExpr_gsmCartridge_secondLaw Convex.PhiGrammar"
 )
 
 for entry in "${THEOREMS[@]}"; do

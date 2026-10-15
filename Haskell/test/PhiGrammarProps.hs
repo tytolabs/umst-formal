@@ -25,6 +25,7 @@ import Data.List (transpose)
 import Test.QuickCheck
 
 import UMST.Concrete (ThermodynamicState (..))
+import qualified UMST.PassiveRoute as PR
 import qualified UMST.Process as P
 
 -- | Dissipation-potential expressions over one rational rate.
@@ -119,7 +120,7 @@ prop_phi_passive_second_law :: PhiExpr -> Property
 prop_phi_passive_second_law e = forAll genQ $ \x -> forAll genQ $ \psi ->
   let d = subgrad e x * x
       st f = ThermodynamicState {density = 2400, freeEnergy = fromRational f, hydration = 0.5, strength = 30, maxStrength = 100}
-   in property (P.secondLaw P.Transition (P.Thermodynamic (st psi) (st (psi - d))))
+   in property (PR.passiveSecondLaw (st psi) (fromRational d))
 
 -- | The capped potential min(|x|, 1) fails the chord inequality at x = 0, y = 2, t = ½ (twin of
 -- no_expr_denotes_capped).

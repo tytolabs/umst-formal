@@ -6,7 +6,8 @@
   Elastic moduli bounded by the second law. A linear-elastic body loaded away from its natural (unstrained)
   state stores free energy; released, it relaxes passively to the natural state, whose free energy is zero. Each
   theorem takes that relaxation as a `.transition` case of `UMST.ProcessFamily.SecondLaw` (free energy does not
-  rise) and concludes a bound on a modulus. The hypothesis is quantified over every loaded state where the bound
+  rise) and concludes a bound on a modulus. The relaxation dissipates the stored energy, so the bound passes through
+  the passive route (`Convex.PassiveRoute.relaxation_stored_nonneg`): the stored energy is non-negative. The hypothesis is quantified over every loaded state where the bound
   needs several loading modes.
 
   * `relaxation_stiffness_nonneg`: a mode storing ½·k·s² (strain s ≠ 0) has k ≥ 0.
@@ -28,15 +29,16 @@
 -/
 
 import Process
+import Convex.PassiveRoute
 
-open UMST.ProcessFamily UMST.Real
+open UMST.ProcessFamily UMST.Real UMST.Convex.PassiveRoute
 
 namespace UMST.Constants.SecondLawElastic
 
 /-- **Stiffness**: a mode storing ½·k·s² at a strain `s ≠ 0` that relaxes passively has `k ≥ 0`. -/
 theorem relaxation_stiffness_nonneg {ρ ρ' k s : ℝ} (hs : s ≠ 0)
     (h : SecondLaw .transition (.thermodynamic ⟨ρ, 1 / 2 * k * s ^ 2⟩ ⟨ρ', 0⟩)) : 0 ≤ k := by
-  have h0 : (0 : ℝ) ≤ 1 / 2 * k * s ^ 2 := h.2
+  have h0 : (0 : ℝ) ≤ 1 / 2 * k * s ^ 2 := relaxation_stored_nonneg h
   have hs2 : 0 < s ^ 2 := by positivity
   by_contra hk
   push_neg at hk
@@ -46,7 +48,7 @@ theorem relaxation_stiffness_nonneg {ρ ρ' k s : ℝ} (hs : s ≠ 0)
     forces `E > 0`. -/
 theorem relaxation_modulus_pos {ρ ρ' E σ : ℝ} (hσ : σ ≠ 0) (hE : E ≠ 0)
     (h : SecondLaw .transition (.thermodynamic ⟨ρ, σ ^ 2 / (2 * E)⟩ ⟨ρ', 0⟩)) : 0 < E := by
-  have h0 : (0 : ℝ) ≤ σ ^ 2 / (2 * E) := h.2
+  have h0 : (0 : ℝ) ≤ σ ^ 2 / (2 * E) := relaxation_stored_nonneg h
   rcases lt_or_gt_of_ne hE with hneg | hpos
   · have : σ ^ 2 / (2 * E) < 0 := div_neg_of_pos_of_neg (by positivity) (by linarith)
     linarith
@@ -56,8 +58,8 @@ theorem relaxation_modulus_pos {ρ ρ' E σ : ℝ} (hσ : σ ≠ 0) (hE : E ≠ 
 theorem twoMode_stiffness_nonneg {ρ ρ' a b : ℝ}
     (h : ∀ x y : ℝ, SecondLaw .transition (.thermodynamic ⟨ρ, 1 / 2 * a * x ^ 2 + 1 / 2 * b * y ^ 2⟩ ⟨ρ', 0⟩)) :
     0 ≤ a ∧ 0 ≤ b := by
-  have ha : (0 : ℝ) ≤ 1 / 2 * a * 1 ^ 2 + 1 / 2 * b * 0 ^ 2 := (h 1 0).2
-  have hb : (0 : ℝ) ≤ 1 / 2 * a * 0 ^ 2 + 1 / 2 * b * 1 ^ 2 := (h 0 1).2
+  have ha : (0 : ℝ) ≤ 1 / 2 * a * 1 ^ 2 + 1 / 2 * b * 0 ^ 2 := relaxation_stored_nonneg (h 1 0)
+  have hb : (0 : ℝ) ≤ 1 / 2 * a * 0 ^ 2 + 1 / 2 * b * 1 ^ 2 := relaxation_stored_nonneg (h 0 1)
   constructor <;> nlinarith
 
 /-- Poisson ratio of an isotropic solid from its bulk modulus `K` and shear modulus `G`. -/
@@ -106,16 +108,16 @@ theorem orthotropic_poisson_sq_le {ρ ρ' E1 E2 ν12 : ℝ} (hE1 : E1 ≠ 0) (hE
     0 < E1 ∧ 0 < E2 ∧ ν12 ^ 2 ≤ E1 / E2 := by
   have p1 : 0 < E1 := relaxation_modulus_pos (σ := 1) one_ne_zero hE1 (by
     refine ⟨(h 1 0).1, ?_⟩
-    have h10 : (0 : ℝ) ≤ orthotropicEnergy E1 E2 ν12 1 0 := (h 1 0).2
+    have h10 : (0 : ℝ) ≤ orthotropicEnergy E1 E2 ν12 1 0 := relaxation_stored_nonneg (h 1 0)
     show (0 : ℝ) ≤ 1 ^ 2 / (2 * E1)
     simpa [orthotropicEnergy] using h10)
   have p2 : 0 < E2 := relaxation_modulus_pos (σ := 1) one_ne_zero hE2 (by
     refine ⟨(h 0 1).1, ?_⟩
-    have h01 : (0 : ℝ) ≤ orthotropicEnergy E1 E2 ν12 0 1 := (h 0 1).2
+    have h01 : (0 : ℝ) ≤ orthotropicEnergy E1 E2 ν12 0 1 := relaxation_stored_nonneg (h 0 1)
     show (0 : ℝ) ≤ 1 ^ 2 / (2 * E2)
     simpa [orthotropicEnergy] using h01)
   refine ⟨p1, p2, ?_⟩
-  have hν : (0 : ℝ) ≤ orthotropicEnergy E1 E2 ν12 ν12 1 := (h ν12 1).2
+  have hν : (0 : ℝ) ≤ orthotropicEnergy E1 E2 ν12 ν12 1 := relaxation_stored_nonneg (h ν12 1)
   have key : ν12 ^ 2 / E1 ≤ 1 / E2 := by
     have e : orthotropicEnergy E1 E2 ν12 ν12 1 = (1 / E2 - ν12 ^ 2 / E1) / 2 := by
       unfold orthotropicEnergy

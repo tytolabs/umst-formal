@@ -12,7 +12,7 @@
 (* ======================================================================== *)
 
 From Stdlib Require Import QArith Qfield Lqa.
-Require Import UMSTFormal.Compat.Gate UMSTFormal.Process.
+Require Import UMSTFormal.Compat.Gate UMSTFormal.Process UMSTFormal.Convex.PassiveRoute.
 
 Open Scope Q_scope.
 
@@ -22,7 +22,7 @@ Definition relaxation (rho rho' psi : Q) : Prior :=
 
 Lemma relaxation_nonneg (rho rho' psi : Q) :
   SecondLaw transition (relaxation rho rho' psi) -> 0 <= psi.
-Proof. simpl. unfold core_admissible. simpl. tauto. Qed.
+Proof. intros h. exact (relaxation_stored_nonneg _ _ _ h). Qed.
 
 (** Stiffness: a mode storing 1/2 k s^2 at a strain s <> 0 that relaxes passively has k >= 0. *)
 Theorem relaxation_stiffness_nonneg (rho rho' k s : Q) :

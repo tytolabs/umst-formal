@@ -32,6 +32,7 @@ open import Relation.Nullary.Decidable using (toWitness)
 open import Concrete.Gate using (ThermodynamicState; mkState)
 open import Core.Gate using (CoreAdmissible; δ-mass)
 open import Process using (Prior; SecondLaw; transition; thermodynamic)
+open import Convex.PassiveRoute using (passive-inequality-secondLaw)
 
 open +-*-Solver
 
@@ -253,19 +254,7 @@ phi-expr-passive-second-law : ∀ e x g (old new : ThermodynamicState) → IsSub
   (ThermodynamicState.free-energy new - ThermodynamicState.free-energy old) + g * x ≤ 0ℚ →
   SecondLaw transition (thermodynamic old new)
 phi-expr-passive-second-law e x g old new hg hm₁ hm₂ hb =
-  record { mass-conserved = hm₁ , hm₂ ; dissipation-nonneg = descent }
-  where
-    ψo = ThermodynamicState.free-energy old
-    ψn = ThermodynamicState.free-energy new
-    -- ψn − ψo ≤ (ψn − ψo) + g·x ≤ 0
-    step : ψn - ψo ≤ 0ℚ
-    step = ≤-trans (subst (_≤ (ψn - ψo) + g * x) (+-identityʳ (ψn - ψo))
-                     (+-monoʳ-≤ (ψn - ψo) (subgradient-power-nonneg e x g hg))) hb
-    descent : ψn ≤ ψo
-    descent = gap _ _ (subst (0ℚ ≤_) (eq ψn ψo) (gap⁻¹ _ _ step))
-      where
-        eq : ∀ n o → 0ℚ - (n - o) ≡ o - n
-        eq = solve 2 (λ n o → con 0ℚ :- (n :- o) := o :- n) refl
+  passive-inequality-secondLaw {g * x} {old} {new} (hm₁ , hm₂) (subgradient-power-nonneg e x g hg) hb
 
 ------------------------------------------------------------------------
 -- A nonconvex potential has no expression: min(|x|, 1) is nonnegative and zero at zero but not convex.

@@ -5,7 +5,7 @@
 --
 -- Potentials are drawn from the family a·x² + b·|x| (a, b ≥ 0) and atoms add a free energy k·(s − s0)²/2 (k ≥ 0);
 -- coefficients, rates and states are exact rationals, so every algebraic law is checked with equality, not a
--- tolerance. The bridge properties run the runtime second law ('P.secondLaw' on the transition case) on the
+-- tolerance. The bridge properties run the runtime second law ('UMST.PassiveRoute.stepSecondLaw', the transition case) on the
 -- composite step, with free-energy gaps of at least 0.01 so the verdict sits far outside the gate's 1e-6 tolerance.
 module GsmMonoidProps
   ( prop_gsm_support_closed
@@ -25,7 +25,7 @@ import Test.QuickCheck
 
 import UMST.Concrete (ThermodynamicState (..))
 import UMST.GsmMonoid
-import qualified UMST.Process as P
+import qualified UMST.PassiveRoute as PR
 
 -- | A non-negative rational with numerator in [0, 1000] and denominator in [1, 100].
 genNonNeg :: Gen Rational
@@ -141,7 +141,7 @@ prop_gsm_combination_admissible = forAll (listOf ((,) <$> genNonNeg <*> genAtom)
      in classify (length passing >= 2) "two or more passing atoms" $ conjoin
           [ property (passiveStep comp s s' r)
           , power (pot comp) r === sum [power (pot a) r | a <- passing]
-          , property (P.secondLaw P.Transition (P.Thermodynamic (st (psi comp s)) (st (psi comp s'))))
+          , property (PR.stepSecondLaw (st (psi comp s)) (st (psi comp s')))
           ]
 
 -- | Convex glue keeps admissibility: its dissipation is non-negative, the glue fraction lies in [0, 1], and a step
@@ -161,7 +161,7 @@ prop_gsm_convex_glue_admissible = forAll genAtom $ \ga -> forAll genPotential $ 
           , power (pot comp) r === dA + dG
           , classify (passiveStep comp s s' r) "passing composite step" $
               not (passiveStep comp s s' r)
-                || P.secondLaw P.Transition (P.Thermodynamic (st (psi comp s)) (st (psi comp s')))
+                || PR.stepSecondLaw (st (psi comp s)) (st (psi comp s'))
           ]
 
 -- | An arbitrary glue term needs its own witness: a negative total under the passive equality balance raises the
@@ -172,7 +172,7 @@ prop_gsm_negative_glue_refused = forAll genNonNeg $ \dA -> forAll genNonNeg $ \e
       dTotal = dA + dG
       psi1 = psi0 - dTotal
    in counterexample (show (dA, dG, dTotal)) $
-        not (P.secondLaw P.Transition (P.Thermodynamic (st psi0) (st psi1)))
+        not (PR.stepSecondLaw (st psi0) (st psi1))
 
 -- | A glue fraction above one signals a negative glue term (with non-negative atom dissipation).
 prop_gsm_glue_fraction_gt_one_negative :: Property

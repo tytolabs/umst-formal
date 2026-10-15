@@ -8,6 +8,7 @@
 -/
 
 import Process
+import Convex.PassiveRoute
 
 import Mathlib.Analysis.Convex.Deriv
 
@@ -80,11 +81,13 @@ theorem passive_energy_balance_freeEnergy_descent (C : GsmCartridge)
   have hΔ : new.freeEnergy - old.freeEnergy = -(dissipationPower C.dissip sDot) := by linarith [hbal]
   linarith [hΔ, hD]
 
-/-- **Passive SecondLaw** for a GSM cartridge: energy balance uses `C.dissip`; descent is derived. -/
+/-- **Passive SecondLaw** for a GSM cartridge: convexity of `C.dissip` gives D ≥ 0, and the passive route
+    (`Convex.PassiveRoute.passive_secondLaw_iff`) turns the balance into a `.transition` step. -/
 theorem gsmCartridge_passive_secondLaw (C : GsmCartridge) {old new : RealThermodynamicState} {sDot : ℝ}
     (h : PassiveGsmEnergyBalance C old new sDot) :
-    SecondLawₚ .transition (.thermodynamic old new) := by
-  exact ⟨h.mass, passive_energy_balance_freeEnergy_descent C h⟩
+    SecondLawₚ .transition (.thermodynamic old new) :=
+  (UMST.Convex.PassiveRoute.passive_secondLaw_iff ⟨h.mass, h.energyBalance⟩).2
+    (convex_phi_dissipation_nonneg C.dissip sDot)
 
 theorem gsmCartridge_passive_secondLaw_of_balance (C : GsmCartridge)
     {old new : RealThermodynamicState} (sDot : ℝ)

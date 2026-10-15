@@ -34,6 +34,7 @@ open import Relation.Nullary.Decidable using (toWitness)
 open import Concrete.Gate using (mkState)
 open import Core.Gate using (δ-mass; CoreAdmissible)
 open import Process using (SecondLaw; transition; thermodynamic)
+open import Convex.PassiveRoute using (passive-inequality-secondLaw; passive-refused-of-neg)
 
 open +-*-Solver
 
@@ -224,22 +225,12 @@ power-sum (A ∷ As) r = trans (power-add (pot A) (pot (atom-sum As)) r) (cong (
 -- The bridge to SecondLaw
 ------------------------------------------------------------------------
 
--- Δψ + D ≤ 0 with D ≥ 0 gives descent: b ≤ a.
-descent : ∀ {a b d} → 0ℚ ≤ d → (b - a) + d ≤ 0ℚ → b ≤ a
-descent {a} {b} {d} hd h =
-  ≤-trans (subst₂ _≤_ (e₁ a b d) (+-identityˡ (a - d)) (+-monoˡ-≤ (a - d) h))
-          (subst (a - d ≤_) (+-identityʳ a) (+-monoʳ-≤ a (neg-antimono-≤ hd)))
-  where
-    e₁ : ∀ a b d → (b - a) + d + (a - d) ≡ b
-    e₁ = solve 3 (λ a b d → (b :- a) :+ d :+ (a :- d) := b) refl
-
 MassBall : ℚ → ℚ → Set
 MassBall ρ ρ' = (ρ' - ρ ≤ δ-mass) × (ρ - ρ' ≤ δ-mass)
 
 passiveStep-secondLaw : ∀ A {s s' r ρ ρ'} → MassBall ρ ρ' → PassiveStep s s' r A →
   SecondLaw transition (thermodynamic (mkState ρ (ψ A s) 0ℚ 0ℚ) (mkState ρ' (ψ A s') 0ℚ 0ℚ))
-passiveStep-secondLaw A {r = r} m h = record
-  { mass-conserved = m ; dissipation-nonneg = descent (power-nonneg (pot A) r) h }
+passiveStep-secondLaw A {r = r} m h = passive-inequality-secondLaw m (power-nonneg (pot A) r) h
 
 -- The composite step of passing atoms satisfies the second law.
 combination-secondLaw : ∀ (As : List GsmAtom) {s s' r ρ ρ'} → MassBall ρ ρ' → All (PassiveStep s s' r) As →
@@ -274,17 +265,12 @@ convexGlue-secondLaw A G {s} {s'} {r} m hb =
 -- An arbitrary glue term with a witness 0 ≤ D_total is admissible.
 glued-secondLaw-of-witness : ∀ {dA dG ρ ρ' ψ₀ ψ₁} → MassBall ρ ρ' → 0ℚ ≤ dA + dG → (ψ₁ - ψ₀) + (dA + dG) ≤ 0ℚ →
   SecondLaw transition (thermodynamic (mkState ρ ψ₀ 0ℚ 0ℚ) (mkState ρ' ψ₁ 0ℚ 0ℚ))
-glued-secondLaw-of-witness m hw hb = record { mass-conserved = m ; dissipation-nonneg = descent hw hb }
+glued-secondLaw-of-witness m hw hb = passive-inequality-secondLaw m hw hb
 
 -- Without a witness, a negative total under the passive equality balance is refused.
 glued-refused-of-negative-total : ∀ {dA dG ρ ρ' ψ₀ ψ₁} → dA + dG < 0ℚ → (ψ₁ - ψ₀) + (dA + dG) ≡ 0ℚ →
   ¬ SecondLaw transition (thermodynamic (mkState ρ ψ₀ 0ℚ 0ℚ) (mkState ρ' ψ₁ 0ℚ 0ℚ))
-glued-refused-of-negative-total {dA} {dG} {ψ₀ = ψ₀} {ψ₁} hn hb h = <-irrefl refl (subst₂ _<_ hb (+-identityʳ 0ℚ) lt)
-  where
-    Δ≤0 : ψ₁ - ψ₀ ≤ 0ℚ
-    Δ≤0 = subst (ψ₁ - ψ₀ ≤_) (+-inverseʳ ψ₀) (+-monoˡ-≤ (- ψ₀) (CoreAdmissible.dissipation-nonneg h))
-    lt : (ψ₁ - ψ₀) + (dA + dG) < 0ℚ + 0ℚ
-    lt = +-mono-≤-< Δ≤0 hn
+glued-refused-of-negative-total hn hb = passive-refused-of-neg hb hn
 
 -- An arbitrary glue term is not closed under the law.
 arbitrary-glue-not-closed : ∃[ dA ] ∃[ dG ] ∃[ ψ₀ ] ∃[ ψ₁ ]

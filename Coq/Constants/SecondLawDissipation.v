@@ -14,7 +14,7 @@
 (* ======================================================================== *)
 
 From Stdlib Require Import QArith Qfield Qabs Lqa.
-Require Import UMSTFormal.Compat.Gate UMSTFormal.Process.
+Require Import UMSTFormal.Compat.Gate UMSTFormal.Process UMSTFormal.Convex.PassiveRoute.
 
 Open Scope Q_scope.
 
@@ -24,7 +24,7 @@ Definition dissipates (rho rho' psi d : Q) : Prior :=
 
 Lemma dissipates_nonneg (rho rho' psi d : Q) :
   SecondLaw transition (dissipates rho rho' psi d) -> 0 <= d.
-Proof. simpl. unfold core_admissible. simpl. intros [_ [_ h]]. lra. Qed.
+Proof. intros h. exact (step_dissipation_nonneg _ _ _ _ h). Qed.
 
 (** Dissipation coefficient: a passive step dissipating c * q (q > 0) obeys the second law only when c >= 0. *)
 Theorem dissipation_coefficient_nonneg (rho rho' psi c q : Q) :
@@ -44,9 +44,9 @@ Proof.
     - nra.
     - assert (0 < r) by (apply Qle_lteq in hp; destruct hp as [hp|hp]; [exact hp | exfalso; apply hr; rewrite hp; reflexivity]).
       nra. }
-  apply (dissipation_coefficient_nonneg rho rho' psi eta (r * r * dt)); [nra |].
-  simpl in h |- *. unfold core_admissible in h |- *. simpl in h |- *.
-  setoid_replace (eta * (r * r * dt)) with (eta * (r * r) * dt) by ring. exact h.
+  assert (hq : 0 < r * r * dt) by nra.
+  apply dissipates_nonneg in h.
+  destruct (Qlt_le_dec eta 0) as [c|c]; [exfalso; nra | exact c].
 Qed.
 
 (** Bingham fluid: dissipating (tau0 * |r| + etap * r^2) * dt at every rate r under the second law gives a yield

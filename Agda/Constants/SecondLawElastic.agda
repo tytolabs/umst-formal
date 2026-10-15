@@ -28,6 +28,7 @@ open import Relation.Binary.PropositionalEquality using (_≡_; refl; sym; trans
 open import Concrete.Gate using (mkState)
 open import Core.Gate using (CoreAdmissible)
 open import Process using (Prior; SecondLaw; transition; thermodynamic)
+open import Convex.PassiveRoute using (relaxation-stored-nonneg)
 
 open +-*-Solver
 
@@ -42,7 +43,7 @@ relaxation : ℚ → ℚ → ℚ → Prior
 relaxation ρ ρ' ψ = thermodynamic (mkState ρ ψ 0ℚ 0ℚ) (mkState ρ' 0ℚ 0ℚ 0ℚ)
 
 relaxation-nonneg : ∀ ρ ρ' ψ → SecondLaw transition (relaxation ρ ρ' ψ) → 0ℚ ≤ ψ
-relaxation-nonneg ρ ρ' ψ h = CoreAdmissible.dissipation-nonneg h
+relaxation-nonneg ρ ρ' ψ h = relaxation-stored-nonneg ρ ρ' ψ h
 
 private
   -- A nonnegative product with a positive right factor has a nonnegative left factor.

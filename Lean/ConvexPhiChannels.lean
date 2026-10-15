@@ -13,7 +13,8 @@
   * `pronyPotential E τ` is one Maxwell arm with viscosity η = E·τ and φ(x) = ½·η·x²;
     `prony_dissipation_nonneg` is the nonnegative total power of any finite set of arms.
   * `restitution_le_one`: a passive impact whose free energy is ½·μ·v² before and ½·μ·(e·v)² after
-    satisfies e ≤ 1 for any e ≥ 0.
+    dissipates ½·μ·v²·(1 − e²); through the passive route (`Convex.PassiveRoute`) that is ≥ 0, so e ≤ 1 for
+    any e ≥ 0.
 
   Zero Lean axioms; physics enters only as the `SecondLaw` hypothesis shape.
 -/
@@ -49,18 +50,14 @@ structure PassiveGsmEnergyInequality (D : ℝ) (old new : RealThermodynamicState
 theorem inequality_secondLaw {D : ℝ} {old new : RealThermodynamicState}
     (h : PassiveGsmEnergyInequality D old new) :
     SecondLawₚ .transition (.thermodynamic old new) :=
-  ⟨h.mass, by
-    show new.freeEnergy ≤ old.freeEnergy
-    linarith [h.dNonneg, h.balance]⟩
+  UMST.Convex.PassiveRoute.passive_inequality_secondLaw h.mass h.dNonneg h.balance
 
 /-- Supplied power `P` with Δψ + D ≤ P and P ≤ D still descends: the dissipation covers the supply. -/
 theorem supplied_inequality_secondLaw {D P : ℝ} {old new : RealThermodynamicState}
     (hm : CoreMassCond ℝ RealThermodynamicState old new)
     (hb : (new.freeEnergy - old.freeEnergy) + D ≤ P) (hcover : P ≤ D) :
     SecondLawₚ .transition (.thermodynamic old new) :=
-  ⟨hm, by
-    show new.freeEnergy ≤ old.freeEnergy
-    linarith [hb, hcover]⟩
+  UMST.Convex.PassiveRoute.passive_inequality_secondLaw hm le_rfl (by linarith [hb, hcover])
 
 /-- Several channels under the passive inequality balance satisfy the second law. -/
 theorem multi_secondLaw {n : ℕ} (M : GsmMultiPotential n) {old new : RealThermodynamicState}
@@ -120,8 +117,9 @@ theorem restitution_le_one {ρ ρ' μ v e : ℝ} (he : 0 ≤ e) (hpos : 0 < μ *
     (h : SecondLawₚ .transition
       (.thermodynamic ⟨ρ, 1 / 2 * μ * v ^ 2⟩ ⟨ρ', 1 / 2 * μ * (e * v) ^ 2⟩)) :
     e ≤ 1 := by
-  have hd : 1 / 2 * μ * (e * v) ^ 2 ≤ 1 / 2 * μ * v ^ 2 := h.2
-  have h2 : (μ * v ^ 2) * e ^ 2 ≤ (μ * v ^ 2) * 1 := by nlinarith [hd]
+  have hD : 0 ≤ 1 / 2 * μ * v ^ 2 * (1 - e ^ 2) :=
+    UMST.Convex.PassiveRoute.dissipation_nonneg_of_secondLaw h (by dsimp only; ring)
+  have h2 : (μ * v ^ 2) * e ^ 2 ≤ (μ * v ^ 2) * 1 := by nlinarith [hD]
   exact (sq_le_one_iff₀ he).1 (le_of_mul_le_mul_left h2 hpos)
 
 /-- The energy split of a passive impact: the kinetic energy lost, ½·μ·v²·(1 − e²), is nonnegative
@@ -129,8 +127,7 @@ theorem restitution_le_one {ρ ρ' μ v e : ℝ} (he : 0 ≤ e) (hpos : 0 < μ *
 theorem restitution_energy_loss_nonneg {ρ ρ' μ v e : ℝ}
     (h : SecondLawₚ .transition
       (.thermodynamic ⟨ρ, 1 / 2 * μ * v ^ 2⟩ ⟨ρ', 1 / 2 * μ * (e * v) ^ 2⟩)) :
-    0 ≤ 1 / 2 * μ * v ^ 2 * (1 - e ^ 2) := by
-  have hd : 1 / 2 * μ * (e * v) ^ 2 ≤ 1 / 2 * μ * v ^ 2 := h.2
-  nlinarith [hd]
+    0 ≤ 1 / 2 * μ * v ^ 2 * (1 - e ^ 2) :=
+  UMST.Convex.PassiveRoute.dissipation_nonneg_of_secondLaw h (by dsimp only; ring)
 
 end UMST.ConvexPhiChannels

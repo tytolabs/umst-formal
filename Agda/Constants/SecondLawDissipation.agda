@@ -27,6 +27,7 @@ open import Relation.Binary.PropositionalEquality using (_≡_; refl; sym; trans
 open import Concrete.Gate using (mkState)
 open import Core.Gate using (CoreAdmissible)
 open import Process using (Prior; SecondLaw; transition; thermodynamic)
+open import Convex.PassiveRoute using (step-dissipation-nonneg)
 
 open +-*-Solver
 
@@ -50,17 +51,7 @@ private
   ¬neg h n = ⊥-elim (<-irrefl refl (≤-<-trans h n))
 
 dissipates-nonneg : ∀ ρ ρ' ψ d → SecondLaw transition (dissipates ρ ρ' ψ d) → 0ℚ ≤ d
-dissipates-nonneg ρ ρ' ψ d h = ≡-≤ (e₀ ψ) (≤-≡ (+-monoˡ-≤ (- ψ) step) (e₁ ψ d))
-  where
-    e₀ : ∀ ψ → 0ℚ ≡ ψ + - ψ
-    e₀ = solve 1 (λ ψ → con 0ℚ := ψ :+ :- ψ) refl
-    e₁ : ∀ ψ d → (ψ + d) + - ψ ≡ d
-    e₁ = solve 2 (λ ψ d → (ψ :+ d) :+ :- ψ := d) refl
-    e₂ : ∀ ψ d → ψ ≡ (ψ - d) + d
-    e₂ = solve 2 (λ ψ d → ψ := (ψ :- d) :+ d) refl
-    -- ψ − d ≤ ψ gives ψ ≤ ψ + d, then 0 ≤ d after adding −ψ.
-    step : ψ ≤ ψ + d
-    step = ≡-≤ (e₂ ψ d) (+-monoˡ-≤ d (CoreAdmissible.dissipation-nonneg h))
+dissipates-nonneg ρ ρ' ψ d h = step-dissipation-nonneg ρ ρ' ψ d h
 
 -- Dissipation coefficient: a passive step dissipating c·q (q > 0) obeys the second law only when c ≥ 0.
 dissipation-coefficient-nonneg : ∀ ρ ρ' ψ c q .{{_ : Positive q}} →

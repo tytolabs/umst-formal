@@ -15,7 +15,7 @@
 (* ======================================================================== *)
 
 From Stdlib Require Import QArith Qabs Qminmax Lqa Setoid Morphisms.
-Require Import UMSTFormal.Compat.Gate UMSTFormal.Process.
+Require Import UMSTFormal.Compat.Gate UMSTFormal.Process UMSTFormal.Convex.PassiveRoute.
 
 Open Scope Q_scope.
 
@@ -219,9 +219,8 @@ Theorem phi_expr_passive_second_law (e : phi_expr) (x g : Q) (old new : Thermody
   (free_energy new - free_energy old) + g * x <= 0 ->
   SecondLaw transition (thermodynamic old new).
 Proof.
-  intros hg hm1 hm2 hb. simpl. unfold core_admissible.
-  assert (hD := subgradient_power_nonneg e x g hg).
-  split; [exact hm1 | split; [exact hm2 | lra]].
+  intros hg hm1 hm2 hb.
+  exact (passive_inequality_secondLaw (g * x) old new hm1 hm2 (subgradient_power_nonneg e x g hg) hb).
 Qed.
 
 (** A nonconvex potential has no expression: min(|x|, 1) is nonnegative and zero at zero but not convex. *)

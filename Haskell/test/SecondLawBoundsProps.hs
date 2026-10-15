@@ -3,7 +3,8 @@
 -- | Property tests of the material constants the second law bounds (twins of Lean/Constants/SecondLawElastic.lean,
 -- Lean/Constants/SecondLawDissipation.lean and ConvexPhiChannels' restitution bound, with their Coq and Agda twins).
 --
--- Each property runs the runtime second law ('P.secondLaw' on the transition case) on a passive step, the
+-- Each property runs the runtime second law ('P.secondLaw' on the transition case) through the passive route
+-- ('UMST.PassiveRoute') on a passive step, the
 -- relaxation of a loaded state to its natural state (free energy zero) or a step that dissipates energy out of the
 -- free energy, and checks that the law admits the step exactly when the bound holds: the law accepts every
 -- positive modulus or coefficient and refuses every negative one. Moduli are drawn with a
@@ -27,19 +28,20 @@ module SecondLawBoundsProps
 import Test.QuickCheck
 
 import UMST.Concrete (ThermodynamicState (..))
-import qualified UMST.Process as P
+import qualified UMST.PassiveRoute as PR
 
--- | The second law on the passive relaxation from free energy @psi@ to the natural state.
+-- | A state of free energy @f@.
+st :: Double -> ThermodynamicState
+st f = ThermodynamicState {density = 2400, freeEnergy = f, hydration = 0.5, strength = 30, maxStrength = 100}
+
+-- | The second law on the passive relaxation from free energy @psi@ to the natural state, through the passive route
+-- (the relaxation dissipates the stored energy).
 relaxes :: Double -> Bool
-relaxes psi = P.secondLaw P.Transition (P.Thermodynamic (st psi) (st 0))
-  where
-    st f = ThermodynamicState {density = 2400, freeEnergy = f, hydration = 0.5, strength = 30, maxStrength = 100}
+relaxes psi = PR.relaxationSecondLaw (st psi)
 
--- | The second law on a passive step from free energy @psi@ that dissipates @d@.
+-- | The second law on a passive step from free energy @psi@ that dissipates @d@, through the passive route.
 dissipates :: Double -> Double -> Bool
-dissipates psi d = P.secondLaw P.Transition (P.Thermodynamic (st psi) (st (psi - d)))
-  where
-    st f = ThermodynamicState {density = 2400, freeEnergy = f, hydration = 0.5, strength = 30, maxStrength = 100}
+dissipates psi d = PR.passiveSecondLaw (st psi) d
 
 -- | A modulus of magnitude in [0.01, 1000] with either sign.
 genModulus :: Gen Double
@@ -132,11 +134,10 @@ prop_bound_loss_modulus = forAll genModulus $ \e2 -> forAll (choose (0.01, 1000)
   let ok = dissipates 0 (e2 * (pi * eps0 * eps0))
    in (ok === (e2 >= 0)) .&&. (not ok || e2 / e1 >= 0)
 
--- | A passive impact with reduced mass μ, speed v and restitution e: free energy ½·μ·v² before, ½·μ·(e·v)² after.
+-- | A passive impact with reduced mass μ, speed v and restitution e: free energy ½·μ·v² before, ½·μ·(e·v)² after,
+-- so the impact dissipates ½·μ·v²·(1 − e²); the second law judges it through the passive route.
 impact :: Double -> Double -> Double -> Bool
-impact mu v e = P.secondLaw P.Transition (P.Thermodynamic (st (0.5 * mu * v * v)) (st (0.5 * mu * (e * v) * (e * v))))
-  where
-    st f = ThermodynamicState {density = 2400, freeEnergy = f, hydration = 0.5, strength = 30, maxStrength = 100}
+impact mu v e = PR.passiveSecondLaw (st (0.5 * mu * v * v)) (0.5 * mu * v * v * (1 - e * e))
 
 -- | Restitution 1 ± d with d in [0.01, 0.99]: inside [0, 2] and away from the bound e = 1.
 genRestitution :: Gen Double

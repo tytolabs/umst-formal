@@ -869,7 +869,7 @@
     },
     {
       "path": "Composition/GsmMonoid.lean",
-      "content_sha256": "26759d3a379b298ed1c672365e2655f44238fe6666a5f5d1f8abc8bdeeaff0fd",
+      "content_sha256": "768abb2fa822ae7c982593ae7b911e7377e3a0860f531da419d4284e254ad7cb",
       "declarations": {
         "theorem": [
           "potential_ext",
@@ -1791,7 +1791,7 @@
     },
     {
       "path": "Constants/SecondLawDissipation.lean",
-      "content_sha256": "e715431b4568b83aa3d7461722e15a9320b36d54e76cd0a08a7830997bf1729e",
+      "content_sha256": "1b823fde63b443a87274133ab3ba49a290ee7adff321e920f8a78942511283bc",
       "declarations": {
         "theorem": [
           "dissipation_coefficient_nonneg",
@@ -1801,13 +1801,14 @@
         ]
       },
       "import_lines": [
+        "Convex.PassiveRoute",
         "Process"
       ],
       "module": "Constants.SecondLawDissipation"
     },
     {
       "path": "Constants/SecondLawElastic.lean",
-      "content_sha256": "827ef321ffc412b6e64fc2732a5d2e3f8ecdad862cd6640c37a9ea4493160bae",
+      "content_sha256": "da6ac3b6beef0cc93d765977eb15fc1ea39f32a72ba2265408b43f8e0ffdfb59",
       "declarations": {
         "theorem": [
           "takes",
@@ -1826,6 +1827,7 @@
         ]
       },
       "import_lines": [
+        "Convex.PassiveRoute",
         "Process"
       ],
       "module": "Constants.SecondLawElastic"
@@ -1986,7 +1988,7 @@
     },
     {
       "path": "ConvexPhiChannels.lean",
-      "content_sha256": "cc0efa96000e6e317eea26c508093dda0027b8b92a64bf570c85686e13cc09db",
+      "content_sha256": "922e9425bcc1ef335cbe531f46f96213ac8bd829af74d3efd97ab0d822f38a01",
       "declarations": {
         "structure": [
           "GsmMultiPotential",
@@ -2016,7 +2018,7 @@
     },
     {
       "path": "ConvexPhiDissipation.lean",
-      "content_sha256": "256309c298beeb34daf489d88243252c05be73069f8794ecbb838493c97cd4b2",
+      "content_sha256": "17cc67e371b57b34408c628c72a74f6e05d5bec0580dfa87143baca9b9453afc",
       "declarations": {
         "structure": [
           "GsmDissipationPotential",
@@ -2036,6 +2038,7 @@
         ]
       },
       "import_lines": [
+        "Convex.PassiveRoute",
         "Mathlib.Analysis.Convex.Deriv",
         "Process"
       ],
@@ -7832,8 +7835,18 @@
     },
     {
       "from": "Constants.SecondLawDissipation",
+      "import": "Convex.PassiveRoute",
+      "to_approx": "Convex.PassiveRoute"
+    },
+    {
+      "from": "Constants.SecondLawDissipation",
       "import": "Process",
       "to_approx": "Process"
+    },
+    {
+      "from": "Constants.SecondLawElastic",
+      "import": "Convex.PassiveRoute",
+      "to_approx": "Convex.PassiveRoute"
     },
     {
       "from": "Constants.SecondLawElastic",
@@ -7909,6 +7922,11 @@
       "from": "ConvexPhiChannels",
       "import": "ConvexPhiDissipation",
       "to_approx": "ConvexPhiDissipation"
+    },
+    {
+      "from": "ConvexPhiDissipation",
+      "import": "Convex.PassiveRoute",
+      "to_approx": "Convex.PassiveRoute"
     },
     {
       "from": "ConvexPhiDissipation",
@@ -9846,5 +9864,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "698d097cfd22fbb5c9d9da9c7cc6e63a7bfae2e43a8dc68b46348f3b518d1e63"
+  "digest": "587849e377ebd067e63b4dd47a20a806f9cdea8d341a95a83961b49b5f8f6242"
 }

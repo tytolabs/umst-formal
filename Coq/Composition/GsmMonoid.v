@@ -21,7 +21,7 @@
 (* ======================================================================== *)
 
 From Stdlib Require Import QArith Qabs Lqa List.
-Require Import UMSTFormal.Compat.Gate UMSTFormal.Process.
+Require Import UMSTFormal.Compat.Gate UMSTFormal.Process UMSTFormal.Convex.PassiveRoute.
 Import ListNotations.
 
 Open Scope Q_scope.
@@ -197,9 +197,9 @@ Theorem passiveStep_secondLaw (A : GsmAtom) (s s' r rho rho' : Q) :
   rho' - rho <= delta_mass -> rho - rho' <= delta_mass -> PassiveStep s s' r A ->
   SecondLaw transition (thermodynamic (mkState rho (psi A s) 0 0) (mkState rho' (psi A s') 0 0)).
 Proof.
-  intros h1 h2 hs. simpl. unfold core_admissible. simpl.
-  unfold PassiveStep in hs. pose proof (power_nonneg (pot A) r).
-  split; [exact h1 | split; [exact h2 | lra]].
+  intros h1 h2 hs. unfold PassiveStep in hs.
+  exact (passive_inequality_secondLaw (power (pot A) r) (mkState rho (psi A s) 0 0) (mkState rho' (psi A s') 0 0)
+    h1 h2 (power_nonneg (pot A) r) hs).
 Qed.
 
 (** The composite step of passing atoms satisfies the second law. *)
@@ -239,13 +239,18 @@ Theorem glued_secondLaw_of_witness (dAtoms dGlue rho rho' psi0 psi1 : Q) :
   rho' - rho <= delta_mass -> rho - rho' <= delta_mass -> 0 <= dAtoms + dGlue ->
   (psi1 - psi0) + (dAtoms + dGlue) <= 0 ->
   SecondLaw transition (thermodynamic (mkState rho psi0 0 0) (mkState rho' psi1 0 0)).
-Proof. intros h1 h2 hw hb. simpl. unfold core_admissible. simpl. split; [exact h1 | split; [exact h2 | lra]]. Qed.
+Proof.
+  intros h1 h2 hw hb.
+  exact (passive_inequality_secondLaw (dAtoms + dGlue) (mkState rho psi0 0 0) (mkState rho' psi1 0 0) h1 h2 hw hb).
+Qed.
 
 (** Without a witness, a negative total under the passive equality balance is refused. *)
 Theorem glued_refused_of_negative_total (dAtoms dGlue rho rho' psi0 psi1 : Q) :
   dAtoms + dGlue < 0 -> (psi1 - psi0) + (dAtoms + dGlue) == 0 ->
   ~ SecondLaw transition (thermodynamic (mkState rho psi0 0 0) (mkState rho' psi1 0 0)).
-Proof. intros hn hb h. simpl in h. unfold core_admissible in h. simpl in h. destruct h as [_ [_ hd]]. lra. Qed.
+Proof.
+  intros hn hb. exact (passive_refused_of_neg (dAtoms + dGlue) (mkState rho psi0 0 0) (mkState rho' psi1 0 0) hb hn).
+Qed.
 
 (** An arbitrary glue term is not closed under the law. *)
 Theorem arbitrary_glue_not_closed :

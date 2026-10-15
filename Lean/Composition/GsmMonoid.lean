@@ -383,10 +383,8 @@ theorem glued_secondLaw_of_witness {dAtoms dGlue : ℝ} {old new : RealThermodyn
     the free energy and the second law refuses the step. -/
 theorem glued_refused_of_negative_total {dAtoms dGlue : ℝ} {old new : RealThermodynamicState}
     (hneg : dAtoms + dGlue < 0) (hb : (new.freeEnergy - old.freeEnergy) + (dAtoms + dGlue) = 0) :
-    ¬ SecondLawₚ .transition (.thermodynamic old new) := by
-  intro h
-  have hd : new.freeEnergy ≤ old.freeEnergy := h.2
-  linarith
+    ¬ SecondLawₚ .transition (.thermodynamic old new) :=
+  UMST.Convex.PassiveRoute.passive_refused_of_neg hb hneg
 
 /-- **An arbitrary glue term is not closed under the law**: non-negative atom dissipation with a negative glue
     term and a passive balance gives a step the second law refuses. -/

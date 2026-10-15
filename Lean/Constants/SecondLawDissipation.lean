@@ -5,7 +5,7 @@
 
   Dissipation coefficients bounded by the second law. A passive step whose dissipated energy leaves the free energy
   (no supplied power: ψ_new = ψ_old − D) satisfies the `.transition` case of `UMST.ProcessFamily.SecondLaw` only
-  when D ≥ 0. Writing D as a coefficient times a positive measure of the step bounds the coefficient.
+  when D ≥ 0: the passive route `Convex.PassiveRoute.passive_secondLaw_iff`, read backward. Writing D as a coefficient times a positive measure of the step bounds the coefficient.
 
   * `dissipation_coefficient_nonneg`: D = c·q with q > 0 gives c ≥ 0.
   * `viscosity_nonneg`: a Newtonian dashpot (or a Maxwell arm with η = E·τ, or a rate channel φ = ½·η·ṡ²) at rate
@@ -20,6 +20,7 @@
 -/
 
 import Process
+import Convex.PassiveRoute
 
 open UMST.ProcessFamily UMST.Real
 
@@ -29,7 +30,7 @@ namespace UMST.Constants.SecondLawDissipation
     second law only when `c ≥ 0`. -/
 theorem dissipation_coefficient_nonneg {ρ ρ' ψ c q : ℝ} (hq : 0 < q)
     (h : SecondLaw .transition (.thermodynamic ⟨ρ, ψ⟩ ⟨ρ', ψ - c * q⟩)) : 0 ≤ c := by
-  have hd : ψ - c * q ≤ ψ := h.2
+  have hd : 0 ≤ c * q := UMST.Convex.PassiveRoute.step_dissipation_nonneg h
   by_contra hc
   push_neg at hc
   nlinarith
