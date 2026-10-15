@@ -21,9 +21,9 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
-RENAMED_CHECKOUT_SCRATCH = Path("/Volumes/Darwin/umst-scratch/lean-snapshot-repo-name")
 RENAMED_CHECKOUT_DIRNAME = "tyto-worktree-alias-not-package-name"
 
 
@@ -166,7 +166,12 @@ def _ignore_lake_tree(_dir: str, names: list[str]) -> set[str]:
 
 def verify_renamed_checkout_regenerates_snapshot(source_root: Path, expected_path: Path) -> list[str]:
     """Regenerate stats from a copy whose directory name differs from the Lake package."""
-    alias_root = RENAMED_CHECKOUT_SCRATCH / RENAMED_CHECKOUT_DIRNAME
+    with tempfile.TemporaryDirectory(prefix="lean-snapshot-repo-name-") as scratch:
+        return _verify_renamed_checkout_in(Path(scratch) / RENAMED_CHECKOUT_DIRNAME, source_root, expected_path)
+
+
+def _verify_renamed_checkout_in(alias_root: Path, source_root: Path, expected_path: Path) -> list[str]:
+    """The renamed-checkout check inside a scratch directory the caller owns and removes."""
     errors: list[str] = []
     if alias_root.name == snapshot_repo_name(source_root, (source_root / "Lean" / "lakefile.lean").read_text(encoding="utf-8")):
         errors.append("renamed checkout fixture directory name must differ from Lake package name")
