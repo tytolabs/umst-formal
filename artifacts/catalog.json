@@ -3513,6 +3513,87 @@
       "module": "LandauerLaw"
     },
     {
+      "path": "LearningLoopLaws.lean",
+      "content_sha256": "f14d90c725cc890ca9500a1ec7444faf985db645df191bc97cbedf8bdfe427ca",
+      "declarations": {
+        "inductive": [
+          "Level",
+          "ClaimStatus",
+          "Outcome"
+        ],
+        "def": [
+          "Level.rank",
+          "Evidence.le",
+          "completeLevel",
+          "levelOf",
+          "Outcome.le",
+          "Counts.zero",
+          "Counts.combine",
+          "Counts.fold",
+          "keySum",
+          "posterior",
+          "clamp",
+          "scaledW",
+          "sumW",
+          "sumScaled",
+          "ppoStep",
+          "ArmsOk",
+          "bump",
+          "apportioned",
+          "FloorsOk",
+          "BumpsPositive",
+          "countedBits"
+        ],
+        "structure": [
+          "Evidence"
+        ],
+        "theorem": [
+          "completeLevel_monotone",
+          "levelOf_monotone",
+          "combine_assoc",
+          "combine_comm",
+          "zero_combine",
+          "combine_zero",
+          "foldl_combine",
+          "fold_nil",
+          "fold_cons",
+          "fold_append",
+          "fold_perm",
+          "posterior_perm",
+          "posterior_mean_mem",
+          "barrier_step_nonneg",
+          "barrier_floor",
+          "barrier_forward_invariant",
+          "barrier_floor_tendsto_zero",
+          "clamp_mem",
+          "scaled_move",
+          "sumScaled_mem",
+          "sum_map_div",
+          "ppoStep_simplex",
+          "ppoStep_ratio",
+          "apportion_sum",
+          "apportion_close",
+          "apportion_missing_lt",
+          "countedBits_le",
+          "countedBits_cost",
+          "verified_bit_costs_landauer"
+        ],
+        "abbrev": [
+          "Counts",
+          "Arm",
+          "Part",
+          "bitErasurePrior"
+        ]
+      },
+      "import_lines": [
+        "CostOfInformation",
+        "Economic.StochasticBurdenExpectation",
+        "Mathlib.Algebra.Order.Field.Basic",
+        "Mathlib.Tactic"
+      ],
+      "module": "LearningLoopLaws"
+    },
+    {
       "path": "MaterialClass.lean",
       "content_sha256": "c89deb9c28d595013ef99dbdd7884518ceb6cb2eba7737667604395b98a6691c",
       "declarations": {
@@ -7262,7 +7343,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "3ff0f111e16bf23ce0a7e9d74d3f6c45bed5f453177bd789b5c1a38493238426",
+      "content_sha256": "9eed848fd74d2df4ea582904d70ddae96a49aba797ee2e950f17128f0fb01446",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -8520,6 +8601,26 @@
       "from": "LandauerLaw",
       "import": "Mathlib.Data.Complex.ExponentialBounds",
       "to_approx": "Mathlib.Data.Complex.ExponentialBounds"
+    },
+    {
+      "from": "LearningLoopLaws",
+      "import": "CostOfInformation",
+      "to_approx": "CostOfInformation"
+    },
+    {
+      "from": "LearningLoopLaws",
+      "import": "Economic.StochasticBurdenExpectation",
+      "to_approx": "Economic.StochasticBurdenExpectation"
+    },
+    {
+      "from": "LearningLoopLaws",
+      "import": "Mathlib.Algebra.Order.Field.Basic",
+      "to_approx": "Mathlib.Algebra.Order.Field.Basic"
+    },
+    {
+      "from": "LearningLoopLaws",
+      "import": "Mathlib.Tactic",
+      "to_approx": "Mathlib.Tactic"
     },
     {
       "from": "MaterialClass",
@@ -9902,5 +10003,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "275de2f3b49c412b31333f745393c780647411c56e38b5ca1c9f453706460b1c"
+  "digest": "61f1b0877b5dacd6e0d76e127b4ed42fa209d8e1b6f43702aadfaabbbd40a392"
 }

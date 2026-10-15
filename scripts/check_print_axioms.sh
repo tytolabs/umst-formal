@@ -37,6 +37,11 @@ THEOREMS=(
   # Gluing of agents (FORMAL-AGENT-COLIMIT).
   "Coordination.knows_glue_iff Coordination.AgentColimit"
   "Coordination.ker_glue Coordination.AgentColimit"
+  # The learning-loop laws (FORMAL-LEARNING-LOOP-LAWS).
+  "LearningLoop.fold_perm LearningLoopLaws"
+  "LearningLoop.barrier_floor_tendsto_zero LearningLoopLaws"
+  "LearningLoop.ppoStep_simplex LearningLoopLaws"
+  "LearningLoop.verified_bit_costs_landauer LearningLoopLaws"
 )
 
 for entry in "${THEOREMS[@]}"; do

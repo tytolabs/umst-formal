@@ -3606,6 +3606,306 @@
     "name": "prop_ker_glue",
     "file": "Haskell/test/CoordinationProps.hs"
    }
+  },
+  {
+   "id": "learning.completeLevel_monotone",
+   "statement": "the evidence map of a COMPLETE claim onto Unclaimed < Claimed < GuardPassed < Verified < Landed < MeterMoved (umst-adk outcome.rs level_of) is monotone: more evidence never lowers the level",
+   "lean": {
+    "name": "UMST.LearningLoop.completeLevel_monotone",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "completeLevel_monotone",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "completeLevel-monotone",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_completeLevel_monotone",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.levelOf_monotone",
+   "statement": "for every claim status the outcome map is monotone in the evidence (refused only below itself, rungs by height)",
+   "lean": {
+    "name": "UMST.LearningLoop.levelOf_monotone",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "levelOf_monotone",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "levelOf-monotone",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_levelOf_monotone",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.fold_append",
+   "statement": "the fold of outcome counts from the identity under pointwise addition (OutcomeCounts::fold) is a monoid homomorphism from lists under append (Coq, Agda and Haskell pointwise at every key)",
+   "lean": {
+    "name": "UMST.LearningLoop.fold_append",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "fold_append",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "fold-append",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_fold_append",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.fold_perm",
+   "statement": "every reordering of the outcome rows folds to the same counts (Coq, Agda and Haskell pointwise at every key)",
+   "lean": {
+    "name": "UMST.LearningLoop.fold_perm",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "fold_perm",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "fold-perm",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_fold_perm",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.posterior_perm",
+   "statement": "the Beta(V+1, R+1) posterior of a lane (outcome.rs posterior) is the same for every order of its rows",
+   "lean": {
+    "name": "UMST.LearningLoop.posterior_perm",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "posterior_perm",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "posterior-perm",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_posterior_perm",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.posterior_mean_mem",
+   "statement": "the posterior mean (V+1)/(V+R+2) lies strictly between 0 and 1 (Agda with cleared denominators: 0 < V+1 < V+R+2)",
+   "lean": {
+    "name": "UMST.LearningLoop.posterior_mean_mem",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "posterior_mean_mem",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "posterior-mean-mem",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_posterior_mean_mem",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.barrier_floor",
+   "statement": "under the discrete control barrier h_{k+1} >= (1 - gamma) h_k with gamma <= 1 (steer/learn.rs barrier), h stays above the geometric floor (1 - gamma)^k h_0; Lean composes the floor with Economic.StochasticBurdenExpectation, which takes it to 0 for 0 < gamma < 1 (barrier_floor_tendsto_zero)",
+   "lean": {
+    "name": "UMST.LearningLoop.barrier_floor",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "barrier_floor",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "barrier-floor",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_barrier_forward_invariant",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.barrier_forward_invariant",
+   "statement": "the safe set h >= 0 is forward invariant under the barrier condition",
+   "lean": {
+    "name": "UMST.LearningLoop.barrier_forward_invariant",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "barrier_forward_invariant",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "barrier-forward-invariant",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_barrier_forward_invariant",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.ppoStep_simplex",
+   "statement": "the clipped multiplicative step (umst-algebra ppo_clipped_step.rs clipped_multiplicative_step) with every change within clip < 1 maps a distribution to a distribution (Agda carries each normalised weight with its defining equation v S = w (1 + c))",
+   "lean": {
+    "name": "UMST.LearningLoop.ppoStep_simplex",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "ppoStep_simplex",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "ppoStep-simplex",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_ppoStep_simplex",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.scaled_move",
+   "statement": "before renormalisation each weight moves by at most the clip times itself",
+   "lean": {
+    "name": "UMST.LearningLoop.scaled_move",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "scaled_move",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "scaled-move",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_scaled_move",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.ppoStep_ratio",
+   "statement": "each normalised weight stays within the ratio (1 + clip)/(1 - clip) of its predecessor",
+   "lean": {
+    "name": "UMST.LearningLoop.ppoStep_ratio",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "ppoStep_ratio",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "ppoStep-ratio",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_ppoStep_ratio",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.apportion_close",
+   "statement": "the largest-remainder apportionment (quantize_distribution) keeps each unit count within one of its scaled weight, for every selection that bumps only positive remainders (Agda carries the floors as rationals)",
+   "lean": {
+    "name": "UMST.LearningLoop.apportion_close",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "apportion_close",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "apportion-close",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_apportion_close",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.apportion_missing_lt",
+   "statement": "the missing units of the apportionment are fewer than the arms, so one unit to each of that many distinct arms exists",
+   "lean": {
+    "name": "UMST.LearningLoop.apportion_missing_lt",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "apportion_missing_lt",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "apportion-missing-lt",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_apportion_missing_lt",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.countedBits_cost",
+   "statement": "the evidence bits a close counts (its bits from the Verified level up), paid by an erasure of its bits obeying SecondLaw, cost at least k_B T ln 2 each (Agda with the bit information h carried as data)",
+   "lean": {
+    "name": "UMST.LearningLoop.countedBits_cost",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "countedBits_cost",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "countedBits-cost",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_countedBits_cost",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
+  },
+  {
+   "id": "learning.verified_bit_costs_landauer",
+   "statement": "a verified close of at least one evidence bit paid by an erasure obeying SecondLaw spends honestly (CostOfInformation.honest_spend_of_secondLaw) and pays at least one Landauer bit energy k_B T ln 2",
+   "lean": {
+    "name": "UMST.LearningLoop.verified_bit_costs_landauer",
+    "file": "Lean/LearningLoopLaws.lean"
+   },
+   "coq": {
+    "name": "verified_bit_costs_landauer",
+    "file": "Coq/LearningLoopLaws.v"
+   },
+   "agda": {
+    "name": "verified-bit-costs-landauer",
+    "file": "Agda/LearningLoopLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_verified_bit_costs_landauer",
+    "file": "Haskell/test/LearningLoopProps.hs"
+   }
   }
  ]
 }

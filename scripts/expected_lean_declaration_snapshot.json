@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 96,
+  "lake_roots_count": 97,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -79,6 +79,7 @@
     "CreditGreedyOptimal",
     "Dignity",
     "EtaCog",
+    "LearningLoopLaws",
     "RhoEstimator",
     "MedianConvergence",
     "OrderStatisticsBand",
@@ -100,14 +101,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 674,
+    "theorem": 703,
     "lemma": 62,
-    "total": 736
+    "total": 765
   },
   "all_lean_glob": {
-    "theorem": 1531,
+    "theorem": 1560,
     "lemma": 62,
-    "total": 1593
+    "total": 1622
   },
   "per_root": {
     "Core.Scalar": {
@@ -417,6 +418,10 @@
     "EtaCog": {
       "theorem": 8,
       "lemma": 1
+    },
+    "LearningLoopLaws": {
+      "theorem": 29,
+      "lemma": 0
     },
     "RhoEstimator": {
       "theorem": 8,
