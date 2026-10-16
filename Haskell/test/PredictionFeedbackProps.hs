@@ -7,6 +7,7 @@ module PredictionFeedbackProps
   , prop_turn_pair_work_le
   , prop_summary_admitted_receipts
   , prop_gated_error_le
+  , prop_gated_error_sum_le
   , predictionFeedbackProps
   ) where
 
@@ -53,10 +54,23 @@ prop_gated_error_le :: Property
 prop_gated_error_le = forAll genQ $ \p -> forAll genQ $ \g -> forAll genQ $ \y -> forAll genNonNeg $ \extra ->
   let delta = abs (g - p) + extra in gatedError g y <= gatedError p y + delta
 
+-- | Twin of gated_error_sum_le: decisions whose gate moves stay within their bounds.
+prop_gated_error_sum_le :: Property
+prop_gated_error_sum_le = forAll (listOf genDecision) $ \ds ->
+  sum [gatedError g y | (_, g, y, _) <- ds] <= sum [gatedError p y | (p, _, y, _) <- ds] + sum [d | (_, _, _, d) <- ds]
+  where
+    genDecision = do
+      p <- genQ
+      g <- genQ
+      y <- genQ
+      extra <- genNonNeg
+      pure (p, g, y, abs (g - p) + extra)
+
 predictionFeedbackProps :: [(String, Property)]
 predictionFeedbackProps =
   [ ("prop_turn_cyclic_work_le", prop_turn_cyclic_work_le)
   , ("prop_turn_pair_work_le", prop_turn_pair_work_le)
   , ("prop_summary_admitted_receipts", prop_summary_admitted_receipts)
   , ("prop_gated_error_le", prop_gated_error_le)
+  , ("prop_gated_error_sum_le", prop_gated_error_sum_le)
   ]

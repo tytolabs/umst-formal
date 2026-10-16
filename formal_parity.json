@@ -3968,22 +3968,22 @@
    }
   },
   {
-   "id": "prediction.gated_error_le",
-   "statement": "the gated choice errs from the outcome by at most the prediction's error plus the gate's move delta (Lean through SeparationBound.accuracy_safety_separation_real)",
+   "id": "prediction.gated_error_sum_le",
+   "statement": "over the loop's decisions, when the gate moves each prediction by at most its delta, the summed error of the gated choices is at most the summed prediction error plus the summed moves (each decision through SeparationBound.accuracy_safety_separation_real in Lean)",
    "lean": {
-    "name": "UMST.PredictionFeedback.gated_error_le",
+    "name": "UMST.PredictionFeedback.gated_error_sum_le",
     "file": "Lean/PredictionFeedback.lean"
    },
    "coq": {
-    "name": "gated_error_le",
+    "name": "gated_error_sum_le",
     "file": "Coq/PredictionFeedback.v"
    },
    "agda": {
-    "name": "gated-error-le",
+    "name": "gated-error-sum-le",
     "file": "Agda/PredictionFeedback.agda"
    },
    "haskell": {
-    "name": "prop_gated_error_le",
+    "name": "prop_gated_error_sum_le",
     "file": "Haskell/test/PredictionFeedbackProps.hs"
    }
   }

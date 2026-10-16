@@ -3823,7 +3823,7 @@
     },
     {
       "path": "PredictionFeedback.lean",
-      "content_sha256": "8336738a5b5f3646ddc8bfbfff0c81eb3f67d0e76950b6ad393af44de382fbab",
+      "content_sha256": "426416cd744f94e56106702b5ca05ff3c816e48d6080f7a347b822eb58a1f278",
       "declarations": {
         "structure": [
           "Turn"
@@ -3840,7 +3840,10 @@
           "turn_pair_work_le",
           "summary_admitted_receipts",
           "receipts_refused_summary",
-          "gated_error_le"
+          "gated_error_sum_le"
+        ],
+        "abbrev": [
+          "Decision"
         ]
       },
       "import_lines": [
@@ -10041,5 +10044,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "7b523480be352355039de9c2d275d630c723d196c397730b22307fcc77b1550f"
+  "digest": "54cffe23f1e7e2d44d097040b348ebf501f65d37ac4eba3bf84d06b75ed69c6f"
 }

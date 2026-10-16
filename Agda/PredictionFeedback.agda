@@ -7,7 +7,8 @@
 -- learning loop is an instance of the measureFeedback case of the one predicate SecondLaw, judged against the
 -- mutual information between prediction and outcome (nats, carried as a rational as in Process.agda). A summary of
 -- receipts carrying no more information than the receipts (the data-processing inequality, a hypothesis) admits no
--- work the receipts refuse; the gated choice errs by at most the prediction's error plus the gate's move δ.
+-- work the receipts refuse; over the loop's decisions the gated choices err in sum by at most the prediction errors
+-- plus the gate's moves.
 ------------------------------------------------------------------------
 
 {-# OPTIONS --safe #-}
@@ -15,6 +16,9 @@
 module PredictionFeedback where
 
 open import Data.Empty using (⊥)
+open import Data.List using (List; []; _∷_; foldr)
+open import Data.List.Relation.Unary.All using (All; []; _∷_)
+open import Data.Product using (_×_; _,_)
 open import Data.Rational using (ℚ; 0ℚ; _+_; _*_; _-_; -_; _≤_; ∣_∣; NonNegative)
 open import Data.Rational.Properties
   using (≤-refl; ≤-reflexive; ≤-trans; +-mono-≤; +-monoʳ-≤; *-monoˡ-≤-nonNeg; ∣p+q∣≤∣p∣+∣q∣; +-comm)
@@ -72,9 +76,33 @@ receipts-refused-summary : ∀ t .{{_ : NonNegative (kBT t)}} iSummary iReceipts
   ¬ TurnAdmissible (against t iReceipts) → ¬ TurnAdmissible (against t iSummary)
 receipts-refused-summary t iS iR hDPI h hs = h (summary-admitted-receipts t iS iR hDPI hs)
 
--- Separation corollary: the gated choice errs by at most the prediction's error plus the gate's move.
+-- One decision: the gated choice errs by at most the prediction's error plus the gate's move.
 gated-error-le : ∀ p g y δ → ∣ g - p ∣ ≤ δ → ∣ g - y ∣ ≤ ∣ p - y ∣ + δ
 gated-error-le p g y δ hδ =
   ≤-trans (≤-reflexive (cong ∣_∣ (solve 3 (λ p g y → g :- y := (g :- p) :+ (p :- y)) refl p g y)))
     (≤-trans (∣p+q∣≤∣p∣+∣q∣ (g - p) (p - y))
       (≤-trans (+-mono-≤ hδ (≤-refl {∣ p - y ∣})) (≤-reflexive (+-comm δ ∣ p - y ∣))))
+
+-- A gated decision: prediction, gated choice, outcome and the gate's move bound.
+Decision : Set
+Decision = ℚ × ℚ × ℚ × ℚ
+
+MoveOk : Decision → Set
+MoveOk (p , g , _ , δ) = ∣ g - p ∣ ≤ δ
+
+gatedErr predErr move : Decision → ℚ
+gatedErr (_ , g , y , _) = ∣ g - y ∣
+predErr  (p , _ , y , _) = ∣ p - y ∣
+move     (_ , _ , _ , δ) = δ
+
+sumOver : (Decision → ℚ) → List Decision → ℚ
+sumOver f = foldr (λ q acc → f q + acc) 0ℚ
+
+-- Separation corollary, over the loop's decisions: the summed error of the gated choices is at most the summed
+-- prediction error plus the summed moves.
+gated-error-sum-le : ∀ l → All MoveOk l → sumOver gatedErr l ≤ sumOver predErr l + sumOver move l
+gated-error-sum-le []                    []        = ≤-refl
+gated-error-sum-le ((p , g , y , δ) ∷ l) (h ∷ hs) =
+  ≤-trans (+-mono-≤ (gated-error-le p g y δ h) (gated-error-sum-le l hs))
+    (≤-reflexive (solve 4 (λ a b c d → (a :+ b) :+ (c :+ d) := (a :+ c) :+ (b :+ d)) refl
+      ∣ p - y ∣ δ (sumOver predErr l) (sumOver move l)))

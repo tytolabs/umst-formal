@@ -16,7 +16,8 @@
     classical form stays a typed absence until a cell proves it). Under it, every work admitted against the summary
     is admitted against the receipts and every work the receipts refuse the summary refuses
     (`summary_admitted_receipts`, `receipts_refused_summary`): the meter reads the receipts, the close-guard reading;
-  * the gated choice errs by at most the prediction's error plus the gate's move δ (`gated_error_le`, through
+  * over the loop's decisions, the summed error of the gated choices is at most the summed prediction error plus
+    the summed gate moves δ (`gated_error_sum_le`, each decision through
     `SeparationBound.accuracy_safety_separation_real`).
 
   Zero `axiom`, zero `sorry`.
@@ -92,9 +93,22 @@ theorem receipts_refused_summary (t : Turn) {n' m' n'' m'' : ℕ} (summary : Joi
     (h : ¬ (t.against receipts).Admissible) : ¬ (t.against summary).Admissible :=
   fun hs => h (summary_admitted_receipts t summary receipts hDPI hs)
 
-/-- **Separation corollary**: the gated choice `g` errs from the outcome `y` by at most the prediction `p`'s error
-    plus the gate's move `δ`. -/
-theorem gated_error_le (p g y δ : ℝ) (hδ : |g - p| ≤ δ) : |g - y| ≤ |p - y| + δ :=
-  UMST.accuracy_safety_separation_real p g y δ hδ
+/-- A gated decision of the loop: the prediction `p`, the gated choice `g`, the outcome `y` and the gate's move
+    bound `δ`. -/
+abbrev Decision := ℝ × ℝ × ℝ × ℝ
+
+/-- **Separation corollary**, over the loop's decisions: when the gate moves each prediction by at most its `δ`, the
+    summed error of the gated choices is at most the summed prediction error plus the summed moves, each decision
+    bounded by `SeparationBound.accuracy_safety_separation_real`. -/
+theorem gated_error_sum_le (l : List Decision) (h : ∀ q ∈ l, |q.2.1 - q.1| ≤ q.2.2.2) :
+    (l.map fun q => |q.2.1 - q.2.2.1|).sum ≤
+      (l.map fun q => |q.1 - q.2.2.1|).sum + (l.map fun q => q.2.2.2).sum := by
+  induction l with
+  | nil => simp
+  | cons q l ih =>
+    have hq := UMST.accuracy_safety_separation_real q.1 q.2.1 q.2.2.1 q.2.2.2 (h q (List.mem_cons_self q l))
+    have hl := ih (fun r hr => h r (List.mem_cons_of_mem q hr))
+    simp only [List.map_cons, List.sum_cons]
+    linarith
 
 end UMST.PredictionFeedback

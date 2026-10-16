@@ -9,11 +9,12 @@
 (*  (nats) between prediction and outcome. A summary of receipts carrying *)
 (*  no more information than the receipts (the data-processing            *)
 (*  inequality, a hypothesis) admits no work the receipts refuse; the     *)
-(*  gated choice errs by at most the prediction's error plus the gate's   *)
-(*  move delta.                                                           *)
+(*  gated choices err in sum by at most the prediction errors plus the   *)
+(*  gate's moves.                                                         *)
 (* ===================================================================== *)
 
-From Stdlib Require Import Reals Lra.
+From Stdlib Require Import Reals Lra List.
+Import ListNotations.
 Require Import UMSTFormal.Process.
 
 Open Scope R_scope.
@@ -75,9 +76,24 @@ Theorem receipts_refused_summary (t : Turn) (iSummary iReceipts : R) :
   iSummary <= iReceipts -> ~ turnAdmissible (against t iReceipts) -> ~ turnAdmissible (against t iSummary).
 Proof. intros hDPI h hs. exact (h (summary_admitted_receipts t iSummary iReceipts hDPI hs)). Qed.
 
-(** Separation corollary: the gated choice errs by at most the prediction's error plus the gate's move. *)
-Theorem gated_error_le (p g y d : R) : Rabs (g - p) <= d -> Rabs (g - y) <= Rabs (p - y) + d.
+(** One decision: the gated choice errs by at most the prediction's error plus the gate's move. *)
+Lemma gated_error_le (p g y d : R) : Rabs (g - p) <= d -> Rabs (g - y) <= Rabs (p - y) + d.
 Proof.
   intro hd. replace (g - y) with ((g - p) + (p - y)) by ring.
   pose proof (Rabs_triang (g - p) (p - y)). lra.
+Qed.
+
+(** A gated decision: prediction, gated choice, outcome and the gate's move bound. *)
+Definition sumOver (f : R * R * R * R -> R) (l : list (R * R * R * R)) : R := fold_right (fun q acc => f q + acc) 0 l.
+
+(** Separation corollary, over the loop's decisions: the summed error of the gated choices is at most the summed
+    prediction error plus the summed moves. *)
+Theorem gated_error_sum_le (l : list (R * R * R * R)) :
+  Forall (fun q => match q with (p, g, _, d) => Rabs (g - p) <= d end) l ->
+  sumOver (fun q => match q with (_, g, y, _) => Rabs (g - y) end) l <=
+  sumOver (fun q => match q with (p, _, y, _) => Rabs (p - y) end) l + sumOver (fun q => match q with (_, _, _, d) => d end) l.
+Proof.
+  induction l as [| q l IH]; intro h; [simpl; lra |].
+  inversion h as [| ? ? hq hl]; subst. destruct q as [[[p g] y] d].
+  pose proof (gated_error_le p g y d hq). pose proof (IH hl). simpl in *. lra.
 Qed.

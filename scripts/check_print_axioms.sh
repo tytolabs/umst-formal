@@ -45,7 +45,7 @@ THEOREMS=(
   # A prediction-then-observation turn as measureFeedback (FORMAL-PREDICTION-AS-MEASURE-FEEDBACK).
   "PredictionFeedback.turn_pair_work_le PredictionFeedback"
   "PredictionFeedback.summary_admitted_receipts PredictionFeedback"
-  "PredictionFeedback.gated_error_le PredictionFeedback"
+  "PredictionFeedback.gated_error_sum_le PredictionFeedback"
 )
 
 for entry in "${THEOREMS[@]}"; do
