@@ -59,6 +59,9 @@ THEOREMS=(
   "UnfoldKleisli.bind_assoc UnfoldKleisli"
   "UnfoldKleisli.bind_honest_of_secondLaw UnfoldKleisli"
   "UnfoldKleisli.error_chain UnfoldKleisli"
+  # Law L3, the proximal step (UNFOLD-PROX-STEP-LAWS).
+  "UnfoldProxStepLaws.prox_step_oneInequality UnfoldProxStepLaws"
+  "UnfoldProxStepLaws.prox_step_passive_secondLaw UnfoldProxStepLaws"
 )
 
 for entry in "${THEOREMS[@]}"; do

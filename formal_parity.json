@@ -4286,6 +4286,66 @@
     "name": "prop_error_chain",
     "file": "Haskell/test/UnfoldKleisliProps.hs"
    }
+  },
+  {
+   "id": "prox.prox_step_le",
+   "statement": "L3 from minimality: a step minimising psi x - w x + tau phi (d x), with phi 0 = 0 and d x0 = 0, satisfies psi x+ - psi x0 + tau phi (d x+) <= w x+ - w x0, and with phi >= 0 the free-energy change is at most the supplied work (prox_step_deltaF_le); Lean states the step as the one inequality (prox_step_oneInequality) and a passive step with the mass condition as the transition case of SecondLaw through the passive route (prox_step_passive_secondLaw)",
+   "lean": {
+    "name": "UMST.UnfoldProxStepLaws.prox_step_le",
+    "file": "Lean/UnfoldProxStepLaws.lean"
+   },
+   "coq": {
+    "name": "prox_step_le",
+    "file": "Coq/UnfoldProxStepLaws.v"
+   },
+   "agda": {
+    "name": "prox-step-le",
+    "file": "Agda/UnfoldProxStepLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_prox_step_le",
+    "file": "Haskell/test/UnfoldProxStepLawsProps.hs"
+   }
+  },
+  {
+   "id": "prox.prox_step_refused",
+   "statement": "L3 refusal: a candidate step that breaks the discrete inequality is no minimiser of the incremental potential",
+   "lean": {
+    "name": "UMST.UnfoldProxStepLaws.prox_step_refused",
+    "file": "Lean/UnfoldProxStepLaws.lean"
+   },
+   "coq": {
+    "name": "prox_step_refused",
+    "file": "Coq/UnfoldProxStepLaws.v"
+   },
+   "agda": {
+    "name": "prox-step-refused",
+    "file": "Agda/UnfoldProxStepLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_prox_step_refused",
+    "file": "Haskell/test/UnfoldProxStepLawsProps.hs"
+   }
+  },
+  {
+   "id": "prox.prox_step_stationary_le",
+   "statement": "L3 from stationarity on a scalar state (tau v = x+ - x0): supporting lines of the convex psi (slope a) and phi (slope b) with the first-order condition a + b = f give psi x+ - psi x0 + tau phi v <= f (x+ - x0), and the slope of phi with phi 0 = 0 and phi >= 0 gives b v >= phi v >= 0 (prox_dissipation_rate_nonneg)",
+   "lean": {
+    "name": "UMST.UnfoldProxStepLaws.prox_step_stationary_le",
+    "file": "Lean/UnfoldProxStepLaws.lean"
+   },
+   "coq": {
+    "name": "prox_step_stationary_le",
+    "file": "Coq/UnfoldProxStepLaws.v"
+   },
+   "agda": {
+    "name": "prox-step-stationary-le",
+    "file": "Agda/UnfoldProxStepLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_prox_step_stationary_le",
+    "file": "Haskell/test/UnfoldProxStepLawsProps.hs"
+   }
   }
  ]
 }

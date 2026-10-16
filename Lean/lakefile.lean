@@ -115,6 +115,8 @@ lean_lib «UMST» where
     `Culture.CarryingCapacity,
     -- The laws nested-solve composition relies on: Kleisli, the spend monoid, interval error propagation (FORMAL-UNFOLD-KLEISLI-LAWS).
     `UnfoldKleisli,
+    -- Law L3: a proximal or minimising-movement step satisfies the discrete inequality (UNFOLD-PROX-STEP-LAWS).
+    `UnfoldProxStepLaws,
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,

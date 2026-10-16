@@ -4380,6 +4380,31 @@
       "module": "UnfoldKleisli"
     },
     {
+      "path": "UnfoldProxStepLaws.lean",
+      "content_sha256": "4c3a820d41650f966df9fa476d48e503b8d2fd91c673436b1b94ca645c57e921",
+      "declarations": {
+        "def": [
+          "incremental",
+          "IsProxStep",
+          "proxStep"
+        ],
+        "theorem": [
+          "prox_step_le",
+          "prox_step_deltaF_le",
+          "prox_step_refused",
+          "prox_step_stationary_le",
+          "prox_dissipation_rate_nonneg",
+          "prox_step_oneInequality",
+          "prox_step_passive_secondLaw"
+        ]
+      },
+      "import_lines": [
+        "Convex.PassiveRoute",
+        "OneInequalitySecondLaw"
+      ],
+      "module": "UnfoldProxStepLaws"
+    },
+    {
       "path": "Urge/AdmitKleisli.lean",
       "content_sha256": "5f08974d9256cf8e08d975dfb4e7fb9ab4c4962bd6c032acd45dbc12afc54b38",
       "declarations": {
@@ -7516,7 +7541,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "e800c47b1941848c2a14cc60993d30b57a931727ab1823f1d58ae9f1e956d09b",
+      "content_sha256": "5349da6e8999720a0a1545d72d3710aa4ff6cd7630cbc34143b68b3c93fe156d",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -9116,6 +9141,16 @@
       "to_approx": "OneInequalitySecondLaw"
     },
     {
+      "from": "UnfoldProxStepLaws",
+      "import": "Convex.PassiveRoute",
+      "to_approx": "Convex.PassiveRoute"
+    },
+    {
+      "from": "UnfoldProxStepLaws",
+      "import": "OneInequalitySecondLaw",
+      "to_approx": "OneInequalitySecondLaw"
+    },
+    {
       "from": "Urge.AdmitKleisli",
       "import": "Compat.Constitutional",
       "to_approx": "Compat.Constitutional"
@@ -10226,5 +10261,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "990ba6e4cbf7b84ed32770b0f8fecea5e557e454da58a13aeeda170ed313f8d7"
+  "digest": "2086977c5605111beb7041eeb0c9f2bdf17f8e07336ee38587f0376d36e95c8b"
 }
