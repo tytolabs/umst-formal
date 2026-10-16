@@ -1095,6 +1095,36 @@
       "module": "Concrete.EnrichedAdmissibility"
     },
     {
+      "path": "Concrete/FractureAT2.lean",
+      "content_sha256": "aa7a3a25560bb00c56968981f3b15cfba2e5d01eba745b1de287490c4b039bba",
+      "declarations": {
+        "def": [
+          "degradation",
+          "stored",
+          "crackSpent",
+          "total",
+          "damageTarget",
+          "damageUpdate"
+        ],
+        "theorem": [
+          "damageTarget_mem",
+          "total_vertex",
+          "at2_damage_update",
+          "at2_energy_nonincreasing",
+          "at2_balance_eq_total",
+          "crackSpent_nonneg",
+          "at2_degradation_release_nonneg",
+          "at2_griffith_iff",
+          "at2_damage_step_secondLaw",
+          "at2_loading_refused"
+        ]
+      },
+      "import_lines": [
+        "Convex.PassiveRoute"
+      ],
+      "module": "Concrete.FractureAT2"
+    },
+    {
       "path": "Concrete/GaloisGate.lean",
       "content_sha256": "cae89ce3be6f6f4d934950e021b68c65f8d36bf72835bff12288da04c6809750",
       "declarations": {
@@ -7406,7 +7436,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "5231b3f8cfc0bea0ed4ce7523ab58de643108ef636714a0876a96f7f4a934c4e",
+      "content_sha256": "40fbba2f99051ae59fc14c54f36f965d344a263acf30e20c0babc346ce31a0ab",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7749,6 +7779,11 @@
       "from": "Concrete.EnrichedAdmissibility",
       "import": "Mathlib.Topology.MetricSpace.Basic",
       "to_approx": "Mathlib.Topology.MetricSpace.Basic"
+    },
+    {
+      "from": "Concrete.FractureAT2",
+      "import": "Convex.PassiveRoute",
+      "to_approx": "Convex.PassiveRoute"
     },
     {
       "from": "Concrete.GaloisGate",
@@ -10091,5 +10126,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "c0596f9313515a291af8a32306b1a402bd0e1f7390d4f19bf6a8b7a395bba011"
+  "digest": "d0e5643323ae2bba3b718227c42a230028714aed3b9c675c9524c7ab6fc404e3"
 }

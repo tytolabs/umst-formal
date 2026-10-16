@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 99,
+  "lake_roots_count": 100,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -99,18 +99,19 @@
     "WaveShape",
     "Concrete.PoromechanicsB3",
     "Concrete.ShrinkageB4",
+    "Concrete.FractureAT2",
     "Web",
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 722,
+    "theorem": 732,
     "lemma": 62,
-    "total": 784
+    "total": 794
   },
   "all_lean_glob": {
-    "theorem": 1579,
+    "theorem": 1589,
     "lemma": 62,
-    "total": 1641
+    "total": 1651
   },
   "per_root": {
     "Core.Scalar": {
@@ -500,6 +501,10 @@
     "Concrete.ShrinkageB4": {
       "theorem": 14,
       "lemma": 18
+    },
+    "Concrete.FractureAT2": {
+      "theorem": 10,
+      "lemma": 0
     },
     "Web": {
       "theorem": 24,

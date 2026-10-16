@@ -4026,6 +4026,126 @@
     "name": "prop_colFun_merge_le",
     "file": "Haskell/test/ClassicalDPIProps.hs"
    }
+  },
+  {
+   "id": "fracture.at2_damage_update",
+   "statement": "the irreversible AT2 alternate-minimisation damage step phi' = max(phi, phi*), phi* = 2 psi_e/(2 psi_e + c), c = G_c/l > 0, stays in [0, 1], never heals and minimises the total energy (1 - phi)^2 psi_e + (c/2) phi^2 over damage at least phi (Agda carries phi* with its defining equation (psi_e + c/2) phi* = psi_e)",
+   "lean": {
+    "name": "UMST.Concrete.FractureAT2.at2_damage_update",
+    "file": "Lean/Concrete/FractureAT2.lean"
+   },
+   "coq": {
+    "name": "at2_damage_update",
+    "file": "Coq/FractureAT2.v"
+   },
+   "agda": {
+    "name": "at2-damage-update",
+    "file": "Agda/FractureAT2.agda"
+   },
+   "haskell": {
+    "name": "prop_at2_damage_update",
+    "file": "Haskell/test/FractureAT2Props.hs"
+   }
+  },
+  {
+   "id": "fracture.at2_energy_nonincreasing",
+   "statement": "the total AT2 energy does not increase under the damage step on the whole domain [0, 1], with no cut-off at (3 - sqrt 3)/6",
+   "lean": {
+    "name": "UMST.Concrete.FractureAT2.at2_energy_nonincreasing",
+    "file": "Lean/Concrete/FractureAT2.lean"
+   },
+   "coq": {
+    "name": "at2_energy_nonincreasing",
+    "file": "Coq/FractureAT2.v"
+   },
+   "agda": {
+    "name": "at2-energy-nonincreasing",
+    "file": "Agda/FractureAT2.agda"
+   },
+   "haskell": {
+    "name": "prop_at2_energy_nonincreasing",
+    "file": "Haskell/test/FractureAT2Props.hs"
+   }
+  },
+  {
+   "id": "fracture.at2_balance_eq_total",
+   "statement": "the two readings agree: the change of stored energy (1 - phi)^2 psi_e plus the crack energy spent (c/2)(phi'^2 - phi^2) is the change of total energy",
+   "lean": {
+    "name": "UMST.Concrete.FractureAT2.at2_balance_eq_total",
+    "file": "Lean/Concrete/FractureAT2.lean"
+   },
+   "coq": {
+    "name": "at2_balance_eq_total",
+    "file": "Coq/FractureAT2.v"
+   },
+   "agda": {
+    "name": "at2-balance-eq-total",
+    "file": "Agda/FractureAT2.agda"
+   },
+   "haskell": {
+    "name": "prop_at2_balance_eq_total",
+    "file": "Haskell/test/FractureAT2Props.hs"
+   }
+  },
+  {
+   "id": "fracture.at2_damage_step_secondLaw",
+   "statement": "the damage step at unchanged density is a SecondLaw transition through the passive route, the stored part falling by at least the crack energy spent, which is non-negative by irreversibility; no joint convexity of the degraded energy is needed (Haskell evaluates umst-formal's executable predicate in Double)",
+   "lean": {
+    "name": "UMST.Concrete.FractureAT2.at2_damage_step_secondLaw",
+    "file": "Lean/Concrete/FractureAT2.lean"
+   },
+   "coq": {
+    "name": "at2_damage_step_secondLaw",
+    "file": "Coq/FractureAT2.v"
+   },
+   "agda": {
+    "name": "at2-damage-step-secondLaw",
+    "file": "Agda/FractureAT2.agda"
+   },
+   "haskell": {
+    "name": "prop_at2_damage_step_secondLaw",
+    "file": "Haskell/test/FractureAT2Props.hs"
+   }
+  },
+  {
+   "id": "fracture.at2_griffith_iff",
+   "statement": "for any irreversible step in [0, 1] the degraded elastic energy released is non-negative, and the passive inequality with the crack energy spent holds exactly when the release covers the crack energy created: the Griffith criterion",
+   "lean": {
+    "name": "UMST.Concrete.FractureAT2.at2_griffith_iff",
+    "file": "Lean/Concrete/FractureAT2.lean"
+   },
+   "coq": {
+    "name": "at2_griffith_iff",
+    "file": "Coq/FractureAT2.v"
+   },
+   "agda": {
+    "name": "at2-griffith-⇔",
+    "file": "Agda/FractureAT2.agda"
+   },
+   "haskell": {
+    "name": "prop_at2_griffith_iff",
+    "file": "Haskell/test/FractureAT2Props.hs"
+   }
+  },
+  {
+   "id": "fracture.at2_loading_refused",
+   "statement": "typed absence of the loading step: raising the strain energy at fixed damage below full damage raises the stored energy, which the transition case refuses; the missing term is the supplied power W_in of the balance",
+   "lean": {
+    "name": "UMST.Concrete.FractureAT2.at2_loading_refused",
+    "file": "Lean/Concrete/FractureAT2.lean"
+   },
+   "coq": {
+    "name": "at2_loading_refused",
+    "file": "Coq/FractureAT2.v"
+   },
+   "agda": {
+    "name": "at2-loading-refused",
+    "file": "Agda/FractureAT2.agda"
+   },
+   "haskell": {
+    "name": "prop_at2_loading_refused",
+    "file": "Haskell/test/FractureAT2Props.hs"
+   }
   }
  ]
 }

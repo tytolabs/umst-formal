@@ -118,6 +118,8 @@ lean_lib «UMST» where
     `Memory.TierDisjoint,
     `DEC, `Adjoint, `RegimeSoundness, `JenningsGelSpace,
     `DualLedger, `Excitement, `ExcitementProofs, `ExcitementBy, `ExcitementByProofs, `WaveShape, `Concrete.PoromechanicsB3, `Concrete.ShrinkageB4,
+    -- AT2 fracture as SecondLaw instances (FRACTURE-AT2-FORMAL).
+    `Concrete.FractureAT2,
     `Web, `Web.WebMat]
   srcDir := "."
 

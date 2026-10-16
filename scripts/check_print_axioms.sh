@@ -49,6 +49,9 @@ THEOREMS=(
   # The classical data-processing inequality (FORMAL-CLASSICAL-DPI-DETERMINISTIC-SUMMARY).
   "ClassicalDPI.mutualInformation_summary_le ClassicalDPI"
   "PredictionFeedback.summary_admitted_receipts_of_summary PredictionFeedback"
+  # AT2 fracture as SecondLaw instances (FRACTURE-AT2-FORMAL).
+  "Concrete.FractureAT2.at2_damage_step_secondLaw Concrete.FractureAT2"
+  "Concrete.FractureAT2.at2_loading_refused Concrete.FractureAT2"
 )
 
 for entry in "${THEOREMS[@]}"; do
