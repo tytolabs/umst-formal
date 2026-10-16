@@ -109,6 +109,8 @@ lean_lib «UMST» where
     `LearningLoopLaws,
     -- A prediction-then-observation turn as a measureFeedback instance (FORMAL-PREDICTION-AS-MEASURE-FEEDBACK).
     `PredictionFeedback,
+    -- The classical data-processing inequality for a deterministic summary (FORMAL-CLASSICAL-DPI-DETERMINISTIC-SUMMARY).
+    `ClassicalDPI,
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,

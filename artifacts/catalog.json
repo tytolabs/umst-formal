@@ -720,6 +720,36 @@
       "module": "Chem.SecondLaw"
     },
     {
+      "path": "ClassicalDPI.lean",
+      "content_sha256": "40d8c13a7e94589b41fe5ba8ac3b7875e191eb9599fe3d9139ef6c02b2d13712",
+      "declarations": {
+        "def": [
+          "\u03c6",
+          "colFun",
+          "column",
+          "summary"
+        ],
+        "theorem": [
+          "\u03c6_zero",
+          "scale_\u03c6",
+          "logSum_two",
+          "colFun_zero",
+          "eq_zero_of_sum_eq_zero",
+          "colFun_add_le",
+          "colFun_sum_le",
+          "mutualInformation_eq_add_colSum",
+          "marginalX_summary",
+          "column_summary",
+          "mutualInformation_summary_le"
+        ]
+      },
+      "import_lines": [
+        "InfoTheory",
+        "Mathlib.Analysis.SpecialFunctions.Log.NegMulLog"
+      ],
+      "module": "ClassicalDPI"
+    },
+    {
       "path": "ClassicalMeasurementCost.lean",
       "content_sha256": "28ca96862d045b3d50848a2afc4b491d30b022fc7a4b6ba8b97d8d689a209349",
       "declarations": {
@@ -3823,7 +3853,7 @@
     },
     {
       "path": "PredictionFeedback.lean",
-      "content_sha256": "426416cd744f94e56106702b5ca05ff3c816e48d6080f7a347b822eb58a1f278",
+      "content_sha256": "372a21e9cb2873f75618eff628a3114671835f024c3c4448a6f9765710379af7",
       "declarations": {
         "structure": [
           "Turn"
@@ -3840,6 +3870,7 @@
           "turn_pair_work_le",
           "summary_admitted_receipts",
           "receipts_refused_summary",
+          "summary_admitted_receipts_of_summary",
           "gated_error_sum_le"
         ],
         "abbrev": [
@@ -3847,6 +3878,7 @@
         ]
       },
       "import_lines": [
+        "ClassicalDPI",
         "Process",
         "SeparationBound"
       ],
@@ -7374,7 +7406,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "4df3f8d44922fa1cd9bfd1fb43686aa07f98e12cdcf5b180bf00238c4fcea60a",
+      "content_sha256": "5231b3f8cfc0bea0ed4ce7523ab58de643108ef636714a0876a96f7f4a934c4e",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7607,6 +7639,16 @@
       "from": "Chem.SecondLaw",
       "import": "Process",
       "to_approx": "Process"
+    },
+    {
+      "from": "ClassicalDPI",
+      "import": "InfoTheory",
+      "to_approx": "InfoTheory"
+    },
+    {
+      "from": "ClassicalDPI",
+      "import": "Mathlib.Analysis.SpecialFunctions.Log.NegMulLog",
+      "to_approx": "Mathlib.Analysis.SpecialFunctions.Log.NegMulLog"
     },
     {
       "from": "ClassicalMeasurementCost",
@@ -8732,6 +8774,11 @@
       "from": "OrderStatisticsBand",
       "import": "MedianConvergence",
       "to_approx": "MedianConvergence"
+    },
+    {
+      "from": "PredictionFeedback",
+      "import": "ClassicalDPI",
+      "to_approx": "ClassicalDPI"
     },
     {
       "from": "PredictionFeedback",
@@ -10044,5 +10091,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "54cffe23f1e7e2d44d097040b348ebf501f65d37ac4eba3bf84d06b75ed69c6f"
+  "digest": "c0596f9313515a291af8a32306b1a402bd0e1f7390d4f19bf6a8b7a395bba011"
 }

@@ -59,6 +59,7 @@ import PassiveRouteProps (passiveRouteProps)
 import CoordinationProps (agentColimitProps)
 import LearningLoopProps (learningLoopProps)
 import PredictionFeedbackProps (predictionFeedbackProps)
+import ClassicalDPIProps (classicalDPIProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1270,6 +1271,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) learningLoopProps
   putStrLn "-- A prediction-then-observation turn as measureFeedback (PredictionFeedback)"
   mapM_ (\(name, p) -> check r (counterexample name p)) predictionFeedbackProps
+  putStrLn "-- The classical data-processing inequality for a deterministic summary (ClassicalDPI)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) classicalDPIProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

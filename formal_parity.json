@@ -3949,9 +3949,9 @@
   },
   {
    "id": "prediction.summary_admitted_receipts",
-   "statement": "under the data-processing inequality as a hypothesis (I(summary; outcome) <= I(receipts; outcome); umst-formal states no classical DPI and umst-formal-double-slit's DataProcessingInequality is quantum unital-channel entropy monotonicity), every work admitted against a summary of receipts is admitted against the receipts, so the receipts' reading fixes the meter",
+   "statement": "every work admitted against a summary of receipts is admitted against the receipts when the summary carries no more information about the outcome; Lean discharges the information order for a deterministic summary with ClassicalDPI.mutualInformation_summary_le (summary_admitted_receipts_of_summary); Coq, Agda and Haskell take the order as a hypothesis on the carried informations",
    "lean": {
-    "name": "UMST.PredictionFeedback.summary_admitted_receipts",
+    "name": "UMST.PredictionFeedback.summary_admitted_receipts_of_summary",
     "file": "Lean/PredictionFeedback.lean"
    },
    "coq": {
@@ -3985,6 +3985,46 @@
    "haskell": {
     "name": "prop_gated_error_sum_le",
     "file": "Haskell/test/PredictionFeedbackProps.hs"
+   }
+  },
+  {
+   "id": "dpi.mutualInformation_summary_le",
+   "statement": "the classical data-processing inequality for a deterministic summary: for a joint of X and Y and a map f, I(X; f(Y)) <= I(X; Y); Lean proves it outright from the two-term log-sum inequality (logSum_two, via Real.convexOn_mul_log); Coq proves the log-sum inequality (log_sum_two, from ln x <= x - 1) and, with Agda, the summed column functional over merged groups (summary_colsum_le) for any functional subadditive on non-negative columns; Haskell tests the inequality on random joints in Double with rounding bound 1e-9",
+   "lean": {
+    "name": "UMST.ClassicalDPI.mutualInformation_summary_le",
+    "file": "Lean/ClassicalDPI.lean"
+   },
+   "coq": {
+    "name": "summary_colsum_le",
+    "file": "Coq/ClassicalDPI.v"
+   },
+   "agda": {
+    "name": "summary-colsum-le",
+    "file": "Agda/ClassicalDPI.agda"
+   },
+   "haskell": {
+    "name": "prop_mutualInformation_summary_le",
+    "file": "Haskell/test/ClassicalDPIProps.hs"
+   }
+  },
+  {
+   "id": "dpi.merge_le",
+   "statement": "merging a family of non-negative columns does not raise the summed column functional G(v) = sum v_i log v_i - (sum v_i) log(sum v_i) (Lean for the concrete G; Coq and Agda for any G zero on the zero column and subadditive on non-negative columns, the property the log-sum inequality gives)",
+   "lean": {
+    "name": "UMST.ClassicalDPI.colFun_sum_le",
+    "file": "Lean/ClassicalDPI.lean"
+   },
+   "coq": {
+    "name": "merge_le",
+    "file": "Coq/ClassicalDPI.v"
+   },
+   "agda": {
+    "name": "merge-le",
+    "file": "Agda/ClassicalDPI.agda"
+   },
+   "haskell": {
+    "name": "prop_colFun_merge_le",
+    "file": "Haskell/test/ClassicalDPIProps.hs"
    }
   }
  ]

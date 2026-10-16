@@ -10,12 +10,12 @@
   * the work the loop extracts by acting on its prediction is at most the free-energy drop plus k_B T times the
     mutual information between prediction and outcome (`turn_work_le`), and at most k_B T times that information
     for a cyclic turn (`turn_cyclic_work_le`); two admissible turns at one bath add (`turn_pair_work_le`);
-  * a summary of the receipts carries no more mutual information about the outcome than the receipts (the
-    data-processing inequality, a hypothesis here: umst-formal states no classical data-processing inequality, and
-    umst-formal-double-slit's `DataProcessingInequality` is the entropy monotonicity of unital quantum channels, so the
-    classical form stays a typed absence until a cell proves it). Under it, every work admitted against the summary
-    is admitted against the receipts and every work the receipts refuse the summary refuses
-    (`summary_admitted_receipts`, `receipts_refused_summary`): the meter reads the receipts, the close-guard reading;
+  * a summary of the receipts carries no more mutual information about the outcome than the receipts, so every work
+    admitted against the summary is admitted against the receipts and every work the receipts refuse the summary
+    refuses (`summary_admitted_receipts`, `receipts_refused_summary`, for any informations ordered so); for a
+    deterministic summary `f` of the receipts the order is the classical data-processing inequality
+    `ClassicalDPI.mutualInformation_summary_le`, a theorem (`summary_admitted_receipts_of_summary`): the meter reads
+    the receipts, the close-guard reading;
   * over the loop's decisions, the summed error of the gated choices is at most the summed prediction error plus
     the summed gate moves δ (`gated_error_sum_le`, each decision through
     `SeparationBound.accuracy_safety_separation_real`).
@@ -25,6 +25,7 @@
 
 import Process
 import SeparationBound
+import ClassicalDPI
 
 open Real UMST.LandauerLaw UMST.ProcessFamily UMST.InfoTheory UMST.InfoTheory.JointDist
 
@@ -96,6 +97,13 @@ theorem receipts_refused_summary (t : Turn) {n' m' n'' m'' : ℕ} (summary : Joi
 /-- A gated decision of the loop: the prediction `p`, the gated choice `g`, the outcome `y` and the gate's move
     bound `δ`. -/
 abbrev Decision := ℝ × ℝ × ℝ × ℝ
+
+/-- **Data-processing corollary, discharged**: a work admitted against the summary `f(Y)` of the receipts `Y` is
+    admitted against the receipts, the inequality `I(X; f(Y)) ≤ I(X; Y)` being the theorem
+    `ClassicalDPI.mutualInformation_summary_le`, not a hypothesis. -/
+theorem summary_admitted_receipts_of_summary (t : Turn) {n m k : ℕ} (receipts : JointDist n m) (f : Fin m → Fin k)
+    (h : (t.against (UMST.ClassicalDPI.summary receipts f)).Admissible) : (t.against receipts).Admissible :=
+  summary_admitted_receipts t _ receipts (UMST.ClassicalDPI.mutualInformation_summary_le receipts f) h
 
 /-- **Separation corollary**, over the loop's decisions: when the gate moves each prediction by at most its `δ`, the
     summed error of the gated choices is at most the summed prediction error plus the summed moves, each decision

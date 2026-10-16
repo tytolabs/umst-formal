@@ -46,6 +46,9 @@ THEOREMS=(
   "PredictionFeedback.turn_pair_work_le PredictionFeedback"
   "PredictionFeedback.summary_admitted_receipts PredictionFeedback"
   "PredictionFeedback.gated_error_sum_le PredictionFeedback"
+  # The classical data-processing inequality (FORMAL-CLASSICAL-DPI-DETERMINISTIC-SUMMARY).
+  "ClassicalDPI.mutualInformation_summary_le ClassicalDPI"
+  "PredictionFeedback.summary_admitted_receipts_of_summary PredictionFeedback"
 )
 
 for entry in "${THEOREMS[@]}"; do
