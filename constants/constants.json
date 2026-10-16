@@ -8,7 +8,9 @@
   "Powers1958": "T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined",
   "Taylor1997": "H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1: C3S -517 ± 13, C2S -262, C3A -1144 (to AFm) and -1672 (to AFt), C4AF -418 kJ/kg; the heat released is the negative of the enthalpy",
   "CGPM1901": "3rd CGPM (1901), Declaration on the unit of mass and on the definition of weight; conventional value of g_n: the standard acceleration of free fall is 980.665 cm s⁻², exact by convention, reproduced in BIPM, The International System of Units (SI), 9th edition (2019), Appendix 1",
-  "NGA2014": "NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1: the four defining parameters a, 1/f, GM and ω"
+  "NGA2014": "NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1: the four defining parameters a, 1/f, GM and ω",
+  "ArcelorMittalOrangeBook": "ArcelorMittal, Orange Book (online catalogue of cold formed sections), Explanatory Notes, Dimensions of sections, orangebook.arcelormittal.com/node/178, read 17 October 2026: \"The mass per metre has been calculated assuming that the density of steel is 7850 kg/m3\"; the uncertainty is the relative half-range of the steel unit weight in CEN, EN 1991-1-1:2002 Eurocode 1 Part 1-1, Annex A, Table A.4 (77,0 to 78,5 kN/m3), (78,5 - 77,0)/(78,5 + 77,0) = 3/311, applied to 7850; it is the spread the standard states for a unit weight, with no cause given, and no measurement of this mass density; EN 1993-1-1:2005 clause 3.2.6 states E, G, nu and the thermal expansion coefficient and no density",
+  "EN1999-1-1": "CEN, EN 1999-1-1:2007 Eurocode 9 Design of aluminium structures, Part 1-1 General structural rules, clause 3.2.5(1) Design values of material constants for the aluminium alloys the standard covers: unit mass 2 700 kg/m3, read 17 October 2026 in two reproductions of the clause (DSTU-N B EN 1999-1-1:2010, dnaop.com; SCIA Eurocode Training EN 1999-1-1, 2015); the clause and EN 1991-1-1:2002 Table A.4 (aluminium 27,0 kN/m3) each state one value for all covered alloys with no spread, so the row carries no uncertainty"
  },
  "constants": [
   {
@@ -369,6 +371,30 @@
    "status": "cited",
    "authority": "Bentz2009",
    "num": "3150",
+   "den": "1",
+   "fibre": "acting"
+  },
+  {
+   "id": "structuralSteelDensity",
+   "symbol": "ρ_steel",
+   "name": "mass density of structural steel",
+   "unit": "kg m⁻³",
+   "status": "cited",
+   "authority": "ArcelorMittalOrangeBook",
+   "num": "7850",
+   "den": "1",
+   "uncertainty_num": "23550",
+   "uncertainty_den": "311",
+   "fibre": "acting"
+  },
+  {
+   "id": "aluminiumAlloyDensity",
+   "symbol": "ρ_Al",
+   "name": "mass density of aluminium alloys in structural use",
+   "unit": "kg m⁻³",
+   "status": "cited",
+   "authority": "EN1999-1-1",
+   "num": "2700",
    "den": "1",
    "fibre": "acting"
   },

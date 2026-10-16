@@ -1755,7 +1755,7 @@
     },
     {
       "path": "Constants/SI.lean",
-      "content_sha256": "d1589c0351c3654b0e0b749e92ac1f874482ffe69eac43b97dadd04a4813b365",
+      "content_sha256": "fa3b141853cb2cfc3324d4e9d60a76f156a644057ebe752203815a2a59655948",
       "declarations": {
         "def": [
           "caesiumHyperfineFrequency",
@@ -1791,6 +1791,8 @@
           "gelWater",
           "waterDensity",
           "cementDensity",
+          "structuralSteelDensity",
+          "aluminiumAlloyDensity",
           "criticalWcSealed",
           "criticalWcSpace",
           "densityRatio",
@@ -10337,5 +10339,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "61a436c200c4ba3e2ced8226966db649d80a5db062aaaaf3242913dbc4bf056a"
+  "digest": "a890b3b2c5ca1539477e03f3b1c12d98cc73ea31f8df67d0f91c5ed4fb655b5c"
 }

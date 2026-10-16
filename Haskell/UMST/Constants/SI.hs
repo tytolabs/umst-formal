@@ -136,6 +136,14 @@ waterDensity = 1000 % 1
 cementDensity :: Rational
 cementDensity = 3150 % 1
 
+-- | ρ_steel: mass density of structural steel [kg m⁻³], cited (ArcelorMittalOrangeBook).
+structuralSteelDensity :: Rational
+structuralSteelDensity = 7850 % 1
+
+-- | ρ_Al: mass density of aluminium alloys in structural use [kg m⁻³], cited (EN1999-1-1).
+aluminiumAlloyDensity :: Rational
+aluminiumAlloyDensity = 2700 % 1
+
 -- | (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1], derived: nonEvaporableWater + gelWater.
 criticalWcSealed :: Rational
 criticalWcSealed = nonEvaporableWater + gelWater

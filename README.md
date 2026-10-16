@@ -470,6 +470,8 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 | w_g | gel water at complete hydration (Powers' model) | cited | 1.9 × 10⁻¹ (exact) | kg per kg cement | Bentz2009 | a definition (cited) |
 | ρ_w | density of water assigned in Powers' model | cited | 1 × 10³ (exact) | kg m⁻³ | Bentz2009 | a definition (cited) |
 | ρ_c | density of cement assigned in Powers' model | cited | 3.15 × 10³ (exact) | kg m⁻³ | Bentz2009 | a definition (cited) |
+| ρ_steel | mass density of structural steel | cited | 7.85 × 10³ (exact) | kg m⁻³ | ArcelorMittalOrangeBook | a definition (cited) |
+| ρ_Al | mass density of aluminium alloys in structural use | cited | 2.7 × 10³ (exact) | kg m⁻³ | EN1999-1-1 | a definition (cited) |
 | (w/c)* | water-cement ratio at which sealed paste just hydrates completely | derived | 4.2 × 10⁻¹ (exact) | 1 | `nonEvaporableWater + gelWater` | `criticalWcSealed_value` |
 | (w/c)_s | water-cement ratio below which space limits complete hydration | derived | 3.56 × 10⁻¹ (exact) | 1 | `nonEvaporableWater + gelWater - chemicalShrinkage` | `criticalWcSpace_value` |
 | ρ_c/ρ_w | specific gravity of cement in Powers' model | derived | 3.15 (exact) | 1 | `cementDensity / waterDensity` | `densityRatio_value`, `densityRatio_derivation` |
@@ -488,8 +490,10 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 | Q_C4AF | heat released by complete hydration of tetracalcium aluminoferrite | cited | 4.18 × 10² (exact) | J/g | Taylor1997 | a definition (cited) |
 | Q_hyd | heat of complete hydration of a portland cement (model default) | policy | 4.5 × 10² (exact) | J/g | model choice: a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement; range [hydrationHeatC2S, hydrationHeatC3AtoAFt] | `hydrationHeatDefault_in_range` |
 
+- ArcelorMittalOrangeBook: ArcelorMittal, Orange Book (online catalogue of cold formed sections), Explanatory Notes, Dimensions of sections, orangebook.arcelormittal.com/node/178, read 17 October 2026: "The mass per metre has been calculated assuming that the density of steel is 7850 kg/m3"; the uncertainty is the relative half-range of the steel unit weight in CEN, EN 1991-1-1:2002 Eurocode 1 Part 1-1, Annex A, Table A.4 (77,0 to 78,5 kN/m3), (78,5 - 77,0)/(78,5 + 77,0) = 3/311, applied to 7850; it is the spread the standard states for a unit weight, with no cause given, and no measurement of this mass density; EN 1993-1-1:2005 clause 3.2.6 states E, G, nu and the thermal expansion coefficient and no density.
 - Bentz2009: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1: An analysis based on Powers' model, Concrete International, November 2009: Powers' model applied with the values assumed by Jensen and Hansen, in mass of water per mass of cement reacted (non-evaporable water 0.23, chemical shrinkage 0.064, gel water 0.19), and densities of water and cement assigned 1000 and 3150 kg/m^3.
 - CGPM1901: 3rd CGPM (1901), Declaration on the unit of mass and on the definition of weight; conventional value of g_n: the standard acceleration of free fall is 980.665 cm s⁻², exact by convention, reproduced in BIPM, The International System of Units (SI), 9th edition (2019), Appendix 1.
+- EN1999-1-1: CEN, EN 1999-1-1:2007 Eurocode 9 Design of aluminium structures, Part 1-1 General structural rules, clause 3.2.5(1) Design values of material constants for the aluminium alloys the standard covers: unit mass 2 700 kg/m3, read 17 October 2026 in two reproductions of the clause (DSTU-N B EN 1999-1-1:2010, dnaop.com; SCIA Eurocode Training EN 1999-1-1, 2015); the clause and EN 1991-1-1:2002 Table A.4 (aluminium 27,0 kN/m3) each state one value for all covered alloys with no spread, so the row carries no uncertainty.
 - NGA2014: NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1: the four defining parameters a, 1/f, GM and ω.
 - Powers1958: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined.
 - SI2019: BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition.
@@ -515,7 +519,7 @@ declaration, and `scripts/check_formal_parity.py` (CI) checks that every named d
 |---|---:|---|---|
 | Lean 4 | 200 (105 Lake roots) | 786 theorems + 62 lemmas in the roots; 1643 + 62 over all files | 0 `sorry` or `admit` holes; 0 `axiom` |
 | Coq | 61 | 552 theorems and lemmas | 0 `Admitted` |
-| Agda (`--safe`) | 65 | 759 top-level typed definitions | `--safe` admits no postulate |
+| Agda (`--safe`) | 65 | 761 top-level typed definitions | `--safe` admits no postulate |
 | Haskell | 82 | 309 QuickCheck properties | — |
 
 _Generated by `scripts/gen_readme_blocks.py` from the tracked sources; CI fails when this block is stale._

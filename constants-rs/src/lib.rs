@@ -129,6 +129,12 @@ pub const WATER_DENSITY: f64 = 1000.0;
 /// ρ_c: density of cement assigned in Powers' model [kg m⁻³]; cited (Bentz2009).
 pub const CEMENT_DENSITY: f64 = 3150.0;
 
+/// ρ_steel: mass density of structural steel [kg m⁻³]; cited (ArcelorMittalOrangeBook).
+pub const STRUCTURAL_STEEL_DENSITY: f64 = 7850.0;
+
+/// ρ_Al: mass density of aluminium alloys in structural use [kg m⁻³]; cited (EN1999-1-1).
+pub const ALUMINIUM_ALLOY_DENSITY: f64 = 2700.0;
+
 /// (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1]; derived: nonEvaporableWater + gelWater.
 pub const CRITICAL_WC_SEALED: f64 = 0.42;
 
@@ -495,6 +501,26 @@ pub const ROWS: &[Row] = &[
         kind: Kind::Cited,
         value: CEMENT_DENSITY,
         exact_num: "3150",
+        exact_den: "1",
+        uncertainty: None,
+    },
+    Row {
+        id: "structuralSteelDensity",
+        symbol: "ρ_steel",
+        unit: "kg m⁻³",
+        kind: Kind::Cited,
+        value: STRUCTURAL_STEEL_DENSITY,
+        exact_num: "7850",
+        exact_den: "1",
+        uncertainty: None,
+    },
+    Row {
+        id: "aluminiumAlloyDensity",
+        symbol: "ρ_Al",
+        unit: "kg m⁻³",
+        kind: Kind::Cited,
+        value: ALUMINIUM_ALLOY_DENSITY,
+        exact_num: "2700",
         exact_den: "1",
         uncertainty: None,
     },

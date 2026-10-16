@@ -157,6 +157,12 @@ Definition waterDensity : Q := (Qmake 1000 1).
 (* ρ_c: density of cement assigned in Powers' model [kg m⁻³], cited (Bentz2009) *)
 Definition cementDensity : Q := (Qmake 3150 1).
 
+(* ρ_steel: mass density of structural steel [kg m⁻³], cited (ArcelorMittalOrangeBook) *)
+Definition structuralSteelDensity : Q := (Qmake 7850 1).
+
+(* ρ_Al: mass density of aluminium alloys in structural use [kg m⁻³], cited (EN1999-1-1) *)
+Definition aluminiumAlloyDensity : Q := (Qmake 2700 1).
+
 (* (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1], derived: nonEvaporableWater + gelWater *)
 Definition criticalWcSealed : Q := nonEvaporableWater + gelWater.
 Lemma criticalWcSealed_value : criticalWcSealed == (Qmake 21 50).

@@ -201,6 +201,12 @@ def waterDensity : ℚ := (1000 : ℚ)
 /-- ρ_c: density of cement assigned in Powers' model [kg m⁻³]; cited: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1. -/
 def cementDensity : ℚ := (3150 : ℚ)
 
+/-- ρ_steel: mass density of structural steel [kg m⁻³]; cited: ArcelorMittal, Orange Book (online catalogue of cold formed sections), Explanatory Notes, Dimensions of sections, orangebook.arcelormittal.com/node/178, read 17 October 2026. -/
+def structuralSteelDensity : ℚ := (7850 : ℚ)
+
+/-- ρ_Al: mass density of aluminium alloys in structural use [kg m⁻³]; cited: CEN, EN 1999-1-1. -/
+def aluminiumAlloyDensity : ℚ := (2700 : ℚ)
+
 /-- (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1]; derived: nonEvaporableWater + gelWater. -/
 def criticalWcSealed : ℚ := nonEvaporableWater + gelWater
 

@@ -198,6 +198,14 @@ waterDensity = (mkℚᵘ (+ 1000) 0)
 cementDensity : ℚᵘ
 cementDensity = (mkℚᵘ (+ 3150) 0)
 
+-- ρ_steel: mass density of structural steel [kg m⁻³], cited (ArcelorMittalOrangeBook)
+structuralSteelDensity : ℚᵘ
+structuralSteelDensity = (mkℚᵘ (+ 7850) 0)
+
+-- ρ_Al: mass density of aluminium alloys in structural use [kg m⁻³], cited (EN1999-1-1)
+aluminiumAlloyDensity : ℚᵘ
+aluminiumAlloyDensity = (mkℚᵘ (+ 2700) 0)
+
 -- (w/c)*: water-cement ratio at which sealed paste just hydrates completely [1], derived: nonEvaporableWater + gelWater
 criticalWcSealed : ℚᵘ
 criticalWcSealed = (mkℚᵘ (+ 21) 49)
