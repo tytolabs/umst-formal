@@ -385,7 +385,7 @@
    "num": "7850",
    "den": "1",
    "fibre": "acting",
-   "uncertainty_absent": "a measured or stated spread of the mass density for the steel grades the paddle uses, from a mill certificate, an EN 10025 grade table or a handbook table"
+   "uncertainty_absent": "a measured or stated spread of the mass density for the steel grades a consumer uses, from a mill certificate, an EN 10025 grade table or a handbook table"
   },
   {
    "id": "aluminiumAlloyDensity",
@@ -397,7 +397,7 @@
    "num": "2700",
    "den": "1",
    "fibre": "acting",
-   "uncertainty_absent": "a stated spread of the mass density across the aluminium alloys the paddle uses, from a handbook or alloy data table"
+   "uncertainty_absent": "a stated spread of the mass density across the aluminium alloys a consumer uses, from a handbook or alloy data table"
   },
   {
    "id": "criticalWcSealed",

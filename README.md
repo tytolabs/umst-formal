@@ -501,8 +501,8 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 - Powers1958: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined.
 - SI2019: BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition.
 - Taylor1997: H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1: C3S -517 ± 13, C2S -262, C3A -1144 (to AFm) and -1672 (to AFt), C4AF -418 kJ/kg; the heat released is the negative of the enthalpy.
-- ρ_steel: uncertainty absent; follow-up: a measured or stated spread of the mass density for the steel grades the paddle uses, from a mill certificate, an EN 10025 grade table or a handbook table.
-- ρ_Al: uncertainty absent; follow-up: a stated spread of the mass density across the aluminium alloys the paddle uses, from a handbook or alloy data table.
+- ρ_steel: uncertainty absent; follow-up: a measured or stated spread of the mass density for the steel grades a consumer uses, from a mill certificate, an EN 10025 grade table or a handbook table.
+- ρ_Al: uncertainty absent; follow-up: a stated spread of the mass density across the aluminium alloys a consumer uses, from a handbook or alloy data table.
 
 Where these constants enter the second law:
 
