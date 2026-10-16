@@ -15,8 +15,8 @@
 
 module FractureAT2 where
 
-open import Data.Product using (_×_; _,_)
-open import Data.Sum using (inj₁; inj₂)
+open import Data.Product using (_×_; _,_; proj₁; proj₂)
+open import Data.Sum using (_⊎_; inj₁; inj₂)
 open import Data.Rational using (ℚ; 0ℚ; 1ℚ; ½; _+_; _*_; _-_; -_; _≤_; _<_; _⊔_; nonNegative; positive)
 open import Data.Rational.Properties
   using ( ≤-refl; ≤-reflexive; ≤-trans; <-≤-trans; ≤-<-trans; <⇒≤; ≤-total; +-mono-≤; +-monoʳ-≤; +-monoˡ-≤
@@ -151,24 +151,32 @@ private
 at2-damage-update : ∀ c ψ φ t → 0ℚ < c → 0ℚ ≤ ψ → 0ℚ ≤ φ → φ ≤ 1ℚ → TargetEq c ψ t →
   φ ≤ damageUpdate φ t × 0ℚ ≤ damageUpdate φ t × damageUpdate φ t ≤ 1ℚ ×
   (∀ x → φ ≤ x → total c ψ (damageUpdate φ t) ≤ total c ψ x)
-at2-damage-update c ψ φ t hc hψ h0 h1 eq with ≤-total φ t | target-mem hc hψ eq
-... | inj₁ φ≤t | (t0 , t1) =
-  subst (φ ≤_) (sym e) φ≤t , subst (0ℚ ≤_) (sym e) t0 , subst (_≤ 1ℚ) (sym e) t1 ,
-  λ x hx → subst (λ z → total c ψ z ≤ total c ψ x) (sym e)
-    (total-le c ψ t t x eq (<⇒≤ (a-pos hc hψ))
-      (≤-trans (≤-reflexive (solve 1 (λ t → (t :- t) :* (t :- t) := con 0ℚ) refl t)) (sq-nonneg (x - t))))
-  where e = p≤q⇒p⊔q≡q φ≤t
-... | inj₂ t≤φ | _ =
-  subst (φ ≤_) (sym e) ≤-refl , subst (0ℚ ≤_) (sym e) h0 , subst (_≤ 1ℚ) (sym e) h1 ,
-  λ x hx → subst (λ z → total c ψ z ≤ total c ψ x) (sym e)
-    (total-le c ψ t φ x eq (<⇒≤ (a-pos hc hψ)) (sq-mono (sub-nonneg t≤φ) (+-monoˡ-≤ (- t) hx)))
-  where e = p≥q⇒p⊔q≡p t≤φ
+at2-damage-update c ψ φ t hc hψ h0 h1 eq = update-cases (≤-total φ t)
+  where
+    -- The case split is an argument, not a with-abstraction: abstracting φ ⊔ t out of the goal made Agda normalise
+    -- the rational arithmetic of total on open terms (9 GB, 6 minutes); matching on the argument abstracts nothing.
+    update-cases : φ ≤ t ⊎ t ≤ φ →
+      φ ≤ damageUpdate φ t × 0ℚ ≤ damageUpdate φ t × damageUpdate φ t ≤ 1ℚ ×
+      (∀ x → φ ≤ x → total c ψ (damageUpdate φ t) ≤ total c ψ x)
+    update-cases (inj₁ φ≤t) =
+      subst (φ ≤_) (sym e) φ≤t , subst (0ℚ ≤_) (sym e) (proj₁ tm) , subst (_≤ 1ℚ) (sym e) (proj₂ tm) ,
+      λ x hx → subst (λ z → total c ψ z ≤ total c ψ x) (sym e)
+        (total-le c ψ t t x eq (<⇒≤ (a-pos hc hψ))
+          (≤-trans (≤-reflexive (solve 1 (λ t → (t :- t) :* (t :- t) := con 0ℚ) refl t)) (sq-nonneg (x - t))))
+      where
+        e = p≤q⇒p⊔q≡q φ≤t
+        tm = target-mem hc hψ eq
+    update-cases (inj₂ t≤φ) =
+      subst (φ ≤_) (sym e) ≤-refl , subst (0ℚ ≤_) (sym e) h0 , subst (_≤ 1ℚ) (sym e) h1 ,
+      λ x hx → subst (λ z → total c ψ z ≤ total c ψ x) (sym e)
+        (total-le c ψ t φ x eq (<⇒≤ (a-pos hc hψ)) (sq-mono (sub-nonneg t≤φ) (+-monoˡ-≤ (- t) hx)))
+      where e = p≥q⇒p⊔q≡p t≤φ
 
 -- The total energy does not increase on the whole domain [0, 1].
 at2-energy-nonincreasing : ∀ c ψ φ t → 0ℚ < c → 0ℚ ≤ ψ → 0ℚ ≤ φ → φ ≤ 1ℚ → TargetEq c ψ t →
   total c ψ (damageUpdate φ t) ≤ total c ψ φ
-at2-energy-nonincreasing c ψ φ t hc hψ h0 h1 eq with at2-damage-update c ψ φ t hc hψ h0 h1 eq
-... | _ , _ , _ , hmin = hmin φ ≤-refl
+at2-energy-nonincreasing c ψ φ t hc hψ h0 h1 eq =
+  proj₂ (proj₂ (proj₂ (at2-damage-update c ψ φ t hc hψ h0 h1 eq))) φ ≤-refl
 
 -- The two readings agree: the passive balance with the crack energy spent is the change of total energy.
 at2-balance-eq-total : ∀ c ψ φ φ' → (stored ψ φ' - stored ψ φ) + crackSpent c φ φ' ≡ total c ψ φ' - total c ψ φ
@@ -194,12 +202,12 @@ at2-griffith-⇔ c ψ φ φ' = mk⇔ (shift {stored ψ φ} {stored ψ φ'}) (uns
 -- The damage step is a SecondLaw transition through the passive route.
 at2-damage-step-secondLaw : ∀ c ψ φ t ρ → 0ℚ < c → 0ℚ ≤ ψ → 0ℚ ≤ φ → φ ≤ 1ℚ → TargetEq c ψ t →
   SecondLaw transition (thermodynamic (mkState ρ (stored ψ φ) 0ℚ 0ℚ) (mkState ρ (stored ψ (damageUpdate φ t)) 0ℚ 0ℚ))
-at2-damage-step-secondLaw c ψ φ t ρ hc hψ h0 h1 eq with at2-damage-update c ψ φ t hc hψ h0 h1 eq
-... | hirr , _ , _ , _ =
+at2-damage-step-secondLaw c ψ φ t ρ hc hψ h0 h1 eq =
   passive-inequality-secondLaw (ball , ball) (crackSpent-nonneg c φ (damageUpdate φ t) hc h0 hirr)
     (≤-trans (≤-reflexive (at2-balance-eq-total c ψ φ (damageUpdate φ t)))
       (sub-nonpos (at2-energy-nonincreasing c ψ φ t hc hψ h0 h1 eq)))
   where
+    hirr = proj₁ (at2-damage-update c ψ φ t hc hψ h0 h1 eq)
     ball : ρ - ρ ≤ δ-mass
     ball = ≤-trans (≤-reflexive (+-inverseʳ ρ)) (nonNegative⁻¹ δ-mass)
 
