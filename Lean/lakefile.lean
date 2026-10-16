@@ -111,6 +111,8 @@ lean_lib «UMST» where
     `PredictionFeedback,
     -- The classical data-processing inequality for a deterministic summary (FORMAL-CLASSICAL-DPI-DETERMINISTIC-SUMMARY).
     `ClassicalDPI,
+    -- The culture carrying-capacity bound (FORMAL-CULTURE-CARRYING-CAPACITY).
+    `Culture.CarryingCapacity,
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,

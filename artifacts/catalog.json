@@ -2616,6 +2616,29 @@
       "module": "Crypto.SideChannel"
     },
     {
+      "path": "Culture/CarryingCapacity.lean",
+      "content_sha256": "f2bc215bcd065a2482b3bba102834ddc138bc1a56e4d285ae6dcc3e1eca78d5f",
+      "declarations": {
+        "def": [
+          "liveTicks"
+        ],
+        "theorem": [
+          "liveTicks_le_length",
+          "liveTicks_le",
+          "deathCost_le",
+          "meanLive_le",
+          "meanLive_le_of_enclosure",
+          "log_two_mem_enclosure",
+          "deathCost_le_of_secondLaw"
+        ]
+      },
+      "import_lines": [
+        "CostOfInformation",
+        "Mathlib.Data.Complex.ExponentialBounds"
+      ],
+      "module": "Culture.CarryingCapacity"
+    },
+    {
       "path": "DEC.lean",
       "content_sha256": "c77e072353ad5c66990a8d65c75a6ce038c8f03c72809423817521fc42431a29",
       "declarations": {
@@ -7436,7 +7459,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "40fbba2f99051ae59fc14c54f36f965d344a263acf30e20c0babc346ce31a0ab",
+      "content_sha256": "1815d1209c0f382a9a49b23bd45eaff8261fff6f0056967eaa762bc81c4a1693",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -8279,6 +8302,16 @@
       "from": "Crypto.SideChannel",
       "import": "Mathlib.Data.Real.Basic",
       "to_approx": "Mathlib.Data.Real.Basic"
+    },
+    {
+      "from": "Culture.CarryingCapacity",
+      "import": "CostOfInformation",
+      "to_approx": "CostOfInformation"
+    },
+    {
+      "from": "Culture.CarryingCapacity",
+      "import": "Mathlib.Data.Complex.ExponentialBounds",
+      "to_approx": "Mathlib.Data.Complex.ExponentialBounds"
     },
     {
       "from": "DEC",
@@ -10126,5 +10159,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "d0e5643323ae2bba3b718227c42a230028714aed3b9c675c9524c7ab6fc404e3"
+  "digest": "03ec7875a0397aca72ab9c90b677e299206d48a35a0d44784d63bf9bc1327c00"
 }

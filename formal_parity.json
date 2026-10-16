@@ -4146,6 +4146,86 @@
     "name": "prop_at2_loading_refused",
     "file": "Haskell/test/FractureAT2Props.hs"
    }
+  },
+  {
+   "id": "culture.liveTicks_le",
+   "statement": "an age cap (every life lasts at most tau ticks) bounds the live count summed over a window by tau (D_T + N_T), the lives that died in it and those alive at its end (Agda counts lives as rationals)",
+   "lean": {
+    "name": "UMST.Culture.CarryingCapacity.liveTicks_le",
+    "file": "Lean/Culture/CarryingCapacity.lean"
+   },
+   "coq": {
+    "name": "liveTicks_le",
+    "file": "Coq/Culture/CarryingCapacity.v"
+   },
+   "agda": {
+    "name": "liveTicks-le",
+    "file": "Agda/Culture/CarryingCapacity.agda"
+   },
+   "haskell": {
+    "name": "prop_liveTicks_le",
+    "file": "Haskell/test/CarryingCapacityProps.hs"
+   }
+  },
+  {
+   "id": "culture.deathCost_le",
+   "statement": "erasure of the D dead cells' bits costing at least D ln 2, recovery of at most the fraction i, and the net paid by T W give D ln 2 (1 - i) <= T W, ln 2 a parameter l; Lean derives the premises from the erase and measureFeedback cases of SecondLaw (deathCost_le_of_secondLaw)",
+   "lean": {
+    "name": "UMST.Culture.CarryingCapacity.deathCost_le",
+    "file": "Lean/Culture/CarryingCapacity.lean"
+   },
+   "coq": {
+    "name": "deathCost_le",
+    "file": "Coq/Culture/CarryingCapacity.v"
+   },
+   "agda": {
+    "name": "deathCost-le",
+    "file": "Agda/Culture/CarryingCapacity.agda"
+   },
+   "haskell": {
+    "name": "prop_deathCost_le",
+    "file": "Haskell/test/CarryingCapacityProps.hs"
+   }
+  },
+  {
+   "id": "culture.meanLive_le",
+   "statement": "the carrying capacity: the mean live count obeys N_bar <= tau (W / (l (1 - i)) + N_T / T) (Coq and Agda with cleared denominators)",
+   "lean": {
+    "name": "UMST.Culture.CarryingCapacity.meanLive_le",
+    "file": "Lean/Culture/CarryingCapacity.lean"
+   },
+   "coq": {
+    "name": "meanLive_le",
+    "file": "Coq/Culture/CarryingCapacity.v"
+   },
+   "agda": {
+    "name": "meanLive-le",
+    "file": "Agda/Culture/CarryingCapacity.agda"
+   },
+   "haskell": {
+    "name": "prop_meanLive_le",
+    "file": "Haskell/test/CarryingCapacityProps.hs"
+   }
+  },
+  {
+   "id": "culture.meanLive_le_of_enclosure",
+   "statement": "with a rational lower enclosure l_lo <= l of ln 2 the carrying-capacity bound holds with l_lo; Lean proves ln 2 in [0.6931471803, 0.6931471808] (log_two_mem_enclosure)",
+   "lean": {
+    "name": "UMST.Culture.CarryingCapacity.meanLive_le_of_enclosure",
+    "file": "Lean/Culture/CarryingCapacity.lean"
+   },
+   "coq": {
+    "name": "meanLive_le_of_enclosure",
+    "file": "Coq/Culture/CarryingCapacity.v"
+   },
+   "agda": {
+    "name": "meanLive-le-of-enclosure",
+    "file": "Agda/Culture/CarryingCapacity.agda"
+   },
+   "haskell": {
+    "name": "prop_meanLive_le_of_enclosure",
+    "file": "Haskell/test/CarryingCapacityProps.hs"
+   }
   }
  ]
 }

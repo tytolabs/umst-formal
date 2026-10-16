@@ -52,6 +52,9 @@ THEOREMS=(
   # AT2 fracture as SecondLaw instances (FRACTURE-AT2-FORMAL).
   "Concrete.FractureAT2.at2_damage_step_secondLaw Concrete.FractureAT2"
   "Concrete.FractureAT2.at2_loading_refused Concrete.FractureAT2"
+  # The culture carrying-capacity bound (FORMAL-CULTURE-CARRYING-CAPACITY).
+  "Culture.CarryingCapacity.meanLive_le_of_enclosure Culture.CarryingCapacity"
+  "Culture.CarryingCapacity.deathCost_le_of_secondLaw Culture.CarryingCapacity"
 )
 
 for entry in "${THEOREMS[@]}"; do

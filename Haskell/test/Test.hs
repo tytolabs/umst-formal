@@ -61,6 +61,7 @@ import LearningLoopProps (learningLoopProps)
 import PredictionFeedbackProps (predictionFeedbackProps)
 import ClassicalDPIProps (classicalDPIProps)
 import FractureAT2Props (fractureAT2Props)
+import CarryingCapacityProps (carryingCapacityProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1276,6 +1277,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) classicalDPIProps
   putStrLn "-- AT2 fracture as SecondLaw instances (FractureAT2)"
   mapM_ (\(name, p) -> check r (counterexample name p)) fractureAT2Props
+  putStrLn "-- The culture carrying-capacity bound (Culture.CarryingCapacity)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) carryingCapacityProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

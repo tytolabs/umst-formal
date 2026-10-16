@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 100,
+  "lake_roots_count": 101,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -82,6 +82,7 @@
     "LearningLoopLaws",
     "PredictionFeedback",
     "ClassicalDPI",
+    "Culture.CarryingCapacity",
     "RhoEstimator",
     "MedianConvergence",
     "OrderStatisticsBand",
@@ -104,14 +105,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 732,
+    "theorem": 739,
     "lemma": 62,
-    "total": 794
+    "total": 801
   },
   "all_lean_glob": {
-    "theorem": 1589,
+    "theorem": 1596,
     "lemma": 62,
-    "total": 1651
+    "total": 1658
   },
   "per_root": {
     "Core.Scalar": {
@@ -432,6 +433,10 @@
     },
     "ClassicalDPI": {
       "theorem": 11,
+      "lemma": 0
+    },
+    "Culture.CarryingCapacity": {
+      "theorem": 7,
       "lemma": 0
     },
     "RhoEstimator": {
