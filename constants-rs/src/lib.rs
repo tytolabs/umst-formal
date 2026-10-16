@@ -186,6 +186,12 @@ pub const HYDRATION_HEAT_C4AF: f64 = 418.0;
 /// Q_hyd: heat of complete hydration of a portland cement (model default) [J/g]; policy: a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement.
 pub const HYDRATION_HEAT_DEFAULT: f64 = 450.0;
 
+/// ln2_lo: lower end of the rational enclosure of ln 2 [1]; cited (MathlibLogTwoBounds).
+pub const LOG_TWO_ENCLOSURE_LOWER: f64 = 0.6931471803;
+
+/// ln2_hi: upper end of the rational enclosure of ln 2 [1]; cited (MathlibLogTwoBounds).
+pub const LOG_TWO_ENCLOSURE_UPPER: f64 = 0.6931471808;
+
 /// The policy HYDRATION_HEAT_DEFAULT lies in its range [HYDRATION_HEAT_C2S, HYDRATION_HEAT_C3ATO_AFT], checked at compile time.
 const _: () = assert!(
     HYDRATION_HEAT_C2S <= HYDRATION_HEAT_DEFAULT
@@ -692,6 +698,26 @@ pub const ROWS: &[Row] = &[
         value: HYDRATION_HEAT_DEFAULT,
         exact_num: "450",
         exact_den: "1",
+        uncertainty: None,
+    },
+    Row {
+        id: "logTwoEnclosureLower",
+        symbol: "ln2_lo",
+        unit: "1",
+        kind: Kind::Cited,
+        value: LOG_TWO_ENCLOSURE_LOWER,
+        exact_num: "6931471803",
+        exact_den: "10000000000",
+        uncertainty: None,
+    },
+    Row {
+        id: "logTwoEnclosureUpper",
+        symbol: "ln2_hi",
+        unit: "1",
+        kind: Kind::Cited,
+        value: LOG_TWO_ENCLOSURE_UPPER,
+        exact_num: "108304247",
+        exact_den: "156250000",
         uncertainty: None,
     },
 ];

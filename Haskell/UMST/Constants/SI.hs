@@ -214,6 +214,14 @@ hydrationHeatC4AF = 418 % 1
 hydrationHeatDefault :: Rational
 hydrationHeatDefault = 450 % 1
 
+-- | ln2_lo: lower end of the rational enclosure of ln 2 [1], cited (MathlibLogTwoBounds).
+logTwoEnclosureLower :: Rational
+logTwoEnclosureLower = 6931471803 % 10000000000
+
+-- | ln2_hi: upper end of the rational enclosure of ln 2 [1], cited (MathlibLogTwoBounds).
+logTwoEnclosureUpper :: Rational
+logTwoEnclosureUpper = 108304247 % 156250000
+
 -- | Each derived constant against its exact value, and each cross-check against its published value.
 derivations :: [(String, Bool)]
 derivations =

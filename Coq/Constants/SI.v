@@ -236,3 +236,9 @@ Definition hydrationHeatC4AF : Q := (Qmake 418 1).
 Definition hydrationHeatDefault : Q := (Qmake 450 1).
 Lemma hydrationHeatDefault_in_range : hydrationHeatC2S <= hydrationHeatDefault /\ hydrationHeatDefault <= hydrationHeatC3AtoAFt.
 Proof. split; vm_compute; discriminate. Qed.
+
+(* ln2_lo: lower end of the rational enclosure of ln 2 [1], cited (MathlibLogTwoBounds) *)
+Definition logTwoEnclosureLower : Q := (Qmake 6931471803 10000000000).
+
+(* ln2_hi: upper end of the rational enclosure of ln 2 [1], cited (MathlibLogTwoBounds) *)
+Definition logTwoEnclosureUpper : Q := (Qmake 108304247 156250000).

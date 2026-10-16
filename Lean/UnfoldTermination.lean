@@ -16,6 +16,7 @@
 
 import Mathlib.Data.Complex.ExponentialBounds
 import UnfoldKleisli
+import Constants.SI
 
 open Real UMST.LandauerLaw UMST.ProcessFamily UMST.InfoTheory
 
@@ -53,13 +54,25 @@ theorem steps_le_floor [FloorSemiring α] {ε B : α} (hε : 0 < ε) (spends : L
 
 end Field
 
-/-- The lower end of the rational enclosure of `ln 2` (Mathlib `Real.log_two_gt_d9`). -/
-def ln2Lower : ℚ := 6931471803 / 10000000000
+/-- The lower end of the rational enclosure of `ln 2`: the constants-table row `logTwoEnclosureLower`, the value
+    `umst-constants` pins as `LOG_TWO_ENCLOSURE_LOWER`. -/
+def ln2Lower : ℚ := UMST.Constants.SI.logTwoEnclosureLower
 
+/-- The lower end lies below `ln 2` (Mathlib `Real.log_two_gt_d9`). -/
 theorem ln2Lower_lt_log_two : ((ln2Lower : ℚ) : ℝ) < log 2 := by
   have h := Real.log_two_gt_d9
-  have e : ((ln2Lower : ℚ) : ℝ) = 0.6931471803 := by norm_num [ln2Lower]
+  have e : ((ln2Lower : ℚ) : ℝ) = 0.6931471803 := by norm_num [ln2Lower, UMST.Constants.SI.logTwoEnclosureLower]
   rw [e]; exact h
+
+/-- `ln 2` lies strictly inside the constants-table enclosure `(logTwoEnclosureLower, logTwoEnclosureUpper)`
+    (Mathlib `Real.log_two_gt_d9`, `Real.log_two_lt_d9`). -/
+theorem log_two_mem_enclosure :
+    ((UMST.Constants.SI.logTwoEnclosureLower : ℚ) : ℝ) < log 2 ∧
+      log 2 < ((UMST.Constants.SI.logTwoEnclosureUpper : ℚ) : ℝ) := by
+  refine ⟨ln2Lower_lt_log_two, ?_⟩
+  have e : ((UMST.Constants.SI.logTwoEnclosureUpper : ℚ) : ℝ) = 0.6931471808 := by
+    norm_num [UMST.Constants.SI.logTwoEnclosureUpper]
+  rw [e]; exact Real.log_two_lt_d9
 
 /-- **The Landauer floor enclosed from below**: an erasure of `bits ≥ b` bits obeying the erase case of `SecondLaw`
     spends at least `b k_B T ln2Lower`. -/
@@ -70,7 +83,7 @@ theorem erase_spend_ge_enclosure (bath : HeatBath) (W : ℝ) (b bits : ℕ) (hb 
   have hc := UMST.CostOfInformation.bitErasure_cost bath W bits h
   have hkT : 0 < kB * bath.bathTemp.val := mul_pos kB_pos bath.bathTemp.property
   have hl := ln2Lower_lt_log_two
-  have hlo : (0 : ℝ) ≤ (ln2Lower : ℝ) := by norm_num [ln2Lower]
+  have hlo : (0 : ℝ) ≤ (ln2Lower : ℝ) := by norm_num [ln2Lower, UMST.Constants.SI.logTwoEnclosureLower]
   have hbb : (b : ℝ) ≤ bits := by exact_mod_cast hb
   have h1 : kB * bath.bathTemp.val * (ln2Lower : ℝ) ≤ kB * bath.bathTemp.val * log 2 :=
     mul_le_mul_of_nonneg_left hl.le hkT.le
@@ -88,7 +101,7 @@ theorem unfold_terminates_of_secondLaw (bath : HeatBath) (b : ℕ) (hb : 0 < b) 
     (hB : (steps.map fun p => kB * p.1).sum ≤ B) :
     steps.length ≤ ⌊B / ((b : ℝ) * (kB * bath.bathTemp.val * (ln2Lower : ℝ)))⌋₊ := by
   have hε : 0 < (b : ℝ) * (kB * bath.bathTemp.val * (ln2Lower : ℝ)) := by
-    have : (0 : ℝ) < (ln2Lower : ℝ) := by norm_num [ln2Lower]
+    have : (0 : ℝ) < (ln2Lower : ℝ) := by norm_num [ln2Lower, UMST.Constants.SI.logTwoEnclosureLower]
     exact mul_pos (by exact_mod_cast hb) (mul_pos (mul_pos kB_pos bath.bathTemp.property) this)
   have h := steps_le_floor hε (steps.map fun p => kB * p.1) (by
     intro w hw

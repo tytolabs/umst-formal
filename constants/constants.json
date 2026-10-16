@@ -10,7 +10,8 @@
   "CGPM1901": "3rd CGPM (1901), Declaration on the unit of mass and on the definition of weight; conventional value of g_n: the standard acceleration of free fall is 980.665 cm s⁻², exact by convention, reproduced in BIPM, The International System of Units (SI), 9th edition (2019), Appendix 1",
   "NGA2014": "NGA.STND.0036_1.0.0_WGS84, Department of Defense World Geodetic System 1984, version 1.0.0 (8 July 2014), Table 3.1: the four defining parameters a, 1/f, GM and ω",
   "ArcelorMittalOrangeBook": "ArcelorMittal, Orange Book (online catalogue of cold formed sections), Explanatory Notes, Dimensions of sections, orangebook.arcelormittal.com/node/178, read 17 October 2026: \"The mass per metre has been calculated assuming that the density of steel is 7850 kg/m3\"; the uncertainty is the relative half-range of the steel unit weight in CEN, EN 1991-1-1:2002 Eurocode 1 Part 1-1, Annex A, Table A.4 (77,0 to 78,5 kN/m3), (78,5 - 77,0)/(78,5 + 77,0) = 3/311, applied to 7850; it is the spread the standard states for a unit weight, with no cause given, and no measurement of this mass density; EN 1993-1-1:2005 clause 3.2.6 states E, G, nu and the thermal expansion coefficient and no density",
-  "EN1999-1-1": "CEN, EN 1999-1-1:2007 Eurocode 9 Design of aluminium structures, Part 1-1 General structural rules, clause 3.2.5(1) Design values of material constants for the aluminium alloys the standard covers: unit mass 2 700 kg/m3, read 17 October 2026 in two reproductions of the clause (DSTU-N B EN 1999-1-1:2010, dnaop.com; SCIA Eurocode Training EN 1999-1-1, 2015); the clause and EN 1991-1-1:2002 Table A.4 (aluminium 27,0 kN/m3) each state one value for all covered alloys with no spread, so the row carries no uncertainty"
+  "EN1999-1-1": "CEN, EN 1999-1-1:2007 Eurocode 9 Design of aluminium structures, Part 1-1 General structural rules, clause 3.2.5(1) Design values of material constants for the aluminium alloys the standard covers: unit mass 2 700 kg/m3, read 17 October 2026 in two reproductions of the clause (DSTU-N B EN 1999-1-1:2010, dnaop.com; SCIA Eurocode Training EN 1999-1-1, 2015); the clause and EN 1991-1-1:2002 Table A.4 (aluminium 27,0 kN/m3) each state one value for all covered alloys with no spread, so the row carries no uncertainty",
+  "MathlibLogTwoBounds": "Mathlib, Mathlib/Data/Complex/ExponentialBounds.lean at the revision umst-formal pins in Lean/lake-manifest.json: Real.log_two_gt_d9 states 0.6931471803 < log 2 and Real.log_two_lt_d9 states log 2 < 0.6931471808; umst-formal re-proves the lower end against its rational value in UnfoldTermination.ln2Lower_lt_log_two"
  },
  "constants": [
   {
@@ -572,6 +573,28 @@
     "low": "hydrationHeatC2S",
     "high": "hydrationHeatC3AtoAFt"
    }
+  },
+  {
+   "id": "logTwoEnclosureLower",
+   "symbol": "ln2_lo",
+   "name": "lower end of the rational enclosure of ln 2",
+   "unit": "1",
+   "status": "cited",
+   "authority": "MathlibLogTwoBounds",
+   "num": "6931471803",
+   "den": "10^10",
+   "fibre": "both"
+  },
+  {
+   "id": "logTwoEnclosureUpper",
+   "symbol": "ln2_hi",
+   "name": "upper end of the rational enclosure of ln 2",
+   "unit": "1",
+   "status": "cited",
+   "authority": "MathlibLogTwoBounds",
+   "num": "6931471808",
+   "den": "10^10",
+   "fibre": "both"
   }
  ],
  "bounds": [

@@ -305,3 +305,11 @@ hydrationHeatDefault = (mkℚᵘ (+ 450) 0)
 
 hydrationHeatDefault-in-range : (hydrationHeatC2S ≤ hydrationHeatDefault) × (hydrationHeatDefault ≤ hydrationHeatC3AtoAFt)
 hydrationHeatDefault-in-range = *≤* (toWitness {a? = _ ℤ.≤? _} _) , *≤* (toWitness {a? = _ ℤ.≤? _} _)
+
+-- ln2_lo: lower end of the rational enclosure of ln 2 [1], cited (MathlibLogTwoBounds)
+logTwoEnclosureLower : ℚᵘ
+logTwoEnclosureLower = (mkℚᵘ (+ 6931471803) 9999999999)
+
+-- ln2_hi: upper end of the rational enclosure of ln 2 [1], cited (MathlibLogTwoBounds)
+logTwoEnclosureUpper : ℚᵘ
+logTwoEnclosureUpper = (mkℚᵘ (+ 108304247) 156249999)

@@ -1755,7 +1755,7 @@
     },
     {
       "path": "Constants/SI.lean",
-      "content_sha256": "fa3b141853cb2cfc3324d4e9d60a76f156a644057ebe752203815a2a59655948",
+      "content_sha256": "66ac26e2a811f9e1547caa4cb0188d88a925de20bff26d5c1afb7466d4a18df3",
       "declarations": {
         "def": [
           "caesiumHyperfineFrequency",
@@ -1810,7 +1810,9 @@
           "hydrationHeatC3AtoAFm",
           "hydrationHeatC3AtoAFt",
           "hydrationHeatC4AF",
-          "hydrationHeatDefault"
+          "hydrationHeatDefault",
+          "logTwoEnclosureLower",
+          "logTwoEnclosureUpper"
         ],
         "theorem": [
           "gasConstant_value",
@@ -4437,13 +4439,14 @@
     },
     {
       "path": "UnfoldTermination.lean",
-      "content_sha256": "fb3831fc267147e67b0de5dd07589481f6b65eec136d46a5bd1e8e30af94843f",
+      "content_sha256": "046cd73d42f7d59b52d685982b2833e1276bdcee499b16f48ac6fda9216f2f29",
       "declarations": {
         "theorem": [
           "steps_mul_le",
           "steps_le_div",
           "steps_le_floor",
           "ln2Lower_lt_log_two",
+          "log_two_mem_enclosure",
           "erase_spend_ge_enclosure",
           "unfold_terminates_of_secondLaw"
         ],
@@ -4452,6 +4455,7 @@
         ]
       },
       "import_lines": [
+        "Constants.SI",
         "Mathlib.Data.Complex.ExponentialBounds",
         "UnfoldKleisli"
       ],
@@ -9220,6 +9224,11 @@
     },
     {
       "from": "UnfoldTermination",
+      "import": "Constants.SI",
+      "to_approx": "Constants.SI"
+    },
+    {
+      "from": "UnfoldTermination",
       "import": "Mathlib.Data.Complex.ExponentialBounds",
       "to_approx": "Mathlib.Data.Complex.ExponentialBounds"
     },
@@ -10339,5 +10348,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "a890b3b2c5ca1539477e03f3b1c12d98cc73ea31f8df67d0f91c5ed4fb655b5c"
+  "digest": "98f416e91b79b2442ae7da1419afd29f2bcf67898da79ca4fcffcf7552403396"
 }

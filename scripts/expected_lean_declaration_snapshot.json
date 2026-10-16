@@ -109,14 +109,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 786,
+    "theorem": 787,
     "lemma": 62,
-    "total": 848
+    "total": 849
   },
   "all_lean_glob": {
-    "theorem": 1643,
+    "theorem": 1644,
     "lemma": 62,
-    "total": 1705
+    "total": 1706
   },
   "per_root": {
     "Core.Scalar": {
@@ -456,7 +456,7 @@
       "lemma": 0
     },
     "UnfoldTermination": {
-      "theorem": 6,
+      "theorem": 7,
       "lemma": 0
     },
     "RhoEstimator": {

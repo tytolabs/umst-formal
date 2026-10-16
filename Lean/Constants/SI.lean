@@ -294,4 +294,10 @@ def hydrationHeatDefault : ℚ := (450 : ℚ)
 theorem hydrationHeatDefault_in_range : hydrationHeatC2S ≤ hydrationHeatDefault ∧ hydrationHeatDefault ≤ hydrationHeatC3AtoAFt := by
   norm_num [hydrationHeatDefault, hydrationHeatC2S, hydrationHeatC3AtoAFt]
 
+/-- ln2_lo: lower end of the rational enclosure of ln 2 [1]; cited: Mathlib, Mathlib/Data/Complex/ExponentialBounds.lean at the revision umst-formal pins in Lean/lake-manifest.json. -/
+def logTwoEnclosureLower : ℚ := (6931471803 : ℚ) / 10000000000
+
+/-- ln2_hi: upper end of the rational enclosure of ln 2 [1]; cited: Mathlib, Mathlib/Data/Complex/ExponentialBounds.lean at the revision umst-formal pins in Lean/lake-manifest.json. -/
+def logTwoEnclosureUpper : ℚ := (108304247 : ℚ) / 156250000
+
 end UMST.Constants.SI
