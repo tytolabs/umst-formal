@@ -66,6 +66,8 @@ THEOREMS=(
   "AdaptiveSeamLensLaws.lens_roundTrip_secondLaw AdaptiveSeamLensLaws"
   "AdaptiveSeamLensLaws.seam_refused AdaptiveSeamLensLaws"
   "AdaptiveSeamLensLaws.generic_step_secondLaw AdaptiveSeamLensLaws"
+  # Law L-E (FORMAL-UNFOLD-TERMINATION-LANDAUER).
+  "UnfoldTermination.unfold_terminates_of_secondLaw UnfoldTermination"
 )
 
 for entry in "${THEOREMS[@]}"; do

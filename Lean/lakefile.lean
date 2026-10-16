@@ -119,6 +119,8 @@ lean_lib «UMST» where
     `UnfoldProxStepLaws,
     -- Laws L-A (transfer lens), L-D (power-preserving seam), L-I (GENERIC degeneracy) (FORMAL-SEAM-AND-LENS-LAWS).
     `AdaptiveSeamLensLaws,
+    -- Law L-E: the plain unfold stops within floor(B / (k_B T ln2_lo b)) steps (FORMAL-UNFOLD-TERMINATION-LANDAUER).
+    `UnfoldTermination,
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,

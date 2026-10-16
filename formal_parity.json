@@ -4446,6 +4446,46 @@
     "name": "prop_generic_entropy_rate_nonneg",
     "file": "Haskell/test/AdaptiveSeamLensLawsProps.hs"
    }
+  },
+  {
+   "id": "termination.steps_mul_le",
+   "statement": "L-E: spends each at least eps summing to at most the budget B number n with n eps <= B, so at most floor(B / eps) steps (steps_le_floor in Lean and Coq; Agda in the cleared form)",
+   "lean": {
+    "name": "UMST.UnfoldTermination.steps_mul_le",
+    "file": "Lean/UnfoldTermination.lean"
+   },
+   "coq": {
+    "name": "steps_mul_le",
+    "file": "Coq/UnfoldTermination.v"
+   },
+   "agda": {
+    "name": "steps-mul-le",
+    "file": "Agda/UnfoldTermination.agda"
+   },
+   "haskell": {
+    "name": "prop_steps_mul_le",
+    "file": "Haskell/test/UnfoldTerminationProps.hs"
+   }
+  },
+  {
+   "id": "termination.erase_spend_ge_enclosure",
+   "statement": "the Landauer floor enclosed from below: an erasure of bits >= b bits costing at least bits k_B T ln 2 spends at least b k_B T ln2_lo, ln2_lo = 6931471803/10^10 < ln 2 (Lean from the erase case of SecondLaw via bitErasure_cost and Real.log_two_gt_d9; unfold_terminates_of_secondLaw gives the step bound floor(B / (b k_B T ln2_lo)); Coq and Agda with ln 2 a parameter l >= ln2_lo, Agda counts bits as rationals)",
+   "lean": {
+    "name": "UMST.UnfoldTermination.erase_spend_ge_enclosure",
+    "file": "Lean/UnfoldTermination.lean"
+   },
+   "coq": {
+    "name": "erase_spend_ge_enclosure",
+    "file": "Coq/UnfoldTermination.v"
+   },
+   "agda": {
+    "name": "erase-spend-ge-enclosure",
+    "file": "Agda/UnfoldTermination.agda"
+   },
+   "haskell": {
+    "name": "prop_erase_spend_ge_enclosure",
+    "file": "Haskell/test/UnfoldTerminationProps.hs"
+   }
   }
  ]
 }

@@ -4434,6 +4434,28 @@
       "module": "UnfoldProxStepLaws"
     },
     {
+      "path": "UnfoldTermination.lean",
+      "content_sha256": "fb3831fc267147e67b0de5dd07589481f6b65eec136d46a5bd1e8e30af94843f",
+      "declarations": {
+        "theorem": [
+          "steps_mul_le",
+          "steps_le_div",
+          "steps_le_floor",
+          "ln2Lower_lt_log_two",
+          "erase_spend_ge_enclosure",
+          "unfold_terminates_of_secondLaw"
+        ],
+        "def": [
+          "ln2Lower"
+        ]
+      },
+      "import_lines": [
+        "Mathlib.Data.Complex.ExponentialBounds",
+        "UnfoldKleisli"
+      ],
+      "module": "UnfoldTermination"
+    },
+    {
       "path": "Urge/AdmitKleisli.lean",
       "content_sha256": "5f08974d9256cf8e08d975dfb4e7fb9ab4c4962bd6c032acd45dbc12afc54b38",
       "declarations": {
@@ -7570,7 +7592,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "97da97c39fee3976b0189cfd26ea52971c7a797aef58afcbc170e670fad10a8b",
+      "content_sha256": "cee396a7876ee9302dba443e4223fcce5239630f30953aeed72efc5814c95b63",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -9195,6 +9217,16 @@
       "to_approx": "OneInequalitySecondLaw"
     },
     {
+      "from": "UnfoldTermination",
+      "import": "Mathlib.Data.Complex.ExponentialBounds",
+      "to_approx": "Mathlib.Data.Complex.ExponentialBounds"
+    },
+    {
+      "from": "UnfoldTermination",
+      "import": "UnfoldKleisli",
+      "to_approx": "UnfoldKleisli"
+    },
+    {
       "from": "Urge.AdmitKleisli",
       "import": "Compat.Constitutional",
       "to_approx": "Compat.Constitutional"
@@ -10305,5 +10337,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "2eba92965f5fe2e3c2a01126e96a70a5b12d2844fd9eeca97de0a415330e5bd5"
+  "digest": "61a436c200c4ba3e2ced8226966db649d80a5db062aaaaf3242913dbc4bf056a"
 }

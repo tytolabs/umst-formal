@@ -65,6 +65,7 @@ import CarryingCapacityProps (carryingCapacityProps)
 import UnfoldKleisliProps (unfoldKleisliProps)
 import UnfoldProxStepLawsProps (unfoldProxStepLawsProps)
 import AdaptiveSeamLensLawsProps (adaptiveSeamLensLawsProps)
+import UnfoldTerminationProps (unfoldTerminationProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1288,6 +1289,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) unfoldProxStepLawsProps
   putStrLn "-- Laws L-A, L-D, L-I: transfer lens, seam, GENERIC degeneracy (AdaptiveSeamLensLaws)"
   mapM_ (\(name, p) -> check r (counterexample name p)) adaptiveSeamLensLawsProps
+  putStrLn "-- Law L-E: the plain unfold terminates within the enclosed Landauer bound (UnfoldTermination)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) unfoldTerminationProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

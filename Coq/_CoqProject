@@ -49,6 +49,7 @@ Culture/CarryingCapacity.v
 UnfoldKleisli.v
 UnfoldProxStepLaws.v
 AdaptiveSeamLensLaws.v
+UnfoldTermination.v
 MeasurementCost.v
 PrimeSpectralGuidance.v
 Extraction.v
