@@ -62,6 +62,7 @@ import PredictionFeedbackProps (predictionFeedbackProps)
 import ClassicalDPIProps (classicalDPIProps)
 import FractureAT2Props (fractureAT2Props)
 import CarryingCapacityProps (carryingCapacityProps)
+import UnfoldKleisliProps (unfoldKleisliProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1279,6 +1280,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) fractureAT2Props
   putStrLn "-- The culture carrying-capacity bound (Culture.CarryingCapacity)"
   mapM_ (\(name, p) -> check r (counterexample name p)) carryingCapacityProps
+  putStrLn "-- The laws nested-solve composition relies on (UnfoldKleisli)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) unfoldKleisliProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

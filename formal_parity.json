@@ -4226,6 +4226,66 @@
     "name": "prop_meanLive_le_of_enclosure",
     "file": "Haskell/test/CarryingCapacityProps.hs"
    }
+  },
+  {
+   "id": "unfold.bind_assoc",
+   "statement": "L1 Kleisli: bind over nested solves (a refusal, or a value with its spend) is associative with unit as left and right identity; an inner refusal is the outer refusal and an outer spend is the sum of its inner spends (unit_bind, bind_unit, bind_inner_refusal, bind_spend)",
+   "lean": {
+    "name": "UMST.UnfoldKleisli.bind_assoc",
+    "file": "Lean/UnfoldKleisli.lean"
+   },
+   "coq": {
+    "name": "bind_assoc",
+    "file": "Coq/UnfoldKleisli.v"
+   },
+   "agda": {
+    "name": "bind-assoc",
+    "file": "Agda/UnfoldKleisli.agda"
+   },
+   "haskell": {
+    "name": "prop_bind_assoc",
+    "file": "Haskell/test/UnfoldKleisliProps.hs"
+   }
+  },
+  {
+   "id": "unfold.bind_honest",
+   "statement": "L2 grading: spends (measured energy, Landauer floor) form a commutative monoid and honest spends (floor <= measured) bind to an honest spend, so the sum of measured energies is at least the sum of floors under any nesting (honest_sum); Lean states honesty as the one inequality and spend addition as Step.chain (honest_add_of_chain) and derives honest erasure spends from the erase case of SecondLaw (bind_honest_of_secondLaw)",
+   "lean": {
+    "name": "UMST.UnfoldKleisli.bind_honest",
+    "file": "Lean/UnfoldKleisli.lean"
+   },
+   "coq": {
+    "name": "bind_honest",
+    "file": "Coq/UnfoldKleisli.v"
+   },
+   "agda": {
+    "name": "bind-honest",
+    "file": "Agda/UnfoldKleisli.agda"
+   },
+   "haskell": {
+    "name": "prop_bind_honest",
+    "file": "Haskell/test/UnfoldKleisliProps.hs"
+   }
+  },
+  {
+   "id": "unfold.error_chain",
+   "statement": "error propagation over rational intervals: interval addition encloses sums (mem_add), errors within their tolerances sum within the summed tolerance (mem_sum_sym), and an inner error within tau_in through a map L-Lipschitz on that enclosure with an outer error within tau_out stays within tau_out + L tau_in",
+   "lean": {
+    "name": "UMST.UnfoldKleisli.error_chain",
+    "file": "Lean/UnfoldKleisli.lean"
+   },
+   "coq": {
+    "name": "error_chain",
+    "file": "Coq/UnfoldKleisli.v"
+   },
+   "agda": {
+    "name": "error-chain",
+    "file": "Agda/UnfoldKleisli.agda"
+   },
+   "haskell": {
+    "name": "prop_error_chain",
+    "file": "Haskell/test/UnfoldKleisliProps.hs"
+   }
   }
  ]
 }

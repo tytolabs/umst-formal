@@ -4323,6 +4323,63 @@
       "module": "UncertaintyRelation"
     },
     {
+      "path": "UnfoldKleisli.lean",
+      "content_sha256": "07f396937f6229669fb6d2ca4fa430b6104a9ba76244cfd1fa0d59854751ccf0",
+      "declarations": {
+        "structure": [
+          "Spend",
+          "Interval"
+        ],
+        "def": [
+          "zero",
+          "add",
+          "Honest",
+          "toStep",
+          "unit",
+          "bind",
+          "kcomp",
+          "HonestT",
+          "landauerSpend",
+          "Mem",
+          "add",
+          "sym"
+        ],
+        "theorem": [
+          "add_assoc",
+          "zero_add",
+          "add_zero",
+          "add_comm",
+          "honest_zero",
+          "honest_add",
+          "honest_iff_oneInequality",
+          "toStep_add",
+          "honest_add_of_chain",
+          "unit_bind",
+          "bind_unit",
+          "bind_assoc",
+          "kcomp_assoc",
+          "bind_inner_refusal",
+          "bind_error",
+          "bind_spend",
+          "bind_honest",
+          "honest_sum",
+          "landauerSpend_honest",
+          "bind_honest_of_secondLaw",
+          "mem_add",
+          "mem_sum_sym",
+          "error_chain"
+        ],
+        "abbrev": [
+          "Thermo"
+        ]
+      },
+      "import_lines": [
+        "CostOfInformation",
+        "OneInequalitySecondLaw"
+      ],
+      "module": "UnfoldKleisli"
+    },
+    {
       "path": "Urge/AdmitKleisli.lean",
       "content_sha256": "5f08974d9256cf8e08d975dfb4e7fb9ab4c4962bd6c032acd45dbc12afc54b38",
       "declarations": {
@@ -7459,7 +7516,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "1815d1209c0f382a9a49b23bd45eaff8261fff6f0056967eaa762bc81c4a1693",
+      "content_sha256": "e800c47b1941848c2a14cc60993d30b57a931727ab1823f1d58ae9f1e956d09b",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -9049,6 +9106,16 @@
       "to_approx": "Mathlib.Analysis.SpecialFunctions.Log.Deriv"
     },
     {
+      "from": "UnfoldKleisli",
+      "import": "CostOfInformation",
+      "to_approx": "CostOfInformation"
+    },
+    {
+      "from": "UnfoldKleisli",
+      "import": "OneInequalitySecondLaw",
+      "to_approx": "OneInequalitySecondLaw"
+    },
+    {
       "from": "Urge.AdmitKleisli",
       "import": "Compat.Constitutional",
       "to_approx": "Compat.Constitutional"
@@ -10159,5 +10226,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "03ec7875a0397aca72ab9c90b677e299206d48a35a0d44784d63bf9bc1327c00"
+  "digest": "990ba6e4cbf7b84ed32770b0f8fecea5e557e454da58a13aeeda170ed313f8d7"
 }

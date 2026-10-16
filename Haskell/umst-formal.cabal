@@ -60,6 +60,7 @@ library
     ClassicalDPI
     FractureAT2
     Culture.CarryingCapacity
+    UnfoldKleisli
 
 
   -- FFI module exposed only when Rust library is available.
@@ -82,7 +83,7 @@ library
 test-suite umst-properties
   type:             exitcode-stdio-1.0
   main-is:          Test.hs
-  other-modules:    CarryingCapacityProps, ChemProcessFunctorProps, ClassicalDPIProps, FractureAT2Props, ConstantsBoundsProps, CoordinationContractProps, CoordinationProps, CreditGreedy, Dignity, EtaCog, FluctuationProps, FreeFallProps, GsmMonoidProps, LearningLoopProps, MedianConvergence, PredictionFeedbackProps, OrderStatisticsBand, PassiveRouteProps, PhiGrammarProps, PowersCapillaryProps, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
+  other-modules:    CarryingCapacityProps, UnfoldKleisliProps, ChemProcessFunctorProps, ClassicalDPIProps, FractureAT2Props, ConstantsBoundsProps, CoordinationContractProps, CoordinationProps, CreditGreedy, Dignity, EtaCog, FluctuationProps, FreeFallProps, GsmMonoidProps, LearningLoopProps, MedianConvergence, PredictionFeedbackProps, OrderStatisticsBand, PassiveRouteProps, PhiGrammarProps, PowersCapillaryProps, PropertyRunner, RhoEstimator, SecondLawBoundsProps, SecondLawConstantsProps, SecondLawPoroContinuumProps, SecondLawSolidInelasticProps
   hs-source-dirs:   test
   build-depends:
     base       >= 4.18 && < 5,

@@ -113,6 +113,8 @@ lean_lib «UMST» where
     `ClassicalDPI,
     -- The culture carrying-capacity bound (FORMAL-CULTURE-CARRYING-CAPACITY).
     `Culture.CarryingCapacity,
+    -- The laws nested-solve composition relies on: Kleisli, the spend monoid, interval error propagation (FORMAL-UNFOLD-KLEISLI-LAWS).
+    `UnfoldKleisli,
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,

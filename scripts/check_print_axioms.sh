@@ -55,6 +55,10 @@ THEOREMS=(
   # The culture carrying-capacity bound (FORMAL-CULTURE-CARRYING-CAPACITY).
   "Culture.CarryingCapacity.meanLive_le_of_enclosure Culture.CarryingCapacity"
   "Culture.CarryingCapacity.deathCost_le_of_secondLaw Culture.CarryingCapacity"
+  # The laws nested-solve composition relies on (FORMAL-UNFOLD-KLEISLI-LAWS).
+  "UnfoldKleisli.bind_assoc UnfoldKleisli"
+  "UnfoldKleisli.bind_honest_of_secondLaw UnfoldKleisli"
+  "UnfoldKleisli.error_chain UnfoldKleisli"
 )
 
 for entry in "${THEOREMS[@]}"; do
