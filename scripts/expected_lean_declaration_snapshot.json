@@ -1,6 +1,6 @@
 {
   "repo": "umst-formal",
-  "lake_roots_count": 103,
+  "lake_roots_count": 104,
   "lake_roots": [
     "Core.Scalar",
     "Core.State",
@@ -85,6 +85,7 @@
     "Culture.CarryingCapacity",
     "UnfoldKleisli",
     "UnfoldProxStepLaws",
+    "AdaptiveSeamLensLaws",
     "RhoEstimator",
     "MedianConvergence",
     "OrderStatisticsBand",
@@ -107,14 +108,14 @@
     "Web.WebMat"
   ],
   "roots_only": {
-    "theorem": 769,
+    "theorem": 780,
     "lemma": 62,
-    "total": 831
+    "total": 842
   },
   "all_lean_glob": {
-    "theorem": 1626,
+    "theorem": 1637,
     "lemma": 62,
-    "total": 1688
+    "total": 1699
   },
   "per_root": {
     "Core.Scalar": {
@@ -447,6 +448,10 @@
     },
     "UnfoldProxStepLaws": {
       "theorem": 7,
+      "lemma": 0
+    },
+    "AdaptiveSeamLensLaws": {
+      "theorem": 11,
       "lemma": 0
     },
     "RhoEstimator": {

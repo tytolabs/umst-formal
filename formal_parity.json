@@ -4346,6 +4346,106 @@
     "name": "prop_prox_step_stationary_le",
     "file": "Haskell/test/UnfoldProxStepLawsProps.hs"
    }
+  },
+  {
+   "id": "adaptive.lens_getPut",
+   "statement": "L-A GetPut: the transfer lens get = R, put s v = (s - P (R s)) + P v returns s when given back R s; Lean makes the round trip the identity transition admitted by SecondLaw (lens_roundTrip_secondLaw)",
+   "lean": {
+    "name": "UMST.AdaptiveSeamLensLaws.lens_getPut",
+    "file": "Lean/AdaptiveSeamLensLaws.lean"
+   },
+   "coq": {
+    "name": "lens_getPut",
+    "file": "Coq/AdaptiveSeamLensLaws.v"
+   },
+   "agda": {
+    "name": "Lens.lens-getPut",
+    "file": "Agda/AdaptiveSeamLensLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_lens_getPut",
+    "file": "Haskell/test/AdaptiveSeamLensLawsProps.hs"
+   }
+  },
+  {
+   "id": "adaptive.lens_putGet",
+   "statement": "L-A PutGet: with R P = id, get (put s v) = v, and s - P (R s) lies in ker R (proj_mem_ker); Coq and Agda carry the group laws as section hypotheses and module parameters",
+   "lean": {
+    "name": "UMST.AdaptiveSeamLensLaws.lens_putGet",
+    "file": "Lean/AdaptiveSeamLensLaws.lean"
+   },
+   "coq": {
+    "name": "lens_putGet",
+    "file": "Coq/AdaptiveSeamLensLaws.v"
+   },
+   "agda": {
+    "name": "Lens.lens-putGet",
+    "file": "Agda/AdaptiveSeamLensLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_lens_putGet",
+    "file": "Haskell/test/AdaptiveSeamLensLawsProps.hs"
+   }
+  },
+  {
+   "id": "adaptive.seam_creates_no_energy",
+   "statement": "L-D: two subsystems at one bath each satisfying the one inequality, joined by a power-preserving seam (W1 + W2 = 0) without information, have a composite free-energy change <= 0 (Lean from oneInequality_chain, seam_oneInequality); a rise breaks one subsystem's inequality (seam_refused)",
+   "lean": {
+    "name": "UMST.AdaptiveSeamLensLaws.seam_creates_no_energy",
+    "file": "Lean/AdaptiveSeamLensLaws.lean"
+   },
+   "coq": {
+    "name": "seam_creates_no_energy",
+    "file": "Coq/AdaptiveSeamLensLaws.v"
+   },
+   "agda": {
+    "name": "seam-creates-no-energy",
+    "file": "Agda/AdaptiveSeamLensLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_seam_creates_no_energy",
+    "file": "Haskell/test/AdaptiveSeamLensLawsProps.hs"
+   }
+  },
+  {
+   "id": "adaptive.generic_energy_rate",
+   "statement": "L-I energy: for L antisymmetric, M symmetric and M grad E = 0, grad E . (L grad E + M grad S) = 0 (Lean over matrices on a finite index type; Coq and Agda over an abstract symmetric pairing)",
+   "lean": {
+    "name": "UMST.AdaptiveSeamLensLaws.generic_energy_rate",
+    "file": "Lean/AdaptiveSeamLensLaws.lean"
+   },
+   "coq": {
+    "name": "generic_energy_rate",
+    "file": "Coq/AdaptiveSeamLensLaws.v"
+   },
+   "agda": {
+    "name": "Generic.generic-energy-rate",
+    "file": "Agda/AdaptiveSeamLensLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_generic_energy_rate",
+    "file": "Haskell/test/AdaptiveSeamLensLawsProps.hs"
+   }
+  },
+  {
+   "id": "adaptive.generic_entropy_rate_nonneg",
+   "statement": "L-I entropy: for L antisymmetric, L grad S = 0 and M positive semidefinite, grad S . (L grad E + M grad S) >= 0; Lean admits the step whose free energy falls by T sigma, sigma >= 0, as the transition case through the passive route (generic_step_secondLaw)",
+   "lean": {
+    "name": "UMST.AdaptiveSeamLensLaws.generic_entropy_rate_nonneg",
+    "file": "Lean/AdaptiveSeamLensLaws.lean"
+   },
+   "coq": {
+    "name": "generic_entropy_rate_nonneg",
+    "file": "Coq/AdaptiveSeamLensLaws.v"
+   },
+   "agda": {
+    "name": "Generic.generic-entropy-rate-nonneg",
+    "file": "Agda/AdaptiveSeamLensLaws.agda"
+   },
+   "haskell": {
+    "name": "prop_generic_entropy_rate_nonneg",
+    "file": "Haskell/test/AdaptiveSeamLensLawsProps.hs"
+   }
   }
  ]
 }

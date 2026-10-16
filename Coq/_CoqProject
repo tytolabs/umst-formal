@@ -48,6 +48,7 @@ FractureAT2.v
 Culture/CarryingCapacity.v
 UnfoldKleisli.v
 UnfoldProxStepLaws.v
+AdaptiveSeamLensLaws.v
 MeasurementCost.v
 PrimeSpectralGuidance.v
 Extraction.v

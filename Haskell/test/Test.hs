@@ -64,6 +64,7 @@ import FractureAT2Props (fractureAT2Props)
 import CarryingCapacityProps (carryingCapacityProps)
 import UnfoldKleisliProps (unfoldKleisliProps)
 import UnfoldProxStepLawsProps (unfoldProxStepLawsProps)
+import AdaptiveSeamLensLawsProps (adaptiveSeamLensLawsProps)
 
 ------------------------------------------------------------------------
 -- Generators
@@ -1285,6 +1286,8 @@ main = do
   mapM_ (\(name, p) -> check r (counterexample name p)) unfoldKleisliProps
   putStrLn "-- Law L3: the proximal step's discrete inequality (UnfoldProxStepLaws)"
   mapM_ (\(name, p) -> check r (counterexample name p)) unfoldProxStepLawsProps
+  putStrLn "-- Laws L-A, L-D, L-I: transfer lens, seam, GENERIC degeneracy (AdaptiveSeamLensLaws)"
+  mapM_ (\(name, p) -> check r (counterexample name p)) adaptiveSeamLensLawsProps
   check r prop_process_binary_is_transformation
   check r prop_process_transformation_id
   check r prop_process_transformation_comp

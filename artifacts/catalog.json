@@ -4,6 +4,35 @@
   "toolchain_hint": "Lean/lake-toolchain (+ mathlib pinned in lakefile.lean)",
   "modules": [
     {
+      "path": "AdaptiveSeamLensLaws.lean",
+      "content_sha256": "03c4ae3f971cf242cfa2a38513339d1d11f151357515a1d0b9d22311c52729c8",
+      "declarations": {
+        "def": [
+          "lensGet",
+          "lensPut"
+        ],
+        "theorem": [
+          "lens_getPut",
+          "lens_putGet",
+          "proj_mem_ker",
+          "lens_roundTrip_secondLaw",
+          "seam_oneInequality",
+          "seam_creates_no_energy",
+          "seam_refused",
+          "quad_antisymm_zero",
+          "generic_energy_rate",
+          "generic_entropy_rate_nonneg",
+          "generic_step_secondLaw"
+        ]
+      },
+      "import_lines": [
+        "Convex.PassiveRoute",
+        "Mathlib.Data.Matrix.Basic",
+        "OneInequalitySecondLaw"
+      ],
+      "module": "AdaptiveSeamLensLaws"
+    },
+    {
       "path": "Adjoint.lean",
       "content_sha256": "c854a86c18e2a9d63fac7ce64733921aa7999852412b3136a0c34b643c3362dc",
       "declarations": {
@@ -7541,7 +7570,7 @@
     },
     {
       "path": "lakefile.lean",
-      "content_sha256": "5349da6e8999720a0a1545d72d3710aa4ff6cd7630cbc34143b68b3c93fe156d",
+      "content_sha256": "97da97c39fee3976b0189cfd26ea52971c7a797aef58afcbc170e670fad10a8b",
       "declarations": {},
       "import_lines": [
         "Lake"
@@ -7580,6 +7609,21 @@
     }
   ],
   "module_graph_edges": [
+    {
+      "from": "AdaptiveSeamLensLaws",
+      "import": "Convex.PassiveRoute",
+      "to_approx": "Convex.PassiveRoute"
+    },
+    {
+      "from": "AdaptiveSeamLensLaws",
+      "import": "Mathlib.Data.Matrix.Basic",
+      "to_approx": "Mathlib.Data.Matrix.Basic"
+    },
+    {
+      "from": "AdaptiveSeamLensLaws",
+      "import": "OneInequalitySecondLaw",
+      "to_approx": "OneInequalitySecondLaw"
+    },
     {
       "from": "Adjoint",
       "import": "Mathlib.Analysis.Normed.Algebra.MatrixExponential",
@@ -10261,5 +10305,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "2086977c5605111beb7041eeb0c9f2bdf17f8e07336ee38587f0376d36e95c8b"
+  "digest": "2eba92965f5fe2e3c2a01126e96a70a5b12d2844fd9eeca97de0a415330e5bd5"
 }

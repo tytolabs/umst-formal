@@ -62,6 +62,10 @@ THEOREMS=(
   # Law L3, the proximal step (UNFOLD-PROX-STEP-LAWS).
   "UnfoldProxStepLaws.prox_step_oneInequality UnfoldProxStepLaws"
   "UnfoldProxStepLaws.prox_step_passive_secondLaw UnfoldProxStepLaws"
+  # Laws L-A, L-D, L-I (FORMAL-SEAM-AND-LENS-LAWS).
+  "AdaptiveSeamLensLaws.lens_roundTrip_secondLaw AdaptiveSeamLensLaws"
+  "AdaptiveSeamLensLaws.seam_refused AdaptiveSeamLensLaws"
+  "AdaptiveSeamLensLaws.generic_step_secondLaw AdaptiveSeamLensLaws"
 )
 
 for entry in "${THEOREMS[@]}"; do

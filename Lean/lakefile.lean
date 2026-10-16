@@ -117,6 +117,8 @@ lean_lib «UMST» where
     `UnfoldKleisli,
     -- Law L3: a proximal or minimising-movement step satisfies the discrete inequality (UNFOLD-PROX-STEP-LAWS).
     `UnfoldProxStepLaws,
+    -- Laws L-A (transfer lens), L-D (power-preserving seam), L-I (GENERIC degeneracy) (FORMAL-SEAM-AND-LENS-LAWS).
+    `AdaptiveSeamLensLaws,
     `RhoEstimator,
     `MedianConvergence,
     `OrderStatisticsBand,
