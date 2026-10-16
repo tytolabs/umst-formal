@@ -32,7 +32,7 @@ pub struct Row {
     /// The exact value as a rational of decimal integers.
     pub exact_num: &'static str,
     pub exact_den: &'static str,
-    /// Standard uncertainty of a measured row.
+    /// Standard uncertainty of a row that states one.
     pub uncertainty: Option<f64>,
 }
 

@@ -465,13 +465,13 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 | 1/f | WGS 84 inverse flattening | definition | 2.98257223563 × 10² (exact) | 1 | NGA2014 | a definition (convention) |
 | GM | WGS 84 geocentric gravitational constant | definition | 3.986004418 × 10¹⁴ (exact) | m³ s⁻² | NGA2014 | a definition (convention) |
 | ω | WGS 84 nominal mean angular velocity of the Earth | definition | 7.292115 × 10⁻⁵ (exact) | rad s⁻¹ | NGA2014 | a definition (convention) |
-| w_n | non-evaporable water at complete hydration (Powers' model) | cited | 2.3 × 10⁻¹ (exact) | kg per kg cement | Bentz2009 | a definition (cited) |
-| w_cs | chemical shrinkage at complete hydration (Powers' model) | cited | 6.4 × 10⁻² (exact) | kg water per kg cement | Bentz2009 | a definition (cited) |
-| w_g | gel water at complete hydration (Powers' model) | cited | 1.9 × 10⁻¹ (exact) | kg per kg cement | Bentz2009 | a definition (cited) |
-| ρ_w | density of water assigned in Powers' model | cited | 1 × 10³ (exact) | kg m⁻³ | Bentz2009 | a definition (cited) |
-| ρ_c | density of cement assigned in Powers' model | cited | 3.15 × 10³ (exact) | kg m⁻³ | Bentz2009 | a definition (cited) |
-| ρ_steel | mass density of structural steel | cited | 7.85 × 10³ (exact) | kg m⁻³ | ArcelorMittalOrangeBook | a definition (cited) |
-| ρ_Al | mass density of aluminium alloys in structural use | cited | 2.7 × 10³ (exact) | kg m⁻³ | EN1999-1-1 | a definition (cited) |
+| w_n | non-evaporable water at complete hydration (Powers' model) | cited | 2.3 × 10⁻¹, uncertainty not stated | kg per kg cement | Bentz2009 | a definition (cited) |
+| w_cs | chemical shrinkage at complete hydration (Powers' model) | cited | 6.4 × 10⁻², uncertainty not stated | kg water per kg cement | Bentz2009 | a definition (cited) |
+| w_g | gel water at complete hydration (Powers' model) | cited | 1.9 × 10⁻¹, uncertainty not stated | kg per kg cement | Bentz2009 | a definition (cited) |
+| ρ_w | density of water assigned in Powers' model | cited | 1 × 10³, uncertainty not stated | kg m⁻³ | Bentz2009 | a definition (cited) |
+| ρ_c | density of cement assigned in Powers' model | cited | 3.15 × 10³, uncertainty not stated | kg m⁻³ | Bentz2009 | a definition (cited) |
+| ρ_steel | mass density of structural steel | cited | 7.85 × 10³, uncertainty not stated | kg m⁻³ | ArcelorMittalOrangeBook | a definition (cited) |
+| ρ_Al | mass density of aluminium alloys in structural use | cited | 2.7 × 10³, uncertainty not stated | kg m⁻³ | EN1999-1-1 | a definition (cited) |
 | (w/c)* | water-cement ratio at which sealed paste just hydrates completely | derived | 4.2 × 10⁻¹ (exact) | 1 | `nonEvaporableWater + gelWater` | `criticalWcSealed_value` |
 | (w/c)_s | water-cement ratio below which space limits complete hydration | derived | 3.56 × 10⁻¹ (exact) | 1 | `nonEvaporableWater + gelWater - chemicalShrinkage` | `criticalWcSpace_value` |
 | ρ_c/ρ_w | specific gravity of cement in Powers' model | derived | 3.15 (exact) | 1 | `cementDensity / waterDensity` | `densityRatio_value`, `densityRatio_derivation` |
@@ -481,18 +481,18 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 | w_n − w_cs | water bound into gel solids per mass of cement reacted | derived | 1.66 × 10⁻¹ (exact) | kg per kg cement | `nonEvaporableWater - chemicalShrinkage` | `boundWater_value` |
 | v_b | volume of water bound into gel solids per volume of cement reacted | derived | 5.229 × 10⁻¹ (exact) | 1 | `boundWater * densityRatio` | `boundWaterVolume_value` |
 | v_gs | gel-solids volume per volume of cement reacted | derived | 1.5229 (exact) | 1 | `1 + boundWaterVolume` | `gelSolidsVolume_value` |
-| A | intrinsic strength of the gel in Powers' gel-space law | cited | 2.34 × 10² (exact) | MPa | Powers1958 | a definition (cited) |
-| n | exponent of Powers' gel-space law | cited | 3 (exact) | 1 | Powers1958 | a definition (cited) |
+| A | intrinsic strength of the gel in Powers' gel-space law | cited | 2.34 × 10², uncertainty not stated | MPa | Powers1958 | a definition (cited) |
+| n | exponent of Powers' gel-space law | cited | 3, uncertainty not stated | 1 | Powers1958 | a definition (cited) |
 | Q_C3S | heat released by complete hydration of tricalcium silicate (alite) | measured | 5.17 × 10² ± 1.3 × 10¹ | J/g | Taylor1997 | a definition with its uncertainty (cited) |
-| Q_C2S | heat released by complete hydration of dicalcium silicate (belite) | cited | 2.62 × 10² (exact) | J/g | Taylor1997 | a definition (cited) |
-| Q_C3A,AFm | heat released by complete hydration of tricalcium aluminate to AFm | cited | 1.144 × 10³ (exact) | J/g | Taylor1997 | a definition (cited) |
-| Q_C3A,AFt | heat released by complete hydration of tricalcium aluminate to AFt | cited | 1.672 × 10³ (exact) | J/g | Taylor1997 | a definition (cited) |
-| Q_C4AF | heat released by complete hydration of tetracalcium aluminoferrite | cited | 4.18 × 10² (exact) | J/g | Taylor1997 | a definition (cited) |
+| Q_C2S | heat released by complete hydration of dicalcium silicate (belite) | cited | 2.62 × 10², uncertainty not stated | J/g | Taylor1997 | a definition (cited) |
+| Q_C3A,AFm | heat released by complete hydration of tricalcium aluminate to AFm | cited | 1.144 × 10³, uncertainty not stated | J/g | Taylor1997 | a definition (cited) |
+| Q_C3A,AFt | heat released by complete hydration of tricalcium aluminate to AFt | cited | 1.672 × 10³, uncertainty not stated | J/g | Taylor1997 | a definition (cited) |
+| Q_C4AF | heat released by complete hydration of tetracalcium aluminoferrite | cited | 4.18 × 10², uncertainty not stated | J/g | Taylor1997 | a definition (cited) |
 | Q_hyd | heat of complete hydration of a portland cement (model default) | policy | 4.5 × 10² (exact) | J/g | model choice: a cement's heat of complete hydration is the mass-weighted sum of its phases' heats, so for a clinker of the four phases it lies between the least and the greatest phase heat; 450 is the gate's default for an unspecified portland cement; range [hydrationHeatC2S, hydrationHeatC3AtoAFt] | `hydrationHeatDefault_in_range` |
-| ln2_lo | lower end of the rational enclosure of ln 2 | cited | 6.931471803 × 10⁻¹ (exact) | 1 | MathlibLogTwoBounds | a definition (cited) |
-| ln2_hi | upper end of the rational enclosure of ln 2 | cited | 6.931471808 × 10⁻¹ (exact) | 1 | MathlibLogTwoBounds | a definition (cited) |
+| ln2_lo | lower end of the rational enclosure of ln 2 | cited | 6.931471803 × 10⁻¹, uncertainty not stated | 1 | MathlibLogTwoBounds | a definition (cited) |
+| ln2_hi | upper end of the rational enclosure of ln 2 | cited | 6.931471808 × 10⁻¹, uncertainty not stated | 1 | MathlibLogTwoBounds | a definition (cited) |
 
-- ArcelorMittalOrangeBook: ArcelorMittal, Orange Book (online catalogue of cold formed sections), Explanatory Notes, Dimensions of sections, orangebook.arcelormittal.com/node/178, read 17 October 2026: "The mass per metre has been calculated assuming that the density of steel is 7850 kg/m3"; the uncertainty is the relative half-range of the steel unit weight in CEN, EN 1991-1-1:2002 Eurocode 1 Part 1-1, Annex A, Table A.4 (77,0 to 78,5 kN/m3), (78,5 - 77,0)/(78,5 + 77,0) = 3/311, applied to 7850; it is the spread the standard states for a unit weight, with no cause given, and no measurement of this mass density; EN 1993-1-1:2005 clause 3.2.6 states E, G, nu and the thermal expansion coefficient and no density.
+- ArcelorMittalOrangeBook: ArcelorMittal, Orange Book (online catalogue of cold formed sections), Explanatory Notes, Dimensions of sections, orangebook.arcelormittal.com/node/178, read 17 October 2026: "The mass per metre has been calculated assuming that the density of steel is 7850 kg/m3"; the value is the catalogue's assumed density, with no stated spread; neither EN 1993-1-1:2005 clause 3.2.6 nor EN 1991-1-1:2002 Table A.4 states a steel mass density in kg/m3 (Table A.4 gives unit weight, 77,0 to 78,5 kN/m3).
 - Bentz2009: D. P. Bentz, E. F. Irassar, B. E. Bucher and W. J. Weiss, Limestone Fillers Conserve Cement, Part 1: An analysis based on Powers' model, Concrete International, November 2009: Powers' model applied with the values assumed by Jensen and Hansen, in mass of water per mass of cement reacted (non-evaporable water 0.23, chemical shrinkage 0.064, gel water 0.19), and densities of water and cement assigned 1000 and 3150 kg/m^3.
 - CGPM1901: 3rd CGPM (1901), Declaration on the unit of mass and on the definition of weight; conventional value of g_n: the standard acceleration of free fall is 980.665 cm s⁻², exact by convention, reproduced in BIPM, The International System of Units (SI), 9th edition (2019), Appendix 1.
 - EN1999-1-1: CEN, EN 1999-1-1:2007 Eurocode 9 Design of aluminium structures, Part 1-1 General structural rules, clause 3.2.5(1) Design values of material constants for the aluminium alloys the standard covers: unit mass 2 700 kg/m3, read 17 October 2026 in two reproductions of the clause (DSTU-N B EN 1999-1-1:2010, dnaop.com; SCIA Eurocode Training EN 1999-1-1, 2015); the clause and EN 1991-1-1:2002 Table A.4 (aluminium 27,0 kN/m3) each state one value for all covered alloys with no spread, so the row carries no uncertainty.
@@ -501,6 +501,8 @@ Landauer mass equivalent over them. To add a constant, add its row to the table,
 - Powers1958: T. C. Powers, Structure and Physical Properties of Hardened Portland Cement Paste, Journal of the American Ceramic Society (1958), doi:10.1111/j.1151-2916.1958.tb13494.x: compressive strength fc = A x^n of the gel-space ratio x, with A = 234 MPa and n = 3 for the cements and specimens examined.
 - SI2019: BIPM, The International System of Units (SI), 9th edition (2019), Table 1: the seven defining constants are exact by definition.
 - Taylor1997: H. F. W. Taylor, Cement Chemistry, Thomas Telford, London (1997), enthalpies of complete hydration of the clinker phases as tabulated by P. Stutzman, S. Leigh and K. Dolly, Statistical Modeling Cement Heat of Hydration (NIST), Table 1: C3S -517 ± 13, C2S -262, C3A -1144 (to AFm) and -1672 (to AFt), C4AF -418 kJ/kg; the heat released is the negative of the enthalpy.
+- ρ_steel: uncertainty absent; follow-up: a measured or stated spread of the mass density for the steel grades the paddle uses, from a mill certificate, an EN 10025 grade table or a handbook table.
+- ρ_Al: uncertainty absent; follow-up: a stated spread of the mass density across the aluminium alloys the paddle uses, from a handbook or alloy data table.
 
 Where these constants enter the second law:
 

@@ -167,6 +167,30 @@ def frac(c: dict, prefix: str) -> Fraction:
     return Fraction(big(c[prefix + "num"]), big(c[prefix + "den"]))
 
 
+def has_u(c: dict) -> bool:
+    """Whether a row states a standard uncertainty (`uncertainty_num` and `uncertainty_den`), of whatever status."""
+    return "uncertainty_num" in c and "uncertainty_den" in c
+
+
+def uncertainty_problems(table: dict) -> list[str]:
+    """Rows whose uncertainty is half stated, a measured row without one, or an absence note beside a stated value."""
+    out = []
+    for c in table["constants"]:
+        if ("uncertainty_num" in c) != ("uncertainty_den" in c):
+            out.append(f"{c['id']}: uncertainty_num and uncertainty_den come together")
+        if c["status"] == "measured" and not has_u(c):
+            out.append(f"{c['id']}: a measured row states its standard uncertainty")
+        if has_u(c) and "uncertainty_absent" in c:
+            out.append(f"{c['id']}: uncertainty_absent names a missing uncertainty, and this row states one")
+    return out
+
+
+def exact_by_definition(c: dict, table: dict) -> bool:
+    """A row exact by its authority: a convention (`definition`) or an authority whose text says exact by definition."""
+    text = table["authorities"].get(c.get("authority", ""), "").lower()
+    return c["status"] == "definition" or "exact by definition" in text or "exact by convention" in text
+
+
 def crossbound(c: dict, table: dict, vals: dict[str, Fraction]) -> tuple[Fraction, Fraction]:
     """The published value of a derived row's cross-check and the bound its distance must meet."""
     x = c["crosscheck"]
@@ -203,9 +227,15 @@ def lean(table: dict, vals: dict[str, Fraction]) -> str:
         if c["status"] == "cited":
             L += [doc + f"; cited: {table['authorities'][c['authority']].split(':')[0]}. -/",
                   f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}", ""]
+            if has_u(c):
+                L[-1:] = [f"/-- Standard uncertainty of {c['symbol']} ({c['authority']}). -/",
+                          f"def {c['id']}Uncertainty : ℚ := {lean_q(frac(c, 'uncertainty_'))}", ""]
         elif c["status"] == "definition":
             L += [doc + f"; definition (convention): {table['authorities'][c['authority']].split(':')[0]}. -/",
                   f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}", ""]
+            if has_u(c):
+                L[-1:] = [f"/-- Standard uncertainty of {c['symbol']} ({c['authority']}). -/",
+                          f"def {c['id']}Uncertainty : ℚ := {lean_q(frac(c, 'uncertainty_'))}", ""]
         elif c["status"] == "measured":
             L += [doc + f"; measured, cited from {c['authority']}. -/", f"def {c['id']} : ℚ := {lean_q(frac(c, ''))}",
                   f"/-- Standard uncertainty of {c['symbol']} ({c['authority']}). -/",
@@ -262,7 +292,7 @@ def coq(table: dict, vals: dict[str, Fraction]) -> str:
         if c["status"] in ("cited", "definition", "measured"):
             L.append(f"(* {c['symbol']}: {c['name']} [{c['unit']}], {status_label(c)} ({c['authority']}) *)")
             L.append(f"Definition {c['id']} : Q := {coq_q(frac(c, ''))}.")
-            if c["status"] == "measured":
+            if has_u(c):
                 L.append(f"Definition {c['id']}Uncertainty : Q := {coq_q(frac(c, 'uncertainty_'))}.")
             L.append("")
         elif c["status"] == "policy":
@@ -315,7 +345,7 @@ def agda(table: dict, vals: dict[str, Fraction]) -> str:
         if c["status"] in ("cited", "definition", "measured"):
             L += [f"-- {c['symbol']}: {c['name']} [{c['unit']}], {status_label(c)} ({c['authority']})",
                   f"{c['id']} : ℚᵘ", f"{c['id']} = {agda_q(frac(c, ''))}"]
-            if c["status"] == "measured":
+            if has_u(c):
                 L += [f"{c['id']}Uncertainty : ℚᵘ", f"{c['id']}Uncertainty = {agda_q(frac(c, 'uncertainty_'))}"]
             L.append("")
         elif c["status"] == "policy":
@@ -357,7 +387,7 @@ def haskell(table: dict, vals: dict[str, Fraction]) -> str:
             v = frac(c, "")
             L += [f"-- | {c['symbol']}: {c['name']} [{c['unit']}], {status_label(c)} ({c['authority']}).",
                   f"{c['id']} :: Rational", f"{c['id']} = {v.numerator} % {v.denominator}"]
-            if c["status"] == "measured":
+            if has_u(c):
                 u = frac(c, "uncertainty_")
                 L += [f"{c['id']}Uncertainty :: Rational", f"{c['id']}Uncertainty = {u.numerator} % {u.denominator}"]
             L.append("")
@@ -418,7 +448,7 @@ def rust(table: dict, vals: dict[str, Fraction]) -> str:
          "    pub id: &'static str,", "    pub symbol: &'static str,", "    pub unit: &'static str,", "    pub kind: Kind,",
          "    /// The nearest `f64` to the exact value.", "    pub value: f64,",
          "    /// The exact value as a rational of decimal integers.", "    pub exact_num: &'static str,",
-         "    pub exact_den: &'static str,", "    /// Standard uncertainty of a measured row.",
+         "    pub exact_den: &'static str,", "    /// Standard uncertainty of a row that states one.",
          "    pub uncertainty: Option<f64>,", "}", ""]
     for c in table["constants"]:
         v = vals[c["id"]]
@@ -435,7 +465,7 @@ def rust(table: dict, vals: dict[str, Fraction]) -> str:
     L += ["/// Every row, in table order.", "pub const ROWS: &[Row] = &["]
     for c in table["constants"]:
         v = vals[c["id"]]
-        unc = f"Some({rust_f64(frac(c, 'uncertainty_'))})" if c["status"] == "measured" else "None"
+        unc = f"Some({rust_f64(frac(c, 'uncertainty_'))})" if has_u(c) else "None"
         L += ["    Row {", f'        id: "{c["id"]}",', f'        symbol: "{c["symbol"]}",', f'        unit: "{c["unit"]}",',
               f"        kind: Kind::{kinds[c['status']]},", f"        value: {rust_name(c['id'])},",
               f'        exact_num: "{v.numerator}",', f'        exact_den: "{v.denominator}",', f"        uncertainty: {unc},", "    },"]
@@ -838,8 +868,11 @@ def readme(table: dict, vals: dict[str, Fraction]) -> str:
         if c["fibre"] not in ("both", FIBRE):
             continue
         v = vals[c["id"]]
-        if c["status"] == "measured":
+        if has_u(c):
             value = f"{scientific(v)} ± {scientific(frac(c, 'uncertainty_'))}"
+        elif c["status"] in ("cited", "definition", "measured"):
+            value = shown(v) + ((" (exact)" if terminating(v) else "") if exact_by_definition(c, table)
+                                else ", uncertainty not stated")
         else:
             value = shown(v) + (" (exact)" if terminating(v) else "")
         if c["status"] == "derived":
@@ -860,6 +893,8 @@ def readme(table: dict, vals: dict[str, Fraction]) -> str:
         if c.get("second_law"):
             links.append(f"- {c['symbol']}: {c['second_law']}.")
     out = rows + [""] + [f"- {a}: {table['authorities'][a]}." for a in sorted(used)]
+    out += [f"- {c['symbol']}: uncertainty absent; follow-up: {c['uncertainty_absent']}." for c in table["constants"]
+            if c["fibre"] in ("both", FIBRE) and "uncertainty_absent" in c]
     if links:
         out += ["", "Where these constants enter the second law:", ""] + links
     if any(r.split(" | ")[3].startswith("≈") for r in rows[2:]):
@@ -871,7 +906,7 @@ def outputs() -> dict[str, str]:
     table = load()
     vals = values(table)
     parity = parity_statements() if bound_rows(table) else {}
-    problems = bound_problems(table, vals, parity) if bound_rows(table) else []
+    problems = uncertainty_problems(table) + (bound_problems(table, vals, parity) if bound_rows(table) else [])
     if problems:
         raise SystemExit("FAIL: constants/constants.json bounds:\n  " + "\n  ".join(problems))
     out = {}
@@ -891,6 +926,38 @@ def outputs() -> dict[str, str]:
     return out
 
 
+def selftest(g=None) -> list[str]:
+    """What the generator `g` (default: this module) fails to carry for a row that states an uncertainty.
+
+    A synthetic table holds a cited row with a stated uncertainty, a cited row without one (with its absence
+    note), a defining constant exact by definition and a measured row. The stated uncertainty reaches the
+    Lean, Coq, Agda, Haskell and Rust forms and the README table; the unstated one prints as not stated, never
+    as exact; the defining constant keeps `(exact)`. Returns the failures (empty when the generator carries all).
+    """
+    g = g or sys.modules[__name__]
+    row = lambda i, st, au, n, **kw: {"id": i, "symbol": i, "name": i, "unit": "1", "status": st, "authority": au,
+                                      "num": n, "den": "1", "fibre": "both", **kw}
+    table = {"authorities": {"SI": "BIPM: exact by definition", "Src": "A source: Table 1"},
+             "constants": [row("withSpread", "cited", "Src", "7", uncertainty_num="3", uncertainty_den="2"),
+                           row("withoutSpread", "cited", "Src", "9", uncertainty_absent="measure the spread"),
+                           row("definingValue", "cited", "SI", "5"),
+                           row("measuredValue", "measured", "Src", "11", uncertainty_num="1", uncertainty_den="4")],
+             "bounds": []}
+    vals = g.values(table)
+    forms = {"Lean": g.lean(table, vals), "Coq": g.coq(table, vals), "Agda": g.agda(table, vals),
+             "Haskell": g.haskell(table, vals)}
+    fails = [f"{k}: withSpreadUncertainty missing" for k, t in forms.items() if "withSpreadUncertainty" not in t]
+    fails += [f"{k}: withoutSpreadUncertainty present" for k, t in forms.items() if "withoutSpreadUncertainty" in t]
+    rs = g.rust(table, vals)
+    fails += [] if "uncertainty: Some(1.5)" in rs else ["Rust: the stated uncertainty 3/2 is not in the row"]
+    lines = {ln.split(" | ")[0].lstrip("| "): ln for ln in g.readme(table, vals).splitlines() if ln.startswith("| ")}
+    fails += [] if "±" in lines.get("withSpread", "") else ["README: withSpread prints no uncertainty"]
+    fails += [] if "uncertainty not stated" in lines.get("withoutSpread", "") and "(exact)" not in lines.get("withoutSpread", "") \
+        else ["README: withoutSpread is not 'uncertainty not stated'"]
+    fails += [] if "(exact)" in lines.get("definingValue", "") else ["README: a defining constant lost (exact)"]
+    return fails
+
+
 def replace_block(text: str, body: str) -> str:
     return re.sub(r"(<!-- constants:begin -->\n).*?(<!-- constants:end -->)", lambda m: m.group(1) + body + "\n" + m.group(2),
                   text, flags=re.S)
@@ -898,6 +965,10 @@ def replace_block(text: str, body: str) -> str:
 
 def main() -> int:
     check = "--check" in sys.argv
+    failures = selftest()
+    if failures:
+        print("FAIL: the generator drops a stated uncertainty:\n  " + "\n  ".join(failures), file=sys.stderr)
+        return 1
     stale = []
     files = outputs()
     for rel, text in files.items():
