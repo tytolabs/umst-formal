@@ -1707,7 +1707,7 @@
     },
     {
       "path": "Constants/Bounds.lean",
-      "content_sha256": "d3bc78de1a7595bac66ba31cf44694755477f41162931be7a84b3a30df72c52f",
+      "content_sha256": "54750af955e09d96961f7f3b05dbadd8793f6b557bac1598eb26cb0220900e65",
       "declarations": {
         "def": [
           "elasticModulusPositive_lower",
@@ -1734,7 +1734,8 @@
           "fractureToughnessNonneg_lower",
           "nortonCoefficientNonneg_lower",
           "parabolicRateConstantNonneg_lower",
-          "frictionalBondPrefactorNonneg_lower"
+          "frictionalBondPrefactorNonneg_lower",
+          "reactionRateConstantNonneg_lower"
         ],
         "theorem": [
           "permittivityNonneg_admits",
@@ -1748,6 +1749,7 @@
         "Constants.SecondLawDissipation",
         "Constants.SecondLawElastic",
         "Constants.SecondLawElectromagnetic",
+        "Constants.SecondLawPoroContinuum",
         "Constants.SecondLawSolidInelastic",
         "ConvexPhiChannels"
       ],
@@ -8189,6 +8191,11 @@
     },
     {
       "from": "Constants.Bounds",
+      "import": "Constants.SecondLawPoroContinuum",
+      "to_approx": "Constants.SecondLawPoroContinuum"
+    },
+    {
+      "from": "Constants.Bounds",
       "import": "Constants.SecondLawSolidInelastic",
       "to_approx": "Constants.SecondLawSolidInelastic"
     },
@@ -10348,5 +10355,5 @@
       "to_approx": "LandauerLaw"
     }
   ],
-  "digest": "98f416e91b79b2442ae7da1419afd29f2bcf67898da79ca4fcffcf7552403396"
+  "digest": "9f965ff241a62f81e110d79cb647009a718cb6d8f729a2e5791521f7c497b91e"
 }
