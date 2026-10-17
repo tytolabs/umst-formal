@@ -16,6 +16,7 @@ import Constants.SI as SI
 import Constants.SecondLawDissipation
 import Constants.SecondLawElastic
 import Constants.SecondLawElectromagnetic
+import Constants.SecondLawPoroContinuum
 import Constants.SecondLawRestitution
 import Constants.SecondLawSolidInelastic
 
@@ -214,3 +215,11 @@ parabolicRateConstantNonneg-lower = (mkℚᵘ (+ 0) 0)
 open Constants.SecondLawSolidInelastic public using () renaming (frictional-bond-nonneg to frictionalBondPrefactorNonneg-theorem)
 frictionalBondPrefactorNonneg-lower : ℚᵘ
 frictionalBondPrefactorNonneg-lower = (mkℚᵘ (+ 0) 0)
+
+-- k: the rate constant k of a reaction advancing at k·g under a positive affinity and a positive driving factor g
+-- [any unit] lies in [0, ∞); proved by UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg
+-- (second_law_bound.reaction_rate_constant: with affinity A > 0 and rate law ξ̇ = k·g, g > 0, the step dissipates
+-- A·(k·g)·dt and obeys the second law only when k ≥ 0).
+open Constants.SecondLawPoroContinuum public using () renaming (reaction-rate-constant-nonneg to reactionRateConstantNonneg-theorem)
+reactionRateConstantNonneg-lower : ℚᵘ
+reactionRateConstantNonneg-lower = (mkℚᵘ (+ 0) 0)

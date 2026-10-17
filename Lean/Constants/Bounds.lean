@@ -13,6 +13,7 @@ import Constants.SI
 import Constants.SecondLawDissipation
 import Constants.SecondLawElastic
 import Constants.SecondLawElectromagnetic
+import Constants.SecondLawPoroContinuum
 import Constants.SecondLawSolidInelastic
 import ConvexPhiChannels
 
@@ -201,5 +202,12 @@ alias parabolicRateConstantNonneg_theorem := UMST.Constants.SecondLawSolidInelas
     when b ≥ 0 (Coq and Agda: √f_c enters as a positive rational r)). -/
 def frictionalBondPrefactorNonneg_lower : ℚ := (0 : ℚ)
 alias frictionalBondPrefactorNonneg_theorem := UMST.Constants.SecondLawSolidInelastic.frictional_bond_nonneg
+
+/-- k: the rate constant k of a reaction advancing at k·g under a positive affinity and a positive driving factor g
+    [any unit] lies in [0, ∞); proved by UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg
+    (second_law_bound.reaction_rate_constant: with affinity A > 0 and rate law ξ̇ = k·g, g > 0, the step dissipates
+    A·(k·g)·dt and obeys the second law only when k ≥ 0). -/
+def reactionRateConstantNonneg_lower : ℚ := (0 : ℚ)
+alias reactionRateConstantNonneg_theorem := UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg
 
 end UMST.Constants.Bounds
