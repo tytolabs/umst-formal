@@ -10,6 +10,7 @@ Require UMSTFormal.Constants.SI.
 Require UMSTFormal.Constants.SecondLawDissipation.
 Require UMSTFormal.Constants.SecondLawElastic.
 Require UMSTFormal.Constants.SecondLawElectromagnetic.
+Require UMSTFormal.Constants.SecondLawPoroContinuum.
 Require UMSTFormal.Constants.SecondLawRestitution.
 Require UMSTFormal.Constants.SecondLawSolidInelastic.
 Open Scope Q_scope.
@@ -184,3 +185,10 @@ Definition parabolicRateConstantNonneg_theorem := @UMSTFormal.Constants.SecondLa
    when b ≥ 0 (Coq and Agda: √f_c enters as a positive rational r)). *)
 Definition frictionalBondPrefactorNonneg_lower : Q := (Qmake 0 1).
 Definition frictionalBondPrefactorNonneg_theorem := @UMSTFormal.Constants.SecondLawSolidInelastic.frictional_bond_nonneg.
+
+(* k: the rate constant k of a reaction advancing at k·g under a positive affinity and a positive driving factor g
+   [any unit] lies in [0, ∞); proved by UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg
+   (second_law_bound.reaction_rate_constant: with affinity A > 0 and rate law ξ̇ = k·g, g > 0, the step dissipates
+   A·(k·g)·dt and obeys the second law only when k ≥ 0). *)
+Definition reactionRateConstantNonneg_lower : Q := (Qmake 0 1).
+Definition reactionRateConstantNonneg_theorem := @UMSTFormal.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg.

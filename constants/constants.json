@@ -1069,6 +1069,26 @@
     "agda",
     "haskell"
    ]
+  },
+  {
+   "id": "reactionRateConstantNonneg",
+   "kind": "bound",
+   "symbol": "k",
+   "quantity": "the rate constant k of a reaction advancing at k·g under a positive affinity and a positive driving factor g",
+   "unit": null,
+   "lower": {
+    "num": "0",
+    "den": "1",
+    "strict": false
+   },
+   "upper": null,
+   "theorem": "UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg",
+   "languages": [
+    "lean",
+    "coq",
+    "agda",
+    "haskell"
+   ]
   }
  ]
 }

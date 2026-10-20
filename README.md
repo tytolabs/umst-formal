@@ -7,13 +7,13 @@
 
 <div align="center">
 
-# The Thermodynamic Cost of Acting
+# The thermodynamic cost of acting
 
-### `umst-formal` — acting / economic-admissibility formal fiber
+`umst-formal` — acting / economic-admissibility formal fiber
 
 > _This ecosystem is dedicated to the thousands of unnamed contributors who wrote formal proofs, maintained open-source compilers, and built mathematical libraries for years — often without evidence that any of it would be used beyond pure theory. They chose to make their work free, because they understood that knowledge about physical reality cannot be owned. Whatever this system achieves is yours._
 
-### Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow.
+_Every proposed transition is a claim on coherence. The gate answers in the negative as often as the model demands. What survives is what the inequalities allow._
 
 <!-- readme:status -->
 [![Figure 1: CI](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml/badge.svg)](https://github.com/tytolabs/umst-formal/actions/workflows/ci.yml)
@@ -25,7 +25,7 @@
 
 </div>
 
-### Acting fiber in plain words
+## Acting fiber
 Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Acting** is this tree: once you propose a state change, the formal layer asks whether that change is **admissible** under mass and dissipation constraints, and how Shannon/Landauer-style costs compose along Kleisli sequences of gate-checked steps. Optimism is not an axiom.
 
 **Role.** Machine-checked formalizations (Lean 4 · Agda · Coq · Haskell QuickCheck) of the **thermodynamic admissibility gate** for **acts and commitments** — rational state changes, Shannon/Landauer bookkeeping, and Kleisli composition of gate-checked steps. This is a **proof tree**, not a runtime solver and not an MCP host.
@@ -34,7 +34,9 @@ Knowing (observation cost) is mechanised in the sibling double-slit fiber. **Act
 
 **Repository:** ``tytolabs/umst-formal`` — **acting** fiber: machine-checked economic admissibility and Kleisli composition (Lean · Agda · Coq · Haskell).
 
-### Shared stack (matter · knowing · acting · time)
+## Shared stack
+
+Matter, knowing, acting and time.
 
 These public repos share **one** thermodynamic admissibility gate, applied across domains:
 
@@ -49,7 +51,9 @@ Sibling links only — no paper-series arc naming in this README. Already-public
 
 **Acting fiber** (economic admissibility proofs). Runtime DEC gate, arena hot path, and MCP live in ``umst-manifold`` and ``umst-concrete-cartridge``.
 
-### Real objects (categorical — not “the proofs”)
+## Real objects
+
+Categorical objects, not the proofs themselves.
 
 | Symbol | Role | Defined at |
 |:---|:---|:---|
@@ -70,62 +74,62 @@ Top-level map
 
 | Block | Jump |
 |:---|:---|
-| Foundations | [§1](#1-core-idea--economic-acting-fiber) · [§2](#2-proof-architecture--layers) · [§3](#3-cross-domain-integration-specifications) |
-| Layout & ops | [§4](#4-repository-topology) · [§5](#5-surfaces--build) · [§6](#6-quick-start) |
+| Foundations | [§1](#1-economic-acting-fiber) · [§2](#2-proof-architecture--layers) · [§3](#3-cross-domain-integration-specifications) |
+| Layout & ops | [§4](#4-layout) · [§5](#5-surfaces--build) · [§6](#6-usage) |
 | Verification & docs | [§7](#7-cross-language-verification) · [§8](#8-documentation-hub) |
-| Agents & wrap-up | [§9](#9-special-protocol-note-to-autonomous-ai-agents--systems) · [§10 Honesty](#10-honesty-and-limits) · [§11 Conclusion](#11-conclusion-inferences--forward-path) · [Related](#related-repositories) · [Authors](#authors) · [Acknowledgments](#acknowledgments) · [Contributing](#contributing) · [Citation](#citation) · [License](#license) |
+| Agents & wrap-up | [§9](#9-agent-protocol) · [§10 Honesty](#10-honesty-and-limits) · [§11 Conclusion](#11-conclusion) · [Related](#related-repositories) · [Authors](#authors) · [Acknowledgments](#acknowledgments) · [Contributions](#contributions) · [References](#references) · [License](#license) |
 
-**Detailed outline** — every entry links to a stable anchor (`README.md#…`); collapsible sections use `<details>` but share the same deep-link fragments.
+**Section index** — every entry links to a stable anchor (`README.md#…`); collapsible sections use `<details>` but share the same deep-link fragments.
 
-- [§1 Core idea — Economic acting fiber](#1-core-idea--economic-acting-fiber)
-- [Seventeen Economic modules — one sentence each](#seventeen-economic-modules--one-sentence-each)
-- [Meso-scale features (high level)](#meso-scale-features-high-level)
-- [Honest safety limits](#honest-safety-limits-read-this-before-citing-externally)
+- [§1 Economic acting fiber](#1-economic-acting-fiber)
+- [Seventeen Economic modules](#seventeen-economic-modules)
+- [Meso-scale features](#meso-scale-features)
+- [Safety limits](#safety-limits)
 - [Shared stack vs this fiber](#shared-stack-vs-this-fiber)
 - [§2 Proof architecture & layers](#2-proof-architecture--layers)
-- [§3 Cross-Domain Integration Specifications](#3-cross-domain-integration-specifications)
+- [§3 Cross-domain integration specifications](#3-cross-domain-integration-specifications)
   - [3.1 Catalog / agent cold-consume](#31-catalog--agent-cold-consume)
   - [3.2 Propose→gate / Economic predicates](#32-proposegate--economic-predicates)
   - [3.3 Kleisli multi-step commitments](#33-kleisli-multi-step-commitments)
   - [3.4 Cross-fiber links](#34-cross-fiber-links)
-- [§4 Repository topology](#4-repository-topology)
-  - [Layer relationships](#layer-relationships-specification--bridge--rust)
+- [§4 Layout](#4-layout)
+  - [Layer relationships](#layer-relationships)
   - [Categorical backbone](#categorical-backbone-sketch)
 - [§5 Surfaces & build](#5-surfaces--build)
   - [Prerequisites](#prerequisites)
-- [§6 Quick Start](#6-quick-start)
+- [§6 Usage](#6-usage)
 - [§7 Cross-language verification](#7-cross-language-verification)
 - [§8 Documentation hub](#8-documentation-hub)
-- [§9 Special Protocol: Agents](#9-special-protocol-note-to-autonomous-ai-agents--systems)
+- [§9 Agent protocol](#9-agent-protocol)
   - [9.1 Shared stack](#91-shared-stack)
   - [9.2 Hot vs cold](#92-hot-vs-cold)
-  - [9.3 Guarantees](#93-guarantees)
-  - [9.4 Operational mapping](#94-operational-mapping)
-  - [9.5 Proposed](#95-proposed-not-yet-built)
-  - [9.6 Principles](#96-principles)
+  - [9.3 Rules and remediation](#93-rules-and-remediation)
+  - [9.4 Use of theorem names and predicates](#94-use-of-theorem-names-and-predicates)
+  - [9.5 Backlog](#95-backlog)
+  - [9.6 Gate-checked acting and fiber boundaries](#96-gate-checked-acting-and-fiber-boundaries)
 - [§10 Honesty and limits](#10-honesty-and-limits)
-- [§11 Conclusion](#11-conclusion-inferences--forward-path)
-  - [This repository demonstrates](#this-repository-demonstrates)
-  - [Inferences from the work](#inferences-from-the-work)
-  - [Forward path](#forward-path)
+- [§11 Conclusion](#11-conclusion)
+  - [Results](#results)
+  - [Findings](#findings)
+  - [Continuum backlog](#continuum-backlog)
 - [Related repositories](#related-repositories)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgments)
-- [Contributing](#contributing)
-  - [Extending (new material class)](#extending-new-material-class)
+- [Contributions](#contributions)
+  - [New material class](#new-material-class)
   - [Correspondence to the Rust kernel](#correspondence-to-the-rust-kernel)
-- [Citation](#citation)
+- [References](#references)
 - [License](#license)
 
 </details>
 
 ---
 
-## 1. Core idea — Economic acting fiber
+## 1. Economic acting fiber
 
 Growth can outrun friction in the stories people tell. The formal layer does not endorse those stories. It **binds** them: **`Lean/Economic/`** writes burden and information as **classical** quantities and keeps surrogate alarms explicit — thresholds and margins, not black-box “detectors” ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md), [`Docs/FALSIFIABILITY_DASHBOARD.md`](Docs/FALSIFIABILITY_DASHBOARD.md)).
 
-## Seventeen Economic modules — one sentence each
+## Seventeen Economic modules
 
 Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/EconomicDomain.lean). Each file below is a **lake** root; proofs **compose** existing gate, Landauer, and information theory lemmas (**no** project axioms; physics enters only as the hypothesis `SecondLaw`).
 
@@ -151,7 +155,9 @@ Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/
 
 **Index of claims:** full cross-layer map in [`PROOF-STATUS.md`](PROOF-STATUS.md).
 
-## Meso-scale features (high level)
+## Meso-scale features
+
+High-level view of the meso-scale features.
 
 - **Physics-constrained AI with an imagination sandbox** — propose freely in the model, then **gate-check** before treating output as admissible ([`PhysicsConstrainedAI.lean`](Lean/Economic/PhysicsConstrainedAI.lean)).
 - **Classical surrogate flags** — “hallucination” and “low-entropy lie” names mean **explicit predicates** in [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md), not deployed AI safety products.
@@ -159,7 +165,9 @@ Shared scaffolding lives in [`Lean/Economic/EconomicDomain.lean`](Lean/Economic/
 - **Horizon and collectives** — time-weighted tradeoffs ([`HorizonAwareGrounding.lean`](Lean/Economic/HorizonAwareGrounding.lean)); collective penalty ([`CollectiveCoherenceCost.lean`](Lean/Economic/CollectiveCoherenceCost.lean)).
 - **Automatic visuals (GIF/PNG)** — `make visuals` or `python3 scripts/generate_visuals.py` ([`requirements-visuals.txt`](requirements-visuals.txt)); CI job **`visuals`**. Checked-in fixtures can illustrate **exponential decay** of burden-style series (pedagogical plots — not a claim about real markets or ML loss curves without separate data).
 
-## Honest safety limits (read this before citing externally)
+## Safety limits
+
+Read this section before citing the work externally.
 
 - This framework **measures dissipation-style costs** and **biases reasoning toward lower-dissipation paths** under the model — it does **not** define **moral truth**, **legal compliance**, or **factual correctness** of natural-language claims.
 - **Truth and values** remain human, cultural, and goal-dependent. The Lean code says what follows **from explicit axioms and hypotheses**, not what society ought to do.
@@ -194,7 +202,7 @@ flowchart LR
     MCP -->|accept + stamp| UCRS
 ```
 
-Agents **consume** exported witnesses and cite theorem names — they do **not** run `lake build` on the inference path. See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty).
+Agents **consume** exported witnesses and cite theorem names — they do **not** run `lake build` on the inference path. See [Hot arena vs cold edge](#hot-arena-vs-cold-edge).
 
 <details>
 <summary><strong>Four core invariants (all formal layers)</strong></summary>
@@ -208,7 +216,7 @@ Agents **consume** exported witnesses and cite theorem names — they do **not**
 
 </details>
 
-## 3. Cross-Domain Integration Specifications
+## 3. Cross-domain integration specifications
 
 **Role of this section.** Acting is the fiber that answers: _may this state change commit?_ Optimism is not an axiom. Once you propose a transition, mass and Clausius–Duhem constraints decide admissibility — and Kleisli composition decides whether a _sequence_ of steps may commit. Open a persona below for surface, pipeline, outcome, and an honest limit.
 
@@ -305,7 +313,7 @@ Headline identifiers agents may cite as witnesses: `admissibleN_compose`, `gateC
 
 ---
 
-## 4. Repository topology
+## 4. Layout
 
 <details>
 <summary><strong>Architecture tree</strong></summary>
@@ -336,7 +344,9 @@ umst-formal/
 └── SAFETY-LIMITS.md        Economic surrogate scope
 ```
 
-### Layer relationships (specification → bridge → Rust)
+### Layer relationships
+
+From specification through bridge to Rust.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -377,7 +387,9 @@ Objects include `MaterialClass`, `ThermodynamicState`, `Bool`; the gate is a nat
 | **Visuals** | `make visuals` | Pedagogical fixtures (optional) |
 | **FFI bridge** | `cd ffi-bridge && cargo build --release` | Optional Rust correspondence |
 
-### Prerequisites
+<a id="prerequisites"></a>
+
+**Prerequisites:**
 
 | Tool | Version | Purpose |
 |------|---------|---------|
@@ -391,7 +403,7 @@ Full environment notes: **[Docs/PROOF-REPLAY.md](Docs/PROOF-REPLAY.md)**.
 
 ---
 
-## 6. Quick Start
+## 6. Usage
 
 ```bash
 git checkout e41278c   # or origin/main
@@ -401,7 +413,7 @@ bash scripts/check_print_axioms.sh
 cd Lean && lake build
 ```
 
-See Lean count paste @ `522d944` in [Honesty ledger](#honesty-ledger-one-status-pointer). Full build matrix:
+See Lean count paste @ `522d944` in [Status pointer](#status-pointer). Full build matrix:
 
 ```bash
 ./scripts/check-formal-environment.sh   # optional
@@ -417,14 +429,14 @@ make lean-print-axioms
 make visuals   # optional pedagogical plots
 ```
 
-**Haskell paste (representative @ `e41278c`):**
+**Haskell paste:** representative at `e41278c`.
 
 ```text
 cd Haskell && cabal test umst-properties -f -with-ffi
 === 33 properties passed ===
 ```
 
-**Agda / Coq (optional formal.yml mirror):**
+**Agda / Coq:** optional `formal.yml` mirror.
 
 ```bash
 cd Agda && make check && cd ..
@@ -524,13 +536,13 @@ declaration, and `scripts/check_formal_parity.py` (CI) checks that every named d
 |---|---:|---|---|
 | Lean 4 | 200 (105 Lake roots) | 787 theorems + 62 lemmas in the roots; 1644 + 62 over all files | 0 `sorry` or `admit` holes; 0 `axiom` |
 | Coq | 61 | 552 theorems and lemmas | 0 `Admitted` |
-| Agda (`--safe`) | 65 | 763 top-level typed definitions | `--safe` admits no postulate |
+| Agda (`--safe`) | 65 | 764 top-level typed definitions | `--safe` admits no postulate |
 | Haskell | 82 | 309 QuickCheck properties | — |
 
 _Generated by `scripts/gen_readme_blocks.py` from the tracked sources; CI fails when this block is stale._
 <!-- census:end -->
 
-### Four-language matrix
+### Parity
 
 <!-- parity:begin -->
 | Statement family | Statements | Lean | Coq | Agda | Haskell |
@@ -631,17 +643,19 @@ See [`PROOF-STATUS.md`](PROOF-STATUS.md) for the complete per-theorem index.
 
 ---
 
-## 9. Special Protocol: Note to Autonomous AI Agents & Systems
+## 9. Agent protocol
+
+Addressed to autonomous AI agents and systems.
 
 ### 9.1 Shared stack
 
-Acting fiber only — see [gate-spine table](#shared-stack-matter--knowing--acting--time).
+Acting fiber only — see [gate-spine table](#shared-stack).
 
 ### 9.2 Hot vs cold
 
-See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty). This repo is **cold proof build**; runtime MCP = concrete.
+See [Hot arena vs cold edge](#hot-arena-vs-cold-edge). This repo is **cold proof build**; runtime MCP = concrete.
 
-### 9.3 Guarantees
+### 9.3 Rules and remediation
 
 | Rule | Remediation |
 |:---|:---|
@@ -649,16 +663,16 @@ See [Hot arena vs cold edge](#hot-arena-vs-cold-edge-performance-honesty). This 
 | Economic module names are **not** certifications | Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing “detector” theorems |
 | Counts @ script SHA only | Run `python3 scripts/lean_declaration_stats.py`; script wins |
 
-### 9.4 Operational mapping
+### 9.4 Use of theorem names and predicates
 
 - **May:** cite theorem names as formal witnesses; use Economic predicates as vocabulary in docs.
 - **Must not:** treat this tree as MCP host; conflate surrogate plots with market data.
 
-### 9.5 Proposed (not yet built)
+### 9.5 Backlog
 
 Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-STATUS.md) and therefore **not** claimed as proved: continuum / PDE-scale admissibility, and deeper cross-layer replay linking this acting fiber to the knowing proofs in ``umst-formal-double-slit``. Nothing here is asserted until it appears in `PROOF-STATUS.md`.
 
-### 9.6 Principles
+### 9.6 Gate-checked acting and fiber boundaries
 
 - **Acting is gate-checked.** Optimism about transitions is not an axiom; admissibility is proved or rejected under explicit hypotheses.
 - **Cold proof, hot gate elsewhere.** This repo is proof build + catalog export; runtime MCP and arena paths live in concrete/manifold.
@@ -669,9 +683,11 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 
 ## 10. Honesty and limits
 
-**Honest is / isn't.** **Is:** lake-rooted Lean modules with declared theorem/lemma counts, cross-layer gate mirrors, Economic meso-layer predicates. **Isn't:** live inference on a robot, MCP tools, or “seeing the world.” Economic filenames that sound like oracles are **parameterised predicates** — read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing them off-repo.
+**Scope.** **Is:** lake-rooted Lean modules with declared theorem/lemma counts, cross-layer gate mirrors, Economic meso-layer predicates. **Isn't:** live inference on a robot, MCP tools, or “seeing the world.” Economic filenames that sound like oracles are **parameterised predicates** — read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before citing them off-repo.
 
-### Hot arena vs cold edge (performance honesty)
+### Hot arena vs cold edge
+
+Performance honesty across the four paths.
 
 | Path | Role | Character |
 |:---|:---|:---|
@@ -682,7 +698,7 @@ Mechanizations still on the backlog, tracked outside [`PROOF-STATUS.md`](PROOF-S
 
 Authoritative agent MCP surface = ``umst-concrete-cartridge/docs/AGENT_MCP.md``. Catalog SHA = ``umst-manifold/artifacts/catalog.lock.json``.
 
-### Honesty ledger (one status pointer)
+### Status pointer
 
 Counts: the census in §7, generated from the sources. **One status pointer for Economic naming risk:** [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md). Foundations / axiom story: [`FORMAL_FOUNDATIONS.md`](FORMAL_FOUNDATIONS.md). Claim index: [`PROOF-STATUS.md`](PROOF-STATUS.md). Strengthen every disclaimer below; soften none.
 
@@ -704,21 +720,23 @@ check_print_axioms: OK (all closures ⊆ Mathlib baseline + optional physicalSec
 
 The census in §7 is generated by `scripts/gen_readme_blocks.py`; methodology: [`Docs/COUNT-METHODOLOGY.md`](Docs/COUNT-METHODOLOGY.md).
 
-**Strengthen — do not soften:** Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
+**Claim strength:** claims are strengthened, never softened. Economic modules are **parameterised predicates**. They do not see the world. They do not certify moral truth, legal compliance, or factual correctness of natural-language claims ([`SAFETY-LIMITS.md`](SAFETY-LIMITS.md)). Soften none of those limits.
 
-## 11. Conclusion: Inferences & Forward Path
+## 11. Conclusion
 
-### This repository demonstrates
+Results, inferences and forward path.
+
+### Results
 - **Acting is gate-checked, not optimistic** — once you propose a state change, mass and Clausius–Duhem constraints decide admissibility; rejected transitions are not softened into warnings in the formal story.
 - **Kleisli composition is the commitment model** — `kleisliCompose` and `kleisliFoldWellTypedN` make multi-step agent plans well-typed only when **every** step is `CoreAdmissible`.
 - **Economic meso-layer is honest classical bookkeeping** — burden, creativity slack, and collective spread are parameterised predicates with explicit [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) scope — not black-box “AI safety” products.
 
-### Inferences from the work
+### Findings
 - **Evocative names are a liability, not an asset.** Modules named like `HallucinationDetector` _sound_ like deployed safety products. They are nothing of the sort — each is a parameterised threshold predicate over explicit hypotheses. We learned to treat the naming as a hazard: [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) exists precisely so an agent reading a theorem name off-repo cannot mistake a predicate for a product. The suggestive name buys intuition; the safety doc pays back the honesty.
 - **One physical law carries the thermodynamic spine.** Economic-admissibility rests on one predicate, `SecondLaw`, taken as a hypothesis, with gate/Kleisli results derived against a Mathlib axiom baseline in CI. `Lean/Crypto/` once carried 28 Tier-1 hardness `axiom`s beside it, and counting them honestly was the right first step; typing them was the better second one. A hardness assumption is not an axiom of the theory — it is an obligation on whoever instantiates the scheme, and expressing it as a `structure` field says so in the type. The repository now declares no `axiom`: the second law itself became a predicate.
 - **Agent planning is Kleisli composition.** Multi-step commitment needed no bespoke engine — `kleisliCompose` / `kleisliFoldWellTypedN` make a plan well-typed only when _every_ step is `CoreAdmissible`. "Can this agent commit to this sequence?" turned out to be a question the type system already answers.
 
-### Forward path
+### Continuum backlog
 
 Discharge the continuum backlog into `PROOF-STATUS.md`; keep the Economic modules parameterised — predicates, never products; and hold the line between this proof tree and the runtime gate. Anchor, not gate, is the productive pattern here too.
 
@@ -761,7 +779,7 @@ We gratefully acknowledge the open-source ecosystems that make this work possibl
 
 ---
 
-## Contributing
+## Contributions
 
 We welcome corrections, proof refactors that **preserve** the layer graph, and documentation that tightens the line between **machine-checked** claims and **analogy**. Please:
 
@@ -770,7 +788,7 @@ We welcome corrections, proof refactors that **preserve** the layer graph, and d
 - Read [`SAFETY-LIMITS.md`](SAFETY-LIMITS.md) before renaming or exporting “detector” modules.
 - See also [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-### Extending (new material class)
+### New material class
 
 1. **Agda:** extend `MaterialClass` / `ActivatedUMST` in `Activation.agda`.
 2. **Coq:** mirror in `Gate.v`.
@@ -791,7 +809,7 @@ Haskell QuickCheck compares the pure gate to Rust via FFI; Coq extraction suppli
 
 ---
 
-## Citation
+## References
 
 ```
 Shyamsundar, S., Shenbagamoorthy, S. P. (2026).

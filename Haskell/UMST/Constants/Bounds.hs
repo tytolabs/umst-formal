@@ -216,9 +216,17 @@ frictionalBondPrefactorNonneg :: Bound
 frictionalBondPrefactorNonneg = Bound "frictionalBondPrefactorNonneg" "b" Nothing (Just (Endpoint (0 % 1) False)) Nothing
   "UMST.Constants.SecondLawSolidInelastic.frictional_bond_nonneg" ["lean", "coq", "agda", "haskell"]
 
+-- | k: the rate constant k of a reaction advancing at k·g under a positive affinity and a positive driving factor g
+-- [any unit] lies in [0, ∞); proved by UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg
+-- (second_law_bound.reaction_rate_constant: with affinity A > 0 and rate law ξ̇ = k·g, g > 0, the step dissipates
+-- A·(k·g)·dt and obeys the second law only when k ≥ 0).
+reactionRateConstantNonneg :: Bound
+reactionRateConstantNonneg = Bound "reactionRateConstantNonneg" "k" Nothing (Just (Endpoint (0 % 1) False)) Nothing
+  "UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg" ["lean", "coq", "agda", "haskell"]
+
 -- | Every bound, in table order.
 bounds :: [Bound]
-bounds = [elasticModulusPositive, quadraticStiffnessNonneg, isotropicPoissonRatio, isotropicYoungModulusNonneg, relaxedModulusNonneg, dissipationCoefficientNonneg, viscosityNonneg, binghamYieldStressNonneg, binghamPlasticViscosityNonneg, lossModulusNonneg, restitutionAtMostOne, permittivityNonneg, permeabilityPositive, conductanceNonneg, resistanceNonneg, coupledWellModulusPositive, coupledWellCrossCoupling, doubleWellModulusNonneg, griffithFractureEnergyNonneg, fractureToughnessNonneg, nortonCoefficientNonneg, parabolicRateConstantNonneg, frictionalBondPrefactorNonneg]
+bounds = [elasticModulusPositive, quadraticStiffnessNonneg, isotropicPoissonRatio, isotropicYoungModulusNonneg, relaxedModulusNonneg, dissipationCoefficientNonneg, viscosityNonneg, binghamYieldStressNonneg, binghamPlasticViscosityNonneg, lossModulusNonneg, restitutionAtMostOne, permittivityNonneg, permeabilityPositive, conductanceNonneg, resistanceNonneg, coupledWellModulusPositive, coupledWellCrossCoupling, doubleWellModulusNonneg, griffithFractureEnergyNonneg, fractureToughnessNonneg, nortonCoefficientNonneg, parabolicRateConstantNonneg, frictionalBondPrefactorNonneg, reactionRateConstantNonneg]
 
 -- | Each bound on a table row against the row's exact value.
 boundChecks :: [(String, Bool)]

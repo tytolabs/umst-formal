@@ -1252,6 +1252,27 @@ pub const FRICTIONAL_BOND_PREFACTOR_NONNEG_BOUND: Bound = Bound {
     languages: &["lean", "coq", "agda", "haskell"],
 };
 
+/// k: the rate constant k of a reaction advancing at k·g under a positive affinity and a positive
+/// driving factor g [any unit] lies in [0, ∞); proved by
+/// UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg
+/// (second_law_bound.reaction_rate_constant: with affinity A > 0 and rate law ξ̇ = k·g, g > 0, the
+/// step dissipates A·(k·g)·dt and obeys the second law only when k ≥ 0).
+pub const REACTION_RATE_CONSTANT_NONNEG_BOUND: Bound = Bound {
+    id: "reactionRateConstantNonneg",
+    symbol: "k",
+    unit: None,
+    lower: Some(Endpoint {
+        at: 0.0,
+        exact_num: "0",
+        exact_den: "1",
+        strict: false,
+    }),
+    upper: None,
+    theorem: "UMST.Constants.SecondLawPoroContinuum.reaction_rate_constant_nonneg",
+    parity: "second_law_bound.reaction_rate_constant",
+    languages: &["lean", "coq", "agda", "haskell"],
+};
+
 /// The table's vacuumPermittivity lies in its bound, checked at compile time.
 const _: () = assert!(PERMITTIVITY_NONNEG_BOUND.admits(VACUUM_PERMITTIVITY));
 
@@ -1289,6 +1310,7 @@ pub const BOUNDS: &[Bound] = &[
     NORTON_COEFFICIENT_NONNEG_BOUND,
     PARABOLIC_RATE_CONSTANT_NONNEG_BOUND,
     FRICTIONAL_BOND_PREFACTOR_NONNEG_BOUND,
+    REACTION_RATE_CONSTANT_NONNEG_BOUND,
 ];
 
 #[cfg(test)]
